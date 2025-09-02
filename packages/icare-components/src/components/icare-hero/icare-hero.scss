@@ -1,0 +1,53 @@
+:host {
+  font-family: var(--icare-font-family);
+  display: block;
+  height: 100vh;         /* full viewport height */
+  width: 100vw;          /* full viewport width */
+  position: relative;     /* for overlay positioning */
+  overflow: hidden;       /* prevents scrolling */
+  margin: 0;
+  padding: 0;
+  --header-height: 0px; /* dynamically set by JS */
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills container while keeping aspect ratio */
+  display: block; /* removes inline spacing */
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;            /* above the image */
+  background: rgba(255 255 255 / 60%); /* optional: semi-transparent background for readability */
+}
+
+.hero-overlay {
+  position: absolute;
+  width: 100%;
+  padding: 2rem;
+  color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-overlay.top {
+  top: var(--header-height); /* sits just below header */
+  justify-content: flex-start;
+}
+
+.hero-overlay.center {
+  top: 50%;
+  transform: translateY(-50%);
+  justify-content: center;
+}
+
+.hero-overlay.bottom {
+  bottom: 0;
+  justify-content: flex-end;
+}

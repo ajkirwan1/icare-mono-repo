@@ -1,0 +1,104 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  justify-items: center;
+  gap: 1rem;
+  align-items: center;
+
+  /* Make the host a container so font-size can respond to its width */
+  container-type: inline-size;
+
+  /* Fluid heading size: clamp(min, fluid, max) using container query inline units (cqi) */
+  --wb-h2-size: clamp(1.25rem, 4cqi + 0.5rem, 2.75rem);
+}
+
+.text-wrapper { grid-column: 1; }
+figure        { grid-column: 2; }
+
+:host([layout="text-right"]) .text-wrapper { grid-row: 1; grid-column: 2; }
+:host([layout="text-right"]) figure        { grid-row: 1; grid-column: 1; }
+
+figure {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 500px;
+  // max-height: var(--wb-media-max-height);
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+}
+
+h2 {
+  font-size: var(--wb-h2-size);
+}
+
+.text-wrapper {
+  max-width: 560px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: .5rem;
+}
+
+:host([layout="text-top"]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .text-wrapper {
+    display: flex;
+    max-width: unset;
+
+    > :first-child {
+      flex: 0 0 60%;
+      max-width: 60%;
+      min-width: 0;
+    }
+
+    > :nth-child(2) {
+      flex: 0 0 40%;
+      max-width: 40%;
+      min-width: 0;
+    }
+  }
+
+  .button-group {
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+  figure {
+    max-width: 700px;
+    // max-height: var(--wb-media-max-height);
+  }
+ }
+
+ :host([layout="text-bottom"]) {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  width: 100%;          /* allow flex/grid to give space */
+  max-width: 50%;       /* never exceed half of parent width */
+  min-width: 30%;       /* never shrink below 30% */
+  margin-left: auto;    /* center horizontally if parent wider */
+  margin-right: auto;
+
+  .button-group {
+    flex-wrap: nowrap;
+    align-items: flex-end;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+ }

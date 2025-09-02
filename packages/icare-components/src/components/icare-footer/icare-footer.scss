@@ -1,0 +1,60 @@
+:host {
+  display: block;
+
+  footer {
+    margin-top: 3rem;
+    padding: 2.5rem 2rem;
+    border-top: 1px solid #e2e8f0;
+    font-size: .8rem;
+    color: #64748b;
+    background: white;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+  }
+
+stencil-route-link,
+stencil-route-link a {
+  display: inline-block;
+  color: var(--icare-color-text-on-light, #fff);
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--icare-border-radius-md);
+  transition: background-color .16s ease, color .16s ease, transform .12s ease;
+  font: inherit;
+}
+
+/* hover / focus */
+stencil-route-link:hover,
+stencil-route-link a:hover,
+stencil-route-link:focus-visible,
+stencil-route-link a:focus-visible {
+  background: rgba(255,255,255,0.06);
+  color: var(--icare-color-green-secondary);
+  outline: none;
+}
+
+stencil-route-link:hover,
+stencil-route-link a:hover {
+  cursor: pointer;
+}
+/* keyboard focus visible */
+stencil-route-link:focus-visible,
+stencil-route-link a:focus-visible {
+  box-shadow: 0 0 0 3px rgba(91,117,98,0.18);
+  border-radius: var(--icare-border-radius-md);
+}
+
+/* active state — use activeClass="is-active" on each stencil-route-link */
+stencil-route-link.is-active,
+stencil-route-link.is-active a {
+  color: var(--icare-color-green-secondary);
+  font-weight: 600;
+}
+}

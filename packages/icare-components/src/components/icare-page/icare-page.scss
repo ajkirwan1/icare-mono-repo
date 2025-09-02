@@ -1,0 +1,9 @@
+:host {
+  display: block;
+
+  main {
+    padding-inline: clamp(1rem, 4vw, 2.5rem); /* responsive side padding */
+    margin-inline: auto;
+    // max-width: 1200px; /* optional */
+  }
+}

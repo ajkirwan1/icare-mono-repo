@@ -1,0 +1,48 @@
+@use '../../globals/styles/variables' as vars;
+
+a {
+  text-decoration: none;        /* remove native underline */
+  color: inherit;               /* inherit text color (variants will set color) */
+}
+
+button, a {
+  border-radius: var(--icare-border-radius-xxl);
+  padding: var(--icare-button-padding-lg);
+  background-color: var(--icare-color-green-primary);
+  color: white;
+  border: none;
+  transition:
+  background-color .18s ease,
+  color .18s ease,
+  box-shadow .18s ease,
+  transform .12s ease;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+
+:host([variant='primary']) button {
+  &:hover {
+    background-color: var(--icare-color-green-secondary);
+    cursor: pointer;
+  }
+}
+
+:host([variant='secondary']) button, a {
+  background-color: white;
+  color: var(--icare-color-green-primary);
+  border: 1px solid rgb(221, 221, 221);
+}
+
+:host([variant='secondary']) button:hover:not(:disabled),
+:host([variant='secondary']) a:hover:not(:disabled),
+:host([variant='secondary']) button:focus-visible:not(:disabled) {
+  border-color: var(--icare-color-green-secondary);
+  color: black  ;
+  border: 1px solid var(--icare-color-green-secondary);
+  cursor: pointer;
+}
+:host([variant='secondary']) a:focus-visible:not(:disabled) {
+  border-color: var(--icare-color-green-secondary);
+  color: black  ;
+  border: 1px solid var(--icare-color-green-secondary);
+  cursor: pointer;
+}

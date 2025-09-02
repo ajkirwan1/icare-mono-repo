@@ -1,0 +1,123 @@
+@use 'sass:map';
+@use './variables' as vars;
+
+@mixin export-css-vars(
+  $prefix: vars.$css-var-prefix,
+  $responsive-font-sizes: vars.$responsive-font-sizes,
+  $breakpoints: vars.$breakpoints,
+  $debug: false
+) {
+  /* Capture the selector where mixin is included (e.g. :root) */
+  $scope: if(& == null or & == '', ':root', &);
+
+  /* Base tokens (non‑responsive) */
+  --#{$prefix}-font-family: #{vars.$font-family};
+
+  @each $name, $value in vars.$font-weights {
+    --#{$prefix}-font-weight-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$font-sizes {
+    --#{$prefix}-font-size-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$line-heights {
+    --#{$prefix}-line-height-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$colors {
+    --#{$prefix}-color-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$paddings {
+    --#{$prefix}-padding-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$button-paddings {
+    --#{$prefix}-button-padding-#{$name}: #{$value};
+  }
+
+  @each $name, $value in vars.$border-radii {
+    --#{$prefix}-border-radius-#{$name}: #{$value};
+  }
+
+  @if $debug {
+    --#{$prefix}-debug-base-selector: '#{$scope}';
+    --#{$prefix}-debug-font-h2-base: var(--#{$prefix}-font-size-h2);
+  }
+
+  /* Responsive overrides */
+  @if $responsive-font-sizes != null {
+    @each $bp, $overrides in $responsive-font-sizes {
+      $min-width: map.get($breakpoints, $bp);
+
+      @if $min-width == null {
+        @warn "Breakpoint `#{$bp}` not found in $breakpoints map; skipping.";
+      } @else {
+        /* Lift @media to root so we don't get `:root :root` */
+        @at-root {
+          @media (min-width: $min-width) {
+            #{$scope} {
+              @each $name, $value in $overrides {
+                --#{$prefix}-font-size-#{$name}: #{$value};
+              }
+              @if $debug {
+                --#{$prefix}-debug-active-bp: '#{$bp}';
+                --#{$prefix}-debug-font-h2-current: var(--#{$prefix}-font-size-h2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin card-variant(
+  $variant: elevated,
+  $border-color: var(--icare-color-border, rgba(0,0,0,.12)),
+  $shadow: (0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24)),
+  $hover-shadow: (0 4px 5px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.08))
+) {
+  @if $variant == elevated {
+    --icare-card-border-color: transparent;
+    --icare-card-shadow: #{$shadow};
+    --icare-card-hover-shadow: #{$hover-shadow};
+  } @else if $variant == outlined {
+    --icare-card-border-color: #{$border-color};
+    --icare-card-shadow: none;
+    --icare-card-hover-shadow: none;
+  }
+}
+
+@mixin card-surface(
+  $padding: var(--icare-padding-md, 1rem),
+  $radius: var(--icare-border-radius-lg, 0.5rem),
+  $bg: var(--icare-color-surface, #fff),
+  $text: var(--icare-color-text-on-light, inherit),
+  $border-color: var(--icare-color-border, rgba(0,0,0,.12)),
+  $transition: 160ms cubic-bezier(.2,.6,.2,1)
+) {
+  background: $bg;
+  color: $text;
+  border-radius: $radius;
+  padding: $padding;
+  outline: none;
+  transition: box-shadow $transition, transform $transition, border-color $transition, background-color $transition;
+  border: 1px solid var(--icare-card-border-color, $border-color);
+  box-shadow: var(--icare-card-shadow, none);
+}
+
+
+@mixin card-section($padding: map.get(vars.$paddings, md)) {
+  padding: $padding;
+}
+
+@mixin card-interactive(
+  $focus-ring: var(--icare-color-focus-ring, rgba(0,125,250,.35))
+) {
+  cursor: pointer;
+}
+
+
+
