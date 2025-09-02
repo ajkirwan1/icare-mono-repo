@@ -1,6 +1,6 @@
 import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
-import path from 'path';
+import * as path from 'path';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 
@@ -14,7 +14,7 @@ export const config: Config = {
   globalStyle: 'src/globals/styles/_globals.scss',
   outputTargets: [
     reactOutputTarget({
-      outDir: '../ICare/app/src/components/stencil-generated',
+      outDir: '../react-library/lib/components/stencil-generated',
     }),
     {
       type: 'dist',
