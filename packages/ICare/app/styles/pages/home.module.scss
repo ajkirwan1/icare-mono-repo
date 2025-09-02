@@ -1,0 +1,51 @@
+@use '../_tokens' as *;
+
+// figure {
+//     margin: 0;
+//     overflow: hidden; /* clip image to rounded corners if needed */
+// }
+    
+// .contentWrapper {
+// display: flex;
+// gap: 1rem;
+// align-items: stretch;
+// height: 100%;
+// min-height: 0;
+// // border: 1px solid black;
+// // border-radius: var(--radius-md);
+// // overflow: hidden;
+// }
+
+// .media {
+// flex: 0 0 40%;
+// max-width: 40%;
+// overflow: hidden; /* clip image to rounded corners if needed */
+// display: block;
+// /* optional: keep a stable aspect ratio for the image container
+//     uncomment if you want fixed ratio:
+// aspect-ratio: 4 / 3;
+// */
+// height: 100%;
+// min-height: 0;
+// }
+
+// .cardImage {
+// display: block;
+// width: 100%;
+// height: auto;
+// object-fit: cover;   // optional, ignored when height:auto
+// object-position: center;
+// }
+
+
+// .textContent {
+// flex: 1 1 60%;
+// max-width: 60%;
+// min-width: 0; /* allow wrapping instead of overflow */
+
+
+// h2 {
+//     text-align: center;
+// }
+// }
+    
