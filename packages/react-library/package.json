@@ -5,9 +5,9 @@
   "author": "ajkirwan1 <ajkirwan1@gmail.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/types/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -21,7 +21,7 @@
     "tsc": "tsc -p . --outDir ./dist"
   },
   "dependencies": {
-    "icare-components": "workspace:*",
+    "icare-components": "*",
     "@stencil/react-output-target": "^1.2.0"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
-import { IcareBanner, IcareButton, IcareCard, IcareHeroNew, IcarePage, IcareSection, IcareWebBlock, IcareWebMinihero } from "../src/components/stencil-generated/components";
+import { IcareBanner, IcareButton, IcareCard, IcareHeroNew, IcarePage, IcareSection, IcareWebBlock, IcareWebMinihero } from "react-library";
 
 export default function WhoWeAre() {
 
