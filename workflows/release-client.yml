@@ -1,4 +1,4 @@
-name: Release Client
+name: Release
 
 on:
   push:
@@ -8,12 +8,14 @@ on:
 
 jobs:
   release:
-    name: Release from Client/
+    name: Release from monorepo
     runs-on: ubuntu-latest
 
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags
 
       - name: 🧰 Use Node.js 22.16.0
         uses: actions/setup-node@v4
@@ -24,7 +26,18 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
-      - name: 🚀 Run semantic-release
+      - name: Bump version (main or develop)
+        run: |
+          if [ "${GITHUB_REF##*/}" = "master" ]; then
+            echo "📦 Stable release"
+            npx lerna version --conventional-commits --yes --no-push
+          else
+            echo "🚧 Prerelease from develop"
+            npx lerna version prerelease --preid dev --conventional-commits --yes --no-push
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release
+
+      - name: Push version commit and tags
+        run: git push origin HEAD --follow-tags
+
