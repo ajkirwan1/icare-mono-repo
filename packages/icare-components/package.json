@@ -1,6 +1,6 @@
 {
   "name": "icare-components",
-  "version": "1.1.0-develop.3",
+  "version": "1.1.0-develop.4",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -8,25 +8,25 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/icare-components/icare-components.esm.js",
-"exports": {
- ".": {
-   "import": "./dist/icare-components/icare-components.esm.js",
-   "require": "./dist/icare-components/icare-components.cjs.js"
- },
- "./dist/*": {
-   "import": "./dist/*",
-   "types": "./dist/*"
- },
- "./components/*": {
-   "import": "./dist/components/*.js",
-   "types": "./dist/components/*.d.ts"
- },
- "./loader": {
-   "import": "./loader/index.js",
-   "require": "./loader/index.cjs",
-   "types": "./loader/index.d.ts"
- }
-},
+  "exports": {
+    ".": {
+      "import": "./dist/icare-components/icare-components.esm.js",
+      "require": "./dist/icare-components/icare-components.cjs.js"
+    },
+    "./dist/*": {
+      "import": "./dist/*",
+      "types": "./dist/*"
+    },
+    "./components/*": {
+      "import": "./dist/components/*.js",
+      "types": "./dist/components/*.d.ts"
+    },
+    "./loader": {
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs",
+      "types": "./loader/index.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/ajkirwan1/icare-components.git"

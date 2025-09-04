@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# 1.1.0-develop.4 (2025-09-04)
+
+**Note:** Version bump only for package icare-components
+
+
+
+
+
 # [1.1.0-develop.3](https://github.com/ajkirwan1/icare-components/compare/v1.1.0-develop.2...v1.1.0-develop.3) (2025-08-28)
 
 
