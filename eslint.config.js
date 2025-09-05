@@ -18,7 +18,7 @@ export default [
       "packages/*/dist",
       "packages/*/build",
       "packages/*/www",
-      "packages/*/.react-router/types/**", 
+      "packages/*/.react-router/types/**",
     ],
   },
   {
@@ -27,6 +27,7 @@ export default [
       "packages/*/src/**/*.jsx",
       "packages/*/src/**/*.ts",
       "packages/*/src/**/*.tsx",
+      "packages/*/loader/**/*.js" 
     ],
     languageOptions: {
       parser: tseslint.parser, // 👈 TS parser is required
@@ -47,8 +48,7 @@ export default [
     },
     rules: {
       semi: ["error", "always"],
-      quotes: ["error", "double"],
-      "no-unused-vars": "warn",
+      quotes: ["error", "single"],
       "no-undef": "off", // TS already catches undefined vars
     },
   },
