@@ -1,6 +1,6 @@
 {
   "name": "icare-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
     "isbot": "^5.1.27",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-library": "^0.0.1",
+    "react-library": "^0.0.2",
     "react-router": "^7.7.1"
   },
   "devDependencies": {
