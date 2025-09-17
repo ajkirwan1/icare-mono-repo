@@ -204,7 +204,7 @@ export default function ICareForCaregivers() {
               { to: "/who-we-are", label: "Who We Are" },
               { to: "/privacy", label: "Privacy" },
               { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-              { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" },
+              { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" }
             ].map(l => (
               <Link
                 key={l.to}
@@ -256,7 +256,7 @@ export default function ICareForCaregivers() {
             t: "Purpose",
             d: "Reduce fragmentation so every caregiver has the right context at the right moment."
           },
-            {
+          {
             t: "Principles",
             d: "Clarity, privacy-first design, and respectful collaboration guide every decision."
           },

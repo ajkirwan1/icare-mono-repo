@@ -7,20 +7,24 @@
 
 /* eslint-disable */
 
-import type { StencilReactComponent } from '@stencil/react-output-target/runtime';
+import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
 import { IcareAvatar as IcareAvatarElement, defineCustomElement as defineIcareAvatar } from "icare-components/dist/components/icare-avatar.js";
 import { IcareBanner as IcareBannerElement, defineCustomElement as defineIcareBanner } from "icare-components/dist/components/icare-banner.js";
 import { IcareButton as IcareButtonElement, defineCustomElement as defineIcareButton } from "icare-components/dist/components/icare-button.js";
 import { IcareCard as IcareCardElement, defineCustomElement as defineIcareCard } from "icare-components/dist/components/icare-card.js";
+import { IcareCaregiverMiniProfileCard as IcareCaregiverMiniProfileCardElement, defineCustomElement as defineIcareCaregiverMiniProfileCard } from "icare-components/dist/components/icare-caregiver-mini-profile-card.js";
 import { IcareCaregiverProfileCard as IcareCaregiverProfileCardElement, defineCustomElement as defineIcareCaregiverProfileCard } from "icare-components/dist/components/icare-caregiver-profile-card.js";
 import { IcareFooter as IcareFooterElement, defineCustomElement as defineIcareFooter } from "icare-components/dist/components/icare-footer.js";
 import { IcareHeader as IcareHeaderElement, defineCustomElement as defineIcareHeader } from "icare-components/dist/components/icare-header.js";
 import { IcareHeroNew as IcareHeroNewElement, defineCustomElement as defineIcareHeroNew } from "icare-components/dist/components/icare-hero-new.js";
 import { IcareHero as IcareHeroElement, defineCustomElement as defineIcareHero } from "icare-components/dist/components/icare-hero.js";
 import { IcareLogo as IcareLogoElement, defineCustomElement as defineIcareLogo } from "icare-components/dist/components/icare-logo.js";
+import { IcareMessagesCard as IcareMessagesCardElement, defineCustomElement as defineIcareMessagesCard } from "icare-components/dist/components/icare-messages-card.js";
 import { IcarePage as IcarePageElement, defineCustomElement as defineIcarePage } from "icare-components/dist/components/icare-page.js";
+import { IcareRecommendedCaregiversCard as IcareRecommendedCaregiversCardElement, defineCustomElement as defineIcareRecommendedCaregiversCard } from "icare-components/dist/components/icare-recommended-caregivers-card.js";
 import { IcareSection as IcareSectionElement, defineCustomElement as defineIcareSection } from "icare-components/dist/components/icare-section.js";
+import { IcareShimmer as IcareShimmerElement, defineCustomElement as defineIcareShimmer } from "icare-components/dist/components/icare-shimmer.js";
 import { IcareTextBlock as IcareTextBlockElement, defineCustomElement as defineIcareTextBlock } from "icare-components/dist/components/icare-text-block.js";
 import { IcareWebBlock as IcareWebBlockElement, defineCustomElement as defineIcareWebBlock } from "icare-components/dist/components/icare-web-block.js";
 import { IcareWebMinihero as IcareWebMiniheroElement, defineCustomElement as defineIcareWebMinihero } from "icare-components/dist/components/icare-web-minihero.js";
@@ -69,6 +73,17 @@ export const IcareCard: StencilReactComponent<IcareCardElement, IcareCardEvents>
     react: React,
     events: {} as IcareCardEvents,
     defineCustomElement: defineIcareCard
+});
+
+export type IcareCaregiverMiniProfileCardEvents = NonNullable<unknown>;
+
+export const IcareCaregiverMiniProfileCard: StencilReactComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents> = /*@__PURE__*/ createComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents>({
+    tagName: 'icare-caregiver-mini-profile-card',
+    elementClass: IcareCaregiverMiniProfileCardElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as IcareCaregiverMiniProfileCardEvents,
+    defineCustomElement: defineIcareCaregiverMiniProfileCard
 });
 
 export type IcareCaregiverProfileCardEvents = NonNullable<unknown>;
@@ -137,6 +152,17 @@ export const IcareLogo: StencilReactComponent<IcareLogoElement, IcareLogoEvents>
     defineCustomElement: defineIcareLogo
 });
 
+export type IcareMessagesCardEvents = { onNavigate: EventName<CustomEvent<string>> };
+
+export const IcareMessagesCard: StencilReactComponent<IcareMessagesCardElement, IcareMessagesCardEvents> = /*@__PURE__*/ createComponent<IcareMessagesCardElement, IcareMessagesCardEvents>({
+    tagName: 'icare-messages-card',
+    elementClass: IcareMessagesCardElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: { onNavigate: 'navigate' } as IcareMessagesCardEvents,
+    defineCustomElement: defineIcareMessagesCard
+});
+
 export type IcarePageEvents = NonNullable<unknown>;
 
 export const IcarePage: StencilReactComponent<IcarePageElement, IcarePageEvents> = /*@__PURE__*/ createComponent<IcarePageElement, IcarePageEvents>({
@@ -148,6 +174,17 @@ export const IcarePage: StencilReactComponent<IcarePageElement, IcarePageEvents>
     defineCustomElement: defineIcarePage
 });
 
+export type IcareRecommendedCaregiversCardEvents = NonNullable<unknown>;
+
+export const IcareRecommendedCaregiversCard: StencilReactComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents> = /*@__PURE__*/ createComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents>({
+    tagName: 'icare-recommended-caregivers-card',
+    elementClass: IcareRecommendedCaregiversCardElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as IcareRecommendedCaregiversCardEvents,
+    defineCustomElement: defineIcareRecommendedCaregiversCard
+});
+
 export type IcareSectionEvents = NonNullable<unknown>;
 
 export const IcareSection: StencilReactComponent<IcareSectionElement, IcareSectionEvents> = /*@__PURE__*/ createComponent<IcareSectionElement, IcareSectionEvents>({
@@ -157,6 +194,17 @@ export const IcareSection: StencilReactComponent<IcareSectionElement, IcareSecti
     react: React,
     events: {} as IcareSectionEvents,
     defineCustomElement: defineIcareSection
+});
+
+export type IcareShimmerEvents = NonNullable<unknown>;
+
+export const IcareShimmer: StencilReactComponent<IcareShimmerElement, IcareShimmerEvents> = /*@__PURE__*/ createComponent<IcareShimmerElement, IcareShimmerEvents>({
+    tagName: 'icare-shimmer',
+    elementClass: IcareShimmerElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: {} as IcareShimmerEvents,
+    defineCustomElement: defineIcareShimmer
 });
 
 export type IcareTextBlockEvents = NonNullable<unknown>;

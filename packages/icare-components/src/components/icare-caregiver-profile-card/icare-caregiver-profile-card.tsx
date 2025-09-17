@@ -1,9 +1,9 @@
-import { Component, Host, Prop, h } from '@stencil/core';
+import { Component, Host, Prop, h } from "@stencil/core";
 
 @Component({
-  tag: 'icare-caregiver-profile-card',
-  styleUrl: 'icare-caregiver-profile-card.scss',
-  shadow: true,
+  tag: "icare-caregiver-profile-card",
+  styleUrl: "icare-caregiver-profile-card.scss",
+  shadow: true
 })
 export class IcareCaregiverProfileCard {
   @Prop() cardTitle: string;
@@ -37,7 +37,7 @@ export class IcareCaregiverProfileCard {
           </section>
           <footer class="card-footer">
             {/* <slot name="footer"></slot> */}
-            <icare-button></icare-button>
+            <icare-button />
           </footer>
         </article>
       </Host>

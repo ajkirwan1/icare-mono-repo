@@ -1,7 +1,7 @@
-import { html } from 'lit';
+import { html } from "lit";
 
-import { Header } from './Header';
-import './page.css';
+import { Header } from "./Header";
+import "./page.css";
 
 type User = {
   name: string;
@@ -17,10 +17,10 @@ export interface PageProps {
 export const Page = ({ user, onLogin, onLogout, onCreateAccount }: PageProps) => html`
   <article>
     ${Header({
-      user,
-      onLogin,
-      onLogout,
-      onCreateAccount,
+        user,
+        onLogin,
+        onLogout,
+        onCreateAccount
     })}
 
     <section class="storybook-page">

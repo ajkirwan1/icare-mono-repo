@@ -1,9 +1,9 @@
-import { html } from 'lit';
-import 'icare-components'; // Ensure this resolves to your built components
+import { html } from "lit";
+import "icare-components"; // Ensure this resolves to your built components
 
 export default {
-  title: 'Components/ICare Footer',
-  component: 'icare-footer',
+  title: "Components/ICare Footer",
+  component: "icare-footer"
 };
 
 const Template = () =>

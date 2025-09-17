@@ -1,13 +1,13 @@
-import { html } from 'lit';
-import 'icare-components'; // Make sure this imports the compiled custom elements: icare-page, icare-header, icare-caregiver-profile-card
+import { html } from "lit";
+import "icare-components"; // Make sure this imports the compiled custom elements: icare-page, icare-header, icare-caregiver-profile-card
 // Using public folder path directly to avoid TS module resolution error for image assets.
 
 export default {
-  title: 'Layouts/ICare Page',
-  component: 'icare-page',
-  parameters: {
-    layout: 'fullscreen',
-  },
+    title: "Layouts/ICare Page",
+    component: "icare-page",
+    parameters: {
+        layout: "fullscreen"
+    }
 };
 
 const Template = () => html`

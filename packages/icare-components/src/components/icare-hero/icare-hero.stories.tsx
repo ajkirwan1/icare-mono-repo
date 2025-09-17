@@ -1,14 +1,14 @@
 // icare-button.stories.ts
-import { html } from 'lit';
-import 'icare-components'; // make sure this resolves to your built Stencil components
+import { html } from "lit";
+import "icare-components"; // make sure this resolves to your built Stencil components
 
 export default {
-  title: 'Components/ICare Hero',
-  component: 'icare-hero',
+  title: "Components/ICare Hero",
+  component: "icare-hero",
   decorators: [
     (story) =>
-      html`<div style="all: unset; height: 100vh; width: 100vw;">${story()}</div>`,
-  ],
+      html`<div style="all: unset; height: 100vh; width: 100vw;">${story()}</div>`
+  ]
 };
 
 const Template = ({ overlayPosition, imageSrc }) =>
@@ -25,23 +25,23 @@ const Template = ({ overlayPosition, imageSrc }) =>
 
 export const Center = Template.bind({});
 Center.args = {
-  overlayPosition: 'center',
-  imageSrc : 'images/heros/who-we-are.jpg'
+  overlayPosition: "center",
+  imageSrc: "images/heros/who-we-are.jpg"
 };
 
 export const Top = Template.bind({});
 Top.args = {
-  overlayPosition: 'top',
+  overlayPosition: "top"
 };
 
 export const Bottom = Template.bind({});
 Bottom.args = {
-  overlayPosition: 'bottom',
+  overlayPosition: "bottom"
 };
 
 // Make sure the component runs full screen in Storybook
 Center.parameters =
   Top.parameters =
   Bottom.parameters = {
-    layout: 'fullscreen',
+    layout: "fullscreen"
   };

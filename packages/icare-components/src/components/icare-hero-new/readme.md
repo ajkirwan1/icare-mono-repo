@@ -9,8 +9,8 @@
 
 | Property   | Attribute   | Description | Type     | Default                                |
 | ---------- | ----------- | ----------- | -------- | -------------------------------------- |
-| `imageSrc` | `image-src` |             | `string` | `'images/heros/hero-landing-page.jpg'` |
-| `imgAlt`   | `img-alt`   |             | `string` | `'iCare hero image'`                   |
+| `imageSrc` | `image-src` |             | `string` | `"images/heros/hero-landing-page.jpg"` |
+| `imgAlt`   | `img-alt`   |             | `string` | `"iCare hero image"`                   |
 
 
 ## Dependencies
