@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul .status-item {
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+ul .status-item .label {
+  text-align: left;
+  flex: 1 1 auto;
+}
+
+ul .status-item .sr-only {
+  text-align: right;
+  flex: 0 0 auto;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color, #007bff);
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

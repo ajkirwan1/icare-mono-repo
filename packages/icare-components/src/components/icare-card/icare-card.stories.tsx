@@ -1,9 +1,9 @@
-import { html } from 'lit';
-import 'icare-components'; // Ensure this resolves to your built components
+import { html } from "lit";
+import "icare-components"; // Ensure this resolves to your built components
 
 export default {
-  title: 'Components/ICare Card',
-  component: 'icare-card',
+  title: "Components/ICare Card",
+  component: "icare-card"
 };
 
 const Template = ({ variant, interactive }) =>
@@ -20,22 +20,22 @@ export const Default = Template.bind({});
 
 export const Outlined = Template.bind({});
 Outlined.args = {
-  variant: 'outlined',
-  interactive: true,
+  variant: "outlined",
+  interactive: true
 };
 
 export const Elevated = Template.bind({});
 Elevated.args = {
-  variant: 'elevated',
-  interactive: true,
+  variant: "elevated",
+  interactive: true
 };
 
 export const Interactive = Template.bind({});
 Interactive.args = {
-  interactive: true,
+  interactive: true
 };
 
 export const Flat = Template.bind({});
 Flat.args = {
-  variant: 'flat',
+  variant: "flat"
 };

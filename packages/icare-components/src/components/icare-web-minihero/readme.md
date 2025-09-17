@@ -10,7 +10,7 @@
 | Property | Attribute | Description | Type     | Default             |
 | -------- | --------- | ----------- | -------- | ------------------- |
 | `href`   | `href`    |             | `string` | `undefined`         |
-| `imgAlt` | `img-alt` |             | `string` | `'Mini Hero Title'` |
+| `imgAlt` | `img-alt` |             | `string` | `"Mini Hero Title"` |
 | `imgSrc` | `img-src` |             | `string` | `undefined`         |
 
 

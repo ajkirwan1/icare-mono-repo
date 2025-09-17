@@ -11,7 +11,7 @@
 | -------- | --------- | ----------- | ------------------------------------------------------------ | ------------- |
 | `imgAlt` | `img-alt` |             | `string`                                                     | `undefined`   |
 | `imgSrc` | `img-src` |             | `string`                                                     | `undefined`   |
-| `layout` | `layout`  |             | `"text-bottom" \| "text-left" \| "text-right" \| "text-top"` | `'text-left'` |
+| `layout` | `layout`  |             | `"text-bottom" \| "text-left" \| "text-right" \| "text-top"` | `"text-left"` |
 
 
 ## Dependencies

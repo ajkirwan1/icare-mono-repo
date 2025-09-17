@@ -1,9 +1,9 @@
-import { html } from 'lit';
-import 'icare-components'; // make sure this resolves to your built Stencil components
+import { html } from "lit";
+import "icare-components"; // make sure this resolves to your built Stencil components
 
 export default {
-  title: 'Components/ICare Banner',
-  component: 'icare-banner',
+  title: "Components/ICare Banner",
+  component: "icare-banner"
 };
 
 const Template = ({ imgSrc, imgAlt }) =>
@@ -11,5 +11,5 @@ const Template = ({ imgSrc, imgAlt }) =>
 
 export const Default = Template.bind({});
 Default.args = {
-  imgSrc : 'images/heros/who-we-are.jpg'
+  imgSrc: "images/heros/who-we-are.jpg"
 };

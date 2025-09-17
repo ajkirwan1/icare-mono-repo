@@ -1,0 +1,24 @@
+:host {
+  display: block;
+}
+
+.caregiver-mini-profile-card {
+  max-width: 300px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.caregiver-info {
+  padding: 16px;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  height: auto;
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+}

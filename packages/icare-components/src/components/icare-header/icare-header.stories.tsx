@@ -1,15 +1,15 @@
-import { html } from 'lit';
-import 'icare-components'; // Ensure this resolves to your built components
+import { html } from "lit";
+import "icare-components"; // Ensure this resolves to your built components
 
 export default {
-  title: 'Components/ICare Header',
-  component: 'icare-header',
+  title: "Components/ICare Header",
+  component: "icare-header",
   argTypes: {
     loggedIn: {
-      control: 'boolean',
-      description: 'Controls whether the user is logged in',
-    },
-  },
+      control: "boolean",
+      description: "Controls whether the user is logged in"
+    }
+  }
 };
 
 const Template = ({ loggedIn }) =>
@@ -17,10 +17,10 @@ const Template = ({ loggedIn }) =>
 
 export const LoggedOut = Template.bind({});
 LoggedOut.args = {
-  loggedIn: false,
+  loggedIn: false
 };
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
-  loggedIn: true,
+  loggedIn: true
 };

@@ -12,7 +12,8 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
-    "@storybook/addon-vitest"
+    "@storybook/addon-vitest",
+    'storybook-addon-mock'
   ],
   "framework": {
     "name": "@storybook/web-components-vite",
@@ -33,6 +34,6 @@ const config: StorybookConfig = {
       },
     });
   },
-  
+
 };
 export default config;
