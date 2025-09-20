@@ -5,15 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property     | Attribute    | Description | Type                    | Default     |
-| ------------ | ------------ | ----------- | ----------------------- | ----------- |
-| `altText`    | `alt-text`   |             | `string`                | `undefined` |
-| `caregivers` | `caregivers` |             | `{ imgSrc: string; }[]` | `[]`        |
-| `imgSrc`     | `img-src`    |             | `string`                | `undefined` |
-
-
 ## Dependencies
 
 ### Depends on

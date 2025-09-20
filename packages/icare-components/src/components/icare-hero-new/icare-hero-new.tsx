@@ -20,7 +20,7 @@ export class IcareHeroNew {
           <div class='icare-header' >
             <icare-header>
               <slot name="nav-links" slot="nav-links" />
-              <slot name="auth-buttons" slot="auth-buttons" />
+              <slot name="header-buttons" slot="header-buttons" />
             </icare-header>
           </div>
           <div class='content'>

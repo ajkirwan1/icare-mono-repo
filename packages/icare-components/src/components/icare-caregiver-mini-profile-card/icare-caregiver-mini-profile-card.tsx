@@ -11,6 +11,8 @@ export class IcareCaregiverMiniProfileCard {
 
   @Prop() imgSrc: string;
   @Prop() imgAlt?: string;
+  @Prop() name?: string;
+  @Prop() bio?: string;
 
   render() {
     return (
@@ -23,11 +25,8 @@ export class IcareCaregiverMiniProfileCard {
             />
           </figure>
           <div class='caregiver-info'>
-            <h2>Jane Doe</h2>
-            <p>Primary Caregiver</p>
-            <p>Primary Caregiver</p>
-            <p>Primary Caregiver</p>
-            <p>Primary Caregiver</p>
+            <h2>{this.name}</h2>
+            <p>{this.bio}</p>
           </div>
         </div>
       </Host>

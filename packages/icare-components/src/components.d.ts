@@ -42,8 +42,10 @@ export namespace Components {
         "variant": "elevated" | "outlined";
     }
     interface IcareCaregiverMiniProfileCard {
+        "bio"?: string;
         "imgAlt"?: string;
         "imgSrc": string;
+        "name"?: string;
     }
     interface IcareCaregiverProfileCard {
         "cardTitle": string;
@@ -59,10 +61,6 @@ export namespace Components {
     interface IcareFooter {
     }
     interface IcareHeader {
-        /**
-          * @default false
-         */
-        "loggedIn": boolean;
     }
     interface IcareHero {
         /**
@@ -98,17 +96,6 @@ export namespace Components {
     interface IcarePage {
     }
     interface IcareRecommendedCaregiversCard {
-        "altText": string;
-        /**
-          * @default []
-         */
-        "caregivers": Array<{
-    imgSrc: string;
-    // imgAlt?: string;
-    // name?: string;
-    // role?: string;
-  }>;
-        "imgSrc": string;
     }
     interface IcareSection {
     }
@@ -155,6 +142,10 @@ export namespace Components {
         "middle": string;
     }
 }
+export interface IcareButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIcareButtonElement;
+}
 export interface IcareMessagesCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIcareMessagesCardElement;
@@ -172,7 +163,18 @@ declare global {
         prototype: HTMLIcareBannerElement;
         new (): HTMLIcareBannerElement;
     };
+    interface HTMLIcareButtonElementEventMap {
+        "buttonClick": void;
+    }
     interface HTMLIcareButtonElement extends Components.IcareButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIcareButtonElement: {
         prototype: HTMLIcareButtonElement;
@@ -327,6 +329,7 @@ declare namespace LocalJSX {
           * @default "Click"
          */
         "label"?: string;
+        "onButtonClick"?: (event: IcareButtonCustomEvent<void>) => void;
         /**
           * @default "medium"
          */
@@ -351,8 +354,10 @@ declare namespace LocalJSX {
         "variant"?: "elevated" | "outlined";
     }
     interface IcareCaregiverMiniProfileCard {
+        "bio"?: string;
         "imgAlt"?: string;
         "imgSrc"?: string;
+        "name"?: string;
     }
     interface IcareCaregiverProfileCard {
         "cardTitle"?: string;
@@ -368,10 +373,6 @@ declare namespace LocalJSX {
     interface IcareFooter {
     }
     interface IcareHeader {
-        /**
-          * @default false
-         */
-        "loggedIn"?: boolean;
     }
     interface IcareHero {
         /**
@@ -408,17 +409,6 @@ declare namespace LocalJSX {
     interface IcarePage {
     }
     interface IcareRecommendedCaregiversCard {
-        "altText"?: string;
-        /**
-          * @default []
-         */
-        "caregivers"?: Array<{
-    imgSrc: string;
-    // imgAlt?: string;
-    // name?: string;
-    // role?: string;
-  }>;
-        "imgSrc"?: string;
     }
     interface IcareSection {
     }

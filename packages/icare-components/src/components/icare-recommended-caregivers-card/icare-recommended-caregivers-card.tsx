@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, Host, h, State } from "@stencil/core";
 
 @Component({
   tag: "icare-recommended-caregivers-card",
@@ -7,26 +7,42 @@ import { Component, Host, h, Prop } from "@stencil/core";
 })
 export class IcareRecommendedCaregiversCard {
 
-  @Prop() imgSrc: string;
-  @Prop() altText: string;
+  @State() fetchResult: {
+    status: "loading" | "success" | "error";
+    data?: {
+      imgSrc: string;
+      imgAlt?: string;
+      name?: string;
+      bio?: string;
+      profileId?: string;
+    }[];
+    error?: any;
+  } = { status: "loading" };
 
-  @Prop() caregivers: Array<{
-    imgSrc: string;
-    // imgAlt?: string;
-    // name?: string;
-    // role?: string;
-  }> = [];
 
-  private getItems() {
-    // Fallback: if caregivers not provided but imgSrc is, build one entry
-    if ((!this.caregivers || this.caregivers.length === 0) && this.imgSrc) {
-      return [{ imgSrc: this.imgSrc }];
-    }
-    return this.caregivers;
+  componentWillLoad() {
+    fetch("/api/recommended-caregivers")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        this.fetchResult = { status: "success", data };
+        // eslint-disable-next-line no-console
+        console.log("Fetched recommended caregivers:", data);
+      }
+      ).catch(error => {
+        // eslint-disable-next-line no-console
+        console.error("Error fetching messages:", error);
+        this.fetchResult = { status: "error", error };
+      }
+      );
   }
 
   render() {
-    const items = this.getItems();
+    const { status, data } = this.fetchResult;
     return (
       <Host>
         <icare-card>
@@ -35,23 +51,30 @@ export class IcareRecommendedCaregiversCard {
               <h2>Recommended Caregivers</h2>
               <p>Based on your preferences and requirements, we have identified the following caregivers that to suite your requirements</p>
             </div>
-            <div class="caregiver-list">
-              {items.map((c) => (
-                <icare-caregiver-mini-profile-card
-                  imgSrc={c.imgSrc}
-                // imgAlt={c.imgAlt}
-                // name={c.name}
-                // role={c.role}
-                // key={i}
-                />
-              ))}
-            </div>
+            {status === "loading" && <p>Loading…</p>}
+            {status === "error" && <p>Error loading caregivers.</p>}
+            {status === "success" && (
+              <div class="caregiver-list">
+                {data.map((c, i) => (
+                  <icare-caregiver-mini-profile-card
+                    key={c.profileId ?? c.name ?? i}
+                    imgSrc={c.imgSrc}
+                    imgAlt={c.imgAlt}
+                    name={c.name}
+                    bio={c.bio}
+                  />
+                ))}
+              </div>
+            )}
             <div class="card-footer">
-              <span><a href="#">Send Message</a></span>
+              <ul>
+                <li><span><a href="#">View all caregivers</a></span></li>
+                <li><span><a href="#">Saved caregivers</a></span></li>
+              </ul>
             </div>
           </span>
         </icare-card>
-      </Host>
+      </Host >
     );
   }
 }
