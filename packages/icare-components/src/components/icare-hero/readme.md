@@ -25,7 +25,6 @@
 graph TD;
   icare-hero --> icare-header
   icare-header --> icare-logo
-  icare-header --> icare-button
   style icare-hero fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

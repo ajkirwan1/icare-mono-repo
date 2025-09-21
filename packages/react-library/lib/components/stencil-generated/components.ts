@@ -21,6 +21,7 @@ import { IcareHeroNew as IcareHeroNewElement, defineCustomElement as defineIcare
 import { IcareHero as IcareHeroElement, defineCustomElement as defineIcareHero } from "icare-components/dist/components/icare-hero.js";
 import { IcareLogo as IcareLogoElement, defineCustomElement as defineIcareLogo } from "icare-components/dist/components/icare-logo.js";
 import { IcareMessagesCard as IcareMessagesCardElement, defineCustomElement as defineIcareMessagesCard } from "icare-components/dist/components/icare-messages-card.js";
+import { IcareModal as IcareModalElement, defineCustomElement as defineIcareModal } from "icare-components/dist/components/icare-modal.js";
 import { IcarePage as IcarePageElement, defineCustomElement as defineIcarePage } from "icare-components/dist/components/icare-page.js";
 import { IcareRecommendedCaregiversCard as IcareRecommendedCaregiversCardElement, defineCustomElement as defineIcareRecommendedCaregiversCard } from "icare-components/dist/components/icare-recommended-caregivers-card.js";
 import { IcareSection as IcareSectionElement, defineCustomElement as defineIcareSection } from "icare-components/dist/components/icare-section.js";
@@ -161,6 +162,17 @@ export const IcareMessagesCard: StencilReactComponent<IcareMessagesCardElement, 
     react: React,
     events: { onNavigate: 'navigate' } as IcareMessagesCardEvents,
     defineCustomElement: defineIcareMessagesCard
+});
+
+export type IcareModalEvents = { onRequestClose: EventName<CustomEvent<void>> };
+
+export const IcareModal: StencilReactComponent<IcareModalElement, IcareModalEvents> = /*@__PURE__*/ createComponent<IcareModalElement, IcareModalEvents>({
+    tagName: 'icare-modal',
+    elementClass: IcareModalElement,
+    // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
+    react: React,
+    events: { onRequestClose: 'requestClose' } as IcareModalEvents,
+    defineCustomElement: defineIcareModal
 });
 
 export type IcarePageEvents = NonNullable<unknown>;

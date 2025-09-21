@@ -1,5 +1,5 @@
 import React from "react";
-import { IcareHeroNew } from "react-library";
+import { IcareHeroNew, IcareButton } from "react-library";
 import { Link } from "react-router";
 import navLinks from "./nav-links";
 
@@ -13,6 +13,11 @@ export default function HeroComponent({ imgSrc }) {
           <Link to={link.to}>{link.text}</Link>
         </li>
       ))}
+      <li slot="header-buttons">
+        <IcareButton href='/register'>
+          <span>Get Started</span>
+        </IcareButton>
+      </li>
       <span slot="header-content">ICare</span>
       <span slot="subheader-content">Learn more about ICare and our mission to connect caregivers and care receivers.</span>
     </IcareHeroNew>

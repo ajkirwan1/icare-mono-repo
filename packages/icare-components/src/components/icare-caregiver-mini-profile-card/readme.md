@@ -9,8 +9,10 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
+| `bio`    | `bio`     |             | `string` | `undefined` |
 | `imgAlt` | `img-alt` |             | `string` | `undefined` |
 | `imgSrc` | `img-src` |             | `string` | `undefined` |
+| `name`   | `name`    |             | `string` | `undefined` |
 
 
 ## Dependencies

@@ -1,4 +1,4 @@
-import { Component, Host, Prop, h } from "@stencil/core";
+import { Component, Host, h } from "@stencil/core";
 
 @Component({
   tag: "icare-header",
@@ -6,7 +6,7 @@ import { Component, Host, Prop, h } from "@stencil/core";
   shadow: true
 })
 export class IcareHeader {
-  @Prop() loggedIn = false;
+  // @Prop() loggedIn = false;
 
   render() {
     return (
@@ -18,7 +18,8 @@ export class IcareHeader {
           <nav>
             <ul>
               <slot name="nav-links" />
-              <li> <icare-button>Login</icare-button></li>
+              <slot name="header-buttons" />
+              <slot name="header-avatar" />
             </ul>
           </nav>
         </header>
