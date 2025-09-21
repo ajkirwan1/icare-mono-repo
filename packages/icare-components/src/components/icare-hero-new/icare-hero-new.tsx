@@ -29,8 +29,9 @@ export class IcareHeroNew {
               <slot name='subheader-content' />
             </h2>
             <div class='cta'>
-              <icare-button variant='primary'>Get Started</icare-button>
-              <icare-button variant='secondary'>More Information</icare-button>
+              <slot name='cta-buttons' />
+              {/* <icare-button variant='primary'>Get Started</icare-button>
+              <icare-button variant='secondary'>More Information</icare-button> */}
             </div>
           </div>
         </section>

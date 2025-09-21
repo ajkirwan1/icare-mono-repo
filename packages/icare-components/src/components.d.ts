@@ -13,6 +13,7 @@ export namespace Components {
         "imgSrc": string;
     }
     interface IcareButton {
+        "form"?: string;
         "href": string;
         /**
           * @default "Click"
@@ -26,6 +27,10 @@ export namespace Components {
           * @default "_self"
          */
         "target"?: "_self" | "_blank";
+        /**
+          * @default "button"
+         */
+        "type"?: "button" | "submit" | "reset";
         /**
           * @default "primary"
          */
@@ -93,6 +98,27 @@ export namespace Components {
     }
     interface IcareMessagesCard {
     }
+    interface IcareModal {
+        /**
+          * Close when clicking the backdrop
+          * @default true
+         */
+        "closeOnBackdrop": boolean;
+        /**
+          * Close when pressing Escape
+          * @default true
+         */
+        "closeOnEsc": boolean;
+        /**
+          * Optional heading for accessibility (falls back to slotted header)
+         */
+        "heading"?: string;
+        /**
+          * Controls visibility of the modal (reflected to attribute for CSS)
+          * @default false
+         */
+        "open": boolean;
+    }
     interface IcarePage {
     }
     interface IcareRecommendedCaregiversCard {
@@ -142,13 +168,13 @@ export namespace Components {
         "middle": string;
     }
 }
-export interface IcareButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLIcareButtonElement;
-}
 export interface IcareMessagesCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIcareMessagesCardElement;
+}
+export interface IcareModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIcareModalElement;
 }
 declare global {
     interface HTMLIcareAvatarElement extends Components.IcareAvatar, HTMLStencilElement {
@@ -163,18 +189,7 @@ declare global {
         prototype: HTMLIcareBannerElement;
         new (): HTMLIcareBannerElement;
     };
-    interface HTMLIcareButtonElementEventMap {
-        "buttonClick": void;
-    }
     interface HTMLIcareButtonElement extends Components.IcareButton, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIcareButtonElement: {
         prototype: HTMLIcareButtonElement;
@@ -245,6 +260,23 @@ declare global {
         prototype: HTMLIcareMessagesCardElement;
         new (): HTMLIcareMessagesCardElement;
     };
+    interface HTMLIcareModalElementEventMap {
+        "requestClose": void;
+    }
+    interface HTMLIcareModalElement extends Components.IcareModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIcareModalElementEventMap>(type: K, listener: (this: HTMLIcareModalElement, ev: IcareModalCustomEvent<HTMLIcareModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIcareModalElementEventMap>(type: K, listener: (this: HTMLIcareModalElement, ev: IcareModalCustomEvent<HTMLIcareModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIcareModalElement: {
+        prototype: HTMLIcareModalElement;
+        new (): HTMLIcareModalElement;
+    };
     interface HTMLIcarePageElement extends Components.IcarePage, HTMLStencilElement {
     }
     var HTMLIcarePageElement: {
@@ -306,6 +338,7 @@ declare global {
         "icare-hero-new": HTMLIcareHeroNewElement;
         "icare-logo": HTMLIcareLogoElement;
         "icare-messages-card": HTMLIcareMessagesCardElement;
+        "icare-modal": HTMLIcareModalElement;
         "icare-page": HTMLIcarePageElement;
         "icare-recommended-caregivers-card": HTMLIcareRecommendedCaregiversCardElement;
         "icare-section": HTMLIcareSectionElement;
@@ -324,12 +357,12 @@ declare namespace LocalJSX {
         "imgSrc"?: string;
     }
     interface IcareButton {
+        "form"?: string;
         "href"?: string;
         /**
           * @default "Click"
          */
         "label"?: string;
-        "onButtonClick"?: (event: IcareButtonCustomEvent<void>) => void;
         /**
           * @default "medium"
          */
@@ -338,6 +371,10 @@ declare namespace LocalJSX {
           * @default "_self"
          */
         "target"?: "_self" | "_blank";
+        /**
+          * @default "button"
+         */
+        "type"?: "button" | "submit" | "reset";
         /**
           * @default "primary"
          */
@@ -406,6 +443,31 @@ declare namespace LocalJSX {
     interface IcareMessagesCard {
         "onNavigate"?: (event: IcareMessagesCardCustomEvent<string>) => void;
     }
+    interface IcareModal {
+        /**
+          * Close when clicking the backdrop
+          * @default true
+         */
+        "closeOnBackdrop"?: boolean;
+        /**
+          * Close when pressing Escape
+          * @default true
+         */
+        "closeOnEsc"?: boolean;
+        /**
+          * Optional heading for accessibility (falls back to slotted header)
+         */
+        "heading"?: string;
+        /**
+          * Emitted when the modal requests to close (backdrop, Esc, close button)
+         */
+        "onRequestClose"?: (event: IcareModalCustomEvent<void>) => void;
+        /**
+          * Controls visibility of the modal (reflected to attribute for CSS)
+          * @default false
+         */
+        "open"?: boolean;
+    }
     interface IcarePage {
     }
     interface IcareRecommendedCaregiversCard {
@@ -467,6 +529,7 @@ declare namespace LocalJSX {
         "icare-hero-new": IcareHeroNew;
         "icare-logo": IcareLogo;
         "icare-messages-card": IcareMessagesCard;
+        "icare-modal": IcareModal;
         "icare-page": IcarePage;
         "icare-recommended-caregivers-card": IcareRecommendedCaregiversCard;
         "icare-section": IcareSection;
@@ -493,6 +556,7 @@ declare module "@stencil/core" {
             "icare-hero-new": LocalJSX.IcareHeroNew & JSXBase.HTMLAttributes<HTMLIcareHeroNewElement>;
             "icare-logo": LocalJSX.IcareLogo & JSXBase.HTMLAttributes<HTMLIcareLogoElement>;
             "icare-messages-card": LocalJSX.IcareMessagesCard & JSXBase.HTMLAttributes<HTMLIcareMessagesCardElement>;
+            "icare-modal": LocalJSX.IcareModal & JSXBase.HTMLAttributes<HTMLIcareModalElement>;
             "icare-page": LocalJSX.IcarePage & JSXBase.HTMLAttributes<HTMLIcarePageElement>;
             "icare-recommended-caregivers-card": LocalJSX.IcareRecommendedCaregiversCard & JSXBase.HTMLAttributes<HTMLIcareRecommendedCaregiversCardElement>;
             "icare-section": LocalJSX.IcareSection & JSXBase.HTMLAttributes<HTMLIcareSectionElement>;

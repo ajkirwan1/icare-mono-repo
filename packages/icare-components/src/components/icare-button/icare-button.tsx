@@ -1,4 +1,4 @@
-import { Component, Prop, Host, h, Event, EventEmitter } from "@stencil/core";
+import { Component, Prop, Host, h, Element } from "@stencil/core";
 
 @Component({
   tag: "icare-button",
@@ -11,12 +11,30 @@ export class IcareButton {
   @Prop() size: "small" | "medium" | "large" = "medium";
   @Prop() href: string;
   @Prop() target?: "_self" | "_blank" = "_self";
+  @Prop() type?: "button" | "submit" | "reset" = "button";
 
-  @Event() buttonClick: EventEmitter<void>;
+  @Element() host: HTMLElement;
+
+  @Prop() form?: string;
+  // @Prop() form?: string;
+  // @Prop() value?: string;
+
+  // @Event() buttonClick: EventEmitter<void>;
 
 
-  handleClick = () => {
-    this.buttonClick.emit();
+  // private handleClick = (e: Event) => {
+  //   this.buttonClick.emit();
+  //   // let native behavior handle submit/navigation
+  // };
+
+  private handleClick = (e: Event) => {
+    if (this.type === "submit") {
+      e.preventDefault();
+      const form = this.form
+        ? document.getElementById(this.form) as HTMLFormElement
+        : this.host.closest("form");
+      form?.requestSubmit();
+    }
   };
 
   render() {
@@ -34,7 +52,7 @@ export class IcareButton {
     }
     return (
       <Host>
-        <button onClick={this.handleClick}>
+        <button type={this.type} onClick={this.handleClick}>
           <slot>{this.label}</slot>
         </button>
       </Host>

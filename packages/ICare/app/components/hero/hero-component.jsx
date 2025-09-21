@@ -21,6 +21,5 @@ export default function HeroComponent({ imgSrc }) {
       <span slot="header-content">ICare</span>
       <span slot="subheader-content">Learn more about ICare and our mission to connect caregivers and care receivers.</span>
     </IcareHeroNew>
-
   );
 }

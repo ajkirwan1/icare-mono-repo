@@ -6,6 +6,7 @@ import bannerImage1 from "/images/banners/banner-image-1.jpg";
 import cardImage2 from "/images/web-cards/web-card-image-2.jpg";
 import cardImage6 from "/images/heros/icare-for-caregivers.jpg";
 import cardImage7 from "/images/heros/icare-for-carereceivers.jpg";
+import heroImage from "/images/heros/hero-landing-page.jpg";
 import { IcareBanner, IcareCard, IcarePage, IcareSection, IcareWebBlock, IcareWebMinihero } from "react-library";
 import HeroComponent from "../components/hero/hero-component";
 
@@ -20,7 +21,7 @@ export default function Home() {
 
   return (
     <IcarePage>
-      <HeroComponent imgSrc={cardImage5} />
+      <HeroComponent imgSrc={heroImage} />
       <IcareSection>
         <IcareCard variant="flat">
           <span slot="contents">
