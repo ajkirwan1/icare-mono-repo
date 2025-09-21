@@ -19,6 +19,7 @@ export class IcareHeader {
             <ul>
               <slot name="nav-links" />
               <slot name="header-buttons" />
+              <slot name="header-avatar" />
             </ul>
           </nav>
         </header>

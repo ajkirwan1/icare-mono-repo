@@ -1,19 +1,65 @@
 {
-  "posts": [
+  "login": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "username": "user",
+      "password": "password",
+      "role": "caregiver"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "username": "edzard",
+      "password": "password",
+      "role": "carerecipient"
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "messages": {
+    "unreadMessages": 7,
+    "newMessages": 5,
+    "newNotifications": 3
+  },
+  "recommended-caregivers": [
+    {
+      "imgSrc": "images/profile-image-1.jpg",
+      "name": "Jane Doe",
+      "imgAlt": "Profile picture of Jane Doe",
+      "bio": "Experienced caregiver with a passion for senior support.",
+      "profileId": "caregiver-001"
+    },
+    {
+      "imgSrc": "images/profile-image-4.jpg",
+      "name": "John Smith",
+      "imgAlt": "Profile picture of John Smith",
+      "bio": "Pediatric care specialist focused on holistic family support.",
+      "profileId": "caregiver-002"
+    },
+    {
+      "imgSrc": "images/profile-image-3.jpg",
+      "name": "Alice Johnson",
+      "imgAlt": "Profile picture of Alice Johnson",
+      "bio": "Companion caregiver who enjoys community activities.",
+      "profileId": "caregiver-003"
+    },
+    {
+      "imgSrc": "images/profile-image-5.jpg",
+      "name": "Bob Brown",
+      "imgAlt": "Profile picture of Bob Brown",
+      "bio": "Skilled in post-operative care and rehabilitation.",
+      "profileId": "caregiver-004"
+    },
+    {
+      "imgSrc": "images/profile-image-6.jpg",
+      "name": "Eve Davis",
+      "imgAlt": "Profile picture of Eve Davis",
+      "bio": "Specializes in dementia and Alzheimer's care.",
+      "profileId": "caregiver-005"
+    },
+    {
+      "imgSrc": "images/profile-image-7.jpg",
+      "name": "Charlie Wilson",
+      "imgAlt": "Profile picture of Charlie Wilson",
+      "bio": "Veteran caregiver with over 10 years of experience.",
+      "profileId": "caregiver-006"
+    }
+  ]
 }

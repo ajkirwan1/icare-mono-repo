@@ -2,6 +2,7 @@
 import heroImage from "/images/heros/hero-landing-page.jpg";
 import HeroRegisterComponent from "../components/hero/hero-register";
 import { login } from "../services/login-service";
+import { redirect } from "react-router";
 
 export function meta() {
   return [
@@ -15,15 +16,20 @@ export async function action({ request }) {
   const username = formData.get("username");
   const password = formData.get("password");
 
-  // Here you would typically handle the registration logic,
-  // such as saving the user to a database.
-  // eslint-disable-next-line no-console, no-undef
-  console.log("Registering user:", { username, password });
+  const loginDetails = await login(username, password);
 
-  await login(username, password);
+  if (!loginDetails.success) {
+    return { error: loginDetails.message };
+  }
 
-  // Redirect to a welcome page or login page after registration.
-  // return redirect("/welcome");
+  if (loginDetails.userdetails.role === "caregiver") {
+    return redirect("/caregiver");
+  }
+
+  if (loginDetails.userdetails.role === "carerecipient") {
+    return redirect("/carerecipient");
+  }
+
   return null;
 }
 

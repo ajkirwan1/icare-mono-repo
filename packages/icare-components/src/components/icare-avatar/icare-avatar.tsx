@@ -10,7 +10,7 @@ export class IcareAvatar {
   render() {
     return (
       <Host>
-        <img src="images/avatar-image.jpg" alt="iCare Logo" class="image-wrapper" />
+        <img src="images/avatar-image.jpg" alt="iCare Avatar" class="image-wrapper" />
       </Host>
     );
   }
