@@ -55,7 +55,18 @@ export default [
       "array-bracket-spacing": ["warn", "never"], // [1, 2, 3]
       "comma-dangle": ["error", "never"], // Cleaner diffs
       "eqeqeq": ["warn", "always"],             // Use === not ==
-      "no-unused-vars": "warn",                 // Catch unused variables
+      "no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^h$"
+        }
+      ],
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^h$"
+        }
+      ],                 // Catch unused variables
       "no-console": "warn",                     // Warn on console.log
       "no-debugger": "warn",                    // Disallow debugger statements
       "curly": ["warn", "all"],                 // Require braces for if/while/for

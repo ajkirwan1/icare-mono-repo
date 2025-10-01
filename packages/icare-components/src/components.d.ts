@@ -48,6 +48,7 @@ export namespace Components {
     }
     interface IcareCaregiverMiniProfileCard {
         "bio"?: string;
+        "id"?: string;
         "imgAlt"?: string;
         "imgSrc": string;
         "name"?: string;
@@ -168,6 +169,10 @@ export namespace Components {
         "middle": string;
     }
 }
+export interface IcareCaregiverMiniProfileCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIcareCaregiverMiniProfileCardElement;
+}
 export interface IcareMessagesCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIcareMessagesCardElement;
@@ -175,6 +180,10 @@ export interface IcareMessagesCardCustomEvent<T> extends CustomEvent<T> {
 export interface IcareModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIcareModalElement;
+}
+export interface IcareRecommendedCaregiversCardCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIcareRecommendedCaregiversCardElement;
 }
 declare global {
     interface HTMLIcareAvatarElement extends Components.IcareAvatar, HTMLStencilElement {
@@ -201,7 +210,18 @@ declare global {
         prototype: HTMLIcareCardElement;
         new (): HTMLIcareCardElement;
     };
+    interface HTMLIcareCaregiverMiniProfileCardElementEventMap {
+        "navigate": string;
+    }
     interface HTMLIcareCaregiverMiniProfileCardElement extends Components.IcareCaregiverMiniProfileCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIcareCaregiverMiniProfileCardElementEventMap>(type: K, listener: (this: HTMLIcareCaregiverMiniProfileCardElement, ev: IcareCaregiverMiniProfileCardCustomEvent<HTMLIcareCaregiverMiniProfileCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIcareCaregiverMiniProfileCardElementEventMap>(type: K, listener: (this: HTMLIcareCaregiverMiniProfileCardElement, ev: IcareCaregiverMiniProfileCardCustomEvent<HTMLIcareCaregiverMiniProfileCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIcareCaregiverMiniProfileCardElement: {
         prototype: HTMLIcareCaregiverMiniProfileCardElement;
@@ -283,7 +303,18 @@ declare global {
         prototype: HTMLIcarePageElement;
         new (): HTMLIcarePageElement;
     };
+    interface HTMLIcareRecommendedCaregiversCardElementEventMap {
+        "navigate": string;
+    }
     interface HTMLIcareRecommendedCaregiversCardElement extends Components.IcareRecommendedCaregiversCard, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIcareRecommendedCaregiversCardElementEventMap>(type: K, listener: (this: HTMLIcareRecommendedCaregiversCardElement, ev: IcareRecommendedCaregiversCardCustomEvent<HTMLIcareRecommendedCaregiversCardElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIcareRecommendedCaregiversCardElementEventMap>(type: K, listener: (this: HTMLIcareRecommendedCaregiversCardElement, ev: IcareRecommendedCaregiversCardCustomEvent<HTMLIcareRecommendedCaregiversCardElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIcareRecommendedCaregiversCardElement: {
         prototype: HTMLIcareRecommendedCaregiversCardElement;
@@ -392,9 +423,11 @@ declare namespace LocalJSX {
     }
     interface IcareCaregiverMiniProfileCard {
         "bio"?: string;
+        "id"?: string;
         "imgAlt"?: string;
         "imgSrc"?: string;
         "name"?: string;
+        "onNavigate"?: (event: IcareCaregiverMiniProfileCardCustomEvent<string>) => void;
     }
     interface IcareCaregiverProfileCard {
         "cardTitle"?: string;
@@ -471,6 +504,7 @@ declare namespace LocalJSX {
     interface IcarePage {
     }
     interface IcareRecommendedCaregiversCard {
+        "onNavigate"?: (event: IcareRecommendedCaregiversCardCustomEvent<string>) => void;
     }
     interface IcareSection {
     }

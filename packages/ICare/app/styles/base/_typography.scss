@@ -1,15 +1,5 @@
 @use '../abstracts/variables' as *;
 
-// Import Google Font (can also go into _variables if shared)
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: 1.5;
-  background-color: rgb(247, 249, 251);
-}
-
 h1,
 h2,
 h3,
@@ -18,9 +8,8 @@ h5,
 h6 {
   font-family: $font-family-base;
   font-weight: $font-weight-bold;
-  margin: 0 0 $space-md;
-  line-height: 1.2;
   color: $icare-color-green;
+  margin: 0 0 $space-md;
 }
 
 h1 {
@@ -28,33 +17,21 @@ h1 {
 }
 
 h2 {
-  font-size: $font-size-lg * 1.6;
-}
-
-// 2rem if base=16px
-h3 {
-  font-size: $font-size-lg * 1.4;
-}
-
-h4 {
-  font-size: $font-size-lg * 1.2;
-}
-
-h5 {
   font-size: $font-size-lg;
+  ;
 }
 
-h6 {
-  font-size: $font-size-md;
+h3 {
+  font-size: $font-size-lg * 0.8;
 }
 
 p {
   margin: 0 0 $space-md;
   font-size: $font-size-md;
+  line-height: 1.5;
 }
 
 a {
-  // color: $color-primary;
   text-decoration: none;
 
   &:hover {
@@ -62,24 +39,6 @@ a {
   }
 }
 
-label,
-input {
-  font-size: $font-size-md;
-}
-
 .text-center {
   text-align: center;
-}
-
-.text-right {
-  text-align: right;
-}
-
-.text-muted {
-  color: $color-muted;
-}
-
-.lead {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-regular;
 }

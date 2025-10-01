@@ -10,9 +10,17 @@
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
 | `bio`    | `bio`     |             | `string` | `undefined` |
+| `id`     | `id`      |             | `string` | `undefined` |
 | `imgAlt` | `img-alt` |             | `string` | `undefined` |
 | `imgSrc` | `img-src` |             | `string` | `undefined` |
 | `name`   | `name`    |             | `string` | `undefined` |
+
+
+## Events
+
+| Event      | Description | Type                  |
+| ---------- | ----------- | --------------------- |
+| `navigate` |             | `CustomEvent<string>` |
 
 
 ## Dependencies

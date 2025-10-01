@@ -76,14 +76,14 @@ export const IcareCard: StencilReactComponent<IcareCardElement, IcareCardEvents>
     defineCustomElement: defineIcareCard
 });
 
-export type IcareCaregiverMiniProfileCardEvents = NonNullable<unknown>;
+export type IcareCaregiverMiniProfileCardEvents = { onNavigate: EventName<CustomEvent<string>> };
 
 export const IcareCaregiverMiniProfileCard: StencilReactComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents> = /*@__PURE__*/ createComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents>({
     tagName: 'icare-caregiver-mini-profile-card',
     elementClass: IcareCaregiverMiniProfileCardElement,
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
-    events: {} as IcareCaregiverMiniProfileCardEvents,
+    events: { onNavigate: 'navigate' } as IcareCaregiverMiniProfileCardEvents,
     defineCustomElement: defineIcareCaregiverMiniProfileCard
 });
 
@@ -186,14 +186,14 @@ export const IcarePage: StencilReactComponent<IcarePageElement, IcarePageEvents>
     defineCustomElement: defineIcarePage
 });
 
-export type IcareRecommendedCaregiversCardEvents = NonNullable<unknown>;
+export type IcareRecommendedCaregiversCardEvents = { onNavigate: EventName<CustomEvent<string>> };
 
 export const IcareRecommendedCaregiversCard: StencilReactComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents> = /*@__PURE__*/ createComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents>({
     tagName: 'icare-recommended-caregivers-card',
     elementClass: IcareRecommendedCaregiversCardElement,
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
-    events: {} as IcareRecommendedCaregiversCardEvents,
+    events: { onNavigate: 'navigate' } as IcareRecommendedCaregiversCardEvents,
     defineCustomElement: defineIcareRecommendedCaregiversCard
 });
 

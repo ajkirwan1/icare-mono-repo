@@ -1,0 +1,110 @@
+.root {}
+
+.headerRow {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.avatar {
+  flex: 0 0 30%;
+  max-width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.infoArticle {
+  margin-bottom: 3vh;
+}
+
+.infoBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.inlineMetaRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.languagesList {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0 0 1rem;
+}
+
+.languageLine {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.pillList {
+  margin: 0 0 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style: none;
+}
+
+.aboutSection {
+  margin-top: 0;
+}
+
+.favButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.favButton:focus-visible {
+  outline: 2px solid #619482;
+  outline-offset: 2px;
+}
+
+.favButton svg {
+  transition: fill 1s ease, transform 1s ease;
+}
+
+.favButton[aria-pressed="true"] svg {
+  transform: scale(1.05);
+}
+
+.cardFooter {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    color: #619482;
+    justify-content: flex-end
+  }
+}
