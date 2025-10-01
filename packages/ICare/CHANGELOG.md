@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.1.0...icare-app@0.2.0) (2025-10-01)
+
+### Features
+
+- updates ([#4](https://github.com/ajkirwan1/icare-mono-repo/issues/4)) ([d31d402](https://github.com/ajkirwan1/icare-mono-repo/commit/d31d402c8fbf3d0aa83274743737bbae5e7e1289))
+
 # [0.1.0](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.0.3...icare-app@0.1.0) (2025-10-01)
 
 ### Features
