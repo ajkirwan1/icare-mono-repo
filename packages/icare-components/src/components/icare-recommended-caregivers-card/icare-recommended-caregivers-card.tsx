@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from "@stencil/core";
+import { Component, Host, h, State, Event, EventEmitter } from "@stencil/core";
 
 @Component({
   tag: "icare-recommended-caregivers-card",
@@ -15,10 +15,12 @@ export class IcareRecommendedCaregiversCard {
       name?: string;
       bio?: string;
       profileId?: string;
+      id?: string;
     }[];
     error?: any;
   } = { status: "loading" };
 
+  @Event() navigate: EventEmitter<string>;
 
   componentWillLoad() {
     fetch("/api/recommended-caregivers")
@@ -41,10 +43,21 @@ export class IcareRecommendedCaregiversCard {
       );
   }
 
+  private goToAllCaregivers = (e: MouseEvent) => {
+    e.preventDefault();
+    this.navigate.emit("caregivers");
+  };
+
+  private goToSavedCaregivers = (e: MouseEvent) => {
+    e.preventDefault();
+    this.navigate.emit("caregivers/saved");
+  };
+
   render() {
     const { status, data } = this.fetchResult;
     return (
-      <Host>
+      <Host
+      >
         <icare-card>
           <span slot="contents">
             <div class="header">
@@ -61,6 +74,7 @@ export class IcareRecommendedCaregiversCard {
                     imgSrc={c.imgSrc}
                     imgAlt={c.imgAlt}
                     name={c.name}
+                    id={c.id}
                     bio={c.bio}
                   />
                 ))}
@@ -68,8 +82,20 @@ export class IcareRecommendedCaregiversCard {
             )}
             <div class="card-footer">
               <ul>
-                <li><span><a href="#">View all caregivers</a></span></li>
-                <li><span><a href="#">Saved caregivers</a></span></li>
+                <li>
+                  <span>
+                    <a href="#" onClick={this.goToAllCaregivers}>
+                      View all caregivers
+                    </a>
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    <a href="#" onClick={this.goToSavedCaregivers}>
+                      Saved caregivers
+                    </a>
+                  </span>
+                </li>
               </ul>
             </div>
           </span>

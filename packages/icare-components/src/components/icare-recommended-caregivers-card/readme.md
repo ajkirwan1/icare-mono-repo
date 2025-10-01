@@ -5,6 +5,13 @@
 <!-- Auto Generated Below -->
 
 
+## Events
+
+| Event      | Description | Type                  |
+| ---------- | ----------- | --------------------- |
+| `navigate` |             | `CustomEvent<string>` |
+
+
 ## Dependencies
 
 ### Depends on

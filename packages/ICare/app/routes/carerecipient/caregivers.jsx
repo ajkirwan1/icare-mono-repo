@@ -18,10 +18,7 @@ export default function CaregiverRecipientHome() {
   return (
     <>
       <IcareSection>
-        <IcareMessagesCard />
-      </IcareSection>
-      <IcareSection>
-        <IcareRecommendedCaregiversCard />
+        ALL CAREGIVERS TO BE HERE
       </IcareSection>
     </>
   );

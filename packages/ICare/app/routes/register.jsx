@@ -23,7 +23,7 @@ export async function action({ request }) {
   }
 
   if (loginDetails.userdetails.role === "caregiver") {
-    return redirect("/caregiver");
+    return redirect("/carerecipient");
   }
 
   if (loginDetails.userdetails.role === "carerecipient") {

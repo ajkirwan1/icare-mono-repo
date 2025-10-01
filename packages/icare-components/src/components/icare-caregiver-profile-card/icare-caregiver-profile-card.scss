@@ -2,6 +2,16 @@
   display: block;
 }
 
+:host(:hover),
+:host(:focus-within) {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+}
+
+:host(:active) {
+  transform: translateY(-1px);
+}
+
 .card {
   border: 1px solid black;
   border-radius: 10px;

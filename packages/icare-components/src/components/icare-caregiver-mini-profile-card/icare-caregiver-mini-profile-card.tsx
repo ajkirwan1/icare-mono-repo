@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, Host, h, Prop, Event, EventEmitter } from "@stencil/core";
 
 @Component({
   tag: "icare-caregiver-mini-profile-card",
@@ -13,10 +13,36 @@ export class IcareCaregiverMiniProfileCard {
   @Prop() imgAlt?: string;
   @Prop() name?: string;
   @Prop() bio?: string;
+  @Prop() id?: string;
+
+  @Event() navigate: EventEmitter<string>;
+
+  private get navigateTo(): string {
+    return `caregivers/${this.id}`;
+  }
+
+
+  private onHostClick() {
+    console.log("Card clicked, navigating to:", this.id);
+    const url = this.navigateTo;
+    console.log("Emitting navigate event with URL:", url);
+    this.navigate.emit(url);
+  }
+
+  private onHostKeyDown = (e: KeyboardEvent) => {
+    if (!this.navigateTo) { return; }
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      this.navigate.emit(this.navigateTo);
+    }
+  };
 
   render() {
     return (
-      <Host>
+      <Host
+        onClick={this.onHostClick}
+        onKeyDown={this.onHostKeyDown}
+      >
         <div class='caregiver-mini-profile-card'>
           <figure>
             <img

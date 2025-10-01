@@ -20,6 +20,7 @@
   },
   "recommended-caregivers": [
     {
+      "id": 1,
       "imgSrc": "images/profile-image-1.jpg",
       "name": "Jane Doe",
       "imgAlt": "Profile picture of Jane Doe",
@@ -27,6 +28,7 @@
       "profileId": "caregiver-001"
     },
     {
+      "id": 2,
       "imgSrc": "images/profile-image-4.jpg",
       "name": "John Smith",
       "imgAlt": "Profile picture of John Smith",
@@ -34,6 +36,7 @@
       "profileId": "caregiver-002"
     },
     {
+      "id": 3,
       "imgSrc": "images/profile-image-3.jpg",
       "name": "Alice Johnson",
       "imgAlt": "Profile picture of Alice Johnson",
@@ -41,6 +44,7 @@
       "profileId": "caregiver-003"
     },
     {
+      "id": 4,
       "imgSrc": "images/profile-image-5.jpg",
       "name": "Bob Brown",
       "imgAlt": "Profile picture of Bob Brown",
@@ -48,6 +52,7 @@
       "profileId": "caregiver-004"
     },
     {
+      "id": 5,
       "imgSrc": "images/profile-image-6.jpg",
       "name": "Eve Davis",
       "imgAlt": "Profile picture of Eve Davis",
@@ -55,11 +60,426 @@
       "profileId": "caregiver-005"
     },
     {
+      "id": 6,
       "imgSrc": "images/profile-image-7.jpg",
       "name": "Charlie Wilson",
       "imgAlt": "Profile picture of Charlie Wilson",
       "bio": "Veteran caregiver with over 10 years of experience.",
       "profileId": "caregiver-006"
+    }
+  ],
+  "caregivers": [
+    {
+      "id": 1,
+      "age": 34,
+      "imgSrc": "images/profile-image-1.jpg",
+      "name": "Jane Doe",
+      "imgAlt": "Profile picture of Jane Doe",
+      "bio": "Experienced caregiver with a passion for senior support, Jane has spent the last decade helping older adults maintain independence with dignity. She blends evidence‑based care practices with warm, person‑centered communication to create trust and reduce anxiety for families. Jane is known for designing structured daily routines that balance safety, mobility, and social engagement, and she collaborates closely with medical professionals to ensure continuity of care. She has extensive experience with Alzheimer’s and Parkinson’s support, medication prompting, fall‑prevention strategies, and post‑surgery recovery assistance. Her approach emphasizes empathy, consistency, and gentle motivation—always focusing on improving quality of life.",
+      "profileId": "caregiver-001",
+      "location": "New York, NY",
+      "experience": "10 years",
+      "specialties": [
+        "Elderly Care",
+        "Dementia Care",
+        "Post-Surgery Care"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        },
+        {
+          "language": "Spanish",
+          "speaking": "Conversational",
+          "reading": "Intermediate"
+        }
+      ],
+      "certifications": [
+        "CPR Certified",
+        "First Aid Certified"
+      ],
+      "availability": "Weekdays, 9 AM - 5 PM",
+      "expertise": [
+        "Alzheimer's Care",
+        "Mobility Assistance",
+        "Medication Management"
+      ],
+      "keySkills": [
+        "Empathy",
+        "Patience",
+        "Communication"
+      ],
+      "reviews": [
+        {
+          "reviewer": "Alice M.",
+          "rating": 5,
+          "comment": "Jane has been a wonderful caregiver for my mother. She is compassionate and professional."
+        },
+        {
+          "reviewer": "Bob K.",
+          "rating": 4,
+          "comment": "Very reliable and attentive. My father enjoys her company."
+        }
+      ],
+      "averageRating": 4.5
+    },
+    {
+      "id": 2,
+      "age": 20,
+      "imgSrc": "images/profile-image-4.jpg",
+      "name": "John Smith",
+      "imgAlt": "Profile picture of John Smith",
+      "bio": "John is a pediatric and family support caregiver who focuses on creating emotionally safe, developmentally appropriate environments for children and teens. He integrates play‑based learning, structured reassurance, and clear communication to help young clients navigate routines or medical recovery with confidence. John frequently collaborates with parents to tailor engagement plans that balance stimulation, rest, and behavioral consistency, and he is comfortable supporting neurodiverse children with sensory‑friendly adaptations. His calm demeanor and creative problem‑solving help de‑escalate stressful moments while building trust. He continually refines his approach through ongoing workshops in child development and trauma‑sensitive care.",
+      "profileId": "caregiver-002",
+      "location": "Los Angeles, CA",
+      "experience": "8 years",
+      "specialties": [
+        "Pediatric Care",
+        "Family Support"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        }
+      ],
+      "certifications": [
+        "Child Care Certification",
+        "CPR Certified"
+      ],
+      "availability": "Weekends, 10 AM - 6 PM",
+      "expertise": [
+        "Child Development",
+        "Parental Guidance",
+        "Emotional Support"
+      ],
+      "keySkills": [
+        "Patience",
+        "Communication",
+        "Creativity"
+      ],
+      "reviews": [],
+      "averageRating": 2.6
+    },
+    {
+      "id": 3,
+      "age": 44,
+      "imgSrc": "images/profile-image-3.jpg",
+      "name": "Alice Johnson",
+      "imgAlt": "Profile picture of Alice Johnson",
+      "bio": "Alice specializes in companionship and social enrichment, focusing on reducing isolation and improving emotional resilience for clients of varying ages. She curates personalized engagement plans—such as light exercise walks, reading sessions, music appreciation, and community outings—to encourage cognitive stimulation and joy. With a calm presence and active listening skills, she helps clients express needs and preferences comfortably, fostering long‑term rapport. Alice is adept at noticing early shifts in mood or routine adherence that may signal emerging concerns, relaying observations to families promptly. Her approach centers on dignity, gentle encouragement, and building daily moments of meaning.",
+      "profileId": "caregiver-003",
+      "location": "Chicago, IL",
+      "experience": "5 years",
+      "specialties": [
+        "Companionship",
+        "Community Activities"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        }
+      ],
+      "certifications": [],
+      "availability": "Flexible",
+      "expertise": [
+        "Social Engagement",
+        "Emotional Support"
+      ],
+      "keySkills": [
+        "Empathy",
+        "Listening",
+        "Positivity"
+      ],
+      "reviews": [],
+      "averageRating": 5.0
+    },
+    {
+      "id": 4,
+      "age": 18,
+      "imgSrc": "images/profile-image-5.jpg",
+      "name": "Bob Brown",
+      "imgAlt": "Profile picture of Bob Brown",
+      "bio": "Bob brings a structured, recovery‑oriented mindset to post‑operative and rehabilitation caregiving. He focuses on adherence to therapy routines, safe mobility coaching, and pain management strategies guided by clinical instructions. Bob carefully tracks progress markers—range of motion, stamina, balance—and communicates them back to families or allied health professionals for coordinated adjustments. He has experience supporting wound care protocols, assistive device transitions, and motivational reinforcement during challenging recovery phases. Clients value his reliability, clear documentation habits, and calm reassurance that helps sustain momentum through long healing cycles.",
+      "profileId": "caregiver-004",
+      "location": "Houston, TX",
+      "experience": "12 years",
+      "specialties": [
+        "Post-Operative Care",
+        "Rehabilitation"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        }
+      ],
+      "certifications": [
+        "First Aid Certified",
+        "Physical Therapy Assistant"
+      ],
+      "availability": "Weekdays and evenings",
+      "expertise": [
+        "Wound Care",
+        "Physical Therapy Support",
+        "Pain Management"
+      ],
+      "keySkills": [
+        "Reliability",
+        "Technical Knowledge",
+        "Patience"
+      ],
+      "reviews": [],
+      "averageRating": 4.9
+    },
+    {
+      "id": 5,
+      "age": 52,
+      "imgSrc": "images/profile-image-6.jpg",
+      "name": "Eve Davis",
+      "imgAlt": "Profile picture of Eve Davis",
+      "bio": "Eve focuses on dementia and Alzheimer’s care, creating structured, calming environments that reduce confusion and anxiety. She designs daily routines with gentle cognitive engagement—familiar object interaction, memory prompts, music, and sensory cues—to preserve capabilities and comfort. Eve is skilled at identifying behavioral triggers and adjusting stimuli to prevent escalation, while keeping families informed through compassionate, clear updates. She supports activities of daily living with patience and pacing, emphasizing reassurance and validation. Her long experience has shaped a person‑centered approach that honors identity, history, and emotional safety throughout disease progression.",
+      "profileId": "caregiver-005",
+      "location": "Miami, FL",
+      "experience": "15 years",
+      "specialties": [
+        "Dementia Care",
+        "Alzheimer's Care"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        }
+      ],
+      "certifications": [
+        "CPR Certified",
+        "Alzheimer's Care Certification"
+      ],
+      "availability": "Full-time",
+      "expertise": [
+        "Memory Care",
+        "Behavioral Support",
+        "Daily Living Assistance"
+      ],
+      "keySkills": [
+        "Compassion",
+        "Patience",
+        "Consistency"
+      ],
+      "reviews": [],
+      "averageRating": 0.6
+    },
+    {
+      "id": 6,
+      "age": 23,
+      "imgSrc": "images/profile-image-7.jpg",
+      "name": "Charlie Wilson",
+      "imgAlt": "Profile picture of Charlie Wilson",
+      "bio": "Charlie provides mobility and chronic condition support with a steady, adaptive style. He emphasizes safe transfer techniques, fall risk minimization, and progressive encouragement to maintain functional strength. Working closely with clients managing long‑term conditions, he helps organize medication reminders, energy‑conserving task sequencing, and gentle range‑of‑motion routines. Charlie’s background includes assisting veterans and clients with fluctuating stamina, tailoring daily pacing while tracking subtle changes in comfort or independence. Families appreciate his structured updates, respectful communication, and commitment to maintaining both autonomy and safety.",
+      "profileId": "caregiver-006",
+      "location": "Seattle, WA",
+      "experience": "10 years",
+      "specialties": [
+        "Veteran Care",
+        "Elderly Support"
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "speaking": "Fluent",
+          "reading": "Fluent"
+        }
+      ],
+      "certifications": [
+        "CPR Certified",
+        "First Aid Certified"
+      ],
+      "availability": "Flexible, including weekends",
+      "expertise": [
+        "Mobility Assistance",
+        "Chronic Illness Support"
+      ],
+      "keySkills": [
+        "Discipline",
+        "Empathy",
+        "Adaptability"
+      ],
+      "reviews": [],
+      "averageRating": 2.9
+    }
+  ],
+  "caregiverMessageThreads": [
+    {
+      "threadId": "thread-001",
+      "caregiverId": 1,
+      "caregiverName": "Jane Doe",
+      "profileId": "caregiver-001",
+      "lastUpdated": "2025-09-28T10:15:00Z",
+      "unreadCount": 1,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-28T09:40:00Z",
+          "text": "Hi Mary,\nI hope you’re doing well. I’m looking for someone caring and dependable to help look after my mum, and your name came highly recommended.\nShe’s pretty independent, but she’d really benefit from a bit of help around the house, some company, and a friendly face she can count on. From what I’ve heard, you’d be a great match.\nIf you’re interested, maybe we could have a quick chat so I can tell you more about her and find out a bit about your availability.\nThanks so much,\nSebasitan",
+          "status": "read"
+        },
+        {
+          "id": "msg-2",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-28T09:55:00Z",
+          "text": "Hi Sebastian,\nThank you for reaching out. I’d be glad to talk more about caring for your mum and to see how I could help. From what you’ve described, it sounds like I could be a good fit.\nIf you’d like, we could arrange a time to chat so you can tell me more about her daily routine, what kind of support she needs, and your expectations. I can also share my experience and availability.\nLooking forward to hearing from you,\nMary",
+          "status": "read"
+        },
+        {
+          "id": "msg-3",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-28T10:15:00Z",
+          "text": "Hi Mary,\nThanks so much for getting in touch. I’d be happy to talk more about your mum and the kind of support she might need. From what you’ve said, it sounds like I could be a good match, and I’d love to learn more about her and her routine.\nLet me know a time that works for you to chat, and I can also tell you a bit about my background and availability.\nBest wishes,\nMary",
+          "status": "unread"
+        }
+      ]
+    },
+    {
+      "threadId": "thread-002",
+      "caregiverId": 2,
+      "caregiverName": "John Smith",
+      "profileId": "caregiver-002",
+      "lastUpdated": "2025-09-26T14:22:10Z",
+      "unreadCount": 0,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-26T13:58:00Z",
+          "text": "John, do you have availability Saturday morning?",
+          "status": "read"
+        },
+        {
+          "id": "msg-2",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-26T14:22:10Z",
+          "text": "Yes, I can do 10 AM to 1 PM.",
+          "status": "read"
+        }
+      ]
+    },
+    {
+      "threadId": "thread-003",
+      "caregiverId": 3,
+      "caregiverName": "Alice Johnson",
+      "profileId": "caregiver-003",
+      "lastUpdated": "2025-09-25T17:05:31Z",
+      "unreadCount": 0,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-25T16:40:00Z",
+          "text": "Alice, thanks for the activity suggestions.",
+          "status": "read"
+        },
+        {
+          "id": "msg-2",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-25T17:05:31Z",
+          "text": "Glad they helped—let me know if you want more ideas!",
+          "status": "read"
+        }
+      ]
+    },
+    {
+      "threadId": "thread-004",
+      "caregiverId": 4,
+      "caregiverName": "Bob Brown",
+      "profileId": "caregiver-004",
+      "lastUpdated": "2025-09-27T11:11:11Z",
+      "unreadCount": 0,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-27T11:11:11Z",
+          "text": "Therapy session notes: progress improving, next focus is balance.",
+          "status": "read"
+        }
+      ]
+    },
+    {
+      "threadId": "thread-005",
+      "caregiverId": 5,
+      "caregiverName": "Eve Davis",
+      "profileId": "caregiver-005",
+      "lastUpdated": "2025-09-28T08:06:44Z",
+      "unreadCount": 2,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-28T07:55:12Z",
+          "text": "Morning routine went smoothly today.",
+          "status": "read"
+        },
+        {
+          "id": "msg-2",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-28T08:06:44Z",
+          "text": "Great—did she eat breakfast fully?",
+          "status": "unread"
+        },
+        {
+          "id": "msg-3",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-28T08:07:03Z",
+          "text": "Also, any restlessness overnight?",
+          "status": "unread"
+        }
+      ]
+    },
+    {
+      "threadId": "thread-006",
+      "caregiverId": 6,
+      "caregiverName": "Charlie Wilson",
+      "profileId": "caregiver-006",
+      "lastUpdated": "2025-09-24T19:22:59Z",
+      "unreadCount": 0,
+      "messages": [
+        {
+          "id": "msg-1",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-09-24T18:45:10Z",
+          "text": "Can we review transfer techniques tomorrow?",
+          "status": "read"
+        },
+        {
+          "id": "msg-2",
+          "from": "caregiver",
+          "to": "carerecipient",
+          "timestamp": "2025-09-24T19:22:59Z",
+          "text": "Yes—I'll prepare a short checklist.",
+          "status": "read"
+        }
+      ]
     }
   ]
 }

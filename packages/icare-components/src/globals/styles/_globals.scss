@@ -1,7 +1,7 @@
 @use "./variables" as vars;
 @use "./mixins" as mixins;
 
-/* Global reset / base */
+/* Reset */
 *,
 *::before,
 *::after {
@@ -12,42 +12,22 @@ html {
   background-color: rgb(247, 249, 251);
 }
 
-html, body, figure, h1, h2, p {
+html,
+body,
+figure,
+h1,
+h2,
+p {
   margin: 0;
   padding: 0;
 }
 
+/* Export SCSS to CSS vars */
 :root {
   @include mixins.export-css-vars();
-  // @include mixins.flex(row, center, center);
 }
 
 body {
   font-family: var(--icare-font-family);
-  // font-size: var(--icare-font-size-md);
   line-height: var(--icare-line-height-normal);
-  margin: 0;
-}
-
-h1 {
-  font-size: var(--icare-font-size-h1);
-  font-weight: var(--icare-font-weight-bold);
-  line-height: var(--icare-line-height-tight);
-  margin: 0;
-  color: var(--icare-color-text-on-light); // Since they're on dark backgrounds
-}
-
-h2 {
-  font-size: var(--icare-font-size-h2);
-  font-weight: var(--icare-font-weight-bold);
-  line-height: var(--icare-line-height-tight);
-  color: var(--icare-color-green-secondary); // Since they're on dark backgrounds
-}
-
-p {
-  font-size: var(--icare-font-size-p);
-  font-weight: var(--icare-font-weight-regular);
-  line-height: var(--icare-line-height-normal);
-  margin: 0.5rem 0 0 0;
-  color: var(--icare-color-text-on-light); // Since they're on dark backgrounds
 }

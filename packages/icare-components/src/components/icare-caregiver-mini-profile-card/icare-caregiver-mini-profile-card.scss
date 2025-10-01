@@ -2,11 +2,28 @@
   display: block;
 }
 
+:host(:hover),
+:host(:focus-within) {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12));
+  cursor: pointer;
+}
+
+:host(:active) {
+  transform: translateY(-1px);
+}
+
 .caregiver-mini-profile-card {
-  max-width: 300px;
+  max-width: 200px;
   border-radius: 20px;
   border: 1px solid #ccc;
   overflow: hidden;
+}
+
+:host(:hover) .caregiver-mini-profile-card,
+:host(:focus-within) .caregiver-mini-profile-card {
+  border-color: var(--icare-card-accent, var(--icare-color-green-primary, #16a34a));
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
 }
 
 .caregiver-info {
