@@ -1,40 +1,41 @@
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+
 }
 
 nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-  align-items: center;
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
 /* Style slotted anchors directly */
 ::slotted([slot="nav-links"]) {
-  display: inline-block;
-  color: #fff;
-  text-decoration: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--icare-border-radius-md);
-  transition: background-color .16s ease, color .16s ease, transform .12s ease;
-  font: inherit;
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--icare-border-radius-md);
+    transition: background-color .16s ease, color .16s ease, transform .12s ease;
+    font: inherit;
 
 }
 
 ::slotted([slot="nav-links"]:hover),
 ::slotted([slot="nav-links"]:focus-visible) {
-  color: var(--icare-color-green-secondary);
-  outline: none;
-  cursor: pointer;
+    color: var(--icare-color-green-secondary);
+    outline: none;
+    cursor: pointer;
 }
 
 ::slotted([slot="nav-links"].is-active) {
-  color: var(--icare-color-green-secondary);
-  font-weight: 600;
+    color: var(--icare-color-green-secondary);
+    font-weight: 600;
 }
