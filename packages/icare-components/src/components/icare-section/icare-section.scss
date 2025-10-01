@@ -1,7 +1,8 @@
 .section {
-  padding-block: var(--icare-padding-lg, 3rem);
+    padding-block: var(--icare-padding-lg, 4rem);
 
-  ::slotted(.full-bleed) {
-    margin-inline: calc(-1 * clamp(1rem, 4vw, 2.5rem)) !important;
-  }
+
+    ::slotted(.full-bleed) {
+        margin-inline: calc(-1 * clamp(1rem, 4vw, 2.5rem)) !important;
+    }
 }

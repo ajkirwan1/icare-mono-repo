@@ -6,8 +6,8 @@ const BRAND_GREEN = "#5B7562";
 const BRAND_GREEN_DARK = "#465C4D";
 
 export default function HeroComponent({
-    title = "Who We Are",
-    lead = "We are a team focused on simplifying collaboration around complex care. By bringing essential context, updates, and action into one shared place, we help caregivers and supporters reduce friction and act sooner.",
+    title = "Icare for caregivers",
+    lead = "We are not an agency. We help families find qualified caregivers, and we help caregivers find safe, fairly paid work — offering financial savings and security, as the first of our kind on the market.Our platform includes an advanced protection system to ensure safety and trust for both sides.",
     image = heroImage
 }) {
     const heroWrap = {
@@ -34,7 +34,7 @@ export default function HeroComponent({
         position: "absolute",
         inset: 0,
         background:
-      "linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.55) 100%)"
+            "linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.35) 70%, rgba(0,0,0,0.55) 100%)"
     };
 
     const headerOverlay = {
@@ -49,7 +49,7 @@ export default function HeroComponent({
         padding: "0 2rem",
         zIndex: 20,
         background:
-      "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0) 100%)"
+            "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 90%, rgba(0,0,0,0) 100%)"
     };
 
     const brand = {
@@ -139,64 +139,57 @@ export default function HeroComponent({
     };
 
     return (
-      <section style={heroWrap} aria-label="Caregivers hero">
-        <img src={image} alt="Care coordination background" style={heroImg} />
-        <div style={heroOverlay} />
-        <header style={headerOverlay}>
-          <Link to="/" style={brand}>
-            ICare
-          </Link>
-          <nav style={nav}>
-            {[
-                { to: "/", label: "Home" },
-                { to: "/how-it-works", label: "How it Works" },
-                { to: "/who-we-are", label: "Who We Are" },
-                { to: "/privacy", label: "Privacy" },
-                { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" }
-            ].map(l => (
-              <Link
-                      key={l.to}
-                      to={l.to}
-                      style={navLink}
-                      onMouseOver={e => (e.currentTarget.style.color = "#fff")}
-                      onMouseOut={e => (e.currentTarget.style.color = navLink.color)}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </header>
-        <div style={content}>
-          <h1 style={titleStyle}>{title}</h1>
-          <p style={leadStyle}>{lead}</p>
-          <div style={ctaRow}>
-            <button
-                    style={primaryBtn}
-                    onMouseOver={e => {
-                    e.currentTarget.style.background = BRAND_GREEN;
-                    e.currentTarget.style.color = "#fff";
-                }}
-                    onMouseOut={e => {
-                    e.currentTarget.style.background = "#ffffff";
-                    e.currentTarget.style.color = BRAND_GREEN;
-                }}
-            >
-              Our Approach
-            </button>
-            <button
-                    style={secondaryBtn}
-                    onMouseOver={e =>
-                    (e.currentTarget.style.background = "rgba(255,255,255,0.25)")
-                }
-                    onMouseOut={e =>
-                    (e.currentTarget.style.background = "rgba(255,255,255,0.15)")
-                }
-            >
-              Meet the Team
-            </button>
-          </div>
-        </div>
-      </section>
+        <section style={heroWrap} aria-label="Caregivers hero">
+            <img src={image} alt="Care coordination background" style={heroImg} />
+            <div style={heroOverlay} />
+            <header style={headerOverlay}>
+                <Link to="/" style={brand}>
+                    ICare
+                </Link>
+                <nav style={nav}>
+                    {[
+                        { to: "/", label: "Home" },
+                        { to: "/how-it-works", label: "How it Works" },
+                        { to: "/who-we-are", label: "Who We Are" },
+                        { to: "/privacy", label: "Privacy" },
+                        { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
+                        { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" }
+                    ].map(l => (
+                        <Link
+                            key={l.to}
+                            to={l.to}
+                            style={navLink}
+                            onMouseOver={e => (e.currentTarget.style.color = "#fff")}
+                            onMouseOut={e => (e.currentTarget.style.color = navLink.color)}
+                        >
+                            {l.label}
+                        </Link>
+                    ))}
+                </nav>
+            </header>
+            <div style={content}>
+                <h1 style={titleStyle}>{title}</h1>
+                <p style={leadStyle}>{lead}</p>
+                <div style={ctaRow}>
+                    <button
+                        style={primaryBtn}
+                        onMouseOver={e => {
+                            e.currentTarget.style.background = BRAND_GREEN;
+                            e.currentTarget.style.color = "#fff";
+                        }}
+                        onMouseOut={e => {
+                            e.currentTarget.style.background = "#ffffff";
+                            e.currentTarget.style.color = BRAND_GREEN;
+                        }}
+                    >
+                        How it works
+                    </button>
+
+
+
+
+                </div>
+            </div>
+        </section>
     );
 }
