@@ -76,11 +76,11 @@ export default function HeroComponent({
         maxWidth: "880px",
         width: "100%",
         padding: "0 2rem",
-        textAlign: "center",
+        textAlign: "left",
         color: "#fff",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         gap: "1.4rem"
     };
 

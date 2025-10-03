@@ -1,54 +1,94 @@
 import React from "react";
 import { Link } from "react-router";
 import HeroComponent from "../components/hero/hero-component"
-import { IcarePage, IcareSection, IcareCard } from "react-library";
+import { IcareHeroNew, IcareButton, IcarePage, IcareSection, IcareCard } from "react-library";
+import iCareForCarereceiversSrc from "/images/heros/icare-for-carereceivers.jpg";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
-
+import navLinks from "../components/hero/nav-links";
+import styles from "./icare-for-caregivers.module.scss";
 
 
 export default function ICareForCaregivers() {
 
 
-
-
-
     return (
-        <IcarePage>
-            <HeroComponent imgSrc={heroImage} />
 
+        <div className={styles.page}>
+            <section className={styles.heroWrap} aria-label="ICare for Care Receivers hero">
+                <img
+                    src={heroImage}
+                    alt="Care coordination background"
+                    className={styles.heroImg}
+                />
+                <div className={styles.heroOverlay} />
 
-            <IcareSection>
-                <IcareCard variant="elevated">
-                    <span slot="contents">
-                        <h2 style={{ display: "flex", justifyContent: "center" }}>Where families meet caregivers.
-                            Care made personal.</h2>
-                        <div style={{ overflow: "hidden", maxWidth: "1000px", margin: "0 auto" }}>
-                            <fig style={{ width: "200px", float: "right", marginLeft: "1rem" }}>
-
-                            </fig>
-                            <p>With years of experience in healthcare, we understand the challenges faced by both caregivers and families.</p> <p>From the first step of seeking support to the daily realities of care, we know how important trust and empathy are.<p>At ICare, we believe everyone deserves dignity, and every family deserves peace of mind.</p> Whether you need in-home care, companionship, or specialized support, ICare helps you connect with trusted caregivers in your area.</p>
-                        </div>
-                    </span>
-                </IcareCard>
-                {/* <div style={sectionShell}>
-                        {featureCards.map((c, i) => (
-                            <IcareCard key={c.title + i} variant="elevated">
-                                <span slot="contents">
-                                    <fig style={{ width: "50px", display: "flex", justifyContent: "center", margin: "0 auto" }}>
-                                        <img src={c.icon} alt="Icon" style={{ width: "100%" }} />
-                                    </fig>
-                                    <h2 style={{ display: "flex", justifyContent: "center" }}>{c.title}</h2>
-                                    <p>{c.text}</p>
-                                </span>
-                            </IcareCard>
+                <header className={styles.headerOverlay}>
+                    <Link to="/" className={styles.brand}>ICare</Link>
+                    <nav className={styles.nav}>
+                        {[
+                            { to: "/", label: "Home" },
+                            { to: "/how-it-works", label: "How it Works" },
+                            { to: "/who-we-are", label: "Who We Are" },
+                            { to: "/privacy", label: "Privacy" },
+                            { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
+                            { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" }
+                        ].map(l => (
+                            <Link key={l.to} to={l.to} className={styles.navLink}>
+                                {l.label}
+                            </Link>
                         ))}
-                    </div> */}
-            </IcareSection>
-            <IcareSection />
+                    </nav>
+                </header>
 
-        </IcarePage>
+                <div className={styles.content}>
+                    <h1 className={styles.title}>ICare for Caregivers</h1>
+                    <p className={styles.lead}>Find caregivers with skills that match your needs</p>
+                    <p className={styles.lead}>Manage everything in one place</p>
+                    <p className={styles.lead}>Free registration — no subscription</p>
 
+                    <div className={styles.ctaRow}>
+                        <button className={styles.primaryBtn}>More information</button>
+                    </div>
+                </div>
+            </section>
 
+            <section aria-label="Mission pillars" className={styles.sectionShell}>
+                {[
+                    {
+                        t: "FOR FAMILIES",
+                        d: "Faster answers, dependable caregivers, and smoother coordination — so families can focus on what matters most.."
+                    },
+                    {
+                        t: "PRINCIPLES",
+                        d: "Clarity, privacy-first design, and respectful collaboration guide every decision."
+                    },
+                    {
+                        t: "CRAFT",
+                        d: "We iterate with real-world feedback to make workflows lighter and more intuitive."
+                    },
+                    {
+                        t: "IMPACT",
+                        d: "Better coordination means fewer delays, less stress, and improved outcomes."
+                    }
+                ].map(p => (
+                    <div key={p.t} className={styles.infoCard}>
+                        <h3 className={styles.infoTitle}>{p.t}</h3>
+                        <p className={styles.infoP}>{p.d}</p>
+                    </div>
+                ))}
+            </section>
+
+            <footer className={styles.footer}>
+                <ul className={styles.listReset}>
+                    <li><Link to="/" className={styles.footerLink}>Home</Link></li>
+                    <li><Link to="/landing" className={styles.footerLink}>Landing</Link></li>
+                    <li><Link to="/privacy" className={styles.footerLink}>Privacy</Link></li>
+                </ul>
+                <div className={styles.copy}>
+                    © {new Date().getFullYear()} ICare. All rights reserved.
+                </div>
+            </footer>
+        </div>
 
     );
 }
