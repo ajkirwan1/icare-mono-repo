@@ -19,7 +19,6 @@ export default [
         route(":caregiverId/resume", "routes/carerecipient/resume.jsx"),
         route(":caregiverId/messages", "routes/carerecipient/messages.jsx")
       ]),
-
       ...prefix("messages", [
         index("routes/carerecipient/messages-home.jsx")
         // route("carereceiverId", "routes/carerecipient/message-caregiver.jsx")
