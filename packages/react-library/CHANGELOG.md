@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/ajkirwan1/icare-mono-repo/compare/react-library@0.1.0...react-library@0.2.0) (2025-10-04)
+
+### Features
+
+- updates ([#5](https://github.com/ajkirwan1/icare-mono-repo/issues/5)) ([21c0d01](https://github.com/ajkirwan1/icare-mono-repo/commit/21c0d01023d71d261a9bd9abaee1d8f6bc124276))
+- updates ([#7](https://github.com/ajkirwan1/icare-mono-repo/issues/7)) ([2145d2a](https://github.com/ajkirwan1/icare-mono-repo/commit/2145d2a7a49ebd6ae0459666909ba8c86326957c))
+
+### Reverts
+
+- Revert "feat: updates (#5)" (#6) ([2e9cf3a](https://github.com/ajkirwan1/icare-mono-repo/commit/2e9cf3a1c99d30193f182aa58cd33b6d5f5b0f1a)), closes [#5](https://github.com/ajkirwan1/icare-mono-repo/issues/5) [#6](https://github.com/ajkirwan1/icare-mono-repo/issues/6)
+
 # [0.1.0](https://github.com/ajkirwan1/icare-mono-repo/compare/react-library@0.0.3...react-library@0.1.0) (2025-10-01)
 
 ### Features
