@@ -6,7 +6,7 @@ export default function HalfOverlayCard({
     title = "Coordinated Care",
     text = "Keep everyone aligned with a shared, secure overview.",
     ctaLabel = "Learn More",
-    onClick = () => {}
+    onClick = () => { }
 }) {
     const wrap = {
         width: "50%",
@@ -81,27 +81,27 @@ export default function HalfOverlayCard({
     };
 
     return (
-      <div style={wrap} aria-label={title}>
-        <img src={image} alt={title} style={img} />
-        <div style={overlay} />
-        <div style={content}>
-          <h3 style={titleStyle}>{title}</h3>
-          <p style={textStyle}>{text}</p>
-          <button
-                  style={btn}
-                  onClick={onClick}
-                  onMouseOver={e => {
-                  e.currentTarget.style.background = "#5B7562";
-                  e.currentTarget.style.color = "#fff";
-              }}
-                  onMouseOut={e => {
-                  e.currentTarget.style.background = "#ffffff";
-                  e.currentTarget.style.color = "#5B7562";
-              }}
-          >
-            {ctaLabel}
-          </button>
+        <div style={wrap} aria-label={title}>
+            <img src={image} alt={title} style={img} />
+            <div style={overlay} />
+            <div style={content}>
+                <h3 style={titleStyle}>{title}</h3>
+                <p style={textStyle}>{text}</p>
+                <button
+                    style={btn}
+                    onClick={onClick}
+                    onMouseOver={e => {
+                        e.currentTarget.style.background = "#5b7574ff";
+                        e.currentTarget.style.color = "#fff";
+                    }}
+                    onMouseOut={e => {
+                        e.currentTarget.style.background = "#ffffff";
+                        e.currentTarget.style.color = "#5B7562";
+                    }}
+                >
+                    {ctaLabel}
+                </button>
+            </div>
         </div>
-      </div>
     );
 }
