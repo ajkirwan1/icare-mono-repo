@@ -44,7 +44,7 @@ export default function WhoWeAre() {
                     <p className={styles.lead}>Free registration — no subscription</p>
 
                     <div className={styles.ctaRow}>
-                        <button className={styles.primaryBtn}>More information</button>
+                        <button className={styles.primaryBtn}>MORE INFORMATION</button>
                     </div>
                 </div>
             </section>
@@ -56,7 +56,7 @@ export default function WhoWeAre() {
                 <br />
 
 
-                <p> Finding the right care shouldn’t be overwhelming.<br />
+                <p> <b>Finding the right care shouldn’t be overwhelming.</b><br />
                     When a loved one’s health begins to decline, families are often left navigating complicated choices — searching for the right caregiver, worrying about high costs, and wondering where to even start.
                     <br />
                     At the same time, caregivers deserve respect, fair pay, and the tools they need to provide safe, effective care.</p><br />
