@@ -1,5 +1,5 @@
 import { IcareSection, IcareCard } from "react-library";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMatches, useLoaderData, NavLink } from "react-router";
 import { json } from "@remix-run/node";
 import PillComponent from "../../components/pill/pill-component";
@@ -18,6 +18,7 @@ export const handle = {
 
 
 export async function loader({ params }) {
+  console.log(params, "paramssssssssssssssssssssssss");
   const id = params.caregiverId;
   if (!id) {
     throw new Response("Caregiver id missing", { status: 400 });
@@ -40,12 +41,15 @@ export async function loader({ params }) {
 
 export default function CaregiverRecipientHome() {
   const caregiver = useLoaderData();
-  console.log(caregiver);
-  const matches = useMatches();
-  console.log(matches);
 
   const [isFavourited, setIsFavourited] = useState(false);
   const toggleFavourite = () => setIsFavourited(v => !v);
+
+  useEffect(() => {
+    console.log("Component mounted");
+    return () => console.log("Component unmounted");
+  }, []);
+
 
   return (
     <>
