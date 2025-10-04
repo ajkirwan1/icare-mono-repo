@@ -32,6 +32,8 @@ export class IcareRecommendedCaregiversCard {
       })
       .then(data => {
         this.fetchResult = { status: "success", data };
+        // eslint-disable-next-line no-console
+        console.log("Fetched recommended caregivers:", data);
       }
       ).catch(error => {
         // eslint-disable-next-line no-console

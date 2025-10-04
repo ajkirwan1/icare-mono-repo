@@ -1,5 +1,5 @@
 import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
-import { useNavigate } from "react-router";
+import { useMatches, useNavigate } from "react-router";
 import { useEffect } from "react";
 import styles from "../../styles/pages/carerecipient.module.scss";
 
@@ -15,7 +15,9 @@ export const handle = {
 
 export default function CaregiverRecipientHome() {
 
+  const matches = useMatches();
   const navigate = useNavigate();
+  console.log(matches);
 
   useEffect(() => {
     const onNavigate = (e) => {

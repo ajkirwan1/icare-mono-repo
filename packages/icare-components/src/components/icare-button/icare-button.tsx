@@ -1,4 +1,4 @@
-import { Component, Prop, Host, h, Element, Event, EventEmitter } from "@stencil/core";
+import { Component, Prop, Host, h, Element } from "@stencil/core";
 
 @Component({
   tag: "icare-button",
@@ -6,64 +6,53 @@ import { Component, Prop, Host, h, Element, Event, EventEmitter } from "@stencil
   shadow: true
 })
 export class IcareButton {
-  /** Button text or fallback when no slot content is provided */
   @Prop() label = "Click";
-
-  /** Visual style */
   @Prop({ reflect: true }) variant: "primary" | "secondary" = "primary";
-
-  /** Size of the button */
   @Prop() size: "small" | "medium" | "large" = "medium";
-
-  /** Optional navigation URL */
-  @Prop() href?: string;
-
-  /** Link target (only relevant if href is provided) */
-  @Prop() target: "_self" | "_blank" = "_self";
-
-  /** Button type */
-  @Prop() type: "button" | "submit" | "reset" = "button";
-
-  /** Form association (for submit/reset outside the form) */
-  @Prop() form?: string;
+  @Prop() href: string;
+  @Prop() target?: "_self" | "_blank" = "_self";
+  @Prop() type?: "button" | "submit" | "reset" = "button";
 
   @Element() host: HTMLElement;
 
-  /** Emits whenever the button is clicked */
-  @Event() buttonClick: EventEmitter<void>;
+  @Prop() form?: string;
+  // @Prop() form?: string;
+  // @Prop() value?: string;
+
+  // @Event() buttonClick: EventEmitter<void>;
+
+
+  // private handleClick = (e: Event) => {
+  //   this.buttonClick.emit();
+  //   // let native behavior handle submit/navigation
+  // };
 
   private handleClick = (e: Event) => {
-    e.preventDefault();
-    console.log("Button clicked");
-    this.buttonClick.emit();
-
-    if (this.href) {
-      // Manual navigation instead of <a>
-      if (this.target === "_blank") {
-        window.open(this.href, "_blank");
-      } else {
-        window.location.href = this.href;
-      }
-      return;
-    }
-
     if (this.type === "submit") {
       e.preventDefault();
       const form = this.form
-        ? (document.getElementById(this.form) as HTMLFormElement | null)
+        ? document.getElementById(this.form) as HTMLFormElement
         : this.host.closest("form");
       form?.requestSubmit();
     }
   };
 
   render() {
+    const content = <slot>{this.label}</slot>;
+
+    if (this.href) {
+      // render as anchor to preserve native navigation behavior
+      return (
+        <Host>
+          <a class="button" href={this.href} target={this.target}>
+            {content}
+          </a>
+        </Host>
+      );
+    }
     return (
       <Host>
-        <button
-          type={this.type}
-          onClick={this.handleClick}
-          class={`button ${this.variant} ${this.size}`}
-        >
+        <button type={this.type} onClick={this.handleClick}>
           <slot>{this.label}</slot>
         </button>
       </Host>
