@@ -13,25 +13,36 @@ export namespace Components {
         "imgSrc": string;
     }
     interface IcareButton {
-        "form"?: string;
-        "href": string;
         /**
+          * Form association (for submit/reset outside the form)
+         */
+        "form"?: string;
+        /**
+          * Optional navigation URL
+         */
+        "href"?: string;
+        /**
+          * Button text or fallback when no slot content is provided
           * @default "Click"
          */
         "label": string;
         /**
+          * Size of the button
           * @default "medium"
          */
         "size": "small" | "medium" | "large";
         /**
+          * Link target (only relevant if href is provided)
           * @default "_self"
          */
-        "target"?: "_self" | "_blank";
+        "target": "_self" | "_blank";
         /**
+          * Button type
           * @default "button"
          */
-        "type"?: "button" | "submit" | "reset";
+        "type": "button" | "submit" | "reset";
         /**
+          * Visual style
           * @default "primary"
          */
         "variant": "primary" | "secondary";
@@ -169,6 +180,10 @@ export namespace Components {
         "middle": string;
     }
 }
+export interface IcareButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIcareButtonElement;
+}
 export interface IcareCaregiverMiniProfileCardCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIcareCaregiverMiniProfileCardElement;
@@ -198,7 +213,18 @@ declare global {
         prototype: HTMLIcareBannerElement;
         new (): HTMLIcareBannerElement;
     };
+    interface HTMLIcareButtonElementEventMap {
+        "buttonClick": void;
+    }
     interface HTMLIcareButtonElement extends Components.IcareButton, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIcareButtonElementEventMap>(type: K, listener: (this: HTMLIcareButtonElement, ev: IcareButtonCustomEvent<HTMLIcareButtonElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIcareButtonElement: {
         prototype: HTMLIcareButtonElement;
@@ -388,25 +414,40 @@ declare namespace LocalJSX {
         "imgSrc"?: string;
     }
     interface IcareButton {
+        /**
+          * Form association (for submit/reset outside the form)
+         */
         "form"?: string;
+        /**
+          * Optional navigation URL
+         */
         "href"?: string;
         /**
+          * Button text or fallback when no slot content is provided
           * @default "Click"
          */
         "label"?: string;
         /**
+          * Emits whenever the button is clicked
+         */
+        "onButtonClick"?: (event: IcareButtonCustomEvent<void>) => void;
+        /**
+          * Size of the button
           * @default "medium"
          */
         "size"?: "small" | "medium" | "large";
         /**
+          * Link target (only relevant if href is provided)
           * @default "_self"
          */
         "target"?: "_self" | "_blank";
         /**
+          * Button type
           * @default "button"
          */
         "type"?: "button" | "submit" | "reset";
         /**
+          * Visual style
           * @default "primary"
          */
         "variant"?: "primary" | "secondary";

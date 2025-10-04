@@ -23,9 +23,7 @@ export class IcareCaregiverMiniProfileCard {
 
 
   private onHostClick() {
-    console.log("Card clicked, navigating to:", this.id);
     const url = this.navigateTo;
-    console.log("Emitting navigate event with URL:", url);
     this.navigate.emit(url);
   }
 

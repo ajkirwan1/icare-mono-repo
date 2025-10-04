@@ -54,14 +54,14 @@ export const IcareBanner: StencilReactComponent<IcareBannerElement, IcareBannerE
     defineCustomElement: defineIcareBanner
 });
 
-export type IcareButtonEvents = NonNullable<unknown>;
+export type IcareButtonEvents = { onButtonClick: EventName<CustomEvent<void>> };
 
 export const IcareButton: StencilReactComponent<IcareButtonElement, IcareButtonEvents> = /*@__PURE__*/ createComponent<IcareButtonElement, IcareButtonEvents>({
     tagName: 'icare-button',
     elementClass: IcareButtonElement,
     // @ts-ignore - ignore potential React type mismatches between the Stencil Output Target and your project.
     react: React,
-    events: {} as IcareButtonEvents,
+    events: { onButtonClick: 'buttonClick' } as IcareButtonEvents,
     defineCustomElement: defineIcareButton
 });
 

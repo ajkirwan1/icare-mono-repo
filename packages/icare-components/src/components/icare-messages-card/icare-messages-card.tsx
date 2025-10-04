@@ -30,8 +30,6 @@ export class IcareMessagesCard {
       })
       .then(data => {
         this.fetchResult = { status: "success", data };
-        // eslint-disable-next-line no-console
-        console.log("Fetched messages:", data);
       }
       ).catch(error => {
         // eslint-disable-next-line no-console
