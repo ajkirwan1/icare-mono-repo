@@ -18,9 +18,20 @@ export default function HeroComponent({ imgSrc }) {
           <span>Get Started</span>
         </IcareButton>
       </li>
-      <span style={{ display: "flex", alignItems: "flex-start" }} slot="header-content">Icare</span>
-      <span tyle={{ display: "flex", alignItems: "flex-start" }} slot="subheader-content">We are not an agency.
-        ICare is the answer to the real needs of families — helping them safely connect with trusted caregivers.</span>
+      <span
+        slot="header-content"
+        style={{ display: "block", width: "100%", textAlign: "left", marginTop: "6rem" }}
+      >
+        ICare
+      </span>
+
+      <span
+        slot="subheader-content"
+        style={{ display: "block", width: "100%", textAlign: "left" }}
+      >
+        We are not an agency. ICare is the answer to the real needs of families — helping them safely connect with trusted caregivers.
+      </span>
+
     </IcareHeroNew>
   );
 }

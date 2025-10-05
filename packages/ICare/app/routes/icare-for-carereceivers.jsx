@@ -39,7 +39,7 @@ export default function ICareForCaregivers() {
                     <p className={styles.lead}>Free registration — no subscription</p>
 
                     <div className={styles.ctaRow}>
-                        <button className={styles.primaryBtn}>More information</button>
+                        <button className={styles.primaryBtn}>MORE INFORMATION</button>
                     </div>
                 </div>
             </section>

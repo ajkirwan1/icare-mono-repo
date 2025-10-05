@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
 
-const BRAND_GREEN = "#5B7562";
+const BRAND_GREEN = "#5b7573ff";
 const BRAND_GREEN_DARK = "#465C4D";
 
 export default function HeroComponent({
@@ -76,11 +76,11 @@ export default function HeroComponent({
         maxWidth: "880px",
         width: "100%",
         padding: "0 2rem",
-        textAlign: "center",
+        textAlign: "left",
         color: "#fff",
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
+        alignItems: "flex-start",
         gap: "1.4rem"
     };
 
