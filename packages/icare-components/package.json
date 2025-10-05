@@ -1,6 +1,6 @@
 {
   "name": "icare-components",
-  "version": "1.1.0-develop.10",
+  "version": "1.1.0-develop.11",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
