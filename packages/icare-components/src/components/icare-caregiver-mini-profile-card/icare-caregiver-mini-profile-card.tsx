@@ -35,6 +35,7 @@ export class IcareCaregiverMiniProfileCard {
     }
   };
 
+
   render() {
     return (
       <Host
