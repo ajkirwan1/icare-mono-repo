@@ -49,46 +49,118 @@ export default function WhoWeAre() {
                 </div>
             </section>
 
-            <section className="who-section" style={{ margin: "5rem auto", maxWidth: "1000px", padding: "3rem 3.5rem", background: "#eee", borderRadius: "2.5rem" }}>
-                <h2 style={{ color: "#33aebaff", fontSize: "2rem" }}>Our Foundation</h2>
+            <section
+                className="who-section"
+                style={{
+                    margin: "5rem 0",
+                    // wyrównanie całego boxa do prawej krawędzi (z poprzedniego kroku)
+                    marginLeft: "auto",
+                    marginRight: "clamp(24px, 4vw, 72px)",
+                    width: "calc(70vw - clamp(24px, 4vw, 72px))",
+                    boxSizing: "border-box",
+                    paddingTop: "3rem",
+                    paddingRight: "clamp(3rem, 6vw, 6rem)",
+                    paddingBottom: "3rem",
+                    paddingLeft: "clamp(3rem, 6vw, 6rem)",
+                    background: "#eee",
+                    borderRadius: "2.5rem",
+                    textAlign: "left", // <<— wymusza wyrównanie tekstu do lewej
 
-                <div style={{ width: "100%", height: "3px", background: "#33aebaff" }}></div>
-                <br />
+                }}
+            >
+                <h2 style={{ color: "#33aebaff", fontSize: "2rem", margin: 0 }}>Our Foundation</h2>
 
+                <div style={{ width: "100%", height: "3px", background: "#33aebaff", marginTop: "0.75rem" }} />
 
-                <p> <b>Finding the right care shouldn’t be overwhelming.</b><br />
-                    When a loved one’s health begins to decline, families are often left navigating complicated choices — searching for the right caregiver, worrying about high costs, and wondering where to even start.
+                <p style={{ marginTop: "1rem" }}>
+                    <span
+                        style={{
+                            display: "block",
+                            fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                            lineHeight: 1.25,
+                            fontWeight: 800,
+                            letterSpacing: "0.6px",
+                            color: "#494848ff",
+                            marginBottom: "0.5rem",
+                        }}
+                    >
+                        Finding the right care shouldn’t be overwhelming.
+                    </span>
+                    When a loved one’s health begins to decline, families are often left navigating
+                    complicated choices — searching for the right caregiver, worrying about high costs,
+                    and wondering where to even start.
                     <br />
-                    At the same time, caregivers deserve respect, fair pay, and the tools they need to provide safe, effective care.</p><br />
+                    At the same time, caregivers deserve respect, fair pay, and the tools they need to
+                    provide safe, effective care.
+                </p>
 
-                <p><b>Families naturally ask:</b><br />
-
+                <p style={{ marginTop: "1rem" }}>
+                    <span
+                        style={{
+                            display: "block",
+                            fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                            lineHeight: 1.25,
+                            fontWeight: 800,
+                            letterSpacing: "0.6px",
+                            color: "#494848ff",
+                            marginBottom: "0.5rem",
+                        }}
+                    >
+                        Families naturally ask:
+                    </span>
                     —— How do I begin?<br />
-
                     —— Does this caregiver have the right skills?<br />
-
                     —— Will they be fairly paid?<br />
-
                     —— Is my information secure?<br /><br />
-
                     At ICare, we’ve been there.<br /><br />
-                    That’s why we created a platform built on dignity, empathy, and trust — giving families peace of mind and giving caregivers the recognition they deserve.
-                </p>    </section>
+                    That’s why we created a platform built on dignity, empathy, and trust —
+                    giving families peace of mind and giving caregivers the recognition they deserve.
+                </p>
+            </section>
 
-            <section className="who-section" style={{ position: "relative", margin: "2rem auto", maxWidth: "1000px", padding: "3rem 3.5rem", background: "#e2e8f0", borderRadius: "2.5rem" }}>
-
-
-
+            <section
+                className="who-section"
+                style={{
+                    position: "relative",
+                    margin: "2rem 0",
+                    // lewy odstęp (gutter) + szerokość skorygowana o gutter,
+                    // dzięki czemu prawa krawędź nadal wypada na 70% viewportu
+                    marginLeft: "clamp(24px, 4vw, 72px)",
+                    width: "calc(60vw - clamp(24px, 4vw, 72px))",
+                    boxSizing: "border-box",
+                    paddingTop: "3rem",
+                    paddingRight: "3.5rem",
+                    paddingBottom: "3rem",
+                    paddingLeft: "clamp(1rem, 6vw, 2rem)", // min. 3rem od lewej wewnątrz boxa
+                    background: "#e2e8f0",
+                    borderRadius: "2.5rem",
+                }}
+            >
                 <h2 style={{ color: "#33aebaff", fontSize: "2rem" }}>Our mission</h2>
 
-                <div style={{ width: "100%", height: "3px", background: "#33aebaff" }}></div>
+                <div style={{ width: "100%", height: "3px", background: "#33aebaff" }} />
                 <br />
-                <b>ICare was born out of real experience.</b><br /><br />
-                Our founders bring together years of expertise in both healthcare and technology — a unique combination that allows us to understand the challenges from every angle.
-                <br /><br />
-                Some of us have worked hands - on as caregivers across Europe, providing 24 - hour live -in support for people with dementia, Parkinson’s, plegia, and many other conditions.These personal experiences showed us the gaps in traditional care systems — and inspired us to create a better, more compassionate solution.
 
-            </section >
+                <span
+                    style={{
+                        display: "block",
+                        fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                        lineHeight: 1.25,
+                        fontWeight: 800,
+                        letterSpacing: "0.6px",
+                        color: "#494848ff ",
+                        marginBottom: "0.5rem",
+                    }}
+                >
+                    ICare came out of real experience.
+                </span>
+                Our founders bring together years of expertise in both healthcare and technology —
+                a unique combination that allows us to understand the challenges from every angle.
+                <br /><br />
+                First-hand 24/7 live-in care across Europe exposed real gaps in traditional systems—and drove us to build something more compassionate.
+            </section>
+
+
 
             <footer className={styles.footer}>
                 <ul className={styles.listReset}>
