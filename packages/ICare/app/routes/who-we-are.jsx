@@ -53,30 +53,37 @@ export default function WhoWeAre() {
                 className="who-section"
                 style={{
                     margin: "5rem 0",
-                    // wyrównanie całego boxa do prawej krawędzi (z poprzedniego kroku)
-                    marginLeft: "auto",
-                    marginRight: "clamp(24px, 4vw, 72px)",
-                    width: "calc(70vw - clamp(24px, 4vw, 72px))",
+                    marginRight: "auto",            // ⬅️ wyrównanie do lewej
+                    marginLeft: "3rem",             // ⬅️ 3rem od lewej krawędzi
+                    width: "clamp(320px, 36vw, 560px)",
+                    maxWidth: "60ch",
                     boxSizing: "border-box",
-                    paddingTop: "3rem",
-                    paddingRight: "clamp(3rem, 6vw, 6rem)",
-                    paddingBottom: "3rem",
-                    paddingLeft: "clamp(3rem, 6vw, 6rem)",
+                    paddingTop: "2.5rem",
+                    paddingRight: "clamp(2rem, 5vw, 4rem)",
+                    paddingBottom: "2.5rem",
+                    paddingLeft: "clamp(2rem, 5vw, 4rem)",
                     background: "#eee",
-                    borderRadius: "2.5rem",
-                    textAlign: "left", // <<— wymusza wyrównanie tekstu do lewej
-
+                    borderRadius: "2rem",
+                    textAlign: "left",
                 }}
             >
                 <h2 style={{ color: "#33aebaff", fontSize: "2rem", margin: 0 }}>Our Foundation</h2>
 
-                <div style={{ width: "100%", height: "3px", background: "#33aebaff", marginTop: "0.75rem" }} />
+                <div
+                    style={{
+                        width: "100%",
+                        height: "3px",
+                        background: "#33aebaff",
+                        marginTop: "0.75rem",
+                        borderRadius: "999px",
+                    }}
+                />
 
-                <p style={{ marginTop: "1rem" }}>
+                <p style={{ marginTop: "1rem", lineHeight: 1.6, color: "#334155" }}>
                     <span
                         style={{
                             display: "block",
-                            fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                            fontSize: "clamp(12px, 2vw, 20px)",
                             lineHeight: 1.25,
                             fontWeight: 800,
                             letterSpacing: "0.6px",
@@ -94,11 +101,11 @@ export default function WhoWeAre() {
                     provide safe, effective care.
                 </p>
 
-                <p style={{ marginTop: "1rem" }}>
+                <p style={{ marginTop: "1rem", lineHeight: 1.6, color: "#334155" }}>
                     <span
                         style={{
                             display: "block",
-                            fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                            fontSize: "clamp(12px, 2vw, 20px)",
                             lineHeight: 1.25,
                             fontWeight: 800,
                             letterSpacing: "0.6px",
@@ -113,8 +120,7 @@ export default function WhoWeAre() {
                     —— Will they be fairly paid?<br />
                     —— Is my information secure?<br /><br />
                     At ICare, we’ve been there.<br /><br />
-                    That’s why we created a platform built on dignity, empathy, and trust —
-                    giving families peace of mind and giving caregivers the recognition they deserve.
+                    That’s why we created a platform built on dignity, empathy, and trust — giving families peace of mind and giving caregivers the recognition they deserve.
                 </p>
             </section>
 
@@ -122,34 +128,43 @@ export default function WhoWeAre() {
                 className="who-section"
                 style={{
                     position: "relative",
-                    margin: "2rem 0",
-                    // lewy odstęp (gutter) + szerokość skorygowana o gutter,
-                    // dzięki czemu prawa krawędź nadal wypada na 70% viewportu
-                    marginLeft: "clamp(24px, 4vw, 72px)",
-                    width: "calc(60vw - clamp(24px, 4vw, 72px))",
+                    margin: "2rem 0 0 0",                       // pod spodem poprzedniej sekcji
+                    // przesuń w prawo ~60% ekranu, ale nie pozwól wyjść poza krawędź
+                    marginLeft: "min(60vw, calc(50vw - 540px - 24px))",
+                    marginRight: 0,
+                    width: "clamp(320px, 36vw, 560px)",         // czytelna szerokość
+                    maxWidth: "60ch",
                     boxSizing: "border-box",
                     paddingTop: "3rem",
-                    paddingRight: "3.5rem",
+                    paddingRight: "clamp(2rem, 5vw, 3.5rem)",
                     paddingBottom: "3rem",
-                    paddingLeft: "clamp(1rem, 6vw, 2rem)", // min. 3rem od lewej wewnątrz boxa
+                    paddingLeft: "clamp(1rem, 6vw, 2rem)",
                     background: "#e2e8f0",
                     borderRadius: "2.5rem",
                 }}
             >
-                <h2 style={{ color: "#33aebaff", fontSize: "2rem" }}>Our mission</h2>
+                <h2 style={{ color: "#33aebaff", fontSize: "2rem", margin: 0 }}>Our mission</h2>
 
-                <div style={{ width: "100%", height: "3px", background: "#33aebaff" }} />
+                <div
+                    style={{
+                        width: "100%",
+                        height: "3px",
+                        background: "#33aebaff",
+                        marginTop: ".75rem",
+                        borderRadius: "999px",
+                    }}
+                />
                 <br />
 
                 <span
                     style={{
                         display: "block",
-                        fontSize: "clamp(10px, 2vw, 20px)", // większy rozmiar z responsywnością
+                        fontSize: "clamp(12px, 2vw, 20px)",
                         lineHeight: 1.25,
                         fontWeight: 800,
-                        letterSpacing: "0.6px",
-                        color: "#494848ff ",
-                        marginBottom: "0.5rem",
+                        letterSpacing: ".6px",
+                        color: "#494848ff",
+                        marginBottom: ".5rem",
                     }}
                 >
                     ICare came out of real experience.
@@ -157,9 +172,9 @@ export default function WhoWeAre() {
                 Our founders bring together years of expertise in both healthcare and technology —
                 a unique combination that allows us to understand the challenges from every angle.
                 <br /><br />
-                First-hand 24/7 live-in care across Europe exposed real gaps in traditional systems—and drove us to build something more compassionate.
+                First-hand 24/7 live-in care across Europe exposed real gaps in traditional systems — and
+                drove us to build something more compassionate.
             </section>
-
 
 
             <footer className={styles.footer}>

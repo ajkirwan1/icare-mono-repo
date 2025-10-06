@@ -24,16 +24,97 @@ export default function Home() {
             <HeroComponent imgSrc={heroImage} />
             <IcareSection>
                 <IcareCard variant="flat">
-                    <span slot="contents" style={{ display: "block", backgroundColor: "#eee", padding: "4rem", borderRadius: "3rem" }}>
-                        <h2 style={{ display: "flex", justifyContent: "center" }}>Where families meet caregivers.
-                            Care made personal.</h2>
-                        <div style={{ overflow: "hidden", maxWidth: "1000px", margin: "0 auto" }}>
-                            <fig style={{ width: "200px", float: "right", marginLeft: "1rem" }}>
+                    <span
+                        slot="contents"
+                        style={{
+                            display: "block",
+                            backgroundColor: "transparent",
 
-                            </fig>
-                            <p>With years of experience in healthcare, we understand the challenges faced by both caregivers and families.</p> <p>From the first step of seeking support to the daily realities of care, we know how important trust and empathy are.<p>At ICare, we believe everyone deserves dignity, and every family deserves peace of mind.</p> Whether you need in-home care, companionship, or specialized support, ICare helps you connect with trusted caregivers in your area.</p>
-                        </div>
+                        }}
+                    >
+                        <section
+                            aria-labelledby="icare-intro-title"
+                            style={{
+                                maxWidth: "1100px",
+                                margin: "0 auto",
+                                padding: "0 1.25rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    background: "#c8bea92b",
+                                    border: "1px solid #c8bea92b",
+                                    borderRadius: "2rem",
+                                    padding: "2.5rem",
+                                    boxShadow: "0 10px 20px rgba(15,23,42,0.06)",
+                                }}
+                            >
+                                <h2
+                                    id="icare-intro-title"
+                                    style={{
+                                        margin: 0,
+                                        fontSize: "1.85rem",
+                                        lineHeight: 1.35,
+                                        fontWeight: 800,
+                                        textAlign: "center",
+                                        color: "#464647c8",
+                                        letterSpacing: "0.2px",
+                                    }}
+                                >
+                                    Where families meet caregivers. <br /> Care made personal.
+                                </h2>
+
+                                <div
+                                    aria-hidden="true"
+                                    style={{
+                                        width: "500px",
+                                        height: "4px",
+                                        background: "#33aeba",
+                                        borderRadius: "999px",
+                                        margin: "1rem auto 1.75rem",
+                                    }}
+                                />
+
+                                {/* Kontener treści + obrazka */}
+                                <div
+                                    style={{
+                                        overflow: "hidden",
+                                        maxWidth: "1000px",
+                                        margin: "0 auto",
+                                    }}
+                                >
+
+                                    <p style={{ margin: "0 0 0.9rem 0", color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
+                                        <b>With years of experience in healthcare, we understand the realities on both sides — what families need and what
+                                            caregivers deliver every day.</b>
+                                    </p>
+
+                                    <p style={{ margin: "0 0 0.9rem 0", color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
+                                        <b>ICare connects you directly with trusted, verified caregivers in your area — with clear profiles, transparent
+                                            terms, and private, secure messaging. No agencies, no guesswork.</b>
+                                    </p>
+
+                                    <p style={{ margin: 0, color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
+                                        <b>Whether you need live-in support, hourly help, or specialized care, you set the terms and stay in control.
+                                            Dignity for the person receiving care. Peace of mind for the family.</b>
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Prosty mobile tweak (styled-jsx / Next.js) */}
+                            <style jsx>{`
+      @media (max-width: 820px) {
+        figure {
+          float: none !important;
+          width: 100% !important;
+          margin: 0 0 1rem 0 !important;
+          aspect-ratio: 16 / 9 !important;
+        }
+      }
+    `}</style>
+                        </section>
                     </span>
+
                 </IcareCard>
             </IcareSection>
             <IcareWebBlock imgSrc={cardImage}>

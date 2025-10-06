@@ -65,9 +65,9 @@ export default function ICareForCaregivers() {
                 style={{
                     position: "relative",
                     margin: "5rem 0 5rem 14rem",      // ⬅️ stały odstęp 15rem od lewej krawędzi
-                    width: "clamp(320px, 40vw, 640px)", // ~1/4–2/5 ekranu; miejsce na foto po prawej
+                    width: "clamp(280px, 30vw, 450px)", // ~1/4–2/5 ekranu; miejsce na foto po prawej
                     boxSizing: "border-box",
-                    padding: "3rem 2.5rem",
+                    padding: "3rem 2.6rem",
                     background: "#eee",
                     borderRadius: "2.5rem",
                     fontFamily:
@@ -91,7 +91,7 @@ export default function ICareForCaregivers() {
                     THE TERMS OF CARE WITH YOUR CLIENT
                 </h2>
 
-                <div style={{ width: "70%", height: "4px", background: "#33aebaff", marginTop: "0.75rem" }} />
+                <div style={{ width: "100%", height: "4px", background: "#33aebaff", marginTop: "0.75rem" }} />
                 <br />
 
                 {/* Ikona — identyczna i w tym samym miejscu */}
@@ -108,11 +108,11 @@ export default function ICareForCaregivers() {
                 />
 
                 <p style={{ margin: 0, lineHeight: 1.65, fontSize: 15.5, color: "#334155" }}>
-                    The ICare application for caregivers provides a unified platform to find your next care-giving role,
-                    and arrange and manage your contracts.
-                    <br /><br />
-                    That’s why we created a platform built on dignity, empathy, and trust — giving families peace of mind
-                    and giving caregivers the recognition they deserve.
+                    <b>The ICare application for caregivers provides a unified platform to find your next care-giving role,
+                        and arrange and manage your contracts.
+                        <br /><br />
+                        That’s why we created a platform built on dignity, empathy, and trust — giving families peace of mind
+                        and giving caregivers the recognition they deserve.</b>
                 </p>
 
 

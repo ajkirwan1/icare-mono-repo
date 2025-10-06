@@ -71,11 +71,13 @@ export default function HeroComponent({
     };
 
     const content = {
-        position: "relative",
+        position: "absolute",
+        top: "30%",                    // ← 30% from the top of the hero
+        left: "max(2rem, 6vw)",        // ← safe left margin
+        transform: "translateY(-50%)", // ← center the block on that 30% line
         zIndex: 10,
         maxWidth: "880px",
-        width: "100%",
-        padding: "0 2rem",
+        width: "min(90vw, 880px)",
         textAlign: "left",
         color: "#fff",
         display: "flex",
@@ -83,6 +85,7 @@ export default function HeroComponent({
         alignItems: "flex-start",
         gap: "1.4rem"
     };
+
 
     const titleStyle = {
         margin: 0,
