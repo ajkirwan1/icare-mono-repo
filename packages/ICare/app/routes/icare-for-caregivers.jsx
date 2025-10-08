@@ -329,111 +329,172 @@ export default function ICareForCaregivers() {
 
 
 
-            {/* === MISSION PILLARS (bez zmian) === */}
+            {/* === MISSION PILLARS (alt beige, no hover, more spacing, no vertical line) === */}
             <section
                 aria-label="Mission pillars"
                 style={{
                     position: "relative",
-                    maxWidth: 1000,
+                    maxWidth: 1100,
                     margin: "0 auto",
-                    padding: "60px 24px",
+                    padding: "88px 32px",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    background: "linear-gradient(180deg, #FAFCFD 0%, #FFFFFF 70%)",
+                    borderRadius: 20,
                 }}
             >
+                {/* miękkie poświaty (zostawiam subtelne, możesz usunąć jeśli chcesz jeszcze czyściej) */}
                 <span
                     aria-hidden="true"
                     style={{
                         position: "absolute",
-                        left: 32,
-                        top: 24,
-                        bottom: 24,
-                        width: 2,
-                        background: "#E6F3F5",
+                        left: -160,
+                        top: -120,
+                        width: 520,
+                        height: 260,
+                        borderRadius: "50%",
+                        background:
+                            "radial-gradient(closest-side, rgba(51,174,186,.12), rgba(51,174,186,0) 70%)",
+                        filter: "blur(8px)",
+                        pointerEvents: "none",
                     }}
                 />
+                <span
+                    aria-hidden="true"
+                    style={{
+                        position: "absolute",
+                        right: -200,
+                        bottom: -160,
+                        width: 560,
+                        height: 280,
+                        borderRadius: "50%",
+                        background:
+                            "radial-gradient(closest-side, rgba(17,119,128,.10), rgba(17,119,128,0) 70%)",
+                        filter: "blur(12px)",
+                        pointerEvents: "none",
+                    }}
+                />
+
                 {[
                     { t: "SIMPLE AND FREE REGISTRATION", d: "Registering an account is simple, free, and safe. You only need to provide base information to create an account." },
                     { t: "CONTACT CLIENTS DIRECTLY", d: "Contact potential clients and their families to understand care needs and family expectations before concluding a contract agreement." },
                     { t: "INCREASE YOUR EARNINGS", d: "We listen to caregivers and families to simplify every step of the process. When you connect and agree on terms directly, there’s no middleman — just fair pay for your valuable work." },
                     { t: "TAILOR YOUR PROFILE", d: "Upload your CV and resume, acquire background checks, and list your specialist skills to enhance your visibility and employability." },
                     { t: "MANAGE YOUR OWN EMPLOYMENT CONTRACTS", d: "By directly contacting and arranging employment contracts." },
-                ].map((p, idx) => (
-                    <article
-                        key={p.t}
+                ].map((p, idx) => {
+                    const isAlt = idx % 2 === 1;
+                    // delikatny beż dla co drugiej karty
+                    const beige = "rgba(246, 241, 233, 0.7)";          // #F6F1E9 z lekką przezroczystością
+                    const beigeBorder = "1px solid rgba(210, 195, 170, 0.55)"; // ciepła, subtelna ramka
+                    const whiteBorder = "1px solid #D7EEF1";
+
+                    return (
+                        <article
+                            key={p.t}
+                            role="article"
+                            aria-label={p.t}
+                            style={{
+                                position: "relative",
+                                background: isAlt ? beige : "#FFFFFF",
+                                border: isAlt ? beigeBorder : whiteBorder,
+                                borderRadius: 24,
+                                padding: "36px 28px 36px clamp(118px, 13vw, 168px)", // więcej „oddechu”
+                                boxShadow: "0 10px 26px rgba(2,8,23,0.05)",
+                                boxSizing: "border-box",
+                                margin: "34px 0", // większe odstępy między kartami
+                            }}
+                        >
+                            {/* brak pionowej listwy po lewej — usunięta */}
+                            {/* numer badge */}
+                            <span
+                                aria-hidden="true"
+                                style={{
+                                    position: "absolute",
+                                    left: 12,
+                                    top: 14,
+                                    width: 72,
+                                    height: 72,
+                                    borderRadius: "9999px",
+                                    background: "#FFFFFF",
+                                    border: "2px solid #33AEBA",
+                                    display: "grid",
+                                    placeItems: "center",
+                                    fontWeight: 800,
+                                    fontSize: 32,
+                                    color: "#0E7490",
+                                    letterSpacing: "0.4px",
+                                    boxShadow: "0 6px 16px rgba(4, 47, 46, .08)",
+                                    textShadow: "0 1px 0 rgba(255,255,255,.6)",
+                                }}
+                            >
+                                {idx + 1}
+                            </span>
+
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    color: "#0F172A",
+                                    fontWeight: 900,
+                                    letterSpacing: "0.6px",
+                                    fontSize: "clamp(19px, 2.1vw, 24px)",
+                                    lineHeight: 1.25,
+                                }}
+                            >
+                                {p.t}
+                            </h3>
+
+                            {/* akcentowa linia pod nagłówkiem (delikatna) */}
+                            <div
+                                style={{
+                                    width: "100%",
+                                    height: 2,
+                                    marginTop: 10,
+                                    marginBottom: 14,
+                                    borderRadius: 999,
+                                    background:
+                                        "linear-gradient(90deg, rgba(0,0,0,0), #33aeba 25%, #33aeba 75%, rgba(0,0,0,0))",
+                                    opacity: 0.45,
+                                }}
+                            />
+
+                            <p
+                                style={{
+                                    margin: 0,
+                                    color: "#334155",
+                                    lineHeight: 1.7,
+                                    fontSize: 16,
+                                    letterSpacing: "0.2px",
+                                }}
+                            >
+                                {p.d}
+                            </p>
+                        </article>
+                    );
+                })}
+
+                {/* CTA (bez hoverów) */}
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "2.2rem" }}>
+                    <button
+                        className={styles.primaryBtn}
                         style={{
-                            position: "relative",
-                            background: "#c8bea92b",
-                            border: "1px solid #D7EEF1",
-                            borderRadius: 25,
-                            padding: "30px 20px 30px 132px",
-                            boxShadow: "0 2px 2px rgba(0,0,0,0.04)",
-                            boxSizing: "border-box",
-                            marginBottom: 30,
-                            marginTop: 30,
-                            overflow: "visible",
+                            appearance: "none",
+                            border: "none",
+                            cursor: "pointer",
+                            padding: "1.05rem 1.35rem",
+                            fontWeight: 800,
+                            letterSpacing: ".6px",
+                            borderRadius: 999,
+                            background: "linear-gradient(90deg, #33aeba, #2ca0ab)",
+                            color: "#062026",
+                            boxShadow:
+                                "0 10px 24px rgba(51,174,186,.30), inset 0 1px 0 rgba(255,255,255,.50)",
                         }}
-                        role="article"
-                        aria-label={p.t}
                     >
-                        <span
-                            aria-hidden="true"
-                            style={{
-                                position: "absolute",
-                                left: "15px",
-                                top: 10,
-                                width: 72,
-                                height: 72,
-                                borderRadius: "9999px",
-                                background: "#FFFFFF",
-                                border: "2px solid #33AEBA",
-                                display: "grid",
-                                placeItems: "center",
-                                fontWeight: 800,
-                                fontSize: 36,
-                                color: "#0E7490",
-                                letterSpacing: "0.6px",
-                            }}
-                        >
-                            {idx + 1}
-                        </span>
-
-                        <h3
-                            style={{
-                                margin: 0,
-                                paddingBottom: 8,
-                                color: "#464647c8",
-                                fontWeight: 800,
-                                fontVariant: "small-caps",
-                                letterSpacing: "0.8px",
-                                fontSize: "clamp(18px, 2.1vw, 24px)",
-                                lineHeight: 1.25,
-                                borderBottom: "1px solid #E6F3F5",
-                            }}
-                        >
-                            {p.t}
-                        </h3>
-
-                        <p
-                            style={{
-                                margin: "12px 0 0",
-                                color: "#334155",
-                                lineHeight: 1.65,
-                                fontSize: 16,
-                                letterSpacing: "0.2px",
-                            }}
-                        >
-                            {p.d}
-                        </p>
-                    </article>
-                ))}
-                <button
-                    style={{ display: "block", margin: "2rem auto 0" }}
-                    className={styles.primaryBtn}
-                >
-                    REGISTER TODAY
-                </button>
+                        REGISTER TODAY
+                    </button>
+                </div>
             </section>
+
 
             <footer className={styles.footer}>
                 <ul className={styles.listReset}>

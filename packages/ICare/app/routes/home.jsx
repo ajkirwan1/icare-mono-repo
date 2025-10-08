@@ -35,84 +35,254 @@ export default function Home() {
                         <section
                             aria-labelledby="icare-intro-title"
                             style={{
-                                maxWidth: "1100px",
-                                margin: "0 auto",
-                                padding: "0 1.25rem",
+                                marginLeft: "calc(50% - 50vw)",
+                                marginRight: "calc(50% - 50vw)",
+                                width: "100vw",
+                                background: "linear-gradient(180deg, #F2FAFB 0%, #FFFFFF 70%)",
+                                padding: "86px 0 96px",
+                                fontFamily:
+                                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                                position: "relative",
+                                overflow: "hidden",
                             }}
                         >
+                            {/* subtelne poświaty */}
+                            <span
+                                aria-hidden="true"
+                                style={{
+                                    position: "absolute",
+                                    left: "-12%",
+                                    top: "-22%",
+                                    width: 560,
+                                    height: 280,
+                                    borderRadius: "50%",
+                                    background:
+                                        "radial-gradient(closest-side, rgba(51,174,186,.20), rgba(51,174,186,0) 70%)",
+                                    filter: "blur(12px)",
+                                    pointerEvents: "none",
+                                }}
+                            />
+                            <span
+                                aria-hidden="true"
+                                style={{
+                                    position: "absolute",
+                                    right: "-14%",
+                                    bottom: "-28%",
+                                    width: 600,
+                                    height: 300,
+                                    borderRadius: "50%",
+                                    background:
+                                        "radial-gradient(closest-side, rgba(17,119,128,.18), rgba(17,119,128,0) 70%)",
+                                    filter: "blur(12px)",
+                                    pointerEvents: "none",
+                                }}
+                            />
+
                             <div
                                 style={{
-                                    background: "#c8bea92b",
-                                    border: "1px solid #c8bea92b",
-                                    borderRadius: "2rem",
-                                    padding: "2.5rem",
-                                    boxShadow: "0 10px 20px rgba(15,23,42,0.06)",
+                                    maxWidth: 1200,
+                                    margin: "0 auto",
+                                    padding: "0 clamp(16px, 4vw, 40px)",
+                                    position: "relative",
+                                    zIndex: 1,
+                                    textAlign: "center",
                                 }}
                             >
+                                {/* nagłówek */}
                                 <h2
                                     id="icare-intro-title"
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.85rem",
-                                        lineHeight: 1.35,
-                                        fontWeight: 800,
-                                        textAlign: "center",
-                                        color: "#464647c8",
-                                        letterSpacing: "0.2px",
+                                        fontSize: "clamp(1.7rem, 2.8vw, 2.3rem)",
+                                        lineHeight: 1.25,
+                                        fontWeight: 900,
+                                        color: "#0F172A",
+                                        letterSpacing: ".2px",
                                     }}
                                 >
-                                    Where families meet caregivers. <br /> Care made personal.
+                                    Where families meet caregivers.
+                                    <br />
+                                    <span
+                                        style={{
+                                            display: "inline-block",
+                                            backgroundImage:
+                                                "linear-gradient(90deg, #2ca0ab 0%, #33aeba 45%, #7ae0ff 100%)",
+                                            WebkitBackgroundClip: "text",
+                                            backgroundClip: "text",
+                                            color: "transparent",
+                                            WebkitTextFillColor: "transparent",
+                                        }}
+                                    >
+                                        Care made personal.
+                                    </span>
                                 </h2>
 
+                                {/* akcentowa linia */}
                                 <div
                                     aria-hidden="true"
                                     style={{
-                                        width: "500px",
-                                        height: "4px",
-                                        background: "#33aeba",
-                                        borderRadius: "999px",
+                                        width: "min(72ch, 92%)",
+                                        height: 3,
+                                        background:
+                                            "linear-gradient(90deg, rgba(0,0,0,0), #33aeba 35%, #33aeba 65%, rgba(0,0,0,0))",
+                                        borderRadius: 999,
                                         margin: "1rem auto 1.75rem",
+                                        opacity: 0.65,
                                     }}
                                 />
 
-                                {/* Kontener treści + obrazka */}
+                                {/* treść intro */}
                                 <div
                                     style={{
-                                        overflow: "hidden",
-                                        maxWidth: "1000px",
+                                        maxWidth: 980,
                                         margin: "0 auto",
+                                        textAlign: "center",
                                     }}
                                 >
-
-                                    <p style={{ margin: "0 0 0.9rem 0", color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
-                                        <b>With years of experience in healthcare, we understand the realities on both sides — what families need and what
-                                            caregivers deliver every day.</b>
+                                    <p
+                                        style={{
+                                            margin: "0 0 0.9rem 0",
+                                            color: "#334155",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                                        }}
+                                    >
+                                        <b>
+                                            With years of experience in healthcare, we understand the realities on both sides —
+                                            what families need and what caregivers deliver every day.
+                                        </b>
                                     </p>
-
-                                    <p style={{ margin: "0 0 0.9rem 0", color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
-                                        <b>ICare connects you directly with trusted, verified caregivers in your area — with clear profiles, transparent
-                                            terms, and private, secure messaging. No agencies, no guesswork.</b>
+                                    <p
+                                        style={{
+                                            margin: "0 0 0.9rem 0",
+                                            color: "#334155",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                                        }}
+                                    >
+                                        <b>
+                                            ICare connects you directly with trusted, verified caregivers in your area — with clear
+                                            profiles, transparent terms, and private, secure messaging. No agencies, no guesswork.
+                                        </b>
                                     </p>
-
-                                    <p style={{ margin: 0, color: "#334155", lineHeight: 1.7, fontSize: "1rem" }}>
-                                        <b>Whether you need live-in support, hourly help, or specialized care, you set the terms and stay in control.
-                                            Dignity for the person receiving care. Peace of mind for the family.</b>
+                                    <p
+                                        style={{
+                                            margin: 0,
+                                            color: "#334155",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                                        }}
+                                    >
+                                        <b>
+                                            Whether you need live-in support, hourly help, or specialized care, you set the terms
+                                            and stay in control. Dignity for the person receiving care. Peace of mind for the family.
+                                        </b>
                                     </p>
                                 </div>
-                            </div>
 
-                            {/* Prosty mobile tweak (styled-jsx / Next.js) */}
-                            <style jsx>{`
-      @media (max-width: 820px) {
-        figure {
-          float: none !important;
-          width: 100% !important;
-          margin: 0 0 1rem 0 !important;
-          aspect-ratio: 16 / 9 !important;
-        }
-      }
-    `}</style>
+                                {/* FEATURE CHIPS — lepsze „mini pills” w siatce */}
+                                <ul
+                                    style={{
+                                        listStyle: "none",
+                                        padding: 0,
+                                        margin: "24px auto 0",
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                                        gap: "12px",
+                                        maxWidth: 1000,
+                                    }}
+                                >
+                                    {[
+                                        {
+                                            icon: (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            ),
+                                            label: "Verified caregivers",
+                                        },
+                                        {
+                                            icon: (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                                </svg>
+                                            ),
+                                            label: "Secure & private",
+                                        },
+                                        {
+                                            icon: (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                    <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
+                                                </svg>
+                                            ),
+                                            label: "Direct messaging",
+                                        },
+                                        {
+                                            icon: (
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                    <path d="M4 20h16" />
+                                                    <path d="M18 17V8a6 6 0 1 0-12 0v9" />
+                                                </svg>
+                                            ),
+                                            label: "Transparent pricing",
+                                        },
+                                    ].map((f) => (
+                                        <li
+                                            key={f.label}
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: 10,
+                                                padding: "12px 14px",
+                                                borderRadius: 999,
+                                                background: "rgba(51,174,186,.10)",
+                                                border: "1px solid rgba(3,105,118,.20)",
+                                                color: "#0F172A",
+                                                fontWeight: 700,
+                                                fontSize: 14,
+                                                letterSpacing: ".2px",
+                                                justifyContent: "center",
+                                            }}
+                                        >
+                                            <span
+                                                aria-hidden="true"
+                                                style={{
+                                                    display: "inline-grid",
+                                                    placeItems: "center",
+                                                    width: 26,
+                                                    height: 26,
+                                                    borderRadius: 999,
+                                                    background: "linear-gradient(90deg, #33aeba, #2ca0ab)",
+                                                    color: "#062026",
+                                                    boxShadow: "inset 0 1px 0 rgba(255,255,255,.65)",
+                                                    flexShrink: 0,
+                                                }}
+                                            >
+                                                {f.icon}
+                                            </span>
+                                            <span>{f.label}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                {/* cienka linia pod chipsami dla rytmu */}
+                                <div
+                                    aria-hidden="true"
+                                    style={{
+                                        width: "min(1100px, 92%)",
+                                        height: 1,
+                                        background: "linear-gradient(90deg, rgba(0,0,0,0), #E6F3F5 50%, rgba(0,0,0,0))",
+                                        margin: "22px auto 0",
+                                    }}
+                                />
+                            </div>
                         </section>
+
                     </span>
 
                 </IcareCard>

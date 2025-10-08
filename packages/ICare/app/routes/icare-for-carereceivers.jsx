@@ -240,7 +240,7 @@ export default function ICareForCaregivers() {
                                         transform: "translateY(.05rem)",
                                         fontWeight: 800,
                                         fontSize: "1.05em",
-                                        color: "#33aeba",
+                                        color: "#ffffffff",
                                         textShadow: "0 0 10px rgba(0,0,0,.45)",
                                     }}
                                 >
@@ -489,22 +489,26 @@ export default function ICareForCaregivers() {
                 </div>
             </section>
 
-            {/* === SEKCJA: For care receivers (z Twoim boxem) === */}
+            {/* === SEKCJA: For care receivers (refined) === */}
             <section
                 aria-label="For care receivers"
                 style={{
+                    marginLeft: "calc(50% - 50vw)",
+                    marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    padding: "72px 32px",
+                    background: "linear-gradient(180deg, #F2FAFB 0%, #FFFFFF 65%)",
+                    padding: "88px 32px 96px",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
                 <div
                     style={{
-                        width: "100%",
-                        maxWidth: "none",
-                        margin: "0",
+                        width: "min(1200px, 92vw)",
+                        margin: "0 auto",
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                        gap: 34,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
+                        gap: 40,
                         alignItems: "center",
                     }}
                 >
@@ -512,25 +516,25 @@ export default function ICareForCaregivers() {
                     <div
                         style={{
                             position: "relative",
-                            background: "#FFFFFF",
-                            border: "1px solid #DFE9FF",
-                            borderRadius: 20,
-                            padding: 32,
-                            boxShadow: "0 10px 30px rgba(59,130,246,0.08)",
+                            background: "rgba(103, 103, 116, 0.05)",
+                            border: "2px solid #ffffffff",
+                            borderRadius: 24,
+                            padding: 36,                    // więcej oddechu
+                            boxShadow: "0 12px 36px rgba(59,130,246,0.08)",
                         }}
                     >
                         {/* Ikona — serce */}
                         <div
                             aria-hidden="true"
                             style={{
-                                width: 90,
-                                height: 90,
+                                width: 96,
+                                height: 96,
                                 borderRadius: "50%",
                                 display: "grid",
                                 placeItems: "center",
                                 background: "#EFF6FF",
-                                border: "1px solid #dfe9ff",
-                                marginBottom: 22,
+                                border: "1px solid  #166016",
+                                marginBottom: 24,
                             }}
                         >
                             <svg
@@ -538,7 +542,7 @@ export default function ICareForCaregivers() {
                                 height="56"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                stroke="#3a7777"
+                                stroke=" #166016"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
@@ -552,15 +556,13 @@ export default function ICareForCaregivers() {
                         <h2
                             style={{
                                 margin: 0,
-                                color: "#3a7777",
-                                fontWeight: 600,
-                                fontFamily:
-                                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                                color: "rgba(103, 103, 116, 1)",
+                                fontWeight: 700,
                                 letterSpacing: "0.3px",
-                                fontSize: "clamp(28px, 2.5vw, 40px)",
-                                lineHeight: 1.7,
+                                fontSize: "clamp(25px, 2.5vw, 36px)",
+                                lineHeight: 1.25,
                                 paddingBottom: 16,
-                                borderBottom: "1px solid #DFE9FF",
+                                borderBottom: "2px solid #053b3b75",
                             }}
                         >
                             FIND TRUSTED CARE IN JUST 3 QUICK STEPS
@@ -568,15 +570,17 @@ export default function ICareForCaregivers() {
 
                         <p
                             style={{
-                                margin: "16px 0 0",
+                                margin: "18px 0 0",
                                 color: "#334155",
-                                lineHeight: 1.6,
+                                lineHeight: 1.7,
                                 fontSize: 16,
                                 maxWidth: 880,
                             }}
                         >
                             <b>
-                                Create a free account, browse verified caregivers, and agree the terms directly. There’s no subscription — only a one-time fee payable after you sign an agreement with your chosen caregiver.
+                                Create a free account, browse verified caregivers, and agree on the terms directly.
+                                There’s no subscription — only a one-time fee payable after you sign an agreement with
+                                your chosen caregiver.
                             </b>
                         </p>
 
@@ -584,9 +588,9 @@ export default function ICareForCaregivers() {
                             style={{
                                 listStyle: "none",
                                 padding: 0,
-                                margin: "20px 0 0",
+                                margin: "22px 0 0",
                                 display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
                                 gap: 14,
                                 color: "#0F172A",
                                 fontSize: 18,
@@ -605,10 +609,11 @@ export default function ICareForCaregivers() {
                                         display: "flex",
                                         alignItems: "flex-start",
                                         gap: 10,
-                                        padding: 12,
-                                        borderRadius: 15,
-                                        background: "#c8bea92b",
-                                        border: "1px solid #EEF3FF",
+                                        padding: 14,
+                                        borderRadius: 16,
+                                        background: "rgba(45, 190, 203, 0.08)",
+                                        border: "1px solid #57575780",
+                                        marginBottom: 24,
                                     }}
                                 >
                                     <svg
@@ -620,11 +625,11 @@ export default function ICareForCaregivers() {
                                         strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                        style={{ marginTop: 2 }}
+                                        style={{ marginTop: 2, flexShrink: 0 }}
                                     >
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
-                                    <span style={{ color: "#334155", lineHeight: 1.55 }}>{item}</span>
+                                    <span style={{ color: "#334155", lineHeight: 1.6 }}>{item}</span>
                                 </li>
                             ))}
                         </ul>
@@ -633,7 +638,7 @@ export default function ICareForCaregivers() {
                             style={{
                                 display: "flex",
                                 gap: 12,
-                                marginTop: 22,
+                                marginTop: 26,
                                 flexWrap: "wrap",
                             }}
                         >
@@ -642,15 +647,15 @@ export default function ICareForCaregivers() {
                                 style={{
                                     appearance: "none",
                                     border: "none",
-                                    background: "#3a7777",
-                                    color: "#FFFFFF",
-                                    padding: "14px 18px",
-                                    borderRadius: 25,
-                                    fontWeight: 600,
+                                    background: "linear-gradient(90deg, #166016, #166016)",
+                                    color: "#ffffffff",
+                                    padding: "14px 20px",
+                                    borderRadius: 28,
+                                    fontWeight: 700,
                                     fontSize: 16,
-                                    letterSpacing: "0.2px",
+                                    letterSpacing: ".4px",
                                     cursor: "pointer",
-                                    boxShadow: "0 8px 24px rgba(59,130,246,0.25)",
+                                    boxShadow: "0 10px 24px rgba(51,174,186,.28), inset 0 1px 0 rgba(255,255,255,.55)",
                                 }}
                             >
                                 Register with us
@@ -661,12 +666,12 @@ export default function ICareForCaregivers() {
                                 style={{
                                     appearance: "none",
                                     background: "#FFFFFF",
-                                    color: "#0000009e",
-                                    padding: "16px 20px",
-                                    borderRadius: 25,
-                                    fontWeight: 600,
+                                    color: "#0F172A",
+                                    padding: "16px 22px",
+                                    borderRadius: 28,
+                                    fontWeight: 700,
                                     fontSize: 16,
-                                    letterSpacing: "0.2px",
+                                    letterSpacing: ".2px",
                                     cursor: "pointer",
                                     border: "1px solid #CFE0FF",
                                 }}
@@ -677,6 +682,7 @@ export default function ICareForCaregivers() {
                     </div>
                 </div>
             </section>
+
 
             <footer className={styles.footer}>
                 <ul className={styles.listReset}>
