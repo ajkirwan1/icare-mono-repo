@@ -13,126 +13,334 @@ import styles from "./icare-for-caregivers.module.scss";
 
 
 export default function ICareForCaregivers() {
-
-
     return (
-
         <div className={styles.page}>
-            <section className={styles.heroWrap} aria-label="ICare for Care Receivers hero">
+            {/* === HERO (bez niebieskiego prostokąta / glass panelu) === */}
+            <section
+                aria-label="ICare for Caregivers hero"
+                style={{
+                    position: "relative",
+                    minHeight: "clamp(600px, 76vh, 900px)",
+                    width: "100%",
+                    overflow: "hidden",
+                    display: "grid",
+                    placeItems: "center",
+                    color: "#fff",
+                    background:
+                        "radial-gradient(80rem 40rem at 10% 10%, rgba(51,174,186,.06), transparent 60%), radial-gradient(80rem 40rem at 90% 90%, rgba(17,119,128,.06), transparent 60%), linear-gradient(160deg, #0b1220 0%, #0f172a 65%, #0b1220 100%)",
+                }}
+            >
+                {/* tło zdjęciowe */}
                 <img
                     src={heroImage}
                     alt="Care coordination background"
-                    className={styles.heroImg}
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        filter: "brightness(.7) contrast(1.06) saturate(.98)",
+                        zIndex: 0,
+                    }}
                 />
-                <div className={styles.heroOverlay} />
 
-                <header className={styles.headerOverlay}>
-                    <Link to="/" className={styles.brand}>ICare</Link>
-                    <nav className={styles.nav}>
+                {/* overlay przyciemniający (vignette dla czytelności) */}
+                <div
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                            "radial-gradient(75% 55% at 50% 45%, rgba(0,0,0,.22) 0%, rgba(0,0,0,.38) 60%, rgba(0,0,0,.52) 100%)",
+                        zIndex: 1,
+                        pointerEvents: "none",
+                    }}
+                />
+
+                {/* header (brand + nawigacja) */}
+                <header
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 3,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "1rem",
+                        padding: "1rem clamp(1rem, 4vw, 2rem)",
+                        background: "rgba(2,8,23,0.28)",
+                        backdropFilter: "saturate(1.05) blur(4px)",
+                        borderBottom: "1px solid rgba(255,255,255,0.14)",
+                    }}
+                >
+                    <Link
+                        to="/"
+                        style={{
+                            fontFamily:
+                                "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                            fontWeight: 900,
+                            letterSpacing: "0.3px",
+                            color: "#ffffff",
+                            textDecoration: "none",
+                            fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)",
+                            textShadow: "0 1px 10px rgba(0,0,0,.4)",
+                        }}
+                    >
+                        ICare
+                    </Link>
+
+                    <nav
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "0.75rem 1.1rem",
+                            alignItems: "center",
+                        }}
+                    >
                         {[
                             { to: "/", label: "Home" },
                             { to: "/how-it-works", label: "How it Works" },
                             { to: "/who-we-are", label: "Who We Are" },
                             { to: "/privacy", label: "Privacy" },
                             { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                            { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" }
-                        ].map(l => (
-                            <Link key={l.to} to={l.to} className={styles.navLink}>
+                            { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" },
+                        ].map((l) => (
+                            <Link
+                                key={l.to}
+                                to={l.to}
+                                style={{
+                                    color: "rgba(255,255,255,.95)",
+                                    textDecoration: "none",
+                                    fontSize: "clamp(.9rem, 1.2vw, 1rem)",
+                                    padding: ".45rem .7rem",
+                                    borderRadius: "999px",
+                                    border: "1px solid rgba(255,255,255,.20)",
+                                    background: "rgba(255,255,255,.06)",
+                                    transition:
+                                        "transform .15s ease, background .15s ease, border-color .15s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = "translateY(-1px)";
+                                    e.currentTarget.style.background = "rgba(255,255,255,.12)";
+                                    e.currentTarget.style.borderColor = "rgba(255,255,255,.32)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.background = "rgba(255,255,255,.06)";
+                                    e.currentTarget.style.borderColor = "rgba(255,255,255,.20)";
+                                }}
+                            >
                                 {l.label}
                             </Link>
                         ))}
                     </nav>
                 </header>
 
-                <div className={styles.content}>
-                    <h1 className={styles.title}>ICare for Caregivers</h1>
-                    <p className={styles.lead}>Find care roles that suite your
-                        skills and experience</p>
-                    <p className={styles.lead}>Schedule and manage
-                        everything in one place</p>
-                    <p className={styles.lead}>Keep more of hard-earned income</p>
-                    <p className={styles.lead}>Free registration - no subscription</p>
+                {/* HERO content — bez tła/panelu, tylko typografia + cień */}
+                <div
+                    style={{
+                        position: "relative",
+                        zIndex: 2,
+                        width: "min(92vw, 1080px)",
+                        marginInline: "auto",
+                        textAlign: "center",
+                        padding: "clamp(2rem, 4vw, 4rem) 0",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                >
+                    <h1
+                        style={{
+                            fontWeight: 800,
+                            letterSpacing: ".2px",
+                            lineHeight: 1.05,
+                            fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                            margin: "0 0 .9rem 0",
+                            color: "#ffffff",
+                            textShadow:
+                                "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
+                        }}
+                    >
+                        ICare for <span style={{ color: "#166016" }}>Caregivers</span>
+                    </h1>
 
+                    <p
+                        style={{
+                            margin: "0 0 1.15rem 0",
+                            fontSize: "clamp(.98rem, 1.2vw, 1.15rem)",
+                            letterSpacing: ".14em",
+                            textTransform: "uppercase",
+                            color: "rgba(255,255,255,.96)",
+                            textShadow: "0 1px 10px rgba(0,0,0,.45)",
+                        }}
+                    >
 
-                    <div className={styles.ctaRow}>
-                        <button className={styles.primaryBtn}> QUICK REGISTRATION</button>
+                    </p>
+
+                    {/* lead */}
+                    <p
+                        style={{
+                            margin: "0 auto 2rem auto",
+                            fontSize: "clamp(1.2rem, 1.35vw, 1.15rem)",
+                            lineHeight: 2,
+                            color: "rgba(255,255,255,.98)",
+                            maxWidth: 500,
+                            textShadow: "0 1px 10px rgba(0,0,0,.45)",
+                        }}
+                    >
+                        <strong>
+                            PROVIDES A SIMPLE MODEL IN WHICH YOU AGREE THE TERMS OF CARE WITH YOUR CLIENT
+                        </strong>
+                    </p>
+
+                    {/* punkty */}
+                    <ul
+                        style={{
+                            listStyle: "none",
+                            padding: 0,
+                            margin: "0 auto clamp(1.6rem, 3.5vw, 2.6rem) auto",
+                            maxWidth: 820,
+                            display: "grid",
+                            gap: ".7rem",
+                            textAlign: "left",
+                            color: "rgba(255,255,255,.98)",
+                        }}
+                    >
+                        {[
+                            "Find care roles that suit your skills and experience",
+                            "Schedule and manage everything in one place",
+                            "Keep more of your hard-earned income",
+                            "Free registration — no subscription",
+                        ].map((text, i) => (
+                            <li
+                                key={i}
+                                style={{
+                                    position: "relative",
+                                    paddingLeft: "2rem",
+                                    fontSize: "clamp(1rem, 1.3vw, 1.15rem)",
+                                    lineHeight: 1.6,
+                                    textShadow: "0 1px 8px rgba(0,0,0,.5)",
+                                }}
+                            >
+                                <span
+                                    aria-hidden="true"
+                                    style={{
+                                        position: "absolute",
+                                        left: 0,
+                                        top: 0,
+                                        transform: "translateY(.05rem)",
+                                        fontWeight: 800,
+                                        fontSize: "1.05em",
+                                        color: "#33aeba",
+                                        textShadow: "0 0 10px rgba(0,0,0,.45)",
+                                    }}
+                                >
+                                    ✓
+                                </span>
+                                {i < 3 ? (
+                                    <>
+                                        {text.split(" ").slice(0, 4).join(" ")}{" "}
+                                        <strong>{text.split(" ").slice(4).join(" ")}</strong>
+                                    </>
+                                ) : (
+                                    <strong>{text}</strong>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* CTA */}
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: ".9rem",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <button
+                            style={{
+                                appearance: "none",
+                                border: "none",
+                                cursor: "pointer",
+                                padding: ".95rem 1.25rem",
+                                fontWeight: 600,
+                                letterSpacing: ".6px",
+                                borderRadius: 999,
+                                background: "linear-gradient(90deg, #166016, rgba(0, 79, 21, 1))",
+                                color: "#ffffffff",
+                                boxShadow:
+                                    "0 2px 2px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)",
+                                transition:
+                                    "transform .18s ease, box-shadow .18s ease, filter .18s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-1px)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 5px 5px rgba(51,174,186,.52), inset 0 1px 0 rgba(255,255,255,.65)";
+                                e.currentTarget.style.filter = "saturate(1.06)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 5px 5px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)";
+                                e.currentTarget.style.filter = "saturate(1)";
+                            }}
+                        >
+                            QUICK REGISTRATION
+                        </button>
+
+                        <a
+                            href="#how-it-works"
+                            style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: ".4rem",
+                                padding: ".9rem 1.1rem",
+                                borderRadius: 999,
+                                color: "#e7eaff",
+                                textDecoration: "none",
+                                border: "1px solid rgba(231,234,255,.4)",
+                                background: "rgba(99,102,241,.14)",
+                                transition:
+                                    "border-color .18s ease, background .18s ease, transform .18s ease",
+                                textShadow: "0 1px 8px rgba(0,0,0,.45)",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-1px)";
+                                e.currentTarget.style.borderColor = "rgba(231,234,255,.65)";
+                                e.currentTarget.style.background = "rgba(99,102,241,.2)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.borderColor = "rgba(231,234,255,.4)";
+                                e.currentTarget.style.background = "rgba(99,102,241,.14)";
+                            }}
+                        >
+                            See how it works
+                        </a>
                     </div>
                 </div>
             </section>
 
-            <section
-                className="who-section"
-                style={{
-                    position: "relative",
-                    margin: "5rem 0 5rem 14rem",      // ⬅️ stały odstęp 15rem od lewej krawędzi
-                    width: "clamp(280px, 30vw, 450px)", // ~1/4–2/5 ekranu; miejsce na foto po prawej
-                    boxSizing: "border-box",
-                    padding: "3rem 2.6rem",
-                    background: "#eee",
-                    borderRadius: "2.5rem",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    color: "#0F172A",
-                    letterSpacing: "0.2px",
-                }}
-            >
-                <h2
-                    style={{
-                        color: "#33aebaff",
-                        fontSize: "1.4rem",
-                        margin: 0,
-                        lineHeight: 1.5,
-                        letterSpacing: "0.6px",
-                        fontWeight: 800,
-                        textRendering: "optimizeLegibility",
-                    }}
-                >
-                    WE PROVIDE A SIMPLE MODEL IN WHICH YOU AGREE
-                    THE TERMS OF CARE WITH YOUR CLIENT
-                </h2>
-
-                <div style={{ width: "100%", height: "4px", background: "#33aebaff", marginTop: "0.75rem" }} />
-                <br />
-
-                {/* Ikona — identyczna i w tym samym miejscu */}
-                <img
-                    src={userIcon}
-                    width="140"
-                    alt=""
-                    style={{
-                        transform: "translate(-150%, 0)",
-                        position: "absolute",
-                        pointerEvents: "none",
-                        userSelect: "none",
-                    }}
-                />
-
-                <p style={{ margin: 0, lineHeight: 1.65, fontSize: 15.5, color: "#334155" }}>
-                    <b>The ICare application for caregivers provides a unified platform to find your next care-giving role,
-                        and arrange and manage your contracts.
-                        <br /><br />
-                        That’s why we created a platform built on dignity, empathy, and trust — giving families peace of mind
-                        and giving caregivers the recognition they deserve.</b>
-                </p>
 
 
-            </section>
-
-
-
-
+            {/* === MISSION PILLARS (bez zmian) === */}
             <section
                 aria-label="Mission pillars"
                 style={{
                     position: "relative",
                     maxWidth: 1000,
                     margin: "0 auto",
-                    padding: "32px 24px",
+                    padding: "60px 24px",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                {/* pionowa oś */}
                 <span
                     aria-hidden="true"
                     style={{
@@ -144,7 +352,6 @@ export default function ICareForCaregivers() {
                         background: "#E6F3F5",
                     }}
                 />
-
                 {[
                     { t: "SIMPLE AND FREE REGISTRATION", d: "Registering an account is simple, free, and safe. You only need to provide base information to create an account." },
                     { t: "CONTACT CLIENTS DIRECTLY", d: "Contact potential clients and their families to understand care needs and family expectations before concluding a contract agreement." },
@@ -159,31 +366,31 @@ export default function ICareForCaregivers() {
                             background: "#c8bea92b",
                             border: "1px solid #D7EEF1",
                             borderRadius: 25,
-                            padding: "20px 20px 20px 132px", // było 72px → 132px, miejsce na większy badge
+                            padding: "30px 20px 30px 132px",
                             boxShadow: "0 2px 2px rgba(0,0,0,0.04)",
                             boxSizing: "border-box",
-                            marginBottom: 16,
+                            marginBottom: 30,
+                            marginTop: 30,
                             overflow: "visible",
                         }}
                         role="article"
                         aria-label={p.t}
                     >
-                        {/* NUMER BADGE x2 */}
                         <span
                             aria-hidden="true"
                             style={{
                                 position: "absolute",
-                                left: "15px",       // żeby środek badge nadal był na osi 32px
+                                left: "15px",
                                 top: 10,
-                                width: 72,          // było 36
-                                height: 72,         // było 36
+                                width: 72,
+                                height: 72,
                                 borderRadius: "9999px",
                                 background: "#FFFFFF",
                                 border: "2px solid #33AEBA",
                                 display: "grid",
                                 placeItems: "center",
                                 fontWeight: 800,
-                                fontSize: 36,       // było 16
+                                fontSize: 36,
                                 color: "#0E7490",
                                 letterSpacing: "0.6px",
                             }}
@@ -228,7 +435,6 @@ export default function ICareForCaregivers() {
                 </button>
             </section>
 
-
             <footer className={styles.footer}>
                 <ul className={styles.listReset}>
                     <li><Link to="/" className={styles.footerLink}>Home</Link></li>
@@ -240,6 +446,5 @@ export default function ICareForCaregivers() {
                 </div>
             </footer>
         </div>
-
     );
 }
