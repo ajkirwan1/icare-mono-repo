@@ -338,7 +338,7 @@ export default function ICareForCaregivers() {
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "#c8bea92b",
+                    background: "#c8bea90e",
                     borderTop: "1px solid #ffffff",
                     borderBottom: "1px solid #fcfcfc",
                     borderRadius: "25px",
@@ -408,7 +408,7 @@ export default function ICareForCaregivers() {
                                     style={{
                                         display: "inline-block",
                                         backgroundImage:
-                                            "linear-gradient(90deg, #2ca0ab 0%, #33aeba 45%, #7ae0ff 100%)",
+                                            "linear-gradient(90deg, #166016 0%, #166016 45%, #166016 100%)",
                                         WebkitBackgroundClip: "text",
                                         backgroundClip: "text",
                                         color: "transparent",
@@ -465,7 +465,7 @@ export default function ICareForCaregivers() {
                                     margin: "18px auto 0",
                                     borderRadius: 999,
                                     background:
-                                        "linear-gradient(90deg, rgba(0,0,0,0), #33aeba 35%, #33aeba 65%, rgba(0,0,0,0))",
+                                        "linear-gradient(90deg, rgba(0,0,0,0), #166016 35%, #166016 65%, rgba(0,0,0,0))",
                                     opacity: 0.55,
                                 }}
                             />

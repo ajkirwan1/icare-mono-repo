@@ -96,7 +96,7 @@ export default function Home() {
                                         fontSize: "clamp(1.7rem, 2.8vw, 2.3rem)",
                                         lineHeight: 1.25,
                                         fontWeight: 900,
-                                        color: "#0F172A",
+                                        color: "#444444",
                                         letterSpacing: ".2px",
                                     }}
                                 >
@@ -106,7 +106,7 @@ export default function Home() {
                                         style={{
                                             display: "inline-block",
                                             backgroundImage:
-                                                "linear-gradient(90deg, #2ca0ab 0%, #33aeba 45%, #7ae0ff 100%)",
+                                                "linear-gradient(90deg, #166016 0%, #166016 45%, #166016 100%)",
                                             WebkitBackgroundClip: "text",
                                             backgroundClip: "text",
                                             color: "transparent",
@@ -124,7 +124,7 @@ export default function Home() {
                                         width: "min(72ch, 92%)",
                                         height: 3,
                                         background:
-                                            "linear-gradient(90deg, rgba(0,0,0,0), #33aeba 35%, #33aeba 65%, rgba(0,0,0,0))",
+                                            "linear-gradient(90deg, rgba(0,0,0,0), #166016 35%, #166016 65%, rgba(0,0,0,0))",
                                         borderRadius: 999,
                                         margin: "1rem auto 1.75rem",
                                         opacity: 0.65,
@@ -240,7 +240,7 @@ export default function Home() {
                                                 gap: 10,
                                                 padding: "12px 14px",
                                                 borderRadius: 999,
-                                                background: "rgba(51,174,186,.10)",
+                                                background: "#16601635",
                                                 border: "1px solid rgba(3,105,118,.20)",
                                                 color: "#0F172A",
                                                 fontWeight: 700,
@@ -257,7 +257,7 @@ export default function Home() {
                                                     width: 26,
                                                     height: 26,
                                                     borderRadius: 999,
-                                                    background: "linear-gradient(90deg, #33aeba, #2ca0ab)",
+                                                    background: "linear-gradient(90deg, #ffffffff)",
                                                     color: "#062026",
                                                     boxShadow: "inset 0 1px 0 rgba(255,255,255,.65)",
                                                     flexShrink: 0,

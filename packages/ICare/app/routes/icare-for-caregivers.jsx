@@ -234,7 +234,7 @@ export default function ICareForCaregivers() {
                                         transform: "translateY(.05rem)",
                                         fontWeight: 800,
                                         fontSize: "1.05em",
-                                        color: "#33aeba",
+                                        color: "#ffffffff",
                                         textShadow: "0 0 10px rgba(0,0,0,.45)",
                                     }}
                                 >
@@ -384,8 +384,8 @@ export default function ICareForCaregivers() {
                 ].map((p, idx) => {
                     const isAlt = idx % 2 === 1;
                     // delikatny beż dla co drugiej karty
-                    const beige = "rgba(246, 241, 233, 0.7)";          // #F6F1E9 z lekką przezroczystością
-                    const beigeBorder = "1px solid rgba(210, 195, 170, 0.55)"; // ciepła, subtelna ramka
+                    const beige = "rgba(246, 241, 233, 0.64)";          // #F6F1E9 z lekką przezroczystością
+                    const beigeBorder = "1px solid rgba(210, 195, 170, 0.31)"; // ciepła, subtelna ramka
                     const whiteBorder = "1px solid #D7EEF1";
 
                     return (
@@ -481,11 +481,11 @@ export default function ICareForCaregivers() {
                             border: "none",
                             cursor: "pointer",
                             padding: "1.05rem 1.35rem",
-                            fontWeight: 800,
+                            fontWeight: 600,
                             letterSpacing: ".6px",
                             borderRadius: 999,
-                            background: "linear-gradient(90deg, #33aeba, #2ca0ab)",
-                            color: "#062026",
+                            background: "linear-gradient(90deg, #166016, #166016)",
+                            color: "#ffffffff",
                             boxShadow:
                                 "0 10px 24px rgba(51,174,186,.30), inset 0 1px 0 rgba(255,255,255,.50)",
                         }}
