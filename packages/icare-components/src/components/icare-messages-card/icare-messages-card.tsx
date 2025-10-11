@@ -54,7 +54,7 @@ export class IcareMessagesCard {
           <a
             // href="/messages"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/carerecipient/messages")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">New messages</span>
             <span class="sr-only">{data.newMessages}</span>
@@ -64,7 +64,7 @@ export class IcareMessagesCard {
           <a
             // href="/api/messages/unread-count"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/carerecipient/messages")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">Unread messages</span>
             <span class="sr-only">{data.unreadMessages}</span>
@@ -74,7 +74,7 @@ export class IcareMessagesCard {
           <a
             // href="/api/messages/notifications"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/carerecipient/messages")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">New Notifications</span>
             <span class="sr-only">{data.newNotifications}</span>

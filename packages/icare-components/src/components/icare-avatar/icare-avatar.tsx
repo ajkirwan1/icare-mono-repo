@@ -1,4 +1,4 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "icare-avatar",
@@ -6,11 +6,16 @@ import { Component, Host, h } from "@stencil/core";
   shadow: true
 })
 
+
+
 export class IcareAvatar {
+
+  @Prop() imgSrc: string;
+  @Prop() imgAlt: string;
   render() {
     return (
       <Host>
-        <img src="images/avatar-image.jpg" alt="iCare Avatar" class="image-wrapper" />
+        <img src={this.imgSrc} alt={this.imgAlt} class="image-wrapper" />
       </Host>
     );
   }

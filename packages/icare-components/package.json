@@ -89,6 +89,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/react": "^6.1.19",
+    "@fullcalendar/timegrid": "^6.1.19",
     "@stencil/router": "^1.0.1"
   }
 }
