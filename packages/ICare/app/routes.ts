@@ -13,6 +13,7 @@ export default [
   ...prefix("carerecipient", [
     layout("routes/carerecipient/layout.jsx", [
       index("routes/carerecipient/carerecipient.jsx"),
+
       ...prefix("caregivers", [
         index("routes/carerecipient/caregivers.jsx"),
         route(":caregiverId", "routes/carerecipient/single-caregiver.jsx"),
@@ -20,9 +21,17 @@ export default [
         route(":caregiverId/messages", "routes/carerecipient/messages.jsx")
       ]),
 
-      ...prefix("messages", [
-        index("routes/carerecipient/messages-home.jsx")
-        // route("carereceiverId", "routes/carerecipient/message-caregiver.jsx")
+      ...prefix("contacts", [
+        layout("routes/carerecipient/contacts/contacts-layout.jsx", [
+          route("home", "routes/carerecipient/contacts/home.jsx"),
+          route("", "routes/carerecipient/_redirect-messages.jsx"), // catch base and redirect
+          route(":contactId", "routes/carerecipient/contacts/messages.jsx"),
+          route(":contactId/diary", "routes/carerecipient/contacts/diary.jsx")
+          // layout("routes/carerecipient/contact-messages-layout.jsx", [
+          //   route(":contactId", "routes/carerecipient/contacts/messages.jsx")
+          // ]
+          // )
+        ])
       ])
     ])
   ]

@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface IcareAvatar {
+        "imgAlt": string;
+        "imgSrc": string;
     }
     interface IcareBanner {
         "imgAlt": string;
@@ -408,6 +410,8 @@ declare global {
 }
 declare namespace LocalJSX {
     interface IcareAvatar {
+        "imgAlt"?: string;
+        "imgSrc"?: string;
     }
     interface IcareBanner {
         "imgAlt"?: string;

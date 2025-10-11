@@ -1,0 +1,20 @@
+.threadItem {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  // border-radius: 6px;
+  transition: background-color 150ms ease, transform 120ms ease;
+  cursor: pointer;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #f9f9f9;
+    transform: translateY(-1px);
+  }
+}
+
+/* Ensure hover also applies when the parent anchor (NavLink) is hovered */
+a:hover>.threadItem {
+  background-color: #f9f9f9;
+}

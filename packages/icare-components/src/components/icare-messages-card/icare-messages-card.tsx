@@ -40,6 +40,7 @@ export class IcareMessagesCard {
   }
 
   private handleClick(event: MouseEvent, path: string) {
+    console.log("handleClick", path);
     event.preventDefault(); // prevent default link navigation
     this.navigate.emit(path); // SPA navigation
   }
@@ -51,9 +52,9 @@ export class IcareMessagesCard {
       <ul>
         <li>
           <a
-            href="/api/messages/new"
+            // href="/messages"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/api/messages/new")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">New messages</span>
             <span class="sr-only">{data.newMessages}</span>
@@ -61,9 +62,9 @@ export class IcareMessagesCard {
         </li>
         <li>
           <a
-            href="/api/messages/unread-count"
+            // href="/api/messages/unread-count"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/api/messages/unread-count")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">Unread messages</span>
             <span class="sr-only">{data.unreadMessages}</span>
@@ -71,9 +72,9 @@ export class IcareMessagesCard {
         </li>
         <li>
           <a
-            href="/api/messages/notifications"
+            // href="/api/messages/notifications"
             class="status-item"
-            onClick={(e) => this.handleClick(e, "/api/messages/notifications")}
+            onClick={(e) => this.handleClick(e, "/carerecipient/contacts")}
           >
             <span class="label">New Notifications</span>
             <span class="sr-only">{data.newNotifications}</span>

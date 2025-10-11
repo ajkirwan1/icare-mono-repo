@@ -17,8 +17,6 @@ export default function MessageListComponent({ caregiver,
 
   const messagesToShow = sortedMessages.slice(0, visibleMessages);
 
-  console.log("Rendering MessageListComponent with messages:", messagesToShow);
-
   return (
     <>
       <ul>
