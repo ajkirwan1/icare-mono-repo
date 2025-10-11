@@ -18,10 +18,10 @@ export function meta() {
 }
 
 export default function Home() {
-
     return (
         <IcarePage>
             <HeroComponent imgSrc={heroImage} />
+
             <IcareSection>
                 <IcareCard variant="flat">
                     <span
@@ -29,7 +29,6 @@ export default function Home() {
                         style={{
                             display: "block",
                             backgroundColor: "transparent",
-
                         }}
                     >
                         <section
@@ -46,7 +45,7 @@ export default function Home() {
                                 overflow: "hidden",
                             }}
                         >
-                            {/* subtelne poświaty */}
+                            {/* glow left */}
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -62,6 +61,7 @@ export default function Home() {
                                     pointerEvents: "none",
                                 }}
                             />
+                            {/* glow right */}
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -88,7 +88,6 @@ export default function Home() {
                                     textAlign: "center",
                                 }}
                             >
-                                {/* nagłówek */}
                                 <h2
                                     id="icare-intro-title"
                                     style={{
@@ -117,7 +116,6 @@ export default function Home() {
                                     </span>
                                 </h2>
 
-                                {/* akcentowa linia */}
                                 <div
                                     aria-hidden="true"
                                     style={{
@@ -131,7 +129,6 @@ export default function Home() {
                                     }}
                                 />
 
-                                {/* treść intro */}
                                 <div
                                     style={{
                                         maxWidth: 980,
@@ -180,7 +177,6 @@ export default function Home() {
                                     </p>
                                 </div>
 
-                                {/* FEATURE CHIPS — lepsze „mini pills” w siatce */}
                                 <ul
                                     style={{
                                         listStyle: "none",
@@ -270,7 +266,6 @@ export default function Home() {
                                     ))}
                                 </ul>
 
-                                {/* cienka linia pod chipsami dla rytmu */}
                                 <div
                                     aria-hidden="true"
                                     style={{
@@ -282,43 +277,275 @@ export default function Home() {
                                 />
                             </div>
                         </section>
-
                     </span>
-
                 </IcareCard>
             </IcareSection>
+
             <IcareWebBlock imgSrc={cardImage}>
                 <span slot="header-contents">ICare.</span>
                 <span slot="body-contents">
                     Easily connect with trusted caregivers or people who need care - right from your phone or computer. Quickly find the right match based on location, needs, and qualifications. Set up and manage care agreements with simple tools for scheduling and contracts
                 </span>
             </IcareWebBlock>
+
             <IcareSection>
                 <IcareWebBlock layout='text-right' imgSrc={cardImage3}>
                     <span slot="header-contents">Safety comes first.</span>
                     <span slot="body-contents">Your information stays safe and private, thanks to strong built-in security.</span>
                 </IcareWebBlock>
             </IcareSection>
+
             <IcareSection className="full-bleed">
                 <IcareBanner className="full-bleed" imgSrc={bannerImage1} />
             </IcareSection>
+
+            {/* ===== ZOSTAJE TYLKO DRUGA SEKCJA TRUST & CARE (z ikonami) ===== */}
             <IcareSection>
-                <div style={{ display: "flex", gap: "2rem" }}>
-                    <IcareWebBlock layout='text-bottom' imgSrc={cardImage2}>
-                        <span style={{ fontSize: "1.5rem" }} slot="header-contents">TRUST</span>
-                        <span slot="body-contents">Your family’s peace of mind begins here. Transparent process, no hidden fees.
-                        </span>
-                    </IcareWebBlock>
-                    <IcareWebBlock layout='text-bottom' imgSrc={cardImage6}>
-                        <span style={{ fontSize: "1.5rem" }} slot="header-contents">SAFETY</span>
-                        <span slot="body-contents">Your data and payments are always protected.</span>
-                    </IcareWebBlock>
-                    <IcareWebBlock layout='text-bottom' imgSrc={cardImage7}>
-                        <span style={{ fontSize: "1.5rem" }} slot="header-contents">CARE</span>
-                        <span slot="body-contents">From daily support to specialized help.</span>
-                    </IcareWebBlock>
-                </div>
+                <section
+                    aria-label="Trust & Care — centered images smaller with icons"
+                    style={{
+                        marginLeft: "calc(50% - 50vw)",
+                        marginRight: "calc(50% - 50vw)",
+                        width: "100vw",
+                        background: "linear-gradient(180deg, #F7FCFD 0%, #FFFFFF 70%)",
+                        padding: "72px 0 80px",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                >
+                    <div
+                        style={{
+                            maxWidth: 1400,
+                            margin: "0 auto",
+                            padding: "0 clamp(20px, 4vw, 48px)",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(auto-fit, minmax(520px, 1fr))",
+                                gap: 28,
+                                alignItems: "stretch",
+                            }}
+                        >
+                            {[
+                                {
+                                    k: "TRUST",
+                                    img: cardImage2,
+                                    desc: " Transparent process, no hidden fees.",
+                                    icon: (
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            style={{ width: "3.35em", height: "3.35em", flexShrink: 0 }}
+                                        >
+                                            <defs>
+                                                <linearGradient id="gradTrust" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" stopColor="#0f970f" />
+                                                    <stop offset="45%" stopColor="#0f970f" />
+                                                    <stop offset="100%" stopColor="#0f970f" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path
+                                                d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"
+                                                fill="none"
+                                                stroke="url(#gradTrust)"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                            <path
+                                                d="M9 12l2.2 2.2L15 10.5"
+                                                fill="none"
+                                                stroke="url(#gradTrust)"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    ),
+                                },
+                                {
+                                    k: "CARE",
+                                    img: cardImage7,
+                                    desc: "From daily support to specialized help.",
+                                    icon: (
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            aria-hidden="true"
+                                            style={{ width: "3.35em", height: "3.35em", flexShrink: 0 }}
+                                        >
+                                            <defs>
+                                                <linearGradient id="gradCare" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                    <stop offset="0%" stopColor="#0f970f" />
+                                                    <stop offset="45%" stopColor="#0f970f" />
+                                                    <stop offset="100%" stopColor="#0f970f" />
+                                                </linearGradient>
+                                            </defs>
+                                            <path
+                                                d="M7 14c-1.5 0-3 .8-3 2.5S5.5 19 7 19h2.2c.5 0 1 .2 1.4.5l1.4 1.1"
+                                                fill="none"
+                                                stroke="url(#gradCare)"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                            <path
+                                                d="M17 14c1.5 0 3 .8 3 2.5S18.5 19 17 19h-2.2c-.5 0-1 .2-1.4.5L12 21.6"
+                                                fill="none"
+                                                stroke="url(#gradCare)"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                            <path
+                                                d="M12 6.8l-.9-.9a3 3 0 0 0-4.2 4.2L12 15l5.1-4.9a3 3 0 0 0-4.2-4.2L12 6.8z"
+                                                fill="none"
+                                                stroke="url(#gradCare)"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    ),
+                                },
+                            ].map((c) => (
+                                <article
+                                    key={c.k}
+                                    style={{
+                                        borderRadius: 28,
+                                        //padding: 2,
+                                        background: "#0f970f", // spójny teal
+                                        boxShadow: "0 14px 36px rgba(2,8,23,0.10)",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            borderRadius: 25,
+                                            background: "#fff",
+                                            overflow: "hidden",
+                                            display: "grid",
+                                            gridTemplateRows: "auto 1fr",
+                                            rowGap: 16,
+                                            padding: 24,
+                                        }}
+                                    >
+                                        <header>
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    gap: 12,
+                                                }}
+                                            >
+                                                {c.icon}
+                                                <h3
+                                                    style={{
+                                                        margin: 0,
+                                                        fontSize: "clamp(1.55rem, 3.2vw, 2.25rem)",
+                                                        lineHeight: 1.12,
+                                                        fontWeight: 800,
+                                                        letterSpacing: ".8px",
+                                                        backgroundImage:
+                                                            "linear-gradient(90deg, #0f970f 0%, #0f970f 45%, #0f970f 100%)",
+                                                        WebkitBackgroundClip: "text",
+                                                        backgroundClip: "text",
+                                                        color: "transparent",
+                                                        WebkitTextFillColor: "transparent",
+                                                    }}
+                                                >
+                                                    {c.k}
+                                                </h3>
+                                            </div>
+                                            <p
+                                                style={{
+                                                    margin: "10px 0 0 0",
+                                                    color: "#334155",
+                                                    fontSize: "clamp(1.2rem, 1.1vw, 1.1rem)",
+                                                    fontWeight: "500",
+                                                    lineHeight: 1.7,
+                                                    maxWidth: "60ch",
+                                                }}
+                                            >
+                                                {c.desc}
+                                            </p>
+                                        </header>
+
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                background: "#F8FBFD",
+                                                border: "1px solid #E6F1F5",
+                                                borderRadius: 20,
+                                                padding: 16,
+                                                minHeight: 504,
+                                                overflow: "hidden",
+                                            }}
+
+                                        >
+                                            <img
+                                                src={c.img}
+                                                alt=""
+                                                style={{
+                                                    display: "block",
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    maxWidth: "900px",
+                                                    objectFit: "cover",
+                                                    borderRadius: 14,
+                                                    transform: "scale(1)",
+                                                    transition: "transform .3s ease",
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
+                            <a
+                                href="#how-it-works"
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: 8,
+                                    textDecoration: "none",
+                                    fontWeight: 900,
+                                    letterSpacing: ".6px",
+                                    fontSize: "clamp(1rem, 1.2vw, 1.05rem)",
+                                    padding: "10px 12px",
+                                    borderRadius: 999,
+                                    color: "#0F172A",
+                                    border: "1px solid rgba(3,105,118,.22)",
+                                    background: "rgba(51,174,186,.10)",
+                                }}
+                            >
+                                How it works
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 48 48"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14" />
+                                    <path d="M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </section>
             </IcareSection>
+
             <IcareSection>
                 <div style={{ display: "flex", gap: "2rem" }}>
                     <IcareWebMinihero imgSrc={cardImage4} href="/icare-for-caregivers">

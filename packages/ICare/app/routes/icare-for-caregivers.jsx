@@ -164,7 +164,7 @@ export default function ICareForCaregivers() {
                                 "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
                         }}
                     >
-                        ICare for <span style={{ color: "#166016" }}>Caregivers</span>
+                        ICare for <span style={{ color: "#1fab1fff" }}>Caregivers</span>
                     </h1>
 
                     <p
@@ -271,23 +271,23 @@ export default function ICareForCaregivers() {
                                 fontWeight: 600,
                                 letterSpacing: ".6px",
                                 borderRadius: 999,
-                                background: "linear-gradient(90deg, #166016, rgba(0, 79, 21, 1))",
+                                background: "linear-gradient(90deg, #0f970fff, #0f970fff)",
                                 color: "#ffffffff",
                                 boxShadow:
-                                    "0 2px 2px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)",
+                                    "0 1px 1px rgba(4, 4, 4, 0.45), inset 0 1px 0 rgba(255,255,255,.55)",
                                 transition:
                                     "transform .18s ease, box-shadow .18s ease, filter .18s ease",
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = "translateY(-1px)";
                                 e.currentTarget.style.boxShadow =
-                                    "0 5px 5px rgba(51,174,186,.52), inset 0 1px 0 rgba(255,255,255,.65)";
+                                    "0 1px 1px rgba(51,174,186,.52), inset 0 1px 0 rgba(255,255,255,.65)";
                                 e.currentTarget.style.filter = "saturate(1.06)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
                                 e.currentTarget.style.boxShadow =
-                                    "0 5px 5px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)";
+                                    "0 1px 1px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)";
                                 e.currentTarget.style.filter = "saturate(1)";
                             }}
                         >
@@ -433,7 +433,7 @@ export default function ICareForCaregivers() {
                             <h3
                                 style={{
                                     margin: 0,
-                                    color: "#0F172A",
+                                    color: "#7c7c7cff",
                                     fontWeight: 900,
                                     letterSpacing: "0.6px",
                                     fontSize: "clamp(19px, 2.1vw, 24px)",

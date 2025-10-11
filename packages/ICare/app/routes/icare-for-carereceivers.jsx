@@ -161,7 +161,7 @@ export default function ICareForCaregivers() {
                             style={{
                                 display: "inline-block",
                                 backgroundImage:
-                                    "linear-gradient(90deg, #166016 0%, #166016 45%, #166016 100%)",
+                                    "linear-gradient(90deg, #1fab1fff 0%, #1fab1fff 45%, #1fab1fff 100%)",
                                 WebkitBackgroundClip: "text",
                                 backgroundClip: "text",
                                 color: "transparent",
@@ -277,7 +277,7 @@ export default function ICareForCaregivers() {
                                 fontWeight: 800,
                                 letterSpacing: ".6px",
                                 borderRadius: 999,
-                                background: "linear-gradient(90deg, #166016, rgba(0, 79, 21, 1))",
+                                background: "linear-gradient(90deg, #1fab1fff, #1fab1fff)",
                                 color: "#ffffffff",
                                 transition:
                                     "transform .18s ease, box-shadow .18s ease, filter .18s ease",
@@ -285,13 +285,13 @@ export default function ICareForCaregivers() {
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = "translateY(-1px)";
                                 e.currentTarget.style.boxShadow =
-                                    "0 1px 1px #166016, inset 0 1px 0 #166016";
+                                    "0 1px 1px #1fab1fff, inset 0 1px 0 #1fab1fff";
                                 e.currentTarget.style.filter = "saturate(1.06)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
                                 e.currentTarget.style.boxShadow =
-                                    "0 1px 1px #166016, inset 0 1px 0 #166016";
+                                    "0 1px 1px #1fab1fff, inset 0 1px 0 #1fab1fff";
                                 e.currentTarget.style.filter = "saturate(1)";
                             }}
                         >
@@ -647,7 +647,7 @@ export default function ICareForCaregivers() {
                                 style={{
                                     appearance: "none",
                                     border: "none",
-                                    background: "linear-gradient(90deg, #166016, #166016)",
+                                    background: "linear-gradient(90deg,#1fab1fff, #1fab1fff",
                                     color: "#ffffffff",
                                     padding: "14px 20px",
                                     borderRadius: 28,
