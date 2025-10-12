@@ -14,9 +14,10 @@ export class IcareHeroNew {
     render() {
         return (
             <Host>
-                <section aria-label="Caregivers hero">
+                <section aria-label="Caregivers hero" >
                     <img src={this.imageSrc} alt="Care coordination background" />
                     <div class='hero-overlay' />
+
                     <div class='icare-header' >
                         <icare-header>
                             <slot name="nav-links" slot="nav-links" />
