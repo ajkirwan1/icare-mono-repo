@@ -122,7 +122,7 @@ export default function Home() {
                                         width: "min(72ch, 92%)",
                                         height: 3,
                                         background:
-                                            "linear-gradient(90deg, rgba(0,0,0,0), #166016 35%, #166016 65%, rgba(0,0,0,0))",
+                                            "#0f970f",
                                         borderRadius: 999,
                                         margin: "1rem auto 1.75rem",
                                         opacity: 0.65,
