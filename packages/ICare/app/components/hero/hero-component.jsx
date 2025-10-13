@@ -105,67 +105,81 @@ export default function HeroComponent({ imgSrc }) {
             >
                 {/* eyebrow */}
                 <span
+                    slot="header-content"
                     style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        padding: ".56rem .8rem",
-                        borderRadius: 999,
-                        fontSize: "clamp(.84rem, 1.52vw, 1.08rem)",
-                        letterSpacing: ".16em",
-                        textTransform: "uppercase",
-                        fontWeight: 900,
-                        color: "#cffafe",
-                        border: "1px solid rgba(207,250,254,.5)",
-                        background: "rgba(15,118,110,.22)",
-                        backdropFilter: "blur(4px)",
-                        marginBottom: ".6rem",
+                        display: "block",
+                        width: "min(92vw, 1100px)",
+                        marginTop: "6rem",
+                        textAlign: "left",
+                        color: "#fff",
+                        textShadow: "0 2px 16px rgba(0,0,0,.35)",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        marginLeft: 0,
+                        transform: "translateX(-15%)",   // ← było -30%
+                        willChange: "transform",
                     }}
                 >
-                    platform for better care
+                    <span
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            padding: ".56rem .8rem",
+                            borderRadius: 999,
+                            fontSize: "clamp(.84rem, 1.52vw, 1.08rem)",
+                            letterSpacing: ".16em",
+                            textTransform: "uppercase",
+                            fontWeight: 900,
+                            color: "#cffafe",
+                            border: "1px solid rgba(207,250,254,.5)",
+                            background: "#1fab1f78",
+                            backdropFilter: "blur(4px)",
+                            marginBottom: ".6rem",
+                        }}
+                    >
+                        platform for better care
+                    </span>
+
+                    <h1
+                        style={{
+                            margin: ".35rem 0 0",
+                            fontWeight: 900,
+                            letterSpacing: ".2px",
+                            lineHeight: 1.05,
+                            fontSize: "clamp(2.4rem, 5.2vw, 4rem)",
+                            color: "#1FAB1F",
+                            textShadow: "none",
+                        }}
+                    >
+                        ICare
+                    </h1>
                 </span>
 
-                {/* H1 */}
-                <h1
+                <span
+                    slot="subheader-content"
                     style={{
-                        margin: ".35rem 0 0",
-                        fontWeight: 900,
-                        letterSpacing: ".2px",
-                        lineHeight: 1.05,
-                        fontSize: "clamp(2.4rem, 5.2vw, 4rem)",
-                        backgroundImage:
-                            "linear-gradient(90deg, #49b13eff 100%",
-                        WebkitBackgroundClip: "text",
-                        backgroundClip: "text",
-                        color: "transparent",
-                        WebkitTextFillColor: "transparent",
+                        display: "block",
+                        width: "min(92vw, 1100px)",
+                        textAlign: "left",
+                        marginTop: "1rem",
+                        color: "rgba(255,255,255,.94)",
+                        fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
+                        lineHeight: 1.6,
+                        textShadow: "0 1px 12px rgba(0,0,0,.3)",
+                        marginLeft: 0,
+                        transform: "translateX(-15%)",   // ← było -30%
+                        willChange: "transform",
                     }}
                 >
-                    ICare
-                </h1>
-            </span>
-
-            {/* SUBHEADER — ten sam lewy start, tekst łamie się do 600px */}
-            <span
-                slot="subheader-content"
-                style={{
-                    display: "block",
-                    width: "min(92vw, 1100px)", // ← TA SAMA lewa linia co H1
-                    textAlign: "left",
-                    marginTop: "1rem",
-                    color: "rgba(255,255,255,.94)",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                    lineHeight: 1.6,
-                    textShadow: "0 1px 12px rgba(0,0,0,.3)",
-                    marginLeft: 0,
-                }}
-            >
-                <span style={{ display: "block", maxWidth: 600 }}>
-                    <strong style={{ display: "block", marginBottom: ".15rem" }}>
-                        We are not an agency.
-                    </strong>
-                    ICare is the answer to the real needs of families — helping them safely connect with
-                    trusted caregivers.
+                    <span style={{ display: "block", maxWidth: 600 }}>
+                        <strong style={{ display: "block", marginBottom: ".15rem" }}>
+                            We are not an agency.
+                        </strong>
+                        ICare is the answer to the real needs of families — helping them safely connect with
+                        trusted caregivers.
+                    </span>
                 </span>
+
             </span>
         </IcareHeroNew>
 

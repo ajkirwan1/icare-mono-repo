@@ -280,9 +280,10 @@ export default function ICareForCaregivers() {
                                 cursor: "pointer",
                                 padding: ".95rem 1.25rem",
                                 fontWeight: 600,
+                                fontSize: 15,
                                 letterSpacing: ".6px",
                                 borderRadius: 999,
-                                background: "linear-gradient(90deg, #0f750fff, #0f750fff)",
+                                background: "#1FAB1F",
                                 color: "#ffffffff",
                                 transition:
                                     "transform .18s ease, box-shadow .18s ease, filter .18s ease",
@@ -311,23 +312,24 @@ export default function ICareForCaregivers() {
                                 gap: ".4rem",
                                 padding: ".9rem 1.1rem",
                                 borderRadius: 999,
-                                color: "#000000ff",
+                                color: "#ffffffff",
                                 fontWeight: 600,
+                                fontSize: 15,
                                 textDecoration: "none",
-                                border: "1px solid rgba(231,234,255,.4)",
-                                background: "rgba(255, 255, 255, 0.84)",
+                                border: "1px solid #7d7f82ff",
+                                background: "#7d7f82ff",
                                 transition:
                                     "border-color .18s ease, background .18s ease, transform .18s ease",
                                 textShadow: "0 1px 8px rgba(0,0,0,.45)",
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.borderColor = "rgba(229, 229, 235, 0.62)";
+                                e.currentTarget.style.borderColor = "#6b6c6fff";
                                 e.currentTarget.style.background = "rgba(99,102,241,.2)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.borderColor = "rgba(229, 229, 235, 0.62)";
+                                e.currentTarget.style.borderColor = "#6b6c6fff";
                                 e.currentTarget.style.background = "rgba(99,102,241,.14)";
                             }}
                         >
@@ -402,7 +404,7 @@ export default function ICareForCaregivers() {
                             <h2
                                 style={{
                                     margin: 0,
-                                    color: "#444444d5",
+                                    color: "#7d7f82ff",
                                     fontWeight: 800,
                                     fontSize: "clamp(20px, 2.2vw, 32px)",
                                     letterSpacing: ".2px",
@@ -414,7 +416,7 @@ export default function ICareForCaregivers() {
                                     style={{
                                         display: "inline-block",
                                         backgroundImage:
-                                            "linear-gradient(90deg, #1fab1fff 0%, #166016 45%, #166016 100%)",
+                                            "#1FAB1F",
                                         WebkitBackgroundClip: "text",
                                         backgroundClip: "text",
                                         color: "transparent",
@@ -451,7 +453,7 @@ export default function ICareForCaregivers() {
                                             padding: "8px 12px",
                                             borderRadius: 999,
                                             border: "1px solid rgba(3,105,118,.18)",
-                                            background: "#1fab1fdb",
+                                            background: "#1FAB1F",
                                             color: "#ffffffff",
                                             fontWeight: 600,
                                             fontSize: "14px",
@@ -471,7 +473,7 @@ export default function ICareForCaregivers() {
                                     margin: "18px auto 0",
                                     borderRadius: 999,
                                     background:
-                                        "linear-gradient(90deg, rgba(0,0,0,0), #166016 35%, #166016 65%, rgba(0,0,0,0))",
+                                        "linear-gradient(90deg, rgba(0,0,0,0),#1FAB1F 35%, #1FAB1F65%, rgba(0,0,0,0))",
                                     opacity: 0.55,
                                 }}
                             />
@@ -562,7 +564,7 @@ export default function ICareForCaregivers() {
                         <h2
                             style={{
                                 margin: 0,
-                                color: "rgba(103, 103, 116, 1)",
+                                color: "#7d7f82ff",
                                 fontWeight: 700,
                                 letterSpacing: "0.3px",
                                 fontSize: "clamp(25px, 2.5vw, 36px)",
@@ -653,7 +655,7 @@ export default function ICareForCaregivers() {
                                 style={{
                                     appearance: "none",
                                     border: "none",
-                                    background: "linear-gradient(90deg,#1fab1fff, #1fab1fff",
+                                    background: "#1FAB1F",
                                     color: "#ffffffff",
                                     padding: "14px 20px",
                                     borderRadius: 28,
@@ -671,15 +673,15 @@ export default function ICareForCaregivers() {
                                 type="button"
                                 style={{
                                     appearance: "none",
-                                    background: "#FFFFFF",
-                                    color: "#0F172A",
+                                    background: "#7d7f82ff",
+                                    color: "#ffffffff",
                                     padding: "16px 22px",
                                     borderRadius: 28,
                                     fontWeight: 600,
                                     fontSize: 14,
                                     letterSpacing: ".2px",
                                     cursor: "pointer",
-                                    border: "1px solid #000000ff",
+                                    border: "1px solid #7d7f82ff",
                                 }}
                             >
                                 EXPLORE CAREGIVERS
@@ -708,7 +710,7 @@ export default function ICareForCaregivers() {
                         color: "#1f2a37",
                     }}
                 >
-                    Why families choose{" "}
+                    Why families choose ICare
                     <span
                         style={{
                             backgroundImage:
@@ -751,7 +753,7 @@ export default function ICareForCaregivers() {
                                     placeItems: "center",
                                     background: "rgba(51,174,186,.12)",
                                     border: "1px solid rgba(51,174,186,.35)",
-                                    color: "#0f766e",
+                                    color: "#1FAB1F",
                                     fontWeight: 900,
                                 }}
                             >
@@ -766,8 +768,9 @@ export default function ICareForCaregivers() {
                                 margin: 0,
                                 padding: "0 0 0 1rem",
                                 lineHeight: 1.6,
-                                color: "#6B7280",
+                                color: "#334155",
                                 fontSize: 15,
+                                fontWeight: 500,
                             }}
                         >
                             <li>Direct agreement with caregiver</li>
@@ -815,6 +818,7 @@ export default function ICareForCaregivers() {
                                 lineHeight: 1.6,
                                 color: "#334155",
                                 fontSize: 15,
+                                fontWeight: 500,
                             }}
                         >
                             <li>Intermediary in every step</li>
@@ -993,7 +997,7 @@ export default function ICareForCaregivers() {
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     background:
-                        "#1fab1fc6",
+                        "#1fab1fc8",
                     color: "#e6edf6",
                 }}
             >

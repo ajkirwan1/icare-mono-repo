@@ -164,7 +164,7 @@ export default function ICareForCaregivers() {
                                 "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
                         }}
                     >
-                        ICare for <span style={{ color: "#1fab1fff" }}>Caregivers</span>
+                        ICare for <span style={{ color: "#1FAB1F" }}>Caregivers</span>
                     </h1>
 
                     <p
@@ -271,7 +271,7 @@ export default function ICareForCaregivers() {
                                 fontWeight: 600,
                                 letterSpacing: ".6px",
                                 borderRadius: 999,
-                                background: "linear-gradient(90deg, #0f970fff, #0f970fff)",
+                                background: "linear-gradient(90deg,#1FAB1F",
                                 color: "#ffffffff",
                                 boxShadow:
                                     "0 1px 1px rgba(4, 4, 4, 0.45), inset 0 1px 0 rgba(255,255,255,.55)",
@@ -484,7 +484,7 @@ export default function ICareForCaregivers() {
                             fontWeight: 600,
                             letterSpacing: ".6px",
                             borderRadius: 999,
-                            background: "linear-gradient(90deg, #166016, #166016)",
+                            background: "linear-gradient(90deg, #1FAB1F",
                             color: "#ffffffff",
                             boxShadow:
                                 "0 10px 24px rgba(51,174,186,.30), inset 0 1px 0 rgba(255,255,255,.50)",

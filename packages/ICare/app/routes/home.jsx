@@ -95,26 +95,18 @@ export default function Home() {
                                         fontSize: "clamp(1.7rem, 2.8vw, 2.3rem)",
                                         lineHeight: 1.25,
                                         fontWeight: 900,
-                                        color: "#444444",
+                                        color: "#7d7f82ff",
                                         letterSpacing: ".2px",
                                     }}
                                 >
-                                    Where families meet caregivers.
-                                    <br />
-                                    <span
-                                        style={{
-                                            display: "inline-block",
-                                            backgroundImage:
-                                                "linear-gradient(90deg, #166016 0%, #166016 45%, #166016 100%)",
-                                            WebkitBackgroundClip: "text",
-                                            backgroundClip: "text",
-                                            color: "transparent",
-                                            WebkitTextFillColor: "transparent",
-                                        }}
-                                    >
+                                    <span style={{ display: "block" }}>
+                                        Where families meet caregivers.
+                                    </span>
+                                    <span style={{ display: "block" }}>
                                         Care made personal.
                                     </span>
                                 </h2>
+
 
                                 <div
                                     aria-hidden="true"
@@ -122,7 +114,7 @@ export default function Home() {
                                         width: "min(72ch, 92%)",
                                         height: 3,
                                         background:
-                                            "#0f970f",
+                                            "#1FAB1F",
                                         borderRadius: 999,
                                         margin: "1rem auto 1.75rem",
                                         opacity: 0.65,
@@ -236,9 +228,9 @@ export default function Home() {
                                                 gap: 10,
                                                 padding: "12px 14px",
                                                 borderRadius: 999,
-                                                background: "#16601635",
+                                                background: "#1fab1fc8",
                                                 border: "1px solid rgba(3,105,118,.20)",
-                                                color: "#0F172A",
+                                                color: "#ffffffff",
                                                 fontWeight: 700,
                                                 fontSize: 14,
                                                 letterSpacing: ".2px",
@@ -341,9 +333,9 @@ export default function Home() {
                                         >
                                             <defs>
                                                 <linearGradient id="gradTrust" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                    <stop offset="0%" stopColor="#0f970f" />
-                                                    <stop offset="45%" stopColor="#0f970f" />
-                                                    <stop offset="100%" stopColor="#0f970f" />
+                                                    <stop offset="0%" stopColor="#1FAB1F" />
+                                                    <stop offset="45%" stopColor="#1FAB1F" />
+                                                    <stop offset="100%" stopColor="#1FAB1F" />
                                                 </linearGradient>
                                             </defs>
                                             <path
@@ -377,9 +369,9 @@ export default function Home() {
                                         >
                                             <defs>
                                                 <linearGradient id="gradCare" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                    <stop offset="0%" stopColor="#0f970f" />
-                                                    <stop offset="45%" stopColor="#0f970f" />
-                                                    <stop offset="100%" stopColor="#0f970f" />
+                                                    <stop offset="0%" stopColor="#1FAB1F" />
+                                                    <stop offset="45%" stopColor="#1FAB1F" />
+                                                    <stop offset="100%" stopColor="#1FAB1F" />
                                                 </linearGradient>
                                             </defs>
                                             <path
@@ -415,7 +407,7 @@ export default function Home() {
                                     style={{
                                         borderRadius: 28,
                                         //padding: 2,
-                                        background: "#0f970f", // spójny teal
+                                        background: "#1FAB1F", // spójny teal
                                         boxShadow: "0 14px 36px rgba(2,8,23,0.10)",
                                         overflow: "hidden",
                                     }}
@@ -448,7 +440,7 @@ export default function Home() {
                                                         fontWeight: 800,
                                                         letterSpacing: ".8px",
                                                         backgroundImage:
-                                                            "linear-gradient(90deg, #0f970f 0%, #0f970f 45%, #0f970f 100%)",
+                                                            "#1FAB1F",
                                                         WebkitBackgroundClip: "text",
                                                         backgroundClip: "text",
                                                         color: "transparent",
@@ -507,41 +499,7 @@ export default function Home() {
                             ))}
                         </div>
 
-                        <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
-                            <a
-                                href="#how-it-works"
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: 8,
-                                    textDecoration: "none",
-                                    fontWeight: 900,
-                                    letterSpacing: ".6px",
-                                    fontSize: "clamp(1rem, 1.2vw, 1.05rem)",
-                                    padding: "10px 12px",
-                                    borderRadius: 999,
-                                    color: "#0F172A",
-                                    border: "1px solid rgba(3,105,118,.22)",
-                                    background: "rgba(51,174,186,.10)",
-                                }}
-                            >
-                                How it works
-                                <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 48 48"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M5 12h14" />
-                                    <path d="M13 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
+
                     </div>
                 </section>
             </IcareSection>
