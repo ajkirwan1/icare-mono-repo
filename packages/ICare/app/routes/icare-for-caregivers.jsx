@@ -494,6 +494,260 @@ export default function ICareForCaregivers() {
                     </button>
                 </div>
             </section>
+            {/* ========= WHO CAN JOIN (requirements) ========= */}
+            <section
+                aria-label="Who can join"
+                style={{
+                    margin: "4rem auto 3.5rem",
+                    maxWidth: 1100,
+                    padding: "0 clamp(16px,4vw,32px)",
+                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
+                    Who can join ICare
+                </h2>
+                <div
+                    aria-hidden="true"
+                    style={{ width: 240, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.75rem 0" }}
+                />
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                        gap: "clamp(14px,2.2vw,20px)",
+                    }}
+                >
+                    {[
+                        { t: "Professional caregivers & nurses", d: "With verifiable experience and references." },
+                        { t: "Live-in & hourly support", d: "Flexible availability and clear hourly or daily rates." },
+                        { t: "Specialist skills", d: "Dementia, mobility support, post-surgery care, and more." },
+                        { t: "Language & driving", d: "Extra plus for multilingual caregivers and drivers." },
+                    ].map((item) => (
+                        <article
+                            key={item.t}
+                            style={{
+                                background: "#FFFFFF",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                                borderRadius: 16,
+                                padding: "18px 18px",
+                                boxShadow: "0 8px 22px rgba(2,8,23,.06)",
+                                display: "grid",
+                                gap: 8,
+                            }}
+                        >
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                <span
+                                    aria-hidden="true"
+                                    style={{
+                                        width: 40,
+                                        height: 40,
+                                        borderRadius: 10,
+                                        background: "rgba(31,171,31,.10)",
+                                        border: "1px solid rgba(31,171,31,.25)",
+                                        display: "grid",
+                                        placeItems: "center",
+                                    }}
+                                >
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1FAB1F" strokeWidth="2"
+                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                </span>
+                                <strong style={{ color: "#1f2a37", fontSize: "1.02rem", letterSpacing: ".2px" }}>{item.t}</strong>
+                            </div>
+                            <p style={{ margin: 0, color: "#334155", lineHeight: 1.6 }}>{item.d}</p>
+                        </article>
+                    ))}
+                </div>
+            </section>
+
+            {/* ========= SUCCESS STORIES ========= */}
+            <section
+                aria-label="Success stories"
+                style={{
+                    margin: "0 auto 3.75rem",
+                    maxWidth: 1100,
+                    padding: "0 clamp(16px,4vw,32px)",
+                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
+                    Success stories
+                </h2>
+                <div
+                    aria-hidden="true"
+                    style={{ width: 220, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                />
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                        gap: "clamp(16px,2.4vw,22px)",
+                    }}
+                >
+                    {[
+                        {
+                            q: "I matched in 3 days and kept a higher rate than via agency.",
+                            a: "Simple chat, clear terms, e-signed agreement — everything in one place.",
+                            n: "Anna • Live-in caregiver",
+                        },
+                        {
+                            q: "Finally, transparent profiles and contracts.",
+                            a: "Family felt safe; I felt respected. We set the schedule together.",
+                            n: "Marta • Dementia care",
+                        },
+                        {
+                            q: "No monthly fee — I only pay when I earn.",
+                            a: "That’s fair. More money stays with me.",
+                            n: "Kasia • Hourly support",
+                        },
+                    ].map((t) => (
+                        <blockquote
+                            key={t.q}
+                            style={{
+                                margin: 0,
+                                background: "#FFFFFF",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                                borderRadius: 16,
+                                padding: "18px 18px",
+                                boxShadow: "0 8px 22px rgba(2,8,23,.06)",
+                            }}
+                        >
+                            <p style={{ margin: 0, color: "#0F172A", fontWeight: 800, lineHeight: 1.45 }}>{t.q}</p>
+                            <p style={{ margin: "8px 0 0", color: "#334155", lineHeight: 1.6 }}>{t.a}</p>
+                            <footer style={{ marginTop: 10, color: "#64748B", fontWeight: 700 }}>{t.n}</footer>
+                        </blockquote>
+                    ))}
+                </div>
+            </section>
+
+            {/* ========= FAQ (details/summary) ========= */}
+            <section
+                aria-label="Caregivers FAQ"
+                style={{
+                    margin: "0 auto 3.75rem",
+                    maxWidth: 1100,
+                    padding: "0 clamp(16px,4vw,32px)",
+                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
+                    Frequently asked questions
+                </h2>
+                <div
+                    aria-hidden="true"
+                    style={{ width: 220, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                />
+                <div style={{ display: "grid", gap: 10 }}>
+                    {[
+                        {
+                            q: "Is registration really free?",
+                            a: "Yes. You only pay a flat 10% fee on the contract when you agree terms with a family.",
+                        },
+                        {
+                            q: "Can I negotiate my rate?",
+                            a: "Absolutely. You agree the hourly/daily rate directly with the family in the chat and contract.",
+                        },
+                        {
+                            q: "How do contracts and payments work?",
+                            a: "Set schedule and rate, e-sign your agreement, then manage everything in one place in ICare.",
+                        },
+                        {
+                            q: "Do I need documents?",
+                            a: "We recommend a CV/resume and any checks/certifications to increase trust and visibility.",
+                        },
+                    ].map((f) => (
+                        <details
+                            key={f.q}
+                            style={{
+                                background: "#FFFFFF",
+                                border: "1px solid rgba(15,23,42,0.10)",
+                                borderRadius: 14,
+                                padding: "12px 14px",
+                            }}
+                        >
+                            <summary
+                                style={{
+                                    listStyle: "none",
+                                    cursor: "pointer",
+                                    fontWeight: 800,
+                                    color: "#0F172A",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                    gap: 12,
+                                }}
+                                onMouseOver={(e) => (e.currentTarget.style.color = "#1FAB1F")}
+                                onMouseOut={(e) => (e.currentTarget.style.color = "#0F172A")}
+                            >
+                                {f.q}
+                                <span aria-hidden="true" style={{ color: "#1FAB1F" }}>+</span>
+                            </summary>
+                            <div style={{ marginTop: 8, color: "#334155", lineHeight: 1.65 }}>{f.a}</div>
+                        </details>
+                    ))}
+                </div>
+            </section>
+
+            {/* ========= CONTACT CTA (full-bleed green) ========= */}
+            <section
+                aria-label="Contact CTA"
+                style={{
+                    marginLeft: "calc(50% - 50vw)",
+                    marginRight: "calc(50% - 50vw)",
+                    width: "100vw",
+                    background: "#1FAB1F",
+                    color: "#FFFFFF",
+                }}
+            >
+                <div
+                    style={{
+                        maxWidth: 1200,
+                        margin: "0 auto",
+                        padding: "28px clamp(16px,4vw,32px)",
+                        display: "grid",
+                        gridTemplateColumns: "1fr auto",
+                        gap: 16,
+                        alignItems: "center",
+                    }}
+                >
+                    <div>
+                        <h3 style={{ margin: 0, fontWeight: 900, fontSize: "clamp(1.15rem,2.2vw,1.5rem)" }}>
+                            Need help setting up your profile?
+                        </h3>
+                        <p style={{ margin: "6px 0 0", color: "rgba(255,255,255,.95)" }}>
+                            We’ll guide you through matching and agreements — quick and friendly.
+                        </p>
+                    </div>
+                    <a
+                        href="/contact"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            textDecoration: "none",
+                            color: "#1FAB1F",
+                            background: "#FFFFFF",
+                            padding: ".9rem 1.2rem",
+                            borderRadius: 999,
+                            fontWeight: 900,
+                            letterSpacing: ".02em",
+                            border: "1px solid rgba(255,255,255,.6)",
+                            boxShadow: "0 10px 24px rgba(2,8,23,.10)",
+                            transition: "transform .15s ease",
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-1px)" }}
+                        onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)" }}
+                    >
+                        Contact us
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M5 12h14" /><path d="M13 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </section>
 
 
             <footer className={styles.footer}>
