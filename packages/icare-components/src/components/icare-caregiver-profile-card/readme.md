@@ -11,7 +11,7 @@
 | ------------- | ------------- | ----------- | ---------- | ----------- |
 | `cardTitle`   | `card-title`  |             | `string`   | `undefined` |
 | `description` | `description` |             | `string`   | `undefined` |
-| `features`    | `features`    |             | `string[]` | `[]`        |
+| `features`    | --            |             | `string[]` | `[]`        |
 | `imageAlt`    | `image-alt`   |             | `string`   | `undefined` |
 | `imageSrc`    | `image-src`   |             | `string`   | `undefined` |
 | `shortBio`    | `short-bio`   |             | `string`   | `undefined` |
