@@ -12,9 +12,9 @@ export function meta() {
     { name: "description", content: "ICare – Supporting better care through intuitive tools." }
   ];
 }
-export const handle = {
-  breadcrumb: "Home"
-};
+// export const handle = {
+//   breadcrumb: "Home"
+// };
 
 
 export async function loader({ params }) {

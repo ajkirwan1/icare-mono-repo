@@ -1,5 +1,10 @@
 import { Outlet, NavLink } from "react-router";
 import { IcarePage, IcareHeader, IcareSection, IcareButton, IcareAvatar } from "react-library";
+import Breadcrumbs from "../../components/bread-crumbs/bread-crumbs";
+
+// export const handle = {
+//   breadcrumb: "Layout"
+// };
 
 export default function SomeParent() {
   return (
@@ -11,9 +16,7 @@ export default function SomeParent() {
         <li slot="header-buttons"><IcareButton href='/'>Logout</IcareButton></li>
         <li slot="header-avatar"><IcareAvatar /></li>
       </IcareHeader>
-      <IcareSection>
-        Breadcrumb
-      </IcareSection>
+      <Breadcrumbs />
       <Outlet />
     </IcarePage>
 

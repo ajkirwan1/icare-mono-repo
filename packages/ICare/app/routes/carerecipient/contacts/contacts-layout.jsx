@@ -5,6 +5,8 @@ import { Outlet, useLoaderData } from "react-router";
 import styles from "../../../styles/pages/messages-home.module.scss";
 import MessagesSidebar from "../../../components/messages/messages-sidebar-component";
 
+// export const handle = { breadcrumb: "Contacts" };
+
 export async function loader() {
 
   const data = await getAllMessages();

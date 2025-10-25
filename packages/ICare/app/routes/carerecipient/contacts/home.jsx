@@ -6,6 +6,12 @@ import { useLoaderData, NavLink } from "react-router";
 import { IcareAvatar } from "react-library";
 import styles from "../../../styles/pages/messages-home.module.scss";
 
+
+export const handle = {
+  breadcrumb: "Contacts Home"
+};
+
+
 // Loader runs on server (SSR)
 export async function loader() {
 
