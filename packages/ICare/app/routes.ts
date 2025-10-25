@@ -27,11 +27,13 @@ export default [
           route("", "routes/carerecipient/_redirect-messages.jsx"), // catch base and redirect
           route(":contactId", "routes/carerecipient/contacts/messages.jsx"),
           route(":contactId/diary", "routes/carerecipient/contacts/diary.jsx")
-          // layout("routes/carerecipient/contact-messages-layout.jsx", [
-          //   route(":contactId", "routes/carerecipient/contacts/messages.jsx")
-          // ]
-          // )
         ])
+      ]),
+      ...prefix("my-profile", [
+        index("routes/carerecipient/profile/my-profile.jsx")
+      ]),
+      ...prefix("diary", [
+        index("routes/carerecipient/diary/carerecipient-diary.jsx")
       ])
     ])
   ]
