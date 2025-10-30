@@ -1,0 +1,22 @@
+.favButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.favButton:focus-visible {
+  outline: 2px solid #619482;
+  outline-offset: 2px;
+}
+
+.favButton svg {
+  transition: fill 1s ease, transform 1s ease;
+}
+
+.favButton[aria-pressed="true"] svg {
+  transform: scale(1.05);
+}

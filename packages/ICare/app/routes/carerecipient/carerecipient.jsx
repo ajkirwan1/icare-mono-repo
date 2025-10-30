@@ -65,7 +65,7 @@ export default function CaregiverRecipientHome() {
             </Suspense>
           </div>
           <div style={{ breakInside: "avoid", marginBottom: "24px" }}>
-            <IcareCard variant="elevated">
+            <IcareCard variant="outlined">
               <span slot="contents">
                 <h2>Acount Summary</h2>
                 Custom content inside Messages Card

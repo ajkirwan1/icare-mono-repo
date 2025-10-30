@@ -1,0 +1,28 @@
+{
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Product name"
+      },
+      "password": {
+        "type": "string",
+        "title": "Price"
+      }
+    }
+  },
+  "uischema": {
+    "type": "VerticalLayout",
+    "elements": [
+      {
+        "type": "Control",
+        "scope": "#/properties/name"
+      },
+      {
+        "type": "Control",
+        "scope": "#/properties/password"
+      }
+    ]
+  }
+}
