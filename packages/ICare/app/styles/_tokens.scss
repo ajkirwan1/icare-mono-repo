@@ -4,25 +4,25 @@
 @use './abstracts/functions';
 
 :root {
-    // Colors
-    --color-primary: #{$color-primary};
-    --color-text: #{$color-text};
-    --color-muted: #{$color-muted};
-  
-    // Typography
-    --font-family-base: #{$font-family-base};
-    --font-size-base: #{$font-size-base};
-    --font-size-md: #{$font-size-md};
-    --font-size-lg: #{$font-size-lg};
-    --font-size-xl: #{$font-size-xl};
-    --font-weight-regular: #{$font-weight-regular};
-    --font-weight-bold: #{$font-weight-bold};
-  
-    // Spacing
-    --space-sm: #{$space-sm};
-    --space-md: #{$space-md};
-    --space-lg: #{$space-lg};
-  
-    // Radius
-    --radius-md: #{$radius-md};
-  }
+  // Colors
+  --color-primary: #{$color-primary};
+  --color-text: #{$color-text};
+  --color-muted: #{$color-muted};
+
+  // Typography
+  --font-family-base: #{$font-family-base};
+  --font-size-base: #{$font-size-base};
+  --font-size-md: #{$font-size-md};
+  --font-size-lg: #{$font-size-lg};
+  --font-size-xl: #{$font-size-xl};
+  --font-weight-regular: #{$font-weight-regular};
+  --font-weight-bold: #{$font-weight-bold};
+
+  // Spacing
+  --space-sm: #{$space-sm};
+  --space-md: #{$space-md};
+  --space-lg: #{$space-lg};
+
+  // Radius
+  --radius-md: #{$radius-md};
+}

@@ -12,7 +12,7 @@ export default function MyProfileCard() {
 
   return (<IcareCard variant="elevated">
     <span slot="contents">
-      <NavLink to="/carerecipient/my-profile" style={{ color: "inherit" }}>
+      <NavLink to="/carerecipient/profile/personal-details" style={{ color: "inherit" }}>
         <h2>My Profile</h2>
       </NavLink>
       {/* <p>Manage your personal information and settings.</p> */}
@@ -61,7 +61,7 @@ export default function MyProfileCard() {
           color: "#4CAF50",
           cursor: "pointer",
           marginTop: "16px"
-        }} to="/carerecipient/my-profile">Edit Profile</NavLink>
+        }} to="/carerecipient/profile/personal-details">Edit Profile</NavLink>
       </div>
     </span >
   </IcareCard >
