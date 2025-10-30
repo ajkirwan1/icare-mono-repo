@@ -16,6 +16,7 @@ export default function ICareForCaregivers() {
     return (
         <div className={styles.page}>
             {/* === HERO (bez niebieskiego prostokąta / glass panelu) === */}
+
             <section
                 aria-label="ICare for Caregivers hero"
                 style={{
@@ -328,22 +329,56 @@ export default function ICareForCaregivers() {
             </section>
 
 
+            {/* === INTRO QUESTION SECTION === */}
+            <section
+                aria-label="Intro question"
+                style={{
+                    position: "relative",
+                    margin: "5rem auto 3rem",
+                    maxWidth: 1100,
+                    padding: "0 clamp(16px,4vw,32px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    color: "#0F172A",
+                    textAlign: "center",
+                }}
+            >
 
-            {/* === MISSION PILLARS (alt beige, no hover, more spacing, no vertical line) === */}
+                {/* 🔹 Centralny tekst */}
+                <div>
+
+
+                    <p
+                        style={{
+                            margin: "0.6rem auto 0",
+                            maxWidth: "600px",
+                            fontSize: "17px",
+                            lineHeight: 1.6,
+                            color: "#475569",
+                        }}
+                    >
+
+                    </p>
+                </div>
+            </section>
+
+
+
+            {/* === MISSION PILLARS (no shadow, clean flat design) === */}
             <section
                 aria-label="Mission pillars"
                 style={{
                     position: "relative",
                     maxWidth: 1100,
                     margin: "0 auto",
-                    padding: "88px 32px",
+                    padding: "60px 28px",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     background: "linear-gradient(180deg, #FAFCFD 0%, #FFFFFF 70%)",
                     borderRadius: 20,
                 }}
             >
-                {/* miękkie poświaty (zostawiam subtelne, możesz usunąć jeśli chcesz jeszcze czyściej) */}
+                {/* delikatne poświaty tła (pozostają subtelne) */}
                 <span
                     aria-hidden="true"
                     style={{
@@ -354,7 +389,7 @@ export default function ICareForCaregivers() {
                         height: 260,
                         borderRadius: "50%",
                         background:
-                            "radial-gradient(closest-side, rgba(51,174,186,.12), rgba(51,174,186,0) 70%)",
+                            "radial-gradient(closest-side, rgba(51,174,186,.10), rgba(51,174,186,0) 70%)",
                         filter: "blur(8px)",
                         pointerEvents: "none",
                     }}
@@ -369,131 +404,214 @@ export default function ICareForCaregivers() {
                         height: 280,
                         borderRadius: "50%",
                         background:
-                            "radial-gradient(closest-side, rgba(17,119,128,.10), rgba(17,119,128,0) 70%)",
+                            "radial-gradient(closest-side, rgba(17,119,128,.08), rgba(17,119,128,0) 70%)",
                         filter: "blur(12px)",
                         pointerEvents: "none",
                     }}
                 />
-
-                {[
-                    { t: "SIMPLE AND FREE REGISTRATION", d: "Registering an account is simple, free, and safe. You only need to provide base information to create an account." },
-                    { t: "CONTACT CLIENTS DIRECTLY", d: "Contact potential clients and their families to understand care needs and family expectations before concluding a contract agreement." },
-                    { t: "INCREASE YOUR EARNINGS", d: "We listen to caregivers and families to simplify every step of the process. When you connect and agree on terms directly, there’s no middleman — just fair pay for your valuable work." },
-                    { t: "TAILOR YOUR PROFILE", d: "Upload your CV and resume, acquire background checks, and list your specialist skills to enhance your visibility and employability." },
-                    { t: "MANAGE YOUR OWN EMPLOYMENT CONTRACTS", d: "By directly contacting and arranging employment contracts." },
-                ].map((p, idx) => {
-                    const isAlt = idx % 2 === 1;
-                    // delikatny beż dla co drugiej karty
-                    const beige = "rgba(246, 241, 233, 0.64)";          // #F6F1E9 z lekką przezroczystością
-                    const beigeBorder = "1px solid rgba(210, 195, 170, 0.31)"; // ciepła, subtelna ramka
-                    const whiteBorder = "1px solid #D7EEF1";
-
-                    return (
-                        <article
-                            key={p.t}
-                            role="article"
-                            aria-label={p.t}
+                {/* === CAREGIVER INTRO MESSAGE (minimal accent block) === */}
+                <section
+                    aria-label="Caregiver message"
+                    style={{
+                        width: "100%",
+                        margin: "4rem 0 2rem 0",
+                        padding: "0 clamp(16px, 3vw, 40px)",
+                        color: "#0F172A",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    }}
+                >
+                    <div style={{ maxWidth: "820px", marginLeft: 0 }}>
+                        <div
                             style={{
-                                position: "relative",
-                                background: isAlt ? beige : "#FFFFFF",
-                                border: isAlt ? beigeBorder : whiteBorder,
-                                borderRadius: 24,
-                                padding: "36px 28px 36px clamp(118px, 13vw, 168px)", // więcej „oddechu”
-                                boxShadow: "0 10px 26px rgba(2,8,23,0.05)",
-                                boxSizing: "border-box",
-                                margin: "34px 0", // większe odstępy między kartami
+                                width: 60,
+                                height: 4,
+                                borderRadius: 999,
+                                background: "#1FAB1F",
+                                marginBottom: "1rem",
+                            }}
+                        />
+
+                        <h2
+                            style={{
+                                margin: "0 0 .4rem 0",
+                                fontWeight: 900,
+                                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                                letterSpacing: ".3px",
                             }}
                         >
-                            {/* brak pionowej listwy po lewej — usunięta */}
-                            {/* numer badge */}
-                            <span
-                                aria-hidden="true"
-                                style={{
-                                    position: "absolute",
-                                    left: 12,
-                                    top: 14,
-                                    width: 72,
-                                    height: 72,
-                                    borderRadius: "9999px",
-                                    background: "#FFFFFF",
-                                    border: "2px solid #33AEBA",
-                                    display: "grid",
-                                    placeItems: "center",
-                                    fontWeight: 800,
-                                    fontSize: 32,
-                                    color: "#0E7490",
-                                    letterSpacing: "0.4px",
-                                    boxShadow: "0 6px 16px rgba(4, 47, 46, .08)",
-                                    textShadow: "0 1px 0 rgba(255,255,255,.6)",
-                                }}
-                            >
-                                {idx + 1}
-                            </span>
+                            How it works for caregivers
+                        </h2>
 
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    color: "#7c7c7cff",
-                                    fontWeight: 900,
-                                    letterSpacing: "0.6px",
-                                    fontSize: "clamp(19px, 2.1vw, 24px)",
-                                    lineHeight: 1.25,
-                                }}
-                            >
-                                {p.t}
-                            </h3>
+                        <p
+                            style={{
+                                margin: "0 0 .6rem 0",
+                                maxWidth: "62ch",
+                                lineHeight: 1.65,
+                                fontSize: "1.05rem",
+                                color: "#475569",
+                            }}
+                        >
+                            Choose when and how you work — connect directly with families who value
+                            your care, agree on transparent terms, and manage your schedule in one place.
+                        </p>
 
-                            {/* akcentowa linia pod nagłówkiem (delikatna) */}
-                            <div
-                                style={{
-                                    width: "100%",
-                                    height: 2,
-                                    marginTop: 10,
-                                    marginBottom: 14,
-                                    borderRadius: 999,
-                                    background:
-                                        "linear-gradient(90deg, rgba(0,0,0,0), #33aeba 25%, #33aeba 75%, rgba(0,0,0,0))",
-                                    opacity: 0.45,
-                                }}
-                            />
+                        <p
+                            style={{
+                                margin: "0",
+                                fontWeight: 700,
+                                color: "#1FAB1F",
+                                letterSpacing: ".2px",
+                            }}
+                        >
+                            No middlemen. No confusion. Just clarity and respect.
+                        </p>
+                    </div>
+                </section>
 
-                            <p
-                                style={{
-                                    margin: 0,
-                                    color: "#334155",
-                                    lineHeight: 1.7,
-                                    fontSize: 16,
-                                    letterSpacing: "0.2px",
-                                }}
-                            >
-                                {p.d}
-                            </p>
-                        </article>
-                    );
-                })}
+                <section
+                    aria-label="Caregiver steps"
+                    style={{
+                        position: "relative",
+                        width: "100%",
+                        margin: "6rem 0",
+                        background: "#FFFFFF",
+                        padding: 0, // 🔹 zero paddingu globalnie
+                    }}
+                >
+                    <div
+                        style={{
+                            marginLeft: 0,     // 🔹 brak marginesu z lewej
+                            paddingLeft: 0,    // 🔹 treść zaczyna się od lewej krawędzi
+                            paddingRight: "clamp(16px, 3vw, 40px)",
+                            maxWidth: "840px", // 🔹 żeby nie było zbyt szeroko na dużych ekranach
+                        }}
+                    >
 
-                {/* CTA (bez hoverów) */}
-                <div style={{ display: "flex", justifyContent: "center", marginTop: "2.2rem" }}>
+
+                        {[
+                            {
+                                t: "SIMPLE AND FREE REGISTRATION",
+                                d: "Registering an account is simple, free, and safe. You only need to provide base information to create an account.",
+                            },
+                            {
+                                t: "CONTACT CLIENTS DIRECTLY",
+                                d: "Contact potential clients and their families to understand care needs and family expectations before concluding a contract agreement.",
+                            },
+                            {
+                                t: "INCREASE YOUR EARNINGS",
+                                d: "We listen to caregivers and families to simplify every step of the process. When you connect and agree on terms directly, there’s no middleman — just fair pay for your valuable work.",
+                            },
+                            {
+                                t: "TAILOR YOUR PROFILE",
+                                d: "Upload your CV and resume, acquire background checks, and list your specialist skills to enhance your visibility and employability.",
+                            },
+                            {
+                                t: "MANAGE YOUR OWN EMPLOYMENT CONTRACTS",
+                                d: "By directly contacting and arranging employment contracts.",
+                            },
+                        ].map((p, idx) => {
+                            const isAlt = idx % 2 === 1;
+                            const PAPER = "#FFFFFF";
+                            const BEIGE = "#F6F1E9";
+                            const CARD_BG = isAlt ? BEIGE : PAPER;
+
+                            return (
+                                <article
+                                    key={p.t}
+                                    role="article"
+                                    aria-label={p.t}
+                                    style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "48px 1fr",
+                                        alignItems: "start",
+                                        gap: "18px",
+                                        background: CARD_BG,
+                                        borderTop: "1px solid #E5E7EB",
+                                        borderBottom: "1px solid #E5E7EB",
+                                        padding: "24px clamp(16px, 3vw, 36px)",
+                                        boxSizing: "border-box",
+                                    }}
+                                >
+                                    {/* numer */}
+                                    <div
+                                        aria-hidden="true"
+                                        style={{
+                                            width: 36,
+                                            height: 36,
+                                            borderRadius: "50%",
+                                            border: "1px solid #E5E7EB",
+                                            background: "#FFFFFF",
+                                            display: "grid",
+                                            placeItems: "center",
+                                            fontWeight: 800,
+                                            fontSize: 15,
+                                            color: "#111827",
+                                        }}
+                                    >
+                                        {idx + 1}
+                                    </div>
+
+                                    {/* treść */}
+                                    <div>
+                                        <h3
+                                            style={{
+                                                margin: 0,
+                                                fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
+                                                lineHeight: 1.25,
+                                                fontWeight: 850,
+                                                letterSpacing: ".2px",
+                                                color: "#1F2A37",
+                                            }}
+                                        >
+                                            {p.t}
+                                        </h3>
+                                        <p
+                                            style={{
+                                                margin: "8px 0 0",
+                                                color: "#334155",
+                                                lineHeight: 1.7,
+                                                fontSize: "clamp(.98rem, 1.05vw, 1.06rem)",
+                                                maxWidth: "70ch",
+                                            }}
+                                        >
+                                            {p.d}
+                                        </p>
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+                </section>
+
+
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "1.8rem",
+                    }}
+                >
                     <button
-                        className={styles.primaryBtn}
                         style={{
                             appearance: "none",
                             border: "none",
                             cursor: "pointer",
-                            padding: "1.05rem 1.35rem",
+                            padding: "1rem 1.3rem",
                             fontWeight: 600,
                             letterSpacing: ".6px",
                             borderRadius: 999,
-                            background: "linear-gradient(90deg, #1FAB1F",
-                            color: "#ffffffff",
-                            boxShadow:
-                                "0 10px 24px rgba(51,174,186,.30), inset 0 1px 0 rgba(255,255,255,.50)",
+                            background: "#1FAB1F",
+                            color: "#fff",
+                            boxShadow: "none", // 🟢 brak cienia przycisku
                         }}
                     >
                         REGISTER TODAY
                     </button>
                 </div>
             </section>
+
+
             {/* ========= WHO CAN JOIN (requirements) ========= */}
             <section
                 aria-label="Who can join"
@@ -509,7 +627,7 @@ export default function ICareForCaregivers() {
                 </h2>
                 <div
                     aria-hidden="true"
-                    style={{ width: 240, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.75rem 0" }}
+                    style={{ width: 280, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.75rem 0" }}
                 />
                 <div
                     style={{
@@ -577,7 +695,7 @@ export default function ICareForCaregivers() {
                 </h2>
                 <div
                     aria-hidden="true"
-                    style={{ width: 220, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                    style={{ width: 240, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
                 />
                 <div
                     style={{
@@ -637,7 +755,7 @@ export default function ICareForCaregivers() {
                 </h2>
                 <div
                     aria-hidden="true"
-                    style={{ width: 220, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                    style={{ width: 420, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
                 />
                 <div style={{ display: "grid", gap: 10 }}>
                     {[
@@ -713,10 +831,10 @@ export default function ICareForCaregivers() {
                     }}
                 >
                     <div>
-                        <h3 style={{ margin: 0, fontWeight: 900, fontSize: "clamp(1.15rem,2.2vw,1.5rem)" }}>
+                        <h3 style={{ margin: 0, fontWeight: 900, fontSize: "clamp(1.15rem,2.2vw,1.5rem)", color: "FFFFFF" }}>
                             Need help setting up your profile?
                         </h3>
-                        <p style={{ margin: "6px 0 0", color: "rgba(255,255,255,.95)" }}>
+                        <p style={{ margin: "6px 0 0", color: "rgba(252, 251, 251, 1)" }}>
                             We’ll guide you through matching and agreements — quick and friendly.
                         </p>
                     </div>
@@ -750,16 +868,7 @@ export default function ICareForCaregivers() {
             </section>
 
 
-            <footer className={styles.footer}>
-                <ul className={styles.listReset}>
-                    <li><Link to="/" className={styles.footerLink}>Home</Link></li>
-                    <li><Link to="/landing" className={styles.footerLink}>Landing</Link></li>
-                    <li><Link to="/privacy" className={styles.footerLink}>Privacy</Link></li>
-                </ul>
-                <div className={styles.copy}>
-                    © {new Date().getFullYear()} ICare. All rights reserved.
-                </div>
-            </footer>
+
         </div>
     );
 }
