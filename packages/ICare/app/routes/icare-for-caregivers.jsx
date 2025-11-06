@@ -1,27 +1,86 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
-import HeroComponent from "../components/hero/hero-component"
-import { IcareHeroNew, IcareButton, IcarePage, IcareSection, IcareCard } from "react-library";
-import iCareForCarereceiversSrc from "/images/heros/icare-for-carereceivers.jpg";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
-import userIcon from "/images/icons/usersignup.svg";
-import navLinks from "../components/hero/nav-links";
-import styles from "./icare-for-caregivers.module.scss";
-
-
-
-
 
 export default function ICareForCaregivers() {
-    return (
-        <div className={styles.page}>
-            {/* === HERO (bez niebieskiego prostokąta / glass panelu) === */}
+    const BRAND = "#1FAB1F";
+    const NEUTRAL = "#0F172A";
+    const BORDER = "#E5E7EB";
+    const SUBTLE = "#F7FAF8"; // delikatny papier z nutą brandu
 
+    const pageWrap = {
+        fontFamily:
+            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: NEUTRAL,
+        background: "linear-gradient(180deg, #FAFCFD 0%, #FFFFFF 70%)",
+    };
+
+    const container = {
+        width: "min(1100px, 92vw)",
+        margin: "0 auto",
+        padding: "0 clamp(16px,4vw,32px)",
+    };
+
+    const sectionTitle = {
+        margin: 0,
+        fontWeight: 900,
+        color: "#1f2a37",
+        fontSize: "clamp(1.35rem,2.6vw,1.9rem)",
+        letterSpacing: ".2px",
+        lineHeight: 1.25,
+        textAlign: "left",
+    };
+
+    // Scroll-reveal refs
+    const stepRefs = useRef([]);
+    useEffect(() => {
+        const els = stepRefs.current.filter(Boolean);
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((e) => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add("reveal--in");
+                        io.unobserve(e.target);
+                    }
+                });
+            },
+            { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+        );
+        els.forEach((el) => io.observe(el));
+        return () => io.disconnect();
+    }, []);
+
+    const steps = [
+        {
+            t: "Simple and free registration",
+            d: "Create your account safely with base information only.",
+        },
+        {
+            t: "Contact clients directly",
+            d: "Message families to understand needs and expectations before you agree.",
+        },
+        {
+            t: "Increase your earnings",
+            d: "Agree terms directly — keep more of your hard-earned income.",
+        },
+        {
+            t: "Tailor your profile",
+            d: "Upload CV/resume, add checks and specialist skills to boost visibility.",
+        },
+        {
+            t: "Manage your own employment contracts",
+            d: "Set schedule & rate, e-sign your agreement and keep everything in one place.",
+        },
+    ];
+
+    return (
+        <div style={pageWrap}>
+            {/* === HERO === */}
             <section
                 aria-label="ICare for Caregivers hero"
                 style={{
                     position: "relative",
-                    minHeight: "clamp(600px, 76vh, 900px)",
+                    minHeight: "clamp(560px, 76vh, 900px)",
                     width: "100%",
                     overflow: "hidden",
                     display: "grid",
@@ -47,7 +106,7 @@ export default function ICareForCaregivers() {
                     }}
                 />
 
-                {/* overlay przyciemniający (vignette dla czytelności) */}
+                {/* overlay */}
                 <div
                     style={{
                         position: "absolute",
@@ -59,7 +118,7 @@ export default function ICareForCaregivers() {
                     }}
                 />
 
-                {/* header (brand + nawigacja) */}
+                {/* header */}
                 <header
                     style={{
                         position: "absolute",
@@ -71,7 +130,7 @@ export default function ICareForCaregivers() {
                         alignItems: "center",
                         justifyContent: "space-between",
                         gap: "1rem",
-                        padding: "1rem clamp(1rem, 4vw, 2rem)",
+                        padding: "1rem clamp(16px,4vw,32px)",
                         background: "rgba(2,8,23,0.28)",
                         backdropFilter: "saturate(1.05) blur(4px)",
                         borderBottom: "1px solid rgba(255,255,255,0.14)",
@@ -80,8 +139,6 @@ export default function ICareForCaregivers() {
                     <Link
                         to="/"
                         style={{
-                            fontFamily:
-                                "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                             fontWeight: 900,
                             letterSpacing: "0.3px",
                             color: "#ffffff",
@@ -107,7 +164,7 @@ export default function ICareForCaregivers() {
                             { to: "/who-we-are", label: "Who We Are" },
                             { to: "/privacy", label: "Privacy" },
                             { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                            { to: "/icare-for-carereceivers", label: "ICare For Carereceivers" },
+                            { to: "/icare-for-carereceivers", label: "ICare For Care Receivers" },
                         ].map((l) => (
                             <Link
                                 key={l.to}
@@ -117,7 +174,7 @@ export default function ICareForCaregivers() {
                                     textDecoration: "none",
                                     fontSize: "clamp(.9rem, 1.2vw, 1rem)",
                                     padding: ".45rem .7rem",
-                                    borderRadius: "999px",
+                                    borderRadius: 999,
                                     border: "1px solid rgba(255,255,255,.20)",
                                     background: "rgba(255,255,255,.06)",
                                     transition:
@@ -140,437 +197,315 @@ export default function ICareForCaregivers() {
                     </nav>
                 </header>
 
-                {/* HERO content — bez tła/panelu, tylko typografia + cień */}
+                {/* HERO content – lewostronnie jak na innych stronach */}
                 <div
                     style={{
                         position: "relative",
                         zIndex: 2,
-                        width: "min(92vw, 1080px)",
+                        width: "min(1100px, 92vw)",
                         marginInline: "auto",
-                        textAlign: "center",
                         padding: "clamp(2rem, 4vw, 4rem) 0",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        textAlign: "left",
                     }}
                 >
-                    <h1
-                        style={{
-                            fontWeight: 800,
-                            letterSpacing: ".2px",
-                            lineHeight: 1.05,
-                            fontSize: "clamp(2rem, 4vw, 3.5rem)",
-                            margin: "0 0 .9rem 0",
-                            color: "#ffffff",
-                            textShadow:
-                                "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
-                        }}
-                    >
-                        ICare for <span style={{ color: "#1FAB1F" }}>Caregivers</span>
-                    </h1>
+                    <div style={{ ...container, padding: 0 }}>
+                        <span
+                            style={{
+                                display: "inline-block",
+                                marginBottom: "1.2rem",
+                                fontSize: "0.88rem",
+                                fontWeight: 800,
+                                letterSpacing: ".12em",
+                                textTransform: "uppercase",
+                                color: "#EAF7EA",
+                                padding: ".48rem .9rem",
+                                borderRadius: 999,
+                                background: "rgba(31,171,31,0.20)",
+                                border: "2px solid rgba(31,171,31,0.45)",
+                                textShadow: "0 1px 2px rgba(0,0,0,.25)",
+                            }}
+                        >
+                            Direct  Fair  Transparent
+                        </span>
 
-                    <p
-                        style={{
-                            margin: "0 0 1.15rem 0",
-                            fontSize: "clamp(.98rem, 1.2vw, 1.15rem)",
-                            letterSpacing: ".14em",
-                            textTransform: "uppercase",
-                            color: "rgba(255,255,255,.96)",
-                            textShadow: "0 1px 10px rgba(0,0,0,.45)",
-                        }}
-                    >
+                        <h1
+                            style={{
+                                fontWeight: 800,
+                                letterSpacing: ".2px",
+                                lineHeight: 1.05,
+                                fontSize: "clamp(2rem, 4.2vw, 3.2rem)",
+                                margin: "0 0 .7rem 0",
+                                color: "#ffffff",
+                                textShadow: "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
+                            }}
+                        >
+                            ICare for <span style={{ color: BRAND }}>Caregivers</span>
+                        </h1>
 
-                    </p>
+                        <p
+                            style={{
+                                margin: 0,
+                                fontSize: "clamp(1.02rem, 1.2vw, 1.12rem)",
+                                lineHeight: 1.7,
+                                color: "rgba(255,255,255,.96)",
+                                textShadow: "0 1px 10px rgba(0,0,0,.35)",
+                                maxWidth: "62ch",
+                            }}
+                        >
+                            <b>
+                                Provides a simple model in which you agree the terms of care with your client.
+                            </b>
+                        </p>
 
-                    {/* lead */}
-                    <p
-                        style={{
-                            margin: "0 auto 2rem auto",
-                            fontSize: "clamp(1.2rem, 1.35vw, 1.15rem)",
-                            lineHeight: 2,
-                            color: "rgba(255,255,255,.98)",
-                            maxWidth: 500,
-                            textShadow: "0 1px 10px rgba(0,0,0,.45)",
-                        }}
-                    >
-                        <strong>
-                            PROVIDES A SIMPLE MODEL IN WHICH YOU AGREE THE TERMS OF CARE WITH YOUR CLIENT
-                        </strong>
-                    </p>
-
-                    {/* punkty */}
-                    <ul
-                        style={{
-                            listStyle: "none",
-                            padding: 0,
-                            margin: "0 auto clamp(1.6rem, 3.5vw, 2.6rem) auto",
-                            maxWidth: 820,
-                            display: "grid",
-                            gap: ".7rem",
-                            textAlign: "left",
-                            color: "rgba(255,255,255,.98)",
-                        }}
-                    >
-                        {[
-                            "Find care roles that suit your skills and experience",
-                            "Schedule and manage everything in one place",
-                            "Keep more of your hard-earned income",
-                            "Free registration — no subscription",
-                        ].map((text, i) => (
-                            <li
-                                key={i}
-                                style={{
-                                    position: "relative",
-                                    paddingLeft: "2rem",
-                                    fontSize: "clamp(1rem, 1.3vw, 1.15rem)",
-                                    lineHeight: 1.6,
-                                    textShadow: "0 1px 8px rgba(0,0,0,.5)",
-                                }}
-                            >
-                                <span
-                                    aria-hidden="true"
+                        <ul
+                            style={{
+                                listStyle: "none",
+                                padding: 0,
+                                margin: "1.2rem 0 1.6rem 0",
+                                maxWidth: 820,
+                                display: "grid",
+                                gap: ".6rem",
+                                textAlign: "left",
+                                color: "rgba(255,255,255,.98)",
+                            }}
+                        >
+                            {[
+                                "Find care roles that suit your skills and experience",
+                                "Schedule and manage everything in one place",
+                                "Keep more of your hard-earned income",
+                                "Free registration — no subscription",
+                            ].map((text, i) => (
+                                <li
+                                    key={i}
                                     style={{
-                                        position: "absolute",
-                                        left: 0,
-                                        top: 0,
-                                        transform: "translateY(.05rem)",
-                                        fontWeight: 800,
-                                        fontSize: "1.05em",
-                                        color: "#ffffffff",
-                                        textShadow: "0 0 10px rgba(0,0,0,.45)",
+                                        position: "relative",
+                                        paddingLeft: "2rem",
+                                        fontSize: "clamp(1rem, 1.15vw, 1.08rem)",
+                                        lineHeight: 1.6,
+                                        textShadow: "0 1px 8px rgba(0,0,0,.5)",
                                     }}
                                 >
-                                    ✓
-                                </span>
-                                {i < 3 ? (
-                                    <>
-                                        {text.split(" ").slice(0, 4).join(" ")}{" "}
-                                        <strong>{text.split(" ").slice(4).join(" ")}</strong>
-                                    </>
-                                ) : (
-                                    <strong>{text}</strong>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
+                                    <span
+                                        aria-hidden="true"
+                                        style={{
+                                            position: "absolute",
+                                            left: 0,
+                                            top: 0,
+                                            transform: "translateY(.05rem)",
+                                            fontWeight: 800,
+                                            fontSize: "1.05em",
+                                            color: "#ffffff",
+                                            textShadow: "0 0 10px rgba(0,0,0,.45)",
+                                        }}
+                                    >
+                                        ✓
+                                    </span>
+                                    {i < 3 ? (
+                                        <>
+                                            {text.split(" ").slice(0, 4).join(" ")}{" "}
+                                            <strong>{text.split(" ").slice(4).join(" ")}</strong>
+                                        </>
+                                    ) : (
+                                        <strong>{text}</strong>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
 
-                    {/* CTA */}
-                    <div
-                        style={{
-                            display: "flex",
-                            gap: ".9rem",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <button
-                            style={{
-                                appearance: "none",
-                                border: "none",
-                                cursor: "pointer",
-                                padding: ".95rem 1.25rem",
-                                fontWeight: 600,
-                                letterSpacing: ".6px",
-                                borderRadius: 999,
-                                background: "linear-gradient(90deg,#1FAB1F",
-                                color: "#ffffffff",
-                                boxShadow:
-                                    "0 1px 1px rgba(4, 4, 4, 0.45), inset 0 1px 0 rgba(255,255,255,.55)",
-                                transition:
-                                    "transform .18s ease, box-shadow .18s ease, filter .18s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 1px 1px rgba(51,174,186,.52), inset 0 1px 0 rgba(255,255,255,.65)";
-                                e.currentTarget.style.filter = "saturate(1.06)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 1px 1px rgba(51,174,186,.45), inset 0 1px 0 rgba(255,255,255,.55)";
-                                e.currentTarget.style.filter = "saturate(1)";
-                            }}
-                        >
-                            QUICK REGISTRATION
-                        </button>
-
-                        <a
-                            href="#how-it-works"
-                            style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: ".4rem",
-                                padding: ".9rem 1.1rem",
-                                borderRadius: 999,
-                                color: "#e7eaff",
-                                textDecoration: "none",
-                                border: "1px solid rgba(231,234,255,.4)",
-                                background: "rgba(99,102,241,.14)",
-                                transition:
-                                    "border-color .18s ease, background .18s ease, transform .18s ease",
-                                textShadow: "0 1px 8px rgba(0,0,0,.45)",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.borderColor = "rgba(231,234,255,.65)";
-                                e.currentTarget.style.background = "rgba(99,102,241,.2)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.borderColor = "rgba(231,234,255,.4)";
-                                e.currentTarget.style.background = "rgba(99,102,241,.14)";
-                            }}
-                        >
-                            See how it works
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-
-            {/* === INTRO QUESTION SECTION === */}
-            <section
-                aria-label="Intro question"
-                style={{
-                    position: "relative",
-                    margin: "5rem auto 3rem",
-                    maxWidth: 1100,
-                    padding: "0 clamp(16px,4vw,32px)",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    color: "#0F172A",
-                    textAlign: "center",
-                }}
-            >
-
-                {/* 🔹 Centralny tekst */}
-                <div>
-
-
-                    <p
-                        style={{
-                            margin: "0.6rem auto 0",
-                            maxWidth: "600px",
-                            fontSize: "17px",
-                            lineHeight: 1.6,
-                            color: "#475569",
-                        }}
-                    >
-
-                    </p>
-                </div>
-            </section>
-
-
-
-            {/* === MISSION PILLARS (no shadow, clean flat design) === */}
-            <section
-                aria-label="Mission pillars"
-                style={{
-                    position: "relative",
-                    maxWidth: 1100,
-                    margin: "0 auto",
-                    padding: "60px 28px",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    background: "linear-gradient(180deg, #FAFCFD 0%, #FFFFFF 70%)",
-                    borderRadius: 20,
-                }}
-            >
-                {/* delikatne poświaty tła (pozostają subtelne) */}
-                <span
-                    aria-hidden="true"
-                    style={{
-                        position: "absolute",
-                        left: -160,
-                        top: -120,
-                        width: 520,
-                        height: 260,
-                        borderRadius: "50%",
-                        background:
-                            "radial-gradient(closest-side, rgba(51,174,186,.10), rgba(51,174,186,0) 70%)",
-                        filter: "blur(8px)",
-                        pointerEvents: "none",
-                    }}
-                />
-                <span
-                    aria-hidden="true"
-                    style={{
-                        position: "absolute",
-                        right: -200,
-                        bottom: -160,
-                        width: 560,
-                        height: 280,
-                        borderRadius: "50%",
-                        background:
-                            "radial-gradient(closest-side, rgba(17,119,128,.08), rgba(17,119,128,0) 70%)",
-                        filter: "blur(12px)",
-                        pointerEvents: "none",
-                    }}
-                />
-                {/* === CAREGIVER INTRO MESSAGE (minimal accent block) === */}
-                <section
-                    aria-label="Caregiver message"
-                    style={{
-                        width: "100%",
-                        margin: "4rem 0 2rem 0",
-                        padding: "0 clamp(16px, 3vw, 40px)",
-                        color: "#0F172A",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    }}
-                >
-                    <div style={{ maxWidth: "820px", marginLeft: 0 }}>
                         <div
                             style={{
-                                width: 60,
-                                height: 4,
-                                borderRadius: 999,
-                                background: "#1FAB1F",
-                                marginBottom: "1rem",
-                            }}
-                        />
-
-                        <h2
-                            style={{
-                                margin: "0 0 .4rem 0",
-                                fontWeight: 900,
-                                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                                letterSpacing: ".3px",
+                                display: "flex",
+                                gap: ".9rem",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                                flexWrap: "wrap",
                             }}
                         >
-                            How it works for caregivers
-                        </h2>
+                            <Link
+                                to="/register"
+                                style={{
+                                    appearance: "none",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    padding: ".95rem 1.3rem",
+                                    fontWeight: 700,
+                                    letterSpacing: ".4px",
+                                    borderRadius: 999,
+                                    background: BRAND,
+                                    color: "#ffffff",
+                                    boxShadow: "0 12px 28px rgba(2,8,23,.18)",
+                                    textDecoration: "none",
+                                }}
+                            >
+                                QUICK REGISTRATION
+                            </Link>
 
-                        <p
-                            style={{
-                                margin: "0 0 .6rem 0",
-                                maxWidth: "62ch",
-                                lineHeight: 1.65,
-                                fontSize: "1.05rem",
-                                color: "#475569",
-                            }}
-                        >
-                            Choose when and how you work — connect directly with families who value
-                            your care, agree on transparent terms, and manage your schedule in one place.
-                        </p>
 
-                        <p
-                            style={{
-                                margin: "0",
-                                fontWeight: 700,
-                                color: "#1FAB1F",
-                                letterSpacing: ".2px",
-                            }}
-                        >
-                            No middlemen. No confusion. Just clarity and respect.
-                        </p>
+                        </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section
-                    aria-label="Caregiver steps"
+            {/* === CAREGIVER INTRO — bez zielonej kreski, spójna kolorystyka === */}
+            <section
+                aria-label="Caregiver intro"
+                style={{
+                    width: "min(1100px,92vw)",
+                    margin: "4rem auto 3rem",
+                    padding: "0 clamp(16px,4vw,32px)",
+                }}
+            >
+                <h2
                     style={{
-                        position: "relative",
-                        width: "100%",
-                        margin: "6rem 0",
-                        background: "#FFFFFF",
-                        padding: 0, // 🔹 zero paddingu globalnie
+                        margin: "0 0 .75rem 0",
+                        fontWeight: 900,
+                        fontSize: "clamp(1.8rem,3vw,2.3rem)",
+                        letterSpacing: ".3px",
+                        lineHeight: 1.2,
+                        color: NEUTRAL,
                     }}
                 >
-                    <div
+                    How it works for caregivers
+                </h2>
+
+                <p
+                    style={{
+                        margin: "0 0 .6rem 0",
+                        maxWidth: "62ch",
+                        lineHeight: 1.7,
+                        fontSize: "1.05rem",
+                        color: "#475569",
+                    }}
+                >
+                    Choose when and how you work — connect directly with families who value your care,
+                    agree on transparent terms, and manage your schedule in one place.
+                </p>
+
+                <p
+                    style={{
+                        margin: 0,
+                        fontWeight: 700,
+                        color: BRAND, // delikatny akcent tylko w tekście
+                        letterSpacing: ".2px",
+                    }}
+                >
+                    No middlemen. No confusion. Just clarity and respect.
+                </p>
+            </section>
+
+            {/* === GET STARTED (ulepszone, airy + reveal) === */}
+            <section
+                id="caregiver-steps"
+                aria-label="Caregiver steps"
+                style={{
+                    margin: "3.5rem auto 4rem",
+                    width: "min(1100px, 92vw)",
+                }}
+            >
+                <header style={{ marginBottom: "1.2rem" }}>
+                    <h3
                         style={{
-                            marginLeft: 0,     // 🔹 brak marginesu z lewej
-                            paddingLeft: 0,    // 🔹 treść zaczyna się od lewej krawędzi
-                            paddingRight: "clamp(16px, 3vw, 40px)",
-                            maxWidth: "840px", // 🔹 żeby nie było zbyt szeroko na dużych ekranach
+                            margin: 0,
+                            fontWeight: 900,
+                            letterSpacing: ".2px",
+                            fontSize: "clamp(1.25rem, 2.2vw, 1.5rem)",
                         }}
                     >
+                        Get started in 5 clear steps
+                    </h3>
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            width: 220,
+                            height: 3,
+                            background: BRAND,
+                            borderRadius: 999,
+                            marginTop: ".6rem",
+                            opacity: 0.85,
+                        }}
+                    />
+                </header>
 
+                <div
+                    style={{
+                        borderRadius: 20,
+                        overflow: "hidden",
+                        border: `1px solid ${BORDER}`,
+                        background:
+                            "linear-gradient(180deg, rgba(27,171,31,0.03) 0%, rgba(27,171,31,0.00) 40%)",
+                        boxShadow: "0 12px 30px rgba(2,8,23,0.06)",
+                    }}
+                >
+                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
 
-                        {[
-                            {
-                                t: "SIMPLE AND FREE REGISTRATION",
-                                d: "Registering an account is simple, free, and safe. You only need to provide base information to create an account.",
-                            },
-                            {
-                                t: "CONTACT CLIENTS DIRECTLY",
-                                d: "Contact potential clients and their families to understand care needs and family expectations before concluding a contract agreement.",
-                            },
-                            {
-                                t: "INCREASE YOUR EARNINGS",
-                                d: "We listen to caregivers and families to simplify every step of the process. When you connect and agree on terms directly, there’s no middleman — just fair pay for your valuable work.",
-                            },
-                            {
-                                t: "TAILOR YOUR PROFILE",
-                                d: "Upload your CV and resume, acquire background checks, and list your specialist skills to enhance your visibility and employability.",
-                            },
-                            {
-                                t: "MANAGE YOUR OWN EMPLOYMENT CONTRACTS",
-                                d: "By directly contacting and arranging employment contracts.",
-                            },
-                        ].map((p, idx) => {
-                            const isAlt = idx % 2 === 1;
-                            const PAPER = "#FFFFFF";
-                            const BEIGE = "#F6F1E9";
-                            const CARD_BG = isAlt ? BEIGE : PAPER;
-
-                            return (
-                                <article
-                                    key={p.t}
-                                    role="article"
-                                    aria-label={p.t}
+                    {steps.map((p, idx) => {
+                        const alt = idx % 2 === 1;
+                        const bg = alt ? SUBTLE : "#FFFFFF";
+                        return (
+                            <article
+                                key={p.t}
+                                ref={(el) => (stepRefs.current[idx] = el)}
+                                className="reveal"
+                                style={{
+                                    background: bg,
+                                    padding: "clamp(22px, 2.6vw, 28px) clamp(18px, 3vw, 32px)",
+                                    borderTop: idx === 0 ? "none" : `1px solid ${BORDER}`,
+                                }}
+                            >
+                                <div
                                     style={{
                                         display: "grid",
                                         gridTemplateColumns: "48px 1fr",
                                         alignItems: "start",
-                                        gap: "18px",
-                                        background: CARD_BG,
-                                        borderTop: "1px solid #E5E7EB",
-                                        borderBottom: "1px solid #E5E7EB",
-                                        padding: "24px clamp(16px, 3vw, 36px)",
-                                        boxSizing: "border-box",
+                                        gap: "16px clamp(14px, 2vw, 18px)",
                                     }}
                                 >
-                                    {/* numer */}
                                     <div
                                         aria-hidden="true"
                                         style={{
-                                            width: 36,
-                                            height: 36,
+                                            position: "relative",
+                                            width: 42,
+                                            height: 42,
                                             borderRadius: "50%",
-                                            border: "1px solid #E5E7EB",
-                                            background: "#FFFFFF",
+                                            background: "#fff",
+                                            border: `1px solid ${BORDER}`,
                                             display: "grid",
                                             placeItems: "center",
-                                            fontWeight: 800,
-                                            fontSize: 15,
-                                            color: "#111827",
+                                            fontWeight: 900,
+                                            color: NEUTRAL,
+                                            boxShadow: "0 2px 6px rgba(2,8,23,.05)",
                                         }}
                                     >
                                         {idx + 1}
+                                        <span
+                                            style={{
+                                                position: "absolute",
+                                                inset: -4,
+                                                borderRadius: "50%",
+                                                border: `2px solid ${BRAND}`,
+                                                opacity: 0.12,
+                                            }}
+                                        />
                                     </div>
 
-                                    {/* treść */}
                                     <div>
-                                        <h3
+                                        <h4
                                             style={{
                                                 margin: 0,
-                                                fontSize: "clamp(1.02rem, 1.6vw, 1.18rem)",
-                                                lineHeight: 1.25,
+                                                fontSize: "clamp(1.06rem, 1.55vw, 1.2rem)",
+                                                lineHeight: 1.22,
                                                 fontWeight: 850,
                                                 letterSpacing: ".2px",
                                                 color: "#1F2A37",
                                             }}
                                         >
                                             {p.t}
-                                        </h3>
+                                        </h4>
                                         <p
                                             style={{
                                                 margin: "8px 0 0",
                                                 color: "#334155",
-                                                lineHeight: 1.7,
+                                                lineHeight: 1.75,
                                                 fontSize: "clamp(.98rem, 1.05vw, 1.06rem)",
                                                 maxWidth: "70ch",
                                             }}
@@ -578,56 +513,110 @@ export default function ICareForCaregivers() {
                                             {p.d}
                                         </p>
                                     </div>
-                                </article>
-                            );
-                        })}
-                    </div>
-                </section>
+                                </div>
+                            </article>
+                        );
+                    })}
 
+                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
+                </div>
 
                 <div
                     style={{
                         display: "flex",
-                        justifyContent: "center",
-                        marginTop: "1.8rem",
+                        gap: 12,
+                        alignItems: "center",
+                        marginTop: 18,
+                        flexWrap: "wrap",
                     }}
                 >
-                    <button
+                    <Link
+                        to="/register"
                         style={{
                             appearance: "none",
                             border: "none",
-                            cursor: "pointer",
-                            padding: "1rem 1.3rem",
-                            fontWeight: 600,
-                            letterSpacing: ".6px",
                             borderRadius: 999,
-                            background: "#1FAB1F",
+                            background: BRAND,
                             color: "#fff",
-                            boxShadow: "none", // 🟢 brak cienia przycisku
+                            padding: "12px 16px",
+                            fontWeight: 900,
+                            letterSpacing: ".02em",
+                            textDecoration: "none",
+                            boxShadow: "0 10px 24px rgba(27,171,31,.18)",
+                            transition: "transform .15s ease, filter .15s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-1px)";
+                            e.currentTarget.style.filter = "saturate(1.06)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.filter = "none";
                         }}
                     >
                         REGISTER TODAY
-                    </button>
+                    </Link>
+
+                    <Link
+                        to="/terms"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            padding: "12px 14px",
+                            borderRadius: 999,
+                            border: `1px solid ${BORDER}`,
+                            color: NEUTRAL,
+                            background: "#fff",
+                            textDecoration: "none",
+                            fontWeight: 800,
+                        }}
+                    >
+                        Terms &amp; conditions
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke={NEUTRAL}
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14" />
+                            <path d="M13 5l7 7-7 7" />
+                        </svg>
+                    </Link>
                 </div>
+
+                {/* local styles for scroll reveal */}
+                <style>{`
+          @keyframes revealUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+          .reveal { opacity: 0; transform: translateY(16px); will-change: transform, opacity; }
+          .reveal--in { animation: revealUp .48s ease forwards; }
+          @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal--in { opacity: 1 !important; transform: none !important; animation: none !important; }
+          }
+        `}</style>
             </section>
 
-
-            {/* ========= WHO CAN JOIN (requirements) ========= */}
-            <section
-                aria-label="Who can join"
-                style={{
-                    margin: "4rem auto 3.5rem",
-                    maxWidth: 1100,
-                    padding: "0 clamp(16px,4vw,32px)",
-                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                }}
-            >
-                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
-                    Who can join ICare
-                </h2>
+            {/* === WHO CAN JOIN === */}
+            <section aria-label="Who can join" style={{ ...container, margin: "3.5rem auto" }}>
+                <h2 style={sectionTitle}>Who can join ICare</h2>
                 <div
-                    aria-hidden="true"
-                    style={{ width: 280, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.75rem 0" }}
+                    style={{
+                        width: 280,
+                        maxWidth: "80%",
+                        height: 4,
+                        background: BRAND,
+                        borderRadius: 999,
+                        margin: ".75rem 0 1.5rem 0",
+                        opacity: 0.95,
+                    }}
                 />
                 <div
                     style={{
@@ -667,12 +656,23 @@ export default function ICareForCaregivers() {
                                         placeItems: "center",
                                     }}
                                 >
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1FAB1F" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <svg
+                                        width="22"
+                                        height="22"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke={BRAND}
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        aria-hidden="true"
+                                    >
                                         <polyline points="20 6 9 17 4 12" />
                                     </svg>
                                 </span>
-                                <strong style={{ color: "#1f2a37", fontSize: "1.02rem", letterSpacing: ".2px" }}>{item.t}</strong>
+                                <strong style={{ color: "#1f2a37", fontSize: "1.02rem", letterSpacing: ".2px" }}>
+                                    {item.t}
+                                </strong>
                             </div>
                             <p style={{ margin: 0, color: "#334155", lineHeight: 1.6 }}>{item.d}</p>
                         </article>
@@ -680,82 +680,215 @@ export default function ICareForCaregivers() {
                 </div>
             </section>
 
-            {/* ========= SUCCESS STORIES ========= */}
-            <section
-                aria-label="Success stories"
-                style={{
-                    margin: "0 auto 3.75rem",
-                    maxWidth: 1100,
-                    padding: "0 clamp(16px,4vw,32px)",
-                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                }}
-            >
-                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
-                    Success stories
-                </h2>
+            <section aria-label="Success stories" style={{ ...container, margin: "0 auto 3.75rem" }}>
+                <h2 style={sectionTitle}>Success stories</h2>
+
                 <div
-                    aria-hidden="true"
-                    style={{ width: 240, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                    style={{
+                        width: 240,
+                        maxWidth: "80%",
+                        height: 4,
+                        background: BRAND,
+                        borderRadius: 999,
+                        margin: ".75rem 0 1.5rem 0",
+                        opacity: 0.95,
+                    }}
                 />
+
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                        gap: "clamp(16px,2.4vw,22px)",
+                        gap: "clamp(16px,2.4vw,24px)",
                     }}
                 >
                     {[
                         {
+                            img: "/images/people/anna.jpg", // <- PODMIEŃ NA SWÓJ PLIK
                             q: "I matched in 3 days and kept a higher rate than via agency.",
                             a: "Simple chat, clear terms, e-signed agreement — everything in one place.",
                             n: "Anna • Live-in caregiver",
                         },
                         {
+                            img: "/images/people/marta.jpg", // <- PODMIEŃ NA SWÓJ PLIK
                             q: "Finally, transparent profiles and contracts.",
                             a: "Family felt safe; I felt respected. We set the schedule together.",
                             n: "Marta • Dementia care",
                         },
                         {
+                            img: "/images/people/kasia.jpg", // <- PODMIEŃ NA SWÓJ PLIK
                             q: "No monthly fee — I only pay when I earn.",
                             a: "That’s fair. More money stays with me.",
                             n: "Kasia • Hourly support",
                         },
-                    ].map((t) => (
-                        <blockquote
+                    ].map((t, idx) => (
+                        <figure
                             key={t.q}
                             style={{
                                 margin: 0,
-                                background: "#FFFFFF",
-                                border: "1px solid rgba(15,23,42,0.08)",
-                                borderRadius: 16,
-                                padding: "18px 18px",
-                                boxShadow: "0 8px 22px rgba(2,8,23,.06)",
+                                borderRadius: 18,
+                                overflow: "hidden",
+                                border: "1px solid rgba(15,23,42,0.10)",
+                                background: "#fff",
+                                boxShadow: "0 12px 28px rgba(2,8,23,0.06)",
+                                transition: "transform .28s ease, box-shadow .28s ease, border-color .28s ease",
+                                cursor: "default",
                             }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-4px)";
+                                e.currentTarget.style.boxShadow = "0 16px 36px rgba(2,8,23,0.10)";
+                                e.currentTarget.style.borderColor = "rgba(31,171,31,0.25)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.boxShadow = "0 12px 28px rgba(2,8,23,0.06)";
+                                e.currentTarget.style.borderColor = "rgba(15,23,42,0.10)";
+                            }}
+                            className="story-card"
                         >
-                            <p style={{ margin: 0, color: "#0F172A", fontWeight: 800, lineHeight: 1.45 }}>{t.q}</p>
-                            <p style={{ margin: "8px 0 0", color: "#334155", lineHeight: 1.6 }}>{t.a}</p>
-                            <footer style={{ marginTop: 10, color: "#64748B", fontWeight: 700 }}>{t.n}</footer>
-                        </blockquote>
+                            {/* DUŻE ZDJĘCIE */}
+                            <div
+                                style={{
+                                    position: "relative",
+                                    width: "100%",
+                                    aspectRatio: "4 / 3", // duże proporcje
+                                    background: "linear-gradient(135deg, #E2E8F0 0%, #F8FAFC 100%)",
+                                }}
+                            >
+                                <img
+                                    src={t.img}
+                                    alt={t.n}
+                                    loading="lazy"
+                                    style={{
+                                        position: "absolute",
+                                        inset: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "cover",
+                                        objectPosition: "center",
+                                        transform: "scale(1)",
+                                        transition: "transform .6s ease",
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                                    onError={(e) => {
+                                        // fallback tła jeśli obrazek nie istnieje
+                                        e.currentTarget.style.display = "none";
+                                    }}
+                                />
+
+                                {/* lekki gradient pod podpisem */}
+                                <div
+                                    aria-hidden="true"
+                                    style={{
+                                        position: "absolute",
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        height: "40%",
+                                        background:
+                                            "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(2,8,23,0.45) 100%)",
+                                    }}
+                                />
+                                {/* podpis na zdjęciu (imię/rola) */}
+                                <figcaption
+                                    style={{
+                                        position: "absolute",
+                                        left: 12,
+                                        right: 12,
+                                        bottom: 10,
+                                        color: "#FFFFFF",
+                                        fontWeight: 800,
+                                        letterSpacing: ".2px",
+                                        textShadow: "0 2px 10px rgba(0,0,0,.35)",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
+                                    }}
+                                >
+                                    <span
+                                        aria-hidden="true"
+                                        style={{
+                                            display: "inline-grid",
+                                            placeItems: "center",
+                                            width: 28,
+                                            height: 28,
+                                            borderRadius: 999,
+                                            background: "rgba(255,255,255,.2)",
+                                            border: "1px solid rgba(255,255,255,.3)",
+                                            backdropFilter: "blur(2px)",
+                                            fontSize: 14,
+                                        }}
+                                    >
+                                        ★
+                                    </span>
+                                    {t.n}
+                                </figcaption>
+                            </div>
+
+                            {/* TEKST: cytat + opis */}
+                            <blockquote
+                                style={{
+                                    margin: 0,
+                                    padding: "16px 16px 18px",
+                                }}
+                            >
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        color: "#0F172A",
+                                        fontWeight: 800,
+                                        lineHeight: 1.45,
+                                        fontSize: "clamp(1rem, 1.2vw, 1.05rem)",
+                                    }}
+                                >
+                                    {t.q}
+                                </p>
+                                <p
+                                    style={{
+                                        margin: "8px 0 0",
+                                        color: "#334155",
+                                        lineHeight: 1.7,
+                                    }}
+                                >
+                                    {t.a}
+                                </p>
+                            </blockquote>
+                        </figure>
                     ))}
                 </div>
+
+                {/* Local styles: delikatne reveal przy scrollu + preferencje dostępności */}
+                <style>{`
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .story-card { opacity: 0; transform: translateY(10px); animation: cardIn .5s ease forwards; }
+    .story-card:nth-child(1) { animation-delay: .05s; }
+    .story-card:nth-child(2) { animation-delay: .12s; }
+    .story-card:nth-child(3) { animation-delay: .18s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .story-card { opacity: 1 !important; transform: none !important; animation: none !important; }
+    }
+  `}</style>
             </section>
 
-            {/* ========= FAQ (details/summary) ========= */}
-            <section
-                aria-label="Caregivers FAQ"
-                style={{
-                    margin: "0 auto 3.75rem",
-                    maxWidth: 1100,
-                    padding: "0 clamp(16px,4vw,32px)",
-                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                }}
-            >
-                <h2 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.35rem,2.6vw,1.9rem)" }}>
-                    Frequently asked questions
-                </h2>
+
+            {/* === FAQ === */}
+            <section aria-label="Caregivers FAQ" style={{ ...container, margin: "0 auto 3.75rem" }}>
+                <h2 style={sectionTitle}>Frequently asked questions</h2>
                 <div
-                    aria-hidden="true"
-                    style={{ width: 420, height: 4, background: "#1FAB1F", borderRadius: 999, margin: ".75rem 0 1.5rem 0" }}
+                    style={{
+                        width: 420,
+                        maxWidth: "90%",
+                        height: 4,
+                        background: BRAND,
+                        borderRadius: 999,
+                        margin: ".75rem 0 1.5rem 0",
+                        opacity: 0.95,
+                    }}
                 />
                 <div style={{ display: "grid", gap: 10 }}>
                     {[
@@ -790,17 +923,19 @@ export default function ICareForCaregivers() {
                                     listStyle: "none",
                                     cursor: "pointer",
                                     fontWeight: 800,
-                                    color: "#0F172A",
+                                    color: NEUTRAL,
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "space-between",
                                     gap: 12,
                                 }}
-                                onMouseOver={(e) => (e.currentTarget.style.color = "#1FAB1F")}
-                                onMouseOut={(e) => (e.currentTarget.style.color = "#0F172A")}
+                                onMouseOver={(e) => (e.currentTarget.style.color = BRAND)}
+                                onMouseOut={(e) => (e.currentTarget.style.color = NEUTRAL)}
                             >
                                 {f.q}
-                                <span aria-hidden="true" style={{ color: "#1FAB1F" }}>+</span>
+                                <span aria-hidden="true" style={{ color: BRAND }}>
+                                    +
+                                </span>
                             </summary>
                             <div style={{ marginTop: 8, color: "#334155", lineHeight: 1.65 }}>{f.a}</div>
                         </details>
@@ -808,21 +943,21 @@ export default function ICareForCaregivers() {
                 </div>
             </section>
 
-            {/* ========= CONTACT CTA (full-bleed green) ========= */}
+            {/* === CONTACT CTA (full-bleed green) === */}
             <section
                 aria-label="Contact CTA"
                 style={{
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "#1FAB1F",
+                    background: BRAND,
                     color: "#FFFFFF",
                 }}
             >
                 <div
                     style={{
+                        ...container,
                         maxWidth: 1200,
-                        margin: "0 auto",
                         padding: "28px clamp(16px,4vw,32px)",
                         display: "grid",
                         gridTemplateColumns: "1fr auto",
@@ -831,7 +966,14 @@ export default function ICareForCaregivers() {
                     }}
                 >
                     <div>
-                        <h3 style={{ margin: 0, fontWeight: 900, fontSize: "clamp(1.15rem,2.2vw,1.5rem)", color: "FFFFFF" }}>
+                        <h3
+                            style={{
+                                margin: 0,
+                                fontWeight: 900,
+                                fontSize: "clamp(1.15rem,2.2vw,1.5rem)",
+                                color: "#FFFFFF",
+                            }}
+                        >
                             Need help setting up your profile?
                         </h3>
                         <p style={{ margin: "6px 0 0", color: "rgba(252, 251, 251, 1)" }}>
@@ -845,7 +987,7 @@ export default function ICareForCaregivers() {
                             alignItems: "center",
                             gap: 8,
                             textDecoration: "none",
-                            color: "#1FAB1F",
+                            color: BRAND,
                             background: "#FFFFFF",
                             padding: ".9rem 1.2rem",
                             borderRadius: 999,
@@ -855,20 +997,31 @@ export default function ICareForCaregivers() {
                             boxShadow: "0 10px 24px rgba(2,8,23,.10)",
                             transition: "transform .15s ease",
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-1px)" }}
-                        onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)" }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-1px)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                        }}
                     >
                         Contact us
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M5 12h14" /><path d="M13 5l7 7-7 7" />
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14" />
+                            <path d="M13 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
             </section>
-
-
-
         </div>
     );
 }
