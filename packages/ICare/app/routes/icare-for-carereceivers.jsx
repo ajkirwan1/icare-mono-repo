@@ -3,10 +3,10 @@ import { Link } from "react-router";
 import iCareForCarereceiversSrc from "/images/heros/icare-for-carereceivers.jpg";
 import styles from "./icare-for-carereceivers.module.scss";
 
-export default function ICareForCaregivers() {
+export default function ICareForCareReceivers() {
     return (
         <div className={styles.page}>
-            {/* === HERO === */}
+            {/* === HERO (spójny z caregivers, bez zmian copy) === */}
             <section
                 aria-label="ICare for Care Receivers hero"
                 style={{
@@ -17,8 +17,7 @@ export default function ICareForCaregivers() {
                     display: "grid",
                     placeItems: "center",
                     color: "#fff",
-                    background:
-                        "radial-gradient(80rem 40rem at 10% 10%, rgba(51,174,186,.06), transparent 60%), radial-gradient(80rem 40rem at 90% 90%, rgba(17,119,128,.06), transparent 60%), linear-gradient(160deg, #0b1220 0%, #0f172a 65%, #0b1220 100%)",
+                    background: "#0b1220",
                 }}
             >
                 {/* tło zdjęciowe */}
@@ -37,7 +36,7 @@ export default function ICareForCaregivers() {
                     }}
                 />
 
-                {/* overlay (vignette) */}
+                {/* overlay (subtelna winieta, bez gradientów kolorystycznych) */}
                 <div
                     style={{
                         position: "absolute",
@@ -310,15 +309,16 @@ export default function ICareForCaregivers() {
                 </div>
             </section>
 
-            {/* === (PRZENIESIONA WYŻEJ) SEKCJA: For care receivers === */}
+            {/* === FOR CARE RECEIVERS — tytuł spójny, bez gradientu + BADGE see-through === */}
             <section
                 aria-label="For care receivers"
                 style={{
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "linear-gradient(180deg, #F2FAFB 0%, #FFFFFF 65%)",
-                    padding: "88px 32px 96px",
+                    background: "#FFFFFF",
+                    padding: "88px 32px 72px",
+                    borderTop: "1px solid #E5E7EB",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
@@ -327,89 +327,59 @@ export default function ICareForCaregivers() {
                     style={{
                         width: "min(1200px, 92vw)",
                         margin: "0 auto",
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-                        gap: 40,
-                        alignItems: "center",
                     }}
                 >
                     <div
                         style={{
                             position: "relative",
                             background: "rgba(103, 103, 116, 0.05)",
-                            border: "2px solid #fff",
+                            border: "1px solid #EEF2F7",
                             borderRadius: 24,
-                            padding: 36,
+                            padding: "28px 24px 30px",
                         }}
                     >
-                        {/* Ikona — serce */}
-                        <div
-                            aria-hidden="true"
-                            style={{
-                                width: 96,
-                                height: 96,
-                                borderRadius: "50%",
-                                display: "grid",
-                                placeItems: "center",
-                                background: "#EFF6FF",
-                                border: "1px solid #166016",
-                                marginBottom: 24,
-                            }}
-                        >
-                            <svg
-                                width="56"
-                                height="56"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="#166016"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                role="img"
-                                aria-label="Heart icon"
-                            >
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
-                            </svg>
-                        </div>
-
-                        {/* === Tytuł + kolorowa sekcja "FIND TRUSTED CARE IN JUST 3 QUICK STEPS" === */}
+                        {/* Tytuł — spójny, bez gradientu */}
                         <h2
                             style={{
                                 margin: 0,
+                                color: "#1f2a37",
                                 fontWeight: 700,
-                                letterSpacing: "0.3px",
-                                fontSize: "clamp(26px, 2.6vw, 38px)",
-                                lineHeight: 1.22,
-                                paddingBottom: 14,
-                                borderBottom: "2px solid rgba(5,59,59,.28)",
-                                color: "#1FAB1F ",
-                                backgroundImage:
-                                    " #1FAB1F ",
-                                WebkitBackgroundClip: "text",
-                                backgroundClip: "text",
-                                color: "transparent",
+                                letterSpacing: "0.2px",
+                                fontSize: "clamp(24px, 2.4vw, 32px)",
+                                lineHeight: 1.24,
+                                paddingBottom: 12,
                             }}
                         >
-
+                            FIND TRUSTED CARE IN JUST 3 QUICK STEPS
                         </h2>
+                        <div
+                            aria-hidden="true"
+                            style={{
+                                width: 0,
+                                height: 3,
+                                background: "#1FAB1F",
+                                borderRadius: 999,
+                                opacity: 0.85,
+                                margin: "10px 0 22px 0",
+                            }}
+                        />
 
-                        {/* — SAFETY & TRUST (delikatne, podbite kolory) — */}
+                        {/* — Bardzo delikatne, jasne badge (see-through + ikony) — */}
                         <section
                             aria-label="Safety & Trust"
                             style={{
-                                width: "min(1100px, 92vw)",
-                                margin: "28px auto 0",
+                                marginTop: 18,
                                 display: "grid",
                                 gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                                gap: "14px",
+                                gap: 12,
                             }}
                         >
                             {[
-                                { t: "ID Verified", i: "shield", base: "rgba(31,171,31" },              // zielony
-                                { t: "Background Check", i: "file", base: "rgba(59,130,246" },          // niebieski
-                                { t: "References", i: "user-check", base: "rgba(139,92,246" },          // fioletowy
-                                { t: "Secure Messaging", i: "lock", base: "rgba(45,212,191" },          // turkus
-                                { t: "e-Sign Contracts", i: "pen", base: "rgba(251,146,60" },           // pomarańcz
+                                { t: "ID Verified", i: "shield", base: "31,171,31" }, // green
+                                { t: "Background Check", i: "file", base: "59,130,246" }, // blue
+                                { t: "References", i: "user-check", base: "139,92,246" }, // violet
+                                { t: "Secure Messaging", i: "lock", base: "45,212,191" }, // teal
+                                { t: "e-Sign Contracts", i: "pen", base: "251,146,60" }, // orange
                             ].map((b) => (
                                 <div
                                     key={b.t}
@@ -420,9 +390,9 @@ export default function ICareForCaregivers() {
                                         gap: 12,
                                         padding: "14px 14px",
                                         borderRadius: 16,
-                                        background: `${b.base}, 0.12)`,          // było 0.06 → teraz 0.08
-                                        border: `1px solid ${b.base}, 0.22)`,    // było 0.16 → teraz 0.22
-                                        boxShadow: "0 6px 16px rgba(2,8,23,.03)",
+                                        background: `rgba(${b.base}, 0.10)`,
+                                        border: `1px solid rgba(${b.base}, 0.22)`,
+                                        boxShadow: "0 8px 18px rgba(2,8,23,.03)",
                                         transition: "transform .15s ease, box-shadow .15s ease",
                                     }}
                                     onMouseEnter={(e) => {
@@ -431,10 +401,9 @@ export default function ICareForCaregivers() {
                                     }}
                                     onMouseLeave={(e) => {
                                         e.currentTarget.style.transform = "translateY(0)";
-                                        e.currentTarget.style.boxShadow = "0 6px 16px rgba(2,8,23,.03)";
+                                        e.currentTarget.style.boxShadow = "0 8px 18px rgba(2,8,23,.03)";
                                     }}
                                 >
-                                    {/* Ikona */}
                                     <span
                                         aria-hidden="true"
                                         style={{
@@ -443,11 +412,9 @@ export default function ICareForCaregivers() {
                                             borderRadius: 14,
                                             display: "grid",
                                             placeItems: "center",
-                                            background: "rgba(255,255,255,0.75)",
-                                            border: `1px solid ${b.base}, 0.22)`,
-                                            color: b.base.replace("rgba(", "").replace(")", "").split(",").slice(0, 3).join(","),
-                                            fontSize: 14,
-                                            fontWeight: 700,
+                                            background: "rgba(255,255,255,0.85)",
+                                            border: `1px solid rgba(${b.base}, 0.28)`,
+                                            color: `rgb(${b.base})`,
                                         }}
                                     >
                                         {b.i === "shield" && (
@@ -486,7 +453,6 @@ export default function ICareForCaregivers() {
                                         )}
                                     </span>
 
-                                    {/* Tekst */}
                                     <div>
                                         <strong
                                             style={{
@@ -498,7 +464,7 @@ export default function ICareForCaregivers() {
                                         >
                                             {b.t}
                                         </strong>
-                                        <span style={{ color: "#334155", fontSize: 14, lineHeight: 1.55 }}>
+                                        <span style={{ color: "#334155", opacity: 0.9, fontSize: 14, lineHeight: 1.55 }}>
                                             Extra visibility for verified profiles and safer cooperation.
                                         </span>
                                     </div>
@@ -506,8 +472,7 @@ export default function ICareForCaregivers() {
                             ))}
                         </section>
 
-
-                        {/* lead pod badge – zostaje spójny */}
+                        {/* lead */}
                         <p
                             style={{
                                 margin: "28px auto 0",
@@ -525,109 +490,18 @@ export default function ICareForCaregivers() {
                                 with your chosen caregiver.
                             </b>
                         </p>
-
-
-
-                        <ul
-                            style={{
-                                listStyle: "none",
-                                padding: 0,
-                                margin: "22px 0 0",
-                                display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                                gap: 14,
-                                color: "#0F172A",
-                                fontSize: 18,
-                                maxWidth: 1000,
-                            }}
-                        >
-                            {[
-                                "Browse verified caregiver profiles",
-                                "Match by skills, language & availability",
-                                "Secure messaging & clear pricing",
-                                "Contracts and payments in one place",
-                            ].map((item) => (
-                                <li
-                                    key={item}
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "flex-start",
-                                        gap: 10,
-                                        padding: 14,
-                                        borderRadius: 16,
-                                        background: "rgba(45, 190, 203, 0.08)",
-                                        border: "1px solid #57575780",
-                                        marginBottom: 24,
-                                    }}
-                                >
-                                    <svg
-                                        width="18"
-                                        height="18"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#3B82F6"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        style={{ marginTop: 2, flexShrink: 0 }}
-                                    >
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                    <span style={{ color: "#334155", lineHeight: 1.6 }}>{item}</span>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div style={{ display: "flex", gap: 12, marginTop: 26, flexWrap: "wrap" }}>
-                            <button
-                                type="button"
-                                style={{
-                                    appearance: "none",
-                                    border: "none",
-                                    background: "#1FAB1F",
-                                    color: "#fff",
-                                    padding: "14px 20px",
-                                    borderRadius: 28,
-                                    fontWeight: 600,
-                                    fontSize: 14,
-                                    letterSpacing: ".4px",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                REGISTER WITH US
-                            </button>
-
-                            <button
-                                type="button"
-                                style={{
-                                    appearance: "none",
-                                    background: "#7d7f82",
-                                    color: "#fff",
-                                    padding: "16px 22px",
-                                    borderRadius: 28,
-                                    fontWeight: 600,
-                                    fontSize: 14,
-                                    letterSpacing: ".2px",
-                                    cursor: "pointer",
-                                    border: "1px solid #7d7f82",
-                                }}
-                            >
-                                EXPLORE CAREGIVERS
-                            </button>
-                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* === BANNER full-bleed (więcej spacingu, bez zielonej ramki, bardziej urozmaicone) === */}
-            {/* === BANNER (spójny, bez gradientów, szare tło + see-through pills) === */}
+            {/* === BANNER (szare tło + see-through pills, z obrazkiem po prawej) === */}
             <section
                 aria-label="ICare banner"
                 style={{
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "#F3F4F6", // neutralny szary bez gradientu
+                    background: "#F3F4F6",
                     borderTop: "1px solid #E5E7EB",
                     borderBottom: "1px solid #E5E7EB",
                 }}
@@ -665,7 +539,6 @@ export default function ICareForCaregivers() {
                             </span>
                         </h2>
 
-                        {/* subtelny divider (bez gradientu) */}
                         <div
                             aria-hidden="true"
                             style={{
@@ -678,12 +551,11 @@ export default function ICareForCaregivers() {
                             }}
                         />
 
-                        {/* pills — delikatne „see-through” kolory */}
                         <ul
                             style={{
                                 listStyle: "none",
                                 padding: 0,
-                                margin: "0",
+                                margin: 0,
                                 display: "flex",
                                 flexWrap: "wrap",
                                 gap: "10px",
@@ -693,25 +565,25 @@ export default function ICareForCaregivers() {
                             {[
                                 {
                                     tag: "No subscription",
-                                    bg: "rgba(16,185,129,.10)",     // zielony see-through
+                                    bg: "rgba(16,185,129,.10)",
                                     br: "rgba(16,185,129,.22)",
-                                    ico: "rgba(16,185,129,.9)",
+                                    ico: "rgba(16,185,129,.95)",
                                 },
                                 {
                                     tag: "Direct agreement",
-                                    bg: "rgba(20,184,166,.10)",     // teal see-through
+                                    bg: "rgba(20,184,166,.10)",
                                     br: "rgba(20,184,166,.22)",
-                                    ico: "rgba(20,184,166,.9)",
+                                    ico: "rgba(20,184,166,.95)",
                                 },
                                 {
                                     tag: "Secure messaging",
-                                    bg: "rgba(99,102,241,.10)",     // indigo see-through
+                                    bg: "rgba(99,102,241,.10)",
                                     br: "rgba(99,102,241,.22)",
-                                    ico: "rgba(99,102,241,.9)",
+                                    ico: "rgba(99,102,241,.95)",
                                 },
                                 {
                                     tag: "Transparent pricing",
-                                    bg: "rgba(245,158,11,.10)",     // amber see-through
+                                    bg: "rgba(245,158,11,.10)",
                                     br: "rgba(245,158,11,.22)",
                                     ico: "rgba(245,158,11,.95)",
                                 },
@@ -731,10 +603,9 @@ export default function ICareForCaregivers() {
                                         fontSize: "14.5px",
                                         letterSpacing: ".2px",
                                         boxShadow: "0 1px 0 rgba(2, 8, 23, 0.02)",
-                                        backdropFilter: "saturate(1.05)", // jeszcze lżejszy, „powietrze”
+                                        backdropFilter: "saturate(1.05)",
                                     }}
                                 >
-                                    {/* neutralna ikonka z kolorem pill'a */}
                                     <svg
                                         width="16"
                                         height="16"
@@ -756,7 +627,7 @@ export default function ICareForCaregivers() {
                         </ul>
                     </div>
 
-                    {/* Prawa kolumna: opcjonalne zdjęcie/ilustracja */}
+                    {/* Prawa kolumna: ilustracja */}
                     <figure
                         style={{
                             margin: 0,
@@ -772,7 +643,7 @@ export default function ICareForCaregivers() {
                         }}
                     >
                         <img
-                            src="/images/banners/family-care.jpg" // <- podmień na swój asset
+                            src="/images/banners/family-care.jpg"
                             alt="Family discussing care plan"
                             loading="lazy"
                             style={{
@@ -789,109 +660,161 @@ export default function ICareForCaregivers() {
                 </div>
             </section>
 
-
+            {/* === CARE NEEDS CHECKLIST — na środek, jedna szeroka karta ~80% === */}
             <section
                 aria-label="Care Needs Checklist"
                 style={{
-                    width: "min(1100px, 92vw)",
-                    margin: "24px auto 8px",
-                    padding: "18px",
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(15,23,42,.08)",
-                    borderRadius: 16,
-                    fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    marginLeft: "calc(50% - 50vw)",
+                    marginRight: "calc(50% - 50vw)",
+                    width: "100vw",
+                    background: "#F3F4F6",
+                    borderTop: "1px solid #E5E7EB",
+                    borderBottom: "1px solid #E5E7EB",
+                    padding: "56px 20px 64px",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                <header
+                <div
                     style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: "16px",
-                        flexWrap: "wrap",
-                        padding: "8px 0 20px",      // więcej oddechu nad i pod headerem
-                        marginBottom: "12px",       // separacja od listy poniżej
-                        borderBottom: "1px solid rgba(15,23,42,0.06)", // subtelna linia dla odcięcia
+                        width: "min(1400px, 92vw)",
+                        margin: "0 auto",
+                        display: "grid",
+                        justifyItems: "center",
                     }}
                 >
-                    <h4
+                    <div
                         style={{
-                            margin: 0,
-                            color: "#1f2a37",
-                            fontWeight: 800,
-                            letterSpacing: ".2px",
-                            fontSize: "1.5rem",
+                            width: "min(1100px, 80vw)", // ~80% ekranu
+                            background: "#FFFFFF",
+                            border: "1px solid rgba(15,23,42,.08)",
+                            borderRadius: 16,
+                            padding: "26px 22px 24px",
+                            boxShadow: "0 10px 22px rgba(2,8,23,.05)",
                         }}
                     >
-                        Tell us what you need
-                    </h4>
-
-                    <button
-                        type="button"
-                        style={{
-                            appearance: "none",
-                            border: "none",
-                            borderRadius: 999,
-                            background: "#1FAB1F",
-                            color: "#fff",
-                            padding: "12px 18px",       // większy przycisk = łatwiej kliknąć
-                            fontWeight: 700,
-                            letterSpacing: ".02em",
-                            cursor: "pointer",
-                            boxShadow: "0 2px 6px rgba(31,171,31,0.15)", // lekki cień
-                            transition: "transform .2s ease, box-shadow .2s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-2px)";
-                            e.currentTarget.style.boxShadow = "0 4px 10px rgba(31,171,31,0.22)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.boxShadow = "0 2px 6px rgba(31,171,31,0.15)";
-                        }}
-                    >
-                        Show matching caregivers
-                    </button>
-                </header>
-
-
-                <ul
-                    style={{
-                        listStyle: "none", padding: 0, margin: "12px 0 0",
-                        display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "10px"
-                    }}
-                >
-                    {[
-                        "Dementia care",
-                        "Mobility support",
-                        "Post-surgery",
-                        "Overnight care",
-                        "Live-in",
-                        "Hourly",
-                        "Driving",
-                        "Polish language",
-                        "German language",
-                        "English language",
-                    ].map((k) => (
-                        <li key={k}>
-                            <label
+                        <header
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: "16px",
+                                flexWrap: "wrap",
+                                padding: "10px 0 20px",
+                                marginBottom: "12px",
+                                borderBottom: "1px solid rgba(15,23,42,0.06)",
+                            }}
+                        >
+                            <h4
                                 style={{
-                                    display: "flex", alignItems: "center", gap: 8,
-                                    padding: "10px 12px", borderRadius: 12,
-                                    background: "#F1F5F9", border: "1px solid rgba(15,23,42,.08)",
-                                    color: "#0f172a", fontWeight: 600, fontSize: 14, cursor: "pointer"
+                                    margin: 0,
+                                    color: "#1f2a37",
+                                    fontWeight: 800,
+                                    letterSpacing: ".2px",
+                                    fontSize: "1.5rem",
+                                    lineHeight: 1.2,
                                 }}
                             >
-                                <input type="checkbox" style={{ transform: "scale(1.15)" }} />
-                                {k}
-                            </label>
-                        </li>
-                    ))}
-                </ul>
+                                Tell us what you need
+                            </h4>
+
+                            <button
+                                type="button"
+                                style={{
+                                    appearance: "none",
+                                    border: "none",
+                                    borderRadius: 999,
+                                    background: "#1FAB1F",
+                                    color: "#fff",
+                                    padding: "12px 18px",
+                                    fontWeight: 700,
+                                    letterSpacing: ".02em",
+                                    cursor: "pointer",
+                                    boxShadow: "0 2px 6px rgba(31,171,31,0.15)",
+                                    transition: "transform .2s ease, box-shadow .2s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = "translateY(-2px)";
+                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(31,171,31,0.22)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.boxShadow = "0 2px 6px rgba(31,171,31,0.15)";
+                                }}
+                            >
+                                Show matching caregivers
+                            </button>
+                        </header>
+
+                        <p
+                            style={{
+                                margin: "0 0 14px",
+                                color: "#334155",
+                                fontSize: 15,
+                                lineHeight: 1.65,
+                            }}
+                        >
+                            Choose the areas you need help with. We’ll use them to match you with suitable caregivers.
+                        </p>
+
+                        <ul
+                            style={{
+                                listStyle: "none",
+                                padding: 0,
+                                margin: "8px 0 0",
+                                display: "grid",
+                                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                                gap: "10px",
+                            }}
+                        >
+                            {[
+                                "Dementia care",
+                                "Mobility support",
+                                "Post-surgery",
+                                "Overnight care",
+                                "Live-in",
+                                "Hourly",
+                                "Driving",
+                                "Polish language",
+                                "German language",
+                                "English language",
+                            ].map((k) => (
+                                <li key={k}>
+                                    <label
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: 8,
+                                            padding: "10px 12px",
+                                            borderRadius: 12,
+                                            background: "rgba(31,171,31,0.08)",
+                                            border: "1px solid rgba(31,171,31,0.22)",
+                                            color: "#0f172a",
+                                            fontWeight: 600,
+                                            fontSize: 14,
+                                            cursor: "pointer",
+                                            transition: "background .15s ease, border-color .15s ease",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = "rgba(31,171,31,0.12)";
+                                            e.currentTarget.style.borderColor = "rgba(31,171,31,0.30)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = "rgba(31,171,31,0.08)";
+                                            e.currentTarget.style.borderColor = "rgba(31,171,31,0.22)";
+                                        }}
+                                    >
+                                        <input type="checkbox" style={{ transform: "scale(1.15)" }} />
+                                        {k}
+                                    </label>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
             </section>
 
-
-            {/* === ICare vs Agency === */}
+            {/* === ICare vs Agency — mocniej podkreślone porównanie === */}
             <section
                 aria-label="ICare vs Agency"
                 style={{
@@ -904,52 +827,77 @@ export default function ICareForCaregivers() {
             >
                 <h3
                     style={{
-                        margin: "0 0 36px",
+                        margin: "0 0 28px",
                         fontWeight: 900,
                         letterSpacing: ".2px",
                         fontSize: "clamp(1.35rem, 2.5vw, 1.75rem)",
-                        color: "#1f2a37", // spójny ciemnoszary z całym projektem
+                        color: "#1f2a37",
                         textAlign: "center",
-                        position: "relative",
-                        display: "inline-block",
                     }}
                 >
                     Why families choose ICare
-                    {/* zielone podkreślenie */}
-                    <span
-                        style={{
-                            content: "''",
-                            position: "absolute",
-                            left: "50%",
-                            bottom: "-6px",
-                            transform: "translateX(-50%)",
-                            width: "100%",
-                            height: "3px",
-                            backgroundColor: "#1FAB1F",
-                            borderRadius: "999px",
-                        }}
-                    ></span>
                 </h3>
 
+                {/* Pasek pomocniczy: 4 skróty-benefity */}
+                <ul
+                    style={{
+                        listStyle: "none",
+                        padding: 0,
+                        margin: "0 auto 18px",
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
+                        gap: 10,
+                        maxWidth: 1000,
+                    }}
+                >
+                    {[
+                        { label: "Direct agreement", col: "31,171,31" },
+                        { label: "Transparent pricing", col: "245,158,11" },
+                        { label: "Secure messaging", col: "99,102,241" },
+                        { label: "More pay for caregivers", col: "20,184,166" },
+                    ].map((t) => (
+                        <li
+                            key={t.label}
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 8,
+                                padding: "10px 12px",
+                                borderRadius: 12,
+                                background: `rgba(${t.col},.10)`,
+                                border: `1px solid rgba(${t.col},.22)`,
+                                color: "#0f172a",
+                                fontWeight: 600,
+                                fontSize: 14,
+                            }}
+                        >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={`rgba(${t.col},.95)`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            {t.label}
+                        </li>
+                    ))}
+                </ul>
 
                 <div
                     style={{
+                        marginTop: 16,
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
-                        gap: "14px",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: 14,
                     }}
                 >
-                    {/* ICare card — z zielonym see-through tłem */}
+                    {/* ICare card — zielone see-through tło, wyraźnie wyróżnione */}
                     <article
                         style={{
                             borderRadius: 18,
                             padding: 18,
-                            background: "rgba(31,171,31,0.08)", // lekko zielone tło
-                            border: "1px solid rgba(31,171,31,0.25)", // zielona ramka, ale subtelna
-                            boxShadow: "0 8px 22px rgba(2,8,23,0.05)",
+                            background: "rgba(31,171,31,0.10)",
+                            border: "1px solid rgba(31,171,31,0.30)",
+                            boxShadow: "0 10px 24px rgba(2,8,23,0.06)",
                         }}
                     >
-                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -958,8 +906,8 @@ export default function ICareForCaregivers() {
                                     borderRadius: 99,
                                     display: "grid",
                                     placeItems: "center",
-                                    background: "rgba(31,171,31,0.18)", // tło ikonki lekko mocniejsze
-                                    border: "1px solid rgba(31,171,31,0.4)",
+                                    background: "rgba(31,171,31,0.18)",
+                                    border: "1px solid rgba(31,171,31,0.42)",
                                     color: "#166016",
                                     fontWeight: 900,
                                 }}
@@ -988,18 +936,17 @@ export default function ICareForCaregivers() {
                         </ul>
                     </article>
 
-
-                    {/* Agency card */}
+                    {/* Agency card — chłodny, neutralny */}
                     <article
                         style={{
                             borderRadius: 18,
                             padding: 18,
-                            background: "#FFFFFF",
+                            background: "rgba(148,163,184,.10)",
                             border: "1px solid rgba(148,163,184,.35)",
-                            boxShadow: "0 8px 22px rgba(2,8,23,.04)",
+                            boxShadow: "0 8px 22px rgba(2,8,23,.05)",
                         }}
                     >
-                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -1008,7 +955,7 @@ export default function ICareForCaregivers() {
                                     borderRadius: 99,
                                     display: "grid",
                                     placeItems: "center",
-                                    background: "rgba(148,163,184,.15)",
+                                    background: "rgba(148,163,184,.2)",
                                     border: "1px solid rgba(148,163,184,.45)",
                                     color: "#64748b",
                                     fontWeight: 900,
@@ -1037,15 +984,6 @@ export default function ICareForCaregivers() {
                         </ul>
                     </article>
                 </div>
-
-                <div
-                    aria-hidden="true"
-                    style={{
-                        height: 1,
-                        background: "linear-gradient(90deg,rgba(0,0,0,0),#E6F3F5,rgba(0,0,0,0))",
-                        margin: "22px 0",
-                    }}
-                />
             </section>
 
             {/* === FAQ === */}
@@ -1200,11 +1138,10 @@ export default function ICareForCaregivers() {
                     width: "100vw",
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
-                    background: "#1fab1fc8",
+                    background: "#1fab1f",
                     color: "#e6edf6",
                 }}
             >
-
                 <div
                     style={{
                         position: "relative",
