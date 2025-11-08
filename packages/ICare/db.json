@@ -515,7 +515,7 @@
       "caregiverId": 5,
       "caregiverName": "Eve Davis",
       "profileId": "caregiver-005",
-      "lastUpdated": "2025-09-28T08:06:44Z",
+      "lastUpdated": "2025-11-08T20:35:40.590Z",
       "unreadCount": 2,
       "messages": [
         {
@@ -540,6 +540,14 @@
           "to": "caregiver",
           "timestamp": "2025-09-28T08:07:03Z",
           "text": "Also, any restlessness overnight?",
+          "status": "unread"
+        },
+        {
+          "id": "msg-1762634140590",
+          "from": "carerecipient",
+          "to": "caregiver",
+          "timestamp": "2025-11-08T20:35:40.590Z",
+          "text": "hi",
           "status": "unread"
         }
       ]

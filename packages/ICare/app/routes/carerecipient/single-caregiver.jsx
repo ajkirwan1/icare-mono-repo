@@ -1,168 +1,226 @@
-import { IcareSection, IcareCard } from "react-library";
-import { useState, useEffect } from "react";
-import { useMatches, useLoaderData, NavLink } from "react-router";
+import { useState } from "react";
+import { useLoaderData, NavLink } from "react-router";
 import { json } from "@remix-run/node";
-import PillComponent from "../../components/pill/pill-component";
-import styles from "../../styles/pages/single-caregiver.module.scss";
-
 
 export function meta() {
-  return [
-    { title: "ICare | Home" },
-    { name: "description", content: "ICare – Supporting better care through intuitive tools." }
-  ];
+    return [
+        { title: "ICare | Caregiver Profile" },
+        { name: "description", content: "Meet trusted caregivers with verified experience and empathy." }
+    ];
 }
-// export const handle = {
-//   breadcrumb: "Home"
-// };
-
 
 export async function loader({ params }) {
-  console.log(params, "paramssssssssssssssssssssssss");
-  const id = params.caregiverId;
-  if (!id) {
-    throw new Response("Caregiver id missing", { status: 400 });
-  }
+    const id = params.caregiverId;
+    if (!id) throw new Response("Caregiver id missing", { status: 400 });
 
-  const res = await fetch("http://localhost:4000/caregivers");
-  if (!res.ok) {
-    throw new Response("Failed to load caregivers", { status: res.status });
-  }
+    const res = await fetch("http://localhost:4000/caregivers");
+    if (!res.ok) throw new Response("Failed to load caregivers", { status: res.status });
 
-  const caregivers = await res.json();
-  const caregiver = caregivers.find(c => String(c.id) === id);
+    const caregivers = await res.json();
+    const caregiver = caregivers.find((c) => String(c.id) === id);
 
-  if (!caregiver) {
-    throw new Response("Caregiver not found", { status: 404 });
-  }
-
-  return json(caregiver);
+    if (!caregiver) throw new Response("Caregiver not found", { status: 404 });
+    return json(caregiver);
 }
 
 export default function CaregiverRecipientHome() {
-  const caregiver = useLoaderData();
+    const caregiver = useLoaderData();
+    const [isFavourited, setIsFavourited] = useState(false);
+    const [hoveredBtn, setHoveredBtn] = useState(null);
 
-  const [isFavourited, setIsFavourited] = useState(false);
-  const toggleFavourite = () => setIsFavourited(v => !v);
+    const toggleFavourite = () => setIsFavourited((v) => !v);
 
-  useEffect(() => {
-    console.log("Component mounted");
-    return () => console.log("Component unmounted");
-  }, []);
+    const colors = {
+        background: "#ffffff",
+        cardBg: "#f4f4f4", // 💡 szarość tylko dla karty
+        green: "#619482",
+        greenDark: "#4c7865",
+        border: "#dcdede",
+        text: "#333",
+    };
 
+    const styles = {
+        wrapper: {
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: colors.background,
+            padding: "3rem 1rem",
+            fontFamily: "Nunito, sans-serif",
+        },
+        card: {
+            backgroundColor: colors.cardBg,
+            borderRadius: "30px",
+            maxWidth: "820px",
+            width: "100%",
+            boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+            padding: "2.5rem",
+            color: colors.text,
+            border: `1px solid ${colors.border}`,
+        },
+        header: {
+            display: "flex",
+            alignItems: "center",
+            gap: "1.5rem",
+            borderBottom: `2px solid ${colors.border}`,
+            paddingBottom: "1.5rem",
+        },
+        avatar: {
+            width: "120px",
+            height: "120px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: `3px solid ${colors.green}`,
+            backgroundColor: "#fff",
+        },
+        name: { fontSize: "1.9rem", margin: 0, color: colors.greenDark },
+        role: { fontSize: "1rem", color: "#777" },
+        location: { fontSize: "1.1rem", color: "#5c6b67" },
+        favButton: (active) => ({
+            marginTop: "1rem",
+            backgroundColor: active ? colors.green : "#e7ebe9",
+            color: active ? "#fff" : colors.greenDark,
+            fontSize: "1rem",
+            border: "none",
+            borderRadius: "14px",
+            padding: "0.7rem 1.2rem",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+        }),
+        capsules: {
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "1.2rem",
+            margin: "2rem 0",
+        },
+        capsule: {
+            backgroundColor: "#fafafa",
+            borderRadius: "22px",
+            padding: "1rem 1.5rem",
+            textAlign: "center",
+            flex: "1 1 30%",
+            minWidth: "160px",
+            border: `1px solid ${colors.border}`,
+        },
+        label: { color: "#66736f", fontSize: "1rem", display: "block", marginBottom: "0.3rem" },
+        value: { fontSize: "1.4rem", fontWeight: "600", color: colors.greenDark },
+        section: { margin: "2rem 0" },
+        sectionTitle: {
+            fontSize: "1.3rem",
+            color: colors.greenDark,
+            borderLeft: `4px solid ${colors.green}`,
+            paddingLeft: "0.5rem",
+            marginBottom: "1rem",
+        },
+        languageCard: {
+            backgroundColor: "#fbfbfb",
+            border: `1px solid ${colors.border}`,
+            borderRadius: "14px",
+            padding: "1rem",
+            marginBottom: "1rem",
+        },
+        bio: {
+            fontSize: "1.15rem",
+            lineHeight: 1.6,
+            color: "#444",
+            backgroundColor: "#f8f8f8",
+            padding: "1.2rem",
+            borderRadius: "14px",
+        },
+        footer: {
+            display: "flex",
+            justifyContent: "space-between",
+            borderTop: `2px solid ${colors.border}`,
+            marginTop: "2rem",
+            paddingTop: "1.5rem",
+            gap: "1rem",
+            flexWrap: "wrap",
+        },
+        footerBtn: {
+            backgroundColor: colors.green,
+            color: "#fff",
+            textDecoration: "none",
+            padding: "1rem 2rem",
+            borderRadius: "36px",
+            fontWeight: "700",
+            fontSize: "1.1rem",
+            transition: "all 0.25s ease",
+            boxShadow: "0 3px 10px rgba(97,148,130,0.25)",
+        },
+        footerBtnHover: {
+            backgroundColor: colors.greenDark,
+            transform: "scale(1.05)",
+            boxShadow: "0 4px 12px rgba(76,120,101,0.3)",
+        },
+    };
 
-  return (
-    <>
-      <IcareSection>
-        <IcareCard variant="elevated">
-          <span slot="contents">
-            <h1>Caregiver Profile</h1>
-            <div className={styles.root}>
-              <div className={styles.headerRow}>
-                <figure className={styles.avatar}>
-                  <img src={`/${caregiver.imgSrc}`} alt="Heart Icon" />
-                </figure>
-                <div style={{ flex: "1", minWidth: "0" }}>
-                  <article className={styles.infoArticle}>
-                    <div className={styles.infoBar}>
-                      <h2 className={styles.noMargin}>Personal infromation</h2>
-                      <p className={styles.rating}>
-                        <strong>Average rating:</strong> <span>{caregiver.averageRating}</span>
-                      </p>
-                      <button type="button" onClick={toggleFavourite} className={styles.favButton} aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"} aria-pressed={isFavourited}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill={isFavourited ? "#619482" : "none"} stroke="#619482" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart-icon lucide-heart"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></svg>
-                      </button>
+    if (!caregiver) return <p style={{ textAlign: "center" }}>Loading...</p>;
+
+    return (
+        <main style={styles.wrapper}>
+            <div style={styles.card}>
+                <header style={styles.header}>
+                    <img src={`/${caregiver.imgSrc}`} alt={caregiver.name} style={styles.avatar} />
+                    <div>
+                        <h1 style={styles.name}>{caregiver.name}</h1>
+                        <p style={styles.role}>Professional Caregiver</p>
+                        <p style={styles.location}>{caregiver.location}</p>
+                        <button onClick={toggleFavourite} style={styles.favButton(isFavourited)}>
+                            ❤️ {isFavourited ? "In favourites" : "Add to favourites"}
+                        </button>
                     </div>
-                    <div className={styles.inlineMetaRow}>
-                      <p className={styles.noMargin}>
-                        <strong>Name:</strong> <span>{caregiver.name}</span>
-                      </p>
-                      <p className={styles.noMargin}>
-                        <strong>Age:</strong> <span>{caregiver.age}</span>
-                      </p>
-                      <p className={styles.noMargin}>
-                        <strong>Location:</strong> <span>{caregiver.location}</span>
-                      </p>
+                </header>
+
+                <section style={styles.capsules}>
+                    <div style={styles.capsule}>
+                        <span style={styles.label}>Age</span>
+                        <span style={styles.value}>{caregiver.age}</span>
                     </div>
-                  </article>
-                  <article>
-                    <h2>Languages:</h2>
-                    <ul className={styles.languagesList}>
-                      {caregiver.languages.map((languageObj, index) => (
-                        <li key={index}>
-                          <div className={styles.languageLine}>
-                            <h3 className={styles.noMargin}>{languageObj.language}</h3>
-                            <p className={styles.noMargin}>
-                              <strong>Speaking:</strong> {languageObj.speaking}
-                            </p>
-                            <p className={styles.noMargin}>
-                              <strong>Reading:</strong> {languageObj.reading}
-                            </p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                  <article>
-                    <h2>Expertise:</h2>
-                    <ul className={styles.pillList}>
-                      {caregiver.expertise.map((item, index) => (
-                        <li key={index}>
-                          <PillComponent>{item}</PillComponent>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                  <article>
-                    <h2>Specialist Skills:</h2>
-                    <ul className={styles.pillList}>
-                      {caregiver.specialties.map((item, index) => (
-                        <li key={index}>
-                          <PillComponent>{item}</PillComponent>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                  <article>
-                    <h2>Key Skills:</h2>
-                    <ul className={styles.pillList}>
-                      {caregiver.keySkills.map((item, index) => (
-                        <li key={index}>
-                          <PillComponent>{item}</PillComponent>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                  <article>
-                    <h2>Certifcations:</h2>
-                    <ul className={styles.pillList}>
-                      {caregiver.keySkills.map((item, index) => (
-                        <li key={index}>
-                          <PillComponent>{item}</PillComponent>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                  <div className={styles.aboutSection}>
-                    <h2>About me:</h2>
-                    <p>{caregiver.bio}</p>
-                  </div>
-                </div>
-              </div>
+                    <div style={styles.capsule}>
+                        <span style={styles.label}>Experience</span>
+                        <span style={styles.value}>{caregiver.experience || "5+ years"}</span>
+                    </div>
+                    <div style={styles.capsule}>
+                        <span style={styles.label}>Rating</span>
+                        <span style={styles.value}>{caregiver.averageRating} ⭐</span>
+                    </div>
+                </section>
+
+                <section style={styles.section}>
+                    <h2 style={styles.sectionTitle}>Languages</h2>
+                    {caregiver.languages?.map((lang, i) => (
+                        <div key={i} style={styles.languageCard}>
+                            <h3 style={{ margin: "0 0 0.3rem", color: colors.greenDark }}>
+                                {lang.language}
+                            </h3>
+                            <p>🗣 Speaking: <strong>{lang.speaking}</strong></p>
+                            <p>📖 Reading: <strong>{lang.reading}</strong></p>
+                        </div>
+                    ))}
+                </section>
+
+                <section style={styles.section}>
+                    <h2 style={styles.sectionTitle}>About Me</h2>
+                    <p style={styles.bio}>{caregiver.bio}</p>
+                </section>
+
+                <footer style={styles.footer}>
+                    {["Contact", "Resume"].map((label, i) => (
+                        <NavLink
+                            key={i}
+                            to={label === "Contact" ? "messages" : "resume"}
+                            style={{
+                                ...styles.footerBtn,
+                                ...(hoveredBtn === i ? styles.footerBtnHover : {}),
+                            }}
+                            onMouseEnter={() => setHoveredBtn(i)}
+                            onMouseLeave={() => setHoveredBtn(null)}
+                        >
+                            {label === "Contact" ? "💬 Contact " + caregiver.name : "📄 View Resume"}
+                        </NavLink>
+                    ))}
+                </footer>
             </div>
-            <div className={styles.cardFooter}>
-              <ul>
-                <li>
-                  <NavLink to={"messages"}>Contact : {caregiver.name}</NavLink>
-                </li>
-                <li>
-                  <NavLink to={"resume"}>View resume : {caregiver.name}</NavLink>
-                </li>
-              </ul>
-            </div>
-          </span>
-        </IcareCard>
-      </IcareSection>
-    </>
-  );
+        </main>
+    );
 }
