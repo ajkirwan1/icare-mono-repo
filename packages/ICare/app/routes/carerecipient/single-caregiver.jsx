@@ -5,7 +5,7 @@ import { json } from "@remix-run/node";
 export function meta() {
     return [
         { title: "ICare | Caregiver Profile" },
-        { name: "description", content: "Meet trusted caregivers with verified experience and empathy." }
+        { name: "description", content: "Meet trusted caregivers with verified experience and empathy." },
     ];
 }
 
@@ -27,12 +27,15 @@ export default function CaregiverRecipientHome() {
     const caregiver = useLoaderData();
     const [isFavourited, setIsFavourited] = useState(false);
     const [hoveredBtn, setHoveredBtn] = useState(null);
+    const [showDocs, setShowDocs] = useState(false);
+    const [language, setLanguage] = useState("en"); // 🇬🇧 / 🇩🇪
 
     const toggleFavourite = () => setIsFavourited((v) => !v);
+    const isGerman = language === "de";
 
     const colors = {
         background: "#ffffff",
-        cardBg: "#f4f4f4", // 💡 szarość tylko dla karty
+        cardBg: "#f4f4f4",
         green: "#619482",
         greenDark: "#4c7865",
         border: "#dcdede",
@@ -46,16 +49,18 @@ export default function CaregiverRecipientHome() {
             backgroundColor: colors.background,
             padding: "3rem 1rem",
             fontFamily: "Nunito, sans-serif",
+            position: "relative",
         },
         card: {
             backgroundColor: colors.cardBg,
             borderRadius: "30px",
-            maxWidth: "820px",
+            maxWidth: "900px",
             width: "100%",
             boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
             padding: "2.5rem",
             color: colors.text,
             border: `1px solid ${colors.border}`,
+            position: "relative",
         },
         header: {
             display: "flex",
@@ -86,24 +91,26 @@ export default function CaregiverRecipientHome() {
             cursor: "pointer",
             transition: "all 0.2s ease",
         }),
-        capsules: {
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "1.2rem",
-            margin: "2rem 0",
+        langSwitch: {
+            backgroundColor: "#e7ebe9",
+            color: colors.greenDark,
+            fontSize: "0.9rem",
+            border: "none",
+            borderRadius: "10px",
+            padding: "0.4rem 0.8rem",
+            cursor: "pointer",
+            marginLeft: "auto",
         },
-        capsule: {
-            backgroundColor: "#fafafa",
-            borderRadius: "22px",
-            padding: "1rem 1.5rem",
-            textAlign: "center",
-            flex: "1 1 30%",
-            minWidth: "160px",
-            border: `1px solid ${colors.border}`,
+        shortBio: {
+            backgroundColor: "#ffffff",
+            borderRadius: "14px",
+            padding: "1rem",
+            marginTop: "1.5rem",
+            fontSize: "1.05rem",
+            lineHeight: 1.5,
+            color: "#444",
+            boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
         },
-        label: { color: "#66736f", fontSize: "1rem", display: "block", marginBottom: "0.3rem" },
-        value: { fontSize: "1.4rem", fontWeight: "600", color: colors.greenDark },
         section: { margin: "2rem 0" },
         sectionTitle: {
             fontSize: "1.3rem",
@@ -111,21 +118,6 @@ export default function CaregiverRecipientHome() {
             borderLeft: `4px solid ${colors.green}`,
             paddingLeft: "0.5rem",
             marginBottom: "1rem",
-        },
-        languageCard: {
-            backgroundColor: "#fbfbfb",
-            border: `1px solid ${colors.border}`,
-            borderRadius: "14px",
-            padding: "1rem",
-            marginBottom: "1rem",
-        },
-        bio: {
-            fontSize: "1.15rem",
-            lineHeight: 1.6,
-            color: "#444",
-            backgroundColor: "#f8f8f8",
-            padding: "1.2rem",
-            borderRadius: "14px",
         },
         footer: {
             display: "flex",
@@ -146,11 +138,33 @@ export default function CaregiverRecipientHome() {
             fontSize: "1.1rem",
             transition: "all 0.25s ease",
             boxShadow: "0 3px 10px rgba(97,148,130,0.25)",
+            cursor: "pointer",
         },
-        footerBtnHover: {
-            backgroundColor: colors.greenDark,
-            transform: "scale(1.05)",
-            boxShadow: "0 4px 12px rgba(76,120,101,0.3)",
+        stickyCTA: {
+            position: "fixed",
+            bottom: "25px",
+            right: "25px",
+            backgroundColor: colors.green,
+            color: "#fff",
+            borderRadius: "50px",
+            padding: "1rem 1.8rem",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+            fontWeight: "600",
+            cursor: "pointer",
+            fontSize: "1.05rem",
+            transition: "all 0.3s ease",
+            zIndex: 1000,
+        },
+        phoneBtn: {
+            display: "inline-block",
+            marginTop: "1rem",
+            backgroundColor: "#fff",
+            border: `2px solid ${colors.green}`,
+            color: colors.greenDark,
+            borderRadius: "50px",
+            padding: "0.6rem 1rem",
+            cursor: "pointer",
+            fontWeight: "600",
         },
     };
 
@@ -159,68 +173,184 @@ export default function CaregiverRecipientHome() {
     return (
         <main style={styles.wrapper}>
             <div style={styles.card}>
+                {/* HEADER */}
                 <header style={styles.header}>
                     <img src={`/${caregiver.imgSrc}`} alt={caregiver.name} style={styles.avatar} />
-                    <div>
-                        <h1 style={styles.name}>{caregiver.name}</h1>
+                    <div style={{ flex: 1 }}>
+                        <h1 style={styles.name}>
+                            {caregiver.name} <span style={{ fontSize: "1rem" }}>✅ Verified</span>
+                        </h1>
                         <p style={styles.role}>Professional Caregiver</p>
                         <p style={styles.location}>{caregiver.location}</p>
+                        <div>
+                            <span>🏅 ID Verified | 🪪 Police Checked | 🛡 Insured</span>
+                        </div>
                         <button onClick={toggleFavourite} style={styles.favButton(isFavourited)}>
                             ❤️ {isFavourited ? "In favourites" : "Add to favourites"}
                         </button>
+
+
+
                     </div>
+
+                    <button
+                        style={styles.langSwitch}
+                        onClick={() => setLanguage(isGerman ? "en" : "de")}
+                    >
+                        {isGerman ? "Switch to English 🇬🇧" : "Wechseln zu Deutsch 🇩🇪"}
+                    </button>
                 </header>
 
-                <section style={styles.capsules}>
-                    <div style={styles.capsule}>
-                        <span style={styles.label}>Age</span>
-                        <span style={styles.value}>{caregiver.age}</span>
-                    </div>
-                    <div style={styles.capsule}>
-                        <span style={styles.label}>Experience</span>
-                        <span style={styles.value}>{caregiver.experience || "5+ years"}</span>
-                    </div>
-                    <div style={styles.capsule}>
-                        <span style={styles.label}>Rating</span>
-                        <span style={styles.value}>{caregiver.averageRating} ⭐</span>
+                <section style={{ margin: "2rem 0" }}>
+                    <h2
+                        style={{
+                            fontSize: "1.3rem",
+                            color: "#4c7865",
+                            borderLeft: "4px solid #619482",
+                            paddingLeft: "0.5rem",
+                            marginBottom: "1rem",
+                            fontWeight: "700",
+                        }}
+                    >
+                        Bio
+                    </h2>
+
+                    <div
+                        style={{
+                            backgroundColor: "#ffffff",
+                            borderRadius: "14px",
+                            padding: "1.2rem",
+                            fontSize: "1.05rem",
+                            lineHeight: 1.65,
+                            color: "#444",
+                            boxShadow: "0 1px 6px rgba(0,0,0,0.05)",
+                            fontWeight: "500",
+                        }}
+                    >
+                        I am an experienced and empathetic caregiver specializing in elderly care, companionship, and daily support.
                     </div>
                 </section>
 
+                <div
+                    style={{
+                        borderTop: "1px solid #dcdede",
+                        borderBottom: "1px solid #dcdede",
+                        backgroundColor: "#e9f4f0",
+                        textAlign: "center",
+                        padding: "1rem",
+                        marginTop: "2rem",
+                        fontSize: "0.95rem",
+                        color: "#3e6355",
+                        letterSpacing: "0.3px",
+                        fontWeight: "600",
+                        borderRadius: "8px",
+                        lineHeight: 1.6,
+                    }}
+                >
+                    🔒 <strong>ICare Secure Platform</strong> – all agreements and payments are protected.<br />
+                    All communication and arrangements take place securely within the ICare chat.
+                </div>
+
+
+                {/* RATES */}
                 <section style={styles.section}>
-                    <h2 style={styles.sectionTitle}>Languages</h2>
-                    {caregiver.languages?.map((lang, i) => (
-                        <div key={i} style={styles.languageCard}>
-                            <h3 style={{ margin: "0 0 0.3rem", color: colors.greenDark }}>
-                                {lang.language}
-                            </h3>
-                            <p>🗣 Speaking: <strong>{lang.speaking}</strong></p>
-                            <p>📖 Reading: <strong>{lang.reading}</strong></p>
-                        </div>
-                    ))}
+                    <h2 style={styles.sectionTitle}>{isGerman ? "Tarife & Leistungen" : "Rates & Services"}</h2>
+                    <p>
+                        <strong>{isGerman ? "Stundenlohn" : "Hourly rate"}:</strong>{" "}
+                        {isGerman ? "18–22 € (verhandelbar)" : "£16–20 (negotiable)"}
+                    </p>
+                    <p><strong>{isGerman ? "24h Pflege" : "Live-in care"}:</strong> {isGerman ? "120 €/Tag" : "£110/day"}</p>
+                    <p><strong>{isGerman ? "Spezialisierungen" : "Specialties"}:</strong> Dementia care, Mobility support, Post-surgery recovery</p>
                 </section>
 
+                {/* REVIEWS */}
                 <section style={styles.section}>
-                    <h2 style={styles.sectionTitle}>About Me</h2>
-                    <p style={styles.bio}>{caregiver.bio}</p>
+                    <h2 style={styles.sectionTitle}>{isGerman ? "Kundenbewertungen" : "Client Reviews"}</h2>
+                    <div style={{ background: "#fff", padding: "1rem", borderRadius: "14px", marginBottom: "1rem" }}>
+                        <p><strong>Anna M.</strong> – ★★★★★</p>
+                        <p>{isGerman ? "Maria war sehr freundlich und aufmerksam gegenüber meiner Mutter." : "Maria was very kind and attentive to my mother’s needs."}</p>
+                    </div>
+                    <div style={{ background: "#fff", padding: "1rem", borderRadius: "14px" }}>
+                        <p><strong>Thomas L.</strong> – ★★★★☆</p>
+                        <p>{isGerman ? "Zuverlässig, pünktlich und professionell." : "Reliable, punctual and professional."}</p>
+                    </div>
                 </section>
 
+                {/* DOCUMENTS */}
                 <footer style={styles.footer}>
-                    {["Contact", "Resume"].map((label, i) => (
-                        <NavLink
-                            key={i}
-                            to={label === "Contact" ? "messages" : "resume"}
-                            style={{
-                                ...styles.footerBtn,
-                                ...(hoveredBtn === i ? styles.footerBtnHover : {}),
-                            }}
-                            onMouseEnter={() => setHoveredBtn(i)}
-                            onMouseLeave={() => setHoveredBtn(null)}
-                        >
-                            {label === "Contact" ? "💬 Contact " + caregiver.name : "📄 View Resume"}
-                        </NavLink>
-                    ))}
+                    <NavLink to="messages" style={styles.footerBtn}>
+                        ✉️ {isGerman ? `Nachricht senden` : `Send Message`}
+                    </NavLink>
+
+                    <NavLink to="resume" style={styles.footerBtn}>
+                        📄 {isGerman ? "Lebenslauf ansehen" : "View Resume"}
+                    </NavLink>
+
+                    <button
+                        onClick={() => setShowDocs((v) => !v)}
+                        style={{
+                            ...styles.footerBtn,
+                            backgroundColor: showDocs ? colors.greenDark : colors.green,
+                        }}
+                    >
+                        📎 {showDocs
+                            ? (isGerman ? "Dokumente ausblenden" : "Hide Documents")
+                            : (isGerman ? "Dokumente anzeigen" : "View Documents")}
+                    </button>
                 </footer>
+
+                {showDocs && (
+                    <div style={{ background: "#fff", borderRadius: "14px", padding: "1.5rem", marginTop: "1rem" }}>
+                        <h3 style={styles.sectionTitle}>{isGerman ? "🧾 Referenzen" : "🧾 References"} ✅</h3>
+                        <p>
+                            {isGerman
+                                ? "Referenzgeber: Frau Müller, München"
+                                : "Referee: Mrs. Müller, Munich"} <br />
+                            {isGerman ? "Telefon:" : "Phone:"} <strong>+49 176 543 982</strong><br />
+                            “{isGerman
+                                ? "Maria war eine hervorragende Betreuungskraft, stets hilfsbereit und vertrauenswürdig."
+                                : "Maria was a wonderful caregiver — always helpful, trustworthy, and kind."}”
+                        </p>
+
+                        <h3 style={styles.sectionTitle}>{isGerman ? "🪪 Führungszeugnis" : "🪪 Criminal Record"} ✅</h3>
+                        <p>
+                            {isGerman
+                                ? "Verifiziert über: "
+                                : "Verified via: "}
+                            <a
+                                href={
+                                    isGerman
+                                        ? "https://www.bundesjustizamt.de/DE/Themen/Buergerdienste/Fuehrungszeugnis/Fuehrungszeugnis_node.html"
+                                        : "https://www.gov.uk/request-copy-criminal-record"
+                                }
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {isGerman ? "bundesjustizamt.de" : "gov.uk"}
+                            </a>
+                        </p>
+
+                        <h3 style={styles.sectionTitle}>{isGerman ? "🛡 Versicherung" : "🛡 Insurance"} ✅</h3>
+                        <p>
+                            {isGerman ? "Versicherer:" : "Provider:"} {isGerman ? "Allianz Deutschland AG" : "AXA Insurance Ltd"}<br />
+                            {isGerman ? "Policen-Nr.:" : "Policy number:"} AXA-CARE-9845321<br />
+                            {isGerman ? "Gültig bis:" : "Valid until:"} 15 March 2025
+                        </p>
+                    </div>
+                )}
+
+
             </div>
+
+            {/* 💬 STICKY CTA BUTTON */}
+            <button
+                style={styles.stickyCTA}
+                onClick={() => alert(isGerman ? "Anfrage gesendet ✅" : "Request sent ✅")}
+                onMouseEnter={(e) => (e.target.style.backgroundColor = colors.greenDark)}
+                onMouseLeave={(e) => (e.target.style.backgroundColor = colors.green)}
+            >
+                💬 {isGerman ? "Pflegekraft anfragen" : "Request Caregiver"}
+            </button>
         </main>
     );
 }
