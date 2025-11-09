@@ -502,9 +502,9 @@ export default function Register() {
 
                     {/* Stepper */}
                     <div style={stepperWrap}>
-                        <div style={stepPill(step === 1, step > 1)}>1 • Account</div>
-                        <div style={stepPill(step === 2, step > 2)}>2 • Role details</div>
-                        <div style={stepPill(step === 3, false)}>3 • Summary & consents</div>
+                        <div style={stepPill(step === 1, step > 1)}>1. Account</div>
+                        <div style={stepPill(step === 2, step > 2)}>2. Role details</div>
+                        <div style={stepPill(step === 3, false)}>3. Summary & consents</div>
                     </div>
 
                     {/* Role toggle always visible */}

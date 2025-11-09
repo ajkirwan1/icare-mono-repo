@@ -136,13 +136,13 @@ function ThreeStepGuide() {
                         lineHeight: 1.25,
                     }}
                 >
-                    Get started in 3 quick steps
+                    GET STARTED IN 3 QUICK STEPS
                 </h2>
 
                 <div
                     aria-hidden="true"
                     style={{
-                        width: 220,
+                        width: 0,
                         height: 4,
                         background: BRAND,
                         borderRadius: 999,
@@ -318,7 +318,7 @@ function CompareAgencyVsICare() {
             <div
                 aria-hidden="true"
                 style={{
-                    width: 200,
+                    width: 0,
                     height: 4,
                     background: BRAND,
                     borderRadius: 999,
@@ -535,7 +535,7 @@ function SavingsEstimatorCurrency() {
             <div
                 aria-hidden="true"
                 style={{
-                    width: 220,
+                    width: 0,
                     height: 4,
                     background: BRAND,
                     borderRadius: 999,
