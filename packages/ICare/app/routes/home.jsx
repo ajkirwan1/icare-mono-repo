@@ -11,6 +11,7 @@ import heroImage from "/images/heros/hero-landing-page.jpg";
 import { IcareBanner, IcareCard, IcarePage, IcareSection, IcareWebBlock, IcareWebMinihero } from "react-library";
 import HeroComponent from "../components/hero/hero-component";
 
+
 /* ===== QUICK FINDER — Airbnb-style bar with icons, centered higher ===== */
 function QuickFinderCard() {
     const BRAND = "#1FAB1F";
@@ -267,8 +268,8 @@ export default function Home() {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                minHeight: "70vh",
-                                padding: "clamp(24px, 4vw, 48px) 0",
+                                minHeight: "65vh",
+                                padding: "clamp(28px, 4vw, 56px) 0",
                                 background: "#FFFFFF",
                                 fontFamily:
                                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -276,19 +277,20 @@ export default function Home() {
                         >
                             <div
                                 style={{
-                                    maxWidth: 1200,
+                                    maxWidth: 1100,
                                     margin: "0 auto",
-                                    padding: "0 clamp(16px, 4vw, 40px)",
+                                    padding: "0 clamp(20px, 4vw, 40px)",
                                     textAlign: "center",
                                 }}
                             >
+                                {/* === TITLE === */}
                                 <h2
                                     id="icare-intro-title"
                                     style={{
                                         margin: 0,
-                                        fontSize: "clamp(1.9rem, 3.4vw, 2.7rem)",
-                                        lineHeight: 1.15,
-                                        fontWeight: 900,
+                                        fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)",
+                                        lineHeight: 1.18,
+                                        fontWeight: 800,
                                         color: "#1F2A37",
                                         letterSpacing: ".2px",
                                     }}
@@ -299,6 +301,7 @@ export default function Home() {
                                     </span>
                                 </h2>
 
+                                {/* === UNDERLINE === */}
                                 <div
                                     aria-hidden="true"
                                     style={{
@@ -306,77 +309,80 @@ export default function Home() {
                                         height: 4,
                                         background: "#1FAB1F",
                                         borderRadius: 999,
-                                        margin: "1.3rem auto 1.9rem",
+                                        margin: "1.1rem auto 1.6rem",
                                         opacity: 0.9,
                                     }}
                                 />
 
-                                <div style={{ maxWidth: 980, margin: "0 auto" }}>
+                                {/* === TEXT === */}
+                                <div style={{ maxWidth: 760, margin: "0 auto" }}>
                                     <p
                                         style={{
-                                            margin: "0 0 .85rem",
+                                            margin: "0 0 0.6rem",
                                             color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(1rem, 1.2vw, 1.12rem)",
+                                            lineHeight: 1.6,
+                                            fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
                                             fontWeight: 600,
                                         }}
                                     >
-                                        With years of experience in healthcare, we understand the realities on
-                                        both sides — what families need and what caregivers deliver every day.
+                                        We understand care — from the family’s expectations to the caregiver’s
+                                        everyday commitment.
                                     </p>
+
                                     <p
                                         style={{
-                                            margin: "0 0 .85rem",
+                                            margin: "0 0 0.6rem",
                                             color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(1rem, 1.2vw, 1.12rem)",
+                                            lineHeight: 1.6,
+                                            fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
                                             fontWeight: 600,
                                         }}
                                     >
-                                        ICare connects you directly with trusted, verified caregivers in your
-                                        area — with clear profiles, transparent terms, and private, secure
-                                        messaging. No agencies, no guesswork.
+                                        ICare connects you directly with verified, trusted caregivers through
+                                        transparent profiles and secure private chat.
                                     </p>
+
                                     <p
                                         style={{
-                                            margin: 0,
-                                            color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(1rem, 1.2vw, 1.12rem)",
-                                            fontWeight: 600,
+                                            marginTop: "1.2rem",
+                                            color: "#1F2A37",
+                                            lineHeight: 1.6,
+                                            fontSize: "clamp(1.15rem, 1.25vw, 1.25rem)",
+                                            fontWeight: 700,
+                                            letterSpacing: "0.3px",
                                         }}
                                     >
-                                        Whether you need live-in support, hourly help, or specialized care, you
-                                        set the terms and stay in control. Dignity for the person receiving
-                                        care. Peace of mind for the family.
+                                        No agencies. No hidden fees. Just safe, transparent, personal care.
                                     </p>
                                 </div>
 
+                                {/* === PILLARS (20% smaller) === */}
                                 <ul
                                     role="list"
                                     style={{
                                         listStyle: "none",
                                         padding: 0,
-                                        margin: "26px auto 0",
-                                        display: "grid",
-                                        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                                        gap: "12px",
-                                        maxWidth: 1000,
+                                        margin: "30px auto 0",
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        justifyContent: "center",
+                                        gap: "14px",
+                                        maxWidth: 900,
                                     }}
                                 >
                                     {[
                                         {
                                             icon: (
                                                 <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     width="16"
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="currentColor"
+                                                    stroke="#1FAB1F"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
-                                                    aria-hidden="true"
                                                 >
                                                     <polyline points="20 6 9 17 4 12" />
                                                 </svg>
@@ -386,15 +392,15 @@ export default function Home() {
                                         {
                                             icon: (
                                                 <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     width="16"
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="currentColor"
+                                                    stroke="#1FAB1F"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
-                                                    aria-hidden="true"
                                                 >
                                                     <rect x="3" y="11" width="18" height="11" rx="2" />
                                                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
@@ -405,15 +411,15 @@ export default function Home() {
                                         {
                                             icon: (
                                                 <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     width="16"
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="currentColor"
+                                                    stroke="#1FAB1F"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
-                                                    aria-hidden="true"
                                                 >
                                                     <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
                                                 </svg>
@@ -423,15 +429,15 @@ export default function Home() {
                                         {
                                             icon: (
                                                 <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
                                                     width="16"
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="currentColor"
+                                                    stroke="#1FAB1F"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
-                                                    aria-hidden="true"
                                                 >
                                                     <path d="M4 20h16" />
                                                     <path d="M18 17V8a6 6 0 1 0-12 0v9" />
@@ -445,83 +451,157 @@ export default function Home() {
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
-                                                gap: 10,
-                                                padding: "12px 14px",
-                                                borderRadius: 999,
-                                                background: "#F7F7F7",
-                                                border: "1px solid #E5E7EB",
-                                                color: "#0F172A",
+                                                gap: 8,
+                                                padding: "9px 16px", // 🔹 zmniejszone
+                                                borderRadius: 22, // 🔹 proporcjonalnie mniejszy radius
+                                                background: "rgba(31,171,31,0.06)", // see-through pastel
+                                                border: "1.3px solid #1FAB1F",
+                                                color: "#1FAB1F",
                                                 fontWeight: 700,
-                                                fontSize: 14,
+                                                fontSize: 13, // 🔹 mniejsze fonty
                                                 letterSpacing: ".2px",
-                                                justifyContent: "center",
+                                                boxShadow: "0 1px 3px rgba(31,171,31,0.05)",
                                             }}
                                         >
-                                            <span
-                                                aria-hidden="true"
-                                                style={{
-                                                    display: "inline-grid",
-                                                    placeItems: "center",
-                                                    width: 26,
-                                                    height: 26,
-                                                    borderRadius: 999,
-                                                    background: "#FFFFFF",
-                                                    color: "#1F2A37",
-                                                    border: "1px solid #E2E8F0",
-                                                    flexShrink: 0,
-                                                }}
-                                            >
-                                                {f.icon}
-                                            </span>
+                                            {f.icon}
                                             <span>{f.label}</span>
                                         </li>
                                     ))}
                                 </ul>
 
+                                {/* === DIVIDER === */}
                                 <div
                                     aria-hidden="true"
                                     style={{
-                                        width: "min(1100px, 92%)",
+                                        width: "min(1000px, 90%)",
                                         height: 1,
                                         background: "#E5E7EB",
-                                        margin: "22px auto 0",
+                                        margin: "32px auto 0",
                                     }}
                                 />
                             </div>
                         </section>
 
-
                     </span>
                 </IcareCard>
             </IcareSection>
 
-            <IcareWebBlock imgSrc={cardImage}>
-                <span slot="header-contents">ICare.</span>
-                <span slot="body-contents">
-                    Easily connect with trusted caregivers or people who need care - right from your phone or computer. Quickly find the right match based on location, needs, and qualifications. Set up and manage care agreements with simple tools for scheduling and contracts
+            {/* === BLOK 1: ICare (image left) === */}
+            <IcareWebBlock
+                imgSrc={cardImage}
+                style={{
+                    backgroundColor: "#f8faf9",
+                    borderRadius: "28px",
+                    padding: "clamp(36px, 5vw, 52px) clamp(20px, 4vw, 48px)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    gap: "2rem",
+                    flexDirection: "row", // 🟢 obrazek po lewej
+                    boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+                    marginBottom: "clamp(36px, 4vw, 60px)", // 🔽 mniejszy odstęp między blokami
+                }}
+            >
+                <span
+                    slot="header-contents"
+                    style={{
+                        display: "block",
+                        fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
+                        fontWeight: 900,
+                        color: "#1F2A37",
+                        marginBottom: "1.2rem",
+                    }}
+                >
+                    ICare.{" "}
+                    <span style={{ color: "#1FAB1F" }}>Connecting care with trust.</span>
+                </span>
+
+                <span
+                    slot="body-contents"
+                    style={{
+                        fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
+                        lineHeight: 1.7,
+                        color: "#374151",
+                        fontWeight: 500,
+                        maxWidth: "640px",
+                        display: "block",
+                    }}
+                >
+                    Easily connect with trusted caregivers or people who need care — right from your phone or computer.
+                    Quickly find the right match based on location, needs, and qualifications.
+                    Set up and manage care agreements with simple tools for scheduling and contracts.
                 </span>
             </IcareWebBlock>
 
-            <IcareSection>
-                <IcareWebBlock layout='text-right' imgSrc={cardImage3}>
-                    <span slot="header-contents">Safety comes first.</span>
-                    <span slot="body-contents">Your information stays safe and private, thanks to strong built-in security.</span>
+            {/* === BLOK 2: Safety (image right) === */}
+            <IcareSection
+                style={{
+                    backgroundColor: "#ffffff",
+                    padding: "clamp(24px, 4vw, 56px) 0", // 🔽 mniej pionowego luzu
+                }}
+            >
+                <IcareWebBlock
+                    imgSrc={cardImage3}
+                    style={{
+                        backgroundColor: "#f9faf9",
+                        borderRadius: "28px",
+                        padding: "clamp(32px, 5vw, 48px) clamp(20px, 4vw, 48px)", // 🔽 lekko ciaśniej
+                        boxShadow: "0 4px 18px rgba(0,0,0,0.02)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                        gap: "2rem",
+                        flexDirection: "row-reverse", // 🔵 obrazek po prawej
+                    }}
+                >
+                    <span
+                        slot="header-contents"
+                        style={{
+                            display: "block",
+                            fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                            fontWeight: 900,
+                            color: "#1F2A37",
+                            marginBottom: "1rem",
+                        }}
+                    >
+                        Safety comes first.{" "}
+                        <span style={{ color: "#1FAB1F" }}>Always.</span>
+                    </span>
+
+                    <span
+                        slot="body-contents"
+                        style={{
+                            fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
+                            lineHeight: 1.7,
+                            color: "#374151",
+                            fontWeight: 500,
+                            maxWidth: "620px",
+                            display: "block",
+                        }}
+                    >
+                        Your information stays safe and private, thanks to strong built-in security
+                        and encrypted communication.
+                        Every caregiver profile is verified and reviewed for authenticity —
+                        so you can focus on what truly matters.
+                    </span>
                 </IcareWebBlock>
             </IcareSection>
+
 
             <IcareSection className="full-bleed">
                 <IcareBanner className="full-bleed" imgSrc={bannerImage1} />
             </IcareSection>
 
-            {/* ===== ZOSTAJE TYLKO DRUGA SEKCJA TRUST & CARE (z ikonami) ===== */}
             <IcareSection>
                 <section
-                    aria-label="Trust & Care — centered images smaller with icons"
+                    aria-label="Trust & Care — equal images"
                     style={{
                         marginLeft: "calc(50% - 50vw)",
                         marginRight: "calc(50% - 50vw)",
                         width: "100vw",
-                        background: "linear-gradient(180deg, #F7FCFD 0%, #FFFFFF 70%)",
+                        background: "linear-gradient(180deg, #FAFCFB 0%, #FFFFFF 80%)",
                         padding: "72px 0 80px",
                         fontFamily:
                             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -538,32 +618,25 @@ export default function Home() {
                             style={{
                                 display: "grid",
                                 gridTemplateColumns: "repeat(auto-fit, minmax(520px, 1fr))",
-                                gap: 28,
+                                gap: 36,
                                 alignItems: "stretch",
                             }}
                         >
                             {[
                                 {
                                     k: "TRUST",
+                                    desc: "Transparent process, no hidden fees.",
                                     img: cardImage2,
-                                    desc: " Transparent process, no hidden fees.",
                                     icon: (
                                         <svg
                                             viewBox="0 0 24 24"
                                             aria-hidden="true"
-                                            style={{ width: "3.35em", height: "3.35em", flexShrink: 0 }}
+                                            style={{ width: "3em", height: "3em", flexShrink: 0 }}
                                         >
-                                            <defs>
-                                                <linearGradient id="gradTrust" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                    <stop offset="0%" stopColor="#1FAB1F" />
-                                                    <stop offset="45%" stopColor="#1FAB1F" />
-                                                    <stop offset="100%" stopColor="#1FAB1F" />
-                                                </linearGradient>
-                                            </defs>
                                             <path
                                                 d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"
                                                 fill="none"
-                                                stroke="url(#gradTrust)"
+                                                stroke="#1FAB1F"
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -571,7 +644,7 @@ export default function Home() {
                                             <path
                                                 d="M9 12l2.2 2.2L15 10.5"
                                                 fill="none"
-                                                stroke="url(#gradTrust)"
+                                                stroke="#1FAB1F"
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -581,41 +654,18 @@ export default function Home() {
                                 },
                                 {
                                     k: "CARE",
+                                    desc: "From daily support live in care",
                                     img: cardImage7,
-                                    desc: "From daily support to specialized help.",
                                     icon: (
                                         <svg
                                             viewBox="0 0 24 24"
                                             aria-hidden="true"
-                                            style={{ width: "3.35em", height: "3.35em", flexShrink: 0 }}
+                                            style={{ width: "3em", height: "3em", flexShrink: 0 }}
                                         >
-                                            <defs>
-                                                <linearGradient id="gradCare" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                    <stop offset="0%" stopColor="#1FAB1F" />
-                                                    <stop offset="45%" stopColor="#1FAB1F" />
-                                                    <stop offset="100%" stopColor="#1FAB1F" />
-                                                </linearGradient>
-                                            </defs>
-                                            <path
-                                                d="M7 14c-1.5 0-3 .8-3 2.5S5.5 19 7 19h2.2c.5 0 1 .2 1.4.5l1.4 1.1"
-                                                fill="none"
-                                                stroke="url(#gradCare)"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M17 14c1.5 0 3 .8 3 2.5S18.5 19 17 19h-2.2c-.5 0-1 .2-1.4.5L12 21.6"
-                                                fill="none"
-                                                stroke="url(#gradCare)"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
                                             <path
                                                 d="M12 6.8l-.9-.9a3 3 0 0 0-4.2 4.2L12 15l5.1-4.9a3 3 0 0 0-4.2-4.2L12 6.8z"
                                                 fill="none"
-                                                stroke="url(#gradCare)"
+                                                stroke="#1FAB1F"
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -627,117 +677,222 @@ export default function Home() {
                                 <article
                                     key={c.k}
                                     style={{
-                                        borderRadius: 28,
-                                        //padding: 2,
-                                        background: "#1FAB1F", // spójny teal
-                                        boxShadow: "0 14px 36px rgba(2,8,23,0.10)",
+                                        borderRadius: 32,
+                                        background: "#FFFFFF",
+                                        boxShadow: "0 6px 18px rgba(0,0,0,0.04)",
                                         overflow: "hidden",
+                                        border: "1.5px solid #E5E7EB",
+                                        display: "flex",
+                                        flexDirection: "column",
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            borderRadius: 25,
-                                            background: "#fff",
-                                            overflow: "hidden",
-                                            display: "grid",
-                                            gridTemplateRows: "auto 1fr",
-                                            rowGap: 16,
-                                            padding: 24,
-                                        }}
-                                    >
-                                        <header>
-                                            <div
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    gap: 12,
-                                                }}
-                                            >
-                                                {c.icon}
-                                                <h3
-                                                    style={{
-                                                        margin: 0,
-                                                        fontSize: "clamp(1.55rem, 3.2vw, 2.25rem)",
-                                                        lineHeight: 1.12,
-                                                        fontWeight: 800,
-                                                        letterSpacing: ".8px",
-                                                        backgroundImage:
-                                                            "#1FAB1F",
-                                                        WebkitBackgroundClip: "text",
-                                                        backgroundClip: "text",
-                                                        color: "transparent",
-                                                        WebkitTextFillColor: "transparent",
-                                                    }}
-                                                >
-                                                    {c.k}
-                                                </h3>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    margin: "10px 0 0 0",
-                                                    color: "#334155",
-                                                    fontSize: "clamp(1.2rem, 1.1vw, 1.1rem)",
-                                                    fontWeight: "500",
-                                                    lineHeight: 1.7,
-                                                    maxWidth: "60ch",
-                                                }}
-                                            >
-                                                {c.desc}
-                                            </p>
-                                        </header>
-
-                                        <div
+                                    {/* HEADER */}
+                                    <div style={{ padding: "32px 28px 0" }}>
+                                        <header
                                             style={{
-                                                position: "relative",
                                                 display: "flex",
                                                 alignItems: "center",
-                                                justifyContent: "center",
-                                                background: "#F8FBFD",
-                                                border: "1px solid #E6F1F5",
-                                                borderRadius: 20,
-                                                padding: 16,
-                                                minHeight: 504,
-                                                overflow: "hidden",
+                                                gap: 12,
+                                                marginBottom: "0.8rem",
                                             }}
-
                                         >
-                                            <img
-                                                src={c.img}
-                                                alt=""
+                                            {c.icon}
+                                            <h3
                                                 style={{
-                                                    display: "block",
-                                                    width: "100%",
-                                                    height: "100%",
-                                                    maxWidth: "900px",
-                                                    objectFit: "cover",
-                                                    borderRadius: 14,
-                                                    transform: "scale(1)",
-                                                    transition: "transform .3s ease",
+                                                    margin: 0,
+                                                    fontSize: "clamp(1.55rem, 3vw, 2rem)",
+                                                    lineHeight: 1.15,
+                                                    fontWeight: 800,
+                                                    letterSpacing: "0.6px",
+                                                    color: "#1FAB1F",
                                                 }}
-                                            />
-                                        </div>
+                                            >
+                                                {c.k}
+                                            </h3>
+                                        </header>
+
+                                        {/* === POWIĘKSZONY TYTUŁ === */}
+                                        <p
+                                            style={{
+                                                margin: "0 0 1.8rem",
+                                                color: "#1F2A37",
+                                                fontSize: "clamp(1.25rem, 1.5vw, 1.3rem)", // ⬆️ +15%
+                                                fontWeight: 600,
+                                                lineHeight: 1.55,
+                                                letterSpacing: "0.3px",
+                                            }}
+                                        >
+                                            {c.desc}
+                                        </p>
+                                    </div>
+
+                                    {/* IMAGE */}
+                                    <div
+                                        style={{
+                                            flex: 1,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            background: "#F9FAFA",
+                                            borderTop: "1px solid #E6F1F5",
+                                            borderRadius: "0 0 32px 32px",
+                                            height: "380px", // ✅ równa wysokość
+                                        }}
+                                    >
+                                        <img
+                                            src={c.img}
+                                            alt={c.k}
+                                            style={{
+                                                width: "95%",
+                                                height: "95%",
+                                                objectFit: "cover",
+                                                display: "block",
+                                                borderRadius: 24,
+                                                outline: "1.5px solid #E5E7EB",
+
+                                            }}
+                                        />
                                     </div>
                                 </article>
                             ))}
                         </div>
-
-
                     </div>
                 </section>
             </IcareSection>
 
             <IcareSection>
-                <div style={{ display: "flex", gap: "2rem" }}>
-                    <IcareWebMinihero imgSrc={cardImage4} href="/icare-for-caregivers">
-                        <span slot="header">ICare for Caregivers</span>
-                        <span slot="text">Find out more</span>
-                    </IcareWebMinihero>
-                    <IcareWebMinihero imgSrc={cardImage5} href="/icare-for-carereceivers">
-                        <span slot="header">ICare for Carereceivers</span>
-                        <span slot="text">Find out more</span>
-                    </IcareWebMinihero>
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "2rem",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        padding: "40px 0",
+                    }}
+                >
+                    {[
+                        {
+                            img: cardImage4,
+                            href: "/icare-for-caregivers",
+                            title: "ICare for Caregivers",
+                        },
+                        {
+                            img: cardImage5,
+                            href: "/icare-for-carereceivers",
+                            title: "ICare for Care Receivers",
+                        },
+                    ].map((c, i) => (
+                        <a
+                            key={i}
+                            href={c.href}
+                            style={{
+                                position: "relative",
+                                display: "block",
+                                width: "min(640px, 46vw)",
+                                height: "420px",
+                                borderRadius: "26px",
+                                overflow: "hidden",
+                                boxShadow: "0 8px 28px rgba(0,0,0,0.12)",
+                                textDecoration: "none",
+                                backgroundColor: "#000",
+                                transition: "transform 0.4s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                const img = e.currentTarget.querySelector("img");
+                                if (img) {
+                                    img.style.transform = "scale(1.1)";
+                                    img.style.filter = "brightness(1.20)";
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                const img = e.currentTarget.querySelector("img");
+                                if (img) {
+                                    img.style.transform = "scale(1)";
+                                    img.style.filter = "brightness(1)";
+                                }
+                            }}
+                        >
+                            {/* Tło */}
+                            <img
+                                src={c.img}
+                                alt={c.title}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                    transition: "transform 0.6s ease, filter 0.6s ease",
+                                    transform: "scale(1)",
+                                    filter: "brightness(1)",
+                                }}
+                            />
+
+                            {/* Overlay */}
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    inset: 0,
+                                    background:
+                                        "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.55))",
+                                }}
+                            />
+
+                            {/* Treść na środku */}
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    textAlign: "center",
+                                    width: "85%",
+                                }}
+                            >
+                                <h3
+                                    style={{
+                                        color: "#fff",
+                                        fontSize: "clamp(1.8rem, 2.6vw, 2rem)",
+                                        fontWeight: 700,
+                                        marginBottom: "1.5rem",
+                                        letterSpacing: "0.5px",
+                                        textShadow: "0 2px 6px rgba(0,0,0,0.3)",
+                                    }}
+                                >
+                                    {c.title}
+                                </h3>
+
+                                {/* Button */}
+                                <div
+                                    style={{
+                                        display: "inline-block",
+                                        backgroundColor: "#fff",
+                                        color: "#1F2A37",
+                                        fontWeight: 700,
+                                        padding: "0.9rem 2.4rem",
+                                        borderRadius: "999px",
+                                        fontSize: "1.05rem",
+                                        letterSpacing: "0.3px",
+                                        boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+                                        transition: "all 0.3s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = "#f7f7f7";
+                                        e.currentTarget.style.transform = "scale(1.05)";
+                                        e.currentTarget.style.boxShadow = "0 6px 18px rgba(0,0,0,0.25)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = "#fff";
+                                        e.currentTarget.style.transform = "scale(1)";
+                                        e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,0.15)";
+                                    }}
+                                >
+                                    Get started
+                                </div>
+                            </div>
+                        </a>
+                    ))}
                 </div>
             </IcareSection>
+
         </IcarePage>
     );
 }

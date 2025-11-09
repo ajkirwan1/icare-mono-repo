@@ -293,6 +293,7 @@ export default function CaregiverRecipientHome() {
                             backgroundColor: showDocs ? colors.greenDark : colors.green,
                         }}
                     >
+
                         📎 {showDocs
                             ? (isGerman ? "Dokumente ausblenden" : "Hide Documents")
                             : (isGerman ? "Dokumente anzeigen" : "View Documents")}
