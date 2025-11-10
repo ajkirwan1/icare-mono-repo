@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-dev.0](https://github.com/ajkirwan1/icare-components/compare/icare-components@1.1.0-develop.14...icare-components@1.1.0-dev.0) (2025-11-10)
+
+**Note:** Version bump only for package icare-components
+
 # [1.1.0-develop.14](https://github.com/ajkirwan1/icare-components/compare/icare-components@1.1.0-develop.13...icare-components@1.1.0-develop.14) (2025-10-19)
 
 **Note:** Version bump only for package icare-components

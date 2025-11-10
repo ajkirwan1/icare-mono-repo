@@ -1,6 +1,6 @@
 {
   "name": "icare-app",
-  "version": "0.4.2-dev.4",
+  "version": "0.4.2-dev.5",
   "private": true,
   "type": "module",
   "scripts": {
