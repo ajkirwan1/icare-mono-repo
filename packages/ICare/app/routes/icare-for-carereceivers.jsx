@@ -18,9 +18,11 @@ export default function ICareForCareReceivers() {
                     placeItems: "center",
                     color: "#fff",
                     background: "#0b1220",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                {/* tło zdjęciowe */}
+                {/* === BACKGROUND IMAGE === */}
                 <img
                     src={iCareForCarereceiversSrc}
                     alt="Care coordination background"
@@ -36,7 +38,7 @@ export default function ICareForCareReceivers() {
                     }}
                 />
 
-                {/* overlay (subtelna winieta, bez gradientów kolorystycznych) */}
+                {/* === OVERLAY === */}
                 <div
                     style={{
                         position: "absolute",
@@ -44,11 +46,10 @@ export default function ICareForCareReceivers() {
                         background:
                             "radial-gradient(75% 55% at 50% 45%, rgba(0,0,0,.22) 0%, rgba(0,0,0,.38) 60%, rgba(0,0,0,.52) 100%)",
                         zIndex: 1,
-                        pointerEvents: "none",
                     }}
                 />
 
-                {/* header */}
+                {/* === NAVBAR (identyczny jak w caregivers) === */}
                 <header
                     style={{
                         position: "absolute",
@@ -69,8 +70,6 @@ export default function ICareForCareReceivers() {
                     <Link
                         to="/"
                         style={{
-                            fontFamily:
-                                "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                             fontWeight: 900,
                             letterSpacing: "0.3px",
                             color: "#ffffff",
@@ -115,7 +114,7 @@ export default function ICareForCareReceivers() {
                                         "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease",
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.color = "#fff";
+                                    e.currentTarget.style.color = "#4c7865";
                                     e.currentTarget.style.textDecoration = "underline";
                                     e.currentTarget.style.textDecorationThickness = "2px";
                                     e.currentTarget.style.textUnderlineOffset = "7px";
@@ -132,17 +131,15 @@ export default function ICareForCareReceivers() {
                     </nav>
                 </header>
 
-                {/* HERO content */}
+                {/* === HERO CONTENT === */}
                 <div
                     style={{
                         position: "relative",
                         zIndex: 2,
                         width: "min(92vw, 1080px)",
                         marginInline: "auto",
-                        textAlign: "center",
+                        textAlign: "left",
                         padding: "clamp(2rem, 4vw, 4rem) 0",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     }}
                 >
                     <h1
@@ -153,14 +150,14 @@ export default function ICareForCareReceivers() {
                             fontSize: "clamp(1.8rem, 4vw, 3.6rem)",
                             margin: "0 0 .9rem 0",
                             color: "#ffffff",
-                            textShadow: "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
+                            textShadow: "0 2px 18px rgba(0,0,0,.45)",
                         }}
                     >
                         ICare for{" "}
                         <span
                             style={{
-                                display: "inline-block",
-                                color: "#1FAB1F",
+                                color: "#188b5bff", // 💚 brandowy zielony
+
                             }}
                         >
                             Care Receivers
@@ -169,29 +166,28 @@ export default function ICareForCareReceivers() {
 
                     <p
                         style={{
-                            margin: "0 auto .8rem auto",
+                            margin: "0 auto .8rem 0",
                             fontSize: "clamp(1rem, 1.35vw, 1.15rem)",
                             lineHeight: 1.65,
                             color: "rgba(255,255,255,.98)",
-                            maxWidth: 600,
-                            textShadow: "0 1px 10px rgba(0,0,0,.45)",
+                            maxWidth: 620,
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                            letterSpacing: ".02em",
                         }}
                     >
-                        <strong>
-                            WE PROVIDE A SIMPLE MODEL IN WHICH YOU AGREE THE TERMS OF CARE DIRECTLY WITH YOUR
-                            CAREGIVER
-                        </strong>
+                        WE PROVIDE A SIMPLE MODEL IN WHICH YOU AGREE THE TERMS OF CARE DIRECTLY
+                        WITH YOUR CAREGIVER
                     </p>
 
                     <ul
                         style={{
                             listStyle: "none",
                             padding: 0,
-                            margin: "0 auto clamp(1.6rem, 3.5vw, 2.6rem) auto",
+                            margin: "1.4rem 0 2.4rem 0",
                             maxWidth: 820,
                             display: "grid",
                             gap: ".7rem",
-                            textAlign: "left",
                             color: "rgba(255,255,255,.98)",
                         }}
                     >
@@ -220,56 +216,49 @@ export default function ICareForCareReceivers() {
                                         transform: "translateY(.05rem)",
                                         fontWeight: 800,
                                         fontSize: "1.05em",
-                                        color: "#ffffffff",
+                                        color: "#4C7865", // ✓ spójna zieleń
                                         textShadow: "0 0 10px rgba(0,0,0,.45)",
                                     }}
                                 >
                                     ✓
                                 </span>
-                                {i < 3 ? (
-                                    <>
-                                        {text.split(" ").slice(0, 3).join(" ")}{" "}
-                                        <strong>{text.split(" ").slice(3).join(" ")}</strong>
-                                    </>
-                                ) : (
-                                    <strong>{text}</strong>
-                                )}
+                                {text}
                             </li>
                         ))}
                     </ul>
 
+                    {/* CTA BUTTONS */}
                     <div
                         style={{
                             display: "flex",
                             gap: ".9rem",
                             alignItems: "center",
-                            justifyContent: "center",
+                            justifyContent: "flex-start",
                             flexWrap: "wrap",
                         }}
                     >
                         <button
                             style={{
-                                appearance: "none",
                                 border: "none",
                                 cursor: "pointer",
-                                padding: ".95rem 1.25rem",
-                                fontWeight: 600,
+                                padding: "0.9rem 1.4rem",
+                                fontWeight: 700,
                                 fontSize: 15,
-                                letterSpacing: ".6px",
                                 borderRadius: 999,
-                                background: "#1FAB1F",
-                                color: "#ffffffff",
-                                transition: "transform .18s ease, box-shadow .18s ease, filter .18s ease",
+                                background: "#4C7865",
+                                color: "#fff",
+                                boxShadow: "0 4px 10px rgba(76,120,101,.25)",
+                                transition: "all .18s ease",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.boxShadow = "0 1px 1px #1fab1f, inset 0 1px 0 #1fab1f";
-                                e.currentTarget.style.filter = "saturate(1.06)";
+                                e.currentTarget.style.background = "#3E6253";
+                                e.currentTarget.style.boxShadow =
+                                    "0 8px 16px rgba(76,120,101,.35)";
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 1px 1px #1fab1f, inset 0 1px 0 #1fab1f";
-                                e.currentTarget.style.filter = "saturate(1)";
+                                e.currentTarget.style.background = "#4C7865";
+                                e.currentTarget.style.boxShadow =
+                                    "0 4px 10px rgba(76,120,101,.25)";
                             }}
                         >
                             FIND A CAREGIVER
@@ -281,26 +270,23 @@ export default function ICareForCareReceivers() {
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: ".4rem",
-                                padding: ".9rem 1.1rem",
+                                padding: "0.85rem 1.25rem",
                                 borderRadius: 999,
-                                color: "#ffffffff",
-                                fontWeight: 600,
+                                color: "#ffffff",
+                                fontWeight: 700,
                                 fontSize: 15,
                                 textDecoration: "none",
                                 border: "1px solid #7d7f82",
                                 background: "#7d7f82",
-                                transition: "border-color .18s ease, background .18s ease, transform .18s ease",
-                                textShadow: "0 1px 8px rgba(0,0,0,.45)",
+                                transition: "all .18s ease",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.borderColor = "#6b6c6f";
                                 e.currentTarget.style.background = "#6b6c6f";
+                                e.currentTarget.style.borderColor = "#6b6c6f";
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.borderColor = "#7d7f82";
                                 e.currentTarget.style.background = "#7d7f82";
+                                e.currentTarget.style.borderColor = "#7d7f82";
                             }}
                         >
                             SEE HOW IT WORKS
@@ -308,6 +294,7 @@ export default function ICareForCareReceivers() {
                     </div>
                 </div>
             </section>
+
 
             {/* === FOR CARE RECEIVERS — tytuł spójny, bez gradientu + BADGE see-through === */}
             <section
@@ -1295,12 +1282,17 @@ export default function ICareForCareReceivers() {
             <section
                 aria-label="Contact CTA"
                 style={{
-                    margin: "26px 0 0",
+                    margin: "48px 0 0",
                     width: "100vw",
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
-                    background: "#1fab1f",
-                    color: "#e6edf6",
+                    background: "#4C7865", // 🌿 oliwkowo-zielony ICare
+                    color: "#f4f8f6",
+                    borderTop: "1px solid rgba(255,255,255,0.08)",
+                    borderBottom: "1px solid rgba(0,0,0,0.08)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    boxShadow: "0 8px 28px rgba(2,8,23,0.12)",
                 }}
             >
                 <div
@@ -1308,20 +1300,21 @@ export default function ICareForCareReceivers() {
                         position: "relative",
                         width: "min(92vw, 1100px)",
                         margin: "0 auto",
-                        padding: "28px clamp(16px, 4vw, 32px) 36px",
+                        padding: "56px clamp(20px, 4vw, 48px) 60px",
                         display: "grid",
-                        gap: 14,
+                        gap: 18,
                         alignItems: "center",
                     }}
                 >
                     <h4
                         style={{
                             margin: 0,
-                            fontSize: "clamp(1.25rem, 2.2vw, 1.6rem)",
+                            fontSize: "clamp(1.35rem, 2.4vw, 1.75rem)",
                             fontWeight: 900,
-                            letterSpacing: ".2px",
-                            lineHeight: 1.2,
+                            letterSpacing: ".25px",
+                            lineHeight: 1.25,
                             color: "#ffffff",
+                            textShadow: "0 2px 8px rgba(0,0,0,0.25)",
                         }}
                     >
                         Ready to start? Register
@@ -1332,48 +1325,131 @@ export default function ICareForCareReceivers() {
                             margin: 0,
                             maxWidth: 720,
                             color: "rgba(255,255,255,.9)",
-                            fontSize: "clamp(.98rem, 1.2vw, 1.05rem)",
-                            lineHeight: 1.6,
+                            fontSize: "clamp(1rem, 1.25vw, 1.1rem)",
+                            lineHeight: 1.65,
+                            fontWeight: 500,
                         }}
                     >
-                        Tell us what you need — we’ll help you find the right caregiver and set clear,
-                        fair terms together.
+                        Tell us what you need — we’ll help you find the right caregiver and set
+                        clear, fair terms together.
                     </p>
 
-                    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 6 }}>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: 14,
+                            flexWrap: "wrap",
+                            marginTop: 10,
+                        }}
+                    >
                         <a
                             href="mailto:hello@icare.example"
                             style={{
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: 8,
-                                padding: "10px 14px",
+                                padding: "12px 22px",
                                 borderRadius: 999,
-                                border: "2px solid rgba(255,255,255,.78)",
-                                color: "#ffffff",
+                                border: "1.8px solid #ffffff",
+                                color: "#4C7865", // zielony tekst na białym tle
+                                background: "#ffffff",
                                 textDecoration: "none",
-                                boxShadow: "0 10px 28px rgba(0,0,0,.28)",
+                                fontWeight: 700,
+                                fontSize: "1rem",
+                                letterSpacing: ".2px",
+                                boxShadow: "0 8px 26px rgba(0,0,0,0.15)",
                                 transition:
-                                    "transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease",
+                                    "transform .18s ease, box-shadow .25s ease, background .25s ease, color .25s ease",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                                e.currentTarget.style.borderColor = "rgba(255,255,255,.98)";
-                                e.currentTarget.style.boxShadow = "0 12px 34px rgba(0,0,0,.34)";
-                                e.currentTarget.style.background = "rgba(2,8,23,.22)";
+                                e.currentTarget.style.transform = "translateY(-2px)";
+                                e.currentTarget.style.background = "#e9f4f0";
+                                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.25)";
+                                e.currentTarget.style.color = "#375d4f";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.borderColor = "rgba(255,255,255,.78)";
-                                e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,0,0,.28)";
-                                e.currentTarget.style.background = "transparent";
+                                e.currentTarget.style.background = "#ffffff";
+                                e.currentTarget.style.boxShadow = "0 8px 26px rgba(0,0,0,0.15)";
+                                e.currentTarget.style.color = "#4C7865";
                             }}
                         >
                             Register
                         </a>
                     </div>
                 </div>
+
+                {/* === MINI FOOTER === */}
+                <footer
+                    style={{
+                        background: "rgba(255,255,255,0.08)",
+                        borderTop: "1px solid rgba(255,255,255,0.12)",
+                        padding: "22px clamp(20px, 4vw, 48px)",
+                    }}
+                >
+                    <div
+                        style={{
+                            maxWidth: 1100,
+                            margin: "0 auto",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            color: "rgba(255,255,255,0.9)",
+                            fontSize: 15,
+                            fontWeight: 500,
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontWeight: 800,
+                                letterSpacing: ".4px",
+                                color: "#ffffff",
+                                fontSize: 16,
+                            }}
+                        >
+                            ICare
+                        </span>
+
+                        <nav
+                            style={{
+                                display: "flex",
+                                gap: "1.6rem",
+                                flexWrap: "wrap",
+                            }}
+                        >
+                            {["Privacy", "Terms", "Contact"].map((item) => (
+                                <a
+                                    key={item}
+                                    href={`/${item.toLowerCase()}`}
+                                    style={{
+                                        color: "rgba(255,255,255,0.95)",
+                                        textDecoration: "none",
+                                        fontWeight: 600,
+                                        letterSpacing: ".25px",
+                                        borderBottom: "2px solid transparent",
+                                        transition:
+                                            "color .25s ease, border-color .25s ease, transform .25s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.color = "#ffffff";
+                                        e.currentTarget.style.borderBottom = "2px solid #ffffff";
+                                        e.currentTarget.style.transform = "translateY(-1px)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.color = "rgba(255,255,255,0.95)";
+                                        e.currentTarget.style.borderBottom = "2px solid transparent";
+                                        e.currentTarget.style.transform = "translateY(0)";
+                                    }}
+                                >
+                                    {item}
+                                </a>
+                            ))}
+                        </nav>
+                    </div>
+                </footer>
             </section>
+
         </div>
     );
 }
