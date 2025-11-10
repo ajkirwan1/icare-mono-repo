@@ -1,19 +1,19 @@
 import { IcareSection } from "react-library";
 
 export function meta() {
-  return [
-    { title: "ICare | Home" },
-    { name: "description", content: "ICare – Supporting better care through intuitive tools." }
-  ];
+    return [
+        { title: "ICare | Home" },
+        { name: "description", content: "ICare – Supporting better care through intuitive tools." }
+    ];
 }
 
 export default function CaregiverRecipientHome() {
 
-  return (
-    <>
-      <IcareSection>
-        <h1>Security settings</h1>
-      </IcareSection>
-    </>
-  );
+    return (
+        <>
+            <IcareSection>
+                <h1>Security settings</h1>
+            </IcareSection>
+        </>
+    );
 }

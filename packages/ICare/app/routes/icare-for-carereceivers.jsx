@@ -317,7 +317,7 @@ export default function ICareForCareReceivers() {
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
                     background: "#FFFFFF",
-                    padding: "88px 32px 72px",
+                    padding: "90px 32px 90px",
                     borderTop: "1px solid #E5E7EB",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -325,174 +325,255 @@ export default function ICareForCareReceivers() {
             >
                 <div
                     style={{
-                        width: "min(1200px, 92vw)",
+                        width: "min(1100px, 92vw)",
                         margin: "0 auto",
+                        background: "#f8faf9",
+                        borderRadius: 30,
+                        border: "1px solid #e4efea",
+                        boxShadow: "0 6px 20px rgba(0,0,0,0.04)",
+                        padding: "56px 42px 60px",
                     }}
                 >
-                    <div
+                    {/* TYTUŁ */}
+                    <h2
                         style={{
-                            position: "relative",
-                            background: "rgba(103, 103, 116, 0.05)",
-                            border: "1px solid #EEF2F7",
-                            borderRadius: 24,
-                            padding: "28px 24px 30px",
+                            margin: 0,
+                            color: "#1f2a37",
+                            fontWeight: 800,
+                            fontSize: "clamp(26px, 2.2vw, 32px)",
+                            letterSpacing: "0.2px",
+                            lineHeight: 1.25,
+                            textAlign: "center",
                         }}
                     >
-                        {/* Tytuł — spójny, bez gradientu */}
-                        <h2
-                            style={{
-                                margin: 0,
-                                color: "#1f2a37",
-                                fontWeight: 700,
-                                letterSpacing: "0.2px",
-                                fontSize: "clamp(24px, 2.4vw, 32px)",
-                                lineHeight: 1.24,
-                                paddingBottom: 12,
-                            }}
-                        >
-                            FIND TRUSTED CARE IN JUST 3 QUICK STEPS
-                        </h2>
-                        <div
-                            aria-hidden="true"
-                            style={{
-                                width: 0,
-                                height: 3,
-                                background: "#1FAB1F",
-                                borderRadius: 999,
-                                opacity: 0.85,
-                                margin: "10px 0 22px 0",
-                            }}
-                        />
+                        FIND TRUSTED CARE IN JUST 3 QUICK STEPS
+                    </h2>
 
-                        {/* — Bardzo delikatne, jasne badge (see-through + ikony) — */}
-                        <section
-                            aria-label="Safety & Trust"
-                            style={{
-                                marginTop: 18,
-                                display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                                gap: 12,
-                            }}
-                        >
-                            {[
-                                { t: "ID Verified", i: "shield", base: "31,171,31" }, // green
-                                { t: "Background Check", i: "file", base: "59,130,246" }, // blue
-                                { t: "References", i: "user-check", base: "139,92,246" }, // violet
-                                { t: "Secure Messaging", i: "lock", base: "45,212,191" }, // teal
-                                { t: "e-Sign Contracts", i: "pen", base: "251,146,60" }, // orange
-                            ].map((b) => (
-                                <div
-                                    key={b.t}
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            width: 0,
+                            height: 4,
+                            background: "#4c7865",
+                            borderRadius: 999,
+                            opacity: 0.85,
+                            margin: "14px auto 38px",
+                        }}
+                    />
+
+                    {/* BADGES */}
+                    <section
+                        aria-label="Safety & Trust"
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                            gap: 14,
+                            padding: "0 6px",
+                        }}
+                    >
+                        {[
+                            { t: "ID Verified", i: "shield", base: "31,171,31" },
+                            { t: "Background Check", i: "file", base: "59,130,246" },
+                            { t: "References", i: "user-check", base: "139,92,246" },
+                            { t: "Secure Messaging", i: "lock", base: "45,212,191" },
+                            { t: "e-Sign Contracts", i: "pen", base: "251,146,60" },
+                        ].map((b) => (
+                            <div
+                                key={b.t}
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "48px 1fr",
+                                    alignItems: "center",
+                                    gap: 10,
+                                    padding: "10px 12px",
+                                    borderRadius: 18,
+                                    background: `rgba(${b.base}, 0.06)`,
+                                    border: `1px solid rgba(${b.base}, 0.18)`,
+                                    boxShadow: "0 4px 10px rgba(2,8,23,.04)",
+                                    transition: "transform .18s ease, box-shadow .18s ease, background .18s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = "translateY(-3px)";
+                                    e.currentTarget.style.boxShadow = "0 8px 18px rgba(2,8,23,.08)";
+                                    e.currentTarget.style.background = `rgba(${b.base}, 0.10)`;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(2,8,23,.04)";
+                                    e.currentTarget.style.background = `rgba(${b.base}, 0.06)`;
+                                }}
+                            >
+                                <span
+                                    aria-hidden="true"
                                     style={{
+                                        width: 48,
+                                        height: 48,
+                                        borderRadius: 12,
                                         display: "grid",
-                                        gridTemplateColumns: "60px 1fr",
-                                        alignItems: "center",
-                                        gap: 12,
-                                        padding: "14px 14px",
-                                        borderRadius: 16,
-                                        background: `rgba(${b.base}, 0.10)`,
-                                        border: `1px solid rgba(${b.base}, 0.22)`,
-                                        boxShadow: "0 8px 18px rgba(2,8,23,.03)",
-                                        transition: "transform .15s ease, box-shadow .15s ease",
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = "translateY(-2px)";
-                                        e.currentTarget.style.boxShadow = "0 10px 22px rgba(2,8,23,.06)";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = "translateY(0)";
-                                        e.currentTarget.style.boxShadow = "0 8px 18px rgba(2,8,23,.03)";
+                                        placeItems: "center",
+                                        background: "rgba(255,255,255,0.9)",
+                                        border: `1px solid rgba(${b.base}, 0.25)`,
+                                        color: `rgb(${b.base})`,
                                     }}
                                 >
-                                    <span
-                                        aria-hidden="true"
+                                    {b.i === "shield" && (
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                        </svg>
+                                    )}
+                                    {b.i === "file" && (
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                            <path d="M14 2v6h6" />
+                                        </svg>
+                                    )}
+                                    {b.i === "user-check" && (
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                                            <circle cx="9" cy="7" r="4" />
+                                            <polyline points="16 11 18 13 22 9" />
+                                        </svg>
+                                    )}
+                                    {b.i === "lock" && (
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                        </svg>
+                                    )}
+                                    {b.i === "pen" && (
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M12 20h9" />
+                                            <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                                        </svg>
+                                    )}
+                                </span>
+
+                                <div>
+                                    <strong
                                         style={{
-                                            width: 60,
-                                            height: 60,
-                                            borderRadius: 14,
-                                            display: "grid",
-                                            placeItems: "center",
-                                            background: "rgba(255,255,255,0.85)",
-                                            border: `1px solid rgba(${b.base}, 0.28)`,
-                                            color: `rgb(${b.base})`,
+                                            display: "block",
+                                            color: "#1f2a37",
+                                            fontSize: "clamp(0.95rem,1.1vw,1rem)",
+                                            letterSpacing: ".15px",
+                                            marginBottom: 2,
                                         }}
                                     >
-                                        {b.i === "shield" && (
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                                strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-                                            </svg>
-                                        )}
-                                        {b.i === "file" && (
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                                strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" />
-                                            </svg>
-                                        )}
-                                        {b.i === "user-check" && (
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                                strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
-                                                <circle cx="9" cy="7" r="4" />
-                                                <polyline points="16 11 18 13 22 9" />
-                                            </svg>
-                                        )}
-                                        {b.i === "lock" && (
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                                strokeLinecap="round" strokeLinejoin="round">
-                                                <rect x="3" y="11" width="18" height="11" rx="2" />
-                                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                            </svg>
-                                        )}
-                                        {b.i === "pen" && (
-                                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                                strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M12 20h9" />
-                                                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-                                            </svg>
-                                        )}
+                                        {b.t}
+                                    </strong>
+                                    <span
+                                        style={{
+                                            color: "#334155",
+                                            opacity: 0.85,
+                                            fontSize: 13.5,
+                                            lineHeight: 1.5,
+                                        }}
+                                    >
+                                        Safer matches and verified caregivers.
                                     </span>
-
-                                    <div>
-                                        <strong
-                                            style={{
-                                                display: "block",
-                                                color: "#1f2a37",
-                                                fontSize: "clamp(1rem,1.2vw,1.08rem)",
-                                                letterSpacing: ".2px",
-                                            }}
-                                        >
-                                            {b.t}
-                                        </strong>
-                                        <span style={{ color: "#334155", opacity: 0.9, fontSize: 14, lineHeight: 1.55 }}>
-                                            Extra visibility for verified profiles and safer cooperation.
-                                        </span>
-                                    </div>
                                 </div>
-                            ))}
-                        </section>
+                            </div>
+                        ))}
+                    </section>
 
-                        {/* lead */}
-                        <p
+                    {/* LEAD PARAGRAPH */}
+                    <p
+                        style={{
+                            margin: "40px auto 0",
+                            color: "#1f2a37",
+                            lineHeight: 1.8,
+                            fontSize: "clamp(16px, 1.4vw, 18px)", // ⬇️ ~10% mniejszy
+                            maxWidth: "760px",
+                            textAlign: "center",
+                            fontWeight: 500,
+                        }}
+                    >
+                        <b style={{ color: "#375d4f" }}>
+                            Create a free account, browse verified caregivers, and agree on the terms directly.{" "}
+                        </b>
+                        <br />
+                        There’s no subscription — only a one-time fee payable after you sign an agreement
+                        with your chosen caregiver.
+                    </p>
+
+                    {/* CTA BUTTON */}
+                    <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
+                        <button
                             style={{
-                                margin: "28px auto 0",
-                                color: "#1f2a37",
-                                lineHeight: 1.8,
-                                fontSize: "clamp(16px, 1.4vw, 18px)",
-                                maxWidth: "800px",
-                                textAlign: "center",
-                                fontWeight: 500,
+                                backgroundColor: "#4c7865",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: 999,
+                                padding: "14px 34px",
+                                fontSize: "1.05rem",
+                                fontWeight: 700,
+                                cursor: "pointer",
+                                boxShadow: "0 8px 18px rgba(76,120,101,0.25)",
+                                transition: "all 0.25s ease",
+                                letterSpacing: "0.3px",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = "#3e6555";
+                                e.currentTarget.style.boxShadow = "0 10px 22px rgba(76,120,101,0.32)";
+                                e.currentTarget.style.transform = "translateY(-2px)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = "#4c7865";
+                                e.currentTarget.style.boxShadow = "0 8px 18px rgba(76,120,101,0.25)";
+                                e.currentTarget.style.transform = "translateY(0)";
                             }}
                         >
-                            <b>
-                                Create a free account, browse verified caregivers, and agree on the terms directly.
-                                There’s no subscription — only a one-time fee payable after you sign an agreement
-                                with your chosen caregiver.
-                            </b>
-                        </p>
+                            JOIN US IN JUST 2 MINUTES
+                        </button>
                     </div>
+
                 </div>
             </section>
+
 
             {/* === BANNER (szare tło + see-through pills, z obrazkiem po prawej) === */}
             <section
@@ -501,22 +582,22 @@ export default function ICareForCareReceivers() {
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "#F3F4F6",
-                    borderTop: "1px solid #E5E7EB",
-                    borderBottom: "1px solid #E5E7EB",
+                    background: "#f9fafb",
+                    borderTop: "1px solid #e5e7eb",
+                    borderBottom: "1px solid #e5e7eb",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
                 <div
                     style={{
-                        maxWidth: 1200,
+                        maxWidth: 1180,
                         margin: "0 auto",
-                        padding: "72px clamp(20px,4vw,48px)",
+                        padding: "80px clamp(20px,4vw,48px)",
                         display: "grid",
-                        gridTemplateColumns: "1.1fr .9fr",
-                        gap: "clamp(18px, 4vw, 40px)",
+                        gridTemplateColumns: "1.1fr 0.9fr",
+                        gap: "clamp(24px, 4vw, 48px)",
                         alignItems: "center",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     }}
                 >
                     {/* Lewa kolumna: nagłówek + divider + pills */}
@@ -525,29 +606,28 @@ export default function ICareForCareReceivers() {
                             style={{
                                 margin: 0,
                                 color: "#1f2a37",
-                                fontWeight: 700,
-                                fontSize: "clamp(22px, 2.4vw, 34px)",
-                                letterSpacing: ".2px",
+                                fontWeight: 800,
+                                fontSize: "clamp(24px, 2.6vw, 36px)",
+                                letterSpacing: "0.3px",
                                 lineHeight: 1.35,
                             }}
                         >
-                            Whether you are managing care for yourself or a loved one
-                            <br style={{ display: "none" }} />
-                            <span style={{ display: "inline" }}>
-                                {" "}
-                                ICare simplifies the process and saves money for everyone
+                            Whether you are managing care for yourself or a loved one,
+                            <br />
+                            <span style={{ color: "#4c7865" }}>
+                                ICare simplifies the process and saves money for everyone.
                             </span>
                         </h2>
 
                         <div
                             aria-hidden="true"
                             style={{
-                                width: "min(760px, 86%)",
-                                height: 2,
-                                margin: "18px 0 24px 0",
+                                width: "min(720px, 85%)",
+                                height: 3,
+                                margin: "22px 0 28px 0",
                                 borderRadius: 999,
-                                background: "rgba(15,23,42,.14)",
-                                opacity: 0.8,
+                                background: "linear-gradient(90deg,#4c7865 0%,#6ea191 100%)",
+                                opacity: 0.85,
                             }}
                         />
 
@@ -558,34 +638,34 @@ export default function ICareForCareReceivers() {
                                 margin: 0,
                                 display: "flex",
                                 flexWrap: "wrap",
-                                gap: "10px",
+                                gap: "12px",
                                 maxWidth: 920,
                             }}
                         >
                             {[
                                 {
                                     tag: "No subscription",
-                                    bg: "rgba(16,185,129,.10)",
-                                    br: "rgba(16,185,129,.22)",
-                                    ico: "rgba(16,185,129,.95)",
+                                    bg: "rgba(255,255,255,.4)",
+                                    br: "rgba(76,120,101,.25)",
+                                    ico: "#4c7865",
                                 },
                                 {
                                     tag: "Direct agreement",
-                                    bg: "rgba(20,184,166,.10)",
-                                    br: "rgba(20,184,166,.22)",
-                                    ico: "rgba(20,184,166,.95)",
+                                    bg: "rgba(255,255,255,.4)",
+                                    br: "rgba(103,116,109,.22)",
+                                    ico: "#4c7865",
                                 },
                                 {
                                     tag: "Secure messaging",
-                                    bg: "rgba(99,102,241,.10)",
-                                    br: "rgba(99,102,241,.22)",
-                                    ico: "rgba(99,102,241,.95)",
+                                    bg: "rgba(255,255,255,.4)",
+                                    br: "rgba(76,120,101,.22)",
+                                    ico: "#4c7865",
                                 },
                                 {
                                     tag: "Transparent pricing",
-                                    bg: "rgba(245,158,11,.10)",
-                                    br: "rgba(245,158,11,.22)",
-                                    ico: "rgba(245,158,11,.95)",
+                                    bg: "rgba(255,255,255,.4)",
+                                    br: "rgba(103,116,109,.22)",
+                                    ico: "#4c7865",
                                 },
                             ].map((p) => (
                                 <li
@@ -594,16 +674,18 @@ export default function ICareForCareReceivers() {
                                         display: "inline-flex",
                                         alignItems: "center",
                                         gap: 8,
-                                        padding: "10px 14px",
+                                        padding: "10px 16px",
                                         borderRadius: 999,
                                         background: p.bg,
                                         border: `1px solid ${p.br}`,
-                                        color: "#0f172a",
+                                        color: "#1f2a37",
                                         fontWeight: 600,
-                                        fontSize: "14.5px",
-                                        letterSpacing: ".2px",
-                                        boxShadow: "0 1px 0 rgba(2, 8, 23, 0.02)",
-                                        backdropFilter: "saturate(1.05)",
+                                        fontSize: "15px",
+                                        letterSpacing: "0.2px",
+                                        boxShadow:
+                                            "0 4px 8px rgba(15,23,42,0.04), inset 0 1px 1px rgba(255,255,255,0.4)",
+                                        backdropFilter: "blur(6px) saturate(1.2)",
+                                        WebkitBackdropFilter: "blur(6px) saturate(1.2)",
                                     }}
                                 >
                                     <svg
@@ -618,8 +700,7 @@ export default function ICareForCareReceivers() {
                                         aria-hidden="true"
                                         style={{ opacity: 0.9 }}
                                     >
-                                        <circle cx="12" cy="12" r="10" />
-                                        <path d="M16 12H8" />
+                                        <path d="M5 12l5 5L20 7" />
                                     </svg>
                                     {p.tag}
                                 </li>
@@ -632,14 +713,13 @@ export default function ICareForCareReceivers() {
                         style={{
                             margin: 0,
                             position: "relative",
-                            display: "block",
                             width: "100%",
-                            height: "min(380px, 48vh)",
-                            borderRadius: 16,
+                            height: "min(360px, 46vh)",
+                            borderRadius: 24,
                             overflow: "hidden",
                             background: "#E5E7EB",
-                            border: "1px solid rgba(15,23,42,.08)",
-                            boxShadow: "0 12px 30px rgba(2,8,23,.08)",
+                            border: "1px solid rgba(15,23,42,.06)",
+                            boxShadow: "0 10px 28px rgba(2,8,23,.05)",
                         }}
                     >
                         <img
@@ -653,31 +733,32 @@ export default function ICareForCareReceivers() {
                                 height: "100%",
                                 objectFit: "cover",
                                 objectPosition: "50% 50%",
-                                filter: "saturate(1.02) contrast(1.02) brightness(.98)",
+                                filter: "saturate(1.01) contrast(1.02) brightness(.98)",
                             }}
                         />
                     </figure>
                 </div>
             </section>
 
-            {/* === CARE NEEDS CHECKLIST — na środek, jedna szeroka karta ~80% === */}
+
+            {/* === CARE NEEDS CHECKLIST — pastel green background, ICare style === */}
             <section
                 aria-label="Care Needs Checklist"
                 style={{
                     marginLeft: "calc(50% - 50vw)",
                     marginRight: "calc(50% - 50vw)",
                     width: "100vw",
-                    background: "#F3F4F6",
-                    borderTop: "1px solid #E5E7EB",
-                    borderBottom: "1px solid #E5E7EB",
-                    padding: "56px 20px 64px",
+                    background: "#E9F4F0", // pastel green background
+                    borderTop: "1px solid #DDEAE6",
+                    borderBottom: "1px solid #DDEAE6",
+                    padding: "80px 20px 90px",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
                 <div
                     style={{
-                        width: "min(1400px, 92vw)",
+                        width: "min(1200px, 92vw)",
                         margin: "0 auto",
                         display: "grid",
                         justifyItems: "center",
@@ -685,38 +766,39 @@ export default function ICareForCareReceivers() {
                 >
                     <div
                         style={{
-                            width: "min(1100px, 80vw)", // ~80% ekranu
+                            width: "min(1000px, 85vw)",
                             background: "#FFFFFF",
-                            border: "1px solid rgba(15,23,42,.08)",
-                            borderRadius: 16,
-                            padding: "26px 22px 24px",
-                            boxShadow: "0 10px 22px rgba(2,8,23,.05)",
+                            border: "1px solid rgba(15,23,42,.06)",
+                            borderRadius: 28,
+                            padding: "42px 36px 48px",
+                            boxShadow: "0 12px 36px rgba(2,8,23,.08)",
                         }}
                     >
+                        {/* === Header === */}
                         <header
                             style={{
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                gap: "16px",
+                                gap: 16,
                                 flexWrap: "wrap",
-                                padding: "10px 0 20px",
-                                marginBottom: "12px",
                                 borderBottom: "1px solid rgba(15,23,42,0.06)",
+                                paddingBottom: 16,
+                                marginBottom: 24,
                             }}
                         >
-                            <h4
+                            <h3
                                 style={{
                                     margin: 0,
                                     color: "#1f2a37",
                                     fontWeight: 800,
                                     letterSpacing: ".2px",
-                                    fontSize: "1.5rem",
-                                    lineHeight: 1.2,
+                                    fontSize: "clamp(22px, 2.2vw, 30px)",
+                                    lineHeight: 1.25,
                                 }}
                             >
                                 Tell us what you need
-                            </h4>
+                            </h3>
 
                             <button
                                 type="button"
@@ -724,57 +806,65 @@ export default function ICareForCareReceivers() {
                                     appearance: "none",
                                     border: "none",
                                     borderRadius: 999,
-                                    background: "#1FAB1F",
+                                    background: "#4c7865",
                                     color: "#fff",
-                                    padding: "12px 18px",
+                                    padding: "12px 22px",
                                     fontWeight: 700,
                                     letterSpacing: ".02em",
                                     cursor: "pointer",
-                                    boxShadow: "0 2px 6px rgba(31,171,31,0.15)",
-                                    transition: "transform .2s ease, box-shadow .2s ease",
+                                    boxShadow: "0 3px 8px rgba(76,120,101,0.25)",
+                                    transition: "all .25s ease",
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = "translateY(-2px)";
-                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(31,171,31,0.22)";
+                                    e.currentTarget.style.background = "#3f6656";
+                                    e.currentTarget.style.boxShadow =
+                                        "0 4px 10px rgba(76,120,101,0.28)";
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.boxShadow = "0 2px 6px rgba(31,171,31,0.15)";
+                                    e.currentTarget.style.background = "#4c7865";
+                                    e.currentTarget.style.boxShadow =
+                                        "0 3px 8px rgba(76,120,101,0.25)";
                                 }}
                             >
                                 Show matching caregivers
                             </button>
                         </header>
 
+                        {/* === Description === */}
                         <p
                             style={{
-                                margin: "0 0 14px",
-                                color: "#334155",
-                                fontSize: 15,
-                                lineHeight: 1.65,
+                                margin: "0 0 26px",
+                                color: "#375d4f",
+                                fontSize: "clamp(15px, 1.2vw, 16px)",
+                                lineHeight: 1.7,
+                                textAlign: "center",
+                                maxWidth: 720,
+                                marginInline: "auto",
                             }}
                         >
-                            Choose the areas you need help with. We’ll use them to match you with suitable caregivers.
+                            Choose the areas you need help with. This helps us match you with
+                            qualified caregivers suited to your situation.
                         </p>
 
+                        {/* === Checklist grid === */}
                         <ul
                             style={{
                                 listStyle: "none",
                                 padding: 0,
-                                margin: "8px 0 0",
+                                margin: 0,
                                 display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                                gap: "10px",
+                                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                                gap: "14px",
                             }}
                         >
                             {[
                                 "Dementia care",
                                 "Mobility support",
-                                "Post-surgery",
-                                "Overnight care",
-                                "Live-in",
-                                "Hourly",
-                                "Driving",
+                                "Post-surgery recovery",
+                                "Overnight assistance",
+                                "Live-in care",
+                                "Hourly visits",
+                                "Driving & errands",
                                 "Polish language",
                                 "German language",
                                 "English language",
@@ -785,26 +875,36 @@ export default function ICareForCareReceivers() {
                                             display: "flex",
                                             alignItems: "center",
                                             gap: 8,
-                                            padding: "10px 12px",
-                                            borderRadius: 12,
-                                            background: "rgba(31,171,31,0.08)",
-                                            border: "1px solid rgba(31,171,31,0.22)",
-                                            color: "#0f172a",
+                                            padding: "12px 16px",
+                                            borderRadius: 16,
+                                            background: "rgba(76,120,101,0.06)",
+                                            border: "1px solid rgba(76,120,101,0.25)",
+                                            color: "#1f2a37",
                                             fontWeight: 600,
-                                            fontSize: 14,
+                                            fontSize: 15,
                                             cursor: "pointer",
-                                            transition: "background .15s ease, border-color .15s ease",
+                                            boxShadow: "0 2px 5px rgba(15,23,42,0.04)",
+                                            transition: "background .25s ease, border-color .25s ease",
                                         }}
                                         onMouseEnter={(e) => {
-                                            e.currentTarget.style.background = "rgba(31,171,31,0.12)";
-                                            e.currentTarget.style.borderColor = "rgba(31,171,31,0.30)";
+                                            e.currentTarget.style.background = "rgba(76,120,101,0.1)";
+                                            e.currentTarget.style.borderColor =
+                                                "rgba(76,120,101,0.35)";
                                         }}
                                         onMouseLeave={(e) => {
-                                            e.currentTarget.style.background = "rgba(31,171,31,0.08)";
-                                            e.currentTarget.style.borderColor = "rgba(31,171,31,0.22)";
+                                            e.currentTarget.style.background = "rgba(76,120,101,0.06)";
+                                            e.currentTarget.style.borderColor =
+                                                "rgba(76,120,101,0.25)";
                                         }}
                                     >
-                                        <input type="checkbox" style={{ transform: "scale(1.15)" }} />
+                                        <input
+                                            type="checkbox"
+                                            style={{
+                                                transform: "scale(1.2)",
+                                                accentColor: "#4c7865",
+                                                cursor: "pointer",
+                                            }}
+                                        />
                                         {k}
                                     </label>
                                 </li>
@@ -818,13 +918,33 @@ export default function ICareForCareReceivers() {
             <section
                 aria-label="ICare vs Agency"
                 style={{
-                    margin: "48px auto 24px",
+                    margin: "64px auto 64px",
                     width: "min(92vw, 1100px)",
-                    padding: "0 clamp(16px, 4vw, 32px)",
+                    padding: "56px clamp(16px, 4vw, 32px)",
+                    background: "#F7F8F9",
+                    borderRadius: 24,
+                    boxShadow: "0 8px 28px rgba(2,8,23,0.04)",
+                    border: "1px solid #E5E7EB",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
+                {/* === Eyebrow label === */}
+                <p
+                    style={{
+                        textAlign: "center",
+                        color: "#6B7280",
+                        textTransform: "uppercase",
+                        letterSpacing: ".1em",
+                        fontWeight: 700,
+                        fontSize: 13,
+                        margin: "0 0 10px",
+                    }}
+                >
+                    ICare vs Agencies
+                </p>
+
+                {/* === Header === */}
                 <h3
                     style={{
                         margin: "0 0 28px",
@@ -838,66 +958,87 @@ export default function ICareForCareReceivers() {
                     Why families choose ICare
                 </h3>
 
-                {/* Pasek pomocniczy: 4 skróty-benefity */}
+                {/* === Benefit tags === */}
                 <ul
                     style={{
                         listStyle: "none",
                         padding: 0,
-                        margin: "0 auto 18px",
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))",
-                        gap: 10,
-                        maxWidth: 1000,
+                        margin: "0 auto 30px",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        gap: 12,
+                        maxWidth: 860,
                     }}
                 >
                     {[
-                        { label: "Direct agreement", col: "31,171,31" },
-                        { label: "Transparent pricing", col: "245,158,11" },
-                        { label: "Secure messaging", col: "99,102,241" },
-                        { label: "More pay for caregivers", col: "20,184,166" },
-                    ].map((t) => (
+                        "Direct agreement",
+                        "Transparent pricing",
+                        "Secure messaging",
+                        "Fair pay for caregivers",
+                    ].map((label) => (
                         <li
-                            key={t.label}
+                            key={label}
                             style={{
-                                display: "flex",
+                                display: "inline-flex",
                                 alignItems: "center",
                                 gap: 8,
-                                padding: "10px 12px",
-                                borderRadius: 12,
-                                background: `rgba(${t.col},.10)`,
-                                border: `1px solid rgba(${t.col},.22)`,
-                                color: "#0f172a",
+                                padding: "8px 14px",
+                                borderRadius: 999,
+                                background: "rgba(255,255,255,0.8)",
+                                border: "1px solid rgba(76,120,101,0.25)",
+                                color: "#375d4f",
                                 fontWeight: 600,
-                                fontSize: 14,
+                                fontSize: "14.5px",
+                                boxShadow: "0 2px 4px rgba(2,8,23,0.03)",
                             }}
                         >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={`rgba(${t.col},.95)`} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#4c7865"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden="true"
+                            >
                                 <polyline points="20 6 9 17 4 12" />
                             </svg>
-                            {t.label}
+                            {label}
                         </li>
                     ))}
                 </ul>
 
+                {/* === Comparison cards === */}
                 <div
                     style={{
                         marginTop: 16,
                         display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: 14,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                        gap: 20,
                     }}
                 >
-                    {/* ICare card — zielone see-through tło, wyraźnie wyróżnione */}
+                    {/* === ICare card — vivid green === */}
                     <article
                         style={{
-                            borderRadius: 18,
-                            padding: 18,
-                            background: "rgba(31,171,31,0.10)",
-                            border: "1px solid rgba(31,171,31,0.30)",
-                            boxShadow: "0 10px 24px rgba(2,8,23,0.06)",
+                            borderRadius: 20,
+                            padding: 24,
+                            background: "rgba(76, 160, 120, 0.18)", // 🌿 vivid, fresh green
+                            border: "1px solid rgba(76, 160, 120, 0.45)",
+                            boxShadow: "0 10px 28px rgba(2,8,23,0.08)",
+                            transition: "all .25s ease",
                         }}
                     >
-                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                        <header
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 10,
+                                marginBottom: 14,
+                            }}
+                        >
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -906,15 +1047,21 @@ export default function ICareForCareReceivers() {
                                     borderRadius: 99,
                                     display: "grid",
                                     placeItems: "center",
-                                    background: "rgba(31,171,31,0.18)",
-                                    border: "1px solid rgba(31,171,31,0.42)",
-                                    color: "#166016",
+                                    background: "rgba(76,160,120,0.25)",
+                                    border: "1px solid rgba(76,160,120,0.55)",
+                                    color: "#1f2a37",
                                     fontWeight: 900,
                                 }}
                             >
                                 ✓
                             </span>
-                            <strong style={{ fontSize: 16, letterSpacing: ".2px", color: "#1f2a37" }}>
+                            <strong
+                                style={{
+                                    fontSize: 16,
+                                    letterSpacing: ".2px",
+                                    color: "#1f2a37", // stays black for contrast
+                                }}
+                            >
                                 ICare
                             </strong>
                         </header>
@@ -923,30 +1070,37 @@ export default function ICareForCareReceivers() {
                             style={{
                                 margin: 0,
                                 padding: "0 0 0 1rem",
-                                lineHeight: 1.6,
-                                color: "#334155",
+                                lineHeight: 1.65,
+                                color: "#1f2a37",
                                 fontSize: 15,
                                 fontWeight: 500,
                             }}
                         >
                             <li>Direct agreement with caregiver</li>
-                            <li>Transparent, one-time fee after agreement</li>
-                            <li>Secure messaging & contracts in one place</li>
-                            <li>More pay for caregivers, lower costs for families</li>
+                            <li>Transparent, one-time fee after signing</li>
+                            <li>Secure messaging and contracts in one place</li>
+                            <li>Fair pay for caregivers, lower costs for families</li>
                         </ul>
                     </article>
 
-                    {/* Agency card — chłodny, neutralny */}
+                    {/* === Agency card — neutral === */}
                     <article
                         style={{
-                            borderRadius: 18,
-                            padding: 18,
-                            background: "rgba(148,163,184,.10)",
-                            border: "1px solid rgba(148,163,184,.35)",
-                            boxShadow: "0 8px 22px rgba(2,8,23,.05)",
+                            borderRadius: 20,
+                            padding: 24,
+                            background: "#FFFFFF",
+                            border: "1px solid rgba(148,163,184,.25)",
+                            boxShadow: "0 8px 20px rgba(2,8,23,0.04)",
                         }}
                     >
-                        <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                        <header
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 10,
+                                marginBottom: 14,
+                            }}
+                        >
                             <span
                                 aria-hidden="true"
                                 style={{
@@ -955,31 +1109,38 @@ export default function ICareForCareReceivers() {
                                     borderRadius: 99,
                                     display: "grid",
                                     placeItems: "center",
-                                    background: "rgba(148,163,184,.2)",
-                                    border: "1px solid rgba(148,163,184,.45)",
+                                    background: "rgba(148,163,184,.15)",
+                                    border: "1px solid rgba(148,163,184,.35)",
                                     color: "#64748b",
                                     fontWeight: 900,
                                 }}
                             >
                                 —
                             </span>
-                            <strong style={{ fontSize: 16, letterSpacing: ".2px", color: "#475569" }}>
+                            <strong
+                                style={{
+                                    fontSize: 16,
+                                    letterSpacing: ".2px",
+                                    color: "#475569",
+                                }}
+                            >
                                 Traditional agency
                             </strong>
                         </header>
+
                         <ul
                             style={{
                                 margin: 0,
                                 padding: "0 0 0 1rem",
-                                lineHeight: 1.6,
+                                lineHeight: 1.65,
                                 color: "#334155",
                                 fontSize: 15,
                                 fontWeight: 500,
                             }}
                         >
                             <li>Intermediary in every step</li>
-                            <li>Recurring margins/mark-ups</li>
-                            <li>Fragmented tools & communication</li>
+                            <li>Recurring fees and markups</li>
+                            <li>Fragmented communication tools</li>
                             <li>Less pay for caregivers, higher family costs</li>
                         </ul>
                     </article>
