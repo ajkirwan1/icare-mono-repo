@@ -296,7 +296,7 @@ export default function Home() {
                                     }}
                                 >
                                     <span style={{ display: "block" }}>Where families meet caregivers.</span>
-                                    <span style={{ display: "block", color: "#1FAB1F" }}>
+                                    <span style={{ display: "block", color: "#4C7865" }}>
                                         Care made personal.
                                     </span>
                                 </h2>
@@ -379,7 +379,7 @@ export default function Home() {
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="#1FAB1F"
+                                                    stroke="#ffffffff"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
@@ -397,7 +397,7 @@ export default function Home() {
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="#1FAB1F"
+                                                    stroke="#ffffffff"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
@@ -416,7 +416,7 @@ export default function Home() {
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="#1FAB1F"
+                                                    stroke="#ffffffff"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
@@ -434,7 +434,7 @@ export default function Home() {
                                                     height="16"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
-                                                    stroke="#1FAB1F"
+                                                    stroke="#ffffffff"
                                                     strokeWidth="2"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
@@ -454,11 +454,11 @@ export default function Home() {
                                                 gap: 8,
                                                 padding: "9px 16px", // 🔹 zmniejszone
                                                 borderRadius: 22, // 🔹 proporcjonalnie mniejszy radius
-                                                background: "rgba(31,171,31,0.06)", // see-through pastel
-                                                border: "1.3px solid #1FAB1F",
-                                                color: "#1FAB1F",
+                                                background: "#458f6fb7", // see-through pastel
+                                                border: "1.3px solid #ffffff",
+                                                color: "#ffffffff",
                                                 fontWeight: 700,
-                                                fontSize: 13, // 🔹 mniejsze fonty
+                                                fontSize: 15, // 🔹 mniejsze fonty
                                                 letterSpacing: ".2px",
                                                 boxShadow: "0 1px 3px rgba(31,171,31,0.05)",
                                             }}
@@ -514,7 +514,7 @@ export default function Home() {
                     }}
                 >
                     ICare.{" "}
-                    <span style={{ color: "#1FAB1F" }}>Connecting care with trust.</span>
+                    <span style={{ color: "#4C7865" }}>Connecting care with trust.</span>
                 </span>
 
                 <span
@@ -523,7 +523,7 @@ export default function Home() {
                         fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
                         lineHeight: 1.7,
                         color: "#374151",
-                        fontWeight: 500,
+                        fontWeight: 800,
                         maxWidth: "640px",
                         display: "block",
                     }}
