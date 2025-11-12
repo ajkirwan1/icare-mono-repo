@@ -246,19 +246,34 @@ export default function WhoWeAre() {
             </section>
 
             {/* ===== FOUNDATION & MISSION ===== */}
-            <section id="foundation" aria-label="Our foundation and mission" style={{ maxWidth: 1100, margin: "5rem auto 0", padding: "0 clamp(16px,4vw,32px)" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(320px, 1fr))", gap: "clamp(18px,2.8vw,28px)", alignItems: "start" }}>
-                    {/* Foundation */}
+            <section
+                id="foundation"
+                aria-label="Our foundation and mission"
+                style={{
+                    maxWidth: 1100,
+                    margin: "clamp(6rem, 8vw, 8.5rem) auto 0", // 🔹 większy odstęp od góry
+                    padding: "0 clamp(20px,5vw,40px)", // 🔹 nieco większy padding
+                }}
+            >
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(2, minmax(340px, 1fr))",
+                        gap: "clamp(26px,3.5vw,36px)", // 🔹 większy odstęp między kartami
+                        alignItems: "start",
+                    }}
+                >
+                    {/* === Foundation === */}
                     <article
                         aria-labelledby="foundation-title"
                         style={{
                             position: "relative",
                             background: "rgba(31,171,31,.06)",
                             border: "1px solid rgba(31,171,31,.22)",
-                            borderRadius: "28px",
-                            padding: "clamp(2rem, 3.5vw, 3rem)",
-                            boxShadow: "0 12px 36px rgba(2,8,23,0.06)",
-                            textAlign: "left"
+                            borderRadius: "36px", // ⬆️ było 28 → teraz +20%
+                            padding: "clamp(2.4rem, 4.2vw, 3.8rem)", // ⬆️ większe wnętrze
+                            boxShadow: "0 16px 40px rgba(2,8,23,0.06)",
+                            textAlign: "left",
                         }}
                     >
                         <span
@@ -267,34 +282,103 @@ export default function WhoWeAre() {
                                 position: "absolute",
                                 left: "-8%",
                                 top: "-14%",
-                                width: 300,
-                                height: 150,
+                                width: 320,
+                                height: 160,
                                 borderRadius: "50%",
-                                background: "radial-gradient(closest-side, rgba(31,171,31,.12), rgba(31,171,31,0) 70%)",
+                                background:
+                                    "radial-gradient(closest-side, rgba(31,171,31,.12), rgba(31,171,31,0) 70%)",
                                 filter: "blur(10px)",
-                                pointerEvents: "none"
+                                pointerEvents: "none",
                             }}
                         />
                         <h2
                             id="foundation-title"
-                            style={{ margin: 0, color: "#0F172A", fontWeight: 900, fontSize: "clamp(1.6rem, 2.6vw, 2.1rem)", letterSpacing: ".2px", lineHeight: 1.2 }}
+                            style={{
+                                margin: 0,
+                                color: "#0F172A",
+                                fontWeight: 900,
+                                fontSize: "clamp(1.7rem, 2.8vw, 2.2rem)",
+                                letterSpacing: ".2px",
+                                lineHeight: 1.2,
+                            }}
                         >
                             Our Foundation
                         </h2>
-                        <div aria-hidden="true" style={{ width: "100%", height: 4, background: BRAND, borderRadius: 999, margin: ".8rem 0 1.1rem", opacity: 0.9 }} />
-                        <p style={{ marginTop: 0, lineHeight: 1.75, color: "#334155", fontSize: "clamp(1rem, 1.05vw, 1.06rem)" }}>
-                            <span style={{ display: "block", fontWeight: 800, color: "#475569", marginBottom: ".5rem" }}>
+                        <div
+                            aria-hidden="true"
+                            style={{
+                                width: "100%",
+                                height: 4,
+                                background: "var(--brand, #1FAB1F)",
+                                borderRadius: 999,
+                                margin: ".9rem 0 1.2rem",
+                                opacity: 0.9,
+                            }}
+                        />
+                        <p
+                            style={{
+                                marginTop: 0,
+                                lineHeight: 1.75,
+                                color: "#334155",
+                                fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                            }}
+                        >
+                            <span
+                                style={{
+                                    display: "block",
+                                    fontWeight: 800,
+                                    color: "#475569",
+                                    marginBottom: ".5rem",
+                                }}
+                            >
                                 Finding the right care shouldn’t be overwhelming.
                             </span>
-                            Families face complex choices — finding trusted caregivers, managing costs, and organising day-to-day life.
-                            Caregivers deserve respect, fair pay, and tools that help them deliver safe, effective care.
+                            Families face complex choices — finding trusted caregivers, managing costs,
+                            and organising day-to-day life. Caregivers deserve respect, fair pay, and
+                            tools that help them deliver safe, effective care.
                         </p>
 
-                        <div style={{ marginTop: "1rem", lineHeight: 1.75, color: "#334155", fontSize: "clamp(1rem, 1.05vw, 1.06rem)" }}>
-                            <span style={{ display: "block", fontWeight: 800, color: "#475569", marginBottom: ".6rem" }}>Families naturally ask:</span>
-                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "grid", gap: ".5rem" }}>
-                                {["How do we start?", "Does this caregiver have the right skills?", "Will they be fairly paid?", "Is our information secure?"].map((q) => (
-                                    <li key={q} style={{ display: "flex", alignItems: "flex-start", gap: ".6rem" }}>
+                        <div
+                            style={{
+                                marginTop: "1.2rem",
+                                lineHeight: 1.75,
+                                color: "#334155",
+                                fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                            }}
+                        >
+                            <span
+                                style={{
+                                    display: "block",
+                                    fontWeight: 800,
+                                    color: "#475569",
+                                    marginBottom: ".6rem",
+                                }}
+                            >
+                                Families naturally ask:
+                            </span>
+                            <ul
+                                style={{
+                                    listStyle: "none",
+                                    padding: 0,
+                                    margin: 0,
+                                    display: "grid",
+                                    gap: ".6rem",
+                                }}
+                            >
+                                {[
+                                    "How do we start?",
+                                    "Does this caregiver have the right skills?",
+                                    "Will they be fairly paid?",
+                                    "Is our information secure?",
+                                ].map((q) => (
+                                    <li
+                                        key={q}
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: ".6rem",
+                                        }}
+                                    >
                                         <span
                                             aria-hidden="true"
                                             style={{
@@ -302,37 +386,46 @@ export default function WhoWeAre() {
                                                 width: 18,
                                                 height: 18,
                                                 borderRadius: "999px",
-                                                border: `2px solid ${BRAND}`,
+                                                border: "2px solid var(--brand, #1FAB1F)",
                                                 display: "inline-grid",
                                                 placeItems: "center",
-                                                marginTop: 2
+                                                marginTop: 2,
                                             }}
                                         >
-                                            <span style={{ width: 8, height: 8, borderRadius: "999px", background: BRAND, display: "block" }} />
+                                            <span
+                                                style={{
+                                                    width: 8,
+                                                    height: 8,
+                                                    borderRadius: "999px",
+                                                    background: "var(--brand, #1FAB1F)",
+                                                    display: "block",
+                                                }}
+                                            />
                                         </span>
                                         <span>{q}</span>
                                     </li>
                                 ))}
                             </ul>
 
-                            <p style={{ margin: "1rem 0 0 0" }}>
-                                <b>At ICare, we’ve been there.</b> That’s why we built a platform grounded in dignity, empathy, and trust — peace of mind for families and
-                                recognition for caregivers.
+                            <p style={{ margin: "1.2rem 0 0 0" }}>
+                                <b>At ICare, we’ve been there.</b> That’s why we built a platform grounded
+                                in dignity, empathy, and trust — peace of mind for families and recognition
+                                for caregivers.
                             </p>
                         </div>
                     </article>
 
-                    {/* Mission */}
+                    {/* === Mission === */}
                     <article
                         aria-labelledby="mission-title"
                         style={{
                             position: "relative",
                             background: "linear-gradient(180deg, #FFFFFF 0%, #FAFEFF 100%)",
                             border: "1px solid #E4F3E6",
-                            borderRadius: "28px",
-                            padding: "clamp(2rem, 3.5vw, 3rem)",
-                            boxShadow: "0 12px 36px rgba(2,8,23,0.06)",
-                            textAlign: "left"
+                            borderRadius: "36px", // ⬆️ było 28 → teraz +20%
+                            padding: "clamp(2.4rem, 4.2vw, 3.8rem)", // ⬆️ większe wnętrze
+                            boxShadow: "0 16px 40px rgba(2,8,23,0.06)",
+                            textAlign: "left",
                         }}
                     >
                         <span
@@ -341,29 +434,63 @@ export default function WhoWeAre() {
                                 position: "absolute",
                                 right: "-8%",
                                 top: "-14%",
-                                width: 300,
-                                height: 150,
+                                width: 320,
+                                height: 160,
                                 borderRadius: "50%",
-                                background: "radial-gradient(closest-side, rgba(31,171,31,.12), rgba(31,171,31,0) 70%)",
+                                background:
+                                    "radial-gradient(closest-side, rgba(31,171,31,.12), rgba(31,171,31,0) 70%)",
                                 filter: "blur(10px)",
-                                pointerEvents: "none"
+                                pointerEvents: "none",
                             }}
                         />
                         <h2
                             id="mission-title"
-                            style={{ margin: 0, color: "#0F172A", fontWeight: 900, fontSize: "clamp(1.6rem, 2.6vw, 2.1rem)", letterSpacing: ".2px", lineHeight: 1.2 }}
+                            style={{
+                                margin: 0,
+                                color: "#0F172A",
+                                fontWeight: 900,
+                                fontSize: "clamp(1.7rem, 2.8vw, 2.2rem)",
+                                letterSpacing: ".2px",
+                                lineHeight: 1.2,
+                            }}
                         >
                             Our Mission
                         </h2>
 
-                        <div aria-hidden="true" style={{ width: "100%", height: 4, background: BRAND, borderRadius: 999, margin: ".8rem 0 1.1rem", opacity: 0.9 }} />
+                        <div
+                            aria-hidden="true"
+                            style={{
+                                width: "100%",
+                                height: 4,
+                                background: "var(--brand, #1FAB1F)",
+                                borderRadius: 999,
+                                margin: ".9rem 0 1.2rem",
+                                opacity: 0.9,
+                            }}
+                        />
 
-                        <p style={{ marginTop: 0, lineHeight: 1.75, color: "#334155", fontSize: "clamp(1rem, 1.05vw, 1.06rem)" }}>
-                            ICare grew from first-hand 24/7 live-in care experience across Europe. We combine healthcare and technology expertise to create a more
-                            compassionate, transparent, and secure way to match families and caregivers.
+                        <p
+                            style={{
+                                marginTop: 0,
+                                lineHeight: 1.75,
+                                color: "#334155",
+                                fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                            }}
+                        >
+                            ICare grew from first-hand 24/7 live-in care experience across Europe. We
+                            combine healthcare and technology expertise to create a more compassionate,
+                            transparent, and secure way to match families and caregivers.
                         </p>
-                        <p style={{ marginTop: "1rem", lineHeight: 1.75, color: "#334155", fontSize: "clamp(1rem, 1.05vw, 1.06rem)" }}>
-                            We minimise friction, prioritise privacy, and keep costs fair — so great care can start sooner.
+                        <p
+                            style={{
+                                marginTop: "1.2rem",
+                                lineHeight: 1.75,
+                                color: "#334155",
+                                fontSize: "clamp(1rem, 1.05vw, 1.06rem)",
+                            }}
+                        >
+                            We minimise friction, prioritise privacy, and keep costs fair — so great care
+                            can start sooner.
                         </p>
                     </article>
                 </div>
@@ -374,98 +501,258 @@ export default function WhoWeAre() {
                 id="values"
                 aria-label="ICare values"
                 style={{
-                    background: "#eaeaeaff",
-                    borderTop: "1px solid rgba(31,171,31,.08)",
-                    borderBottom: "1px solid rgba(31,171,31,.08)",
-                    margin: "4.5rem 0 0",
-                    padding: "clamp(3rem,5vw,5rem) clamp(16px,4vw,32px)"
+                    background: "#F3F5F4",
+                    borderTop: "1px solid rgba(31,171,31,0.08)",
+                    borderBottom: "1px solid rgba(31,171,31,0.08)",
+                    margin: "clamp(5rem,7vw,7rem) 0 0",
+                    padding: "clamp(5rem,7vw,7rem) clamp(24px,6vw,80px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-                    <h2 style={{ margin: 0, fontWeight: 900, letterSpacing: ".2px", color: "#0F172A", fontSize: "clamp(1.7rem,3.4vw,2.2rem)", lineHeight: 1.15 }}>
-                        Our Values
-                    </h2>
-                    <p style={{ margin: "0.6rem 0 1.8rem", color: "#475569", maxWidth: "62ch", lineHeight: 1.6 }}>
-                        People first. Privacy by design. Clear, fair collaboration between families and caregivers.
-                    </p>
-                    <div aria-hidden="true" style={{ width: 200, height: 4, background: BRAND, borderRadius: 999, margin: ".4rem 0 2rem", opacity: 0.9 }} />
+                <div
+                    style={{
+                        maxWidth: 1280,
+                        margin: "0 auto",
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))",
+                        gap: "clamp(3rem, 4vw, 3.6rem)",
+                        alignItems: "start",
+                    }}
+                >
+                    {/* === LEWA KOLUMNA — TEKST === */}
+                    <header style={{ textAlign: "left" }}>
+                        <h2
+                            style={{
+                                margin: 0,
+                                fontWeight: 900,
+                                letterSpacing: ".4px",
+                                color: "#0F172A",
+                                fontSize: "clamp(2.2rem,3.8vw,2.6rem)",
+                                lineHeight: 1.15,
+                            }}
+                        >
+                            Our Values
+                        </h2>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))", gap: "clamp(16px,2.8vw,28px)" }}>
+                        <p
+                            style={{
+                                margin: "1.2rem 0 2rem",
+                                color: "#0F172A",
+                                maxWidth: "46ch",
+                                lineHeight: 1.75,
+                                fontSize: "1.6rem",
+                                fontWeight: 700,
+                            }}
+                        >
+                            “Care isn’t a service. It’s a shared human value.”
+                        </p>
+
+                        <p
+                            style={{
+                                margin: "1.2rem 0 2rem",
+                                color: "#4B5A52",
+                                maxWidth: "46ch",
+                                lineHeight: 1.75,
+                                fontSize: "1.15rem",
+                                fontWeight: 500,
+                            }}
+                        >
+                            We build trust through fairness, clarity, and respect — every step of the
+                            way. Together, we’re shaping a care system built on trust — empowering
+                            families and caregivers to work as equals.
+                        </p>
+
+                        {/* === ZDJĘCIE POD TEKSTEM === */}
+                        <div
+                            style={{
+                                margin: "clamp(1.8rem,4vw,3rem) 0",
+                                borderRadius: "28px",
+                                overflow: "hidden",
+                                boxShadow: "0 10px 28px rgba(0,0,0,0.08)",
+                                maxWidth: "90%",
+                            }}
+                        >
+                            <img
+                                src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
+                                alt="Kind caregiver supporting an elderly person"
+                                style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    display: "block",
+                                    objectFit: "cover",
+                                    borderRadius: "28px",
+                                    transition: "transform 0.6s ease, filter 0.6s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = "scale(1.02)";
+                                    e.currentTarget.style.filter = "brightness(1.08)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "scale(1)";
+                                    e.currentTarget.style.filter = "brightness(1)";
+                                }}
+                            />
+                        </div>
+
+                        <div
+                            aria-hidden="true"
+                            style={{
+                                width: 0,
+                                height: 4,
+                                background: "#4C7865",
+                                borderRadius: 999,
+                                opacity: 0.85,
+                            }}
+                        />
+                    </header>
+
+                    {/* === PRAWA KOLUMNA — KAFELKI === */}
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                            gap: "clamp(2.2rem, 3vw, 3rem)",
+                            alignItems: "start",
+                        }}
+                    >
                         {[
                             {
-                                t: "Dignity & respect",
-                                d: "We put people first — families and caregivers — in every choice we make.",
+                                t: "Dignity & Respect",
+                                d: "We put people first — families and caregivers — in every decision we make.",
+                                color: "#E9F6F1",
                                 icon: (
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <svg
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <path d="M20 6L9 17l-5-5" />
                                     </svg>
-                                )
+                                ),
                             },
                             {
-                                t: "Privacy by design",
-                                d: "Data minimisation, clear controls, and secure processes from day one.",
+                                t: "Privacy by Design",
+                                d: "Built-in data protection and security. Your privacy is never an afterthought.",
+                                color: "#F3F1E8",
                                 icon: (
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <svg
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <rect x="3" y="11" width="18" height="10" rx="2" />
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                     </svg>
-                                )
+                                ),
                             },
                             {
-                                t: "Fair & transparent",
-                                d: "Simple pricing and no hidden fees. Everyone knows where they stand.",
+                                t: "Fair & Transparent",
+                                d: "No hidden fees, no surprises. All agreements are clear, honest, and accessible.",
+                                color: "#EEF3F0",
                                 icon: (
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <svg
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <path d="M21 15V8a2 2 0 0 0-2-2h-5" />
                                         <path d="M3 8v7a2 2 0 0 0 2 2h5" />
                                         <path d="M7 10h3" />
                                         <path d="M14 14h3" />
                                     </svg>
-                                )
+                                ),
                             },
                             {
-                                t: "Trust & safety",
-                                d: "Verified profiles, guidance, and safer matching practices.",
+                                t: "Trust & Safety",
+                                d: "Verified caregivers, secure payments, and encrypted communication — always.",
+                                color: "#E6F2ED",
                                 icon: (
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                    <svg
+                                        width="28"
+                                        height="28"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
                                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     </svg>
-                                )
-                            }
+                                ),
+                            },
                         ].map((card) => (
                             <article
                                 key={card.t}
                                 style={{
-                                    position: "relative",
-                                    borderRadius: 20,
-                                    background: "rgba(255,255,255,0.9)",
-                                    border: "1px solid rgba(31,171,31,.15)",
-                                    boxShadow: "0 6px 18px rgba(2,8,23,.05)",
-                                    padding: "clamp(20px,2vw,26px)",
-                                    color: "#334155",
-                                    textAlign: "left",
-                                    backdropFilter: "blur(6px)"
+                                    background: card.color,
+                                    border: "1.8px solid rgba(31,171,31,.18)",
+                                    borderRadius: 36,
+                                    boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
+                                    padding: "clamp(32px,3vw,42px)",
+                                    color: "#1F2A37",
+                                    height: "320px",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "flex-start",
+                                    alignItems: "flex-start",
+                                    overflow: "hidden",
                                 }}
                             >
-                                <span aria-hidden="true" style={{ position: "absolute", inset: "0 auto 0 0", width: 4, background: BRAND, opacity: 0.85, borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} />
                                 <div
                                     style={{
-                                        width: 46, height: 46, borderRadius: 12, display: "grid", placeItems: "center",
-                                        background: "rgba(31,171,31,.08)", border: "1px solid rgba(31,171,31,.22)", color: BRAND_DARK, marginBottom: 12
+                                        width: 56,
+                                        height: 56,
+                                        borderRadius: "16px",
+                                        display: "grid",
+                                        placeItems: "center",
+                                        background: "rgba(255,255,255,0.8)",
+                                        border: "1px solid rgba(31,171,31,.22)",
+                                        marginBottom: 16,
+                                        flexShrink: 0,
                                     }}
-                                    aria-hidden="true"
                                 >
                                     {card.icon}
                                 </div>
-
-                                <h3 style={{ margin: "0 0 .4rem", color: "#0F172A", fontWeight: 900, letterSpacing: ".2px", fontSize: "clamp(1.06rem,2vw,1.22rem)", lineHeight: 1.25 }}>
+                                <h3
+                                    style={{
+                                        margin: "0 0 .5rem",
+                                        color: "#0F172A",
+                                        fontWeight: 800,
+                                        fontSize: "1.25rem",
+                                        letterSpacing: ".25px",
+                                        flexShrink: 0,
+                                    }}
+                                >
                                     {card.t}
                                 </h3>
-                                <p style={{ margin: 0, lineHeight: 1.65, fontSize: ".98rem" }}>{card.d}</p>
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        color: "#475569",
+                                        lineHeight: 1.65,
+                                        fontSize: "1.05rem",
+                                        flexGrow: 1,
+                                    }}
+                                >
+                                    {card.d}
+                                </p>
                             </article>
                         ))}
                     </div>
@@ -476,127 +763,228 @@ export default function WhoWeAre() {
             <section
                 id="howwework"
                 aria-label="How We Work"
-                style={{ maxWidth: 1100, margin: "4.5rem auto 0", padding: "0 clamp(16px,4vw,32px)" }}
+                style={{
+                    maxWidth: 1100,
+                    margin: "4.5rem auto 0",
+                    padding: "0 clamp(16px,4vw,32px)"
+                }}
             >
-                <h2 style={{ margin: 0, fontWeight: 900, letterSpacing: ".2px", color: "#0F172A", fontSize: "clamp(1.7rem,3.4vw,2.2rem)", lineHeight: 1.15 }}>
+                <h2
+                    style={{
+                        margin: 0,
+                        fontWeight: 900,
+                        letterSpacing: ".2px",
+                        color: "#0F172A",
+                        fontSize: "clamp(1.7rem,3.4vw,2.2rem)",
+                        lineHeight: 1.15
+                    }}
+                >
                     How We Work
                 </h2>
-                <p style={{ margin: "8px 0 18px", color: "#475569", maxWidth: "62ch", lineHeight: 1.6 }}>
-                    A clear, privacy-first process that connects families and caregivers directly — no middlemen, no hidden fees.
+                <p
+                    style={{
+                        margin: "8px 0 18px",
+                        color: "#475569",
+                        maxWidth: "62ch",
+                        lineHeight: 1.6,
+                        fontSize: "1.15rem",
+                        fontWeight: 600,
+                    }}
+                >
+                    A clear, privacy-first process that connects families and caregivers directly.
                 </p>
-                <div aria-hidden="true" style={{ width: 200, height: 4, background: BRAND, borderRadius: 999, margin: ".4rem 0 1.6rem", opacity: 0.9 }} />
+                <div
+                    aria-hidden="true"
+                    style={{
+                        width: 0,
+                        height: 4,
+                        background: BRAND,
+                        borderRadius: 999,
+                        margin: ".4rem 0 1.6rem",
+                        opacity: 0.9
+                    }}
+                />
 
+                {/* === GRID 3 KAFELKI === */}
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(3, minmax(220px,1fr))",
-                        gap: "clamp(14px,2.4vw,22px)"
+                        gridTemplateColumns: "repeat(3, minmax(250px,1fr))",
+                        gap: "clamp(18px,2.6vw,28px)"
                     }}
                 >
-                    {/* Step 1 */}
+                    {/* STEP 1 */}
                     <article
                         style={{
-                            borderRadius: 18,
+                            borderRadius: 22,
                             background: "linear-gradient(180deg,#FFFFFF 0%, #F7FFF8 100%)",
                             border: "1px solid rgba(31,171,31,.22)",
-                            boxShadow: "0 10px 24px rgba(2,8,23,.05)",
-                            padding: "clamp(16px,2vw,20px)"
+                            boxShadow: "0 10px 28px rgba(2,8,23,.05)",
+                            padding: "clamp(20px,2.3vw,26px)"
                         }}
                     >
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
                             <div
                                 aria-hidden="true"
                                 style={{
-                                    width: 40, height: 40, borderRadius: 12, display: "grid", placeItems: "center",
-                                    background: "rgba(31,171,31,.10)", border: "1px solid rgba(31,171,31,.25)", color: BRAND_DARK, fontWeight: 900
+                                    width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center",
+                                    background: "rgba(31,171,31,.10)", border: "1px solid rgba(31,171,31,.25)",
+                                    color: BRAND_DARK, fontWeight: 900, fontSize: "1.1rem"
                                 }}
                             >
                                 1
                             </div>
-                            <h3 style={{ margin: 0, fontWeight: 900, fontSize: "1.05rem", color: "#0F172A" }}>Brief & preferences</h3>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontWeight: 900,
+                                    fontSize: "1.15rem",
+                                    color: "#0F172A"
+                                }}
+                            >
+                                Brief & preferences
+                            </h3>
                         </div>
-                        <p style={{ margin: 0, color: "#334155", lineHeight: 1.65 }}>
+                        <p
+                            style={{
+                                margin: 0,
+                                color: "#334155",
+                                lineHeight: 1.7,
+                                fontSize: "1.02rem"
+                            }}
+                        >
                             Tell us your needs, schedule and preferred skills. We minimise data — only what’s necessary.
                         </p>
                     </article>
 
-                    {/* Step 2 */}
+                    {/* STEP 2 */}
                     <article
                         style={{
-                            borderRadius: 18,
+                            borderRadius: 22,
                             background: "linear-gradient(180deg,#FFFFFF 0%, #F5FBFF 100%)",
                             border: "1px solid rgba(2,132,199,.18)",
-                            boxShadow: "0 10px 24px rgba(2,8,23,.05)",
-                            padding: "clamp(16px,2vw,20px)"
+                            boxShadow: "0 10px 28px rgba(2,8,23,.05)",
+                            padding: "clamp(20px,2.3vw,26px)"
                         }}
                     >
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
                             <div
                                 aria-hidden="true"
                                 style={{
-                                    width: 40, height: 40, borderRadius: 12, display: "grid", placeItems: "center",
-                                    background: "rgba(2,132,199,.1)", border: "1px solid rgba(2,132,199,.25)", color: "#075985", fontWeight: 900
+                                    width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center",
+                                    background: "rgba(2,132,199,.1)", border: "1px solid rgba(2,132,199,.25)",
+                                    color: "#075985", fontWeight: 900, fontSize: "1.1rem"
                                 }}
                             >
                                 2
                             </div>
-                            <h3 style={{ margin: 0, fontWeight: 900, fontSize: "1.05rem", color: "#0F172A" }}>Direct matching</h3>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontWeight: 900,
+                                    fontSize: "1.15rem",
+                                    color: "#0F172A"
+                                }}
+                            >
+                                Direct matching
+                            </h3>
                         </div>
-                        <p style={{ margin: 0, color: "#334155", lineHeight: 1.65 }}>
+                        <p
+                            style={{
+                                margin: 0,
+                                color: "#334155",
+                                lineHeight: 1.7,
+                                fontSize: "1.02rem"
+                            }}
+                        >
                             We show verified profiles that fit your brief — you speak directly with candidates.
                         </p>
                     </article>
 
-                    {/* Step 3 */}
+                    {/* STEP 3 */}
                     <article
                         style={{
-                            borderRadius: 18,
+                            borderRadius: 22,
                             background: "linear-gradient(180deg,#FFFFFF 0%, #FFF7F3 100%)",
                             border: "1px solid rgba(234,88,12,.18)",
-                            boxShadow: "0 10px 24px rgba(2,8,23,.05)",
-                            padding: "clamp(16px,2vw,20px)"
+                            boxShadow: "0 10px 28px rgba(2,8,23,.05)",
+                            padding: "clamp(20px,2.3vw,26px)"
                         }}
                     >
-                        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
                             <div
                                 aria-hidden="true"
                                 style={{
-                                    width: 40, height: 40, borderRadius: 12, display: "grid", placeItems: "center",
-                                    background: "rgba(234,88,12,.08)", border: "1px solid rgba(234,88,12,.22)", color: "#9A3412", fontWeight: 900
+                                    width: 48, height: 48, borderRadius: 14, display: "grid", placeItems: "center",
+                                    background: "rgba(234,88,12,.08)", border: "1px solid rgba(234,88,12,.22)",
+                                    color: "#9A3412", fontWeight: 900, fontSize: "1.1rem"
                                 }}
                             >
                                 3
                             </div>
-                            <h3 style={{ margin: 0, fontWeight: 900, fontSize: "1.05rem", color: "#0F172A" }}>Agree & start</h3>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontWeight: 900,
+                                    fontSize: "1.15rem",
+                                    color: "#0F172A"
+                                }}
+                            >
+                                Agree & start
+                            </h3>
                         </div>
-                        <p style={{ margin: 0, color: "#334155", lineHeight: 1.65 }}>
+                        <p
+                            style={{
+                                margin: 0,
+                                color: "#334155",
+                                lineHeight: 1.7,
+                                fontSize: "1.02rem"
+                            }}
+                        >
                             You agree terms directly with the caregiver. We provide guidance and safer-practice templates.
                         </p>
                     </article>
                 </div>
 
-                <div style={{ marginTop: 16 }}>
+                {/* === WIĘKSZY BUTTON (15%) === */}
+                <div style={{ marginTop: 28 }}>
                     <a
                         href="/how-it-works"
                         style={{
                             display: "inline-flex",
                             alignItems: "center",
-                            gap: 8,
+                            gap: 10,
                             textDecoration: "none",
-                            fontWeight: 800,
-                            letterSpacing: ".3px",
-                            fontSize: ".95rem",
-                            padding: ".75rem 1.1rem",
+                            fontWeight: 900,
+                            letterSpacing: ".35px",
+                            fontSize: "1.1rem",          // +15%
+                            padding: "1rem 1.6rem",      // +15%
                             borderRadius: 999,
                             color: "#fff",
-                            background: BRAND,               // zielony przycisk
+                            background: BRAND,
                             border: "1px solid rgba(31,171,31,.35)",
-                            boxShadow: "0 10px 24px rgba(2,8,23,.12)"
+                            boxShadow: "0 14px 30px rgba(2,8,23,.12)",
+                            transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow = "0 18px 36px rgba(2,8,23,.15)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 14px 30px rgba(2,8,23,.12)";
                         }}
                     >
                         Explore full process
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                            width="18" height="18"  // ⬆️ większa strzałka
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
                             <path d="M5 12h14" />
                             <path d="M13 5l7 7-7 7" />
                         </svg>
@@ -608,44 +996,141 @@ export default function WhoWeAre() {
             <section
                 id="impact"
                 aria-label="Impact metrics"
-                style={{ maxWidth: 1100, margin: "4.5rem auto 0", padding: "0 clamp(16px,4vw,32px)" }}
+                style={{
+                    background: "linear-gradient(180deg, #F9FBFA 0%, #FFFFFF 100%)",
+                    borderTop: "1px solid rgba(31,171,31,0.08)",
+                    borderBottom: "1px solid rgba(31,171,31,0.08)",
+                    margin: "clamp(6rem,7vw,7rem) 0 0",
+                    padding: "clamp(5rem,7vw,7rem) clamp(24px,6vw,80px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
             >
-                <h2 style={{ margin: 0, fontWeight: 900, letterSpacing: ".2px", color: "#0F172A", fontSize: "clamp(1.7rem,3.4vw,2.2rem)", lineHeight: 1.15 }}>
-                    Our Impact
-                </h2>
-                <p style={{ margin: "8px 0 18px", color: "#475569", maxWidth: "62ch", lineHeight: 1.6 }}>
-                    We measure what matters: safer matches, fairer pay, and faster starts.
-                </p>
-                <div aria-hidden="true" style={{ width: 200, height: 4, background: BRAND, borderRadius: 999, margin: ".4rem 0 1.6rem", opacity: 0.9 }} />
+                <div style={{ maxWidth: 1180, margin: "0 auto", textAlign: "center" }}>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            letterSpacing: ".3px",
+                            color: "#0F172A",
+                            fontSize: "clamp(2.1rem,3.5vw,2.7rem)",
+                            lineHeight: 1.15,
+                        }}
+                    >
+                        Our Impact
+                    </h2>
 
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(4, minmax(140px,1fr))",
-                        gap: "clamp(12px,2.2vw,20px)"
-                    }}
-                >
-                    {[
-                        { n: "2.3×", l: "Faster matching", d: "from first call to start date" },
-                        { n: "94%", l: "5-star feedback", d: "from families & caregivers" },
-                        { n: "−18%", l: "Lower total cost", d: "vs. traditional agencies" },
-                        { n: "100%", l: "Profiles verified", d: "ID + references" }
-                    ].map((k) => (
-                        <div
-                            key={k.l}
-                            style={{
-                                borderRadius: 16,
-                                background: "#fff",
-                                border: "1px solid rgba(31,171,31,.18)",
-                                boxShadow: "0 8px 18px rgba(2,8,23,.05)",
-                                padding: "16px"
-                            }}
-                        >
-                            <div style={{ fontWeight: 900, fontSize: "clamp(1.2rem,2vw,1.6rem)", color: BRAND_DARK }}>{k.n}</div>
-                            <div style={{ fontWeight: 800, marginTop: 4 }}>{k.l}</div>
-                            <div style={{ color: "#64748b", fontSize: ".95rem" }}>{k.d}</div>
-                        </div>
-                    ))}
+                    <p
+                        style={{
+                            margin: "1.2rem auto 2.6rem",
+                            color: "#475569",
+                            maxWidth: "60ch",
+                            lineHeight: 1.75,
+                            fontSize: "1.25rem",
+                            fontWeight: 500,
+                        }}
+                    >
+                        We measure what matters — safer matches, fairer pay, and faster starts.
+                    </p>
+
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            width: 0,
+                            height: 4,
+                            background: "#4C7865",
+                            borderRadius: 999,
+                            margin: "0 auto 3.4rem",
+                            opacity: 0.9,
+                        }}
+                    />
+
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                            gap: "clamp(28px,3.4vw,40px)",
+                            justifyItems: "center",
+                        }}
+                    >
+                        {[
+                            {
+                                n: "2.3×",
+                                l: "Faster Matching",
+                                d: "From first contact to confirmed start date",
+                            },
+                            {
+                                n: "94%",
+                                l: "5-Star Feedback",
+                                d: "From families & caregivers who matched successfully",
+                            },
+                            {
+                                n: "−18%",
+                                l: "Lower Total Cost",
+                                d: "Compared to traditional care agencies",
+                            },
+                            {
+                                n: "100%",
+                                l: "Profiles Verified",
+                                d: "Every caregiver verified by ID and references",
+                            },
+                        ].map((k) => (
+                            <div
+                                key={k.l}
+                                style={{
+                                    borderRadius: 32,
+                                    background: "rgba(228, 228, 228, 0.75)", // 💎 jasny szary see-through
+                                    border: "1.6px solid rgba(220, 221, 223, 0.9)", // 🩶 delikatnie ciemniejszy szary
+                                    boxShadow: "0 8px 20px rgba(0,0,0,0.04)",
+                                    backdropFilter: "blur(6px)",
+                                    WebkitBackdropFilter: "blur(6px)",
+                                    padding: "clamp(36px,3vw,44px)",
+                                    textAlign: "center",
+                                    width: "100%",
+                                    maxWidth: 300,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        fontWeight: 600,
+                                        fontSize: "clamp(1.6rem,2.7vw,2.2rem)",
+                                        color: "#0F172A",
+                                        marginBottom: "0.8rem",
+                                        lineHeight: 1,
+                                    }}
+                                >
+                                    {k.n}
+                                </div>
+
+                                <div
+                                    style={{
+                                        fontWeight: 800,
+                                        color: "#1FAB1F",
+                                        fontSize: "1.15rem",
+                                        marginBottom: "0.4rem",
+                                        letterSpacing: ".3px",
+                                    }}
+                                >
+                                    {k.l}
+                                </div>
+
+                                <div
+                                    style={{
+                                        color: "#4B5A52",
+                                        fontSize: "1rem",
+                                        lineHeight: 1.65,
+                                        maxWidth: "28ch",
+                                    }}
+                                >
+                                    {k.d}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 

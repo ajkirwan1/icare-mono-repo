@@ -485,6 +485,387 @@ export default function Home() {
                     </span>
                 </IcareCard>
             </IcareSection>
+            {/* === WHY NO AGENCIES (refined full-background version) === */}
+            {/* === WHY NO AGENCIES (smaller + darker border) === */}
+            <IcareSection
+                style={{
+                    background: "linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%)",
+                    padding: "clamp(3.5rem, 6vw, 5rem) clamp(20px, 6vw, 70px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                        gap: "clamp(2rem, 3vw, 4rem)",
+                        alignItems: "start",
+                        maxWidth: 1080,
+                        margin: "0 auto",
+                    }}
+                >
+                    {/* === LEWY BLOK TEKSTOWY === */}
+                    <div style={{ textAlign: "left" }}>
+                        <h2
+                            style={{
+                                fontWeight: 800,
+                                fontSize: "clamp(1.9rem, 3.2vw, 2.4rem)",
+                                color: "#0F172A",
+                                marginBottom: "1rem",
+                                lineHeight: 1.15,
+                            }}
+                        >
+                            Why care without middlemen (agency)?
+                        </h2>
+
+                        <p
+                            style={{
+                                maxWidth: "55ch",
+                                color: "#374151",
+                                fontSize: "1.05rem",
+                                lineHeight: 1.7,
+                                marginTop: "2rem",
+                                marginBottom: "2rem",
+                                fontWeight: 500,
+                            }}
+                        >
+                            With ICare, families and caregivers connect directly — no agencies, no
+                            middlemen, no hidden fees. Just clear communication, fair rates, and a
+                            platform built on trust and transparency.
+                        </p>
+
+
+                    </div>
+
+                    {/* === KAFELKI === */}
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "clamp(1.4rem, 2vw, 1.8rem)",
+                        }}
+                    >
+                        {[
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#1F2A37"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="M9 12l2 2 4-4" />
+                                    </svg>
+                                ),
+                                title: "Fair & Transparent",
+                                desc: "No extra commissions or confusing terms. Families and caregivers agree directly on clear conditions.",
+                                color: "#EAF4EF",
+                            },
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#1F2A37"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                ),
+                                title: "Private & Secure",
+                                desc: "All messages, contracts, and payments stay inside ICare. Your data is encrypted and never shared.",
+                                color: "#F0F8F3",
+                            },
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#1F2A37"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
+                                    </svg>
+                                ),
+                                title: "Human Connection",
+                                desc: "Every match starts with a real conversation — not algorithms or intermediaries.",
+                                color: "#F4FBF8",
+                            },
+                        ].map((item) => (
+                            <div
+                                key={item.title}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "flex-start",
+                                    gap: "1rem",
+                                    background: item.color,
+                                    borderRadius: 38, // większy, miękki radius
+                                    padding: "1.2rem 1.4rem", // 20% mniejsze
+                                    color: "#1F2A37",
+                                    border: "2px solid rgba(6, 68, 6, 0.55)", // ciemniejszy zielony border
+                                    boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
+                                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.transform = "translateY(-2px)";
+                                    e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.06)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(0,0,0,0.03)";
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        minWidth: 46,
+                                        minHeight: 46,
+                                        borderRadius: "50%",
+                                        background: "rgba(31,171,31,0.12)",
+                                        display: "grid",
+                                        placeItems: "center",
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    {item.icon}
+                                </div>
+                                <div>
+                                    <h3
+                                        style={{
+                                            margin: "0 0 .35rem",
+                                            fontWeight: 700,
+                                            fontSize: "1.05rem",
+                                            color: "#1F2A37",
+                                        }}
+                                    >
+                                        {item.title}
+                                    </h3>
+                                    <p
+                                        style={{
+                                            margin: "0.25rem 0 0",
+                                            fontSize: "0.9rem",
+                                            color: "#475569",
+                                            lineHeight: 1.6,
+                                        }}
+                                    >
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </IcareSection>
+            {/* === ICARE SECURE PLATFORM — CONTRACTS & PROTECTION (REVERSED PANEL, WITH SPACING) === */}
+            {/* === ICARE SECURE PLATFORM — CONTRACTS & PROTECTION (WITH CLEAR SPACING) === */}
+            <IcareSection
+                style={{
+                    background: "linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%)",
+                    padding: "clamp(5rem, 7vw, 6.5rem) clamp(24px, 6vw, 80px)",
+                    marginTop: "clamp(4rem, 7vw, rem)", // 🌿 wyraźny odstęp od sekcji wyżej
+                    borderTop: "1px solid rgba(31,171,31,0.08)", // subtelny separator
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(460px, 1fr))",
+                        gap: "clamp(2rem, 4vw, 3rem)",
+                        alignItems: "center",
+                        maxWidth: 1200,
+                        margin: "0 auto",
+                    }}
+                >
+                    {/* === LEWA STRONA: KAFELKI === */}
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                            gap: "1.6rem",
+                            justifyItems: "start",
+                        }}
+                    >
+                        {[
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <rect x="3" y="11" width="18" height="10" rx="2" />
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    </svg>
+                                ),
+                                title: "Encrypted Chats",
+                                desc: "End-to-end encryption for all messages and shared files.",
+                            },
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M12 1l3 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5z" />
+                                    </svg>
+                                ),
+                                title: "Verified Contracts",
+                                desc: "Each agreement is timestamped and securely archived in your dashboard.",
+                            },
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="M12 16v-4M12 8h.01" />
+                                    </svg>
+                                ),
+                                title: "Secure Payments",
+                                desc: "Handled through verified gateways with instant confirmation and fraud protection.",
+                            },
+                            {
+                                icon: (
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#4C7865"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
+                                    </svg>
+                                ),
+                                title: "Identity Verification",
+                                desc: "All profiles are verified for authenticity before access to care tools.",
+                            },
+                        ].map((item) => (
+                            <div
+                                key={item.title}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "flex-start",
+                                    gap: "0.8rem",
+                                    padding: "1rem 1.1rem",
+                                    borderRadius: 24,
+                                    background: "rgba(245,247,245,0.65)", // 💠 see-through grey
+                                    border: "1px solid rgba(31,171,31,0.25)", // ciemniejszy border
+                                    boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                                    transition: "transform 0.25s ease",
+                                }}
+                                onMouseEnter={(e) =>
+                                    (e.currentTarget.style.transform = "translateY(-2px)")
+                                }
+                                onMouseLeave={(e) =>
+                                    (e.currentTarget.style.transform = "translateY(0)")
+                                }
+                            >
+                                <div
+                                    style={{
+                                        width: 42,
+                                        height: 42,
+                                        borderRadius: "50%",
+                                        background: "rgba(255,255,255,0.45)",
+                                        display: "grid",
+                                        placeItems: "center",
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    {item.icon}
+                                </div>
+                                <div>
+                                    <h3
+                                        style={{
+                                            margin: "0 0 .25rem",
+                                            fontWeight: 700,
+                                            fontSize: "1rem",
+                                            color: "#1F2A37",
+                                        }}
+                                    >
+                                        {item.title}
+                                    </h3>
+                                    <p
+                                        style={{
+                                            margin: 0,
+                                            fontSize: "0.9rem",
+                                            color: "#4B5A52",
+                                            lineHeight: 1.55,
+                                        }}
+                                    >
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* === PRAWA STRONA: TEKST === */}
+                    <div style={{ textAlign: "left" }}>
+                        <h2
+                            style={{
+                                fontWeight: 800,
+                                fontSize: "clamp(2rem, 3.6vw, 2.2rem)",
+                                color: "#0F172A",
+                                marginBottom: "1rem",
+                                lineHeight: 1.15,
+                            }}
+                        >
+                            ICare Secure Platform — Contracts & Protection
+                        </h2>
+
+                        <p
+                            style={{
+                                maxWidth: "56ch",
+                                color: "#374151",
+                                fontSize: "1.05rem",
+                                lineHeight: 1.7,
+                                marginBottom: "2rem",
+                            }}
+                        >
+                            We protect every agreement — from first chat to verified payment.
+                            ICare ensures transparent, encrypted, and fair collaboration between
+                            caregivers and families.
+                        </p>
+                    </div>
+                </div>
+            </IcareSection>
 
             {/* === BLOK 1: ICare (image left) === */}
             <IcareWebBlock
