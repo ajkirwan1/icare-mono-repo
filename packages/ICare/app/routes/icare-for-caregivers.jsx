@@ -212,21 +212,22 @@ export default function ICareForCaregivers() {
                         <span
                             style={{
                                 display: "inline-block",
-                                marginBottom: "1.2rem",
-                                fontSize: "0.88rem",
+                                marginBottom: "1.4rem", // większy odstęp
+                                fontSize: "1.01rem", // +15%
                                 fontWeight: 800,
-                                letterSpacing: ".12em",
+                                letterSpacing: ".13em",
                                 textTransform: "uppercase",
                                 color: "#EAF7EA",
-                                padding: ".48rem .9rem",
+                                padding: ".55rem 1.05rem", // większy padding
                                 borderRadius: 999,
-                                background: "rgba(31,171,31,0.20)",
-                                border: "2px solid rgba(31,171,31,0.45)",
-                                textShadow: "0 1px 2px rgba(0,0,0,.25)",
+                                background: "rgba(31,171,31,0.22)", // lekko mocniejszy zielony
+                                border: "2.3px solid rgba(31,171,31,0.5)", // delikatnie grubszy
+                                textShadow: "0 1px 3px rgba(0,0,0,.28)", // nieco mocniejszy cień
                             }}
                         >
                             Direct  Fair  Transparent
                         </span>
+
 
                         <h1
                             style={{
@@ -239,7 +240,7 @@ export default function ICareForCaregivers() {
                                 textShadow: "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
                             }}
                         >
-                            ICare for <span style={{ color: BRAND }}>Caregivers</span>
+                            <span> ICare for Caregivers</span>
                         </h1>
 
                         <p
@@ -331,7 +332,7 @@ export default function ICareForCaregivers() {
                                     fontWeight: 700,
                                     letterSpacing: ".4px",
                                     borderRadius: 999,
-                                    background: BRAND,
+                                    background: "rgb(76, 120, 101)",
                                     color: "#ffffff",
                                     boxShadow: "0 12px 28px rgba(2,8,23,.18)",
                                     textDecoration: "none",
@@ -526,140 +527,155 @@ export default function ICareForCaregivers() {
             <section
                 aria-label="Who can join"
                 style={{
-                    margin: "4rem auto 3rem",
+                    margin: "6rem auto 5rem",
                     width: "min(1100px, 92vw)",
-                    padding: "0 clamp(16px, 4vw, 32px)",
+                    padding: "clamp(24px, 4vw, 40px)",
+                    borderRadius: 28,
+                    background:
+                        "linear-gradient(180deg, rgba(249,252,249,1) 0%, rgba(243,248,243,1) 100%)",
+                    boxShadow: "0 8px 30px rgba(2,8,23,0.05)",
+                    transition: "all 0.4s ease",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                <h2
-                    style={{
-                        margin: "0 0 .75rem 0",
-                        fontWeight: 900,
-                        fontSize: "clamp(1.8rem,3vw,2.3rem)",
-                        letterSpacing: ".3px",
-                        lineHeight: 1.2,
-                        color: "#1F2A37",
-                    }}
-                >
-                    Who can join ICare
-                </h2>
-
-                <div
-                    style={{
-                        width: 280,
-                        maxWidth: "80%",
-                        height: 4,
-                        background: "#1FAB1F",
-                        borderRadius: 999,
-                        margin: ".75rem 0 2rem 0",
-                        opacity: 0.95,
-                    }}
-                />
+                <header style={{ textAlign: "left", marginBottom: "2.5rem" }}>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            fontSize: "clamp(1.9rem,3vw,2.4rem)",
+                            letterSpacing: ".3px",
+                            lineHeight: 1.2,
+                            color: "#0F172A",
+                        }}
+                    >
+                        Who can join ICare
+                    </h2>
+                    <p
+                        style={{
+                            marginTop: ".65rem",
+                            color: "#475569",
+                            fontSize: "1.05rem",
+                            lineHeight: 1.65,
+                            maxWidth: "60ch",
+                            fontWeight: "600",
+                        }}
+                    >
+                        Join our caring community — whether you’re a nurse, companion, or skilled
+                        caregiver looking for flexible work and trusted connections.
+                    </p>
+                    <div
+                        style={{
+                            width: 0,
+                            height: 4,
+                            background: "#1FAB1F",
+                            borderRadius: 999,
+                            marginTop: "1.2rem",
+                            opacity: 0.9,
+                        }}
+                    />
+                </header>
 
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "clamp(18px,2.4vw,24px)",
+                        gap: "clamp(20px,2.4vw,28px)",
                     }}
                 >
                     {[
                         {
+                            icon: "👩‍⚕️",
                             t: "Professional caregivers & nurses",
-                            d: "With verifiable experience and references.",
-                            img: "/images/icons/nurse.png",
+                            d: "With verifiable experience, empathy and trusted references.",
                         },
                         {
+                            icon: "⏰",
                             t: "Live-in & hourly support",
-                            d: "Flexible availability and clear hourly or daily rates.",
-                            img: "/images/icons/clock.png",
+                            d: "Choose flexible schedules — hourly, daily, or full-time care.",
                         },
                         {
+                            icon: "⭐",
                             t: "Specialist skills",
-                            d: "Dementia, mobility support, post-surgery care, and more.",
-                            img: "/images/icons/skills.png",
+                            d: "Dementia, mobility, palliative or post-surgery care expertise.",
                         },
                         {
+                            icon: "🌍",
                             t: "Language & driving",
-                            d: "Extra plus for multilingual caregivers and drivers.",
-                            img: "/images/icons/language.png",
+                            d: "Multilingual caregivers and licensed drivers are highly valued.",
                         },
-                    ].map((item) => (
+                    ].map((item, i) => (
                         <article
                             key={item.t}
                             style={{
                                 background: "#FFFFFF",
-                                border: "1px solid rgba(15,23,42,0.10)",
-                                borderRadius: 16,
-                                padding: "22px 20px 26px",
-                                boxShadow: "0 8px 24px rgba(2,8,23,0.08)",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                                borderRadius: 18,
+                                padding: "28px 24px",
+                                boxShadow: "0 10px 28px rgba(2,8,23,0.06)",
                                 display: "grid",
-                                gap: 12,
+                                gap: 14,
                                 alignItems: "start",
-                                transition: "transform .25s ease, box-shadow .25s ease",
+                                transition:
+                                    "transform .3s ease, box-shadow .3s ease, border-color .3s ease",
+                                opacity: 0,
+                                transform: "translateY(20px)",
+                                animation: `fadeUp .6s ease forwards ${i * 0.12}s`,
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-3px)";
-                                e.currentTarget.style.boxShadow = "0 14px 30px rgba(2,8,23,0.10)";
+                                e.currentTarget.style.transform = "translateY(-4px)";
+                                e.currentTarget.style.boxShadow = "0 16px 40px rgba(31,171,31,0.12)";
+                                e.currentTarget.style.borderColor = "rgba(31,171,31,0.25)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 8px 24px rgba(2,8,23,0.08)";
+                                e.currentTarget.style.boxShadow = "0 10px 28px rgba(2,8,23,0.06)";
+                                e.currentTarget.style.borderColor = "rgba(15,23,42,0.08)";
                             }}
                         >
-                            {/* GÓRNA CZĘŚĆ — mini grafika + tytuł */}
                             <div
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: 12,
+                                    gap: 14,
                                 }}
                             >
                                 <div
                                     aria-hidden="true"
                                     style={{
-                                        width: 44,
-                                        height: 44,
-                                        borderRadius: 12,
+                                        width: 50,
+                                        height: 50,
+                                        borderRadius: 14,
                                         background: "rgba(31,171,31,0.10)",
                                         border: "1px solid rgba(31,171,31,0.25)",
                                         display: "grid",
                                         placeItems: "center",
-                                        overflow: "hidden",
+                                        fontSize: "1.7rem",
+                                        boxShadow: "inset 0 2px 4px rgba(31,171,31,0.15)",
                                     }}
                                 >
-                                    <img
-                                        src={item.img}
-                                        alt=""
-                                        loading="lazy"
-                                        style={{
-                                            width: "70%",
-                                            height: "70%",
-                                            objectFit: "contain",
-                                            filter: "grayscale(20%)",
-                                        }}
-                                    />
+                                    {item.icon}
                                 </div>
                                 <strong
                                     style={{
                                         color: "#1F2A37",
-                                        fontSize: "1.08rem",
-                                        fontWeight: 800,
-                                        letterSpacing: ".2px",
-                                        lineHeight: 1.3,
+                                        fontSize: "1.1rem",
+                                        fontWeight: 850,
+                                        letterSpacing: ".25px",
+                                        lineHeight: 1.35,
                                     }}
                                 >
                                     {item.t}
                                 </strong>
                             </div>
 
-                            {/* OPIS */}
                             <p
                                 style={{
                                     margin: 0,
                                     color: "#334155",
-                                    lineHeight: 1.65,
-                                    fontSize: "1rem",
+                                    lineHeight: 1.7,
+                                    fontSize: "1.02rem",
                                 }}
                             >
                                 {item.d}
@@ -667,7 +683,18 @@ export default function ICareForCaregivers() {
                         </article>
                     ))}
                 </div>
+
+                <style>{`
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      article { opacity: 1 !important; transform: none !important; animation: none !important; }
+    }
+  `}</style>
             </section>
+
 
             {/* === FAQ === */}
             <section aria-label="Caregivers FAQ" style={{ ...container, margin: "0 auto 3.75rem" }}>

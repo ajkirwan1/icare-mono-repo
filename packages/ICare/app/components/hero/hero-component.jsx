@@ -147,7 +147,7 @@ export default function HeroComponent({ imgSrc }) {
                             letterSpacing: ".2px",
                             lineHeight: 1.05,
                             fontSize: "clamp(2.4rem, 5.2vw, 4.4rem)",
-                            color: "#4C7865",
+                            color: "rgb(63 221 153)",
                             textShadow: "none",
                         }}
                     >
@@ -172,7 +172,7 @@ export default function HeroComponent({ imgSrc }) {
                     }}
                 >
                     <span style={{ display: "block", maxWidth: 600 }}>
-                        <strong style={{ display: "block", marginBottom: ".15rem" }}>
+                        <strong style={{ display: "block", marginBottom: ".25rem", fontSize: "1.6rem" }}>
                             We are not an agency.
                         </strong>
                         ICare is the answer to the real needs of families — helping them safely connect with

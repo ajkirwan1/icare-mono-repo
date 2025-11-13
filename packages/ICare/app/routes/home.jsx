@@ -259,7 +259,7 @@ export default function Home() {
                         slot="contents"
                         style={{
                             display: "block",
-                            backgroundColor: "transparent",
+                            background: "linear-gradient(180deg, #ffffff 0%, #f8faf8 100%)",
                         }}
                     >
                         <section
@@ -268,19 +268,19 @@ export default function Home() {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                minHeight: "65vh",
-                                padding: "clamp(28px, 4vw, 56px) 0",
-                                background: "#FFFFFF",
+                                minHeight: "70vh",
+                                padding: "clamp(48px, 6vw, 88px) 0",
                                 fontFamily:
                                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                             }}
                         >
                             <div
                                 style={{
-                                    maxWidth: 1100,
+                                    maxWidth: 1120,
                                     margin: "0 auto",
-                                    padding: "0 clamp(20px, 4vw, 40px)",
+                                    padding: "0 clamp(24px, 4vw, 48px)",
                                     textAlign: "center",
+                                    animation: "fadeIn 1s ease both",
                                 }}
                             >
                                 {/* === TITLE === */}
@@ -288,15 +288,23 @@ export default function Home() {
                                     id="icare-intro-title"
                                     style={{
                                         margin: 0,
-                                        fontSize: "clamp(1.9rem, 3.2vw, 2.6rem)",
-                                        lineHeight: 1.18,
+                                        fontSize: "clamp(2.2rem, 3.8vw, 2.6rem)",
+                                        lineHeight: 1.15,
                                         fontWeight: 800,
                                         color: "#1F2A37",
-                                        letterSpacing: ".2px",
+                                        letterSpacing: ".25px",
+                                        animation: "slideUp .8s ease both",
                                     }}
                                 >
                                     <span style={{ display: "block" }}>Where families meet caregivers.</span>
-                                    <span style={{ display: "block", color: "#4C7865" }}>
+                                    <span
+                                        style={{
+                                            display: "block",
+                                            color: "#4C7865",
+                                            fontWeight: 800,
+                                            fontSize: "clamp(2.2rem, 3.8vw, 2.6rem)",
+                                        }}
+                                    >
                                         Care made personal.
                                     </span>
                                 </h2>
@@ -307,21 +315,22 @@ export default function Home() {
                                     style={{
                                         width: "min(70ch, 92%)",
                                         height: 4,
-                                        background: "#1FAB1F",
+                                        background: "#b0b0b0ff",
                                         borderRadius: 999,
-                                        margin: "1.1rem auto 1.6rem",
-                                        opacity: 0.9,
+                                        margin: "1.4rem auto 2rem",
+                                        opacity: 0.95,
+                                        animation: "growLine .9s ease .3s both",
                                     }}
                                 />
 
                                 {/* === TEXT === */}
-                                <div style={{ maxWidth: 760, margin: "0 auto" }}>
+                                <div style={{ maxWidth: 780, margin: "0 auto 1.4rem" }}>
                                     <p
                                         style={{
-                                            margin: "0 0 0.6rem",
+                                            margin: "0 0 0.9rem",
                                             color: "#334155",
-                                            lineHeight: 1.6,
-                                            fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1.02rem, 1.1vw, 1.15rem)",
                                             fontWeight: 600,
                                         }}
                                     >
@@ -331,10 +340,10 @@ export default function Home() {
 
                                     <p
                                         style={{
-                                            margin: "0 0 0.6rem",
+                                            margin: "0 0 0.9rem",
                                             color: "#334155",
-                                            lineHeight: 1.6,
-                                            fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1.02rem, 1.1vw, 1.15rem)",
                                             fontWeight: 600,
                                         }}
                                     >
@@ -344,10 +353,10 @@ export default function Home() {
 
                                     <p
                                         style={{
-                                            marginTop: "1.2rem",
+                                            marginTop: "1.4rem",
                                             color: "#1F2A37",
-                                            lineHeight: 1.6,
-                                            fontSize: "clamp(1.15rem, 1.25vw, 1.25rem)",
+                                            lineHeight: 1.65,
+                                            fontSize: "clamp(1.18rem, 1.3vw, 1.25rem)",
                                             fontWeight: 700,
                                             letterSpacing: "0.3px",
                                         }}
@@ -356,118 +365,103 @@ export default function Home() {
                                     </p>
                                 </div>
 
-                                {/* === PILLARS (20% smaller) === */}
+                                {/* === PILLARS === */}
                                 <ul
                                     role="list"
                                     style={{
                                         listStyle: "none",
                                         padding: 0,
-                                        margin: "30px auto 0",
+                                        margin: "40px auto 0",
                                         display: "flex",
                                         flexWrap: "wrap",
                                         justifyContent: "center",
-                                        gap: "14px",
+                                        gap: "16px",
                                         maxWidth: 900,
                                     }}
                                 >
                                     {[
                                         {
-                                            icon: (
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="#ffffffff"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <polyline points="20 6 9 17 4 12" />
-                                                </svg>
-                                            ),
+                                            icon: "✔️",
                                             label: "Verified caregivers",
+                                            bg: "#e9f9e9",
                                         },
                                         {
-                                            icon: (
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="#ffffffff"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <rect x="3" y="11" width="18" height="11" rx="2" />
-                                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                                </svg>
-                                            ),
+                                            icon: "🔒",
                                             label: "Secure & private",
+                                            bg: "#eef8f1",
                                         },
                                         {
-                                            icon: (
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="#ffffffff"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
-                                                </svg>
-                                            ),
+                                            icon: "💬",
                                             label: "Direct messaging",
+                                            bg: "#e7f3ed",
                                         },
                                         {
-                                            icon: (
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16"
-                                                    height="16"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="#ffffffff"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                >
-                                                    <path d="M4 20h16" />
-                                                    <path d="M18 17V8a6 6 0 1 0-12 0v9" />
-                                                </svg>
-                                            ),
+                                            icon: "💰",
                                             label: "Transparent pricing",
+                                            bg: "#ecf9f0",
                                         },
-                                    ].map((f) => (
+                                    ].map((f, i) => (
                                         <li
-                                            key={f.label}
+                                            key={i}
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
-                                                gap: 8,
-                                                padding: "9px 16px", // 🔹 zmniejszone
-                                                borderRadius: 22, // 🔹 proporcjonalnie mniejszy radius
-                                                background: "#458f6fb7", // see-through pastel
-                                                border: "1.3px solid #ffffff",
-                                                color: "#ffffffff",
+                                                gap: 10,
+                                                padding: "12px 18px",
+                                                borderRadius: 28,
+                                                background: f.bg,
+                                                border: "1px solid rgba(31,171,31,0.15)",
+                                                color: "#1F2A37",
                                                 fontWeight: 700,
-                                                fontSize: 15, // 🔹 mniejsze fonty
+                                                fontSize: 16,
                                                 letterSpacing: ".2px",
-                                                boxShadow: "0 1px 3px rgba(31,171,31,0.05)",
+                                                boxShadow: "0 2px 4px rgba(31,171,31,0.06)",
+                                                transition: "transform .25s ease, box-shadow .25s ease",
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.transform = "translateY(-2px)";
+                                                e.currentTarget.style.boxShadow = "0 6px 14px rgba(31,171,31,0.1)";
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.transform = "translateY(0)";
+                                                e.currentTarget.style.boxShadow = "0 2px 4px rgba(31,171,31,0.06)";
                                             }}
                                         >
-                                            {f.icon}
+                                            <span style={{ fontSize: 20 }}>{f.icon}</span>
                                             <span>{f.label}</span>
                                         </li>
                                     ))}
                                 </ul>
+                                <div style={{ marginTop: "3rem" }}>
+                                    <a
+                                        href="/register"
+                                        style={{
+                                            display: "inline-block",
+                                            padding: "1rem 2rem",
+                                            background: "#1FAB1F",
+                                            color: "#FFFFFF",
+                                            borderRadius: 999,
+                                            fontSize: "1.05rem",
+                                            fontWeight: 800,
+                                            letterSpacing: ".03em",
+                                            textDecoration: "none",
+                                            boxShadow: "0 8px 28px rgba(31,171,31,0.25)",
+                                            transition: "transform .2s ease, box-shadow .25s ease",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.transform = "translateY(-3px)";
+                                            e.currentTarget.style.boxShadow =
+                                                "0 12px 32px rgba(31,171,31,0.35)";
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.transform = "translateY(0)";
+                                            e.currentTarget.style.boxShadow =
+                                                "0 8px 28px rgba(31,171,31,0.25)";
+                                        }}
+                                    >
+                                        Join ICare today
+                                    </a>
+                                </div>
 
                                 {/* === DIVIDER === */}
                                 <div
@@ -475,18 +469,32 @@ export default function Home() {
                                     style={{
                                         width: "min(1000px, 90%)",
                                         height: 1,
-                                        background: "#E5E7EB",
-                                        margin: "32px auto 0",
+                                        background: "rgba(31,171,31,0.12)",
+                                        margin: "42px auto 0",
                                     }}
                                 />
                             </div>
-                        </section>
 
+                            {/* Animacje */}
+                            <style>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes growLine {
+            from { width: 0; opacity: 0; }
+            to { width: min(70ch, 92%); opacity: 1; }
+          }
+        `}</style>
+                        </section>
                     </span>
                 </IcareCard>
             </IcareSection>
-            {/* === WHY NO AGENCIES (refined full-background version) === */}
-            {/* === WHY NO AGENCIES (smaller + darker border) === */}
+
             <IcareSection
                 style={{
                     background: "linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%)",
