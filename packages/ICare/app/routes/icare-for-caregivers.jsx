@@ -348,11 +348,187 @@ export default function ICareForCaregivers() {
 
             {/* === CAREGIVER INTRO — bez zielonej kreski, spójna kolorystyka === */}
             <section
-                aria-label="Caregiver intro"
+                id="caregiver-steps"
+                aria-label="Caregiver steps"
                 style={{
-                    width: "min(1100px,92vw)",
+                    margin: "6rem auto 6rem",
+                    width: "min(1100px, 92vw)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    paddingLeft: "2.4rem",
+                    paddingRight: "2.4rem",
+                }}
+            >
+                <header style={{ marginBottom: "2.5rem" }}>
+                    <h3
+                        style={{
+                            margin: 0,
+                            fontWeight: 800,
+                            letterSpacing: ".2px",
+                            fontSize: "clamp(1.4rem,2.4vw,2.4rem)",
+                            color: "#0F172A",
+                            lineHeight: 1.2,
+                        }}
+                    >
+                        Get started in 5 clear steps
+                    </h3>
+                    <p
+                        style={{
+                            margin: ".6rem 0 0",
+                            color: "#475569",
+                            fontSize: "1.3rem",
+                            fontWeight: 600,
+                            letterSpacing: ".15px",
+                            marginBottom: "1.2rem"
+                        }}
+                    >
+                        From signup to your first match.
+                    </p>
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            width: 0,
+                            height: 4,
+                            background: "#14532D",
+                            borderRadius: 999,
+                            marginTop: "1.2rem",
+                            marginBottom: "1.2rem",
+                            opacity: 0.95,
+                        }}
+                    />
+                </header>
+
+                <div style={{ display: "grid", rowGap: "3rem" }}>
+                    {steps.map((p, idx) => {
+                        const alt = idx % 2 === 1;
+                        const bg = alt ? "#EFFDF8" : "#FFFFFF";
+                        return (
+                            <article
+                                key={p.t}
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "auto 1fr",
+                                    gap: "1.6rem",
+                                    padding: "clamp(20px,2.8vw,32px)",
+                                    background: bg,
+                                    borderRadius: "14px",
+                                    boxShadow: "0 6px 16px rgba(2,8,23,0.08)",
+                                    transform: "translateX(0)",
+                                    opacity: 0,
+                                    animation: `stepFadeIn .6s ease forwards ${0.2 + idx * 0.15}s`,
+                                }}
+                            >
+                                <div style={{ position: "relative", width: "48px", height: "48px" }}>
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            top: "0",
+                                            left: "50%",
+                                            transform: "translateX(-50%) translateY(-50%)",
+                                            width: "48px",
+                                            height: "48px",
+                                            borderRadius: "50%",
+                                            background: "#fff",
+                                            border: "2px solid #14532D",
+                                            display: "grid",
+                                            placeItems: "center",
+                                            fontWeight: 900,
+                                            color: "#14532D",
+                                            fontSize: "1.2rem",
+                                        }}
+                                    >
+                                        {idx + 1}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h4
+                                        style={{
+                                            margin: "0 0 .9rem 0",
+                                            fontSize: "clamp(1.1rem,1.6vw,1.35rem)",
+                                            lineHeight: 1.25,
+                                            fontWeight: 850,
+                                            letterSpacing: ".2px",
+                                            color: "#0F172A",
+                                        }}
+                                    >
+                                        {p.t}
+                                    </h4>
+                                    <p
+                                        style={{
+                                            margin: 0,
+                                            color: "#334155",
+                                            lineHeight: 1.75,
+                                            fontSize: "clamp(.98rem,1.1vw,1.1rem)",
+                                            maxWidth: "68ch",
+                                        }}
+                                    >
+                                        {p.d}
+                                    </p>
+                                </div>
+                            </article>
+                        );
+                    })}
+                </div>
+
+                {/* CTA BUTTON */}
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        marginTop: "3.5rem",
+                    }}
+                >
+                    <a
+                        href="/register"
+                        style={{
+                            display: "inline-block",
+                            background: "rgb(76, 120, 101)",
+                            color: "#fff",
+                            fontWeight: 900,
+                            letterSpacing: ".02em",
+                            padding: "1rem 1.8rem",
+                            borderRadius: 999,
+                            textDecoration: "none",
+                            boxShadow: "0 10px 24px rgba(27,171,31,.18)",
+                            border: "1px solid rgba(27,171,31,.4)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.filter = "brightness(1.05)";
+                            e.currentTarget.style.boxShadow =
+                                "0 14px 30px rgba(27,171,31,.28)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.filter = "none";
+                            e.currentTarget.style.boxShadow =
+                                "0 10px 24px rgba(27,171,31,.18)";
+                        }}
+                    >
+                        CREATE YOUR FREE ACCOUNT
+                    </a>
+                </div>
+
+                <style>{`
+    @keyframes stepFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      article { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+  `}</style>
+            </section>
+
+            {/* === WHO CAN JOIN === */}
+            <section
+                aria-label="Who can join"
+                style={{
                     margin: "4rem auto 3rem",
-                    padding: "0 clamp(16px,4vw,32px)",
+                    width: "min(1100px, 92vw)",
+                    padding: "0 clamp(16px, 4vw, 32px)",
                 }}
             >
                 <h2
@@ -362,519 +538,136 @@ export default function ICareForCaregivers() {
                         fontSize: "clamp(1.8rem,3vw,2.3rem)",
                         letterSpacing: ".3px",
                         lineHeight: 1.2,
-                        color: NEUTRAL,
+                        color: "#1F2A37",
                     }}
                 >
-                    How it works for caregivers
+                    Who can join ICare
                 </h2>
 
-                <p
-                    style={{
-                        margin: "0 0 .6rem 0",
-                        maxWidth: "62ch",
-                        lineHeight: 1.7,
-                        fontSize: "1.05rem",
-                        color: "#475569",
-                    }}
-                >
-                    Choose when and how you work — connect directly with families who value your care,
-                    agree on transparent terms, and manage your schedule in one place.
-                </p>
-
-                <p
-                    style={{
-                        margin: 0,
-                        fontWeight: 700,
-                        color: BRAND, // delikatny akcent tylko w tekście
-                        letterSpacing: ".2px",
-                    }}
-                >
-                    No middlemen. No confusion. Just clarity and respect.
-                </p>
-            </section>
-
-            {/* === GET STARTED (ulepszone, airy + reveal) === */}
-            <section
-                id="caregiver-steps"
-                aria-label="Caregiver steps"
-                style={{
-                    margin: "3.5rem auto 4rem",
-                    width: "min(1100px, 92vw)",
-                }}
-            >
-                <header style={{ marginBottom: "1.2rem" }}>
-                    <h3
-                        style={{
-                            margin: 0,
-                            fontWeight: 900,
-                            letterSpacing: ".2px",
-                            fontSize: "clamp(1.25rem, 2.2vw, 1.5rem)",
-                        }}
-                    >
-                        Get started in 5 clear steps
-                    </h3>
-                    <div
-                        aria-hidden="true"
-                        style={{
-                            width: 220,
-                            height: 3,
-                            background: BRAND,
-                            borderRadius: 999,
-                            marginTop: ".6rem",
-                            opacity: 0.85,
-                        }}
-                    />
-                </header>
-
-                <div
-                    style={{
-                        borderRadius: 20,
-                        overflow: "hidden",
-                        border: `1px solid ${BORDER}`,
-                        background:
-                            "linear-gradient(180deg, rgba(27,171,31,0.03) 0%, rgba(27,171,31,0.00) 40%)",
-                        boxShadow: "0 12px 30px rgba(2,8,23,0.06)",
-                    }}
-                >
-                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
-
-                    {steps.map((p, idx) => {
-                        const alt = idx % 2 === 1;
-                        const bg = alt ? SUBTLE : "#FFFFFF";
-                        return (
-                            <article
-                                key={p.t}
-                                ref={(el) => (stepRefs.current[idx] = el)}
-                                className="reveal"
-                                style={{
-                                    background: bg,
-                                    padding: "clamp(22px, 2.6vw, 28px) clamp(18px, 3vw, 32px)",
-                                    borderTop: idx === 0 ? "none" : `1px solid ${BORDER}`,
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "48px 1fr",
-                                        alignItems: "start",
-                                        gap: "16px clamp(14px, 2vw, 18px)",
-                                    }}
-                                >
-                                    <div
-                                        aria-hidden="true"
-                                        style={{
-                                            position: "relative",
-                                            width: 42,
-                                            height: 42,
-                                            borderRadius: "50%",
-                                            background: "#fff",
-                                            border: `1px solid ${BORDER}`,
-                                            display: "grid",
-                                            placeItems: "center",
-                                            fontWeight: 900,
-                                            color: NEUTRAL,
-                                            boxShadow: "0 2px 6px rgba(2,8,23,.05)",
-                                        }}
-                                    >
-                                        {idx + 1}
-                                        <span
-                                            style={{
-                                                position: "absolute",
-                                                inset: -4,
-                                                borderRadius: "50%",
-                                                border: `2px solid ${BRAND}`,
-                                                opacity: 0.12,
-                                            }}
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <h4
-                                            style={{
-                                                margin: 0,
-                                                fontSize: "clamp(1.06rem, 1.55vw, 1.2rem)",
-                                                lineHeight: 1.22,
-                                                fontWeight: 850,
-                                                letterSpacing: ".2px",
-                                                color: "#1F2A37",
-                                            }}
-                                        >
-                                            {p.t}
-                                        </h4>
-                                        <p
-                                            style={{
-                                                margin: "8px 0 0",
-                                                color: "#334155",
-                                                lineHeight: 1.75,
-                                                fontSize: "clamp(.98rem, 1.05vw, 1.06rem)",
-                                                maxWidth: "70ch",
-                                            }}
-                                        >
-                                            {p.d}
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        );
-                    })}
-
-                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
-                </div>
-
-                <div
-                    style={{
-                        display: "flex",
-                        gap: 12,
-                        alignItems: "center",
-                        marginTop: 18,
-                        flexWrap: "wrap",
-                    }}
-                >
-                    <Link
-                        to="/register"
-                        style={{
-                            appearance: "none",
-                            border: "none",
-                            borderRadius: 999,
-                            background: BRAND,
-                            color: "#fff",
-                            padding: "12px 16px",
-                            fontWeight: 900,
-                            letterSpacing: ".02em",
-                            textDecoration: "none",
-                            boxShadow: "0 10px 24px rgba(27,171,31,.18)",
-                            transition: "transform .15s ease, filter .15s ease",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                            e.currentTarget.style.filter = "saturate(1.06)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.filter = "none";
-                        }}
-                    >
-                        REGISTER TODAY
-                    </Link>
-
-                    <Link
-                        to="/terms"
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 8,
-                            padding: "12px 14px",
-                            borderRadius: 999,
-                            border: `1px solid ${BORDER}`,
-                            color: NEUTRAL,
-                            background: "#fff",
-                            textDecoration: "none",
-                            fontWeight: 800,
-                        }}
-                    >
-                        Terms &amp; conditions
-                        <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke={NEUTRAL}
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                        >
-                            <path d="M5 12h14" />
-                            <path d="M13 5l7 7-7 7" />
-                        </svg>
-                    </Link>
-                </div>
-
-                {/* local styles for scroll reveal */}
-                <style>{`
-          @keyframes revealUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-          .reveal { opacity: 0; transform: translateY(16px); will-change: transform, opacity; }
-          .reveal--in { animation: revealUp .48s ease forwards; }
-          @media (prefers-reduced-motion: reduce) {
-            .reveal, .reveal--in { opacity: 1 !important; transform: none !important; animation: none !important; }
-          }
-        `}</style>
-            </section>
-
-            {/* === WHO CAN JOIN === */}
-            <section aria-label="Who can join" style={{ ...container, margin: "3.5rem auto" }}>
-                <h2 style={sectionTitle}>Who can join ICare</h2>
                 <div
                     style={{
                         width: 280,
                         maxWidth: "80%",
                         height: 4,
-                        background: BRAND,
+                        background: "#1FAB1F",
                         borderRadius: 999,
-                        margin: ".75rem 0 1.5rem 0",
+                        margin: ".75rem 0 2rem 0",
                         opacity: 0.95,
                     }}
                 />
+
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "clamp(14px,2.2vw,20px)",
+                        gap: "clamp(18px,2.4vw,24px)",
                     }}
                 >
                     {[
-                        { t: "Professional caregivers & nurses", d: "With verifiable experience and references." },
-                        { t: "Live-in & hourly support", d: "Flexible availability and clear hourly or daily rates." },
-                        { t: "Specialist skills", d: "Dementia, mobility support, post-surgery care, and more." },
-                        { t: "Language & driving", d: "Extra plus for multilingual caregivers and drivers." },
+                        {
+                            t: "Professional caregivers & nurses",
+                            d: "With verifiable experience and references.",
+                            img: "/images/icons/nurse.png",
+                        },
+                        {
+                            t: "Live-in & hourly support",
+                            d: "Flexible availability and clear hourly or daily rates.",
+                            img: "/images/icons/clock.png",
+                        },
+                        {
+                            t: "Specialist skills",
+                            d: "Dementia, mobility support, post-surgery care, and more.",
+                            img: "/images/icons/skills.png",
+                        },
+                        {
+                            t: "Language & driving",
+                            d: "Extra plus for multilingual caregivers and drivers.",
+                            img: "/images/icons/language.png",
+                        },
                     ].map((item) => (
                         <article
                             key={item.t}
                             style={{
                                 background: "#FFFFFF",
-                                border: "1px solid rgba(15,23,42,0.08)",
+                                border: "1px solid rgba(15,23,42,0.10)",
                                 borderRadius: 16,
-                                padding: "18px 18px",
-                                boxShadow: "0 8px 22px rgba(2,8,23,.06)",
+                                padding: "22px 20px 26px",
+                                boxShadow: "0 8px 24px rgba(2,8,23,0.08)",
                                 display: "grid",
-                                gap: 8,
+                                gap: 12,
+                                alignItems: "start",
+                                transition: "transform .25s ease, box-shadow .25s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-3px)";
+                                e.currentTarget.style.boxShadow = "0 14px 30px rgba(2,8,23,0.10)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.boxShadow = "0 8px 24px rgba(2,8,23,0.08)";
                             }}
                         >
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                <span
+                            {/* GÓRNA CZĘŚĆ — mini grafika + tytuł */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 12,
+                                }}
+                            >
+                                <div
                                     aria-hidden="true"
                                     style={{
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 10,
-                                        background: "rgba(31,171,31,.10)",
-                                        border: "1px solid rgba(31,171,31,.25)",
+                                        width: 44,
+                                        height: 44,
+                                        borderRadius: 12,
+                                        background: "rgba(31,171,31,0.10)",
+                                        border: "1px solid rgba(31,171,31,0.25)",
                                         display: "grid",
                                         placeItems: "center",
+                                        overflow: "hidden",
                                     }}
                                 >
-                                    <svg
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke={BRAND}
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                </span>
-                                <strong style={{ color: "#1f2a37", fontSize: "1.02rem", letterSpacing: ".2px" }}>
+                                    <img
+                                        src={item.img}
+                                        alt=""
+                                        loading="lazy"
+                                        style={{
+                                            width: "70%",
+                                            height: "70%",
+                                            objectFit: "contain",
+                                            filter: "grayscale(20%)",
+                                        }}
+                                    />
+                                </div>
+                                <strong
+                                    style={{
+                                        color: "#1F2A37",
+                                        fontSize: "1.08rem",
+                                        fontWeight: 800,
+                                        letterSpacing: ".2px",
+                                        lineHeight: 1.3,
+                                    }}
+                                >
                                     {item.t}
                                 </strong>
                             </div>
-                            <p style={{ margin: 0, color: "#334155", lineHeight: 1.6 }}>{item.d}</p>
+
+                            {/* OPIS */}
+                            <p
+                                style={{
+                                    margin: 0,
+                                    color: "#334155",
+                                    lineHeight: 1.65,
+                                    fontSize: "1rem",
+                                }}
+                            >
+                                {item.d}
+                            </p>
                         </article>
                     ))}
                 </div>
             </section>
-
-            <section aria-label="Success stories" style={{ ...container, margin: "0 auto 3.75rem" }}>
-                <h2 style={sectionTitle}>Success stories</h2>
-
-                <div
-                    style={{
-                        width: 240,
-                        maxWidth: "80%",
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: ".75rem 0 1.5rem 0",
-                        opacity: 0.95,
-                    }}
-                />
-
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                        gap: "clamp(16px,2.4vw,24px)",
-                    }}
-                >
-                    {[
-                        {
-                            img: "/images/people/anna.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "I matched in 3 days and kept a higher rate than via agency.",
-                            a: "Simple chat, clear terms, e-signed agreement — everything in one place.",
-                            n: "Anna • Live-in caregiver",
-                        },
-                        {
-                            img: "/images/people/marta.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "Finally, transparent profiles and contracts.",
-                            a: "Family felt safe; I felt respected. We set the schedule together.",
-                            n: "Marta • Dementia care",
-                        },
-                        {
-                            img: "/images/people/kasia.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "No monthly fee — I only pay when I earn.",
-                            a: "That’s fair. More money stays with me.",
-                            n: "Kasia • Hourly support",
-                        },
-                    ].map((t, idx) => (
-                        <figure
-                            key={t.q}
-                            style={{
-                                margin: 0,
-                                borderRadius: 18,
-                                overflow: "hidden",
-                                border: "1px solid rgba(15,23,42,0.10)",
-                                background: "#fff",
-                                boxShadow: "0 12px 28px rgba(2,8,23,0.06)",
-                                transition: "transform .28s ease, box-shadow .28s ease, border-color .28s ease",
-                                cursor: "default",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-4px)";
-                                e.currentTarget.style.boxShadow = "0 16px 36px rgba(2,8,23,0.10)";
-                                e.currentTarget.style.borderColor = "rgba(31,171,31,0.25)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 12px 28px rgba(2,8,23,0.06)";
-                                e.currentTarget.style.borderColor = "rgba(15,23,42,0.10)";
-                            }}
-                            className="story-card"
-                        >
-                            {/* DUŻE ZDJĘCIE */}
-                            <div
-                                style={{
-                                    position: "relative",
-                                    width: "100%",
-                                    aspectRatio: "4 / 3", // duże proporcje
-                                    background: "linear-gradient(135deg, #E2E8F0 0%, #F8FAFC 100%)",
-                                }}
-                            >
-                                <img
-                                    src={t.img}
-                                    alt={t.n}
-                                    loading="lazy"
-                                    style={{
-                                        position: "absolute",
-                                        inset: 0,
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "cover",
-                                        objectPosition: "center",
-                                        transform: "scale(1)",
-                                        transition: "transform .6s ease",
-                                    }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
-                                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                                    onError={(e) => {
-                                        // fallback tła jeśli obrazek nie istnieje
-                                        e.currentTarget.style.display = "none";
-                                    }}
-                                />
-
-                                {/* lekki gradient pod podpisem */}
-                                <div
-                                    aria-hidden="true"
-                                    style={{
-                                        position: "absolute",
-                                        left: 0,
-                                        right: 0,
-                                        bottom: 0,
-                                        height: "40%",
-                                        background:
-                                            "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(2,8,23,0.45) 100%)",
-                                    }}
-                                />
-                                {/* podpis na zdjęciu (imię/rola) */}
-                                <figcaption
-                                    style={{
-                                        position: "absolute",
-                                        left: 12,
-                                        right: 12,
-                                        bottom: 10,
-                                        color: "#FFFFFF",
-                                        fontWeight: 800,
-                                        letterSpacing: ".2px",
-                                        textShadow: "0 2px 10px rgba(0,0,0,.35)",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                    }}
-                                >
-                                    <span
-                                        aria-hidden="true"
-                                        style={{
-                                            display: "inline-grid",
-                                            placeItems: "center",
-                                            width: 28,
-                                            height: 28,
-                                            borderRadius: 999,
-                                            background: "rgba(255,255,255,.2)",
-                                            border: "1px solid rgba(255,255,255,.3)",
-                                            backdropFilter: "blur(2px)",
-                                            fontSize: 14,
-                                        }}
-                                    >
-                                        ★
-                                    </span>
-                                    {t.n}
-                                </figcaption>
-                            </div>
-
-                            {/* TEKST: cytat + opis */}
-                            <blockquote
-                                style={{
-                                    margin: 0,
-                                    padding: "16px 16px 18px",
-                                }}
-                            >
-                                <p
-                                    style={{
-                                        margin: 0,
-                                        color: "#0F172A",
-                                        fontWeight: 800,
-                                        lineHeight: 1.45,
-                                        fontSize: "clamp(1rem, 1.2vw, 1.05rem)",
-                                    }}
-                                >
-                                    {t.q}
-                                </p>
-                                <p
-                                    style={{
-                                        margin: "8px 0 0",
-                                        color: "#334155",
-                                        lineHeight: 1.7,
-                                    }}
-                                >
-                                    {t.a}
-                                </p>
-                            </blockquote>
-                        </figure>
-                    ))}
-                </div>
-
-                {/* Local styles: delikatne reveal przy scrollu + preferencje dostępności */}
-                <style>{`
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .story-card { opacity: 0; transform: translateY(10px); animation: cardIn .5s ease forwards; }
-    .story-card:nth-child(1) { animation-delay: .05s; }
-    .story-card:nth-child(2) { animation-delay: .12s; }
-    .story-card:nth-child(3) { animation-delay: .18s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .story-card { opacity: 1 !important; transform: none !important; animation: none !important; }
-    }
-  `}</style>
-            </section>
-
 
             {/* === FAQ === */}
             <section aria-label="Caregivers FAQ" style={{ ...container, margin: "0 auto 3.75rem" }}>

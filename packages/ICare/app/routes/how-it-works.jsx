@@ -116,46 +116,41 @@ function ThreeStepGuide() {
                 background: "#F8FAFC",
                 borderTop: "1px solid rgba(15,23,42,.06)",
                 borderBottom: "1px solid rgba(15,23,42,.06)",
+                padding: "clamp(5rem, 8vw, 7rem) 0",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div
                 style={{
                     maxWidth: 1200,
                     margin: "0 auto",
-                    padding: "clamp(48px,6vw,88px) clamp(20px,5vw,40px)",
+                    padding: "0 clamp(20px,5vw,40px)",
                 }}
             >
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 900,
-                        color: "#1f2a37",
-                        fontSize: "clamp(1.45rem,2.3vw,1.9rem)",
-                        letterSpacing: ".2px",
+                        fontWeight: 800,
+                        color: "#0F172A",
+                        fontSize: "clamp(2.2rem,3vw,2.5rem)", // +15% większy
+                        letterSpacing: ".25px",
                         textAlign: "left",
                         lineHeight: 1.25,
+                        animation: "fadeUp 1s ease both",
                     }}
                 >
-                    GET STARTED IN 3 QUICK STEPS
+                    Get started in 3 quick steps
                 </h2>
 
-                <div
-                    aria-hidden="true"
-                    style={{
-                        width: 0,
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: "1rem 0 2.4rem 0",
-                        opacity: 0.95,
-                    }}
-                />
+                {/* Odstęp pod tytułem */}
+                <div style={{ height: "clamp(2.8rem,5vw,4rem)" }} />
 
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-                        gap: "clamp(28px,3vw,36px)",
+                        gap: "clamp(32px,3.5vw,48px)",
                     }}
                 >
                     {steps.map((s, i) => (
@@ -166,14 +161,17 @@ function ThreeStepGuide() {
                                 border: "1px solid rgba(15,23,42,.08)",
                                 borderRadius: 24,
                                 background: colors[i % colors.length],
-                                padding: "clamp(30px,3vw,40px)",
+                                padding: "clamp(32px,3vw,44px)",
                                 boxShadow: "0 10px 26px rgba(15,23,42,.05)",
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "flex-start",
                                 alignItems: "flex-start",
                                 textAlign: "left",
-                                minHeight: 220,
+                                minHeight: 240,
+                                opacity: 0,
+                                transform: "translateY(18px)",
+                                animation: `fadeCard 0.8s ease ${0.3 + i * 0.2}s forwards`, // 👈 opóźnienie kaskadowe
                             }}
                         >
                             <div
@@ -205,9 +203,9 @@ function ThreeStepGuide() {
 
                                 <strong
                                     style={{
-                                        fontSize: "clamp(1.08rem,1.6vw,1.25rem)",
+                                        fontSize: "clamp(1.1rem,1.7vw,1.3rem)",
                                         color: "#0F172A",
-                                        letterSpacing: ".2px",
+                                        letterSpacing: ".25px",
                                         lineHeight: 1.25,
                                         textAlign: "left",
                                         marginTop: 6,
@@ -223,7 +221,7 @@ function ThreeStepGuide() {
                                     marginTop: 4,
                                     color: "#334155",
                                     lineHeight: 1.75,
-                                    fontSize: "clamp(.95rem,1vw,1.02rem)",
+                                    fontSize: "clamp(.95rem,1vw,1.05rem)",
                                     maxWidth: "94%",
                                     textAlign: "left",
                                 }}
@@ -239,7 +237,7 @@ function ThreeStepGuide() {
                         display: "flex",
                         justifyContent: "flex-start",
                         gap: 14,
-                        marginTop: "clamp(32px,3vw,44px)",
+                        marginTop: "clamp(40px,3vw,56px)",
                         flexWrap: "wrap",
                     }}
                 >
@@ -248,20 +246,61 @@ function ThreeStepGuide() {
                         style={{
                             textDecoration: "none",
                             color: "#FFFFFF",
-                            background: BRAND,
-                            padding: "1rem 1.6rem",
+                            background: "rgb(76, 120, 101)",
+                            padding: "1.1rem 1.8rem",
                             borderRadius: 999,
-                            fontWeight: 900,
-                            letterSpacing: ".02em",
-                            boxShadow: "0 12px 28px rgba(2,8,23,.15)",
-                            border: "1px solid rgba(31,171,31,.45)",
+                            fontWeight: 800,
+                            letterSpacing: ".03em",
+                            boxShadow: "0 12px 28px rgba(31,171,31,.15)",
+                            border: "1px solid rgba(31,171,31,.4)",
+                            animation: "pulseGlow 3s ease-in-out infinite", // 💫 pulsujący efekt
                         }}
                     >
                         CREATE YOUR FREE ACCOUNT
                     </a>
                 </div>
             </div>
+
+            <style>{`
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeCard {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 0 rgba(31,171,31,0.2);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(31,171,31,0.35);
+        transform: scale(1.015);
+      }
+      100% {
+        box-shadow: 0 0 0 rgba(31,171,31,0.2);
+        transform: scale(1);
+      }
+    }
+  `}</style>
         </section>
+
     );
 }
 
@@ -279,158 +318,179 @@ function CompareAgencyVsICare() {
         { k: "Transparency", agency: "Varies", icare: "Clear profiles & pricing" },
     ];
 
-    const underline = (color) => ({
-        display: "inline-block",
-        paddingBottom: 3,
-        borderBottom: `2.6px solid ${color}`,
-        lineHeight: 1.1,
-    });
-
     return (
         <section
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                margin: "4rem auto",
-                maxWidth: 1100,
-                padding: "clamp(24px,4vw,48px) clamp(16px,3vw,28px)",
-                background: "#FFFFFF",
-                borderRadius: 24,
-                boxShadow: "0 6px 22px rgba(15,23,42,0.06)",
-                border: "1px solid rgba(15,23,42,0.05)",
-                fontFamily: "Inter, system-ui, sans-serif",
+                background: "linear-gradient(180deg, #F9FAF9 0%, #FFFFFF 100%)",
+                borderTop: "1px solid rgba(15,23,42,0.06)",
+                borderBottom: "1px solid rgba(15,23,42,0.06)",
+                padding: "clamp(5rem,7vw,6.5rem) clamp(24px,6vw,60px)",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            <h2
+            <div
                 style={{
-                    margin: 0,
-                    fontWeight: 900,
-                    color: "#1f2a37",
-                    fontSize: "clamp(1.45rem,2.4vw,1.9rem)",
-                    letterSpacing: ".2px",
-                    textAlign: "left",
-                    lineHeight: 1.25,
+                    maxWidth: 1100,
+                    margin: "0 auto",
+                    animation: "fadeUp 1s ease both",
                 }}
             >
-                Why ICare vs an agency?
-            </h2>
-
-            <div
-                aria-hidden="true"
-                style={{
-                    width: 0,
-                    height: 4,
-                    background: BRAND,
-                    borderRadius: 999,
-                    margin: "1rem 0 2rem 0",
-                    opacity: 0.9,
-                }}
-            />
-
-            <div style={{ overflowX: "auto" }}>
-                <table
+                <h2
                     style={{
-                        width: "100%",
-                        borderCollapse: "separate",
-                        borderSpacing: 0,
-                        borderRadius: 20,
-                        overflow: "hidden",
-                        fontSize: "clamp(.82rem,0.95vw,.9rem)",
-                        boxShadow: "0 3px 10px rgba(15,23,42,0.04)",
+                        margin: 0,
+                        fontWeight: 800,
+                        color: "#0F172A",
+                        fontSize: "clamp(2rem,3vw,2.6rem)",
+                        letterSpacing: ".25px",
+                        textAlign: "left",
+                        lineHeight: 1.25,
                     }}
                 >
-                    <thead>
-                        <tr>
-                            <th
-                                style={{
-                                    textAlign: "left",
-                                    padding: "16px 18px 12px",
-                                    background: "#F8FAFC",
-                                    border: "1px solid #E2E8F0",
-                                    color: HEAD_NEUTRAL,
-                                    fontWeight: 900,
-                                    fontSize: "1.15rem",
-                                    letterSpacing: ".3px",
-                                }}
-                            >
-                                <span style={underline(HEAD_NEUTRAL)}>Feature</span>
-                            </th>
-                            <th
-                                style={{
-                                    textAlign: "left",
-                                    padding: "16px 18px 12px",
-                                    background: "#F8FAFC",
-                                    border: "1px solid #E2E8F0",
-                                    color: HEAD_AGENCY,
-                                    fontWeight: 800,
-                                    fontSize: "1.15rem",
-                                }}
-                            >
-                                <span style={underline(HEAD_AGENCY)}>Typical agency</span>
-                            </th>
-                            <th
-                                style={{
-                                    textAlign: "left",
-                                    padding: "16px 18px 12px",
-                                    background: "rgba(31,171,31,.08)",
-                                    border: "1px solid #BDE7BD",
-                                    color: BRAND,
-                                    fontWeight: 900,
-                                    fontSize: "1.15rem",
-                                }}
-                            >
-                                <span style={underline(BRAND)}>ICare</span>
-                            </th>
-                        </tr>
-                    </thead>
+                    Why choose <span style={{ color: "rgb(76, 120, 101)" }}>ICare</span> instead of an agency?
+                </h2>
 
-                    <tbody>
-                        {rows.map((r, idx) => (
-                            <tr key={r.k} style={{ background: idx % 2 ? "#FFFFFF" : "#FAFAF7" }}>
-                                <td
+                <p
+                    style={{
+                        margin: "1rem 0 2.6rem",
+                        color: "#475569",
+                        maxWidth: "62ch",
+                        lineHeight: 1.75,
+                        fontSize: "1.15rem",
+                        fontWeight: "600",
+                    }}
+                >
+                    Fair, transparent and direct — families and caregivers connect without hidden fees or intermediaries.
+                </p>
+
+                <div
+                    style={{
+                        overflowX: "auto",
+                        borderRadius: 24,
+                        boxShadow: "0 12px 32px rgba(15,23,42,0.06)",
+                    }}
+                >
+                    <table
+                        style={{
+                            width: "100%",
+                            borderCollapse: "collapse",
+                            fontSize: "clamp(.9rem,1vw,1rem)",
+                            borderRadius: 20,
+                            overflow: "hidden",
+                        }}
+                    >
+                        <thead>
+                            <tr>
+                                <th
                                     style={{
-                                        padding: "12px 16px",
-                                        border: "1px solid #E2E8F0",
-                                        color: "#334155",
-                                        fontWeight: 600,
-                                        fontSize: "0.78rem",
-                                        lineHeight: 1.5,
+                                        textAlign: "left",
+                                        padding: "18px 22px",
+                                        background: "#F8FAFC",
+                                        borderBottom: "2px solid #E2E8F0",
+                                        color: HEAD_NEUTRAL,
+                                        fontWeight: 800,
+                                        fontSize: "1.1rem",
                                     }}
                                 >
-                                    {r.k}
-                                </td>
-                                <td
+                                    Feature
+                                </th>
+                                <th
                                     style={{
-                                        padding: "12px 16px",
-                                        border: "1px solid #E2E8F0",
-                                        color: "#475569",
-                                        fontWeight: 400,
-                                        fontSize: "0.76rem",
-                                        lineHeight: 1.45,
-                                    }}
-                                >
-                                    {r.agency}
-                                </td>
-                                <td
-                                    style={{
-                                        padding: "12px 16px",
-                                        border: "1px solid #BDE7BD",
-                                        color: "#14532D",
+                                        textAlign: "left",
+                                        padding: "18px 22px",
+                                        background: "#FEF2F2",
+                                        borderBottom: "2px solid #FECACA",
+                                        color: HEAD_AGENCY,
                                         fontWeight: 700,
-                                        fontSize: "0.78rem",
-                                        lineHeight: 1.5,
+                                        fontSize: "1.1rem",
                                     }}
                                 >
-                                    {r.icare}
-                                </td>
+                                    Typical Agency
+                                </th>
+                                <th
+                                    style={{
+                                        textAlign: "left",
+                                        padding: "18px 22px",
+                                        background: "linear-gradient(90deg, rgba(31,171,31,0.08), rgba(31,171,31,0.18))",
+                                        borderBottom: `2px solid ${BRAND}`,
+                                        color: BRAND,
+                                        fontWeight: 800,
+                                        fontSize: "1.1rem",
+                                    }}
+                                >
+                                    ICARE
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            {rows.map((r, idx) => (
+                                <tr
+                                    key={r.k}
+                                    style={{
+                                        background: idx % 2 === 0 ? "#FFFFFF" : "#F7F9F7",
+                                        transition: "background 0.3s ease",
+                                    }}
+                                >
+                                    <td
+                                        style={{
+                                            padding: "14px 20px",
+                                            borderBottom: "1px solid #E2E8F0",
+                                            color: "#1F2937",
+                                            fontWeight: 600,
+                                            fontSize: ".95rem",
+                                            lineHeight: 1.5,
+                                        }}
+                                    >
+                                        {r.k}
+                                    </td>
+                                    <td
+                                        style={{
+                                            padding: "14px 20px",
+                                            borderBottom: "1px solid #E2E8F0",
+                                            color: "#7F1D1D",
+                                            fontWeight: 500,
+                                            fontSize: ".9rem",
+                                        }}
+                                    >
+                                        {r.agency}
+                                    </td>
+                                    <td
+                                        style={{
+                                            padding: "14px 20px",
+                                            borderBottom: "1px solid rgba(31,171,31,.15)",
+                                            color: "#14532D",
+                                            fontWeight: 700,
+                                            fontSize: ".95rem",
+                                        }}
+                                    >
+                                        {r.icare}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+            <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (hover: hover) {
+          table tbody tr:hover td {
+            background: rgba(31,171,31,0.05);
+          }
+        }
+      `}</style>
         </section>
     );
 }
+
 
 /* ===== CTA BANNER: Kontakt / pytania ===== */
 function ContactCTABanner() {
@@ -513,138 +573,180 @@ function SavingsEstimatorCurrency() {
             id="estimator"
             aria-label="Cost & Savings Estimator"
             style={{
-                margin: "3.5rem auto 3.75rem",
-                maxWidth: 1200,
-                padding: "0 clamp(16px, 4vw, 32px)",
-                fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                margin: "5.4rem auto",
+                maxWidth: 1080, // 👈 zmniejszone o ok. 10%
+                padding: "0 clamp(14px, 3.6vw, 28px)",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                display: "grid",
+                gridTemplateColumns: "1fr 1.4fr", // 👈 proporcje zachowane, ale całość mniejsza
+                gap: "clamp(40px, 4.5vw, 70px)",
+                alignItems: "start",
             }}
         >
-            <h2
-                style={{
-                    margin: 0,
-                    fontWeight: 900,
-                    letterSpacing: ".2px",
-                    color: "#1f2a37",
-                    fontSize: "clamp(1.35rem, 2.6vw, 1.9rem)",
-                    lineHeight: 1.2,
-                    textAlign: "left",
-                }}
-            >
-                Cost & Savings Estimator
-            </h2>
-            <div
-                aria-hidden="true"
-                style={{
-                    width: 0,
-                    height: 4,
-                    background: BRAND,
-                    borderRadius: 999,
-                    margin: ".75rem 0 1.75rem 0",
-                    opacity: 0.9,
-                }}
-            />
+            {/* === LEWA STRONA === */}
+            <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
+                <h2
+                    style={{
+                        margin: 0,
+                        fontWeight: 800,
+                        letterSpacing: ".2px",
+                        color: "#0f172a",
+                        fontSize: "clamp(1.9rem, 2.7vw, 2.3rem)", // 👈 tytuł -10%
+                        lineHeight: 1.2,
+                        textAlign: "left",
+                    }}
+                >
+                    Cost &amp; Savings Estimator
+                </h2>
 
+                <div
+                    aria-hidden="true"
+                    style={{
+                        width: 0,
+                        height: 4,
+                        background: "#1FAB1F",
+                        borderRadius: 999,
+                        margin: "0.9rem 0 1.3rem 0",
+                        opacity: 0.9,
+                    }}
+                />
+
+                <p
+                    style={{
+                        textAlign: "left",
+                        color: "#475569",
+                        margin: 0,
+                        fontSize: "1rem",
+                        lineHeight: 1.6,
+                        maxWidth: "50ch",
+                        fontWeight: 600,
+                    }}
+                >
+                    Estimate how much you and your caregiver can save each month when you work
+                    directly — without agency margins or hidden fees.
+                </p>
+            </div>
+
+            {/* === PRAWA STRONA === */}
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                    gap: "clamp(16px, 2.4vw, 24px)",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))", // 👈 boxy o 10% mniejsze
+                    gap: "clamp(18px, 2.2vw, 26px)",
                     alignItems: "stretch",
                 }}
             >
+                {/* FORMULARZ */}
                 <form
                     onSubmit={(e) => e.preventDefault()}
                     style={{
                         border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 16,
-                        padding: "clamp(18px, 2vw, 22px)",
+                        borderRadius: 18,
+                        padding: "clamp(22px, 2vw, 28px)",
                         background: "#FFFFFF",
-                        boxShadow: "0 10px 26px rgba(15,23,42,0.06)",
+                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
                         display: "grid",
                         gap: 14,
+                        animation: "fadeCard 0.8s ease 0.15s both",
                     }}
                 >
-                    <label style={{ display: "grid", gap: 8 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".95rem" }}>Currency</span>
-                        <select
-                            value={currency}
-                            onChange={(e) => setCurrency(e.target.value)}
-                            style={{ border: "1px solid rgba(15,23,42,0.18)", borderRadius: 12, padding: "12px 14px", fontSize: "1rem", outline: "none", background: "#fff" }}
-                        >
-                            <option value="PLN">PLN — zł</option>
-                            <option value="EUR">EUR — €</option>
-                            <option value="GBP">GBP — £</option>
-                            <option value="USD">USD — $</option>
-                        </select>
-                    </label>
-
-                    <label style={{ display: "grid", gap: 8 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".95rem" }}>Hourly rate</span>
-                        <input
-                            type="number"
-                            value={hourly}
-                            min={0}
-                            step={1}
-                            onChange={(e) => setHourly(Number(e.target.value || 0))}
-                            style={{ border: "1px solid rgba(15,23,42,0.18)", borderRadius: 12, padding: "12px 14px", fontSize: "1rem", outline: "none" }}
-                        />
-                    </label>
-
-                    <label style={{ display: "grid", gap: 8 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".95rem" }}>Hours per week</span>
-                        <input
-                            type="number"
-                            value={hoursWeek}
-                            min={0}
-                            step={1}
-                            onChange={(e) => setHoursWeek(Number(e.target.value || 0))}
-                            style={{ border: "1px solid rgba(15,23,42,0.18)", borderRadius: 12, padding: "12px 14px", fontSize: "1rem", outline: "none" }}
-                        />
-                    </label>
-
-                    <label style={{ display: "grid", gap: 8 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".95rem" }}>Agency margin (%)</span>
-                        <input
-                            type="number"
-                            value={agencyMargin}
-                            min={0}
-                            max={100}
-                            step={1}
-                            onChange={(e) => setAgencyMargin(Number(e.target.value || 0))}
-                            style={{ border: "1px solid rgba(15,23,42,0.18)", borderRadius: 12, padding: "12px 14px", fontSize: "1rem", outline: "none" }}
-                        />
-                    </label>
+                    {[
+                        {
+                            label: "Currency",
+                            type: "select",
+                            options: ["PLN — zł", "EUR — €", "GBP — £", "USD — $"],
+                        },
+                        { label: "Hourly rate", type: "number", placeholder: "e.g. 25" },
+                        { label: "Hours per week", type: "number", placeholder: "e.g. 40" },
+                        { label: "Agency margin (%)", type: "number", placeholder: "e.g. 35" },
+                    ].map((field, i) => (
+                        <label key={i} style={{ display: "grid", gap: 6 }}>
+                            <span
+                                style={{
+                                    fontWeight: 800,
+                                    color: "#1f2a37",
+                                    fontSize: ".9rem",
+                                }}
+                            >
+                                {field.label}
+                            </span>
+                            {field.type === "select" ? (
+                                <select
+                                    style={{
+                                        border: "1px solid rgba(15,23,42,0.18)",
+                                        borderRadius: 12,
+                                        padding: "11px 13px",
+                                        fontSize: ".95rem",
+                                        background: "#fff",
+                                    }}
+                                >
+                                    {field.options.map((opt) => (
+                                        <option key={opt}>{opt}</option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <input
+                                    type="number"
+                                    placeholder={field.placeholder}
+                                    style={{
+                                        border: "1px solid rgba(15,23,42,0.18)",
+                                        borderRadius: 12,
+                                        padding: "11px 13px",
+                                        fontSize: ".95rem",
+                                    }}
+                                />
+                            )}
+                        </label>
+                    ))}
 
                     <div
                         style={{
-                            marginTop: 4,
-                            padding: "10px 12px",
+                            marginTop: 2,
+                            padding: "9px 11px",
                             borderRadius: 12,
                             background: "rgba(31,171,31,0.08)",
                             border: "1px solid rgba(31,171,31,0.20)",
                             color: "#1f2a37",
                             fontWeight: 700,
-                            fontSize: ".95rem",
+                            fontSize: ".9rem",
                         }}
                     >
-                        ICare fee: <span style={{ color: BRAND }}>flat 10%</span> on contract
+                        ICare fee: <span style={{ color: "#1FAB1F" }}>flat 10%</span> on contract
                     </div>
                 </form>
 
+                {/* WYNIKI */}
                 <div
                     style={{
                         border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 16,
-                        padding: "clamp(18px, 2vw, 22px)",
+                        borderRadius: 18,
+                        padding: "clamp(22px, 2vw, 28px)",
                         background: "#FFFFFF",
-                        boxShadow: "0 10px 26px rgba(15,23,42,0.06)",
+                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
                         display: "grid",
                         gap: 14,
+                        animation: "fadeCard 0.8s ease 0.25s both",
                     }}
                 >
-                    <h3 style={{ margin: 0, fontWeight: 900, color: "#1f2a37", fontSize: "clamp(1.05rem, 2vw, 1.25rem)" }}>Monthly estimate</h3>
+                    <h3
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            color: "#1f2a37",
+                            fontSize: "clamp(1.05rem, 1.9vw, 1.25rem)",
+                        }}
+                    >
+                        Monthly estimate
+                    </h3>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: 10,
+                        }}
+                    >
                         {[
                             { k: "Base cost", v: monthlyBase },
                             { k: "Agency total", v: monthlyAgency },
@@ -655,39 +757,86 @@ function SavingsEstimatorCurrency() {
                                 key={row.k}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.08)",
-                                    borderRadius: 12,
+                                    borderRadius: 10,
                                     padding: "12px 14px",
-                                    background: row.highlight ? "rgba(31,171,31,0.06)" : "#FFFFFF",
+                                    background: row.highlight
+                                        ? "rgba(31,171,31,0.06)"
+                                        : "rgba(255,255,255,0.96)",
+                                    transition: "background .3s ease",
                                 }}
                             >
-                                <div style={{ fontSize: ".85rem", color: "#475569", marginBottom: 4, fontWeight: 700 }}>{row.k}</div>
-                                <div style={{ fontWeight: 900, fontSize: "1.15rem", color: row.highlight ? BRAND : "#1f2a37" }}>{nf.format(row.v)}</div>
+                                <div
+                                    style={{
+                                        fontSize: ".82rem",
+                                        color: "#475569",
+                                        marginBottom: 3,
+                                        fontWeight: 700,
+                                    }}
+                                >
+                                    {row.k}
+                                </div>
+                                <div
+                                    style={{
+                                        fontWeight: 900,
+                                        fontSize: "1.1rem",
+                                        color: row.highlight ? "#1FAB1F" : "#1f2a37",
+                                    }}
+                                >
+                                    {nf.format(row.v)} {currency}
+                                </div>
                             </div>
                         ))}
                     </div>
 
-                    <div style={{ marginTop: 6 }}>
-                        <div style={{ height: 10, width: "100%", background: "#F1F5F9", borderRadius: 999, overflow: "hidden" }}>
-                            <div style={{ height: "100%", width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`, background: BRAND }} />
+                    <div style={{ marginTop: 8 }}>
+                        <div
+                            style={{
+                                height: 9,
+                                width: "100%",
+                                background: "#F1F5F9",
+                                borderRadius: 999,
+                                overflow: "hidden",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: "100%",
+                                    width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`,
+                                    background: "#1FAB1F",
+                                    transition: "width 0.6s ease",
+                                }}
+                            />
                         </div>
                         <div
                             style={{
                                 marginTop: 6,
-                                fontSize: ".92rem",
+                                fontSize: ".88rem",
                                 color: "#334155",
                                 display: "flex",
                                 justifyContent: "space-between",
                                 alignItems: "baseline",
-                                gap: 12,
                             }}
                         >
-                            <span>Estimated savings vs agency (monthly)</span>
-                            <strong style={{ color: BRAND }}>{savePct.toFixed(0)}%</strong>
+                            <span>Estimated savings vs agency</span>
+                            <strong style={{ color: "#1FAB1F" }}>{savePct.toFixed(0)}%</strong>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* Animacje */}
+            <style>{`
+    @keyframes fadeEstimator {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeCard {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `}</style>
         </section>
+
     );
 }
 

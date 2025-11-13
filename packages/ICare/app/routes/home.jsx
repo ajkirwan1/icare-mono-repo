@@ -614,10 +614,10 @@ export default function Home() {
                                     alignItems: "flex-start",
                                     gap: "1rem",
                                     background: item.color,
-                                    borderRadius: 38, // większy, miękki radius
-                                    padding: "1.2rem 1.4rem", // 20% mniejsze
+                                    borderRadius: 48, // większy, miękki radius
+                                    padding: "1.2rem 1.2rem", // 20% mniejsze
                                     color: "#1F2A37",
-                                    border: "2px solid rgba(6, 68, 6, 0.55)", // ciemniejszy zielony border
+                                    border: "2px solid rgba(6, 68, 6, 0.13)", // ciemniejszy zielony border
                                     boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
                                     transition: "transform 0.3s ease, box-shadow 0.3s ease",
                                 }}
@@ -635,7 +635,7 @@ export default function Home() {
                                         minWidth: 46,
                                         minHeight: 46,
                                         borderRadius: "50%",
-                                        background: "rgba(31,171,31,0.12)",
+                                        background: "rgba(31, 171, 31, 0.03)",
                                         display: "grid",
                                         placeItems: "center",
                                         flexShrink: 0,
@@ -674,10 +674,11 @@ export default function Home() {
             {/* === ICARE SECURE PLATFORM — CONTRACTS & PROTECTION (WITH CLEAR SPACING) === */}
             <IcareSection
                 style={{
-                    background: "linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%)",
+                    background: "linear-gradient(180deg, #F9FBFA 0%, #FFFFFF 100%)", // identyczne tło jak w OUR IMPACT
                     padding: "clamp(5rem, 7vw, 6.5rem) clamp(24px, 6vw, 80px)",
-                    marginTop: "clamp(4rem, 7vw, rem)", // 🌿 wyraźny odstęp od sekcji wyżej
-                    borderTop: "1px solid rgba(31,171,31,0.08)", // subtelny separator
+                    marginTop: "clamp(6rem, 8vw, 7rem)", // ten sam odstęp
+                    borderTop: "1px solid rgba(31,171,31,0.08)",
+                    borderBottom: "1px solid rgba(31,171,31,0.08)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
@@ -785,24 +786,20 @@ export default function Home() {
                                     gap: "0.8rem",
                                     padding: "1rem 1.1rem",
                                     borderRadius: 24,
-                                    background: "rgba(245,247,245,0.65)", // 💠 see-through grey
-                                    border: "1px solid rgba(31,171,31,0.25)", // ciemniejszy border
-                                    boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                                    background: "rgba(228, 228, 228, 0.75)", // ⬅️ dokładnie jak w OUR IMPACT
+                                    border: "1.6px solid rgba(220, 221, 223, 0.9)", // ⬅️ ten sam border
+                                    boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
                                     transition: "transform 0.25s ease",
                                 }}
-                                onMouseEnter={(e) =>
-                                    (e.currentTarget.style.transform = "translateY(-2px)")
-                                }
-                                onMouseLeave={(e) =>
-                                    (e.currentTarget.style.transform = "translateY(0)")
-                                }
+                                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
                             >
                                 <div
                                     style={{
                                         width: 42,
                                         height: 42,
                                         borderRadius: "50%",
-                                        background: "rgba(255,255,255,0.45)",
+                                        background: "#FFFFFF",
                                         display: "grid",
                                         placeItems: "center",
                                         flexShrink: 0,
@@ -860,12 +857,12 @@ export default function Home() {
                             }}
                         >
                             We protect every agreement — from first chat to verified payment.
-                            ICare ensures transparent, encrypted, and fair collaboration between
-                            caregivers and families.
+                            ICare ensures transparent, encrypted, and fair collaboration between caregivers and families.
                         </p>
                     </div>
                 </div>
             </IcareSection>
+
 
             {/* === BLOK 1: ICare (image left) === */}
             <IcareWebBlock
