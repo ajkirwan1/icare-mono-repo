@@ -259,7 +259,7 @@ export default function Home() {
                         slot="contents"
                         style={{
                             display: "block",
-                            background: "linear-gradient(180deg, #ffffff 0%, #f8faf8 100%)",
+                            background: "#ffffff",
                         }}
                     >
                         <section
@@ -288,7 +288,7 @@ export default function Home() {
                                     id="icare-intro-title"
                                     style={{
                                         margin: 0,
-                                        fontSize: "clamp(2.2rem, 3.8vw, 2.6rem)",
+                                        fontSize: "clamp(2.2rem, 3.8vw, 2.4rem)",
                                         lineHeight: 1.15,
                                         fontWeight: 800,
                                         color: "#1F2A37",
@@ -296,16 +296,17 @@ export default function Home() {
                                         animation: "slideUp .8s ease both",
                                     }}
                                 >
-                                    <span style={{ display: "block" }}>Where families meet caregivers.</span>
+                                    <span style={{ display: "block" }}>Where families meet caregivers</span>
                                     <span
                                         style={{
                                             display: "block",
-                                            color: "#4C7865",
+                                            color: "#1c1c1cc2",
                                             fontWeight: 800,
-                                            fontSize: "clamp(2.2rem, 3.8vw, 2.6rem)",
+                                            fontSize: "clamp(2.2rem, 3.8vw, 2.4rem)",
+                                            marginTop: "0.70rem",
                                         }}
                                     >
-                                        Care made personal.
+                                        Care made personal
                                     </span>
                                 </h2>
 
@@ -314,131 +315,125 @@ export default function Home() {
                                     aria-hidden="true"
                                     style={{
                                         width: "min(70ch, 92%)",
-                                        height: 4,
-                                        background: "#b0b0b0ff",
+
+                                        background: "#b0b0b074",
                                         borderRadius: 999,
-                                        margin: "1.4rem auto 2rem",
-                                        opacity: 0.95,
+                                        margin: "1.4rem auto 2.2rem",
+                                        opacity: 0.9,
                                         animation: "growLine .9s ease .3s both",
                                     }}
                                 />
 
-                                {/* === TEXT === */}
-                                <div style={{ maxWidth: 780, margin: "0 auto 1.4rem" }}>
+                                {/* === COMBINED TEXT + PILLARS ON ONE GREY CARD === */}
+                                <div
+                                    style={{
+                                        maxWidth: "900px",
+                                        margin: "2rem auto",
+                                        padding: "2.6rem clamp(1.5rem, 4vw, 2.8rem)",
+                                        background: "#e7e9e798",
+                                        borderRadius: "26px",
+                                        boxShadow: "0 10px 26px rgba(0,0,0,0.06)",
+                                    }}
+                                >
+                                    {/* TEXT */}
                                     <p
                                         style={{
-                                            margin: "0 0 0.9rem",
+                                            margin: "0 0 1rem",
                                             color: "#334155",
-                                            lineHeight: 1.7,
-                                            fontSize: "clamp(1.02rem, 1.1vw, 1.15rem)",
+                                            lineHeight: 1.75,
+                                            fontSize: "clamp(1.05rem, 1.15vw, 1.16rem)",
                                             fontWeight: 600,
                                         }}
                                     >
-                                        We understand care — from the family’s expectations to the caregiver’s
-                                        everyday commitment.
+                                        We understand care — from the family’s expectations to the caregiver’s everyday
+                                        commitment.
                                     </p>
 
                                     <p
                                         style={{
-                                            margin: "0 0 0.9rem",
+                                            margin: "0 0 1rem",
                                             color: "#334155",
-                                            lineHeight: 1.7,
-                                            fontSize: "clamp(1.02rem, 1.1vw, 1.15rem)",
+                                            lineHeight: 1.75,
+                                            fontSize: "clamp(1.05rem, 1.15vw, 1.16rem)",
                                             fontWeight: 600,
                                         }}
                                     >
-                                        ICare connects you directly with verified, trusted caregivers through
-                                        transparent profiles and secure private chat.
+                                        ICare connects you directly with verified, trusted caregivers through transparent
+                                        profiles and secure private chat.
                                     </p>
 
                                     <p
                                         style={{
                                             marginTop: "1.4rem",
                                             color: "#1F2A37",
-                                            lineHeight: 1.65,
-                                            fontSize: "clamp(1.18rem, 1.3vw, 1.25rem)",
+                                            lineHeight: 1.7,
+                                            fontSize: "clamp(1.18rem, 1.3vw, 1.28rem)",
                                             fontWeight: 700,
                                             letterSpacing: "0.3px",
                                         }}
                                     >
-                                        No agencies. No hidden fees. Just safe, transparent, personal care.
+                                        No agencies.  No hidden fees.  Just safe, transparent, personal care.
                                     </p>
+
+                                    {/* PILLARS */}
+                                    <ul
+                                        role="list"
+                                        style={{
+                                            listStyle: "none",
+                                            padding: 0,
+                                            margin: "2.5rem auto 0",
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            justifyContent: "center",
+                                            gap: "14px",
+                                        }}
+                                    >
+                                        {[
+                                            "Verified caregivers",
+                                            "Secure & private",
+                                            "Direct messaging",
+                                            "Transparent pricing",
+                                        ].map((label, i) => (
+                                            <li
+                                                key={i}
+                                                style={{
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    padding: "9px 16px",
+                                                    borderRadius: 22,
+                                                    background: ["#f3f4f3", "#f5f5f5", "#f3f4f3", "#f5f5f5"][i],
+                                                    border: "1px solid rgba(15,23,42,0.08)",
+                                                    color: "#1F2A37",
+                                                    fontWeight: 600,
+                                                    fontSize: "0.95rem",
+                                                    letterSpacing: ".2px",
+                                                    boxShadow: "0 1px 3px rgba(15,23,42,0.06)",
+                                                    transition: "transform .25s ease, box-shadow .25s ease",
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.transform = "translateY(-2px)";
+                                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(15,23,42,0.1)";
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.transform = "translateY(0)";
+                                                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(15,23,42,0.06)";
+                                                }}
+                                            >
+                                                {label}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
 
-                                {/* === PILLARS === */}
-                                <ul
-                                    role="list"
-                                    style={{
-                                        listStyle: "none",
-                                        padding: 0,
-                                        margin: "40px auto 0",
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        justifyContent: "center",
-                                        gap: "16px",
-                                        maxWidth: 900,
-                                    }}
-                                >
-                                    {[
-                                        {
-                                            icon: "✔️",
-                                            label: "Verified caregivers",
-                                            bg: "#e9f9e9",
-                                        },
-                                        {
-                                            icon: "🔒",
-                                            label: "Secure & private",
-                                            bg: "#eef8f1",
-                                        },
-                                        {
-                                            icon: "💬",
-                                            label: "Direct messaging",
-                                            bg: "#e7f3ed",
-                                        },
-                                        {
-                                            icon: "💰",
-                                            label: "Transparent pricing",
-                                            bg: "#ecf9f0",
-                                        },
-                                    ].map((f, i) => (
-                                        <li
-                                            key={i}
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                gap: 10,
-                                                padding: "12px 18px",
-                                                borderRadius: 28,
-                                                background: f.bg,
-                                                border: "1px solid rgba(31,171,31,0.15)",
-                                                color: "#1F2A37",
-                                                fontWeight: 700,
-                                                fontSize: 16,
-                                                letterSpacing: ".2px",
-                                                boxShadow: "0 2px 4px rgba(31,171,31,0.06)",
-                                                transition: "transform .25s ease, box-shadow .25s ease",
-                                            }}
-                                            onMouseEnter={(e) => {
-                                                e.currentTarget.style.transform = "translateY(-2px)";
-                                                e.currentTarget.style.boxShadow = "0 6px 14px rgba(31,171,31,0.1)";
-                                            }}
-                                            onMouseLeave={(e) => {
-                                                e.currentTarget.style.transform = "translateY(0)";
-                                                e.currentTarget.style.boxShadow = "0 2px 4px rgba(31,171,31,0.06)";
-                                            }}
-                                        >
-                                            <span style={{ fontSize: 20 }}>{f.icon}</span>
-                                            <span>{f.label}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                {/* === CTA BUTTON === */}
                                 <div style={{ marginTop: "3rem" }}>
                                     <a
                                         href="/register"
                                         style={{
                                             display: "inline-block",
                                             padding: "1rem 2rem",
-                                            background: "#1FAB1F",
+                                            background: "rgb(31, 171, 31)",
                                             color: "#FFFFFF",
                                             borderRadius: 999,
                                             fontSize: "1.05rem",
@@ -447,20 +442,32 @@ export default function Home() {
                                             textDecoration: "none",
                                             boxShadow: "0 8px 28px rgba(31,171,31,0.25)",
                                             transition: "transform .2s ease, box-shadow .25s ease",
+                                            animation: "pulseSoft 2.5s ease-in-out infinite",
                                         }}
                                         onMouseEnter={(e) => {
                                             e.currentTarget.style.transform = "translateY(-3px)";
-                                            e.currentTarget.style.boxShadow =
-                                                "0 12px 32px rgba(31,171,31,0.35)";
+                                            e.currentTarget.style.boxShadow = "0 12px 32px rgba(31,171,31,0.35)";
                                         }}
                                         onMouseLeave={(e) => {
                                             e.currentTarget.style.transform = "translateY(0)";
-                                            e.currentTarget.style.boxShadow =
-                                                "0 8px 28px rgba(31,171,31,0.25)";
+                                            e.currentTarget.style.boxShadow = "0 8px 28px rgba(31,171,31,0.25)";
                                         }}
                                     >
                                         Join ICare today
                                     </a>
+
+                                    {/* Animacja pulsacji */}
+                                    <style
+                                        dangerouslySetInnerHTML={{
+                                            __html: `
+                  @keyframes pulseSoft {
+                    0% { transform: scale(1); box-shadow: 0 8px 28px rgba(31,171,31,0.25); }
+                    50% { transform: scale(1.035); box-shadow: 0 10px 34px rgba(31,171,31,0.38); }
+                    100% { transform: scale(1); box-shadow: 0 8px 28px rgba(31,171,31,0.25); }
+                  }
+                `,
+                                        }}
+                                    />
                                 </div>
 
                                 {/* === DIVIDER === */}
@@ -476,24 +483,29 @@ export default function Home() {
                             </div>
 
                             {/* Animacje */}
-                            <style>{`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(25px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes growLine {
-            from { width: 0; opacity: 0; }
-            to { width: min(70ch, 92%); opacity: 1; }
-          }
-        `}</style>
+                            <style
+                                dangerouslySetInnerHTML={{
+                                    __html: `
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              @keyframes slideUp {
+                from { opacity: 0; transform: translateY(25px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              @keyframes growLine {
+                from { width: 0; opacity: 0; }
+                to { width: min(70ch, 92%); opacity: 1; }
+              }
+            `,
+                                }}
+                            />
                         </section>
                     </span>
                 </IcareCard>
             </IcareSection>
+
 
             <IcareSection
                 style={{
