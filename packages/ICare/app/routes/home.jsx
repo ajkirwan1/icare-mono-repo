@@ -252,326 +252,78 @@ export default function Home() {
             {/* 🔍 QUICK FINDER (formularz wyszukiwania) */}
             <QuickFinderCard />
 
-
-            <IcareSection>
-                <IcareCard variant="flat">
-                    <span
-                        slot="contents"
-                        style={{
-                            display: "block",
-                            background: "#ffffff",
-                        }}
-                    >
-                        <section
-                            aria-label="ICare intro"
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                minHeight: "70vh",
-                                padding: "clamp(48px, 6vw, 88px) 0",
-                                fontFamily:
-                                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    maxWidth: 1120,
-                                    margin: "0 auto",
-                                    padding: "0 clamp(24px, 4vw, 48px)",
-                                    textAlign: "center",
-                                    animation: "fadeIn 1s ease both",
-                                }}
-                            >
-                                {/* === TITLE === */}
-                                <h2
-                                    id="icare-intro-title"
-                                    style={{
-                                        margin: 0,
-                                        fontSize: "clamp(2.2rem, 3.8vw, 2.4rem)",
-                                        lineHeight: 1.15,
-                                        fontWeight: 800,
-                                        color: "#1F2A37",
-                                        letterSpacing: ".25px",
-                                        animation: "slideUp .8s ease both",
-                                    }}
-                                >
-                                    <span style={{ display: "block" }}>Where families meet caregivers</span>
-                                    <span
-                                        style={{
-                                            display: "block",
-                                            color: "#1c1c1cc2",
-                                            fontWeight: 800,
-                                            fontSize: "clamp(2.2rem, 3.8vw, 2.4rem)",
-                                            marginTop: "0.70rem",
-                                        }}
-                                    >
-                                        Care made personal
-                                    </span>
-                                </h2>
-
-                                {/* === UNDERLINE === */}
-                                <div
-                                    aria-hidden="true"
-                                    style={{
-                                        width: "min(70ch, 92%)",
-
-                                        background: "#b0b0b074",
-                                        borderRadius: 999,
-                                        margin: "1.4rem auto 2.2rem",
-                                        opacity: 0.9,
-                                        animation: "growLine .9s ease .3s both",
-                                    }}
-                                />
-
-                                {/* === COMBINED TEXT + PILLARS ON ONE GREY CARD === */}
-                                <div
-                                    style={{
-                                        maxWidth: "900px",
-                                        margin: "2rem auto",
-                                        padding: "2.6rem clamp(1.5rem, 4vw, 2.8rem)",
-                                        background: "#e7e9e798",
-                                        borderRadius: "26px",
-                                        boxShadow: "0 10px 26px rgba(0,0,0,0.06)",
-                                    }}
-                                >
-                                    {/* TEXT */}
-                                    <p
-                                        style={{
-                                            margin: "0 0 1rem",
-                                            color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(1.05rem, 1.15vw, 1.16rem)",
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        We understand care — from the family’s expectations to the caregiver’s everyday
-                                        commitment.
-                                    </p>
-
-                                    <p
-                                        style={{
-                                            margin: "0 0 1rem",
-                                            color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(1.05rem, 1.15vw, 1.16rem)",
-                                            fontWeight: 600,
-                                        }}
-                                    >
-                                        ICare connects you directly with verified, trusted caregivers through transparent
-                                        profiles and secure private chat.
-                                    </p>
-
-                                    <p
-                                        style={{
-                                            marginTop: "1.4rem",
-                                            color: "#1F2A37",
-                                            lineHeight: 1.7,
-                                            fontSize: "clamp(1.18rem, 1.3vw, 1.28rem)",
-                                            fontWeight: 700,
-                                            letterSpacing: "0.3px",
-                                        }}
-                                    >
-                                        No agencies.  No hidden fees.  Just safe, transparent, personal care.
-                                    </p>
-
-                                    {/* PILLARS */}
-                                    <ul
-                                        role="list"
-                                        style={{
-                                            listStyle: "none",
-                                            padding: 0,
-                                            margin: "2.5rem auto 0",
-                                            display: "flex",
-                                            flexWrap: "wrap",
-                                            justifyContent: "center",
-                                            gap: "14px",
-                                        }}
-                                    >
-                                        {[
-                                            "Verified caregivers",
-                                            "Secure & private",
-                                            "Direct messaging",
-                                            "Transparent pricing",
-                                        ].map((label, i) => (
-                                            <li
-                                                key={i}
-                                                style={{
-                                                    display: "flex",
-                                                    alignItems: "center",
-                                                    justifyContent: "center",
-                                                    padding: "9px 16px",
-                                                    borderRadius: 22,
-                                                    background: ["#f3f4f3", "#f5f5f5", "#f3f4f3", "#f5f5f5"][i],
-                                                    border: "1px solid rgba(15,23,42,0.08)",
-                                                    color: "#1F2A37",
-                                                    fontWeight: 600,
-                                                    fontSize: "0.95rem",
-                                                    letterSpacing: ".2px",
-                                                    boxShadow: "0 1px 3px rgba(15,23,42,0.06)",
-                                                    transition: "transform .25s ease, box-shadow .25s ease",
-                                                }}
-                                                onMouseEnter={(e) => {
-                                                    e.currentTarget.style.transform = "translateY(-2px)";
-                                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(15,23,42,0.1)";
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    e.currentTarget.style.transform = "translateY(0)";
-                                                    e.currentTarget.style.boxShadow = "0 1px 3px rgba(15,23,42,0.06)";
-                                                }}
-                                            >
-                                                {label}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-
-                                {/* === CTA BUTTON === */}
-                                <div style={{ marginTop: "3rem" }}>
-                                    <a
-                                        href="/register"
-                                        style={{
-                                            display: "inline-block",
-                                            padding: "1rem 2rem",
-                                            background: "rgb(31, 171, 31)",
-                                            color: "#FFFFFF",
-                                            borderRadius: 999,
-                                            fontSize: "1.05rem",
-                                            fontWeight: 800,
-                                            letterSpacing: ".03em",
-                                            textDecoration: "none",
-                                            boxShadow: "0 8px 28px rgba(31,171,31,0.25)",
-                                            transition: "transform .2s ease, box-shadow .25s ease",
-                                            animation: "pulseSoft 2.5s ease-in-out infinite",
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.transform = "translateY(-3px)";
-                                            e.currentTarget.style.boxShadow = "0 12px 32px rgba(31,171,31,0.35)";
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.transform = "translateY(0)";
-                                            e.currentTarget.style.boxShadow = "0 8px 28px rgba(31,171,31,0.25)";
-                                        }}
-                                    >
-                                        Join ICare today
-                                    </a>
-
-                                    {/* Animacja pulsacji */}
-                                    <style
-                                        dangerouslySetInnerHTML={{
-                                            __html: `
-                  @keyframes pulseSoft {
-                    0% { transform: scale(1); box-shadow: 0 8px 28px rgba(31,171,31,0.25); }
-                    50% { transform: scale(1.035); box-shadow: 0 10px 34px rgba(31,171,31,0.38); }
-                    100% { transform: scale(1); box-shadow: 0 8px 28px rgba(31,171,31,0.25); }
-                  }
-                `,
-                                        }}
-                                    />
-                                </div>
-
-                                {/* === DIVIDER === */}
-                                <div
-                                    aria-hidden="true"
-                                    style={{
-                                        width: "min(1000px, 90%)",
-                                        height: 1,
-                                        background: "rgba(31,171,31,0.12)",
-                                        margin: "42px auto 0",
-                                    }}
-                                />
-                            </div>
-
-                            {/* Animacje */}
-                            <style
-                                dangerouslySetInnerHTML={{
-                                    __html: `
-              @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-              }
-              @keyframes slideUp {
-                from { opacity: 0; transform: translateY(25px); }
-                to { opacity: 1; transform: translateY(0); }
-              }
-              @keyframes growLine {
-                from { width: 0; opacity: 0; }
-                to { width: min(70ch, 92%); opacity: 1; }
-              }
-            `,
-                                }}
-                            />
-                        </section>
-                    </span>
-                </IcareCard>
-            </IcareSection>
-
-
             <IcareSection
                 style={{
-                    background: "linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%)",
-                    padding: "clamp(3.5rem, 6vw, 5rem) clamp(20px, 6vw, 70px)",
+                    background: "linear-gradient(180deg, #F9FAFA 0%, #FFFFFF 100%)",
+                    padding: "clamp(3rem, 5vw, 4.5rem) clamp(20px, 5vw, 60px)", // 🔹 było 6rem → teraz mniej pionowego paddingu
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    marginTop: "16rem", // 🔹 było 18rem — mniej powietrza nad sekcją
+                    transform: "scale(0.87)", // 🔹 zmniejszenie całej sekcji o ~13%
+                    transformOrigin: "top center",
                 }}
             >
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                        gap: "clamp(2rem, 3vw, 4rem)",
-                        alignItems: "start",
-                        maxWidth: 1080,
+                        gridTemplateColumns: "1fr max(400px,40%)",
+                        gap: "clamp(1.8rem, 2.5vw, 3rem)", // 🔹 nieco ciaśniejszy gap
+                        alignItems: "center",
+                        maxWidth: 1150, // 🔹 było 1200 — delikatnie mniejsza szerokość
                         margin: "0 auto",
                     }}
                 >
-                    {/* === LEWY BLOK TEKSTOWY === */}
+                    {/* === LEWA STRONA – TEKST === */}
                     <div style={{ textAlign: "left" }}>
                         <h2
                             style={{
                                 fontWeight: 800,
-                                fontSize: "clamp(1.9rem, 3.2vw, 2.4rem)",
+                                fontSize: "clamp(2.2rem, 3.5vw, 2.4rem)", // 🔹 lekko zmniejszony tytuł
                                 color: "#0F172A",
-                                marginBottom: "1rem",
-                                lineHeight: 1.15,
+                                lineHeight: 1.12,
+                                marginBottom: "2.2rem",
+                                marginTop: "2.2rem",
                             }}
                         >
-                            Why care without middlemen (agency)?
+                            Direct care meets trust.
+                            <br />
+                            <span style={{ color: "#4C7865" }}>
+                                Real connection. Real people.
+                            </span>
                         </h2>
 
                         <p
                             style={{
-                                maxWidth: "55ch",
+                                maxWidth: "58ch",
                                 color: "#374151",
-                                fontSize: "1.05rem",
-                                lineHeight: 1.7,
-                                marginTop: "2rem",
-                                marginBottom: "2rem",
+                                fontSize: "1.05rem", // 🔹 mniejszy font
+                                lineHeight: 1.65,
+                                marginTop: "1.2rem",
+                                marginBottom: "1.8rem",
                                 fontWeight: 500,
                             }}
                         >
-                            With ICare, families and caregivers connect directly — no agencies, no
-                            middlemen, no hidden fees. Just clear communication, fair rates, and a
-                            platform built on trust and transparency.
+                            With ICare, families and caregivers connect directly — no middlemen,
+                            straight to the heart of what matters: care built on honesty, clarity,
+                            and respect.
                         </p>
 
 
                     </div>
 
-                    {/* === KAFELKI === */}
+                    {/* === PRAWA STRONA – KAFELKI === */}
                     <div
                         style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "clamp(1.4rem, 2vw, 1.8rem)",
+                            display: "grid",
+                            gap: "clamp(0.6rem, 0.8vw, 0.80rem)", // 🔹 kafelki bliżej siebie
                         }}
                     >
                         {[
                             {
                                 icon: (
                                     <svg
-                                        width="24"
-                                        height="24"
+                                        width="22"
+                                        height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="#1F2A37"
@@ -584,14 +336,13 @@ export default function Home() {
                                     </svg>
                                 ),
                                 title: "Fair & Transparent",
-                                desc: "No extra commissions or confusing terms. Families and caregivers agree directly on clear conditions.",
-                                color: "#EAF4EF",
+                                desc: "No extra commissions, clear rates, direct match.",
                             },
                             {
                                 icon: (
                                     <svg
-                                        width="24"
-                                        height="24"
+                                        width="22"
+                                        height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="#1F2A37"
@@ -604,14 +355,13 @@ export default function Home() {
                                     </svg>
                                 ),
                                 title: "Private & Secure",
-                                desc: "All messages, contracts, and payments stay inside ICare. Your data is encrypted and never shared.",
-                                color: "#F0F8F3",
+                                desc: "Confidential chats, encrypted data, safe payments.",
                             },
                             {
                                 icon: (
                                     <svg
-                                        width="24"
-                                        height="24"
+                                        width="22"
+                                        height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="#1F2A37"
@@ -622,40 +372,39 @@ export default function Home() {
                                         <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
                                     </svg>
                                 ),
-                                title: "Human Connection",
-                                desc: "Every match starts with a real conversation — not algorithms or intermediaries.",
-                                color: "#F4FBF8",
+                                title: "Genuine Connections",
+                                desc: "You pick your caregiver. You decide your terms. Real people, real care.",
                             },
-                        ].map((item) => (
+                        ].map((item, i) => (
                             <div
-                                key={item.title}
+                                key={i}
                                 style={{
                                     display: "flex",
                                     alignItems: "flex-start",
                                     gap: "1rem",
-                                    background: item.color,
-                                    borderRadius: 48, // większy, miękki radius
-                                    padding: "1.2rem 1.2rem", // 20% mniejsze
+                                    background: "#e6ddc519",
+                                    borderRadius: 22, // 🔹 lekko mniejsze zaokrąglenie
+                                    padding: "1.2rem",
                                     color: "#1F2A37",
-                                    border: "2px solid rgba(6, 68, 6, 0.13)", // ciemniejszy zielony border
-                                    boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
-                                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                                    border: "1px solid rgba(31,171,31,0.16)",
+                                    boxShadow: "0 4px 14px rgba(2,8,23,0.05)",
+                                    transition: "transform .25s ease, box-shadow .25s ease",
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = "translateY(-2px)";
-                                    e.currentTarget.style.boxShadow = "0 6px 16px rgba(0,0,0,0.06)";
+                                    e.currentTarget.style.transform = "translateY(-3px)";
+                                    e.currentTarget.style.boxShadow = "0 8px 20px rgba(2,8,23,0.10)";
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.boxShadow = "0 4px 10px rgba(0,0,0,0.03)";
+                                    e.currentTarget.style.boxShadow = "0 4px 14px rgba(2,8,23,0.05)";
                                 }}
                             >
                                 <div
                                     style={{
-                                        minWidth: 46,
-                                        minHeight: 46,
+                                        minWidth: 44,
+                                        minHeight: 44,
                                         borderRadius: "50%",
-                                        background: "rgba(31, 171, 31, 0.03)",
+                                        background: "rgba(31,171,31,0.08)",
                                         display: "grid",
                                         placeItems: "center",
                                         flexShrink: 0,
@@ -666,173 +415,9 @@ export default function Home() {
                                 <div>
                                     <h3
                                         style={{
-                                            margin: "0 0 .35rem",
-                                            fontWeight: 700,
-                                            fontSize: "1.05rem",
-                                            color: "#1F2A37",
-                                        }}
-                                    >
-                                        {item.title}
-                                    </h3>
-                                    <p
-                                        style={{
-                                            margin: "0.25rem 0 0",
-                                            fontSize: "0.9rem",
-                                            color: "#475569",
-                                            lineHeight: 1.6,
-                                        }}
-                                    >
-                                        {item.desc}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </IcareSection>
-            {/* === ICARE SECURE PLATFORM — CONTRACTS & PROTECTION (REVERSED PANEL, WITH SPACING) === */}
-            {/* === ICARE SECURE PLATFORM — CONTRACTS & PROTECTION (WITH CLEAR SPACING) === */}
-            <IcareSection
-                style={{
-                    background: "linear-gradient(180deg, #F9FBFA 0%, #FFFFFF 100%)", // identyczne tło jak w OUR IMPACT
-                    padding: "clamp(5rem, 7vw, 6.5rem) clamp(24px, 6vw, 80px)",
-                    marginTop: "clamp(6rem, 8vw, 7rem)", // ten sam odstęp
-                    borderTop: "1px solid rgba(31,171,31,0.08)",
-                    borderBottom: "1px solid rgba(31,171,31,0.08)",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                }}
-            >
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(460px, 1fr))",
-                        gap: "clamp(2rem, 4vw, 3rem)",
-                        alignItems: "center",
-                        maxWidth: 1200,
-                        margin: "0 auto",
-                    }}
-                >
-                    {/* === LEWA STRONA: KAFELKI === */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                            gap: "1.6rem",
-                            justifyItems: "start",
-                        }}
-                    >
-                        {[
-                            {
-                                icon: (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#4C7865"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <rect x="3" y="11" width="18" height="10" rx="2" />
-                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                    </svg>
-                                ),
-                                title: "Encrypted Chats",
-                                desc: "End-to-end encryption for all messages and shared files.",
-                            },
-                            {
-                                icon: (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#4C7865"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M12 1l3 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5z" />
-                                    </svg>
-                                ),
-                                title: "Verified Contracts",
-                                desc: "Each agreement is timestamped and securely archived in your dashboard.",
-                            },
-                            {
-                                icon: (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#4C7865"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <circle cx="12" cy="12" r="10" />
-                                        <path d="M12 16v-4M12 8h.01" />
-                                    </svg>
-                                ),
-                                title: "Secure Payments",
-                                desc: "Handled through verified gateways with instant confirmation and fraud protection.",
-                            },
-                            {
-                                icon: (
-                                    <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#4C7865"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
-                                    </svg>
-                                ),
-                                title: "Identity Verification",
-                                desc: "All profiles are verified for authenticity before access to care tools.",
-                            },
-                        ].map((item) => (
-                            <div
-                                key={item.title}
-                                style={{
-                                    display: "flex",
-                                    alignItems: "flex-start",
-                                    gap: "0.8rem",
-                                    padding: "1rem 1.1rem",
-                                    borderRadius: 24,
-                                    background: "rgba(228, 228, 228, 0.75)", // ⬅️ dokładnie jak w OUR IMPACT
-                                    border: "1.6px solid rgba(220, 221, 223, 0.9)", // ⬅️ ten sam border
-                                    boxShadow: "0 4px 10px rgba(0,0,0,0.03)",
-                                    transition: "transform 0.25s ease",
-                                }}
-                                onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
-                                onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-                            >
-                                <div
-                                    style={{
-                                        width: 42,
-                                        height: 42,
-                                        borderRadius: "50%",
-                                        background: "#FFFFFF",
-                                        display: "grid",
-                                        placeItems: "center",
-                                        flexShrink: 0,
-                                    }}
-                                >
-                                    {item.icon}
-                                </div>
-                                <div>
-                                    <h3
-                                        style={{
-                                            margin: "0 0 .25rem",
-                                            fontWeight: 700,
+                                            margin: "0 0 .3rem 0",
                                             fontSize: "1rem",
+                                            fontWeight: 700,
                                             color: "#1F2A37",
                                         }}
                                     >
@@ -842,7 +427,7 @@ export default function Home() {
                                         style={{
                                             margin: 0,
                                             fontSize: "0.9rem",
-                                            color: "#4B5A52",
+                                            color: "#475569",
                                             lineHeight: 1.55,
                                         }}
                                     >
@@ -852,131 +437,116 @@ export default function Home() {
                             </div>
                         ))}
                     </div>
-
-                    {/* === PRAWA STRONA: TEKST === */}
-                    <div style={{ textAlign: "left" }}>
-                        <h2
-                            style={{
-                                fontWeight: 800,
-                                fontSize: "clamp(2rem, 3.6vw, 2.2rem)",
-                                color: "#0F172A",
-                                marginBottom: "1rem",
-                                lineHeight: 1.15,
-                            }}
-                        >
-                            ICare Secure Platform — Contracts & Protection
-                        </h2>
-
-                        <p
-                            style={{
-                                maxWidth: "56ch",
-                                color: "#374151",
-                                fontSize: "1.05rem",
-                                lineHeight: 1.7,
-                                marginBottom: "2rem",
-                            }}
-                        >
-                            We protect every agreement — from first chat to verified payment.
-                            ICare ensures transparent, encrypted, and fair collaboration between caregivers and families.
-                        </p>
-                    </div>
                 </div>
             </IcareSection>
+
+
+
 
 
             {/* === BLOK 1: ICare (image left) === */}
             <IcareWebBlock
                 imgSrc={cardImage}
                 style={{
-                    backgroundColor: "#f8faf9",
+                    background: "#F3F4F3", // 🔹 delikatne szare tło zamiast czystej bieli
                     borderRadius: "28px",
-                    padding: "clamp(36px, 5vw, 52px) clamp(20px, 4vw, 48px)",
+                    padding: "clamp(3.2rem, 5vw, 4.2rem) clamp(1.5rem, 4vw, 3rem)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     flexWrap: "wrap",
-                    gap: "2rem",
+                    gap: "2.5rem",
                     flexDirection: "row", // 🟢 obrazek po lewej
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
-                    marginBottom: "clamp(36px, 4vw, 60px)", // 🔽 mniejszy odstęp między blokami
+                    boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
+                    marginBottom: "clamp(48px, 6vw, 72px)",
+                    maxWidth: 1200,
+                    marginInline: "auto",
+                    border: "1px solid rgba(0,0,0,0.04)", // 🔹 lekka krawędź
                 }}
             >
                 <span
                     slot="header-contents"
                     style={{
                         display: "block",
-                        fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
+                        fontSize: "clamp(1.9rem, 3.5vw, 2.2rem)",
                         fontWeight: 900,
-                        color: "#1F2A37",
-                        marginBottom: "1.2rem",
+                        color: "#0F172A",
+                        marginBottom: "1.3rem",
+                        lineHeight: 1.15,
                     }}
                 >
-                    ICare.{" "}
-                    <span style={{ color: "#4C7865" }}>Connecting care with trust.</span>
+                    <span>Connecting care with trust</span>
                 </span>
 
                 <span
                     slot="body-contents"
                     style={{
-                        fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
-                        lineHeight: 1.7,
+                        fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
+                        lineHeight: 1.75,
                         color: "#374151",
-                        fontWeight: 800,
+                        fontWeight: 500,
                         maxWidth: "640px",
                         display: "block",
+                        marginBottom: "1.8rem",
                     }}
                 >
                     Easily connect with trusted caregivers or people who need care — right from your phone or computer.
                     Quickly find the right match based on location, needs, and qualifications.
                     Set up and manage care agreements with simple tools for scheduling and contracts.
                 </span>
+
+
             </IcareWebBlock>
+
 
             {/* === BLOK 2: Safety (image right) === */}
             <IcareSection
                 style={{
                     backgroundColor: "#ffffff",
-                    padding: "clamp(24px, 4vw, 56px) 0", // 🔽 mniej pionowego luzu
+                    padding: "clamp(2.5rem, 5vw, 4rem) 0",
+                }}
+            ><IcareWebBlock
+                imgSrc={cardImage3}
+                style={{
+                    background: "#f8f4e968", // 🔹 subtelny beż (ciepły, lekko kremowy)
+                    borderRadius: "28px",
+                    padding: "clamp(3rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)",
+                    boxShadow: "0 6px 22px rgba(0,0,0,0.03)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    gap: "2.5rem",
+                    flexDirection: "row-reverse", // 🔵 obrazek po prawej
+                    maxWidth: 1200,
+                    marginInline: "auto",
+                    border: "1px solid rgba(0,0,0,0.04)", // 🔹 subtelna krawędź dla kontrastu
                 }}
             >
-                <IcareWebBlock
-                    imgSrc={cardImage3}
-                    style={{
-                        backgroundColor: "#f9faf9",
-                        borderRadius: "28px",
-                        padding: "clamp(32px, 5vw, 48px) clamp(20px, 4vw, 48px)", // 🔽 lekko ciaśniej
-                        boxShadow: "0 4px 18px rgba(0,0,0,0.02)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        flexWrap: "wrap",
-                        gap: "2rem",
-                        flexDirection: "row-reverse", // 🔵 obrazek po prawej
-                    }}
-                >
                     <span
                         slot="header-contents"
                         style={{
                             display: "block",
-                            fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                            fontSize: "clamp(1.9rem, 3.5vw, 2.4rem)",
                             fontWeight: 900,
-                            color: "#1F2A37",
-                            marginBottom: "1rem",
+                            color: "#0F172A",
+                            marginBottom: "1.2rem",
+                            lineHeight: 1.15,
                         }}
                     >
-                        Safety comes first.{" "}
-                        <span style={{ color: "#1FAB1F" }}>Always.</span>
+                        Safety comes first
                     </span>
 
                     <span
                         slot="body-contents"
                         style={{
-                            fontSize: "clamp(1rem, 1.2vw, 1.15rem)",
-                            lineHeight: 1.7,
+                            fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
+                            lineHeight: 1.75,
                             color: "#374151",
                             fontWeight: 500,
                             maxWidth: "620px",
                             display: "block",
+                            marginBottom: "1.8rem",
                         }}
                     >
                         Your information stays safe and private, thanks to strong built-in security
@@ -984,8 +554,50 @@ export default function Home() {
                         Every caregiver profile is verified and reviewed for authenticity —
                         so you can focus on what truly matters.
                     </span>
+
+                    <a
+                        href="/register"
+                        style={{
+                            display: "inline-block",
+                            padding: "1.05rem 2.4rem",
+                            background:
+                                "linear-gradient(90deg, rgba(31,171,31,1) 0%, rgba(63,221,153,1) 100%)",
+                            color: "#fff",
+                            fontWeight: 800,
+                            fontSize: "1.05rem",
+                            letterSpacing: "0.04em",
+                            borderRadius: 999,
+                            textDecoration: "none",
+                            boxShadow:
+                                "0 4px 14px rgba(31,171,31,0.25), inset 0 1px 1px rgba(255,255,255,0.25)",
+                            transition:
+                                "transform .3s ease, box-shadow .3s ease, background .4s ease, filter .3s ease",
+                            textAlign: "center",
+                            cursor: "pointer",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-3px)";
+                            e.currentTarget.style.filter = "brightness(1.08)";
+                            e.currentTarget.style.boxShadow =
+                                "0 8px 24px rgba(31,171,31,0.4), inset 0 1px 1px rgba(255,255,255,0.3)";
+                            e.currentTarget.style.background =
+                                "linear-gradient(90deg, rgba(63,221,153,1) 0%, rgba(31,171,31,1) 100%)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.filter = "brightness(1)";
+                            e.currentTarget.style.boxShadow =
+                                "0 4px 14px rgba(31,171,31,0.25), inset 0 1px 1px rgba(255,255,255,0.25)";
+                            e.currentTarget.style.background =
+                                "linear-gradient(90deg, rgba(31,171,31,1) 0%, rgba(63,221,153,1) 100%)";
+                        }}
+                    >
+                        Learn More
+                    </a>
                 </IcareWebBlock>
+
             </IcareSection>
+
 
 
             <IcareSection className="full-bleed">
@@ -1022,8 +634,8 @@ export default function Home() {
                         >
                             {[
                                 {
-                                    k: "TRUST",
-                                    desc: "Transparent process, no hidden fees.",
+                                    k: "Trust",
+                                    desc: "Transparent process - no hidden fees.",
                                     img: cardImage2,
                                     icon: (
                                         <svg
@@ -1035,7 +647,7 @@ export default function Home() {
                                                 d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"
                                                 fill="none"
                                                 stroke="#1FAB1F"
-                                                strokeWidth="2"
+                                                strokeWidth="1.5"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                             />
@@ -1043,7 +655,7 @@ export default function Home() {
                                                 d="M9 12l2.2 2.2L15 10.5"
                                                 fill="none"
                                                 stroke="#1FAB1F"
-                                                strokeWidth="2"
+                                                strokeWidth="1.5"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
                                             />
@@ -1051,8 +663,8 @@ export default function Home() {
                                     ),
                                 },
                                 {
-                                    k: "CARE",
-                                    desc: "From daily support live in care",
+                                    k: "Care",
+                                    desc: "From daily support to live - in care",
                                     img: cardImage7,
                                     icon: (
                                         <svg
@@ -1079,7 +691,7 @@ export default function Home() {
                                         background: "#FFFFFF",
                                         boxShadow: "0 6px 18px rgba(0,0,0,0.04)",
                                         overflow: "hidden",
-                                        border: "1.5px solid #E5E7EB",
+
                                         display: "flex",
                                         flexDirection: "column",
                                     }}
@@ -1114,7 +726,7 @@ export default function Home() {
                                             style={{
                                                 margin: "0 0 1.8rem",
                                                 color: "#1F2A37",
-                                                fontSize: "clamp(1.25rem, 1.5vw, 1.3rem)", // ⬆️ +15%
+                                                fontSize: "clamp(1.25rem, 1.5vw, 1.2rem)", // ⬆️ +15%
                                                 fontWeight: 600,
                                                 lineHeight: 1.55,
                                                 letterSpacing: "0.3px",
@@ -1132,7 +744,7 @@ export default function Home() {
                                             alignItems: "center",
                                             justifyContent: "center",
                                             background: "#F9FAFA",
-                                            borderTop: "1px solid #E6F1F5",
+
                                             borderRadius: "0 0 32px 32px",
                                             height: "380px", // ✅ równa wysokość
                                         }}
@@ -1262,8 +874,8 @@ export default function Home() {
                                 <div
                                     style={{
                                         display: "inline-block",
-                                        backgroundColor: "#fff",
-                                        color: "#1F2A37",
+                                        backgroundColor: "#a5a5a5ff",
+                                        color: "#ffffffff",
                                         fontWeight: 700,
                                         padding: "0.9rem 2.4rem",
                                         borderRadius: "999px",
@@ -1273,12 +885,12 @@ export default function Home() {
                                         transition: "all 0.3s ease",
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#f7f7f7";
+                                        e.currentTarget.style.backgroundColor = "#000000ff";
                                         e.currentTarget.style.transform = "scale(1.05)";
                                         e.currentTarget.style.boxShadow = "0 6px 18px rgba(0,0,0,0.25)";
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#fff";
+                                        e.currentTarget.style.backgroundColor = "#a5a5a5ff";
                                         e.currentTarget.style.transform = "scale(1)";
                                         e.currentTarget.style.boxShadow = "0 4px 14px rgba(0,0,0,0.15)";
                                     }}
