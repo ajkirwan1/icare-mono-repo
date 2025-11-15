@@ -132,7 +132,7 @@ export default function HeroComponent({ imgSrc }) {
                             fontWeight: 900,
                             color: "#cffafe",
                             border: "1px solid rgba(207,250,254,.5)",
-                            background: "#1fab1f78",
+                            background: "#1fab1f3e",
                             backdropFilter: "blur(4px)",
                             marginBottom: ".6rem",
                         }}
@@ -146,8 +146,8 @@ export default function HeroComponent({ imgSrc }) {
                             fontWeight: 900,
                             letterSpacing: ".2px",
                             lineHeight: 1.05,
-                            fontSize: "clamp(2.4rem, 5.2vw, 4.4rem)",
-                            color: "rgb(63 221 153)",
+                            fontSize: "clamp(2.4rem, 5.2vw, 4rem)",
+                            color: "#AD7A66",
                             textShadow: "none",
                         }}
                     >

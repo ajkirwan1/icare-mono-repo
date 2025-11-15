@@ -352,116 +352,166 @@ export default function ICareForCaregivers() {
                 id="caregiver-steps"
                 aria-label="Caregiver steps"
                 style={{
-                    margin: "6rem auto 6rem",
+                    margin: "7rem auto",
                     width: "min(1100px, 92vw)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    paddingLeft: "2.4rem",
-                    paddingRight: "2.4rem",
+                    paddingInline: "2rem",
                 }}
             >
-                <header style={{ marginBottom: "2.5rem" }}>
+                {/* HEADER */}
+                <header style={{ textAlign: "center", marginBottom: "4rem" }}>
                     <h3
                         style={{
                             margin: 0,
-                            fontWeight: 800,
-                            letterSpacing: ".2px",
-                            fontSize: "clamp(1.4rem,2.4vw,2.4rem)",
+                            fontWeight: 900,
+                            letterSpacing: "-0.5px",
+                            fontSize: "clamp(2rem,3vw,2.8rem)",
                             color: "#0F172A",
-                            lineHeight: 1.2,
+                            lineHeight: 1.15,
                         }}
                     >
                         Get started in 5 clear steps
                     </h3>
+
                     <p
                         style={{
-                            margin: ".6rem 0 0",
-                            color: "#475569",
-                            fontSize: "1.3rem",
+                            marginTop: ".9rem",
+                            color: "#4C7865",
+                            fontSize: "1.2rem",
                             fontWeight: 600,
-                            letterSpacing: ".15px",
-                            marginBottom: "1.2rem"
+                            letterSpacing: ".02em",
+                            opacity: 0.9,
                         }}
                     >
                         From signup to your first match.
                     </p>
+
                     <div
                         aria-hidden="true"
                         style={{
-                            width: 0,
+                            width: "90px",
                             height: 4,
-                            background: "#14532D",
+                            background: "#4C7865",
                             borderRadius: 999,
-                            marginTop: "1.2rem",
-                            marginBottom: "1.2rem",
-                            opacity: 0.95,
+                            margin: "1.4rem auto 0",
+                            opacity: 0.8,
                         }}
                     />
                 </header>
 
-                <div style={{ display: "grid", rowGap: "3rem" }}>
+                {/* === NEW GRID WITH IMAGES === */}
+                <div
+                    style={{
+                        display: "grid",
+                        gap: "4rem",
+                        width: "min(950px, 90vw)",
+                        margin: "0 auto",
+                    }}
+                >
                     {steps.map((p, idx) => {
                         const alt = idx % 2 === 1;
-                        const bg = alt ? "#EFFDF8" : "#FFFFFF";
+
+                        const bg = alt ? "#F5FAF7" : "#FFFFFF";
+
+                        // example Unsplash images:
+                        const images = [
+                            "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1200&q=80",
+                            "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
+                            "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=1200&q=80",
+                            "https://images.unsplash.com/photo-1604882737206-599d53f4f524?auto=format&fit=crop&w=1200&q=80",
+                            "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
+                        ];
+
                         return (
                             <article
                                 key={p.t}
                                 style={{
                                     display: "grid",
-                                    gridTemplateColumns: "auto 1fr",
-                                    gap: "1.6rem",
-                                    padding: "clamp(20px,2.8vw,32px)",
+                                    gridTemplateColumns: alt
+                                        ? "1fr 180px"
+                                        : "180px 1fr",
+                                    gap: "2rem",
+                                    alignItems: "center",
+                                    padding: "clamp(28px,3vw,40px)",
                                     background: bg,
-                                    borderRadius: "14px",
-                                    boxShadow: "0 6px 16px rgba(2,8,23,0.08)",
-                                    transform: "translateX(0)",
+                                    borderRadius: "26px",
+                                    border: "1px solid rgba(76,120,101,0.18)",
+                                    boxShadow: "0 12px 28px rgba(0,0,0,0.06)",
                                     opacity: 0,
-                                    animation: `stepFadeIn .6s ease forwards ${0.2 + idx * 0.15}s`,
+                                    transform: "translateY(22px)",
+                                    animation: `fadeUp .7s ease forwards ${0.18 + idx * 0.18}s`,
                                 }}
                             >
-                                <div style={{ position: "relative", width: "48px", height: "48px" }}>
+                                {/* === IMAGE BLOCK (left or right depending on idx) === */}
+                                <figure
+                                    style={{
+                                        order: alt ? 2 : 0,
+                                        margin: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        borderRadius: "22px",
+                                        overflow: "hidden",
+                                        border: "1px solid rgba(0,0,0,0.07)",
+                                        boxShadow: "0 8px 22px rgba(0,0,0,0.08)",
+                                    }}
+                                >
+                                    <img
+                                        src={images[idx % images.length]}
+                                        alt=""
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                            objectPosition: "center",
+                                        }}
+                                    />
+                                </figure>
+
+                                {/* === TEXT + BADGE === */}
+                                <div style={{ order: alt ? 1 : 1 }}>
+                                    {/* badge */}
                                     <div
                                         style={{
-                                            position: "absolute",
-                                            top: "0",
-                                            left: "50%",
-                                            transform: "translateX(-50%) translateY(-50%)",
-                                            width: "48px",
-                                            height: "48px",
-                                            borderRadius: "50%",
-                                            background: "#fff",
-                                            border: "2px solid #14532D",
+                                            width: "52px",
+                                            height: "52px",
+                                            borderRadius: "16px",
+                                            background: "#E6F3EC",
+                                            border: "1px solid #B9D9CA",
                                             display: "grid",
                                             placeItems: "center",
                                             fontWeight: 900,
-                                            color: "#14532D",
-                                            fontSize: "1.2rem",
+                                            fontSize: "1.28rem",
+                                            color: "#4C7865",
+                                            marginBottom: "1.2rem",
+                                            boxShadow: "0 4px 10px rgba(76,120,101,0.15)",
                                         }}
                                     >
                                         {idx + 1}
                                     </div>
-                                </div>
 
-                                <div>
+                                    {/* title */}
                                     <h4
                                         style={{
-                                            margin: "0 0 .9rem 0",
-                                            fontSize: "clamp(1.1rem,1.6vw,1.35rem)",
-                                            lineHeight: 1.25,
+                                            margin: "0 0 .6rem",
+                                            fontSize: "clamp(1.25rem,1.9vw,1.55rem)",
                                             fontWeight: 850,
-                                            letterSpacing: ".2px",
                                             color: "#0F172A",
+                                            letterSpacing: "-0.3px",
+                                            lineHeight: 1.3,
                                         }}
                                     >
                                         {p.t}
                                     </h4>
+
+                                    {/* description */}
                                     <p
                                         style={{
                                             margin: 0,
-                                            color: "#334155",
-                                            lineHeight: 1.75,
-                                            fontSize: "clamp(.98rem,1.1vw,1.1rem)",
-                                            maxWidth: "68ch",
+                                            color: "#475569",
+                                            fontSize: "1.08rem",
+                                            lineHeight: 1.7,
+                                            maxWidth: "58ch",
                                         }}
                                     >
                                         {p.d}
@@ -473,39 +523,31 @@ export default function ICareForCaregivers() {
                 </div>
 
                 {/* CTA BUTTON */}
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        marginTop: "3.5rem",
-                    }}
-                >
+                <div style={{ marginTop: "5rem", textAlign: "center" }}>
                     <a
                         href="/register"
                         style={{
                             display: "inline-block",
-                            background: "rgb(76, 120, 101)",
+                            background: "#4C7865",
                             color: "#fff",
-                            fontWeight: 900,
-                            letterSpacing: ".02em",
-                            padding: "1rem 1.8rem",
+                            fontWeight: 800,
+                            padding: "1.1rem 2.2rem",
                             borderRadius: 999,
+                            letterSpacing: ".03em",
+                            fontSize: "1.08rem",
                             textDecoration: "none",
-                            boxShadow: "0 10px 24px rgba(27,171,31,.18)",
-                            border: "1px solid rgba(27,171,31,.4)",
+                            boxShadow: "0 14px 34px rgba(76,120,101,0.25)",
                             transition: "all .25s ease",
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.transform = "translateY(-2px)";
-                            e.currentTarget.style.filter = "brightness(1.05)";
                             e.currentTarget.style.boxShadow =
-                                "0 14px 30px rgba(27,171,31,.28)";
+                                "0 18px 40px rgba(76,120,101,0.32)";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.filter = "none";
                             e.currentTarget.style.boxShadow =
-                                "0 10px 24px rgba(27,171,31,.18)";
+                                "0 14px 34px rgba(76,120,101,0.25)";
                         }}
                     >
                         CREATE YOUR FREE ACCOUNT
@@ -513,169 +555,230 @@ export default function ICareForCaregivers() {
                 </div>
 
                 <style>{`
-    @keyframes stepFadeIn {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      article { animation: none !important; opacity: 1 !important; transform: none !important; }
-    }
-  `}</style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 760px) {
+            article {
+                gridTemplateColumns: 1fr !important;
+            }
+            figure {
+                order: 0 !important;
+                height: 180px !important;
+            }
+        }
+    `}</style>
             </section>
+
 
             {/* === WHO CAN JOIN === */}
             <section
-                aria-label="Who can join"
+                aria-label="Who can join – Luxe Black & White"
                 style={{
-                    margin: "6rem auto 5rem",
+                    margin: "7rem auto 6.5rem",
                     width: "min(1100px, 92vw)",
-                    padding: "clamp(24px, 4vw, 40px)",
-                    borderRadius: 28,
-                    background:
-                        "linear-gradient(180deg, rgba(249,252,249,1) 0%, rgba(243,248,243,1) 100%)",
-                    boxShadow: "0 8px 30px rgba(2,8,23,0.05)",
-                    transition: "all 0.4s ease",
+                    padding: "clamp(40px, 5vw, 60px)",
+                    borderRadius: 36,
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%)",
+                    boxShadow: "0 20px 60px rgba(0,0,0,0.06)",
+                    border: "1px solid rgba(0,0,0,0.10)",
                     fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                 }}
             >
-                <header style={{ textAlign: "left", marginBottom: "2.5rem" }}>
+                {/* HEADER */}
+                <header style={{ marginBottom: "3.8rem" }}>
                     <h2
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            fontSize: "clamp(1.9rem,3vw,2.4rem)",
-                            letterSpacing: ".3px",
-                            lineHeight: 1.2,
-                            color: "#0F172A",
+                            fontSize: "clamp(2.2rem,3vw,2.9rem)",
+                            letterSpacing: "-0.6px",
+                            lineHeight: 1.18,
+                            color: "#111111",
                         }}
                     >
                         Who can join ICare
                     </h2>
+
                     <p
                         style={{
-                            marginTop: ".65rem",
-                            color: "#475569",
-                            fontSize: "1.05rem",
-                            lineHeight: 1.65,
+                            marginTop: "1rem",
+                            color: "#444444",
+                            fontSize: "1.15rem",
+                            lineHeight: 1.75,
                             maxWidth: "60ch",
-                            fontWeight: "600",
+                            fontWeight: 500,
                         }}
                     >
-                        Join our caring community — whether you’re a nurse, companion, or skilled
-                        caregiver looking for flexible work and trusted connections.
+                        Exclusive, trusted and high-standards caregivers.
+                        Minimalist aesthetic — with a touch of soft pastel calmness.
                     </p>
+
                     <div
                         style={{
-                            width: 0,
+                            width: 100,
                             height: 4,
-                            background: "#1FAB1F",
+                            background: "#000",
                             borderRadius: 999,
-                            marginTop: "1.2rem",
-                            opacity: 0.9,
+                            marginTop: "1.4rem",
+                            opacity: 0.95,
                         }}
                     />
                 </header>
 
+                {/* GRID CARDS */}
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "clamp(20px,2.4vw,28px)",
+                        gap: "clamp(28px,2.8vw,36px)",
                     }}
                 >
                     {[
                         {
-                            icon: "👩‍⚕️",
                             t: "Professional caregivers & nurses",
-                            d: "With verifiable experience, empathy and trusted references.",
+                            d: "Verified experience, strong references and excellent communication.",
+                            icon: (
+                                <svg
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="8" r="4" />
+                                    <path d="M6 20v-1a6 6 0 0 1 12 0v1" />
+                                </svg>
+                            ),
                         },
                         {
-                            icon: "⏰",
-                            t: "Live-in & hourly support",
-                            d: "Choose flexible schedules — hourly, daily, or full-time care.",
+                            t: "Live-in & flexible hours",
+                            d: "Premium care with full-time or flexible personalized schedules.",
+                            icon: (
+                                <svg
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                            ),
                         },
                         {
-                            icon: "⭐",
-                            t: "Specialist skills",
-                            d: "Dementia, mobility, palliative or post-surgery care expertise.",
+                            t: "Specialist care expertise",
+                            d: "Top-tier dementia, mobility, post-surgery or long-term recovery support.",
+                            icon: (
+                                <svg
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M12 1v22" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            ),
                         },
                         {
-                            icon: "🌍",
-                            t: "Language & driving",
-                            d: "Multilingual caregivers and licensed drivers are highly valued.",
+                            t: "Languages & driving",
+                            d: "Highly sought after: multilingual caregivers & certified drivers.",
+                            icon: (
+                                <svg
+                                    width="32"
+                                    height="32"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M2 12h20" />
+                                    <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10A15 15 0 0 1 12 2z" />
+                                </svg>
+                            ),
                         },
                     ].map((item, i) => (
                         <article
                             key={item.t}
                             style={{
                                 background: "#FFFFFF",
-                                border: "1px solid rgba(15,23,42,0.08)",
-                                borderRadius: 18,
-                                padding: "28px 24px",
-                                boxShadow: "0 10px 28px rgba(2,8,23,0.06)",
+                                borderRadius: 28,
+                                border: "1px solid rgba(0,0,0,0.14)",
+                                padding: "34px 30px",
+                                boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
                                 display: "grid",
-                                gap: 14,
+                                gap: 18,
                                 alignItems: "start",
                                 transition:
                                     "transform .3s ease, box-shadow .3s ease, border-color .3s ease",
                                 opacity: 0,
-                                transform: "translateY(20px)",
-                                animation: `fadeUp .6s ease forwards ${i * 0.12}s`,
+                                transform: "translateY(26px)",
+                                animation: `fadeUpBW .7s ease forwards ${i * 0.12}s`,
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-4px)";
-                                e.currentTarget.style.boxShadow = "0 16px 40px rgba(31,171,31,0.12)";
-                                e.currentTarget.style.borderColor = "rgba(31,171,31,0.25)";
+                                e.currentTarget.style.transform = "translateY(-6px)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 26px 60px rgba(0,0,0,0.12)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.28)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 10px 28px rgba(2,8,23,0.06)";
-                                e.currentTarget.style.borderColor = "rgba(15,23,42,0.08)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 20px 50px rgba(0,0,0,0.06)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.14)";
                             }}
                         >
+                            {/* ICON WRAPPER — pastel mint */}
                             <div
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 14,
+                                    width: 64,
+                                    height: 64,
+                                    borderRadius: 20,
+                                    background: "#E9F6EF",            // 🍃 pastel mint
+                                    border: "1px solid #C8E7D6",       // pastel edge
+                                    display: "grid",
+                                    placeItems: "center",
+                                    boxShadow: "inset 0 1px 3px rgba(0,0,0,0.06)",
                                 }}
                             >
-                                <div
-                                    aria-hidden="true"
-                                    style={{
-                                        width: 50,
-                                        height: 50,
-                                        borderRadius: 14,
-                                        background: "rgba(31,171,31,0.10)",
-                                        border: "1px solid rgba(31,171,31,0.25)",
-                                        display: "grid",
-                                        placeItems: "center",
-                                        fontSize: "1.7rem",
-                                        boxShadow: "inset 0 2px 4px rgba(31,171,31,0.15)",
-                                    }}
-                                >
-                                    {item.icon}
-                                </div>
-                                <strong
-                                    style={{
-                                        color: "#1F2A37",
-                                        fontSize: "1.1rem",
-                                        fontWeight: 850,
-                                        letterSpacing: ".25px",
-                                        lineHeight: 1.35,
-                                    }}
-                                >
-                                    {item.t}
-                                </strong>
+                                {item.icon}
                             </div>
+
+                            <strong
+                                style={{
+                                    color: "#0A0A0A",
+                                    fontSize: "1.18rem",
+                                    fontWeight: 900,
+                                    letterSpacing: "-0.3px",
+                                }}
+                            >
+                                {item.t}
+                            </strong>
 
                             <p
                                 style={{
                                     margin: 0,
-                                    color: "#334155",
-                                    lineHeight: 1.7,
-                                    fontSize: "1.02rem",
+                                    color: "#292929",
+                                    lineHeight: 1.75,
+                                    fontSize: "1.08rem",
+                                    fontWeight: 500,
                                 }}
                             >
                                 {item.d}
@@ -685,14 +788,18 @@ export default function ICareForCaregivers() {
                 </div>
 
                 <style>{`
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      article { opacity: 1 !important; transform: none !important; animation: none !important; }
-    }
-  `}</style>
+        @keyframes fadeUpBW {
+            from { opacity: 0; transform: translateY(26px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            article {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+        }
+    `}</style>
             </section>
 
 

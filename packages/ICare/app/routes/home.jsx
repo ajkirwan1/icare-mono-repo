@@ -254,79 +254,75 @@ export default function Home() {
 
             <IcareSection
                 style={{
-                    background: "linear-gradient(180deg, #F9FAFA 0%, #FFFFFF 100%)",
-                    padding: "clamp(3rem, 5vw, 4.5rem) clamp(20px, 5vw, 60px)", // 🔹 było 6rem → teraz mniej pionowego paddingu
+                    background: "#FFFFFF",
+                    padding: "clamp(3rem, 5vw, 4.5rem)",
+                    marginTop: "14rem",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    marginTop: "16rem", // 🔹 było 18rem — mniej powietrza nad sekcją
-                    transform: "scale(0.87)", // 🔹 zmniejszenie całej sekcji o ~13%
-                    transformOrigin: "top center",
                 }}
             >
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "1fr max(400px,40%)",
-                        gap: "clamp(1.8rem, 2.5vw, 3rem)", // 🔹 nieco ciaśniejszy gap
+                        gridTemplateColumns: "1fr max(420px,40%)",
+                        gap: "clamp(2rem, 3vw, 3.5rem)",
                         alignItems: "center",
-                        maxWidth: 1150, // 🔹 było 1200 — delikatnie mniejsza szerokość
+                        maxWidth: 1150,
                         margin: "0 auto",
                     }}
                 >
-                    {/* === LEWA STRONA – TEKST === */}
+                    {/* = LEFT TEXT ===================================================== */}
                     <div style={{ textAlign: "left" }}>
                         <h2
                             style={{
                                 fontWeight: 800,
-                                fontSize: "clamp(2.2rem, 3.5vw, 2.4rem)", // 🔹 lekko zmniejszony tytuł
-                                color: "#0F172A",
+                                fontSize: "clamp(2rem, 3.2vw, 2.35rem)",
                                 lineHeight: 1.12,
-                                marginBottom: "2.2rem",
-                                marginTop: "2.2rem",
+                                color: "#1A1A1A",
+                                marginBottom: "1.6rem",
+                                letterSpacing: "-0.2px",
                             }}
                         >
-                            Direct care meets trust.
+                            Care that feels personal.
                             <br />
-                            <span style={{ color: "#4C7865" }}>
-                                Real connection. Real people.
-                            </span>
+                            <span style={{ color: "#AD7A66" }}>Made for real life.</span>
                         </h2>
 
                         <p
                             style={{
                                 maxWidth: "58ch",
-                                color: "#374151",
-                                fontSize: "1.05rem", // 🔹 mniejszy font
+                                color: "#4A4A4A",
+                                fontSize: "1.05rem",
                                 lineHeight: 1.65,
-                                marginTop: "1.2rem",
+                                marginTop: "0.8rem",
                                 marginBottom: "1.8rem",
                                 fontWeight: 500,
                             }}
                         >
-                            With ICare, families and caregivers connect directly — no middlemen,
-                            straight to the heart of what matters: care built on honesty, clarity,
-                            and respect.
+                            ICare makes it simple to connect with trustworthy caregivers who match your
+                            family’s values. A process that feels natural, calm, and human — just like care
+                            should be.
                         </p>
-
-
                     </div>
 
-                    {/* === PRAWA STRONA – KAFELKI === */}
+                    {/* = RIGHT SIDE – 3 MINI AIRBNB CARDS ============================== */}
                     <div
                         style={{
                             display: "grid",
-                            gap: "clamp(0.6rem, 0.8vw, 0.80rem)", // 🔹 kafelki bliżej siebie
+                            gap: "clamp(1rem, 1.3vw, 1.4rem)",
                         }}
                     >
                         {[
                             {
+                                iconBg: "#F5EFE9",
+                                iconColor: "#A6725A",
                                 icon: (
                                     <svg
                                         width="22"
                                         height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
-                                        stroke="#1F2A37"
+                                        stroke="#A6725A"
                                         strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -335,17 +331,19 @@ export default function Home() {
                                         <path d="M9 12l2 2 4-4" />
                                     </svg>
                                 ),
-                                title: "Fair & Transparent",
-                                desc: "No extra commissions, clear rates, direct match.",
+                                title: "Verified & trusted",
+                                desc: "Profiles include essential checks, experience and references.",
                             },
                             {
+                                iconBg: "#F2F5F8",
+                                iconColor: "#6B7C93",
                                 icon: (
                                     <svg
                                         width="22"
                                         height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
-                                        stroke="#1F2A37"
+                                        stroke="#6B7C93"
                                         strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -354,17 +352,19 @@ export default function Home() {
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                     </svg>
                                 ),
-                                title: "Private & Secure",
-                                desc: "Confidential chats, encrypted data, safe payments.",
+                                title: "Secure & private",
+                                desc: "Confidential communication and safe data — built for families.",
                             },
                             {
+                                iconBg: "#F7F2FF",
+                                iconColor: "#7E69B6",
                                 icon: (
                                     <svg
                                         width="22"
                                         height="22"
                                         viewBox="0 0 24 24"
                                         fill="none"
-                                        stroke="#1F2A37"
+                                        stroke="#7E69B6"
                                         strokeWidth="2"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -372,8 +372,8 @@ export default function Home() {
                                         <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h7" />
                                     </svg>
                                 ),
-                                title: "Genuine Connections",
-                                desc: "You pick your caregiver. You decide your terms. Real people, real care.",
+                                title: "Warm human connection",
+                                desc: "Choose a caregiver who genuinely fits your rhythm and lifestyle.",
                             },
                         ].map((item, i) => (
                             <div
@@ -382,43 +382,49 @@ export default function Home() {
                                     display: "flex",
                                     alignItems: "flex-start",
                                     gap: "1rem",
-                                    background: "#e6ddc519",
-                                    borderRadius: 22, // 🔹 lekko mniejsze zaokrąglenie
-                                    padding: "1.2rem",
-                                    color: "#1F2A37",
-                                    border: "1px solid rgba(31,171,31,0.16)",
-                                    boxShadow: "0 4px 14px rgba(2,8,23,0.05)",
-                                    transition: "transform .25s ease, box-shadow .25s ease",
+                                    background: "#FFFFFF",
+                                    borderRadius: 20,
+                                    padding: "1.35rem 1.4rem",
+                                    border: "1px solid rgba(0,0,0,0.05)",
+                                    boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+                                    transition:
+                                        "transform .22s ease, box-shadow .25s ease, border-color .25s ease",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform = "translateY(-3px)";
-                                    e.currentTarget.style.boxShadow = "0 8px 20px rgba(2,8,23,0.10)";
+                                    e.currentTarget.style.boxShadow =
+                                        "0 10px 24px rgba(0,0,0,0.08)";
+                                    e.currentTarget.style.borderColor = "rgba(0,0,0,0.08)";
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.boxShadow = "0 4px 14px rgba(2,8,23,0.05)";
+                                    e.currentTarget.style.boxShadow =
+                                        "0 4px 16px rgba(0,0,0,0.04)";
+                                    e.currentTarget.style.borderColor =
+                                        "rgba(0,0,0,0.05)";
                                 }}
                             >
                                 <div
                                     style={{
-                                        minWidth: 44,
-                                        minHeight: 44,
+                                        minWidth: 46,
+                                        minHeight: 46,
                                         borderRadius: "50%",
-                                        background: "rgba(31,171,31,0.08)",
+                                        background: item.iconBg,
                                         display: "grid",
                                         placeItems: "center",
-                                        flexShrink: 0,
+                                        color: item.iconColor,
                                     }}
                                 >
                                     {item.icon}
                                 </div>
+
                                 <div>
                                     <h3
                                         style={{
-                                            margin: "0 0 .3rem 0",
-                                            fontSize: "1rem",
+                                            margin: "0 0 .35rem 0",
+                                            fontSize: "1.05rem",
                                             fontWeight: 700,
-                                            color: "#1F2A37",
+                                            color: "#1A1A1A",
                                         }}
                                     >
                                         {item.title}
@@ -426,8 +432,8 @@ export default function Home() {
                                     <p
                                         style={{
                                             margin: 0,
-                                            fontSize: "0.9rem",
-                                            color: "#475569",
+                                            fontSize: "0.92rem",
+                                            color: "#4A4A4A",
                                             lineHeight: 1.55,
                                         }}
                                     >
@@ -439,6 +445,7 @@ export default function Home() {
                     </div>
                 </div>
             </IcareSection>
+
 
 
 
@@ -611,8 +618,8 @@ export default function Home() {
                         marginLeft: "calc(50% - 50vw)",
                         marginRight: "calc(50% - 50vw)",
                         width: "100vw",
-                        background: "linear-gradient(180deg, #FAFCFB 0%, #FFFFFF 80%)",
-                        padding: "72px 0 80px",
+                        background: "linear-gradient(180deg, #FBFAF8 0%, #FFFFFF 80%)",
+                        padding: "84px 0 88px",
                         fontFamily:
                             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     }}
@@ -627,59 +634,52 @@ export default function Home() {
                         <div
                             style={{
                                 display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(520px, 1fr))",
-                                gap: 36,
+                                gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
+                                gap: 40,
                                 alignItems: "stretch",
                             }}
                         >
                             {[
                                 {
                                     k: "Trust",
-                                    desc: "Transparent process - no hidden fees.",
+                                    desc: "Clear process, honest pricing, no surprises.",
                                     img: cardImage2,
+                                    iconBg: "#F5EFE9",
+                                    iconColor: "#A6725A",
                                     icon: (
                                         <svg
                                             viewBox="0 0 24 24"
-                                            aria-hidden="true"
-                                            style={{ width: "3em", height: "3em", flexShrink: 0 }}
+                                            width="38"
+                                            height="38"
+                                            stroke="#A6725A"
+                                            fill="none"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         >
-                                            <path
-                                                d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"
-                                                fill="none"
-                                                stroke="#1FAB1F"
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
-                                            <path
-                                                d="M9 12l2.2 2.2L15 10.5"
-                                                fill="none"
-                                                stroke="#1FAB1F"
-                                                strokeWidth="1.5"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
+                                            <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" />
+                                            <path d="M9 12l2 2 4-4" />
                                         </svg>
                                     ),
                                 },
                                 {
                                     k: "Care",
-                                    desc: "From daily support to live - in care",
+                                    desc: "From companionship to full live-in support.",
                                     img: cardImage7,
+                                    iconBg: "#F2F5F8",
+                                    iconColor: "#6B7C93",
                                     icon: (
                                         <svg
                                             viewBox="0 0 24 24"
-                                            aria-hidden="true"
-                                            style={{ width: "3em", height: "3em", flexShrink: 0 }}
+                                            width="38"
+                                            height="38"
+                                            stroke="#6B7C93"
+                                            fill="none"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         >
-                                            <path
-                                                d="M12 6.8l-.9-.9a3 3 0 0 0-4.2 4.2L12 15l5.1-4.9a3 3 0 0 0-4.2-4.2L12 6.8z"
-                                                fill="none"
-                                                stroke="#1FAB1F"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
+                                            <path d="M12 6.8l-.9-.9a3 3 0 0 0-4.2 4.2L12 15l5.1-4.9a3 3 0 0 0-4.2-4.2L12 6.8z" />
                                         </svg>
                                     ),
                                 },
@@ -687,49 +687,72 @@ export default function Home() {
                                 <article
                                     key={c.k}
                                     style={{
-                                        borderRadius: 32,
+                                        borderRadius: 28,
                                         background: "#FFFFFF",
-                                        boxShadow: "0 6px 18px rgba(0,0,0,0.04)",
+                                        boxShadow: "0 8px 24px rgba(0,0,0,0.05)",
                                         overflow: "hidden",
+                                        border: "1px solid rgba(0,0,0,0.06)",
 
                                         display: "flex",
                                         flexDirection: "column",
+                                        transition: "transform .28s ease, box-shadow .28s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = "translateY(-6px)";
+                                        e.currentTarget.style.boxShadow =
+                                            "0 16px 32px rgba(0,0,0,0.08)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.boxShadow =
+                                            "0 8px 24px rgba(0,0,0,0.05)";
                                     }}
                                 >
                                     {/* HEADER */}
-                                    <div style={{ padding: "32px 28px 0" }}>
-                                        <header
+                                    <div style={{ padding: "32px 32px 0" }}>
+                                        <div
                                             style={{
                                                 display: "flex",
                                                 alignItems: "center",
-                                                gap: 12,
-                                                marginBottom: "0.8rem",
+                                                gap: 16,
+                                                marginBottom: "1.2rem",
                                             }}
                                         >
-                                            {c.icon}
+                                            <div
+                                                style={{
+                                                    width: 58,
+                                                    height: 58,
+                                                    borderRadius: "50%",
+                                                    background: c.iconBg,
+                                                    display: "grid",
+                                                    placeItems: "center",
+                                                }}
+                                            >
+                                                {c.icon}
+                                            </div>
+
                                             <h3
                                                 style={{
                                                     margin: 0,
-                                                    fontSize: "clamp(1.55rem, 3vw, 2rem)",
+                                                    fontSize: "clamp(1.6rem, 3vw, 2.15rem)",
                                                     lineHeight: 1.15,
                                                     fontWeight: 800,
-                                                    letterSpacing: "0.6px",
-                                                    color: "#1FAB1F",
+                                                    color: c.iconColor,
+                                                    letterSpacing: "0.3px",
                                                 }}
                                             >
                                                 {c.k}
                                             </h3>
-                                        </header>
+                                        </div>
 
-                                        {/* === POWIĘKSZONY TYTUŁ === */}
                                         <p
                                             style={{
-                                                margin: "0 0 1.8rem",
-                                                color: "#1F2A37",
-                                                fontSize: "clamp(1.25rem, 1.5vw, 1.2rem)", // ⬆️ +15%
+                                                margin: "0 0 2.2rem",
+                                                color: "#2A2A2A",
+                                                fontSize: "1.15rem",
                                                 fontWeight: 600,
                                                 lineHeight: 1.55,
-                                                letterSpacing: "0.3px",
+                                                maxWidth: "45ch",
                                             }}
                                         >
                                             {c.desc}
@@ -743,23 +766,20 @@ export default function Home() {
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "center",
-                                            background: "#F9FAFA",
-
-                                            borderRadius: "0 0 32px 32px",
-                                            height: "380px", // ✅ równa wysokość
+                                            background: "#F8F7F5",
+                                            height: "380px",
+                                            padding: 20,
                                         }}
                                     >
                                         <img
                                             src={c.img}
                                             alt={c.k}
                                             style={{
-                                                width: "95%",
-                                                height: "95%",
+                                                width: "100%",
+                                                height: "100%",
                                                 objectFit: "cover",
-                                                display: "block",
-                                                borderRadius: 24,
-                                                outline: "1.5px solid #E5E7EB",
-
+                                                borderRadius: 22,
+                                                outline: "1.5px solid rgba(0,0,0,0.06)",
                                             }}
                                         />
                                     </div>
@@ -769,6 +789,7 @@ export default function Home() {
                     </div>
                 </section>
             </IcareSection>
+
 
             <IcareSection>
                 <div
