@@ -212,21 +212,22 @@ export default function ICareForCaregivers() {
                         <span
                             style={{
                                 display: "inline-block",
-                                marginBottom: "1.2rem",
-                                fontSize: "0.88rem",
+                                marginBottom: "1.4rem", // większy odstęp
+                                fontSize: "1.01rem", // +15%
                                 fontWeight: 800,
-                                letterSpacing: ".12em",
+                                letterSpacing: ".13em",
                                 textTransform: "uppercase",
                                 color: "#EAF7EA",
-                                padding: ".48rem .9rem",
+                                padding: ".55rem 1.05rem", // większy padding
                                 borderRadius: 999,
-                                background: "rgba(31,171,31,0.20)",
-                                border: "2px solid rgba(31,171,31,0.45)",
-                                textShadow: "0 1px 2px rgba(0,0,0,.25)",
+                                background: "rgba(31,171,31,0.22)", // lekko mocniejszy zielony
+                                border: "2.3px solid rgba(31,171,31,0.5)", // delikatnie grubszy
+                                textShadow: "0 1px 3px rgba(0,0,0,.28)", // nieco mocniejszy cień
                             }}
                         >
                             Direct  Fair  Transparent
                         </span>
+
 
                         <h1
                             style={{
@@ -239,7 +240,7 @@ export default function ICareForCaregivers() {
                                 textShadow: "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
                             }}
                         >
-                            ICare for <span style={{ color: BRAND }}>Caregivers</span>
+                            <span> ICare for Caregivers</span>
                         </h1>
 
                         <p
@@ -331,7 +332,7 @@ export default function ICareForCaregivers() {
                                     fontWeight: 700,
                                     letterSpacing: ".4px",
                                     borderRadius: 999,
-                                    background: BRAND,
+                                    background: "rgb(76, 120, 101)",
                                     color: "#ffffff",
                                     boxShadow: "0 12px 28px rgba(2,8,23,.18)",
                                     textDecoration: "none",
@@ -348,532 +349,440 @@ export default function ICareForCaregivers() {
 
             {/* === CAREGIVER INTRO — bez zielonej kreski, spójna kolorystyka === */}
             <section
-                aria-label="Caregiver intro"
-                style={{
-                    width: "min(1100px,92vw)",
-                    margin: "4rem auto 3rem",
-                    padding: "0 clamp(16px,4vw,32px)",
-                }}
-            >
-                <h2
-                    style={{
-                        margin: "0 0 .75rem 0",
-                        fontWeight: 900,
-                        fontSize: "clamp(1.8rem,3vw,2.3rem)",
-                        letterSpacing: ".3px",
-                        lineHeight: 1.2,
-                        color: NEUTRAL,
-                    }}
-                >
-                    How it works for caregivers
-                </h2>
-
-                <p
-                    style={{
-                        margin: "0 0 .6rem 0",
-                        maxWidth: "62ch",
-                        lineHeight: 1.7,
-                        fontSize: "1.05rem",
-                        color: "#475569",
-                    }}
-                >
-                    Choose when and how you work — connect directly with families who value your care,
-                    agree on transparent terms, and manage your schedule in one place.
-                </p>
-
-                <p
-                    style={{
-                        margin: 0,
-                        fontWeight: 700,
-                        color: BRAND, // delikatny akcent tylko w tekście
-                        letterSpacing: ".2px",
-                    }}
-                >
-                    No middlemen. No confusion. Just clarity and respect.
-                </p>
-            </section>
-
-            {/* === GET STARTED (ulepszone, airy + reveal) === */}
-            <section
                 id="caregiver-steps"
                 aria-label="Caregiver steps"
                 style={{
-                    margin: "3.5rem auto 4rem",
+                    margin: "4.5rem auto",                    // MNIEJ miejsca u góry i dołu
                     width: "min(1100px, 92vw)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    paddingInline: "1.4rem",                 // węższe marginesy
                 }}
             >
-                <header style={{ marginBottom: "1.2rem" }}>
+                {/* HEADER */}
+                <header style={{ textAlign: "center", marginBottom: "3rem" }}>
                     <h3
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            letterSpacing: ".2px",
-                            fontSize: "clamp(1.25rem, 2.2vw, 1.5rem)",
+                            letterSpacing: "-0.5px",
+                            fontSize: "clamp(1.8rem,2.6vw,2.4rem)", // MNIEJSZY tytuł
+                            color: "#0F172A",
+                            lineHeight: 1.15,
                         }}
                     >
                         Get started in 5 clear steps
                     </h3>
+
+                    <p
+                        style={{
+                            marginTop: ".7rem",
+                            color: "#4C7865",
+                            fontSize: "1.08rem",            // MNIEJSZY subtitle
+                            fontWeight: 600,
+                            letterSpacing: ".02em",
+                            opacity: 0.9,
+                        }}
+                    >
+                        From signup to your first match.
+                    </p>
+
                     <div
                         aria-hidden="true"
                         style={{
-                            width: 220,
+                            width: "70px",                   // CIENIEJSZA linia
                             height: 3,
-                            background: BRAND,
+                            background: "#4C7865",
                             borderRadius: 999,
-                            marginTop: ".6rem",
-                            opacity: 0.85,
+                            margin: "1.1rem auto 0",
+                            opacity: 0.8,
                         }}
                     />
                 </header>
 
+                {/* === NEW COMPACT GRID === */}
                 <div
                     style={{
-                        borderRadius: 20,
-                        overflow: "hidden",
-                        border: `1px solid ${BORDER}`,
-                        background:
-                            "linear-gradient(180deg, rgba(27,171,31,0.03) 0%, rgba(27,171,31,0.00) 40%)",
-                        boxShadow: "0 12px 30px rgba(2,8,23,0.06)",
+                        display: "grid",
+                        gap: "2.8rem",                     // MNIEJSZA przerwa między kartami
+                        width: "min(860px, 90vw)",         // WĘŻSZA cała sekcja
+                        margin: "0 auto",
                     }}
                 >
-                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
-
                     {steps.map((p, idx) => {
                         const alt = idx % 2 === 1;
-                        const bg = alt ? SUBTLE : "#FFFFFF";
+
+                        const bg = alt ? "#F5FAF7" : "#FFFFFF";
+
+                        const images = [
+                            "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1604882737206-599d53f4f524?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=900&q=80",
+                        ];
+
                         return (
                             <article
                                 key={p.t}
-                                ref={(el) => (stepRefs.current[idx] = el)}
-                                className="reveal"
                                 style={{
+                                    display: "grid",
+                                    gridTemplateColumns: alt ? "1fr 150px" : "150px 1fr", // MNIEJSZE zdjęcia
+                                    gap: "1.6rem",                                         // MNIEJSZY krok
+                                    alignItems: "center",
+                                    padding: "clamp(20px,2.4vw,30px)",                    // MNIEJ paddingu
                                     background: bg,
-                                    padding: "clamp(22px, 2.6vw, 28px) clamp(18px, 3vw, 32px)",
-                                    borderTop: idx === 0 ? "none" : `1px solid ${BORDER}`,
+                                    borderRadius: "22px",
+                                    border: "1px solid rgba(76,120,101,0.18)",
+                                    boxShadow: "0 10px 22px rgba(0,0,0,0.05)",            // ciut lżejszy cień
+                                    opacity: 0,
+                                    transform: "translateY(18px)",
+                                    animation: `fadeUp .7s ease forwards ${0.15 + idx * 0.16}s`,
                                 }}
                             >
-                                <div
+                                {/* IMAGE */}
+                                <figure
                                     style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "48px 1fr",
-                                        alignItems: "start",
-                                        gap: "16px clamp(14px, 2vw, 18px)",
+                                        order: alt ? 2 : 0,
+                                        margin: 0,
+                                        width: "100%",
+                                        height: "150px",              // ⬅️ KLUCZOWA zmiana: niższe zdjęcia
+                                        borderRadius: "18px",
+                                        overflow: "hidden",
+                                        border: "1px solid rgba(0,0,0,0.06)",
+                                        boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                                     }}
                                 >
-                                    <div
-                                        aria-hidden="true"
+                                    <img
+                                        src={images[idx % images.length]}
+                                        alt=""
                                         style={{
-                                            position: "relative",
-                                            width: 42,
-                                            height: 42,
-                                            borderRadius: "50%",
-                                            background: "#fff",
-                                            border: `1px solid ${BORDER}`,
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                            objectPosition: "center",
+                                        }}
+                                    />
+                                </figure>
+
+                                {/* TEXT */}
+                                <div style={{ order: alt ? 1 : 1 }}>
+                                    <div
+                                        style={{
+                                            width: "44px",               // MNIEJSZY badge
+                                            height: "44px",
+                                            borderRadius: "14px",
+                                            background: "#E6F3EC",
+                                            border: "1px solid #B9D9CA",
                                             display: "grid",
                                             placeItems: "center",
                                             fontWeight: 900,
-                                            color: NEUTRAL,
-                                            boxShadow: "0 2px 6px rgba(2,8,23,.05)",
+                                            fontSize: "1.15rem",
+                                            color: "#4C7865",
+                                            marginBottom: "1rem",
+                                            boxShadow: "0 4px 10px rgba(76,120,101,0.12)",
                                         }}
                                     >
                                         {idx + 1}
-                                        <span
-                                            style={{
-                                                position: "absolute",
-                                                inset: -4,
-                                                borderRadius: "50%",
-                                                border: `2px solid ${BRAND}`,
-                                                opacity: 0.12,
-                                            }}
-                                        />
                                     </div>
 
-                                    <div>
-                                        <h4
-                                            style={{
-                                                margin: 0,
-                                                fontSize: "clamp(1.06rem, 1.55vw, 1.2rem)",
-                                                lineHeight: 1.22,
-                                                fontWeight: 850,
-                                                letterSpacing: ".2px",
-                                                color: "#1F2A37",
-                                            }}
-                                        >
-                                            {p.t}
-                                        </h4>
-                                        <p
-                                            style={{
-                                                margin: "8px 0 0",
-                                                color: "#334155",
-                                                lineHeight: 1.75,
-                                                fontSize: "clamp(.98rem, 1.05vw, 1.06rem)",
-                                                maxWidth: "70ch",
-                                            }}
-                                        >
-                                            {p.d}
-                                        </p>
-                                    </div>
+                                    <h4
+                                        style={{
+                                            margin: "0 0 .45rem",
+                                            fontSize: "clamp(1.15rem,1.7vw,1.4rem)",
+                                            fontWeight: 850,
+                                            color: "#0F172A",
+                                            letterSpacing: "-0.25px",
+                                            lineHeight: 1.25,
+                                        }}
+                                    >
+                                        {p.t}
+                                    </h4>
+
+                                    <p
+                                        style={{
+                                            margin: 0,
+                                            color: "#475569",
+                                            fontSize: "1rem",
+                                            lineHeight: 1.55,
+                                            maxWidth: "54ch",
+                                        }}
+                                    >
+                                        {p.d}
+                                    </p>
                                 </div>
                             </article>
                         );
                     })}
-
-                    <div style={{ padding: "6px 0" }} aria-hidden="true" />
                 </div>
 
-                <div
-                    style={{
-                        display: "flex",
-                        gap: 12,
-                        alignItems: "center",
-                        marginTop: 18,
-                        flexWrap: "wrap",
-                    }}
-                >
-                    <Link
-                        to="/register"
+                {/* CTA BUTTON */}
+                <div style={{ marginTop: "3.6rem", textAlign: "center" }}>
+                    <a
+                        href="/register"
                         style={{
-                            appearance: "none",
-                            border: "none",
-                            borderRadius: 999,
-                            background: BRAND,
+                            display: "inline-block",
+                            background: "#4C7865",
                             color: "#fff",
-                            padding: "12px 16px",
-                            fontWeight: 900,
-                            letterSpacing: ".02em",
+                            fontWeight: 800,
+                            padding: "0.95rem 2rem",       // MNIEJSZY button
+                            borderRadius: 999,
+                            letterSpacing: ".03em",
+                            fontSize: "1.05rem",
                             textDecoration: "none",
-                            boxShadow: "0 10px 24px rgba(27,171,31,.18)",
-                            transition: "transform .15s ease, filter .15s ease",
+                            boxShadow: "0 12px 32px rgba(76,120,101,0.22)",
+                            transition: "all .25s ease",
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                            e.currentTarget.style.filter = "saturate(1.06)";
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow =
+                                "0 16px 38px rgba(76,120,101,0.30)";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.filter = "none";
+                            e.currentTarget.style.boxShadow =
+                                "0 12px 32px rgba(76,120,101,0.22)";
                         }}
                     >
-                        REGISTER TODAY
-                    </Link>
-
-                    <Link
-                        to="/terms"
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: 8,
-                            padding: "12px 14px",
-                            borderRadius: 999,
-                            border: `1px solid ${BORDER}`,
-                            color: NEUTRAL,
-                            background: "#fff",
-                            textDecoration: "none",
-                            fontWeight: 800,
-                        }}
-                    >
-                        Terms &amp; conditions
-                        <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke={NEUTRAL}
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            aria-hidden="true"
-                        >
-                            <path d="M5 12h14" />
-                            <path d="M13 5l7 7-7 7" />
-                        </svg>
-                    </Link>
+                        CREATE YOUR FREE ACCOUNT
+                    </a>
                 </div>
 
-                {/* local styles for scroll reveal */}
                 <style>{`
-          @keyframes revealUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-          .reveal { opacity: 0; transform: translateY(16px); will-change: transform, opacity; }
-          .reveal--in { animation: revealUp .48s ease forwards; }
-          @media (prefers-reduced-motion: reduce) {
-            .reveal, .reveal--in { opacity: 1 !important; transform: none !important; animation: none !important; }
-          }
-        `}</style>
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 760px) {
+        article {
+            grid-template-columns: 1fr !important;
+        }
+        figure {
+            height: 130px !important;
+        }
+    }
+`}</style>
             </section>
 
             {/* === WHO CAN JOIN === */}
-            <section aria-label="Who can join" style={{ ...container, margin: "3.5rem auto" }}>
-                <h2 style={sectionTitle}>Who can join ICare</h2>
-                <div
-                    style={{
-                        width: 280,
-                        maxWidth: "80%",
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: ".75rem 0 1.5rem 0",
-                        opacity: 0.95,
-                    }}
-                />
+            <section
+                aria-label="Who can join – Luxe Black & White"
+                style={{
+                    margin: "5rem auto 5rem",                             // ⬅️ MNIEJ pionu
+                    width: "min(1100px, 92vw)",
+                    padding: "clamp(32px, 4vw, 48px)",                    // ⬅️ MNIEJ paddingu
+                    borderRadius: 32,
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)",
+                    boxShadow: "0 12px 36px rgba(0,0,0,0.04)",            // subtelniej
+                    border: "1px solid rgba(0,0,0,0.08)",
+                    fontFamily:
+                        'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+                }}
+            >
+                {/* HEADER */}
+                <header style={{ marginBottom: "2.6rem" }}>                {/* ⬅️ mniej miejsca */}
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            fontSize: "clamp(1.9rem,2.6vw,2.5rem)",       // ⬅️ mniejsze
+                            letterSpacing: "-0.5px",
+                            lineHeight: 1.18,
+                            color: "#111",
+                        }}
+                    >
+                        Who can join ICare
+                    </h2>
+
+                    <p
+                        style={{
+                            marginTop: "0.7rem",
+                            color: "#444",
+                            fontSize: "1.05rem",                           // ⬅️ mniejsze, premium
+                            lineHeight: 1.65,
+                            maxWidth: "58ch",
+                            fontWeight: 500,
+                        }}
+                    >
+                        Verified, trusted caregivers with real experience and a human approach.
+                    </p>
+
+                    <div
+                        style={{
+                            width: 80,                                     // ⬅️ krótsza linia
+                            height: 3,
+                            background: "#000",
+                            borderRadius: 999,
+                            marginTop: "1rem",
+                            opacity: 0.9,
+                        }}
+                    />
+                </header>
+
+                {/* CARDS */}
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "clamp(14px,2.2vw,20px)",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                        gap: "clamp(22px,2vw,30px)",                       // ⬅️ ciaśniej
                     }}
                 >
                     {[
-                        { t: "Professional caregivers & nurses", d: "With verifiable experience and references." },
-                        { t: "Live-in & hourly support", d: "Flexible availability and clear hourly or daily rates." },
-                        { t: "Specialist skills", d: "Dementia, mobility support, post-surgery care, and more." },
-                        { t: "Language & driving", d: "Extra plus for multilingual caregivers and drivers." },
-                    ].map((item) => (
+                        {
+                            t: "Professional caregivers & nurses",
+                            d: "Verified experience, strong references and excellent communication.",
+                            icon: (
+                                <svg
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="1.6"                      // ⬅️ smuklej
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="8" r="4" />
+                                    <path d="M6 20v-1a6 6 0 0 1 12 0v1" />
+                                </svg>
+                            ),
+                        },
+                        {
+                            t: "Live-in & flexible hours",
+                            d: "Full-time, flexible schedules or live-in support tailored to each family.",
+                            icon: (
+                                <svg
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="1.6"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
+                                </svg>
+                            ),
+                        },
+                        {
+                            t: "Specialist care expertise",
+                            d: "Dementia care, mobility support or post-surgery recovery.",
+                            icon: (
+                                <svg
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="1.6"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <path d="M12 1v22" />
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6" />
+                                </svg>
+                            ),
+                        },
+                        {
+                            t: "Languages & driving",
+                            d: "Multilingual caregivers and certified drivers highly valued.",
+                            icon: (
+                                <svg
+                                    width="28"
+                                    height="28"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#111"
+                                    strokeWidth="1.6"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <path d="M2 12h20" />
+                                    <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10A15 15 0 0 1 12 2z" />
+                                </svg>
+                            ),
+                        },
+                    ].map((item, i) => (
                         <article
                             key={item.t}
                             style={{
                                 background: "#FFFFFF",
-                                border: "1px solid rgba(15,23,42,0.08)",
-                                borderRadius: 16,
-                                padding: "18px 18px",
-                                boxShadow: "0 8px 22px rgba(2,8,23,.06)",
+                                borderRadius: 24,
+                                border: "1px solid rgba(0,0,0,0.10)",
+                                padding: "26px 24px",                        // ⬅️ MNIEJSZE
+                                boxShadow: "0 14px 32px rgba(0,0,0,0.05)",
                                 display: "grid",
-                                gap: 8,
-                            }}
-                        >
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                <span
-                                    aria-hidden="true"
-                                    style={{
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 10,
-                                        background: "rgba(31,171,31,.10)",
-                                        border: "1px solid rgba(31,171,31,.25)",
-                                        display: "grid",
-                                        placeItems: "center",
-                                    }}
-                                >
-                                    <svg
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke={BRAND}
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                </span>
-                                <strong style={{ color: "#1f2a37", fontSize: "1.02rem", letterSpacing: ".2px" }}>
-                                    {item.t}
-                                </strong>
-                            </div>
-                            <p style={{ margin: 0, color: "#334155", lineHeight: 1.6 }}>{item.d}</p>
-                        </article>
-                    ))}
-                </div>
-            </section>
-
-            <section aria-label="Success stories" style={{ ...container, margin: "0 auto 3.75rem" }}>
-                <h2 style={sectionTitle}>Success stories</h2>
-
-                <div
-                    style={{
-                        width: 240,
-                        maxWidth: "80%",
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: ".75rem 0 1.5rem 0",
-                        opacity: 0.95,
-                    }}
-                />
-
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-                        gap: "clamp(16px,2.4vw,24px)",
-                    }}
-                >
-                    {[
-                        {
-                            img: "/images/people/anna.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "I matched in 3 days and kept a higher rate than via agency.",
-                            a: "Simple chat, clear terms, e-signed agreement — everything in one place.",
-                            n: "Anna • Live-in caregiver",
-                        },
-                        {
-                            img: "/images/people/marta.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "Finally, transparent profiles and contracts.",
-                            a: "Family felt safe; I felt respected. We set the schedule together.",
-                            n: "Marta • Dementia care",
-                        },
-                        {
-                            img: "/images/people/kasia.jpg", // <- PODMIEŃ NA SWÓJ PLIK
-                            q: "No monthly fee — I only pay when I earn.",
-                            a: "That’s fair. More money stays with me.",
-                            n: "Kasia • Hourly support",
-                        },
-                    ].map((t, idx) => (
-                        <figure
-                            key={t.q}
-                            style={{
-                                margin: 0,
-                                borderRadius: 18,
-                                overflow: "hidden",
-                                border: "1px solid rgba(15,23,42,0.10)",
-                                background: "#fff",
-                                boxShadow: "0 12px 28px rgba(2,8,23,0.06)",
-                                transition: "transform .28s ease, box-shadow .28s ease, border-color .28s ease",
-                                cursor: "default",
+                                gap: 14,                                      // ⬅️ ciaśniej
+                                transition:
+                                    "transform .28s ease, box-shadow .28s ease, border-color .28s ease",
+                                opacity: 0,
+                                transform: "translateY(20px)",
+                                animation: `fadeUpBW .7s ease forwards ${i * 0.10}s`,
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-4px)";
-                                e.currentTarget.style.boxShadow = "0 16px 36px rgba(2,8,23,0.10)";
-                                e.currentTarget.style.borderColor = "rgba(31,171,31,0.25)";
+                                e.currentTarget.style.transform = "translateY(-5px)";
+                                e.currentTarget.style.boxShadow = "0 18px 42px rgba(0,0,0,0.10)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.20)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow = "0 12px 28px rgba(2,8,23,0.06)";
-                                e.currentTarget.style.borderColor = "rgba(15,23,42,0.10)";
+                                e.currentTarget.style.boxShadow = "0 14px 32px rgba(0,0,0,0.05)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.10)";
                             }}
-                            className="story-card"
                         >
-                            {/* DUŻE ZDJĘCIE */}
+                            {/* ICON */}
                             <div
                                 style={{
-                                    position: "relative",
-                                    width: "100%",
-                                    aspectRatio: "4 / 3", // duże proporcje
-                                    background: "linear-gradient(135deg, #E2E8F0 0%, #F8FAFC 100%)",
+                                    width: 58,
+                                    height: 58,
+                                    borderRadius: 18,
+                                    background: "#E6F4EF",                    // ⬅️ pastel mint (bardziej premium)
+                                    border: "1px solid #C9E4D9",
+                                    display: "grid",
+                                    placeItems: "center",
+                                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
                                 }}
                             >
-                                <img
-                                    src={t.img}
-                                    alt={t.n}
-                                    loading="lazy"
-                                    style={{
-                                        position: "absolute",
-                                        inset: 0,
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "cover",
-                                        objectPosition: "center",
-                                        transform: "scale(1)",
-                                        transition: "transform .6s ease",
-                                    }}
-                                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.04)")}
-                                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                                    onError={(e) => {
-                                        // fallback tła jeśli obrazek nie istnieje
-                                        e.currentTarget.style.display = "none";
-                                    }}
-                                />
-
-                                {/* lekki gradient pod podpisem */}
-                                <div
-                                    aria-hidden="true"
-                                    style={{
-                                        position: "absolute",
-                                        left: 0,
-                                        right: 0,
-                                        bottom: 0,
-                                        height: "40%",
-                                        background:
-                                            "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(2,8,23,0.45) 100%)",
-                                    }}
-                                />
-                                {/* podpis na zdjęciu (imię/rola) */}
-                                <figcaption
-                                    style={{
-                                        position: "absolute",
-                                        left: 12,
-                                        right: 12,
-                                        bottom: 10,
-                                        color: "#FFFFFF",
-                                        fontWeight: 800,
-                                        letterSpacing: ".2px",
-                                        textShadow: "0 2px 10px rgba(0,0,0,.35)",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: 8,
-                                    }}
-                                >
-                                    <span
-                                        aria-hidden="true"
-                                        style={{
-                                            display: "inline-grid",
-                                            placeItems: "center",
-                                            width: 28,
-                                            height: 28,
-                                            borderRadius: 999,
-                                            background: "rgba(255,255,255,.2)",
-                                            border: "1px solid rgba(255,255,255,.3)",
-                                            backdropFilter: "blur(2px)",
-                                            fontSize: 14,
-                                        }}
-                                    >
-                                        ★
-                                    </span>
-                                    {t.n}
-                                </figcaption>
+                                {item.icon}
                             </div>
 
-                            {/* TEKST: cytat + opis */}
-                            <blockquote
+                            <strong
                                 style={{
-                                    margin: 0,
-                                    padding: "16px 16px 18px",
+                                    color: "#111",
+                                    fontSize: "1.12rem",                      // ciut mniejsze
+                                    fontWeight: 900,
+                                    letterSpacing: "-0.25px",
                                 }}
                             >
-                                <p
-                                    style={{
-                                        margin: 0,
-                                        color: "#0F172A",
-                                        fontWeight: 800,
-                                        lineHeight: 1.45,
-                                        fontSize: "clamp(1rem, 1.2vw, 1.05rem)",
-                                    }}
-                                >
-                                    {t.q}
-                                </p>
-                                <p
-                                    style={{
-                                        margin: "8px 0 0",
-                                        color: "#334155",
-                                        lineHeight: 1.7,
-                                    }}
-                                >
-                                    {t.a}
-                                </p>
-                            </blockquote>
-                        </figure>
+                                {item.t}
+                            </strong>
+
+                            <p
+                                style={{
+                                    margin: 0,
+                                    color: "#333",
+                                    lineHeight: 1.65,
+                                    fontSize: "1.02rem",
+                                    fontWeight: 450,
+                                }}
+                            >
+                                {item.d}
+                            </p>
+                        </article>
                     ))}
                 </div>
 
-                {/* Local styles: delikatne reveal przy scrollu + preferencje dostępności */}
                 <style>{`
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .story-card { opacity: 0; transform: translateY(10px); animation: cardIn .5s ease forwards; }
-    .story-card:nth-child(1) { animation-delay: .05s; }
-    .story-card:nth-child(2) { animation-delay: .12s; }
-    .story-card:nth-child(3) { animation-delay: .18s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .story-card { opacity: 1 !important; transform: none !important; animation: none !important; }
-    }
-  `}</style>
+        @keyframes fadeUpBW {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
             </section>
+
 
 
             {/* === FAQ === */}
