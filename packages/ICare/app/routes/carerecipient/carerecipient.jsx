@@ -1,9 +1,9 @@
 import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard, IcareCard } from "react-library";
 import { useNavigate } from "react-router";
 import { useEffect, useState, lazy, Suspense } from "react";
-import MyProfileCard from "../../components/cards/my-profile-card";
-import Card from "../../components/application/data-display/card/card.jsx";
 import ProfileCard from "../../features/profile/profile-card.jsx";
+import ContractsCard from "../../features/pages/carerecipient/homepage/contracts-card.jsx";
+import DocumentsCard from "../../features/pages/carerecipient/homepage/documents-card.jsx";
 
 /* ===== Meta ===== */
 export function meta() {
@@ -41,8 +41,6 @@ const sectionStyle = {
   padding: "14px 14px 12px"
 };
 
-const cardBodyStyle = { padding: "8px 6px 4px" };
-const pMuted = { margin: 0, color: "#475569", fontSize: 14, lineHeight: 1.6 };
 
 const baseButton = {
   appearance: "none",
@@ -209,25 +207,11 @@ export default function CaregiverRecipientHome() {
 
             {/* Contracts + Documents */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-              <section aria-label="My contracts" style={sectionStyle}>
-                <SectionHeader title="My contracts" subtitle="Active & pending" />
-                <IcareCard variant="elevated">
-                  <span slot="contents">
-                    <div style={cardBodyStyle}>
-                      <p style={pMuted}>No active contracts yet.</p>
-                    </div>
-                  </span>
-                </IcareCard>
+              <section aria-label="My contracts">
+                <ContractsCard />
               </section>
-              <section aria-label="My documents" style={sectionStyle}>
-                <SectionHeader title="My documents" subtitle="IDs, certificates and uploads" />
-                <IcareCard variant="elevated">
-                  <span slot="contents">
-                    <div style={cardBodyStyle}>
-                      <p style={pMuted}>Upload documents to speed up verification.</p>
-                    </div>
-                  </span>
-                </IcareCard>
+              <section aria-label="My documents" >
+                <DocumentsCard />
               </section>
             </div>
 
