@@ -1,7 +1,32 @@
 import React from "react";
-import styles from "../../../../../styles/components/website/pages/who-we-are/sections/third-section.module.scss";
+import styles from "@styles/components/website/pages/who-we-are/sections/third-section.module.scss";
+import { HowWeWorkCard } from "../cards/how-we-work-card";
 
 export function ThirdSection() {
+  const steps = [
+    {
+      step: 1,
+      title: "Brief & preferences",
+      description:
+        "Tell us your needs, schedule and preferred skills. We minimise data — only what’s necessary.",
+      variant: "green"
+    },
+    {
+      step: 2,
+      title: "Direct matching",
+      description:
+        "We show verified profiles that fit your brief — you speak directly with candidates.",
+      variant: "blue"
+    },
+    {
+      step: 3,
+      title: "Agree & start",
+      description:
+        "You agree terms directly with the caregiver. We provide guidance and safer-practice templates.",
+      variant: "orange"
+    }
+  ];
+
   return (
     <section id="howwework" aria-label="How We Work" className={styles.section}>
       <h2 className={styles.heading}>How We Work</h2>
@@ -13,38 +38,15 @@ export function ThirdSection() {
       <div aria-hidden="true" className={styles.divider} />
 
       <div className={styles.grid}>
-        {/* === CARD 1 === */}
-        <article className={`${styles.card} ${styles.cardGreen}`}>
-          <div className={styles.cardTop}>
-            <div className={styles.stepBadgeGreen}>1</div>
-            <h3 className={styles.cardTitle}>Brief & preferences</h3>
-          </div>
-          <p className={styles.cardText}>
-            Tell us your needs, schedule and preferred skills. We minimise data — only what’s necessary.
-          </p>
-        </article>
-
-        {/* === CARD 2 === */}
-        <article className={`${styles.card} ${styles.cardBlue}`}>
-          <div className={styles.cardTop}>
-            <div className={styles.stepBadgeBlue}>2</div>
-            <h3 className={styles.cardTitle}>Direct matching</h3>
-          </div>
-          <p className={styles.cardText}>
-            We show verified profiles that fit your brief — you speak directly with candidates.
-          </p>
-        </article>
-
-        {/* === CARD 3 === */}
-        <article className={`${styles.card} ${styles.cardOrange}`}>
-          <div className={styles.cardTop}>
-            <div className={styles.stepBadgeOrange}>3</div>
-            <h3 className={styles.cardTitle}>Agree & start</h3>
-          </div>
-          <p className={styles.cardText}>
-            You agree terms directly with the caregiver. We provide guidance and safer-practice templates.
-          </p>
-        </article>
+        {steps.map((s) => (
+          <HowWeWorkCard
+            key={s.step}
+            step={s.step}
+            title={s.title}
+            description={s.description}
+            variant={s.variant}
+          />
+        ))}
       </div>
 
       <div className={styles.ctaWrap}>

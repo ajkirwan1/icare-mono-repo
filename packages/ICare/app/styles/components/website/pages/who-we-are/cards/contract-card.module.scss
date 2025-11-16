@@ -1,0 +1,65 @@
+.card {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 18px;
+  border: 1px solid rgba(31, 171, 31, 0.22);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(2, 8, 23, 0.06);
+  padding: clamp(18px, 2vw, 26px);
+  display: grid;
+  gap: 10px;
+  align-items: center;
+}
+
+.heading {
+  margin: 0;
+  color: #0f172a;
+  font-weight: 900;
+  font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+
+.text {
+  margin: 0;
+  color: #334155;
+  line-height: 1.65;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+/* === Primary Button === */
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  color: #fff;
+  background: #1fab1f;
+  border: 1px solid rgba(31, 171, 31, 0.35);
+  box-shadow: 0 10px 24px rgba(2, 8, 23, 0.12);
+}
+
+/* === Secondary Button === */
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  color: #0f172a;
+  background: #ffffff;
+  border: 1.5px solid rgba(31, 171, 31, 0.45);
+}
