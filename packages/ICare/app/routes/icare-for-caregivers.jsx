@@ -352,21 +352,21 @@ export default function ICareForCaregivers() {
                 id="caregiver-steps"
                 aria-label="Caregiver steps"
                 style={{
-                    margin: "7rem auto",
+                    margin: "4.5rem auto",                    // MNIEJ miejsca u góry i dołu
                     width: "min(1100px, 92vw)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    paddingInline: "2rem",
+                    paddingInline: "1.4rem",                 // węższe marginesy
                 }}
             >
                 {/* HEADER */}
-                <header style={{ textAlign: "center", marginBottom: "4rem" }}>
+                <header style={{ textAlign: "center", marginBottom: "3rem" }}>
                     <h3
                         style={{
                             margin: 0,
                             fontWeight: 900,
                             letterSpacing: "-0.5px",
-                            fontSize: "clamp(2rem,3vw,2.8rem)",
+                            fontSize: "clamp(1.8rem,2.6vw,2.4rem)", // MNIEJSZY tytuł
                             color: "#0F172A",
                             lineHeight: 1.15,
                         }}
@@ -376,9 +376,9 @@ export default function ICareForCaregivers() {
 
                     <p
                         style={{
-                            marginTop: ".9rem",
+                            marginTop: ".7rem",
                             color: "#4C7865",
-                            fontSize: "1.2rem",
+                            fontSize: "1.08rem",            // MNIEJSZY subtitle
                             fontWeight: 600,
                             letterSpacing: ".02em",
                             opacity: 0.9,
@@ -390,22 +390,22 @@ export default function ICareForCaregivers() {
                     <div
                         aria-hidden="true"
                         style={{
-                            width: "90px",
-                            height: 4,
+                            width: "70px",                   // CIENIEJSZA linia
+                            height: 3,
                             background: "#4C7865",
                             borderRadius: 999,
-                            margin: "1.4rem auto 0",
+                            margin: "1.1rem auto 0",
                             opacity: 0.8,
                         }}
                     />
                 </header>
 
-                {/* === NEW GRID WITH IMAGES === */}
+                {/* === NEW COMPACT GRID === */}
                 <div
                     style={{
                         display: "grid",
-                        gap: "4rem",
-                        width: "min(950px, 90vw)",
+                        gap: "2.8rem",                     // MNIEJSZA przerwa między kartami
+                        width: "min(860px, 90vw)",         // WĘŻSZA cała sekcja
                         margin: "0 auto",
                     }}
                 >
@@ -414,13 +414,12 @@ export default function ICareForCaregivers() {
 
                         const bg = alt ? "#F5FAF7" : "#FFFFFF";
 
-                        // example Unsplash images:
                         const images = [
-                            "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1200&q=80",
-                            "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
-                            "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=1200&q=80",
-                            "https://images.unsplash.com/photo-1604882737206-599d53f4f524?auto=format&fit=crop&w=1200&q=80",
-                            "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=80",
+                            "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1604882737206-599d53f4f524?auto=format&fit=crop&w=900&q=80",
+                            "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=900&q=80",
                         ];
 
                         return (
@@ -428,32 +427,30 @@ export default function ICareForCaregivers() {
                                 key={p.t}
                                 style={{
                                     display: "grid",
-                                    gridTemplateColumns: alt
-                                        ? "1fr 180px"
-                                        : "180px 1fr",
-                                    gap: "2rem",
+                                    gridTemplateColumns: alt ? "1fr 150px" : "150px 1fr", // MNIEJSZE zdjęcia
+                                    gap: "1.6rem",                                         // MNIEJSZY krok
                                     alignItems: "center",
-                                    padding: "clamp(28px,3vw,40px)",
+                                    padding: "clamp(20px,2.4vw,30px)",                    // MNIEJ paddingu
                                     background: bg,
-                                    borderRadius: "26px",
+                                    borderRadius: "22px",
                                     border: "1px solid rgba(76,120,101,0.18)",
-                                    boxShadow: "0 12px 28px rgba(0,0,0,0.06)",
+                                    boxShadow: "0 10px 22px rgba(0,0,0,0.05)",            // ciut lżejszy cień
                                     opacity: 0,
-                                    transform: "translateY(22px)",
-                                    animation: `fadeUp .7s ease forwards ${0.18 + idx * 0.18}s`,
+                                    transform: "translateY(18px)",
+                                    animation: `fadeUp .7s ease forwards ${0.15 + idx * 0.16}s`,
                                 }}
                             >
-                                {/* === IMAGE BLOCK (left or right depending on idx) === */}
+                                {/* IMAGE */}
                                 <figure
                                     style={{
                                         order: alt ? 2 : 0,
                                         margin: 0,
                                         width: "100%",
-                                        height: "100%",
-                                        borderRadius: "22px",
+                                        height: "150px",              // ⬅️ KLUCZOWA zmiana: niższe zdjęcia
+                                        borderRadius: "18px",
                                         overflow: "hidden",
-                                        border: "1px solid rgba(0,0,0,0.07)",
-                                        boxShadow: "0 8px 22px rgba(0,0,0,0.08)",
+                                        border: "1px solid rgba(0,0,0,0.06)",
+                                        boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                                     }}
                                 >
                                     <img
@@ -468,50 +465,47 @@ export default function ICareForCaregivers() {
                                     />
                                 </figure>
 
-                                {/* === TEXT + BADGE === */}
+                                {/* TEXT */}
                                 <div style={{ order: alt ? 1 : 1 }}>
-                                    {/* badge */}
                                     <div
                                         style={{
-                                            width: "52px",
-                                            height: "52px",
-                                            borderRadius: "16px",
+                                            width: "44px",               // MNIEJSZY badge
+                                            height: "44px",
+                                            borderRadius: "14px",
                                             background: "#E6F3EC",
                                             border: "1px solid #B9D9CA",
                                             display: "grid",
                                             placeItems: "center",
                                             fontWeight: 900,
-                                            fontSize: "1.28rem",
+                                            fontSize: "1.15rem",
                                             color: "#4C7865",
-                                            marginBottom: "1.2rem",
-                                            boxShadow: "0 4px 10px rgba(76,120,101,0.15)",
+                                            marginBottom: "1rem",
+                                            boxShadow: "0 4px 10px rgba(76,120,101,0.12)",
                                         }}
                                     >
                                         {idx + 1}
                                     </div>
 
-                                    {/* title */}
                                     <h4
                                         style={{
-                                            margin: "0 0 .6rem",
-                                            fontSize: "clamp(1.25rem,1.9vw,1.55rem)",
+                                            margin: "0 0 .45rem",
+                                            fontSize: "clamp(1.15rem,1.7vw,1.4rem)",
                                             fontWeight: 850,
                                             color: "#0F172A",
-                                            letterSpacing: "-0.3px",
-                                            lineHeight: 1.3,
+                                            letterSpacing: "-0.25px",
+                                            lineHeight: 1.25,
                                         }}
                                     >
                                         {p.t}
                                     </h4>
 
-                                    {/* description */}
                                     <p
                                         style={{
                                             margin: 0,
                                             color: "#475569",
-                                            fontSize: "1.08rem",
-                                            lineHeight: 1.7,
-                                            maxWidth: "58ch",
+                                            fontSize: "1rem",
+                                            lineHeight: 1.55,
+                                            maxWidth: "54ch",
                                         }}
                                     >
                                         {p.d}
@@ -523,7 +517,7 @@ export default function ICareForCaregivers() {
                 </div>
 
                 {/* CTA BUTTON */}
-                <div style={{ marginTop: "5rem", textAlign: "center" }}>
+                <div style={{ marginTop: "3.6rem", textAlign: "center" }}>
                     <a
                         href="/register"
                         style={{
@@ -531,23 +525,23 @@ export default function ICareForCaregivers() {
                             background: "#4C7865",
                             color: "#fff",
                             fontWeight: 800,
-                            padding: "1.1rem 2.2rem",
+                            padding: "0.95rem 2rem",       // MNIEJSZY button
                             borderRadius: 999,
                             letterSpacing: ".03em",
-                            fontSize: "1.08rem",
+                            fontSize: "1.05rem",
                             textDecoration: "none",
-                            boxShadow: "0 14px 34px rgba(76,120,101,0.25)",
+                            boxShadow: "0 12px 32px rgba(76,120,101,0.22)",
                             transition: "all .25s ease",
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.transform = "translateY(-2px)";
                             e.currentTarget.style.boxShadow =
-                                "0 18px 40px rgba(76,120,101,0.32)";
+                                "0 16px 38px rgba(76,120,101,0.30)";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.transform = "translateY(0)";
                             e.currentTarget.style.boxShadow =
-                                "0 14px 34px rgba(76,120,101,0.25)";
+                                "0 12px 32px rgba(76,120,101,0.22)";
                         }}
                     >
                         CREATE YOUR FREE ACCOUNT
@@ -555,48 +549,46 @@ export default function ICareForCaregivers() {
                 </div>
 
                 <style>{`
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(22px); }
-            to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 760px) {
+        article {
+            grid-template-columns: 1fr !important;
         }
-        @media (max-width: 760px) {
-            article {
-                gridTemplateColumns: 1fr !important;
-            }
-            figure {
-                order: 0 !important;
-                height: 180px !important;
-            }
+        figure {
+            height: 130px !important;
         }
-    `}</style>
+    }
+`}</style>
             </section>
-
 
             {/* === WHO CAN JOIN === */}
             <section
                 aria-label="Who can join – Luxe Black & White"
                 style={{
-                    margin: "7rem auto 6.5rem",
+                    margin: "5rem auto 5rem",                             // ⬅️ MNIEJ pionu
                     width: "min(1100px, 92vw)",
-                    padding: "clamp(40px, 5vw, 60px)",
-                    borderRadius: 36,
-                    background: "linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%)",
-                    boxShadow: "0 20px 60px rgba(0,0,0,0.06)",
-                    border: "1px solid rgba(0,0,0,0.10)",
+                    padding: "clamp(32px, 4vw, 48px)",                    // ⬅️ MNIEJ paddingu
+                    borderRadius: 32,
+                    background: "linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%)",
+                    boxShadow: "0 12px 36px rgba(0,0,0,0.04)",            // subtelniej
+                    border: "1px solid rgba(0,0,0,0.08)",
                     fontFamily:
                         'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
                 }}
             >
                 {/* HEADER */}
-                <header style={{ marginBottom: "3.8rem" }}>
+                <header style={{ marginBottom: "2.6rem" }}>                {/* ⬅️ mniej miejsca */}
                     <h2
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            fontSize: "clamp(2.2rem,3vw,2.9rem)",
-                            letterSpacing: "-0.6px",
+                            fontSize: "clamp(1.9rem,2.6vw,2.5rem)",       // ⬅️ mniejsze
+                            letterSpacing: "-0.5px",
                             lineHeight: 1.18,
-                            color: "#111111",
+                            color: "#111",
                         }}
                     >
                         Who can join ICare
@@ -604,36 +596,35 @@ export default function ICareForCaregivers() {
 
                     <p
                         style={{
-                            marginTop: "1rem",
-                            color: "#444444",
-                            fontSize: "1.15rem",
-                            lineHeight: 1.75,
-                            maxWidth: "60ch",
+                            marginTop: "0.7rem",
+                            color: "#444",
+                            fontSize: "1.05rem",                           // ⬅️ mniejsze, premium
+                            lineHeight: 1.65,
+                            maxWidth: "58ch",
                             fontWeight: 500,
                         }}
                     >
-                        Exclusive, trusted and high-standards caregivers.
-                        Minimalist aesthetic — with a touch of soft pastel calmness.
+                        Verified, trusted caregivers with real experience and a human approach.
                     </p>
 
                     <div
                         style={{
-                            width: 100,
-                            height: 4,
+                            width: 80,                                     // ⬅️ krótsza linia
+                            height: 3,
                             background: "#000",
                             borderRadius: 999,
-                            marginTop: "1.4rem",
-                            opacity: 0.95,
+                            marginTop: "1rem",
+                            opacity: 0.9,
                         }}
                     />
                 </header>
 
-                {/* GRID CARDS */}
+                {/* CARDS */}
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "clamp(28px,2.8vw,36px)",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                        gap: "clamp(22px,2vw,30px)",                       // ⬅️ ciaśniej
                     }}
                 >
                     {[
@@ -642,12 +633,12 @@ export default function ICareForCaregivers() {
                             d: "Verified experience, strong references and excellent communication.",
                             icon: (
                                 <svg
-                                    width="32"
-                                    height="32"
+                                    width="28"
+                                    height="28"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#111"
-                                    strokeWidth="2"
+                                    strokeWidth="1.6"                      // ⬅️ smuklej
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
@@ -658,15 +649,15 @@ export default function ICareForCaregivers() {
                         },
                         {
                             t: "Live-in & flexible hours",
-                            d: "Premium care with full-time or flexible personalized schedules.",
+                            d: "Full-time, flexible schedules or live-in support tailored to each family.",
                             icon: (
                                 <svg
-                                    width="32"
-                                    height="32"
+                                    width="28"
+                                    height="28"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#111"
-                                    strokeWidth="2"
+                                    strokeWidth="1.6"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
@@ -677,15 +668,15 @@ export default function ICareForCaregivers() {
                         },
                         {
                             t: "Specialist care expertise",
-                            d: "Top-tier dementia, mobility, post-surgery or long-term recovery support.",
+                            d: "Dementia care, mobility support or post-surgery recovery.",
                             icon: (
                                 <svg
-                                    width="32"
-                                    height="32"
+                                    width="28"
+                                    height="28"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#111"
-                                    strokeWidth="2"
+                                    strokeWidth="1.6"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
@@ -696,15 +687,15 @@ export default function ICareForCaregivers() {
                         },
                         {
                             t: "Languages & driving",
-                            d: "Highly sought after: multilingual caregivers & certified drivers.",
+                            d: "Multilingual caregivers and certified drivers highly valued.",
                             icon: (
                                 <svg
-                                    width="32"
-                                    height="32"
+                                    width="28"
+                                    height="28"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="#111"
-                                    strokeWidth="2"
+                                    strokeWidth="1.6"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                 >
@@ -719,43 +710,40 @@ export default function ICareForCaregivers() {
                             key={item.t}
                             style={{
                                 background: "#FFFFFF",
-                                borderRadius: 28,
-                                border: "1px solid rgba(0,0,0,0.14)",
-                                padding: "34px 30px",
-                                boxShadow: "0 20px 50px rgba(0,0,0,0.06)",
+                                borderRadius: 24,
+                                border: "1px solid rgba(0,0,0,0.10)",
+                                padding: "26px 24px",                        // ⬅️ MNIEJSZE
+                                boxShadow: "0 14px 32px rgba(0,0,0,0.05)",
                                 display: "grid",
-                                gap: 18,
-                                alignItems: "start",
+                                gap: 14,                                      // ⬅️ ciaśniej
                                 transition:
-                                    "transform .3s ease, box-shadow .3s ease, border-color .3s ease",
+                                    "transform .28s ease, box-shadow .28s ease, border-color .28s ease",
                                 opacity: 0,
-                                transform: "translateY(26px)",
-                                animation: `fadeUpBW .7s ease forwards ${i * 0.12}s`,
+                                transform: "translateY(20px)",
+                                animation: `fadeUpBW .7s ease forwards ${i * 0.10}s`,
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-6px)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 26px 60px rgba(0,0,0,0.12)";
-                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.28)";
+                                e.currentTarget.style.transform = "translateY(-5px)";
+                                e.currentTarget.style.boxShadow = "0 18px 42px rgba(0,0,0,0.10)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.20)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.transform = "translateY(0)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 20px 50px rgba(0,0,0,0.06)";
-                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.14)";
+                                e.currentTarget.style.boxShadow = "0 14px 32px rgba(0,0,0,0.05)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.10)";
                             }}
                         >
-                            {/* ICON WRAPPER — pastel mint */}
+                            {/* ICON */}
                             <div
                                 style={{
-                                    width: 64,
-                                    height: 64,
-                                    borderRadius: 20,
-                                    background: "#E9F6EF",            // 🍃 pastel mint
-                                    border: "1px solid #C8E7D6",       // pastel edge
+                                    width: 58,
+                                    height: 58,
+                                    borderRadius: 18,
+                                    background: "#E6F4EF",                    // ⬅️ pastel mint (bardziej premium)
+                                    border: "1px solid #C9E4D9",
                                     display: "grid",
                                     placeItems: "center",
-                                    boxShadow: "inset 0 1px 3px rgba(0,0,0,0.06)",
+                                    boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
                                 }}
                             >
                                 {item.icon}
@@ -763,10 +751,10 @@ export default function ICareForCaregivers() {
 
                             <strong
                                 style={{
-                                    color: "#0A0A0A",
-                                    fontSize: "1.18rem",
+                                    color: "#111",
+                                    fontSize: "1.12rem",                      // ciut mniejsze
                                     fontWeight: 900,
-                                    letterSpacing: "-0.3px",
+                                    letterSpacing: "-0.25px",
                                 }}
                             >
                                 {item.t}
@@ -775,10 +763,10 @@ export default function ICareForCaregivers() {
                             <p
                                 style={{
                                     margin: 0,
-                                    color: "#292929",
-                                    lineHeight: 1.75,
-                                    fontSize: "1.08rem",
-                                    fontWeight: 500,
+                                    color: "#333",
+                                    lineHeight: 1.65,
+                                    fontSize: "1.02rem",
+                                    fontWeight: 450,
                                 }}
                             >
                                 {item.d}
@@ -789,18 +777,12 @@ export default function ICareForCaregivers() {
 
                 <style>{`
         @keyframes fadeUpBW {
-            from { opacity: 0; transform: translateY(26px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            article {
-                opacity: 1 !important;
-                transform: none !important;
-                animation: none !important;
-            }
         }
     `}</style>
             </section>
+
 
 
             {/* === FAQ === */}
