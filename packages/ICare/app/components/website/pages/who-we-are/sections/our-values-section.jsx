@@ -3,7 +3,7 @@ import React from "react";
 import styles from "@styles/components/website/pages/who-we-are/sections/second-section.module.scss";
 import { ValuesCard } from "../cards/value-card";
 
-export function SecondSection() {
+export function OurValuesSection() {
   const cards = [
     {
       key: "dignity",

@@ -2,7 +2,7 @@ import React from "react";
 import { InfoCard } from "../cards/info-card";
 import styles from "../../../../../styles/components/website/pages/who-we-are/sections/first-section.module.scss";
 
-export function FirstSection() {
+export function OurFoundationSection() {
   return (
     <section
       id="foundation"

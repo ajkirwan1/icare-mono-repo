@@ -1,7 +1,7 @@
 import React from "react";
 import { ContactCard } from "../cards/contract-card";
 
-export function FifthSection() {
+export function CtaSection() {
   return (
     <section
       id="contact"

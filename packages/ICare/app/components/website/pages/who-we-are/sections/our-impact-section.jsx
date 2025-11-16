@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@styles/components/website/pages/who-we-are/sections/fourth-section.module.scss";
 
-export function FourthSection() {
+export function OurImpactSection() {
   const metrics = [
     {
       n: "2.3×",

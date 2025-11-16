@@ -2,7 +2,7 @@ import React from "react";
 import styles from "@styles/components/website/pages/who-we-are/sections/third-section.module.scss";
 import { HowWeWorkCard } from "../cards/how-we-work-card";
 
-export function ThirdSection() {
+export function HowWeWorkSection() {
   const steps = [
     {
       step: 1,
