@@ -1,28 +1,51 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IcareHeroNew, IcareButton } from "react-library";
 import { Link } from "react-router";
 import navLinks from "./nav-links";
 
 export default function HeroComponent({ imgSrc }) {
+    const heroRef = useRef(null);
+
+    /* ===================== PARALLAX — delikatny, elegancki ===================== */
+    useEffect(() => {
+        const hero = heroRef.current;
+        if (!hero) return;
+
+        const img = hero.querySelector("img");
+
+        const handleScroll = () => {
+            const rect = hero.getBoundingClientRect();
+            const offset = rect.top * 0.12; // ← delikatny parallax
+            if (img) img.style.transform = `translateY(${offset}px) scale(1.05)`;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     return (
-        <IcareHeroNew imageSrc={imgSrc} slot="hero-content">
-            {/* NAV LINKS — większe + smooth hover */}
+        <IcareHeroNew imageSrc={imgSrc} slot="hero-content" ref={heroRef}
+            style={{
+                overflow: "hidden",
+            }}
+        >
+
+            {/* ========================= NAV LINKS ========================= */}
             {navLinks.map((link) => (
                 <li slot="nav-links" key={link.to} style={{ listStyle: "none", margin: 0 }}>
                     <Link
                         to={link.to}
                         style={{
                             display: "inline-block",
-                            padding: "0.24rem 0",
+                            padding: ".32rem 0",
                             textDecoration: "none",
-                            fontSize: "1.05rem",             // ← większe nav linki
-                            fontWeight: 600,
-                            letterSpacing: ".01em",
-                            color: "rgba(255,255,255,.9)",
-                            marginInline: "0.45rem",
+                            fontSize: "1.15rem",
+                            fontWeight: 700,
+                            letterSpacing: "-0.25px",
+                            color: "rgba(255,255,255,.92)",
+                            marginInline: "0.65rem",
+                            transition: "all .26s ease",
                             textUnderlineOffset: "6px",
-                            transition:
-                                "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease"
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.color = "#fff";
@@ -31,7 +54,7 @@ export default function HeroComponent({ imgSrc }) {
                             e.currentTarget.style.textUnderlineOffset = "7px";
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.color = "rgba(255,255,255,.9)";
+                            e.currentTarget.style.color = "rgba(255,255,255,.92)";
                             e.currentTarget.style.textDecoration = "none";
                             e.currentTarget.style.textUnderlineOffset = "6px";
                         }}
@@ -41,46 +64,42 @@ export default function HeroComponent({ imgSrc }) {
                 </li>
             ))}
 
-            {/* CTA — neutralny outline (bez zielonego) */}
+            {/* ========================= CTA BUTTON ========================= */}
             <li slot="header-buttons" style={{ listStyle: "none" }}>
                 <IcareButton
                     href="/register"
                     style={{
                         appearance: "none",
                         borderRadius: 999,
-                        padding: ".85rem 1.15rem",
+                        padding: ".85rem 1.25rem",
                         fontWeight: 800,
-                        letterSpacing: ".05em",
+                        letterSpacing: "-0.15px",
+                        fontSize: "1.05rem",
                         cursor: "pointer",
                         background: "transparent",
                         color: "#ffffff",
                         border: "2px solid rgba(255,255,255,.78)",
                         boxShadow: "0 8px 24px rgba(0,0,0,.28)",
-                        transition:
-                            "transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease, color .25s ease"
+                        transition: "all .25s ease",
                     }}
                     onMouseEnter={(e) => {
                         e.currentTarget.style.transform = "translateY(-1px)";
                         e.currentTarget.style.borderColor = "rgba(255,255,255,.98)";
                         e.currentTarget.style.background = "rgba(2,8,23,.22)";
                         e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,.36)";
-                        e.currentTarget.style.color = "#ffffff";
                     }}
                     onMouseLeave={(e) => {
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.borderColor = "rgba(255,255,255,.78)";
                         e.currentTarget.style.background = "transparent";
                         e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,.28)";
-                        e.currentTarget.style.color = "#ffffff";
                     }}
                 >
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
                         Get Started
-                        <svg
-                            width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                            aria-hidden="true"
-                        >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" strokeWidth="2"
+                            strokeLinecap="round" strokeLinejoin="round">
                             <path d="M5 12h14" />
                             <path d="M13 5l7 7-7 7" />
                         </svg>
@@ -88,101 +107,91 @@ export default function HeroComponent({ imgSrc }) {
                 </IcareButton>
             </li>
 
-            {/* HEADER CONTENT — wszystko startuje z tej samej lewej linii */}
+            {/* ========================= HEADER CONTENT ========================= */}
             <span
                 slot="header-content"
                 style={{
                     display: "block",
-                    width: "min(92vw, 1100px)", // ← główna szerokość linii dla hero
+                    width: "min(92vw, 1100px)",
                     marginTop: "6rem",
                     textAlign: "left",
                     color: "#fff",
                     textShadow: "0 2px 16px rgba(0,0,0,.35)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    marginLeft: 0,
                 }}
             >
-                {/* eyebrow */}
+
+                {/* EYEBROW — już wyrównany do lewej */}
                 <span
-                    slot="header-content"
                     style={{
-                        display: "block",
-                        width: "min(92vw, 1100px)",
-                        marginTop: "6rem",
-                        textAlign: "left",
-                        color: "#fff",
-                        textShadow: "0 2px 16px rgba(0,0,0,.35)",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                        marginLeft: 0,
-                        transform: "translateX(-15%)",   // ← było -30%
-                        willChange: "transform",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: ".56rem .8rem",
+                        borderRadius: 999,
+                        fontSize: "clamp(.84rem, 1.52vw, 1.08rem)",
+                        letterSpacing: ".16em",
+                        textTransform: "uppercase",
+                        fontWeight: 900,
+                        color: "#cffafe",
+                        border: "1px solid rgba(207,250,254,.5)",
+                        background: "#1fab1f3e",
+                        backdropFilter: "blur(4px)",
+                        marginBottom: ".8rem",
                     }}
                 >
-                    <span
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            padding: ".56rem .8rem",
-                            borderRadius: 999,
-                            fontSize: "clamp(.84rem, 1.52vw, 1.08rem)",
-                            letterSpacing: ".16em",
-                            textTransform: "uppercase",
-                            fontWeight: 900,
-                            color: "#cffafe",
-                            border: "1px solid rgba(207,250,254,.5)",
-                            background: "#1fab1f3e",
-                            backdropFilter: "blur(4px)",
-                            marginBottom: ".6rem",
-                        }}
-                    >
-                        platform for better care
-                    </span>
-
-                    <h1
-                        style={{
-                            margin: ".35rem 0 0",
-                            fontWeight: 900,
-                            letterSpacing: ".2px",
-                            lineHeight: 1.05,
-                            fontSize: "clamp(2.4rem, 5.2vw, 4rem)",
-                            color: "#AD7A66",
-                            textShadow: "none",
-                        }}
-                    >
-                        ICare
-                    </h1>
+                    platform for better care
                 </span>
 
-                <span
-                    slot="subheader-content"
+                {/* H1 */}
+                <h1
                     style={{
-                        display: "block",
-                        width: "min(92vw, 1100px)",
-                        textAlign: "left",
-                        marginTop: "1rem",
-                        color: "rgba(255,255,255,.94)",
-                        fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                        lineHeight: 1.6,
-                        textShadow: "0 1px 12px rgba(0,0,0,.3)",
-                        marginLeft: 0,
-                        transform: "translateX(-15%)",   // ← było -30%
-                        willChange: "transform",
+                        margin: ".35rem 0 0",
+                        fontWeight: 900,
+                        letterSpacing: "-0.35px",
+                        lineHeight: 1.05,
+                        fontSize: "clamp(3rem, 5.2vw, 4rem)",
+                        color: "#AD7A66",
+                        textShadow: "none",
                     }}
                 >
-                    <span style={{ display: "block", maxWidth: 600 }}>
-                        <strong style={{ display: "block", marginBottom: ".25rem", fontSize: "1.6rem" }}>
-                            We are not an agency.
-                        </strong>
-                        ICare is the answer to the real needs of families — helping them safely connect with
-                        trusted caregivers.
-                    </span>
-                </span>
-
+                    ICare
+                </h1>
             </span>
+
+            {/* ========================= SUBHEADER ========================= */}
+            <span
+                slot="subheader-content"
+                style={{
+                    display: "block",
+                    width: "min(92vw, 1100px)",
+                    textAlign: "left",
+                    marginTop: "1rem",
+                    color: "rgba(255,255,255,.94)",
+                    fontSize: "clamp(1.25rem, 2vw, 1.55rem)",
+                    lineHeight: 1.55,
+                    letterSpacing: "-0.25px",
+                    textShadow: "0 1px 12px rgba(0,0,0,.3)",
+                    fontWeight: 500,
+                }}
+            >
+                <span style={{ display: "block", maxWidth: 600 }}>
+                    <strong
+                        style={{
+                            display: "block",
+                            marginBottom: ".25rem",
+                            fontSize: "1.6rem",
+                            letterSpacing: "-0.3px",
+                            fontWeight: 800,
+                        }}
+                    >
+                        We are not an agency.
+                    </strong>
+                    ICare is the answer to the real needs of families — helping them safely
+                    connect with trusted caregivers.
+                </span>
+            </span>
+
         </IcareHeroNew>
-
     );
-
 }
