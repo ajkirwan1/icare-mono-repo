@@ -1,0 +1,91 @@
+.section {
+  background: linear-gradient(180deg, #f9fbfa 0%, #ffffff 100%);
+  border-top: 1px solid rgba(31, 171, 31, 0.08);
+  border-bottom: 1px solid rgba(31, 171, 31, 0.08);
+  margin: clamp(6rem, 7vw, 7rem) 0 0;
+  padding: clamp(5rem, 7vw, 7rem) clamp(24px, 6vw, 80px);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heading {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  color: #0f172a;
+  font-size: clamp(2.1rem, 3.5vw, 2.7rem);
+  line-height: 1.15;
+}
+
+.subheading {
+  margin: 1.2rem auto 2.6rem;
+  color: #475569;
+  max-width: 60ch;
+  line-height: 1.75;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.divider {
+  width: 0;
+  height: 4px;
+  background: #4c7865;
+  border-radius: 999px;
+  margin: 0 auto 3.4rem;
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(28px, 3.4vw, 40px);
+  justify-items: center;
+}
+
+/* Metric cards */
+
+.metricCard {
+  border-radius: 32px;
+  background: rgba(228, 228, 228, 0.75);
+  border: 1.6px solid rgba(220, 221, 223, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: clamp(36px, 3vw, 44px);
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.metricValue {
+  font-weight: 600;
+  font-size: clamp(1.6rem, 2.7vw, 2.2rem);
+  color: #0f172a;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-weight: 800;
+  color: #1fab1f;
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.3px;
+}
+
+.metricDescription {
+  color: #4b5a52;
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 28ch;
+}

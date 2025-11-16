@@ -1,0 +1,82 @@
+.section {
+  max-width: 1100px;
+  margin: clamp(6rem, 8vw, 8.5rem) auto 0;
+  padding: 0 clamp(20px, 5vw, 40px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(340px, 1fr));
+  gap: clamp(26px, 3.5vw, 36px);
+  align-items: start;
+}
+
+/* === Shared paragraph styles === */
+.paragraph {
+  margin-top: 0;
+  line-height: 1.75;
+  color: #334155;
+  font-size: clamp(1rem, 1.05vw, 1.06rem);
+}
+
+.paragraphLead {
+  display: block;
+  font-weight: 800;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+/* === List block === */
+.block {
+  margin-top: 1.2rem;
+  line-height: 1.75;
+  color: #334155;
+  font-size: clamp(1rem, 1.05vw, 1.06rem);
+}
+
+.blockTitle {
+  display: block;
+  font-weight: 800;
+  color: #475569;
+  margin-bottom: 0.6rem;
+}
+
+/* === List === */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* === Bullet items === */
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.bullet {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid var(--brand, #1FAB1F);
+  display: inline-grid;
+  place-items: center;
+  margin-top: 2px;
+}
+
+.bulletInner {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--brand, #1FAB1F);
+  display: block;
+}
+
+/* === Closing text === */
+.closingText {
+  margin: 1.2rem 0 0 0;
+}
