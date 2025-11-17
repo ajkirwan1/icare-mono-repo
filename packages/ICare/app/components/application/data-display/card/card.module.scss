@@ -1,0 +1,31 @@
+.card {
+  background: #F3F4F6;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(2, 8, 23, 0.04);
+  padding: 14px 14px 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 4px 10px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #1f2a37;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13.5px;
+}

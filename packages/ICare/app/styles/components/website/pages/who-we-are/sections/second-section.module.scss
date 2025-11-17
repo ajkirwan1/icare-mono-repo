@@ -1,0 +1,163 @@
+.section {
+  background: #f3f5f4;
+  border-top: 1px solid rgba(31, 171, 31, 0.08);
+  border-bottom: 1px solid rgba(31, 171, 31, 0.08);
+  margin: clamp(5rem, 7vw, 7rem) 0 0;
+  padding: clamp(5rem, 7vw, 7rem) clamp(24px, 6vw, 80px);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: clamp(3rem, 4vw, 3.6rem);
+  align-items: start;
+}
+
+/* Left column */
+
+.leftCol {
+  text-align: left;
+}
+
+.heading {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: #0f172a;
+  font-size: clamp(2.2rem, 3.8vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.quote {
+  margin: 1.2rem 0 2rem;
+  color: #0f172a;
+  max-width: 46ch;
+  line-height: 1.75;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.bodyText {
+  margin: 1.2rem 0 2rem;
+  color: #4b5a52;
+  max-width: 46ch;
+  line-height: 1.75;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* Image block */
+
+.imageWrapper {
+  margin: clamp(1.8rem, 4vw, 3rem) 0;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  max-width: 90%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 28px;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.image:hover {
+  transform: scale(1.02);
+  filter: brightness(1.08);
+}
+
+/* Small divider bar */
+
+.divider {
+  width: 0;
+  height: 4px;
+  background: #4c7865;
+  border-radius: 999px;
+  opacity: 0.85;
+}
+
+/* Right column – value cards grid */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(2.2rem, 3vw, 3rem);
+  align-items: start;
+}
+
+/* Individual value cards */
+
+.valueCard {
+  border: 1.8px solid rgba(31, 171, 31, 0.18);
+  border-radius: 36px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  padding: clamp(32px, 3vw, 42px);
+  color: #1f2a37;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+/* Background variants for cards */
+
+.cardMint {
+  background: #e9f6f1;
+  /* Dignity & Respect */
+}
+
+.cardSand {
+  background: #f3f1e8;
+  /* Privacy by Design */
+}
+
+.cardFog {
+  background: #eef3f0;
+  /* Fair & Transparent */
+}
+
+.cardLeaf {
+  background: #e6f2ed;
+  /* Trust & Safety */
+}
+
+/* Icon, title, text */
+
+.valueIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(31, 171, 31, 0.22);
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.valueTitle {
+  margin: 0 0 0.5rem;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.25px;
+  flex-shrink: 0;
+}
+
+.valueText {
+  margin: 0;
+  color: #475569;
+  line-height: 1.65;
+  font-size: 1.05rem;
+  flex-grow: 1;
+}

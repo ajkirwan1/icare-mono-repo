@@ -1,0 +1,68 @@
+.card {
+  position: relative;
+  text-align: left;
+  border-radius: 36px;
+  padding: clamp(2.4rem, 4vw, 3.6rem);
+  box-shadow: 0 16px 40px rgba(2, 8, 23, 0.06);
+  overflow: hidden;
+}
+
+/* === VARIANTS === */
+.green {
+  background: rgba(31, 171, 31, 0.06);
+  border: 1px solid rgba(31, 171, 31, 0.22);
+}
+
+.white {
+  background: linear-gradient(180deg, #ffffff 0%, #fafefe 100%);
+  border: 1px solid #e4f3e6;
+}
+
+/* === ACCENT BLOB === */
+.accentBlob {
+  position: absolute;
+  top: -14%;
+  width: 320px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+      rgba(31, 171, 31, 0.12),
+      rgba(31, 171, 31, 0) 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.accent-left {
+  left: -8%;
+}
+
+.accent-right {
+  right: -8%;
+}
+
+/* === TITLE === */
+.title {
+  margin: 0;
+  color: #0f172a;
+  font-weight: 900;
+  font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+}
+
+/* === UNDERLINE BAR === */
+.underline {
+  width: 100%;
+  height: 4px;
+  background: var(--brand, #1fab1f);
+  border-radius: 999px;
+  margin: 0.9rem 0 1.2rem;
+  opacity: 0.9;
+}
+
+/* === CONTENT AREA === */
+.content {
+  color: #334155;
+  line-height: 1.75;
+  font-size: clamp(1rem, 1.05vw, 1.06rem);
+}

@@ -1,0 +1,161 @@
+:root {
+  --brand: #1fab1f;
+  --brand-dark: #146513;
+
+  --blue: #0284c7;
+  --blue-dark: #075985;
+
+  --orange: #ea580c;
+  --orange-dark: #9a3412;
+}
+
+/* === Layout === */
+
+.section {
+  max-width: 1100px;
+  margin: 4.5rem auto 0;
+  padding: 0 clamp(16px, 4vw, 32px);
+}
+
+.heading {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: #0f172a;
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.subheading {
+  margin: 8px 0 18px;
+  color: #475569;
+  max-width: 62ch;
+  line-height: 1.6;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.divider {
+  width: 0;
+  height: 4px;
+  background: var(--brand);
+  border-radius: 999px;
+  margin: 0.4rem 0 1.6rem;
+  opacity: 0.9;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: clamp(18px, 2.6vw, 28px);
+}
+
+/* === Cards === */
+
+.card {
+  border-radius: 22px;
+  box-shadow: 0 10px 28px rgba(2, 8, 23, 0.05);
+  padding: clamp(20px, 2.3vw, 26px);
+  border: 1px solid transparent;
+  background: #fff;
+}
+
+/* Card variations */
+
+.cardGreen {
+  background: linear-gradient(180deg, #ffffff 0%, #f7fff8 100%);
+  border: 1px solid rgba(31, 171, 31, 0.22);
+}
+
+.cardBlue {
+  background: linear-gradient(180deg, #ffffff 0%, #f5fbff 100%);
+  border: 1px solid rgba(2, 132, 199, 0.18);
+}
+
+.cardOrange {
+  background: linear-gradient(180deg, #ffffff 0%, #fff7f3 100%);
+  border: 1px solid rgba(234, 88, 12, 0.18);
+}
+
+/* Top row */
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* Step badges */
+
+.stepBadgeGreen,
+.stepBadgeBlue,
+.stepBadgeOrange {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.stepBadgeGreen {
+  background: rgba(31, 171, 31, 0.1);
+  border: 1px solid rgba(31, 171, 31, 0.25);
+  color: var(--brand-dark);
+}
+
+.stepBadgeBlue {
+  background: rgba(2, 132, 199, 0.1);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  color: var(--blue-dark);
+}
+
+.stepBadgeOrange {
+  background: rgba(234, 88, 12, 0.08);
+  border: 1px solid rgba(234, 88, 12, 0.22);
+  color: var(--orange-dark);
+}
+
+.cardTitle {
+  margin: 0;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: #0f172a;
+}
+
+.cardText {
+  margin: 0;
+  color: #334155;
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+/* === CTA Button === */
+
+.ctaWrap {
+  margin-top: 28px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 0.35px;
+  font-size: 1.1rem;
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--brand);
+  border: 1px solid rgba(31, 171, 31, 0.35);
+  box-shadow: 0 14px 30px rgba(2, 8, 23, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(2, 8, 23, 0.15);
+}
