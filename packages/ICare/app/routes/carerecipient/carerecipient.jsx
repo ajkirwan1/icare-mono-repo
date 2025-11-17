@@ -1,9 +1,13 @@
-import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard, IcareCard } from "react-library";
+import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
 import { useNavigate } from "react-router";
 import { useEffect, useState, lazy, Suspense } from "react";
 import ProfileCard from "../../features/profile/profile-card.jsx";
 import ContractsCard from "../../features/pages/carerecipient/homepage/contracts-card.jsx";
 import DocumentsCard from "../../features/pages/carerecipient/homepage/documents-card.jsx";
+// import NotificationsLabel from "../../components/application/ui/notifications-label/notifications-label.jsx";
+import { IconChip } from "../../components/application/ui/icon-chip/icon-chip.jsx";
+import NotificationsCard from "../../features/pages/carerecipient/homepage/notifications-card.jsx";
+import { ToggleSwitch } from "../../components/application/ui/toggle-switch/toggle-switch.jsx";
 
 /* ===== Meta ===== */
 export function meta() {
@@ -157,16 +161,16 @@ export default function CaregiverRecipientHome() {
     return () => document.removeEventListener("navigate", onNavigate);
   }, [navigate]);
 
-  const primaryCTAHandlers = enhanceButtonHandlers(
-    { ...primaryCTAStyle },
-    {
-      hoverBG: "#169B16",
-      activeBG: "#127F12",
-      hoverBorder: "#0f6a0f",
-      activeBorder: "#0b560b",
-      focusRing: "0 0 0 3px rgba(31,171,31,.35)"
-    }
-  );
+  // const primaryCTAHandlers = enhanceButtonHandlers(
+  //   { ...primaryCTAStyle },
+  //   {
+  //     hoverBG: "#169B16",
+  //     activeBG: "#127F12",
+  //     hoverBorder: "#0f6a0f",
+  //     activeBorder: "#0b560b",
+  //     focusRing: "0 0 0 3px rgba(31,171,31,.35)"
+  //   }
+  // );
 
   return (
     <>
@@ -275,57 +279,33 @@ export default function CaregiverRecipientHome() {
                 }}
                 title="Increase text size"
               >
-                <span style={{ fontSize: 12 }}>Large text</span>
-                <span
-                  role="switch"
-                  aria-checked={bigText}
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { setBigText(v => !v); } }}
-                  onClick={() => setBigText(v => !v)}
-                  style={{
-                    width: 46,
-                    height: 26,
-                    borderRadius: 999,
-                    background: bigText ? "#1FAB1F" : "#CBD5E1",
-                    border: `1px solid ${bigText ? "#168316" : "#94A3B8"}`,
-                    position: "relative",
-                    transition: "background .15s ease, border-color .15s ease",
-                    outline: "none",
-                    boxShadow: "inset 0 1px 0 rgba(255,255,255,.4)"
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      position: "absolute",
-                      top: 2,
-                      left: bigText ? 22 : 2,
-                      width: 22,
-                      height: 22,
-                      borderRadius: 999,
-                      background: "#FFFFFF",
-                      border: "1px solid rgba(0,0,0,.06)",
-                      boxShadow: "0 1px 3px rgba(0,0,0,.15)",
-                      transition: "left .15s ease"
-                    }}
-                  />
-                </span>
+                <span id="big-text-label" style={{ fontSize: 12 }}>Large text</span>
+
+                <ToggleSwitch
+                  checked={bigText}
+                  onChange={(value) => setBigText(value)}
+                  size="md"
+                  onColor="#1FAB1F"
+                  offColor="#CBD5E1"
+                  onBorderColor="#168316"
+                  offBorderColor="#94A3B8"
+                  ariaLabelledby="big-text-label"
+                />
               </label>
             </div>
 
             {/* Primary CTA in right column */}
-            <button
+            {/* <button
               {...primaryCTAHandlers}
               onClick={() => navigate("/messages/new")}
               style={{ ...primaryCTAHandlers.style, width: "100%", justifyContent: "center", display: "inline-flex", alignItems: "center", gap: 8 }}
             >
-              {/* chat-bubble icon */}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
               </svg>
               Start new conversation
-            </button>
+            </button> */}
 
             {/* Messages (with gray card + icons row) */}
             <section
@@ -371,6 +351,7 @@ export default function CaregiverRecipientHome() {
                   <LegendIcon color="#F59E0B" bg="rgba(245,158,11,.12)" label="Attachment">
                     <path d="M21.44 11.05l-7.07 7.07a5 5 0 1 1-7.07-7.07l7.07-7.07a3 3 0 0 1 4.24 4.24l-7.07 7.07a1 1 0 1 1-1.41-1.41l6.36-6.36" />
                   </LegendIcon>
+                  <IconChip />
                 </div>
               </header>
 
@@ -379,51 +360,14 @@ export default function CaregiverRecipientHome() {
               </div>
             </section>
 
-            {/* Notifications (same gray theme) */}
-            <section
-              aria-label="Notifications"
-              style={{
-                background: "#FFFFFF",
-                border: "1px solid #E5E7EB",
-                borderRadius: 16,
-                boxShadow: "0 6px 16px rgba(2,8,23,.05)",
-                padding: 12
-              }}
-            >
-              <header style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 10,
-                paddingBottom: 10,
-                borderBottom: "1px solid rgba(15,23,42,.06)"
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  {/* bell icon */}
-                  <span aria-hidden="true" style={chipIconWrap("#0EA5E9", "rgba(14,165,233,.15)")}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 17h5l-1.4-1.4A2 2 0 0 1 18 14.2V11a6 6 0 1 0-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5" />
-                      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                    </svg>
-                  </span>
-                  <strong style={{ color: "#111827", letterSpacing: ".2px" }}>Notifications</strong>
-                </div>
-              </header>
-
-              <IcareCard variant="outlined">
-                <span slot="contents">
-                  <div style={{ padding: "10px 8px 6px" }}>
-                    <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.6, color: "#374151" }}>
-                      <li>No new notifications.</li>
-                    </ul>
-                  </div>
-                </span>
-              </IcareCard>
-            </section>
           </aside>
         </div>
       </IcareSection>
+      <section
+        aria-label="Notifications"
+      >
+        <NotificationsCard />
+      </section>
 
       {/* ===== Responsive tweaks ===== */}
       <style>{`
