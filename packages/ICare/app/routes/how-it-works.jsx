@@ -68,6 +68,7 @@ function StickySubnav() {
     );
 }
 
+
 /* ===== 3-KROKOWY PRZEWODNIK ===== */
 function ThreeStepGuide() {
     const BRAND = "#1FAB1F";
@@ -107,15 +108,18 @@ function ThreeStepGuide() {
     ];
     const colors = ["#F0FAF0", "#F9F9FB", "#FFF9F0"];
     return (
+
+
+
         <section
             id="steps"
             aria-label="Three steps"
             style={{
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
-                background: "#F8FAFC",
-                borderTop: "1px solid rgba(15,23,42,.06)",
-                borderBottom: "1px solid rgba(15,23,42,.06)",
+                background: "#F9FAF9",
+                borderTop: "1px solid rgba(15,23,42,.05)",
+                borderBottom: "1px solid rgba(15,23,42,.05)",
                 padding: "clamp(5rem, 8vw, 7rem) 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -123,122 +127,118 @@ function ThreeStepGuide() {
         >
             <div
                 style={{
-                    maxWidth: 1200,
+                    maxWidth: 1180,
                     margin: "0 auto",
-                    padding: "0 clamp(20px,5vw,40px)",
+                    padding: "0 clamp(24px,5vw,40px)",
                 }}
             >
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 800,
+                        fontWeight: 900,
                         color: "#0F172A",
-                        fontSize: "clamp(2.2rem,3vw,2.5rem)", // +15% większy
-                        letterSpacing: ".25px",
+                        fontSize: "clamp(2.3rem,3vw,2.8rem)",
+                        letterSpacing: "-0.4px",
                         textAlign: "left",
-                        lineHeight: 1.25,
+                        lineHeight: 1.18,
                         animation: "fadeUp 1s ease both",
                     }}
                 >
-                    Get started in 3 quick steps
+                    Get started in 3 simple steps
                 </h2>
 
-                {/* Odstęp pod tytułem */}
-                <div style={{ height: "clamp(2.8rem,5vw,4rem)" }} />
+                <div style={{ height: "clamp(2.6rem,4vw,3.6rem)" }} />
 
+                {/* === KROKI === */}
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-                        gap: "clamp(32px,3.5vw,48px)",
+                        gap: "clamp(32px,3.5vw,46px)",
                     }}
                 >
-                    {steps.map((s, i) => (
-                        <article
-                            key={s.t}
-                            style={{
-                                position: "relative",
-                                border: "1px solid rgba(15,23,42,.08)",
-                                borderRadius: 24,
-                                background: colors[i % colors.length],
-                                padding: "clamp(32px,3vw,44px)",
-                                boxShadow: "0 10px 26px rgba(15,23,42,.05)",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "flex-start",
-                                alignItems: "flex-start",
-                                textAlign: "left",
-                                minHeight: 240,
-                                opacity: 0,
-                                transform: "translateY(18px)",
-                                animation: `fadeCard 0.8s ease ${0.3 + i * 0.2}s forwards`, // 👈 opóźnienie kaskadowe
-                            }}
-                        >
-                            <div
+                    {steps.map((s, i) => {
+                        const PHOTOS = [
+                            "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=800",
+                            "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800",
+                            "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800",
+                        ];
+
+                        return (
+                            <article
+                                key={s.t}
                                 style={{
+                                    border: "1px solid rgba(15,23,42,.06)",
+                                    borderRadius: 26,
+                                    background: "#FFFFFF",
+                                    padding: "clamp(28px,3vw,40px)",
+                                    boxShadow: "0 8px 26px rgba(0,0,0,0.04)",
                                     display: "flex",
-                                    alignItems: "flex-start",
-                                    justifyContent: "flex-start",
-                                    gap: 16,
-                                    marginBottom: 10,
+                                    flexDirection: "column",
+                                    gap: 18,
+                                    textAlign: "left",
+                                    minHeight: 260,
+                                    opacity: 0,
+                                    transform: "translateY(18px)",
+                                    animation: `fadeCard 0.8s ease ${0.25 + i * 0.22}s forwards`,
                                 }}
                             >
+                                {/* MINI ZDJĘCIE (ikona zastąpiona zdjęciem editorial) */}
                                 <div
                                     style={{
-                                        width: 56,
-                                        height: 56,
-                                        borderRadius: 999,
-                                        background: "rgba(31,171,31,0.1)",
-                                        border: "1px solid rgba(31,171,31,0.25)",
-                                        display: "grid",
-                                        placeItems: "center",
-                                        fontWeight: 900,
-                                        color: "#14532D",
-                                        fontSize: "1.1rem",
-                                        flexShrink: 0,
+                                        width: 64,
+                                        height: 64,
+                                        borderRadius: 20,
+                                        overflow: "hidden",
+                                        boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
+                                        border: "1px solid rgba(76,120,101,0.18)",
                                     }}
                                 >
-                                    {i + 1}
+                                    <img
+                                        src={PHOTOS[i]}
+                                        alt=""
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                        }}
+                                    />
                                 </div>
 
-                                <strong
+                                <h3
                                     style={{
-                                        fontSize: "clamp(1.1rem,1.7vw,1.3rem)",
+                                        margin: 0,
+                                        fontWeight: 800,
                                         color: "#0F172A",
-                                        letterSpacing: ".25px",
-                                        lineHeight: 1.25,
-                                        textAlign: "left",
-                                        marginTop: 6,
+                                        fontSize: "clamp(1.15rem,1.8vw,1.35rem)",
+                                        lineHeight: 1.28,
+                                        letterSpacing: "-0.2px",
                                     }}
                                 >
                                     {s.t}
-                                </strong>
-                            </div>
+                                </h3>
 
-                            <p
-                                style={{
-                                    margin: 0,
-                                    marginTop: 4,
-                                    color: "#334155",
-                                    lineHeight: 1.75,
-                                    fontSize: "clamp(.95rem,1vw,1.05rem)",
-                                    maxWidth: "94%",
-                                    textAlign: "left",
-                                }}
-                            >
-                                {s.d}
-                            </p>
-                        </article>
-                    ))}
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        color: "#475569",
+                                        fontSize: "clamp(.95rem,1vw,1.05rem)",
+                                        lineHeight: 1.7,
+                                        maxWidth: "95%",
+                                    }}
+                                >
+                                    {s.d}
+                                </p>
+                            </article>
+                        );
+                    })}
                 </div>
 
                 <div
                     style={{
                         display: "flex",
                         justifyContent: "flex-start",
-                        gap: 14,
                         marginTop: "clamp(40px,3vw,56px)",
-                        flexWrap: "wrap",
                     }}
                 >
                     <a
@@ -246,14 +246,23 @@ function ThreeStepGuide() {
                         style={{
                             textDecoration: "none",
                             color: "#FFFFFF",
-                            background: "rgb(76, 120, 101)",
-                            padding: "1.1rem 1.8rem",
+                            background: "#4C7865",
+                            padding: "1.05rem 1.75rem",
                             borderRadius: 999,
                             fontWeight: 800,
                             letterSpacing: ".03em",
-                            boxShadow: "0 12px 28px rgba(31,171,31,.15)",
-                            border: "1px solid rgba(31,171,31,.4)",
-                            animation: "pulseGlow 3s ease-in-out infinite", // 💫 pulsujący efekt
+                            boxShadow: "0 12px 28px rgba(76,120,101,.22)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.boxShadow =
+                                "0 16px 36px rgba(76,120,101,.28)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow =
+                                "0 12px 28px rgba(76,120,101,.22)";
                         }}
                     >
                         CREATE YOUR FREE ACCOUNT
@@ -262,44 +271,13 @@ function ThreeStepGuide() {
             </div>
 
             <style>{`
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeCard {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 0 rgba(31,171,31,0.2);
-        transform: scale(1);
-      }
-      50% {
-        box-shadow: 0 0 20px rgba(31,171,31,0.35);
-        transform: scale(1.015);
-      }
-      100% {
-        box-shadow: 0 0 0 rgba(31,171,31,0.2);
-        transform: scale(1);
-      }
-    }
-  `}</style>
+        @keyframes fadeCard {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
+
 
     );
 }
@@ -323,9 +301,11 @@ function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "linear-gradient(180deg, #F9FAF9 0%, #FFFFFF 100%)",
-                borderTop: "1px solid rgba(15,23,42,0.06)",
-                borderBottom: "1px solid rgba(15,23,42,0.06)",
+                marginLeft: "calc(50% - 50vw)",
+                marginRight: "calc(50% - 50vw)",
+                background: "linear-gradient(180deg, #FAFAF9 0%, #FFFFFF 100%)",
+                borderTop: "1px solid rgba(15,23,42,0.05)",
+                borderBottom: "1px solid rgba(15,23,42,0.05)",
                 padding: "clamp(5rem,7vw,6.5rem) clamp(24px,6vw,60px)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -338,132 +318,147 @@ function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
+                {/* HEADER */}
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 800,
+                        fontWeight: 900,
                         color: "#0F172A",
-                        fontSize: "clamp(2rem,3vw,2.6rem)",
-                        letterSpacing: ".25px",
-                        textAlign: "left",
-                        lineHeight: 1.25,
+                        fontSize: "clamp(2.2rem,3vw,2.7rem)",
+                        letterSpacing: "-0.4px",
+                        lineHeight: 1.18,
                     }}
                 >
-                    Why choose <span style={{ color: "rgb(76, 120, 101)" }}>ICare</span> instead of an agency?
+                    Why choose{" "}
+                    <span style={{ color: "#4C7865" }}>
+                        ICare
+                    </span>{" "}
+                    instead of an agency?
                 </h2>
 
                 <p
                     style={{
-                        margin: "1rem 0 2.6rem",
+                        margin: "1.2rem 0 2.8rem",
                         color: "#475569",
-                        maxWidth: "62ch",
+                        maxWidth: "60ch",
                         lineHeight: 1.75,
                         fontSize: "1.15rem",
-                        fontWeight: "600",
+                        fontWeight: 500,
                     }}
                 >
                     Fair, transparent and direct — families and caregivers connect without hidden fees or intermediaries.
                 </p>
 
+                {/* TABLE WRAPPER */}
                 <div
                     style={{
                         overflowX: "auto",
-                        borderRadius: 24,
-                        boxShadow: "0 12px 32px rgba(15,23,42,0.06)",
+                        borderRadius: 28,
+                        boxShadow: "0 14px 36px rgba(0,0,0,0.06)",
+                        border: "1px solid rgba(15,23,42,0.06)",
+                        background: "#FFFFFF",
                     }}
                 >
                     <table
                         style={{
                             width: "100%",
                             borderCollapse: "collapse",
-                            fontSize: "clamp(.9rem,1vw,1rem)",
-                            borderRadius: 20,
-                            overflow: "hidden",
+                            fontSize: "clamp(.95rem,1vw,1rem)",
                         }}
                     >
+                        {/* HEAD */}
                         <thead>
                             <tr>
                                 <th
                                     style={{
                                         textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "#F8FAFC",
-                                        borderBottom: "2px solid #E2E8F0",
-                                        color: HEAD_NEUTRAL,
+                                        padding: "20px 24px",
+                                        background: "#F2F4F5",
+                                        borderBottom: "2px solid #E5E7EB",
+                                        color: "#0F172A",
                                         fontWeight: 800,
-                                        fontSize: "1.1rem",
+                                        fontSize: "1.05rem",
+                                        letterSpacing: "-0.2px",
                                     }}
                                 >
                                     Feature
                                 </th>
+
                                 <th
                                     style={{
                                         textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "#FEF2F2",
-                                        borderBottom: "2px solid #FECACA",
-                                        color: HEAD_AGENCY,
+                                        padding: "20px 24px",
+                                        background: "#FDF3F3",
+                                        borderBottom: "2px solid #F3C8C8",
+                                        color: "#7F1D1D",
                                         fontWeight: 700,
-                                        fontSize: "1.1rem",
+                                        fontSize: "1.05rem",
+                                        letterSpacing: "-0.1px",
                                     }}
                                 >
                                     Typical Agency
                                 </th>
+
                                 <th
                                     style={{
                                         textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "linear-gradient(90deg, rgba(31,171,31,0.08), rgba(31,171,31,0.18))",
-                                        borderBottom: `2px solid ${BRAND}`,
-                                        color: BRAND,
+                                        padding: "20px 24px",
+                                        background:
+                                            "linear-gradient(90deg, rgba(76,120,101,0.09), rgba(76,120,101,0.17))",
+                                        borderBottom: "2px solid #4C7865",
+                                        color: "#4C7865",
                                         fontWeight: 800,
-                                        fontSize: "1.1rem",
+                                        fontSize: "1.05rem",
+                                        letterSpacing: "-0.1px",
                                     }}
                                 >
-                                    ICARE
+                                    ICare
                                 </th>
                             </tr>
                         </thead>
 
+                        {/* BODY */}
                         <tbody>
                             {rows.map((r, idx) => (
                                 <tr
                                     key={r.k}
                                     style={{
-                                        background: idx % 2 === 0 ? "#FFFFFF" : "#F7F9F7",
-                                        transition: "background 0.3s ease",
+                                        background: idx % 2 === 0 ? "#FFFFFF" : "#F7F9F8",
+                                        transition: "background .3s ease",
                                     }}
                                 >
                                     <td
                                         style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid #E2E8F0",
+                                            padding: "16px 24px",
+                                            borderBottom: "1px solid #E5E7EB",
                                             color: "#1F2937",
                                             fontWeight: 600,
-                                            fontSize: ".95rem",
-                                            lineHeight: 1.5,
+                                            fontSize: ".97rem",
+                                            lineHeight: 1.55,
                                         }}
                                     >
                                         {r.k}
                                     </td>
+
                                     <td
                                         style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid #E2E8F0",
+                                            padding: "16px 24px",
+                                            borderBottom: "1px solid #E5E7EB",
                                             color: "#7F1D1D",
                                             fontWeight: 500,
-                                            fontSize: ".9rem",
+                                            fontSize: ".95rem",
                                         }}
                                     >
                                         {r.agency}
                                     </td>
+
                                     <td
                                         style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid rgba(31,171,31,.15)",
+                                            padding: "16px 24px",
+                                            borderBottom: "1px solid rgba(76,120,101,.2)",
                                             color: "#14532D",
                                             fontWeight: 700,
-                                            fontSize: ".95rem",
+                                            fontSize: ".97rem",
                                         }}
                                     >
                                         {r.icare}
@@ -477,17 +472,18 @@ function CompareAgencyVsICare() {
 
             <style>{`
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         @media (hover: hover) {
-          table tbody tr:hover td {
-            background: rgba(31,171,31,0.05);
-          }
+            table tbody tr:hover td {
+                background: rgba(76,120,101,0.05);
+            }
         }
-      `}</style>
+    `}</style>
         </section>
+
     );
 }
 
@@ -499,27 +495,59 @@ function ContactCTABanner() {
         <section
             id="contact"
             aria-label="Contact CTA"
-            style={{ marginLeft: "calc(50% - 50vw)", marginRight: "calc(50% - 50vw)", width: "100vw", background: "#F7FFF7" }}
+            style={{
+                marginLeft: "calc(50% - 50vw)",
+                marginRight: "calc(50% - 50vw)",
+                width: "100vw",
+                background: "linear-gradient(180deg, #F9FBFA 0%, #F3F8F4 100%)",
+                borderTop: "1px solid rgba(15,23,42,0.05)",
+                borderBottom: "1px solid rgba(15,23,42,0.05)",
+                padding: "clamp(3.2rem,5vw,4.5rem) 0",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            }}
         >
             <div
                 style={{
-                    maxWidth: 1200,
+                    maxWidth: 1180,
                     margin: "0 auto",
-                    padding: "36px clamp(16px,4vw,32px)",
+                    padding: "0 clamp(20px,4vw,40px)",
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
-                    gap: 16,
+                    gap: "clamp(1rem,2vw,1.6rem)",
                     alignItems: "center",
                 }}
             >
+                {/* TEXT */}
                 <div>
-                    <h3 style={{ margin: 0, color: "#0F172A", fontWeight: 900, fontSize: "clamp(1.2rem,2.2vw,1.6rem)" }}>
+                    <h3
+                        style={{
+                            margin: 0,
+                            color: "#0F172A",
+                            fontWeight: 900,
+                            fontSize: "clamp(1.45rem,2.3vw,1.85rem)",
+                            letterSpacing: "-0.3px",
+                            lineHeight: 1.28,
+                        }}
+                    >
                         Questions about how ICare works?
                     </h3>
-                    <p style={{ margin: "6px 0 0", color: "#334155", maxWidth: "70ch" }}>
-                        We’ll gladly walk you through setup, matching, and agreements — in under 10 minutes.
+
+                    <p
+                        style={{
+                            margin: ".75rem 0 0",
+                            color: "#475569",
+                            fontSize: "clamp(.98rem,1.1vw,1.1rem)",
+                            lineHeight: 1.65,
+                            maxWidth: "65ch",
+                            fontWeight: 500,
+                        }}
+                    >
+                        We’ll guide you through setup, matching and agreements — calmly and clearly, in under 10 minutes.
                     </p>
                 </div>
+
+                {/* BUTTON */}
                 <a
                     href="/contact"
                     style={{
@@ -528,23 +556,47 @@ function ContactCTABanner() {
                         gap: 10,
                         textDecoration: "none",
                         color: "#FFFFFF",
-                        background: BRAND,
-                        padding: ".9rem 1.35rem",
+                        background: "#4C7865",
+                        padding: "1rem 1.35rem",
                         borderRadius: 999,
-                        fontWeight: 900,
-                        letterSpacing: ".02em",
-                        boxShadow: "0 10px 24px rgba(2,8,23,.12)",
-                        border: "1px solid rgba(31,171,31,.45)",
+                        fontWeight: 800,
+                        letterSpacing: ".03em",
+                        fontSize: "clamp(.95rem,1vw,1.05rem)",
+                        border: "1px solid rgba(76,120,101,.32)",
+                        boxShadow: "0 12px 28px rgba(76,120,101,.2)",
+                        transition: "all .25s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow =
+                            "0 16px 36px rgba(76,120,101,.28)";
+                        e.currentTarget.style.background = "#3E6456";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow =
+                            "0 12px 28px rgba(76,120,101,.2)";
+                        e.currentTarget.style.background = "#4C7865";
                     }}
                 >
                     Contact us
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    >
                         <path d="M5 12h14" />
                         <path d="M13 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
         </section>
+
     );
 }
 
@@ -574,17 +626,17 @@ function SavingsEstimatorCurrency() {
             aria-label="Cost & Savings Estimator"
             style={{
                 margin: "5.4rem auto",
-                maxWidth: 1080, // 👈 zmniejszone o ok. 10%
+                maxWidth: 1080,
                 padding: "0 clamp(14px, 3.6vw, 28px)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 display: "grid",
-                gridTemplateColumns: "1fr 1.4fr", // 👈 proporcje zachowane, ale całość mniejsza
+                gridTemplateColumns: "1fr 1.4fr",
                 gap: "clamp(40px, 4.5vw, 70px)",
                 alignItems: "start",
             }}
         >
-            {/* === LEWA STRONA === */}
+            {/* === LEFT TEXT === */}
             <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
                 <h2
                     style={{
@@ -592,7 +644,7 @@ function SavingsEstimatorCurrency() {
                         fontWeight: 800,
                         letterSpacing: ".2px",
                         color: "#0f172a",
-                        fontSize: "clamp(1.9rem, 2.7vw, 2.3rem)", // 👈 tytuł -10%
+                        fontSize: "clamp(1.9rem, 2.7vw, 2.3rem)",
                         lineHeight: 1.2,
                         textAlign: "left",
                     }}
@@ -605,10 +657,10 @@ function SavingsEstimatorCurrency() {
                     style={{
                         width: 0,
                         height: 4,
-                        background: "#1FAB1F",
+                        background: "#4C7865",
                         borderRadius: 999,
                         margin: "0.9rem 0 1.3rem 0",
-                        opacity: 0.9,
+                        opacity: 1,
                     }}
                 />
 
@@ -623,21 +675,21 @@ function SavingsEstimatorCurrency() {
                         fontWeight: 600,
                     }}
                 >
-                    Estimate how much you and your caregiver can save each month when you work
+                    Estimate how much you and your caregiver save each month when you work
                     directly — without agency margins or hidden fees.
                 </p>
             </div>
 
-            {/* === PRAWA STRONA === */}
+            {/* === RIGHT SIDE GRID === */}
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))", // 👈 boxy o 10% mniejsze
+                    gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
                     gap: "clamp(18px, 2.2vw, 26px)",
                     alignItems: "stretch",
                 }}
             >
-                {/* FORMULARZ */}
+                {/* FORM */}
                 <form
                     onSubmit={(e) => e.preventDefault()}
                     style={{
@@ -652,11 +704,7 @@ function SavingsEstimatorCurrency() {
                     }}
                 >
                     {[
-                        {
-                            label: "Currency",
-                            type: "select",
-                            options: ["PLN — zł", "EUR — €", "GBP — £", "USD — $"],
-                        },
+                        { label: "Currency", type: "select", options: ["PLN — zł", "EUR — €", "GBP — £", "USD — $"] },
                         { label: "Hourly rate", type: "number", placeholder: "e.g. 25" },
                         { label: "Hours per week", type: "number", placeholder: "e.g. 40" },
                         { label: "Agency margin (%)", type: "number", placeholder: "e.g. 35" },
@@ -705,18 +753,18 @@ function SavingsEstimatorCurrency() {
                             marginTop: 2,
                             padding: "9px 11px",
                             borderRadius: 12,
-                            background: "rgba(31,171,31,0.08)",
-                            border: "1px solid rgba(31,171,31,0.20)",
+                            background: "rgba(76,120,101,0.10)",
+                            border: "1px solid rgba(76,120,101,0.25)",
                             color: "#1f2a37",
                             fontWeight: 700,
                             fontSize: ".9rem",
                         }}
                     >
-                        ICare fee: <span style={{ color: "#1FAB1F" }}>flat 10%</span> on contract
+                        ICare fee: <span style={{ color: "#4C7865" }}>flat 10%</span> on contract
                     </div>
                 </form>
 
-                {/* WYNIKI */}
+                {/* === RESULTS === */}
                 <div
                     style={{
                         border: "1px solid rgba(15,23,42,0.08)",
@@ -733,7 +781,7 @@ function SavingsEstimatorCurrency() {
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            color: "#1f2a37",
+                            color: "#0F172A",
                             fontSize: "clamp(1.05rem, 1.9vw, 1.25rem)",
                         }}
                     >
@@ -749,8 +797,8 @@ function SavingsEstimatorCurrency() {
                     >
                         {[
                             { k: "Base cost", v: monthlyBase },
-                            { k: "Agency total", v: monthlyAgency },
-                            { k: "ICare total", v: monthlyICare },
+                            { k: "Agency total", v: monthlyAgency, agency: true },
+                            { k: "ICare total", v: monthlyICare, icare: true },
                             { k: "You save with ICare", v: monthlySave, highlight: true },
                         ].map((row) => (
                             <div
@@ -760,8 +808,12 @@ function SavingsEstimatorCurrency() {
                                     borderRadius: 10,
                                     padding: "12px 14px",
                                     background: row.highlight
-                                        ? "rgba(31,171,31,0.06)"
-                                        : "rgba(255,255,255,0.96)",
+                                        ? "rgba(76,120,101,0.12)"
+                                        : row.icare
+                                            ? "rgba(76,120,101,0.07)"
+                                            : row.agency
+                                                ? "rgba(180,70,60,0.10)"
+                                                : "rgba(255,255,255,0.96)",
                                     transition: "background .3s ease",
                                 }}
                             >
@@ -775,11 +827,18 @@ function SavingsEstimatorCurrency() {
                                 >
                                     {row.k}
                                 </div>
+
                                 <div
                                     style={{
                                         fontWeight: 900,
                                         fontSize: "1.1rem",
-                                        color: row.highlight ? "#1FAB1F" : "#1f2a37",
+                                        color: row.highlight
+                                            ? "#4C7865"
+                                            : row.icare
+                                                ? "#335C4A"
+                                                : row.agency
+                                                    ? "#7F1D1D"
+                                                    : "#1f2a37",
                                     }}
                                 >
                                     {nf.format(row.v)} {currency}
@@ -788,6 +847,7 @@ function SavingsEstimatorCurrency() {
                         ))}
                     </div>
 
+                    {/* BAR */}
                     <div style={{ marginTop: 8 }}>
                         <div
                             style={{
@@ -802,7 +862,7 @@ function SavingsEstimatorCurrency() {
                                 style={{
                                     height: "100%",
                                     width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`,
-                                    background: "#1FAB1F",
+                                    background: "#4C7865",
                                     transition: "width 0.6s ease",
                                 }}
                             />
@@ -818,24 +878,25 @@ function SavingsEstimatorCurrency() {
                             }}
                         >
                             <span>Estimated savings vs agency</span>
-                            <strong style={{ color: "#1FAB1F" }}>{savePct.toFixed(0)}%</strong>
+                            <strong style={{ color: "#4C7865" }}>{savePct.toFixed(0)}%</strong>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Animacje */}
+            {/* Animations */}
             <style>{`
-    @keyframes fadeEstimator {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeCard {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `}</style>
+        @keyframes fadeEstimator {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeCard {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
+
 
     );
 }
@@ -989,26 +1050,81 @@ export default function HowItWorks() {
             <ContactCTABanner />
 
             {/* FOOTER — przeniesiony na sam dół strony */}
-            <footer className={styles.footer}>
-                <ul className={styles.listReset}>
-                    <li>
-                        <Link to="/" className={styles.footerLink}>
-                            Home
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/landing" className={styles.footerLink}>
-                            Landing
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/privacy" className={styles.footerLink}>
-                            Privacy
-                        </Link>
-                    </li>
-                </ul>
-                <div className={styles.copy}>© {new Date().getFullYear()} ICare. All rights reserved.</div>
+            <footer
+                style={{
+                    position: "relative",
+                    left: "50%",
+                    right: "50%",
+                    marginLeft: "-50vw",
+                    marginRight: "-50vw",
+                    width: "100vw",
+
+                    background: "rgb(76, 120, 101)", // zielony premium
+                    padding: "48px 0",
+                    color: "#fff",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <div
+                    style={{
+                        maxWidth: 1200,
+                        margin: "0 auto",
+                        padding: "0 clamp(20px,4vw,48px)",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        flexWrap: "wrap",
+                        alignItems: "center",
+                        gap: 24,
+                    }}
+                >
+                    <span
+                        style={{
+                            fontWeight: 900,
+                            fontSize: "1.3rem",
+                            letterSpacing: ".3px",
+                        }}
+                    >
+                        ICare
+                    </span>
+
+                    <nav style={{ display: "flex", gap: "2.4rem", flexWrap: "wrap" }}>
+                        {[
+                            { to: "/", label: "Home" },
+                            { to: "/how-it-works", label: "How it Works" },
+                            { to: "/privacy", label: "Privacy" },
+                        ].map((l) => (
+                            <Link
+                                key={l.to}
+                                to={l.to}
+                                style={{
+                                    textDecoration: "none",
+                                    color: "rgba(255,255,255,.92)",
+                                    fontWeight: 600,
+                                    fontSize: "1rem",
+                                    transition: "opacity .2s ease",
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                                onMouseLeave={(e) => (e.currentTarget.style.opacity = ".85")}
+                            >
+                                {l.label}
+                            </Link>
+                        ))}
+                    </nav>
+                </div>
+
+                <div
+                    style={{
+                        marginTop: "2rem",
+                        textAlign: "center",
+                        fontSize: ".9rem",
+                        color: "rgba(255,255,255,.85)",
+                    }}
+                >
+                    © {new Date().getFullYear()} ICare. All rights reserved.
+                </div>
             </footer>
+
         </div>
     );
 }
