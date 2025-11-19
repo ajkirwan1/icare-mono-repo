@@ -113,192 +113,172 @@ function ThreeStepGuide() {
             style={{
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
-                background: "#F8FAFC",
+                width: "100vw",
+                background: "#FFFFFF",
                 borderTop: "1px solid rgba(15,23,42,.06)",
                 borderBottom: "1px solid rgba(15,23,42,.06)",
-                padding: "clamp(5rem, 8vw, 7rem) 0",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                padding: "clamp(5rem,8vw,8rem) 0",
+                fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div
                 style={{
-                    maxWidth: 1200,
+                    maxWidth: 1280,
                     margin: "0 auto",
-                    padding: "0 clamp(20px,5vw,40px)",
+                    padding: "0 clamp(24px,5vw,48px)",
                 }}
             >
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 800,
+                        fontWeight: 900,
                         color: "#0F172A",
-                        fontSize: "clamp(2.2rem,3vw,2.5rem)", // +15% większy
+                        fontSize: "clamp(2.2rem,3vw,2.8rem)",
+                        lineHeight: 1.2,
                         letterSpacing: ".25px",
-                        textAlign: "left",
-                        lineHeight: 1.25,
-                        animation: "fadeUp 1s ease both",
+                        animation: "fadeUp .8s ease both",
                     }}
                 >
-                    Get started in 3 quick steps
+                    Get started in 3 simple steps
                 </h2>
 
-                {/* Odstęp pod tytułem */}
-                <div style={{ height: "clamp(2.8rem,5vw,4rem)" }} />
+                <div style={{ height: "clamp(2.5rem,4vw,3.5rem)" }} />
 
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-                        gap: "clamp(32px,3.5vw,48px)",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
+                        gap: "clamp(32px,4vw,48px)",
                     }}
                 >
-                    {steps.map((s, i) => (
+                    {[
+                        {
+                            title: "Create your profile",
+                            desc: "Introduce yourself, choose your role, and tell us what support you need — or offer.",
+                            img: "https://images.unsplash.com/photo-1581579184439-1f3a5c7f1b5f?auto=format&fit=crop&w=1000&q=80",
+                        },
+                        {
+                            title: "Get matched instantly",
+                            desc: "Browse verified caregivers or care receivers that match your needs and preferences.",
+                            img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1000&q=80",
+                        },
+                        {
+                            title: "Start working together",
+                            desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
+                            img: "https://images.unsplash.com/photo-1587502537745-84bb8a0d4a01?auto=format&fit=crop&w=1000&q=80",
+                        },
+                    ].map((step, i) => (
                         <article
-                            key={s.t}
+                            key={step.title}
                             style={{
                                 position: "relative",
-                                border: "1px solid rgba(15,23,42,.08)",
                                 borderRadius: 24,
-                                background: colors[i % colors.length],
-                                padding: "clamp(32px,3vw,44px)",
-                                boxShadow: "0 10px 26px rgba(15,23,42,.05)",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "flex-start",
-                                alignItems: "flex-start",
-                                textAlign: "left",
-                                minHeight: 240,
-                                opacity: 0,
-                                transform: "translateY(18px)",
-                                animation: `fadeCard 0.8s ease ${0.3 + i * 0.2}s forwards`, // 👈 opóźnienie kaskadowe
+                                overflow: "hidden",
+                                background: "#fff",
+                                boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
+                                transition: "all .35s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-6px)";
+                                e.currentTarget.style.boxShadow = "0 16px 38px rgba(0,0,0,0.12)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0px)";
+                                e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.05)";
                             }}
                         >
+                            {/* IMAGE */}
                             <div
                                 style={{
-                                    display: "flex",
-                                    alignItems: "flex-start",
-                                    justifyContent: "flex-start",
-                                    gap: 16,
-                                    marginBottom: 10,
+                                    width: "100%",
+                                    height: 220,
+                                    overflow: "hidden",
                                 }}
                             >
-                                <div
+                                <img
+                                    src={step.img}
+                                    alt=""
                                     style={{
-                                        width: 56,
-                                        height: 56,
-                                        borderRadius: 999,
-                                        background: "rgba(31,171,31,0.1)",
-                                        border: "1px solid rgba(31,171,31,0.25)",
-                                        display: "grid",
-                                        placeItems: "center",
-                                        fontWeight: 900,
-                                        color: "#14532D",
-                                        fontSize: "1.1rem",
-                                        flexShrink: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "cover",
+                                        transition: "transform .45s ease",
                                     }}
-                                >
-                                    {i + 1}
-                                </div>
-
-                                <strong
-                                    style={{
-                                        fontSize: "clamp(1.1rem,1.7vw,1.3rem)",
-                                        color: "#0F172A",
-                                        letterSpacing: ".25px",
-                                        lineHeight: 1.25,
-                                        textAlign: "left",
-                                        marginTop: 6,
-                                    }}
-                                >
-                                    {s.t}
-                                </strong>
+                                    onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                                />
                             </div>
 
-                            <p
-                                style={{
-                                    margin: 0,
-                                    marginTop: 4,
-                                    color: "#334155",
-                                    lineHeight: 1.75,
-                                    fontSize: "clamp(.95rem,1vw,1.05rem)",
-                                    maxWidth: "94%",
-                                    textAlign: "left",
-                                }}
-                            >
-                                {s.d}
-                            </p>
+                            {/* TEXT BLOCK */}
+                            <div style={{ padding: "24px 26px 30px" }}>
+                                <h3
+                                    style={{
+                                        margin: 0,
+                                        fontSize: "1.35rem",
+                                        color: "#0F172A",
+                                        fontWeight: 800,
+                                    }}
+                                >
+                                    {step.title}
+                                </h3>
+
+                                <p
+                                    style={{
+                                        marginTop: 10,
+                                        marginBottom: 0,
+                                        color: "#475569",
+                                        fontSize: "1rem",
+                                        lineHeight: 1.65,
+                                    }}
+                                >
+                                    {step.desc}
+                                </p>
+                            </div>
                         </article>
                     ))}
                 </div>
 
-                <div
-                    style={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        gap: 14,
-                        marginTop: "clamp(40px,3vw,56px)",
-                        flexWrap: "wrap",
-                    }}
-                >
+                {/* CTA BUTTON */}
+                <div style={{ marginTop: "clamp(48px,4vw,64px)" }}>
                     <a
                         href="/register"
                         style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 10,
                             textDecoration: "none",
                             color: "#FFFFFF",
-                            background: "rgb(76, 120, 101)",
-                            padding: "1.1rem 1.8rem",
+                            background: "#1F7A4A",
+                            padding: "1.1rem 2rem",
                             borderRadius: 999,
-                            fontWeight: 800,
+                            fontWeight: 900,
                             letterSpacing: ".03em",
-                            boxShadow: "0 12px 28px rgba(31,171,31,.15)",
-                            border: "1px solid rgba(31,171,31,.4)",
-                            animation: "pulseGlow 3s ease-in-out infinite", // 💫 pulsujący efekt
+                            boxShadow: "0 10px 28px rgba(0,0,0,.12)",
+                            border: "1px solid rgba(0,0,0,.12)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.background = "#16653C";
+                            e.currentTarget.style.transform = "translateY(-3px)";
+                            e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,.16)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.background = "#1F7A4A";
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,0,0,.12)";
                         }}
                     >
-                        CREATE YOUR FREE ACCOUNT
+                        Create your free account
                     </a>
                 </div>
             </div>
 
             <style>{`
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeCard {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 0 rgba(31,171,31,0.2);
-        transform: scale(1);
-      }
-      50% {
-        box-shadow: 0 0 20px rgba(31,171,31,0.35);
-        transform: scale(1.015);
-      }
-      100% {
-        box-shadow: 0 0 0 rgba(31,171,31,0.2);
-        transform: scale(1);
-      }
-    }
-  `}</style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
 
     );
@@ -323,7 +303,7 @@ function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "linear-gradient(180deg, #F9FAF9 0%, #FFFFFF 100%)",
+                background: "#FFFFFF",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 padding: "clamp(5rem,7vw,6.5rem) clamp(24px,6vw,60px)",
@@ -331,163 +311,203 @@ function CompareAgencyVsICare() {
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            <div
-                style={{
-                    maxWidth: 1100,
-                    margin: "0 auto",
-                    animation: "fadeUp 1s ease both",
-                }}
-            >
+            <div style={{ maxWidth: 1180, margin: "0 auto", animation: "fadeUp 1s ease both" }}>
+
+                {/* === TITLE === */}
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 800,
+                        fontWeight: 900,
                         color: "#0F172A",
-                        fontSize: "clamp(2rem,3vw,2.6rem)",
+                        fontSize: "clamp(2.2rem,3vw,2.7rem)",
                         letterSpacing: ".25px",
-                        textAlign: "left",
-                        lineHeight: 1.25,
+                        lineHeight: 1.2,
                     }}
                 >
-                    Why choose <span style={{ color: "rgb(76, 120, 101)" }}>ICare</span> instead of an agency?
+                    Why families choose ICare?
                 </h2>
 
                 <p
                     style={{
-                        margin: "1rem 0 2.6rem",
+                        margin: "1rem 0 3rem",
                         color: "#475569",
-                        maxWidth: "62ch",
-                        lineHeight: 1.75,
-                        fontSize: "1.15rem",
-                        fontWeight: "600",
+                        maxWidth: "65ch",
+                        lineHeight: 1.7,
+                        fontSize: "1.1rem",
+                        fontWeight: 500,
                     }}
                 >
-                    Fair, transparent and direct — families and caregivers connect without hidden fees or intermediaries.
+                    A modern, transparent alternative to traditional agencies — created for families and caregivers who value clarity, trust and fair pay.
                 </p>
 
+                {/* === CARDS WRAPPER === */}
                 <div
                     style={{
-                        overflowX: "auto",
-                        borderRadius: 24,
-                        boxShadow: "0 12px 32px rgba(15,23,42,0.06)",
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(320px,1fr))",
+                        gap: "clamp(30px,4vw,40px)",
                     }}
                 >
-                    <table
+                    {/* =======================
+                AGENCY CARD
+            ======================= */}
+                    <article
                         style={{
-                            width: "100%",
-                            borderCollapse: "collapse",
-                            fontSize: "clamp(.9rem,1vw,1rem)",
-                            borderRadius: 20,
+                            background: "#FAFAFA",
+                            border: "1px solid rgba(120,20,20,0.12)",
+                            borderRadius: 24,
                             overflow: "hidden",
+                            boxShadow: "0 8px 28px rgba(0,0,0,0.06)",
+                            transition: "transform .35s ease, box-shadow .35s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-4px)";
+                            e.currentTarget.style.boxShadow = "0 12px 34px rgba(0,0,0,0.08)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.06)";
                         }}
                     >
-                        <thead>
-                            <tr>
-                                <th
-                                    style={{
-                                        textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "#F8FAFC",
-                                        borderBottom: "2px solid #E2E8F0",
-                                        color: HEAD_NEUTRAL,
-                                        fontWeight: 800,
-                                        fontSize: "1.1rem",
-                                    }}
-                                >
-                                    Feature
-                                </th>
-                                <th
-                                    style={{
-                                        textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "#FEF2F2",
-                                        borderBottom: "2px solid #FECACA",
-                                        color: HEAD_AGENCY,
-                                        fontWeight: 700,
-                                        fontSize: "1.1rem",
-                                    }}
-                                >
-                                    Typical Agency
-                                </th>
-                                <th
-                                    style={{
-                                        textAlign: "left",
-                                        padding: "18px 22px",
-                                        background: "linear-gradient(90deg, rgba(31,171,31,0.08), rgba(31,171,31,0.18))",
-                                        borderBottom: `2px solid ${BRAND}`,
-                                        color: BRAND,
-                                        fontWeight: 800,
-                                        fontSize: "1.1rem",
-                                    }}
-                                >
-                                    ICARE
-                                </th>
-                            </tr>
-                        </thead>
+                        <img
+                            src="/images/agency-dark.jpg"
+                            alt="Traditional Agency"
+                            style={{ width: "100%", height: 240, objectFit: "cover" }}
+                        />
 
-                        <tbody>
-                            {rows.map((r, idx) => (
-                                <tr
-                                    key={r.k}
-                                    style={{
-                                        background: idx % 2 === 0 ? "#FFFFFF" : "#F7F9F7",
-                                        transition: "background 0.3s ease",
-                                    }}
-                                >
-                                    <td
+                        <div style={{ padding: "28px" }}>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontSize: "1.35rem",
+                                    fontWeight: 800,
+                                    color: "#7F1D1D",
+                                }}
+                            >
+                                Typical Agency
+                            </h3>
+
+                            <ul style={{ padding: 0, margin: "18px 0 0", listStyle: "none", display: "grid", gap: 14 }}>
+                                {[
+                                    "High margins (25–40%)",
+                                    "Limited choice of caregiver",
+                                    "Locked contracts",
+                                    "Extra fees for changes",
+                                    "Limited transparency",
+                                ].map((item) => (
+                                    <li
+                                        key={item}
                                         style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid #E2E8F0",
-                                            color: "#1F2937",
-                                            fontWeight: 600,
-                                            fontSize: ".95rem",
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: 10,
+                                            color: "#7F1D1D",
+                                            fontSize: "1rem",
                                             lineHeight: 1.5,
                                         }}
                                     >
-                                        {r.k}
-                                    </td>
-                                    <td
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            stroke="#B91C1C"
+                                            strokeWidth="1.5"
+                                            fill="none"
+                                        >
+                                            <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
+                                        </svg>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </article>
+
+                    {/* =======================
+                ICARE CARD
+            ======================= */}
+                    <article
+                        style={{
+                            background: "#FFFFFF",
+                            border: `1px solid ${BRAND}22`,
+                            borderRadius: 24,
+                            overflow: "hidden",
+                            boxShadow: "0 8px 28px rgba(0,0,0,0.06)",
+                            transition: "transform .35s ease, box-shadow .35s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-4px)";
+                            e.currentTarget.style.boxShadow = "0 12px 34px rgba(31,171,31,0.18)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.06)";
+                        }}
+                    >
+                        <img
+                            src="/images/icare-bright.jpg"
+                            alt="ICare Matching"
+                            style={{ width: "100%", height: 240, objectFit: "cover" }}
+                        />
+
+                        <div style={{ padding: "28px" }}>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontSize: "1.35rem",
+                                    fontWeight: 800,
+                                    color: BRAND,
+                                }}
+                            >
+                                ICare
+                            </h3>
+
+                            <ul style={{ padding: 0, margin: "18px 0 0", listStyle: "none", display: "grid", gap: 14 }}>
+                                {[
+                                    "Flat 10% fee on contract",
+                                    "You pick the right caregiver",
+                                    "Full transparency",
+                                    "Direct agreements",
+                                    "Better pay for caregivers",
+                                ].map((item) => (
+                                    <li
+                                        key={item}
                                         style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid #E2E8F0",
-                                            color: "#7F1D1D",
-                                            fontWeight: 500,
-                                            fontSize: ".9rem",
-                                        }}
-                                    >
-                                        {r.agency}
-                                    </td>
-                                    <td
-                                        style={{
-                                            padding: "14px 20px",
-                                            borderBottom: "1px solid rgba(31,171,31,.15)",
+                                            display: "flex",
+                                            alignItems: "flex-start",
+                                            gap: 10,
                                             color: "#14532D",
-                                            fontWeight: 700,
-                                            fontSize: ".95rem",
+                                            fontSize: "1rem",
+                                            lineHeight: 1.5,
                                         }}
                                     >
-                                        {r.icare}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            stroke={BRAND}
+                                            strokeWidth="1.7"
+                                            fill="none"
+                                        >
+                                            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </article>
                 </div>
             </div>
 
             <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (hover: hover) {
-          table tbody tr:hover td {
-            background: rgba(31,171,31,0.05);
-          }
-        }
-      `}</style>
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `}</style>
         </section>
+
     );
 }
 
@@ -845,37 +865,95 @@ export default function HowItWorks() {
     return (
         <div className={styles.page}>
             {/* HERO */}
-            <section className={styles.heroWrap} aria-label="How it works hero">
-                <img src={whoWeAreHeroSrc} alt="Care coordination background" className={styles.heroImg} />
-                <div className={styles.heroOverlay} />
+            <section
+                className={styles.heroWrap}
+                aria-label="How it works hero"
+                style={{
+                    position: "relative",
+                    height: "clamp(520px, 72vh, 760px)", // identyczna wysokość jak homepage
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    overflow: "hidden",
+                }}
+            >
+                {/* BACKGROUND IMAGE */}
+                <img
+                    src={whoWeAreHeroSrc}
+                    alt="Care coordination background"
+                    className={styles.heroImg}
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        filter: "brightness(0.62) contrast(1.08) saturate(1.08)", // IDENTYCZNIE JAK HOMEPAGE
+                    }}
+                />
 
-                {/* HEADER */}
+                {/* GRADIENT OVERLAY – 1:1 HOMEPAGE */}
+                <div
+                    className={styles.heroOverlay}
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                            "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.75) 100%)",
+                    }}
+                />
+
+                {/* ==== HEADER (navigation) — 1:1 ==== */}
                 <header className={styles.headerOverlay}>
-                    <Link to="/" className={styles.brand} style={{ color: "#fff", textDecoration: "none", fontWeight: 900 }}>
+                    <Link
+                        to="/"
+                        className={styles.brand}
+                        style={{
+                            color: "#fff",
+                            textDecoration: "none",
+                            fontWeight: 900,
+                            letterSpacing: "-0.3px",
+                            fontSize: "1.25rem",
+                        }}
+                    >
                         ICare
                     </Link>
 
-                    <nav style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem 1.1rem", alignItems: "center" }}>
+                    <nav
+                        style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            gap: "0.75rem 1.1rem",
+                            alignItems: "center",
+                        }}
+                    >
                         {[
                             { to: "/", label: "Home" },
                             { to: "/how-it-works", label: "How it Works" },
                             { to: "/who-we-are", label: "Who We Are" },
                             { to: "/privacy", label: "Privacy" },
-                            { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                            { to: "/icare-for-carereceivers", label: "ICare For Care Receivers" },
+                            {
+                                to: "/icare-for-caregivers",
+                                label: "ICare For Caregivers",
+                            },
+                            {
+                                to: "/icare-for-carereceivers",
+                                label: "ICare For Care Receivers",
+                            },
                         ].map((l) => (
                             <Link
                                 key={l.to}
                                 to={l.to}
                                 style={{
-                                    color: "rgba(255,255,255,.9)",
+                                    color: "rgba(255,255,255,0.92)",
                                     textDecoration: "none",
-                                    fontSize: "clamp(.85rem, 1.2vw, .95rem)",
+                                    fontSize: "clamp(.9rem,1.2vw,.95rem)",
                                     fontWeight: 600,
                                     letterSpacing: ".01em",
                                     padding: ".2rem 0",
                                     textUnderlineOffset: "6px",
-                                    transition: "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease",
+                                    transition:
+                                        "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.color = "#fff";
@@ -884,9 +962,8 @@ export default function HowItWorks() {
                                     e.currentTarget.style.textUnderlineOffset = "7px";
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.color = "rgba(255,255,255,.9)";
+                                    e.currentTarget.style.color = "rgba(255,255,255,0.92)";
                                     e.currentTarget.style.textDecoration = "none";
-                                    e.currentTarget.style.textUnderlineOffset = "6px";
                                 }}
                             >
                                 {l.label}
@@ -895,7 +972,7 @@ export default function HowItWorks() {
                     </nav>
                 </header>
 
-                {/* HERO COPY */}
+                {/* ==== IDENTICAL HERO COPY LAYOUT ==== */}
                 <div
                     style={{
                         position: "relative",
@@ -905,81 +982,91 @@ export default function HowItWorks() {
                         padding: "0 clamp(16px, 4vw, 32px)",
                         color: "#fff",
                         textAlign: "left",
-                        fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        transform: "translateY(10%)",
                     }}
                 >
+                    {/* TAGLINE – EXACT SAME STYLE */}
                     <span
                         style={{
                             display: "inline-block",
-                            marginBottom: "3.2rem",
-                            marginTop: "-3.2rem",
-                            fontSize: "1.12rem",
+                            marginBottom: "2.4rem",
+                            fontSize: ".95rem",
                             fontWeight: 700,
-                            letterSpacing: ".12em",
+                            letterSpacing: ".16em",
                             textTransform: "uppercase",
-                            color: "#EAF7EA",
-                            padding: ".56rem 1.12rem",
+                            color: "#E9F8EC",
+                            padding: ".55rem 1.2rem",
                             borderRadius: 999,
-                            background: "rgba(31,171,31,0.20)",
-                            border: "2px solid rgba(31,171,31,0.45)",
-                            textShadow: "0 1px 2px rgba(0,0,0,.25)",
+                            background: "rgba(255,255,255,0.14)",
+                            border: "1px solid rgba(255,255,255,0.26)",
+                            backdropFilter: "blur(4px)",
                         }}
                     >
-                        Direct Fair Transparent
+                        Direct • Fair • Transparent
                     </span>
 
+                    {/* TITLE — 1:1 WE ARE NOT AN AGENCY SIZE */}
                     <h1
                         style={{
-                            margin: "0 0 2rem",
-                            fontWeight: 800,
-                            lineHeight: 1.05,
-                            letterSpacing: ".2px",
-                            fontSize: "clamp(2.2rem, 4.4vw, 3.2rem)",
-                            textShadow: "0 4px 18px rgba(0,0,0,.45), 0 2px 6px rgba(0,0,0,.35)",
-                            color: "#fff",
+                            margin: "0 0 1.6rem",
+                            fontWeight: 900,
+                            lineHeight: 1.03,
+                            letterSpacing: "-0.5px",
+                            fontSize: "clamp(2.7rem, 5vw, 3.4rem)",
+                            textShadow:
+                                "0 6px 26px rgba(0,0,0,.55), 0 2px 10px rgba(0,0,0,.35)",
                         }}
                     >
                         How it works
                     </h1>
 
+                    {/* BODY COPY — SAME STYLE, SAME WIDTH */}
                     <p
                         style={{
-                            margin: ".25rem 0 0",
-                            lineHeight: 1.6,
-                            fontSize: "clamp(1.1rem, 1.1vw, 1.125rem)",
-                            color: "rgba(255,255,255,.96)",
-                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                            margin: "0 0 .5rem",
+                            lineHeight: 1.68,
+                            fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
+                            color: "rgba(255,255,255,0.96)",
                             maxWidth: "62ch",
+                            fontWeight: 400,
+                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
                         }}
                     >
                         <b>Why choose ICare instead of going through an agency?</b>
                     </p>
+
                     <p
                         style={{
-                            margin: ".35rem 0 0",
-                            lineHeight: 1.6,
-                            fontSize: "clamp(1.1rem, 1.2vw, 1.125rem)",
-                            color: "rgba(255,255,255,.96)",
-                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                            margin: "0 0 .5rem",
+                            lineHeight: 1.68,
+                            fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
+                            color: "rgba(255,255,255,0.96)",
                             maxWidth: "62ch",
+                            fontWeight: 400,
+                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
                         }}
                     >
-                        <b>Unlike traditional agencies, we don’t charge high margins for matching or management.</b>
+                        <b>We don’t charge high margins for matching or management.</b>
                     </p>
+
                     <p
                         style={{
-                            margin: ".35rem 0 0",
-                            lineHeight: 1.6,
-                            fontSize: "clamp(1.1rem, 1.2vw, 1.125rem)",
-                            color: "rgba(255,255,255,.96)",
-                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                            margin: ".2rem 0 0",
+                            lineHeight: 1.68,
+                            fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
+                            color: "rgba(255,255,255,0.96)",
                             maxWidth: "62ch",
+                            fontWeight: 400,
+                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
                         }}
                     >
-                        <b>That means you save money, and the caregiver earns more.</b>
+                        <b>You save money — and the caregiver earns more.</b>
                     </p>
                 </div>
             </section>
+
 
             {/* Sticky subnav + content sections */}
             <StickySubnav />

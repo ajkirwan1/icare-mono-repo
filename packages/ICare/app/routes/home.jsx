@@ -458,7 +458,7 @@ export default function Home() {
             <IcareWebBlock
                 imgSrc={cardImage}
                 style={{
-                    background: "#F4F5F4", // delikatniejsze, premium
+                    background: "#F4F5F4",
                     borderRadius: "28px",
                     padding: "clamp(3.2rem, 5vw, 4.2rem) clamp(1.5rem, 4vw, 3rem)",
                     display: "flex",
@@ -474,34 +474,37 @@ export default function Home() {
                     border: "1px solid rgba(0,0,0,0.04)",
                 }}
             >
-                {/* = HEADER (tylko typografia zmieniona) =============================== */}
+                {/* === HEADER (Airbnb typography) ==================================== */}
                 <span
                     slot="header-contents"
                     style={{
                         display: "block",
-                        fontSize: "clamp(1.95rem, 3.4vw, 2.25rem)", // minimalna zmiana — miękko
+                        fontSize: "clamp(2.05rem, 3.8vw, 2.35rem)", // bardziej “airy”
                         fontWeight: 900,
                         color: "#0F172A",
-                        marginBottom: "1.15rem",
-                        lineHeight: 1.14,
-                        letterSpacing: "-0.25px", // Airbnb
+                        marginBottom: "1.25rem",
+                        lineHeight: 1.12, // Airbnb: ciaśniejszy heading
+                        letterSpacing: "-0.35px", // Airbnb signature
+                        fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial",
                     }}
                 >
                     Connecting care with trust
                 </span>
 
-                {/* = BODY =============================================================== */}
+                {/* === BODY (Airbnb body text) ====================================== */}
                 <span
                     slot="body-contents"
                     style={{
-                        fontSize: "clamp(1rem, 1.2vw, 1.1rem)", // lekko czytelniejsze
-                        lineHeight: 1.72,
-                        color: "#3A3A3A", // delikatny premium tekst
-                        fontWeight: 500,
+                        fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
+                        lineHeight: 1.82, // bardziej airy
+                        color: "rgba(15, 23, 42, 0.72)", // delikatny, premium neutral
+                        fontWeight: 400, // lżejszy tekst
                         maxWidth: "640px",
                         display: "block",
-                        marginBottom: "1.6rem",
-                        letterSpacing: "0", // naturalne
+                        marginBottom: "1.75rem",
+                        letterSpacing: "0.25px", // Airbnb micro-tracking
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     }}
                 >
                     Easily connect with trusted caregivers or people who need care — right from your
@@ -509,9 +512,7 @@ export default function Home() {
                     qualifications. Set up and manage care agreements with simple tools for scheduling
                     and contracts.
                 </span>
-
             </IcareWebBlock>
-
 
 
             {/* === BLOK 2: Safety (image right) === */}
@@ -524,7 +525,7 @@ export default function Home() {
                 <IcareWebBlock
                     imgSrc={cardImage3}
                     style={{
-                        background: "#F7F5F0",               // • cieplejszy, czystszy beż (premium Airbnb)
+                        background: "#F7F5F0",                  // premium warm beige
                         borderRadius: "28px",
                         padding: "clamp(3rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)",
                         boxShadow: "0 6px 22px rgba(0,0,0,0.03)",
@@ -533,55 +534,57 @@ export default function Home() {
                         justifyContent: "space-between",
                         flexWrap: "wrap",
                         gap: "2.5rem",
-                        flexDirection: "row-reverse",        // • obrazek po prawej (BEZ zmian)
+                        flexDirection: "row-reverse",           // IMG RIGHT
                         maxWidth: 1200,
                         marginInline: "auto",
                         border: "1px solid rgba(0,0,0,0.04)",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     }}
                 >
 
-                    {/* ===== HEADER ===== */}
+                    {/* ================= HEADER ================= */}
                     <span
                         slot="header-contents"
                         style={{
                             display: "block",
-                            fontSize: "clamp(2rem, 3.3vw, 2.35rem)", // • delikatnie bardziej premium
+                            fontSize: "clamp(2rem, 3.3vw, 2.35rem)",
                             fontWeight: 900,
                             color: "#0F172A",
                             marginBottom: "1.1rem",
                             lineHeight: 1.13,
-                            letterSpacing: "-0.25px",                // • Airbnb vibe
+                            letterSpacing: "-0.25px",           // Airbnb headline
                         }}
                     >
                         Safety comes first
                     </span>
 
-                    {/* ===== BODY ===== */}
+                    {/* ================= BODY (Airbnb light) ================= */}
                     <span
                         slot="body-contents"
                         style={{
                             fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
-                            lineHeight: 1.72,
-                            color: "#3A3A3A",
-                            fontWeight: 500,
+                            lineHeight: 1.82,                   // airy text
+                            color: "rgba(15,23,42,0.72)",       // soft premium neutral
+                            fontWeight: 400,                    // Airbnb-style lightweight
                             maxWidth: "620px",
                             display: "block",
-                            marginBottom: "1.6rem",
-                            letterSpacing: "0",
+                            marginBottom: "1.75rem",
+                            letterSpacing: "0.25px",            // premium micro-tracking
                         }}
                     >
                         Your information stays safe and private thanks to strong built-in security
-                        and encrypted communication. Every caregiver profile is verified and reviewed
-                        for authenticity — so you can focus on what truly matters.
+                        and encrypted communication. Every caregiver profile is verified and
+                        reviewed for authenticity — so you can focus on what truly matters.
                     </span>
 
-                    {/* ===== CTA BUTTON (Airbnb premium) ===== */}
+                    {/* ================= CTA BUTTON ================= */}
                     <a
                         href="/register"
                         style={{
                             display: "inline-block",
                             padding: "1.05rem 2.4rem",
-                            background: "linear-gradient(90deg, #4C7865 0%, #6CAF8E 100%)", // • bardziej premium, spójne z resztą
+                            background: "linear-gradient(90deg, #4C7865 0%, #6CAF8E 100%)",
                             color: "#fff",
                             fontWeight: 800,
                             fontSize: "1.05rem",
@@ -612,6 +615,7 @@ export default function Home() {
                     </a>
 
                 </IcareWebBlock>
+
             </IcareSection>
 
 
