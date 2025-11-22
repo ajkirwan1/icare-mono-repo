@@ -86,11 +86,12 @@ export default function ICareForCaregivers() {
                     display: "grid",
                     placeItems: "center",
                     color: "#fff",
-                    background:
-                        "radial-gradient(80rem 40rem at 10% 10%, rgba(51,174,186,.06), transparent 60%), radial-gradient(80rem 40rem at 90% 90%, rgba(17,119,128,.06), transparent 60%), linear-gradient(160deg, #0b1220 0%, #0f172a 65%, #0b1220 100%)",
+                    background: "#0f172a",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
-                {/* tło zdjęciowe */}
+                {/* BACKGROUND IMG */}
                 <img
                     src={heroImage}
                     alt="Care coordination background"
@@ -100,51 +101,46 @@ export default function ICareForCaregivers() {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        objectPosition: "center",
-                        filter: "brightness(.7) contrast(1.06) saturate(.98)",
-                        zIndex: 0,
+                        filter: "brightness(.78) saturate(.95)",
+                        zIndex: 1,
                     }}
                 />
 
-                {/* overlay */}
+                {/* SOFT OVERLAY — AIRBNB STYLE */}
                 <div
                     style={{
                         position: "absolute",
                         inset: 0,
                         background:
-                            "radial-gradient(75% 55% at 50% 45%, rgba(0,0,0,.22) 0%, rgba(0,0,0,.38) 60%, rgba(0,0,0,.52) 100%)",
-                        zIndex: 1,
-                        pointerEvents: "none",
+                            "linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 70%)",
+                        zIndex: 2,
                     }}
                 />
 
-                {/* header */}
+                {/* HEADER – light, premium */}
                 <header
                     style={{
                         position: "absolute",
                         top: 0,
                         left: 0,
                         right: 0,
-                        zIndex: 3,
+                        padding: "1.1rem clamp(16px,4vw,36px)",
+                        zIndex: 5,
                         display: "flex",
-                        alignItems: "center",
                         justifyContent: "space-between",
-                        gap: "1rem",
-                        padding: "1rem clamp(16px,4vw,32px)",
-                        background: "rgba(2,8,23,0.28)",
-                        backdropFilter: "saturate(1.05) blur(4px)",
-                        borderBottom: "1px solid rgba(255,255,255,0.14)",
+                        alignItems: "center",
+                        backdropFilter: "blur(6px)",
                     }}
                 >
                     <Link
                         to="/"
                         style={{
                             fontWeight: 900,
-                            letterSpacing: "0.3px",
-                            color: "#ffffff",
+                            fontSize: "clamp(1.4rem,2.2vw,1.6rem)",
+                            color: "#fff",
                             textDecoration: "none",
-                            fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)",
-                            textShadow: "0 1px 10px rgba(0,0,0,.4)",
+                            letterSpacing: "-0.5px",
+                            textShadow: "0 2px 8px rgba(0,0,0,.35)",
                         }}
                     >
                         ICare
@@ -153,9 +149,8 @@ export default function ICareForCaregivers() {
                     <nav
                         style={{
                             display: "flex",
+                            gap: "1rem",
                             flexWrap: "wrap",
-                            gap: "0.75rem 1.1rem",
-                            alignItems: "center",
                         }}
                     >
                         {[
@@ -170,25 +165,22 @@ export default function ICareForCaregivers() {
                                 key={l.to}
                                 to={l.to}
                                 style={{
-                                    color: "rgba(255,255,255,.95)",
+                                    color: "rgba(255,255,255,.92)",
                                     textDecoration: "none",
-                                    fontSize: "clamp(.9rem, 1.2vw, 1rem)",
-                                    padding: ".45rem .7rem",
+                                    padding: ".45rem .75rem",
                                     borderRadius: 999,
-                                    border: "1px solid rgba(255,255,255,.20)",
-                                    background: "rgba(255,255,255,.06)",
-                                    transition:
-                                        "transform .15s ease, background .15s ease, border-color .15s ease",
+                                    fontWeight: 600,
+                                    fontSize: "clamp(.85rem,1.15vw,1rem)",
+                                    transition: "all .25s ease",
+                                    backdropFilter: "blur(4px)",
                                 }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = "translateY(-1px)";
-                                    e.currentTarget.style.background = "rgba(255,255,255,.12)";
-                                    e.currentTarget.style.borderColor = "rgba(255,255,255,.32)";
+                                    e.currentTarget.style.background = "rgba(255,255,255,.18)";
+                                    e.currentTarget.style.color = "#fff";
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.background = "rgba(255,255,255,.06)";
-                                    e.currentTarget.style.borderColor = "rgba(255,255,255,.20)";
+                                    e.currentTarget.style.background = "transparent";
+                                    e.currentTarget.style.color = "rgba(255,255,255,.92)";
                                 }}
                             >
                                 {l.label}
@@ -197,153 +189,152 @@ export default function ICareForCaregivers() {
                     </nav>
                 </header>
 
-                {/* HERO content – lewostronnie jak na innych stronach */}
+                {/* ======================= HERO COPY ======================= */}
                 <div
                     style={{
                         position: "relative",
-                        zIndex: 2,
+                        zIndex: 5,
                         width: "min(1100px, 92vw)",
                         marginInline: "auto",
-                        padding: "clamp(2rem, 4vw, 4rem) 0",
+                        padding: "clamp(4rem, 6vw, 6rem) 0",
                         textAlign: "left",
+                        transform: "translateX(-8%)", // Airbnb-like left shift
                     }}
                 >
-                    <div style={{ ...container, padding: 0 }}>
-                        <span
-                            style={{
-                                display: "inline-block",
-                                marginBottom: "1.4rem", // większy odstęp
-                                fontSize: "1.01rem", // +15%
-                                fontWeight: 800,
-                                letterSpacing: ".13em",
-                                textTransform: "uppercase",
-                                color: "#EAF7EA",
-                                padding: ".55rem 1.05rem", // większy padding
-                                borderRadius: 999,
-                                background: "rgba(31,171,31,0.22)", // lekko mocniejszy zielony
-                                border: "2.3px solid rgba(31,171,31,0.5)", // delikatnie grubszy
-                                textShadow: "0 1px 3px rgba(0,0,0,.28)", // nieco mocniejszy cień
-                            }}
-                        >
-                            Direct  Fair  Transparent
-                        </span>
+                    {/* BADGE Airbnb tag */}
+                    <span
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            padding: ".55rem 1rem",
+                            borderRadius: 999,
+                            fontSize: "clamp(.82rem, 1.2vw, 1rem)",
+                            fontWeight: 800,
+                            letterSpacing: ".15em",
+                            textTransform: "uppercase",
+                            color: "#EAF7EA",
+                            background: "rgba(31,171,31,0.22)",
+                            border: "2px solid rgba(31,171,31,0.32)",
+                            backdropFilter: "blur(4px)",
+                            marginBottom: "1.4rem",
+                            textShadow: "0 1px 3px rgba(0,0,0,.3)",
+                        }}
+                    >
+                        direct · fair · transparent
+                    </span>
 
+                    {/* TITLE */}
+                    <h1
+                        style={{
+                            fontWeight: 900,
+                            letterSpacing: "-0.3px",
+                            lineHeight: 1.05,
+                            fontSize: "clamp(2.4rem, 5vw, 3.4rem)",
+                            margin: "0 0 1rem 0",
+                            color: "#fff",
+                            textShadow: "0 3px 12px rgba(0,0,0,.45)",
+                        }}
+                    >
+                        ICare for Caregivers
+                    </h1>
 
-                        <h1
-                            style={{
-                                fontWeight: 800,
-                                letterSpacing: ".2px",
-                                lineHeight: 1.05,
-                                fontSize: "clamp(2rem, 4.2vw, 3.2rem)",
-                                margin: "0 0 .7rem 0",
-                                color: "#ffffff",
-                                textShadow: "0 2px 18px rgba(0,0,0,.45), 0 0 2px rgba(0,0,0,.35)",
-                            }}
-                        >
-                            <span> ICare for Caregivers</span>
-                        </h1>
+                    {/* LEAD TEXT */}
+                    <p
+                        style={{
+                            fontSize: "clamp(1.05rem,1.2vw,1.2rem)",
+                            lineHeight: 1.65,
+                            maxWidth: "62ch",
+                            color: "rgba(255,255,255,.95)",
+                            fontWeight: 500,
+                            marginBottom: "1.8rem",
+                            textShadow: "0 1px 8px rgba(0,0,0,.35)",
+                        }}
+                    >
+                        <strong>Easily agree your care terms directly with your client.</strong>
+                        No agency markup. No hidden fees.
+                    </p>
 
-                        <p
-                            style={{
-                                margin: 0,
-                                fontSize: "clamp(1.02rem, 1.2vw, 1.12rem)",
-                                lineHeight: 1.7,
-                                color: "rgba(255,255,255,.96)",
-                                textShadow: "0 1px 10px rgba(0,0,0,.35)",
-                                maxWidth: "62ch",
-                            }}
-                        >
-                            <b>
-                                Provides a simple model in which you agree the terms of care with your client.
-                            </b>
-                        </p>
-
-                        <ul
-                            style={{
-                                listStyle: "none",
-                                padding: 0,
-                                margin: "1.2rem 0 1.6rem 0",
-                                maxWidth: 820,
-                                display: "grid",
-                                gap: ".6rem",
-                                textAlign: "left",
-                                color: "rgba(255,255,255,.98)",
-                            }}
-                        >
-                            {[
-                                "Find care roles that suit your skills and experience",
-                                "Schedule and manage everything in one place",
-                                "Keep more of your hard-earned income",
-                                "Free registration — no subscription",
-                            ].map((text, i) => (
-                                <li
-                                    key={i}
-                                    style={{
-                                        position: "relative",
-                                        paddingLeft: "2rem",
-                                        fontSize: "clamp(1rem, 1.15vw, 1.08rem)",
-                                        lineHeight: 1.6,
-                                        textShadow: "0 1px 8px rgba(0,0,0,.5)",
-                                    }}
-                                >
-                                    <span
-                                        aria-hidden="true"
-                                        style={{
-                                            position: "absolute",
-                                            left: 0,
-                                            top: 0,
-                                            transform: "translateY(.05rem)",
-                                            fontWeight: 800,
-                                            fontSize: "1.05em",
-                                            color: "#ffffff",
-                                            textShadow: "0 0 10px rgba(0,0,0,.45)",
-                                        }}
-                                    >
-                                        ✓
-                                    </span>
-                                    {i < 3 ? (
-                                        <>
-                                            {text.split(" ").slice(0, 4).join(" ")}{" "}
-                                            <strong>{text.split(" ").slice(4).join(" ")}</strong>
-                                        </>
-                                    ) : (
-                                        <strong>{text}</strong>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                gap: ".9rem",
-                                alignItems: "center",
-                                justifyContent: "flex-start",
-                                flexWrap: "wrap",
-                            }}
-                        >
-                            <Link
-                                to="/register"
+                    {/* BULLET LIST – Airbnb style */}
+                    <ul
+                        style={{
+                            listStyle: "none",
+                            padding: 0,
+                            margin: "1.2rem 0 2rem 0",
+                            display: "grid",
+                            gap: ".7rem",
+                            maxWidth: 820,
+                        }}
+                    >
+                        {[
+                            "Find care roles that suit your skills and experience",
+                            "Schedule and manage everything in one place",
+                            "Keep more of your hard-earned income",
+                            "Free registration — no subscription",
+                        ].map((text, i) => (
+                            <li
+                                key={i}
                                 style={{
-                                    appearance: "none",
-                                    border: "none",
-                                    cursor: "pointer",
-                                    padding: ".95rem 1.3rem",
-                                    fontWeight: 700,
-                                    letterSpacing: ".4px",
-                                    borderRadius: 999,
-                                    background: "rgb(76, 120, 101)",
-                                    color: "#ffffff",
-                                    boxShadow: "0 12px 28px rgba(2,8,23,.18)",
-                                    textDecoration: "none",
+                                    position: "relative",
+                                    paddingLeft: "2rem",
+                                    fontSize: "clamp(1rem, 1.2vw, 1.12rem)",
+                                    lineHeight: 1.62,
+                                    color: "rgba(255,255,255,.98)",
+                                    textShadow: "0 1px 8px rgba(0,0,0,.45)",
                                 }}
                             >
-                                QUICK REGISTRATION
-                            </Link>
+                                <span
+                                    style={{
+                                        position: "absolute",
+                                        left: 0,
+                                        top: "0.2rem",
+                                        fontWeight: 800,
+                                        fontSize: "1.1rem",
+                                        color: "#fff",
+                                    }}
+                                >
+                                    ✓
+                                </span>
 
+                                {/* bold last part */}
+                                {i < 3 ? (
+                                    <>
+                                        {text.split(" ").slice(0, 4).join(" ")}{" "}
+                                        <strong>{text.split(" ").slice(4).join(" ")}</strong>
+                                    </>
+                                ) : (
+                                    <strong>{text}</strong>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
 
-                        </div>
-                    </div>
+                    {/* CTA BUTTON */}
+                    <Link
+                        to="/register"
+                        style={{
+                            display: "inline-block",
+                            padding: "1rem 2rem",
+                            borderRadius: 999,
+                            background: "rgb(76, 120, 101)",
+                            color: "#fff",
+                            fontWeight: 800,
+                            letterSpacing: ".03em",
+                            textDecoration: "none",
+                            fontSize: "clamp(1rem,1.2vw,1.1rem)",
+                            boxShadow: "0 10px 28px rgba(0,0,0,.25)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.transform = "translateY(-3px)";
+                            e.currentTarget.style.background = "rgb(86, 138, 115)";
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.background = "rgb(76, 120, 101)";
+                        }}
+                    >
+                        QUICK REGISTRATION
+                    </Link>
                 </div>
             </section>
 

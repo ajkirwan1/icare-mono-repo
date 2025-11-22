@@ -1377,65 +1377,202 @@ export default function ICareForCareReceivers() {
                 </div>
 
                 {/* MINI FOOTER */}
-                <footer
+                {/* ========================= CONTACT CTA ========================= */}
+
+                <section
+                    id="contact"
+                    aria-label="Contact CTA"
                     style={{
-                        marginTop: 64,
-                        background: "rgba(0,0,0,0.18)",
-                        borderTop: "1px solid rgba(255,255,255,0.15)",
-                        padding: "26px clamp(20px,4vw,48px)",
-                        backdropFilter: "blur(4px)",
+                        marginLeft: "calc(50% - 50vw)",
+                        marginRight: "calc(50% - 50vw)",
+                        width: "100vw",
+                        background: "#E8F2EC",
+                        borderTop: "1px solid rgba(0,0,0,0.05)",
+                        padding: "clamp(3.6rem,6vw,4.8rem) 0",
                     }}
                 >
                     <div
                         style={{
-                            maxWidth: 1100,
+                            maxWidth: 1200,
                             margin: "0 auto",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            flexWrap: "wrap",
+                            padding: "0 clamp(16px,4vw,32px)",
+                            display: "grid",
+                            gridTemplateColumns: "1fr auto",
+                            gap: "2.4rem",
                             alignItems: "center",
-                            gap: 20,
-                            color: "rgba(255,255,255,0.95)",
+                            fontFamily:
+                                "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                         }}
                     >
-                        {/* LOGO */}
+                        <div>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    color: "#0F172A",
+                                    fontWeight: 900,
+                                    fontSize: "clamp(1.8rem,2.4vw,2rem)",
+                                    lineHeight: 1.15,
+                                    letterSpacing: "-0.25px",
+                                }}
+                            >
+                                Questions about how ICare works?
+                            </h3>
+
+                            <p
+                                style={{
+                                    margin: "0.75rem 0 0",
+                                    color: "#3A3A3A",
+                                    fontSize: "clamp(1rem,1.15vw,1.1rem)",
+                                    lineHeight: 1.7,
+                                    fontWeight: 500,
+                                    maxWidth: "62ch",
+                                }}
+                            >
+                                We’ll gladly walk you through setup, matching, and agreements — in under
+                                10 minutes.
+                            </p>
+                        </div>
+
+                        <a
+                            href="/contact"
+                            style={{
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 12,
+                                padding: "1rem 2rem",
+                                borderRadius: 999,
+                                textDecoration: "none",
+                                fontWeight: 900,
+                                letterSpacing: ".03em",
+                                color: "#fff",
+                                fontSize: "1rem",
+                                background:
+                                    "linear-gradient(90deg, #4C7865 0%, #6CAF8E 100%)",
+                                boxShadow: "0 8px 22px rgba(76,120,101,0.28)",
+                                border: "1px solid rgba(76,120,101,0.4)",
+                                transition: "all .28s ease",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-3px)";
+                                e.currentTarget.style.filter = "brightness(1.08)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 12px 32px rgba(76,120,101,0.35)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.filter = "brightness(1)";
+                                e.currentTarget.style.boxShadow =
+                                    "0 8px 22px rgba(76,120,101,0.28)";
+                            }}
+                        >
+                            Contact us
+                            <svg
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M5 12h14" />
+                                <path d="M13 5l6 7-6 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </section>
+
+
+
+                {/* ========================= FOOTER WITH YOUR GRADIENT ========================= */}
+
+                <footer
+                    style={{
+                        marginLeft: "calc(50% - 50vw)",
+                        marginRight: "calc(50% - 50vw)",
+                        width: "100vw",
+                        padding: "clamp(3.2rem,5vw,4.4rem) 0",
+                        color: "rgba(255,255,255,0.92)",
+                        fontFamily:
+                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+
+                        /* ⭐ TWÓJ DOKŁADNY GRADIENT ⭐ */
+                        background: "linear-gradient(135deg, rgb(76, 120, 101) 0%, rgb(61, 95, 80) 40%, rgb(46, 74, 61) 100%)",
+                    }}
+                >
+                    <div
+                        style={{
+                            maxWidth: 1200,
+                            margin: "0 auto",
+                            padding: "0 clamp(18px,4vw,32px)",
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: "1.8rem",
+                        }}
+                    >
+                        {/* LOGO / BRAND */}
                         <span
                             style={{
                                 fontWeight: 900,
-                                fontSize: "1.2rem",
-                                letterSpacing: ".2px",
+                                fontSize: "1.35rem",
+                                letterSpacing: "-0.25px",
                             }}
                         >
                             ICare
                         </span>
 
-                        {/* LINKS */}
-                        <nav style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
-                            {["Privacy", "Terms", "Contact"].map((item) => (
+                        {/* NAVIGATION */}
+                        <nav
+                            style={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "1.8rem",
+                                fontWeight: 600,
+                                fontSize: ".95rem",
+                            }}
+                        >
+                            {[
+                                { to: "/", label: "Home" },
+                                { to: "/how-it-works", label: "How it Works" },
+                                { to: "/who-we-are", label: "Who We Are" },
+                                { to: "/privacy", label: "Privacy" },
+                                { to: "/contact", label: "Contact" },
+                            ].map((l) => (
                                 <Link
-                                    key={item}
-                                    to={`/${item.toLowerCase()}`}
+                                    key={l.to}
+                                    to={l.to}
                                     style={{
-                                        textDecoration: "none",
                                         color: "rgba(255,255,255,0.9)",
-                                        fontWeight: 600,
-                                        fontSize: "1rem",
-                                        letterSpacing: ".2px",
-                                        transition: "opacity .2s ease",
+                                        textDecoration: "none",
+                                        transition: "opacity .25s ease",
                                     }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.opacity = "1";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.opacity = "0.85";
-                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.85")}
                                 >
-                                    {item}
+                                    {l.label}
                                 </Link>
                             ))}
                         </nav>
+
+                        {/* COPYRIGHT */}
+                        <div
+                            style={{
+                                width: "100%",
+                                textAlign: "center",
+                                color: "rgba(255,255,255,0.7)",
+                                fontSize: ".85rem",
+                                marginTop: "2rem",
+                            }}
+                        >
+                            © {new Date().getFullYear()} ICare. All rights reserved.
+                        </div>
                     </div>
                 </footer>
+
+
             </section>
 
         </div>
