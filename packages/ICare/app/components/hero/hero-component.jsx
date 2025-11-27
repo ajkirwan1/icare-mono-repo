@@ -36,31 +36,51 @@ export default function HeroComponent({ imgSrc }) {
                     <Link
                         to={link.to}
                         style={{
+                            position: "relative",
                             display: "inline-block",
                             padding: ".32rem 0",
                             textDecoration: "none",
-                            fontSize: "1.15rem",
-                            fontWeight: 700,
+                            fontSize: "1.18rem",
+                            fontWeight: 500,
                             letterSpacing: "-0.25px",
                             color: "rgba(255,255,255,.92)",
                             marginInline: "0.65rem",
-                            transition: "all .26s ease",
-                            textUnderlineOffset: "6px",
+                            transition: "color .25s ease",
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.color = "#fff";
-                            e.currentTarget.style.textDecoration = "underline";
-                            e.currentTarget.style.textDecorationThickness = "2px";
-                            e.currentTarget.style.textUnderlineOffset = "7px";
+                            const underline = e.currentTarget.querySelector(".underline-anim");
+                            underline.style.transform = "scaleX(1)";
+                            underline.style.opacity = "1";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.color = "rgba(255,255,255,.92)";
-                            e.currentTarget.style.textDecoration = "none";
-                            e.currentTarget.style.textUnderlineOffset = "6px";
+                            const underline = e.currentTarget.querySelector(".underline-anim");
+                            underline.style.transform = "scaleX(0)";
+                            underline.style.opacity = "0";
                         }}
                     >
                         {link.text}
+
+                        {/* animated underline */}
+                        <span
+                            className="underline-anim"
+                            style={{
+                                position: "absolute",
+                                left: 0,
+                                bottom: "-2px",
+                                width: "100%",
+                                height: "2px",
+                                backgroundColor: "#fff",
+                                transform: "scaleX(0)",
+                                transformOrigin: "left",
+                                opacity: 0,
+                                transition: "transform .28s ease, opacity .28s ease",
+                                borderRadius: 999,
+                            }}
+                        />
                     </Link>
+
                 </li>
             ))}
 
@@ -108,6 +128,7 @@ export default function HeroComponent({ imgSrc }) {
             </li>
 
             {/* ========================= HEADER CONTENT ========================= */}
+            {/* ========================= HEADER CONTENT ========================= */}
             <span
                 slot="header-content"
                 style={{
@@ -119,10 +140,14 @@ export default function HeroComponent({ imgSrc }) {
                     textShadow: "0 2px 16px rgba(0,0,0,.35)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+
+                    /* przesunięcie w lewo + powiększenie o 10% */
+                    transform: "translateX(-25%) scale(1.1)",
+                    transformOrigin: "top left",
                 }}
             >
 
-                {/* EYEBROW — już wyrównany do lewej */}
+                {/* EYEBROW */}
                 <span
                     style={{
                         display: "inline-flex",
@@ -173,6 +198,10 @@ export default function HeroComponent({ imgSrc }) {
                     letterSpacing: "-0.25px",
                     textShadow: "0 1px 12px rgba(0,0,0,.3)",
                     fontWeight: 500,
+
+                    /* przesunięcie w lewo + powiększenie o 10% */
+                    transform: "translateX(-25%) scale(1.1)",
+                    transformOrigin: "top left",
                 }}
             >
                 <span style={{ display: "block", maxWidth: 600 }}>
@@ -187,10 +216,11 @@ export default function HeroComponent({ imgSrc }) {
                     >
                         We are not an agency.
                     </strong>
-                    ICare is the answer to the real needs of families — helping them safely
-                    connect with trusted caregivers.
+                    ICare is the answer to the real needs of families — helping them safely connect
+                    with trusted caregivers.
                 </span>
             </span>
+
 
         </IcareHeroNew>
     );
