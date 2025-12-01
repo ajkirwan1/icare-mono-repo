@@ -2,7 +2,7 @@ import { type RouteConfig, index, route, layout, prefix } from "@react-router/de
 
 export default [
     index("routes/home.jsx"),
-    route("how-it-works", "routes/how-it-works.jsx"),
+    route("how-it-works", "routes/website/how-it-works.jsx"),
     route("who-we-are", "routes/website/who-we-are.jsx"),
     route("icare-for-caregivers", "routes/website/icare-for-caregivers.jsx"),
     route("icare-for-carereceivers", "routes/icare-for-carereceivers.jsx"),
