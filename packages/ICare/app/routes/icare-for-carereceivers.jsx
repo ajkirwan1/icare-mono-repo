@@ -1377,65 +1377,15 @@ export default function ICareForCareReceivers() {
                 </div>
 
                 {/* MINI FOOTER */}
-                <footer
-                    style={{
-                        marginTop: 64,
-                        background: "rgba(0,0,0,0.18)",
-                        borderTop: "1px solid rgba(255,255,255,0.15)",
-                        padding: "26px clamp(20px,4vw,48px)",
-                        backdropFilter: "blur(4px)",
-                    }}
-                >
-                    <div
-                        style={{
-                            maxWidth: 1100,
-                            margin: "0 auto",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            flexWrap: "wrap",
-                            alignItems: "center",
-                            gap: 20,
-                            color: "rgba(255,255,255,0.95)",
-                        }}
-                    >
-                        {/* LOGO */}
-                        <span
-                            style={{
-                                fontWeight: 900,
-                                fontSize: "1.2rem",
-                                letterSpacing: ".2px",
-                            }}
-                        >
-                            ICare
-                        </span>
+                {/* ========================= CONTACT CTA ========================= */}
 
-                        {/* LINKS */}
-                        <nav style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
-                            {["Privacy", "Terms", "Contact"].map((item) => (
-                                <Link
-                                    key={item}
-                                    to={`/${item.toLowerCase()}`}
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "rgba(255,255,255,0.9)",
-                                        fontWeight: 600,
-                                        fontSize: "1rem",
-                                        letterSpacing: ".2px",
-                                        transition: "opacity .2s ease",
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.opacity = "1";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.opacity = "0.85";
-                                    }}
-                                >
-                                    {item}
-                                </Link>
-                            ))}
-                        </nav>
-                    </div>
-                </footer>
+
+
+
+                {/* ========================= FOOTER WITH YOUR GRADIENT ========================= */}
+
+
+
             </section>
 
         </div>
