@@ -175,7 +175,7 @@ export default function HeroComponent({ imgSrc }) {
                         fontWeight: 900,
                         letterSpacing: "-0.35px",
                         lineHeight: 1.05,
-                        fontSize: "clamp(3rem, 5.2vw, 4rem)",
+                        fontSize: "clamp(3rem, 5.2vw, 4.2rem)",
                         color: "#AD7A66",
                         textShadow: "none",
                     }}

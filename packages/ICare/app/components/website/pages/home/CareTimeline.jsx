@@ -49,41 +49,75 @@ export default function CareTimeline() {
             style={{
                 width: "100%",
                 background: "#FFFFFF",
-                padding: "clamp(5rem, 8vw, 7rem) 0",
+                padding: "clamp(6rem, 9vw, 8rem) 0",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
-                <header style={{ textAlign: "center", marginBottom: "4.8rem" }}>
-                    <h2 style={{
-                        margin: 0,
-                        fontWeight: 900,
-                        fontSize: "clamp(2.2rem,3vw,2.8rem)",
-                        color: "#0F172A",
-                    }}>
-                        A guided – human way to find trusted care
+
+                {/* HEADER */}
+                <header style={{ textAlign: "center", marginBottom: "5.4rem" }}>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            fontSize: "clamp(2.6rem,3.4vw,3rem)",   // bigger title
+                            color: "#0F172A",
+                            letterSpacing: "-0.5px",
+                            lineHeight: 1.12,
+                        }}
+                    >
+                        A guided — human way to find trusted care
                     </h2>
-                    <p style={{
-                        marginTop: "1.2rem",
-                        maxWidth: "60ch",
-                        marginInline: "auto",
-                        color: "#475569",
-                        fontSize: "1.18rem",
-                        lineHeight: 1.75,
-                    }}>
-                        Clear and transparent steps to finding the caregiver who fits your family.
+
+                    <p
+                        style={{
+                            margin: "1.8rem auto 0",
+                            maxWidth: "64ch",
+                            color: "#475569",
+                            fontSize: "clamp(1.35rem,1.6vw,1.45rem)", // larger lead
+                            lineHeight: 1.72,
+                            fontWeight: 450,
+                            opacity: 0.95,
+                        }}
+                    >
+                        Clear, step-by-step support to help you find the caregiver who truly fits your family.
                     </p>
+
+                    {/* Luxe Divider */}
+                    <div
+                        aria-hidden="true"
+                        style={{
+                            width: 80,
+                            height: 3,
+                            background: "rgba(31,171,31,0.22)",
+                            borderRadius: 99,
+                            margin: "2.4rem auto 0",
+                        }}
+                    />
                 </header>
 
-                <Timeline items={items} />
+                {/* TIMELINE */}
+                <div
+                    style={{
+                        animation: "fadeUp .8s ease both",
+                    }}
+                >
+                    <Timeline items={items} />
+                </div>
             </div>
 
+            {/* Animations */}
             <style>{`
-                @keyframes fadeUp {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
+
+
     );
 }
 

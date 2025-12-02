@@ -58,7 +58,7 @@ export default function CaregiverSteps() {
             id="caregiver-steps"
             aria-label="Caregiver steps"
             style={{
-                margin: "4.5rem auto",
+                margin: "6rem auto",
                 width: "min(1100px, 92vw)",
                 paddingInline: "1.4rem",
                 fontFamily:
@@ -66,15 +66,15 @@ export default function CaregiverSteps() {
             }}
         >
             {/* HEADER */}
-            <header style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <header style={{ textAlign: "center", marginBottom: "3.6rem" }}>
                 <h3
                     style={{
                         margin: 0,
                         fontWeight: 900,
-                        letterSpacing: "-0.5px",
-                        fontSize: "clamp(1.8rem,2.6vw,2.4rem)",
+                        letterSpacing: "-0.45px",
+                        fontSize: "clamp(2rem,2.7vw,2.45rem)",
                         color: "#0F172A",
-                        lineHeight: 1.15,
+                        lineHeight: 1.12,
                     }}
                 >
                     Get started in 5 clear steps
@@ -82,25 +82,23 @@ export default function CaregiverSteps() {
 
                 <p
                     style={{
-                        marginTop: ".7rem",
-                        color: "#4C7865",
-                        fontSize: "1.08rem",
-                        fontWeight: 600,
-                        opacity: 0.9,
+                        marginTop: "0.9rem",
+                        color: "#475569",
+                        fontSize: "1.12rem",
+                        fontWeight: 400,
                     }}
                 >
                     From signup to your first match.
                 </p>
 
+                {/* soft luxe divider — no green */}
                 <div
                     aria-hidden="true"
                     style={{
-                        width: "70px",
-                        height: 3,
-                        background: "#4C7865",
-                        borderRadius: 999,
-                        margin: "1.1rem auto 0",
-                        opacity: 0.8,
+                        width: "100%",
+                        height: 1,
+                        background: "rgba(15,23,42,0.06)",
+                        margin: "1.6rem auto 0",
                     }}
                 />
             </header>
@@ -109,14 +107,13 @@ export default function CaregiverSteps() {
             <div
                 style={{
                     display: "grid",
-                    gap: "2.8rem",
+                    gap: "3rem",
                     width: "min(860px, 90vw)",
                     margin: "0 auto",
                 }}
             >
                 {steps.map((p, idx) => {
                     const alt = idx % 2 === 1;
-                    const bg = alt ? "#F5FAF7" : "#FFFFFF";
 
                     return (
                         <article
@@ -124,17 +121,20 @@ export default function CaregiverSteps() {
                             ref={(el) => (stepsRef.current[idx] = el)}
                             style={{
                                 display: "grid",
-                                gridTemplateColumns: alt ? "1fr 150px" : "150px 1fr",
-                                gap: "1.6rem",
+                                gridTemplateColumns: alt ? "1fr 160px" : "160px 1fr",
+                                gap: "2rem",
                                 alignItems: "center",
-                                padding: "clamp(20px,2.4vw,30px)",
-                                background: bg,
+                                padding: "clamp(24px,2.6vw,34px)",
+                                background: "#FFFFFF",
                                 borderRadius: "22px",
-                                border: "1px solid rgba(76,120,101,0.18)",
-                                boxShadow: "0 10px 22px rgba(0,0,0,0.05)",
+
+                                /* consistent with Compare + Who can join + Estimator */
+                                border: "1px solid rgba(15,23,42,0.06)",
+                                boxShadow: "0 10px 24px rgba(0,0,0,0.04)",
+
                                 opacity: 0,
                                 transform: "translateY(18px)",
-                                animation: `fadeUp .7s ease forwards ${0.15 + idx * 0.16}s`,
+                                animation: `fadeUp .7s ease forwards ${0.15 + idx * 0.15}s`,
                             }}
                         >
                             {/* IMAGE */}
@@ -143,11 +143,13 @@ export default function CaregiverSteps() {
                                     order: alt ? 2 : 0,
                                     margin: 0,
                                     width: "100%",
-                                    height: "150px",
+                                    height: "160px",
                                     borderRadius: "18px",
                                     overflow: "hidden",
-                                    border: "1px solid rgba(0,0,0,0.06)",
-                                    boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+
+                                    /* subtle luxe border */
+                                    border: "1px solid rgba(15,23,42,0.06)",
+                                    boxShadow: "0 8px 20px rgba(0,0,0,0.05)",
                                 }}
                             >
                                 <img
@@ -163,20 +165,20 @@ export default function CaregiverSteps() {
 
                             {/* TEXT */}
                             <div style={{ order: alt ? 1 : 1 }}>
+                                {/* step number -- neutral luxe */}
                                 <div
                                     style={{
-                                        width: "44px",
-                                        height: "44px",
+                                        width: "48px",
+                                        height: "48px",
                                         borderRadius: "14px",
-                                        background: "#E6F3EC",
-                                        border: "1px solid #B9D9CA",
+                                        background: "rgba(15,23,42,0.06)",
+                                        border: "1px solid rgba(15,23,42,0.12)",
                                         display: "grid",
                                         placeItems: "center",
                                         fontWeight: 900,
-                                        fontSize: "1.15rem",
-                                        color: "#4C7865",
-                                        marginBottom: "1rem",
-                                        boxShadow: "0 4px 10px rgba(76,120,101,0.12)",
+                                        fontSize: "1.18rem",
+                                        color: "#0F172A",
+                                        marginBottom: "1.2rem",
                                     }}
                                 >
                                     {idx + 1}
@@ -184,8 +186,8 @@ export default function CaregiverSteps() {
 
                                 <h4
                                     style={{
-                                        margin: "0 0 .45rem",
-                                        fontSize: "clamp(1.15rem,1.7vw,1.4rem)",
+                                        margin: "0 0 .55rem",
+                                        fontSize: "clamp(1.2rem,1.7vw,1.45rem)",
                                         fontWeight: 850,
                                         color: "#0F172A",
                                         letterSpacing: "-0.25px",
@@ -198,8 +200,9 @@ export default function CaregiverSteps() {
                                     style={{
                                         margin: 0,
                                         color: "#475569",
-                                        fontSize: "1rem",
-                                        lineHeight: 1.55,
+                                        fontSize: "1.05rem",
+                                        lineHeight: 1.6,
+                                        fontWeight: 400,
                                     }}
                                 >
                                     {p.d}
@@ -210,30 +213,31 @@ export default function CaregiverSteps() {
                 })}
             </div>
 
-            <div style={{ marginTop: "3.6rem", textAlign: "center" }}>
+            {/* CTA */}
+            <div style={{ marginTop: "4.2rem", textAlign: "center" }}>
                 <a
                     href="/register"
                     style={{
-                        display: "inline-block",
-                        background: "#4C7865",
-                        color: "#fff",
-                        fontWeight: 800,
-                        padding: "0.95rem 2rem",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "1.05rem 2.1rem",
                         borderRadius: 999,
-                        fontSize: "1.05rem",
+                        background: "#FFFFFF",
+                        border: "2px solid #1FAB1F",
+                        color: "#0F172A",
+                        fontWeight: 900,
+                        letterSpacing: ".02em",
+                        fontSize: "1.07rem",
                         textDecoration: "none",
-                        boxShadow: "0 12px 32px rgba(76,120,101,0.22)",
                         transition: "all .25s ease",
                     }}
                     onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "rgba(31,171,31,0.08)";
                         e.currentTarget.style.transform = "translateY(-2px)";
-                        e.currentTarget.style.boxShadow =
-                            "0 16px 38px rgba(76,120,101,0.30)";
                     }}
                     onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "#FFFFFF";
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow =
-                            "0 12px 32px rgba(76,120,101,0.22)";
                     }}
                 >
                     CREATE YOUR FREE ACCOUNT
@@ -242,20 +246,21 @@ export default function CaregiverSteps() {
 
             {/* ANIMATIONS */}
             <style>{`
-                @keyframes fadeUp {
-                    from { opacity: 0; transform: translateY(18px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-                @media (max-width: 760px) {
-                    article {
-                        grid-template-columns: 1fr !important;
-                    }
-                    figure {
-                        height: 130px !important;
-                    }
-                }
-            `}</style>
+        @media (max-width: 760px) {
+            article {
+                grid-template-columns: 1fr !important;
+            }
+            figure {
+                height: 140px !important;
+            }
+        }
+    `}</style>
         </section>
+
     );
 }

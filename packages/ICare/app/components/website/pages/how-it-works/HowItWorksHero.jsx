@@ -9,7 +9,7 @@ export default function HowItWorksHero() {
             aria-label="How it works hero"
             style={{
                 position: "relative",
-                height: "clamp(520px, 72vh, 760px)",
+                height: "clamp(560px, 78vh, 840px)", // Airbnb Luxe: większe, spokojne hero
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
@@ -28,28 +28,27 @@ export default function HowItWorksHero() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    filter: "brightness(0.62) contrast(1.08) saturate(1.08)",
+                    filter: "brightness(0.74) saturate(1.06)",
                 }}
             />
 
-            {/* Overlay */}
+            {/* Luxe Overlay – very soft, no blur, no gradient */}
             <div
                 style={{
                     position: "absolute",
                     inset: 0,
-                    background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.75) 100%)",
+                    background: "rgba(0,0,0,0.24)", // soft, muted, premium
                 }}
             />
 
-            {/* Header Navigation */}
+            {/* Navigation */}
             <header
                 style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
                     right: 0,
-                    padding: "1.1rem clamp(16px,4vw,36px)",
+                    padding: "1.6rem clamp(24px,4vw,40px)", // Luxe: bigger breathing room
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -60,10 +59,10 @@ export default function HowItWorksHero() {
                     to="/"
                     style={{
                         color: "#fff",
-                        textDecoration: "none",
                         fontWeight: 900,
+                        fontSize: "1.35rem",
                         letterSpacing: "-0.3px",
-                        fontSize: "1.25rem",
+                        textDecoration: "none",
                     }}
                 >
                     ICare
@@ -72,8 +71,7 @@ export default function HowItWorksHero() {
                 <nav
                     style={{
                         display: "flex",
-                        flexWrap: "wrap",
-                        gap: "0.75rem 1.1rem",
+                        gap: "1.2rem 1.6rem", // Luxe spacing
                         alignItems: "center",
                     }}
                 >
@@ -89,26 +87,15 @@ export default function HowItWorksHero() {
                             key={l.to}
                             to={l.to}
                             style={{
-                                color: "rgba(255,255,255,0.92)",
+                                color: "rgba(255,255,255,0.94)",
                                 textDecoration: "none",
-                                fontSize: "clamp(.9rem,1.2vw,.95rem)",
+                                fontSize: "clamp(.95rem,1.2vw,1.05rem)",
                                 fontWeight: 600,
-                                letterSpacing: ".01em",
-                                padding: ".2rem 0",
-                                textUnderlineOffset: "6px",
-                                transition:
-                                    "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease",
+                                padding: ".35rem 0",
+                                transition: "opacity .2s ease",
                             }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.color = "#fff";
-                                e.currentTarget.style.textDecoration = "underline";
-                                e.currentTarget.style.textDecorationThickness = "2px";
-                                e.currentTarget.style.textUnderlineOffset = "7px";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-                                e.currentTarget.style.textDecoration = "none";
-                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.94")}
                         >
                             {l.label}
                         </Link>
@@ -123,27 +110,30 @@ export default function HowItWorksHero() {
                     zIndex: 10,
                     width: "min(92vw, 1100px)",
                     margin: "0 auto",
-                    padding: "0 clamp(16px, 4vw, 32px)",
+                    padding: "0 clamp(24px,4vw,32px)",
                     color: "#fff",
                     textAlign: "left",
-                    transform: "translateY(10%)",
+                    transform: "translateY(10%)", // calmer
                 }}
             >
-                {/* Tagline */}
+                {/* Luxe ICare Badge */}
                 <span
                     style={{
                         display: "inline-block",
-                        marginBottom: "2.4rem",
+                        marginBottom: "3rem", // Luxe big spacing
                         fontSize: ".95rem",
                         fontWeight: 700,
-                        letterSpacing: ".16em",
+                        letterSpacing: ".14em",
                         textTransform: "uppercase",
-                        color: "#E9F8EC",
-                        padding: ".55rem 1.2rem",
+                        color: "#fff",
+
+                        padding: ".65rem 1.55rem",
                         borderRadius: 999,
-                        background: "rgba(255,255,255,0.14)",
-                        border: "1px solid rgba(255,255,255,0.26)",
-                        backdropFilter: "blur(4px)",
+
+                        /* ICare Green with Airbnb Luxe opacity (~20%) */
+                        background: "rgba(31,171,31,0.22)",
+
+                        border: "1px solid rgba(255,255,255,0.28)",
                     }}
                 >
                     Direct • Fair • Transparent
@@ -152,27 +142,25 @@ export default function HowItWorksHero() {
                 {/* Title */}
                 <h1
                     style={{
-                        margin: "0 0 1.6rem",
-                        fontWeight: 900,
-                        lineHeight: 1.03,
+                        margin: "0 0 1.8rem",
+                        fontWeight: 800,
+                        lineHeight: 1.04,
                         letterSpacing: "-0.5px",
-                        fontSize: "clamp(2.7rem, 5vw, 3.4rem)",
-                        textShadow: "0 6px 26px rgba(0,0,0,.55), 0 2px 10px rgba(0,0,0,.35)",
+                        fontSize: "clamp(3rem,5.2vw,3.7rem)", // Luxe: bigger
+                        color: "#fff",
                     }}
                 >
                     How it works
                 </h1>
 
-                {/* Body Copy */}
+                {/* Paragraphs */}
                 <p
                     style={{
-                        margin: "0 0 .5rem",
+                        margin: "0 0 .6rem",
                         lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
+                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
                         maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                        color: "rgba(255,255,255,0.96)",
                     }}
                 >
                     <b>Why choose ICare instead of going through an agency?</b>
@@ -180,13 +168,11 @@ export default function HowItWorksHero() {
 
                 <p
                     style={{
-                        margin: "0 0 .5rem",
+                        margin: "0 0 .6rem",
                         lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
+                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
                         maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                        color: "rgba(255,255,255,0.96)",
                     }}
                 >
                     <b>We don’t charge high margins for matching or management.</b>
@@ -194,18 +180,17 @@ export default function HowItWorksHero() {
 
                 <p
                     style={{
-                        margin: ".2rem 0 0",
+                        margin: "0",
                         lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
+                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
                         maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
+                        color: "rgba(255,255,255,0.96)",
                     }}
                 >
                     <b>You save money — and the caregiver earns more.</b>
                 </p>
             </div>
         </section>
+
     );
 }

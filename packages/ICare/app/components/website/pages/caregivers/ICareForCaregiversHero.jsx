@@ -10,13 +10,14 @@ export default function ICareForCaregiversHero() {
             aria-label="ICare for Caregivers hero"
             style={{
                 position: "relative",
-                minHeight: "clamp(560px, 76vh, 900px)",
+                minHeight: "clamp(580px, 78vh, 900px)",
                 width: "100%",
                 overflow: "hidden",
-                display: "grid",
-                placeItems: "center",
+                display: "flex",
+                alignItems: "center",
                 color: "#fff",
-                background: "#0f172a",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* Background image */}
@@ -29,51 +30,47 @@ export default function ICareForCaregiversHero() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    filter: "brightness(.78) saturate(.95)",
-                    zIndex: 1,
+                    filter: "brightness(.72) saturate(.97)",
                 }}
             />
 
-            {/* Overlay */}
+            {/* Soft luxe overlay */}
             <div
                 style={{
                     position: "absolute",
                     inset: 0,
-                    background:
-                        "linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.45) 70%)",
-                    zIndex: 2,
+                    background: "rgba(0,0,0,0.32)", // soft, clean, no gradient
                 }}
             />
 
-            {/* Top navigation */}
+            {/* NAV */}
             <header
                 style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
                     right: 0,
-                    padding: "1.1rem clamp(16px,4vw,36px)",
+                    padding: "1.3rem clamp(20px,4vw,40px)",
                     zIndex: 5,
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    backdropFilter: "blur(6px)",
                 }}
             >
                 <Link
                     to="/"
                     style={{
                         fontWeight: 900,
-                        fontSize: "clamp(1.4rem,2.2vw,1.6rem)",
+                        fontSize: "clamp(1.4rem,2vw,1.6rem)",
                         color: "#fff",
                         textDecoration: "none",
-                        letterSpacing: "-0.5px",
+                        letterSpacing: "-0.4px",
                     }}
                 >
                     ICare
                 </Link>
 
-                <nav style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <nav style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap" }}>
                     {[
                         { to: "/", label: "Home" },
                         { to: "/how-it-works", label: "How it Works" },
@@ -88,12 +85,11 @@ export default function ICareForCaregiversHero() {
                             style={{
                                 color: "rgba(255,255,255,.92)",
                                 textDecoration: "none",
-                                padding: ".45rem .75rem",
+                                padding: ".45rem .85rem",
                                 borderRadius: 999,
                                 fontWeight: 600,
-                                fontSize: "clamp(.85rem,1.15vw,1rem)",
-                                backdropFilter: "blur(4px)",
-                                transition: "all .25s ease",
+                                fontSize: "clamp(.86rem,1.1vw,1rem)",
+                                transition: "all .22s ease",
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "rgba(255,255,255,.18)";
@@ -110,70 +106,77 @@ export default function ICareForCaregiversHero() {
                 </nav>
             </header>
 
-            {/* Main hero content */}
+            {/* CONTENT */}
             <div
                 style={{
                     position: "relative",
                     zIndex: 5,
                     width: "min(1100px, 92vw)",
                     marginInline: "auto",
-                    padding: "clamp(4rem, 6vw, 6rem) 0",
-                    textAlign: "left",
-                    transform: "translateX(-8%)",
+                    paddingTop: "clamp(6rem,10vw,10rem)",
+                    paddingBottom: "clamp(4rem,6vw,6rem)",
                 }}
             >
+                {/* BADGE */}
                 <span
                     style={{
                         display: "inline-flex",
                         alignItems: "center",
-                        padding: ".55rem 1rem",
+                        padding: ".65rem 1.4rem",
                         borderRadius: 999,
-                        letterSpacing: ".15em",
+                        letterSpacing: ".14em",
                         fontWeight: 800,
-                        fontSize: "clamp(.82rem, 1.2vw, 1rem)",
-                        color: "#EAF7EA",
-                        background: "rgba(31,171,31,0.22)",
-                        border: "2px solid rgba(31,171,31,0.32)",
-                        marginBottom: "1.4rem",
+                        fontSize: "clamp(.78rem,1vw,.95rem)",
+                        color: "#fff",
+                        background: "rgba(31,171,31,0.22)", // ICare Luxe Green
+                        border: "1px solid rgba(31,171,31,0.32)",
+                        marginBottom: "1.8rem",
                     }}
                 >
-                    direct · fair · transparent
+                    DIRECT • FAIR • TRANSPARENT
                 </span>
 
+                {/* TITLE */}
                 <h1
                     style={{
                         fontWeight: 900,
-                        lineHeight: 1.05,
-                        fontSize: "clamp(2.4rem, 5vw, 3.4rem)",
-                        margin: "0 0 1rem 0",
+                        lineHeight: 1.04,
+                        fontSize: "clamp(2.7rem,5vw,3.7rem)",
+                        margin: "0 0 1.4rem 0",
                         color: "#fff",
+                        maxWidth: "14ch",
                     }}
                 >
                     ICare for Caregivers
                 </h1>
 
+                {/* LEAD PARAGRAPH */}
                 <p
                     style={{
-                        fontSize: "clamp(1.05rem,1.2vw,1.2rem)",
-                        lineHeight: 1.65,
-                        maxWidth: "62ch",
-                        color: "rgba(255,255,255,.95)",
-                        fontWeight: 500,
-                        marginBottom: "1.8rem",
+                        fontSize: "clamp(1.15rem,1.35vw,1.28rem)",
+                        lineHeight: 1.7,
+                        maxWidth: "65ch",
+                        color: "rgba(255,255,255,.96)",
+                        fontWeight: 400,
+                        marginBottom: "2.2rem",
                     }}
                 >
-                    <strong>Easily agree your care terms directly with your client.</strong>{" "}
-                    No agency markup. No hidden fees.
+                    <strong>Agree your care terms directly.</strong><br />
+                    <strong>No agency markup. No hidden fees.</strong><br />
+                    <span style={{ opacity: .95 }}>More earnings for you.</span>
                 </p>
 
+
+
+                {/* LIST */}
                 <ul
                     style={{
                         listStyle: "none",
                         padding: 0,
-                        margin: "1.2rem 0 2rem 0",
+                        margin: "0 0 3rem 0",
                         display: "grid",
-                        gap: ".7rem",
-                        maxWidth: 820,
+                        gap: "0.9rem",
+                        maxWidth: 800,
                     }}
                 >
                     {[
@@ -187,8 +190,9 @@ export default function ICareForCaregiversHero() {
                             style={{
                                 position: "relative",
                                 paddingLeft: "2rem",
-                                fontSize: "clamp(1rem, 1.2vw, 1.12rem)",
+                                fontSize: "clamp(1.05rem,1.25vw,1.2rem)",
                                 color: "rgba(255,255,255,.98)",
+                                lineHeight: 1.6,
                             }}
                         >
                             <span
@@ -197,50 +201,48 @@ export default function ICareForCaregiversHero() {
                                     left: 0,
                                     top: "0.2rem",
                                     fontWeight: 800,
+                                    fontSize: "1.2rem",
+                                    color: "#1FAB1F",
                                 }}
                             >
                                 ✓
                             </span>
 
-                            {i < 3 ? (
-                                <>
-                                    {text.split(" ").slice(0, 4).join(" ")}{" "}
-                                    <strong>{text.split(" ").slice(4).join(" ")}</strong>
-                                </>
-                            ) : (
-                                <strong>{text}</strong>
-                            )}
+                            {text}
                         </li>
                     ))}
                 </ul>
 
+                {/* BUTTON — Luxe ICare button */}
                 <Link
                     to="/register"
                     style={{
-                        display: "inline-block",
-                        padding: "1rem 2rem",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "1.1rem 2.4rem",
                         borderRadius: 999,
-                        background: "rgb(76, 120, 101)",
-                        color: "#fff",
+                        background: "#FFFFFF",
+                        border: "2px solid #1FAB1F",
+                        color: "#0F172A",
                         fontWeight: 800,
-                        letterSpacing: ".03em",
+                        letterSpacing: ".02em",
                         textDecoration: "none",
-                        fontSize: "clamp(1rem,1.2vw,1.1rem)",
-                        boxShadow: "0 10px 28px rgba(0,0,0,.25)",
-                        transition: "all .25s ease",
+                        fontSize: "clamp(1.05rem,1.25vw,1.1rem)",
+                        transition: "all .22s ease",
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-3px)";
-                        e.currentTarget.style.background = "rgb(86, 138, 115)";
+                        e.currentTarget.style.background = "rgba(31,171,31,0.10)";
+                        e.currentTarget.style.transform = "translateY(-2px)";
                     }}
                     onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "#FFFFFF";
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.background = "rgb(76, 120, 101)";
                     }}
                 >
                     QUICK REGISTRATION
                 </Link>
             </div>
         </section>
+
     );
 }

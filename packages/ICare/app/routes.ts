@@ -6,7 +6,7 @@ export default [
     route("who-we-are", "routes/website/who-we-are.jsx"),
     route("icare-for-caregivers", "routes/website/icare-for-caregivers.jsx"),
     route("icare-for-carereceivers", "routes/icare-for-carereceivers.jsx"),
-    route("privacy", "routes/privacy.jsx"),
+    route("privacy", "routes/website/privacy.jsx"),
     route("carerecipient", "routes/carerecipient.jsx"),
     route("register", "routes/register.jsx"),
     route("login", "routes/login.jsx"),

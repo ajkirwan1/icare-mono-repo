@@ -45,79 +45,66 @@ export default function SavingsEstimatorCurrency() {
             id="estimator"
             aria-label="Cost & Savings Estimator"
             style={{
-                margin: "5.4rem auto",
-                maxWidth: 1080,
-                padding: "0 clamp(14px, 3.6vw, 28px)",
+                margin: "6rem auto",
+                maxWidth: 1180,
+                padding: "0 clamp(20px, 4vw, 40px)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 display: "grid",
                 gridTemplateColumns: "1fr 1.4fr",
-                gap: "clamp(40px, 4.5vw, 70px)",
+                gap: "clamp(50px, 6vw, 80px)",
                 alignItems: "start",
             }}
         >
-            {/* ================= LEFT SIDE ================= */}
+            {/* LEFT SIDE */}
             <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
                 <h2
                     style={{
                         margin: 0,
                         fontWeight: 800,
-                        letterSpacing: ".2px",
-                        color: "#0f172a",
-                        fontSize: "clamp(1.9rem, 2.7vw, 2.3rem)",
-                        lineHeight: 1.2,
+                        letterSpacing: "-0.3px",
+                        color: "#0F172A",
+                        fontSize: "clamp(2.2rem, 3vw, 2.8rem)",
+                        lineHeight: 1.1,
                     }}
                 >
                     Cost & Savings Estimator
                 </h2>
 
-                <div
-                    aria-hidden="true"
-                    style={{
-                        width: 0,
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: "0.9rem 0 1.3rem 0",
-                        opacity: 0.9,
-                    }}
-                />
-
                 <p
                     style={{
                         color: "#475569",
-                        margin: 0,
-                        fontSize: "1rem",
-                        lineHeight: "1.6",
-                        fontWeight: 600,
-                        maxWidth: "50ch",
+                        margin: "1.6rem 0 0",
+                        fontSize: "1.14rem",
+                        lineHeight: 1.68,
+                        fontWeight: 400,
+                        maxWidth: "58ch",
                     }}
                 >
-                    Estimate how much you and your caregiver can save each month when you work
+                    Estimate how much you and your caregiver can save each month when working
                     directly — without agency margins or hidden fees.
                 </p>
             </div>
 
-            {/* ================= RIGHT SIDE ================= */}
+            {/* RIGHT SIDE */}
             <div
                 style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
-                    gap: "clamp(18px, 2.2vw, 26px)",
+                    gap: "clamp(26px, 3vw, 36px)",
                     alignItems: "stretch",
                 }}
             >
-                {/* ===== FORM ===== */}
+                {/* FORM CARD */}
                 <form
                     onSubmit={(e) => e.preventDefault()}
                     style={{
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 18,
-                        padding: "clamp(22px, 2vw, 28px)",
+                        border: "1px solid rgba(15,23,42,0.06)",
+                        borderRadius: 24,
+                        padding: "clamp(26px, 2.4vw, 32px)",
                         background: "#FFFFFF",
-                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
                         display: "grid",
-                        gap: 14,
+                        gap: 18,
                         animation: "fadeCard 0.8s ease 0.15s both",
                     }}
                 >
@@ -125,9 +112,10 @@ export default function SavingsEstimatorCurrency() {
                     <label style={{ display: "grid", gap: 6 }}>
                         <span
                             style={{
-                                fontWeight: 800,
+                                fontWeight: 700,
                                 color: "#1f2a37",
                                 fontSize: ".9rem",
+                                letterSpacing: "-0.2px",
                             }}
                         >
                             Currency
@@ -136,10 +124,10 @@ export default function SavingsEstimatorCurrency() {
                             value={currency}
                             onChange={(e) => setCurrency(e.target.value.split(" ")[0])}
                             style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
+                                border: "1px solid rgba(15,23,42,0.12)",
+                                borderRadius: 14,
+                                padding: "12px 14px",
+                                fontSize: "1rem",
                                 background: "#fff",
                             }}
                         >
@@ -150,9 +138,9 @@ export default function SavingsEstimatorCurrency() {
                         </select>
                     </label>
 
-                    {/* Hourly rate */}
+                    {/* Hourly */}
                     <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
+                        <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
                             Hourly rate
                         </span>
                         <input
@@ -160,17 +148,17 @@ export default function SavingsEstimatorCurrency() {
                             value={hourly}
                             onChange={(e) => setHourly(Number(e.target.value))}
                             style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
+                                border: "1px solid rgba(15,23,42,0.12)",
+                                borderRadius: 14,
+                                padding: "12px 14px",
+                                fontSize: "1rem",
                             }}
                         />
                     </label>
 
-                    {/* Hours per week */}
+                    {/* Hours */}
                     <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
+                        <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
                             Hours per week
                         </span>
                         <input
@@ -178,17 +166,17 @@ export default function SavingsEstimatorCurrency() {
                             value={hoursWeek}
                             onChange={(e) => setHoursWeek(Number(e.target.value))}
                             style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
+                                border: "1px solid rgba(15,23,42,0.12)",
+                                borderRadius: 14,
+                                padding: "12px 14px",
+                                fontSize: "1rem",
                             }}
                         />
                     </label>
 
-                    {/* Agency margin */}
+                    {/* Margin */}
                     <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
+                        <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
                             Agency margin (%)
                         </span>
                         <input
@@ -196,50 +184,50 @@ export default function SavingsEstimatorCurrency() {
                             value={agencyMargin}
                             onChange={(e) => setAgencyMargin(Number(e.target.value))}
                             style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
+                                border: "1px solid rgba(15,23,42,0.12)",
+                                borderRadius: 14,
+                                padding: "12px 14px",
+                                fontSize: "1rem",
                             }}
                         />
                     </label>
 
-                    {/* ICare flat fee */}
+                    {/* ICare fee info */}
                     <div
                         style={{
-                            marginTop: 2,
-                            padding: "9px 11px",
-                            borderRadius: 12,
-                            background: "rgba(31,171,31,0.08)",
-                            border: "1px solid rgba(31,171,31,0.20)",
-                            color: "#1f2a37",
+                            marginTop: 4,
+                            padding: "10px 14px",
+                            borderRadius: 14,
+                            background: "rgba(31,171,31,0.06)",
+                            border: "1px solid rgba(31,171,31,0.18)",
                             fontWeight: 700,
-                            fontSize: ".9rem",
+                            fontSize: ".92rem",
+                            color: "#14532D",
                         }}
                     >
-                        ICare fee: <span style={{ color: BRAND }}>flat 10%</span> on contract
+                        ICare fee:{" "}
+                        <span style={{ color: BRAND, fontWeight: 800 }}>flat 10%</span> on contract
                     </div>
                 </form>
 
-                {/* ===== RESULTS ===== */}
+                {/* RESULTS CARD */}
                 <div
                     style={{
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 18,
-                        padding: "clamp(22px, 2vw, 28px)",
+                        border: "1px solid rgba(15,23,42,0.06)",
+                        borderRadius: 24,
+                        padding: "clamp(26px, 2.4vw, 32px)",
                         background: "#FFFFFF",
-                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
                         display: "grid",
-                        gap: 14,
+                        gap: 18,
                         animation: "fadeCard 0.8s ease 0.25s both",
                     }}
                 >
                     <h3
                         style={{
                             margin: 0,
-                            fontWeight: 900,
-                            color: "#1f2a37",
-                            fontSize: "clamp(1.05rem, 1.9vw, 1.25rem)",
+                            fontWeight: 800,
+                            color: "#0F172A",
+                            fontSize: "clamp(1.2rem, 1.8vw, 1.35rem)",
                         }}
                     >
                         Monthly estimate
@@ -249,7 +237,7 @@ export default function SavingsEstimatorCurrency() {
                         style={{
                             display: "grid",
                             gridTemplateColumns: "1fr 1fr",
-                            gap: 10,
+                            gap: 14,
                         }}
                     >
                         {[
@@ -262,18 +250,18 @@ export default function SavingsEstimatorCurrency() {
                                 key={row.k}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.08)",
-                                    borderRadius: 10,
-                                    padding: "12px 14px",
+                                    borderRadius: 14,
+                                    padding: "14px",
                                     background: row.highlight
                                         ? "rgba(31,171,31,0.06)"
-                                        : "rgba(255,255,255,0.96)",
+                                        : "#FFFFFF",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontSize: ".82rem",
+                                        fontSize: ".85rem",
                                         color: "#475569",
-                                        marginBottom: 3,
+                                        marginBottom: 4,
                                         fontWeight: 700,
                                     }}
                                 >
@@ -283,8 +271,8 @@ export default function SavingsEstimatorCurrency() {
                                 <div
                                     style={{
                                         fontWeight: 900,
-                                        fontSize: "1.1rem",
-                                        color: row.highlight ? BRAND : "#1f2a37",
+                                        fontSize: "1.15rem",
+                                        color: row.highlight ? BRAND : "#0F172A",
                                     }}
                                 >
                                     {nf.format(row.v)} {currency}
@@ -293,8 +281,8 @@ export default function SavingsEstimatorCurrency() {
                         ))}
                     </div>
 
-                    {/* ===== SAVINGS BAR ===== */}
-                    <div style={{ marginTop: 8 }}>
+                    {/* SAVINGS BAR */}
+                    <div style={{ marginTop: 10 }}>
                         <div
                             style={{
                                 height: 9,
@@ -337,15 +325,16 @@ export default function SavingsEstimatorCurrency() {
 
             {/* ANIMATIONS */}
             <style>{`
-                @keyframes fadeEstimator {
-                    from { opacity: 0; transform: translateY(16px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes fadeCard {
-                    from { opacity: 0; transform: translateY(12px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
-        </section >
+        @keyframes fadeEstimator {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeCard {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
+        </section>
+
     );
 }
