@@ -64,9 +64,9 @@ export function ContactCard() {
                     style={{
                         padding: "0.95rem 1.8rem",
                         borderRadius: 999,
-                        background: "#FFFFFF",
-                        border: "2px solid #1FAB1F",
-                        color: "#0F172A",
+                        background: "#0f3d20e5",
+                        border: "2px solid #0f3d20e5",
+                        color: "#ffffffff",
                         textDecoration: "none",
                         fontWeight: 900,
                         fontSize: "1rem",
@@ -75,13 +75,13 @@ export function ContactCard() {
                         transition: "all .25s ease",
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(31,171,31,0.08)";
+                        e.currentTarget.style.background = "#0f3d20e5";
                         e.currentTarget.style.transform = "translateY(-2px)";
                         e.currentTarget.style.boxShadow =
                             "0 12px 28px rgba(31,171,31,0.15)";
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "#FFFFFF";
+                        e.currentTarget.style.background = "#0f3d20e5";
                         e.currentTarget.style.transform = "translateY(0)";
                         e.currentTarget.style.boxShadow =
                             "0 10px 24px rgba(31,171,31,0.12)";
@@ -96,7 +96,7 @@ export function ContactCard() {
                     style={{
                         padding: "0.95rem 1.8rem",
                         borderRadius: 999,
-                        background: "#1FAB1F",
+                        background: "#1fab1fcb",
                         color: "#FFFFFF",
                         textDecoration: "none",
                         fontWeight: 900,

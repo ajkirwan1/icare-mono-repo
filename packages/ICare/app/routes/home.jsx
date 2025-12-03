@@ -18,12 +18,11 @@ import TrustCareGrid from "../components/website/pages/home/sections/TrustCareGr
 
 
 
-/* ⭐⭐⭐ BADGE — MOVING CLIENT REVIEWS */
 function ICareReviewBadge() {
     const reviews = [
         "Trusted by 8,000+ families",
-        "Rated 4.9 out of 5",
-        "Safe, verified & human-centered",
+        "Rated 4.9 ★★★★★",
+        "Safe • Verified • Human-centered",
     ];
 
     const [i, setI] = React.useState(0);
@@ -40,67 +39,56 @@ function ICareReviewBadge() {
             style={{
                 position: "absolute",
 
-                /* ⭐ PRZESUNIĘCIE BARDZIEJ DO ŚRODKA */
-                top: "15%",
-                right: "2%",
+                /* 🔽 jeszcze niżej: +100px */
+                top: "calc(10% + 120px)",
+                right: "3%",
 
-                zIndex: 80,
-                display: "flex",
+                zIndex: 90,
+                display: "inline-flex",
                 alignItems: "center",
-                gap: "1.1rem",
 
-                padding: "1.15rem 1.7rem",
-                borderRadius: "28px",
+                /* +20% bigger */
+                gap: ".85rem",
+                padding: ".9rem 1.6rem",
+                borderRadius: "20px",
 
-                /* TURQUOISE TINT — pastel, see-through */
-                background: "rgba(47, 221, 197, 0.26)",
-                backdropFilter: "blur(18px)",
-                WebkitBackdropFilter: "blur(18px)",
-                border: "1px solid rgba(255,255,255,0.50)",
+                background: "rgba(255,255,255,0.12)",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
+                border: "1px solid rgba(255,255,255,0.28)",
 
-                /* APPLE VISION PRO MICRO BREATH */
-                animation: "vpulse 5.5s ease-in-out infinite",
+                boxShadow: "0 6px 14px rgba(0,0,0,0.20)",
 
-                boxShadow:
-                    "0 12px 30px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.10)",
-
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial",
-                color: "#0F172A",
-
-                maxWidth: "460px",
-                minHeight: "76px",
-                whiteSpace: "nowrap",
+                animation: "softFadeIn 0.8s ease forwards",
+                opacity: 0.92,
             }}
         >
-            {/* ⭐ GWIAZDA — większa, elegancka, wolno rotująca */}
-            <div
-                style={{
-                    width: "58px",
-                    height: "58px",
-                    borderRadius: "50%",
-                    background: "#0f172a90",
-                    color: "#fff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1.65rem",
-                    fontWeight: 700,
-                    boxShadow: "0 6px 16px rgba(0,0,0,0.28)",
-
-                    animation: "spinUltraSlow 55s linear infinite",
-                }}
+            {/* ICON — +20% */}
+            <svg
+                width="25"
+                height="25"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ opacity: 0.9 }}
             >
-                ★
-            </div>
+                <path d="M12 2l7 4v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V6l7-4z" />
+                <path d="M9 12l2 2 4-4" />
+            </svg>
 
-            {/* TEKST */}
+            {/* TEXT — +20% */}
             <span
                 key={i}
                 style={{
-                    fontSize: "1.25rem",
-                    fontWeight: 700,
-                    animation: "fadeSlide .45s ease",
+                    fontSize: "1.24rem",
+                    fontWeight: 600,
+                    color: "white",
+                    letterSpacing: "0.01em",
+                    animation: "fadeSlide .35s ease",
+                    whiteSpace: "nowrap",
                 }}
             >
                 {reviews[i]}
@@ -108,26 +96,19 @@ function ICareReviewBadge() {
 
             <style>{`
                 @keyframes fadeSlide {
-                    0% { opacity: 0; transform: translateY(6px); }
+                    0% { opacity: 0; transform: translateY(4px); }
                     100% { opacity: 1; transform: translateY(0); }
                 }
 
-                /* 🌫 Apple Vision Pro-style breathing effect */
-                @keyframes vpulse {
-                    0% { transform: scale(1.00); }
-                    50% { transform: scale(1.04); }
-                    100% { transform: scale(1.00); }
-                }
-
-                /* 🌀 ultra slow elegant rotation */
-                @keyframes spinUltraSlow {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
+                @keyframes softFadeIn {
+                    0% { opacity: 0; transform: translateY(4px); }
+                    100% { opacity: 0.92; transform: translateY(0); }
                 }
             `}</style>
         </div>
     );
 }
+
 
 
 

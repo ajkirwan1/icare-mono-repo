@@ -107,9 +107,9 @@ export function HowWeWorkSection() {
                         borderRadius: "999px",
 
                         /* premium luxe CTA */
-                        color: "#0F172A",
-                        background: "#FFFFFF",
-                        border: "2px solid #1FAB1F",
+                        color: "#ffffffff",
+                        background: "#0f3d20e5",
+                        border: "2px solid #0f3d20e5",
 
                         fontWeight: 800,
                         fontSize: "clamp(1rem,1.25vw,1.05rem)",
@@ -120,14 +120,14 @@ export function HowWeWorkSection() {
                         transition: "all .25s ease",
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(31,171,31,0.10)";
+                        e.currentTarget.style.background = "#0f3d20cf";
                         e.currentTarget.style.transform = "translateY(-3px)";
-                        e.currentTarget.style.boxShadow = "0 14px 34px rgba(0,0,0,0.14)";
+                        e.currentTarget.style.boxShadow = "0 0px 0px #0f3d20e5";
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "#FFFFFF";
+                        e.currentTarget.style.background = "#0f3d20e5";
                         e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.boxShadow = "0 10px 26px rgba(0,0,0,0.10)";
+                        e.currentTarget.style.boxShadow = "0 0px 0px #0f3d20c4";
                     }}
                 >
                     Explore full process

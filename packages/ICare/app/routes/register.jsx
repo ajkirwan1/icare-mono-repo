@@ -486,48 +486,197 @@ export default function Register() {
     return (
         <div style={pageStyle}>
             {/* HERO */}
-            <section style={hero} aria-label="Registration">
+            {/* ============================
+   REGISTRATION HERO
+============================ */}
+            <section
+                aria-label="Registration"
+                style={{
+                    padding: "clamp(4.5rem, 8vw, 6rem) 0",
+                    background: "#F8FAF9",
+                    borderBottom: "1px solid rgba(15,23,42,0.06)",
+                    fontFamily: "Inter, system-ui",
+                    textAlign: "center",
+                }}
+            >
                 <div
                     style={{
                         width: "min(1000px, 92vw)",
                         margin: "0 auto",
-                        textAlign: "center",
-                        padding: "34px 0",
                     }}
                 >
-                    <h1 style={h1}>Create Your Account</h1>
-                    <p style={subtitle}>
+                    <h1
+                        style={{
+                            margin: 0,
+                            fontWeight: 900,
+                            fontSize: "clamp(2.4rem,3.4vw,2.8rem)",
+                            letterSpacing: "-0.5px",
+                            color: "#0F172A",
+                            lineHeight: 1.12,
+                        }}
+                    >
+                        Create Your Account
+                    </h1>
+
+                    <p
+                        style={{
+                            margin: "1rem auto 2.6rem",
+                            maxWidth: "60ch",
+                            fontSize: "1.25rem",
+                            color: "#475569",
+                            lineHeight: 1.66,
+                            opacity: 0.95,
+                        }}
+                    >
                         3 short steps — you can complete your profile later.
                     </p>
 
-                    {/* Stepper */}
-                    <div style={stepperWrap}>
-                        <div style={stepPill(step === 1, step > 1)}>1. Account</div>
-                        <div style={stepPill(step === 2, step > 2)}>2. Role details</div>
-                        <div style={stepPill(step === 3, false)}>3. Summary & consents</div>
+                    {/* ============================
+           STEPPER
+        ============================ */}
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: "1rem",
+                            margin: "2.2rem auto 0",
+                        }}
+                    >
+                        <div
+                            style={{
+                                padding: ".8rem 1.4rem",
+                                borderRadius: 999,
+                                fontWeight: 800,
+                                fontSize: ".95rem",
+                                color: step === 1 ? "#0F172A" : "#475569",
+                                background:
+                                    step === 1
+                                        ? "rgba(31,171,31,0.18)"
+                                        : step > 1
+                                            ? "rgba(15,23,42,0.06)"
+                                            : "rgba(15,23,42,0.04)",
+                                border:
+                                    step === 1
+                                        ? "1px solid rgba(31,171,31,0.36)"
+                                        : "1px solid rgba(0,0,0,0.10)",
+                                transition: "all .25s ease",
+                            }}
+                        >
+                            1. Account
+                        </div>
+
+                        <div
+                            style={{
+                                padding: ".8rem 1.4rem",
+                                borderRadius: 999,
+                                fontWeight: 800,
+                                fontSize: ".95rem",
+                                color: step === 2 ? "#0F172A" : "#475569",
+                                background:
+                                    step === 2
+                                        ? "rgba(31,171,31,0.18)"
+                                        : step > 2
+                                            ? "rgba(15,23,42,0.06)"
+                                            : "rgba(15,23,42,0.04)",
+                                border:
+                                    step === 2
+                                        ? "1px solid rgba(31,171,31,0.36)"
+                                        : "1px solid rgba(0,0,0,0.10)",
+                                transition: "all .25s ease",
+                            }}
+                        >
+                            2. Role details
+                        </div>
+
+                        <div
+                            style={{
+                                padding: ".8rem 1.4rem",
+                                borderRadius: 999,
+                                fontWeight: 800,
+                                fontSize: ".95rem",
+                                color: step === 3 ? "#0F172A" : "#475569",
+                                background:
+                                    step === 3
+                                        ? "rgba(31,171,31,0.18)"
+                                        : "rgba(15,23,42,0.06)",
+                                border:
+                                    step === 3
+                                        ? "1px solid rgba(31,171,31,0.36)"
+                                        : "1px solid rgba(0,0,0,0.10)",
+                                transition: "all .25s ease",
+                            }}
+                        >
+                            3. Summary & consents
+                        </div>
                     </div>
 
-                    {/* Role toggle always visible */}
-                    <div style={{ width: "min(560px, 92vw)", margin: "16px auto 0" }}>
-                        <div style={tabs} role="tablist" aria-label="Role selection">
+                    {/* ============================
+           ROLE TOGGLE
+        ============================ */}
+                    <div style={{ width: "min(560px, 92vw)", margin: "18px auto 0" }}>
+                        <div
+                            role="tablist"
+                            aria-label="Role selection"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                background: "#FFFFFF",
+                                borderRadius: 16,
+                                overflow: "hidden",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                                boxShadow: "0 6px 22px rgba(0,0,0,0.06)",
+                            }}
+                        >
                             <button
                                 role="tab"
                                 aria-selected={tab === "caregiver"}
-                                style={tabBtn(tab === "caregiver")}
                                 onClick={() => {
                                     setTab("caregiver");
                                     update("role", "caregiver");
                                 }}
+                                style={{
+                                    padding: "1rem 0",
+                                    fontWeight: 800,
+                                    background:
+                                        tab === "caregiver"
+                                            ? "rgba(31,171,31,0.15)"
+                                            : "#FFFFFF",
+                                    color:
+                                        tab === "caregiver"
+                                            ? "#0F172A"
+                                            : "rgba(15,23,42,0.72)",
+                                    fontSize: "1rem",
+                                    border: "none",
+                                    borderRight: "1px solid rgba(15,23,42,0.06)",
+                                    cursor: "pointer",
+                                    transition: "all .22s ease",
+                                }}
                             >
                                 Caregiver
                             </button>
+
                             <button
                                 role="tab"
                                 aria-selected={tab === "receiver"}
-                                style={tabBtn(tab === "receiver")}
                                 onClick={() => {
                                     setTab("receiver");
                                     update("role", "receiver");
+                                }}
+                                style={{
+                                    padding: "1rem 0",
+                                    fontWeight: 800,
+                                    background:
+                                        tab === "receiver"
+                                            ? "rgba(31,171,31,0.15)"
+                                            : "#FFFFFF",
+                                    color:
+                                        tab === "receiver"
+                                            ? "#0F172A"
+                                            : "rgba(15,23,42,0.72)",
+                                    fontSize: "1rem",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    transition: "all .22s ease",
                                 }}
                             >
                                 Care Receiver
@@ -537,172 +686,429 @@ export default function Register() {
                 </div>
             </section>
 
-            {/* FORM */}
-            <section style={container}>
-                <form onSubmit={onSubmit} noValidate aria-live="polite" style={{ ...card }}>
-                    {/* STEP 1: COMMON */}
+            {/* ============================
+   FORM SECTION
+============================ */}
+            <section
+                style={{
+                    padding: "3.6rem 0 4rem",
+                    background: "#FFFFFF",
+                    fontFamily: "Inter, system-ui",
+                }}
+            >
+                <form
+                    onSubmit={onSubmit}
+                    noValidate
+                    aria-live="polite"
+                    style={{
+                        width: "min(880px,92vw)",
+                        margin: "0 auto",
+                        background: "#FFFFFF",
+                        border: "1px solid rgba(15,23,42,0.06)",
+                        borderRadius: 28,
+                        padding: "clamp(2.4rem,4vw,3rem)",
+                        boxShadow: "0 14px 36px rgba(0,0,0,0.05)",
+                        display: "grid",
+                        gap: "2.5rem",
+                    }}
+                >
+                    {/* ============================  
+            STEP 1 
+        ============================ */}
                     {step === 1 && (
                         <>
-                            <div style={grid2}>
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
+                                    gap: "1.4rem",
+                                }}
+                            >
+                                {/* FIRST NAME */}
                                 <div>
-                                    <label style={label} htmlFor="firstName">
+                                    <label
+                                        htmlFor="firstName"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         First name *
                                     </label>
                                     <input
                                         id="firstName"
                                         type="text"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.firstName}
                                         onChange={(e) => update("firstName", e.target.value)}
                                         autoComplete="given-name"
                                         required
                                     />
                                     {errors.firstName && (
-                                        <div style={errorText}>{errors.firstName}</div>
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.firstName}
+                                        </div>
                                     )}
                                 </div>
 
+                                {/* LAST NAME */}
                                 <div>
-                                    <label style={label} htmlFor="lastName">
+                                    <label
+                                        htmlFor="lastName"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Last name *
                                     </label>
                                     <input
                                         id="lastName"
                                         type="text"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.lastName}
                                         onChange={(e) => update("lastName", e.target.value)}
                                         autoComplete="family-name"
                                         required
                                     />
                                     {errors.lastName && (
-                                        <div style={errorText}>{errors.lastName}</div>
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.lastName}
+                                        </div>
                                     )}
                                 </div>
 
+                                {/* EMAIL */}
                                 <div>
-                                    <label style={label} htmlFor="email">
+                                    <label
+                                        htmlFor="email"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Email *
                                     </label>
                                     <input
                                         id="email"
                                         type="email"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.email}
                                         onChange={(e) => update("email", e.target.value)}
                                         autoComplete="email"
                                         required
                                     />
-                                    {errors.email && <div style={errorText}>{errors.email}</div>}
+                                    {errors.email && (
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.email}
+                                        </div>
+                                    )}
                                 </div>
 
+                                {/* PHONE */}
                                 <div>
-                                    <label style={label} htmlFor="phone">
+                                    <label
+                                        htmlFor="phone"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Phone *
                                     </label>
                                     <input
                                         id="phone"
                                         type="tel"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.phone}
                                         onChange={(e) => update("phone", e.target.value)}
                                         autoComplete="tel"
                                         required
                                     />
-                                    {errors.phone && <div style={errorText}>{errors.phone}</div>}
+                                    {errors.phone && (
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.phone}
+                                        </div>
+                                    )}
                                 </div>
 
+                                {/* PASSWORD */}
                                 <div>
-                                    <label style={label} htmlFor="password">
+                                    <label
+                                        htmlFor="password"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Password *
                                     </label>
                                     <input
                                         id="password"
                                         type="password"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.password}
                                         onChange={(e) => update("password", e.target.value)}
                                         autoComplete="new-password"
                                         required
-                                        aria-describedby="pwd-hint"
                                     />
-                                    <div id="pwd-hint" style={helper}>
+                                    <div
+                                        style={{
+                                            fontSize: ".82rem",
+                                            opacity: 0.7,
+                                            marginTop: "4px",
+                                            color: "#475569",
+                                        }}
+                                    >
                                         At least 8 characters.
                                     </div>
                                     {errors.password && (
-                                        <div style={errorText}>{errors.password}</div>
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.password}
+                                        </div>
                                     )}
                                 </div>
 
+                                {/* CONFIRM PASSWORD */}
                                 <div>
-                                    <label style={label} htmlFor="confirmPassword">
+                                    <label
+                                        htmlFor="confirmPassword"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Confirm password *
                                     </label>
                                     <input
                                         id="confirmPassword"
                                         type="password"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.confirmPassword}
                                         onChange={(e) => update("confirmPassword", e.target.value)}
                                         autoComplete="new-password"
                                         required
                                     />
                                     {errors.confirmPassword && (
-                                        <div style={errorText}>{errors.confirmPassword}</div>
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.confirmPassword}
+                                        </div>
                                     )}
                                 </div>
 
+                                {/* LOCATION */}
                                 <div style={{ gridColumn: "1 / -1" }}>
-                                    <label style={label} htmlFor="location">
+                                    <label
+                                        htmlFor="location"
+                                        style={{
+                                            fontWeight: 800,
+                                            fontSize: ".92rem",
+                                            color: "#0F172A",
+                                            marginBottom: "6px",
+                                            display: "block",
+                                        }}
+                                    >
                                         Location (city/area) *
                                     </label>
                                     <input
                                         id="location"
                                         type="text"
-                                        style={field}
+                                        style={{
+                                            width: "100%",
+                                            padding: "12px 14px",
+                                            borderRadius: 12,
+                                            border: "1px solid rgba(15,23,42,0.14)",
+                                            background: "#FFFFFF",
+                                            outline: "none",
+                                            fontSize: ".97rem",
+                                            transition: "border-color .2s, box-shadow .2s",
+                                        }}
                                         value={form.location}
-                                        onChange={(e) => update("location", e.target.value)}
+                                        onChange={(e) =>
+                                            update("location", e.target.value)
+                                        }
                                         placeholder="e.g., Warsaw, Mokotów"
                                         required
                                     />
                                     {errors.location && (
-                                        <div style={errorText}>{errors.location}</div>
+                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                            {errors.location}
+                                        </div>
                                     )}
                                 </div>
                             </div>
 
-                            <div style={ctaRow}>
-                                <div style={leftBtns}>
-                                    {/* pusty placeholder do wyrównania */}
-                                </div>
-                                <button type="button" onClick={goNext} style={btnPrimary}>
+                            {/* CTA ROW */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    marginTop: "1rem",
+                                }}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={goNext}
+                                    style={{
+                                        background: "#0F3D20E5",
+                                        color: "#fff",
+                                        padding: "1rem 2.4rem",
+                                        borderRadius: 999,
+                                        fontWeight: 900,
+                                        fontSize: "1.05rem",
+                                        boxShadow: "0 12px 26px rgba(0,0,0,0.15)",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        transition: "all .25s ease",
+                                    }}
+                                >
                                     Next
                                 </button>
                             </div>
                         </>
                     )}
 
-                    {/* STEP 2: ROLE-SPECIFIC */}
+                    {/* ============================  
+            STEP 2 
+        ============================ */}
                     {step === 2 && (
                         <>
-                            <div style={grid2}>
-                                {tab === "caregiver" ? <CaregiverFields /> : <ReceiverFields />}
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
+                                    gap: "1.4rem",
+                                }}
+                            >
+                                {tab === "caregiver" ? (
+                                    <CaregiverFields />
+                                ) : (
+                                    <ReceiverFields />
+                                )}
                             </div>
 
-                            <div style={ctaRow}>
-                                <div style={leftBtns}>
-                                    <button type="button" onClick={goBack} style={btnBack}>
-                                        Back
-                                    </button>
-                                </div>
-                                <button type="button" onClick={goNext} style={btnPrimary}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginTop: "1rem",
+                                }}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={goBack}
+                                    style={{
+                                        padding: ".85rem 1.6rem",
+                                        borderRadius: 999,
+                                        background: "#FFFFFF",
+                                        border: "2px solid rgba(15,23,42,0.28)",
+                                        color: "#0F172A",
+                                        fontWeight: 800,
+                                        cursor: "pointer",
+                                        fontSize: ".95rem",
+                                        transition: "all .25s ease",
+                                    }}
+                                >
+                                    Back
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={goNext}
+                                    style={{
+                                        background: "#0F3D20E5",
+                                        color: "#fff",
+                                        padding: "1rem 2.4rem",
+                                        borderRadius: 999,
+                                        fontWeight: 900,
+                                        fontSize: "1.05rem",
+                                        boxShadow: "0 12px 26px rgba(0,0,0,0.15)",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        transition: "all .25s ease",
+                                    }}
+                                >
                                     Next
                                 </button>
                             </div>
                         </>
                     )}
 
-                    {/* STEP 3: SUMMARY + CONSENTS */}
+                    {/* ============================  
+            STEP 3 
+        ============================ */}
                     {step === 3 && (
                         <>
                             <h2
@@ -711,19 +1117,21 @@ export default function Register() {
                                     fontWeight: 900,
                                     letterSpacing: ".2px",
                                     fontSize: "clamp(1.1rem,1.6vw,1.25rem)",
-                                    color: BRAND.dark,
+                                    color: "#0F172A",
                                 }}
                             >
                                 Summary
                             </h2>
+
                             <SummaryBlock />
 
+                            {/* CONSENTS */}
                             <div
                                 style={{
                                     marginTop: 18,
                                     padding: "14px 14px",
                                     borderRadius: 12,
-                                    border: `1px solid ${BRAND.border}`,
+                                    border: "1px solid rgba(15,23,42,0.14)",
                                     background: "rgba(31,171,31,.04)",
                                 }}
                             >
@@ -732,99 +1140,132 @@ export default function Register() {
                                         margin: 0,
                                         fontWeight: 900,
                                         fontSize: "1rem",
-                                        color: BRAND.dark,
+                                        color: "#0F172A",
                                     }}
                                 >
                                     Consents
                                 </h3>
 
                                 <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
-                                    {/* WYMAGANE */}
-                                    <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.c_terms}
-                                            onChange={(e) => update("c_terms", e.target.checked)}
-                                        />
-                                        <span style={{ color: BRAND.text }}>
-                                            I accept the{" "}
-                                            <Link to="/terms" style={{ color: BRAND.green }}>
-                                                Terms & Conditions
-                                            </Link>{" "}
-                                            (required)
-                                            {errors.c_terms && (
-                                                <div style={errorText}> {errors.c_terms}</div>
-                                            )}
-                                        </span>
-                                    </label>
-
-                                    <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.c_privacy}
-                                            onChange={(e) => update("c_privacy", e.target.checked)}
-                                        />
-                                        <span style={{ color: BRAND.text }}>
-                                            I have read the{" "}
-                                            <Link to="/privacy" style={{ color: BRAND.green }}>
-                                                Privacy Policy
-                                            </Link>{" "}
-                                            and understand how my personal data is processed (required)
-                                            {errors.c_privacy && (
-                                                <div style={errorText}> {errors.c_privacy}</div>
-                                            )}
-                                        </span>
-                                    </label>
-
-                                    <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.c_age18}
-                                            onChange={(e) => update("c_age18", e.target.checked)}
-                                        />
-                                        <span style={{ color: BRAND.text }}>
-                                            I confirm I am at least 18 years old (required)
-                                            {errors.c_age18 && (
-                                                <div style={errorText}> {errors.c_age18}</div>
-                                            )}
-                                        </span>
-                                    </label>
-
-                                    <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.c_truth}
-                                            onChange={(e) => update("c_truth", e.target.checked)}
-                                        />
-                                        <span style={{ color: BRAND.text }}>
-                                            I confirm that the information provided is accurate and complete (required)
-                                            {errors.c_truth && (
-                                                <div style={errorText}> {errors.c_truth}</div>
-                                            )}
-                                        </span>
-                                    </label>
-
-                                    {/* OPCJONALNE */}
-                                    <label style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={form.c_marketing}
-                                            onChange={(e) => update("c_marketing", e.target.checked)}
-                                        />
-                                        <span style={{ color: BRAND.text }}>
-                                            I agree to receive occasional emails about product updates and tips (optional)
-                                        </span>
-                                    </label>
+                                    {[
+                                        {
+                                            key: "c_terms",
+                                            label: (
+                                                <>
+                                                    I accept the{" "}
+                                                    <Link to="/terms" style={{ color: "#1FAB1F", fontWeight: 700 }}>
+                                                        Terms & Conditions
+                                                    </Link>{" "}
+                                                    (required)
+                                                </>
+                                            ),
+                                        },
+                                        {
+                                            key: "c_privacy",
+                                            label: (
+                                                <>
+                                                    I have read the{" "}
+                                                    <Link
+                                                        to="/privacy"
+                                                        style={{ color: "#1FAB1F", fontWeight: 700 }}
+                                                    >
+                                                        Privacy Policy
+                                                    </Link>{" "}
+                                                    (required)
+                                                </>
+                                            ),
+                                        },
+                                        {
+                                            key: "c_age18",
+                                            label: <>I confirm I am at least 18 years old (required)</>,
+                                        },
+                                        {
+                                            key: "c_truth",
+                                            label: (
+                                                <>
+                                                    I confirm the information provided is accurate (required)
+                                                </>
+                                            ),
+                                        },
+                                        {
+                                            key: "c_marketing",
+                                            optional: true,
+                                            label: (
+                                                <>I agree to receive occasional product updates (optional)</>
+                                            ),
+                                        },
+                                    ].map((c) => (
+                                        <label
+                                            key={c.key}
+                                            style={{
+                                                display: "flex",
+                                                gap: 10,
+                                                alignItems: "flex-start",
+                                                fontSize: ".95rem",
+                                                color: "#475569",
+                                            }}
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={form[c.key]}
+                                                onChange={(e) => update(c.key, e.target.checked)}
+                                            />
+                                            <span>
+                                                {c.label}
+                                                {errors[c.key] && (
+                                                    <div style={{ color: "#B91C1C", fontSize: ".82rem" }}>
+                                                        {errors[c.key]}
+                                                    </div>
+                                                )}
+                                            </span>
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
 
-                            <div style={ctaRow}>
-                                <div style={leftBtns}>
-                                    <button type="button" onClick={goBack} style={btnBack}>
-                                        Back
-                                    </button>
-                                </div>
-                                <button type="submit" style={btnPrimary} disabled={submitting}>
+                            {/* CTA ROW */}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginTop: "1rem",
+                                }}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={goBack}
+                                    style={{
+                                        padding: ".85rem 1.6rem",
+                                        borderRadius: 999,
+                                        background: "#FFFFFF",
+                                        border: "2px solid rgba(15,23,42,0.28)",
+                                        color: "#0F172A",
+                                        fontWeight: 800,
+                                        cursor: "pointer",
+                                        fontSize: ".95rem",
+                                        transition: "all .25s ease",
+                                    }}
+                                >
+                                    Back
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    disabled={submitting}
+                                    style={{
+                                        background: "#0F3D20E5",
+                                        color: "#fff",
+                                        padding: "1rem 2.4rem",
+                                        borderRadius: 999,
+                                        fontWeight: 900,
+                                        fontSize: "1.05rem",
+                                        boxShadow: "0 12px 26px rgba(0,0,0,0.15)",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        transition: "all .25s ease",
+                                        opacity: submitting ? 0.7 : 1,
+                                    }}
+                                >
                                     {submitting ? "Creating account…" : "Create account"}
                                 </button>
                             </div>
@@ -832,7 +1273,7 @@ export default function Register() {
                     )}
                 </form>
 
-                {/* Link do logowania pod kartą */}
+                {/* LOGIN LINK */}
                 <div
                     style={{
                         width: "min(960px, 92vw)",
@@ -841,11 +1282,23 @@ export default function Register() {
                         justifyContent: "center",
                     }}
                 >
-                    <Link to="/login" style={btnGhost}>
+                    <Link
+                        to="/login"
+                        style={{
+                            padding: ".8rem 1.4rem",
+                            borderRadius: 999,
+                            color: "#475569",
+                            fontWeight: 700,
+                            textDecoration: "none",
+                            fontSize: ".95rem",
+                            transition: "opacity .2s",
+                        }}
+                    >
                         I already have an account
                     </Link>
                 </div>
             </section>
+
         </div>
     );
 }
