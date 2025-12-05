@@ -146,7 +146,6 @@ export default function HeroComponent({ imgSrc }) {
                     transformOrigin: "top left",
                 }}
             >
-
                 {/* EYEBROW */}
                 <span
                     style={{
@@ -214,12 +213,83 @@ export default function HeroComponent({ imgSrc }) {
                             fontWeight: 800,
                         }}
                     >
-                        We are not an agency.
+                        Find a trusted caregiver
                     </strong>
-                    ICare is the answer to the real needs of families — helping them safely connect
-                    with trusted caregivers.
+                    Independent, verified carers. No agency markup.
+                    Simple, safe and affordable home care.
                 </span>
+
+                {/* ========================= CTAS ========================= */}
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "1rem",
+                        marginTop: "2rem",
+
+                        /* dopasowanie do lewego przesunięcia hero */
+                        transform: "translateX(0) scale(1)", // <- NOT duplicated transform!
+                    }}
+                >
+                    {/* PRIMARY CTA */}
+                    <a
+                        href="/caregivers"
+                        style={{
+                            padding: "1.05rem 1.8rem",
+                            borderRadius: "999px",
+                            background: "#1FAB1F",
+                            color: "#fff",
+                            fontSize: "clamp(1rem, 1.4vw, 1.15rem)",
+                            fontWeight: 700,
+                            letterSpacing: "-0.2px",
+                            textDecoration: "none",
+                            boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseOver={(e) =>
+                            (e.currentTarget.style.background = "#169A19")
+                        }
+                        onMouseOut={(e) =>
+                            (e.currentTarget.style.background = "#1FAB1F")
+                        }
+                    >
+                        Find a caregiver
+                    </a>
+
+                    {/* SECONDARY CTA */}
+                    <a
+                        href="#how-it-works"
+                        style={{
+                            padding: "1.05rem 1.8rem",
+                            borderRadius: "999px",
+                            border: "2px solid rgba(255,255,255,.75)",
+                            background: "rgba(255,255,255,0.18)",
+                            backdropFilter: "blur(6px)",
+                            color: "#fff",
+                            fontSize: "clamp(1rem, 1.4vw, 1.15rem)",
+                            fontWeight: 600,
+                            letterSpacing: "-0.2px",
+                            textDecoration: "none",
+                            boxShadow: "0 4px 14px rgba(0,0,0,0.10)",
+                            transition: "all .25s ease",
+                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.background =
+                                "rgba(255,255,255,0.28)";
+                            e.currentTarget.style.borderColor =
+                                "rgba(255,255,255,.95)";
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.background =
+                                "rgba(255,255,255,0.18)";
+                            e.currentTarget.style.borderColor =
+                                "rgba(255,255,255,.75)";
+                        }}
+                    >
+                        How ICare works
+                    </a>
+                </div>
             </span>
+
 
 
         </IcareHeroNew>
