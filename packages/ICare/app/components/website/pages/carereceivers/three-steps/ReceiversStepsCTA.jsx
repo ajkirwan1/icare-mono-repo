@@ -22,7 +22,7 @@ export default function ReceiversStepsCTA() {
                     gap: 10,
                     padding: "14px 40px",
                     borderRadius: 999,
-                    background: "#A67A63",
+                    background: "rgba(18, 96, 18, 0.784)",
                     color: "#fff",
                     fontWeight: 700,
                     fontSize: "1.05rem",

@@ -67,8 +67,6 @@ export default function ReceiversCompareICareVsAgency() {
                     style={{
                         background: "#F0FDF4",
                         borderRadius: 26,
-                        boxShadow:
-                            "0 10px 26px rgba(0,0,0,0.06), 0 0 0 4px rgba(167,243,208,0.28)",
                         opacity: 0,
                         transform: "translateY(20px)",
                         transition: "opacity .7s ease, transform .7s ease",
@@ -83,10 +81,10 @@ export default function ReceiversCompareICareVsAgency() {
                     <CompareCard
                         title="ICare"
                         icon="check"
-                        iconColor="#167C5F"
+                        iconColor="#3a683ac8"
                         iconBg="#ECFDF5"
-                        borderColor="#A7F3D0"
-                        background="transparent"
+
+                        background="#12601214"
                         items={[
                             "Direct agreement with your caregiver",
                             "Transparent 10% service fee",

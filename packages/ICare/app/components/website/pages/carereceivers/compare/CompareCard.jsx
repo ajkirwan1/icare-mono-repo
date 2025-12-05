@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function CompareCard({
     title,
     icon,
@@ -16,7 +14,7 @@ export default function CompareCard({
                 borderRadius: 22,
                 padding: "32px 28px",
                 background,
-                border: `1px solid ${borderColor}`,
+
                 boxShadow: shadow,
             }}
         >
