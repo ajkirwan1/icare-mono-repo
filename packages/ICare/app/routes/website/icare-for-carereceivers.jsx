@@ -8,6 +8,7 @@ import ReceiversFAQ from "../../components/website/pages/carereceivers/Receivers
 import ReceiversTrustBar from "../../components/website/pages/carereceivers/ReceiversTrustBar";
 import ReceiversContactCTA from "../../components/website/pages/carereceivers/ReceiversContactCTA";
 import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
+import ICareProtectionSection from "../../components/website/pages/carereceivers/ICareProtectionSection";
 
 export default function ICareForCareReceivers() {
 
@@ -44,10 +45,12 @@ export default function ICareForCareReceivers() {
             <ReceiversEditorialBanner />
             <ReceiversChecklist />
             <ReceiversCompareICareVsAgency />
+            <ICareProtectionSection />
             <ReceiversFAQ />
             <ReceiversTrustBar />
             <ReceiversContactCTA />
             <ReceiversFooter />
+
         </div>
     );
 }

@@ -10,16 +10,17 @@ export default function ReceiversFAQ() {
     const faqs = [
         {
             q: "Do I pay anything to register?",
-            a: "No. Registration is free. ICare charges a one-time flat fee only after both sides sign an agreement.",
+            a: "No. Registering and browsing caregivers is completely free. You only pay a simple 10% service fee when you book care."
         },
         {
             q: "How do I verify a caregiver?",
             a: "Profiles include experience, checks, skills and availability. You can message privately, schedule a call, and request documents before agreeing terms.",
         },
         {
-            q: "Is my data secure?",
-            a: "Yes. We use encrypted messaging and store only the minimum data needed to provide the service.",
+            q: "How does ICare work?",
+            a: "You browse verified caregivers, message them directly and choose the person who feels right. Once you agree on support, you confirm the booking and pay securely through ICare.",
         },
+
     ];
 
     return (

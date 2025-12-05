@@ -37,7 +37,8 @@ export default function ReceiversEditorialBanner() {
                             letterSpacing: "-0.5px",
                         }}
                     >
-                        Care that adapts to your rhythm.
+                        Support that feels personal.
+                        Care that feels human.
                     </h2>
 
                     <p
@@ -50,9 +51,7 @@ export default function ReceiversEditorialBanner() {
                             fontWeight: 400,
                         }}
                     >
-                        A more human way to find care — calm, honest and beautifully simple.
-                        Whether it’s support for yourself or someone you love, we help you make
-                        decisions with confidence, clarity and warmth.
+                        Find independent, verified caregivers who offer gentle, consistent support for you or your loved one — without agency pressure, confusion or hidden fees.
                     </p>
 
                     <div
@@ -66,6 +65,7 @@ export default function ReceiversEditorialBanner() {
                             "No subscriptions or hidden fees",
                             "Direct agreement with caregivers",
                             "Secure private messaging",
+
                         ].map((text) => (
                             <div
                                 key={text}
