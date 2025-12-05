@@ -7,7 +7,7 @@ import ReceiversCompareICareVsAgency from "../../components/website/pages/carere
 import ReceiversFAQ from "../../components/website/pages/carereceivers/ReceiversFAQ";
 import ReceiversTrustBar from "../../components/website/pages/carereceivers/ReceiversTrustBar";
 import ReceiversContactCTA from "../../components/website/pages/carereceivers/ReceiversContactCTA";
-import ReceiversFooter from "../../components/website/pages/shared/ICareFooter";
+import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
 
 export default function ICareForCareReceivers() {
 
