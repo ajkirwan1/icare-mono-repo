@@ -1,216 +1,214 @@
-import React from "react";
-import styles from "@styles/components/website/pages/who-we-are/sections/fourth-section.module.scss";
+import React, { useState, useRef, useEffect } from "react";
 
 export function OurImpactSection() {
-    const metrics = [
-        {
-            n: "2.3×",
-            l: "Faster Matching",
-            d: "From first contact to confirmed start date"
-        },
-        {
-            n: "94%",
-            l: "5-Star Feedback",
-            d: "From families & caregivers who matched successfully"
-        },
-        {
-            n: "−18%",
-            l: "Lower Total Cost",
-            d: "Compared to traditional care agencies"
-        },
-        {
-            n: "100%",
-            l: "Profiles Verified",
-            d: "Every caregiver verified by ID and references"
-        }
+    const images = [
+        "https://images.unsplash.com/photo-1524508762098-fd966ffb6ef9?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1521769841580-94d38f06e7a6?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1530023367847-a683933f4177?auto=format&fit=crop&w=1200&q=80",
     ];
+
+    const [index, setIndex] = useState(0);
+    const intervalRef = useRef(null);
+
+    const next = () => setIndex((i) => (i + 1) % images.length);
+    const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+
+    useEffect(() => {
+        startAutoplay();
+        return () => stopAutoplay();
+    }, []);
+
+    const startAutoplay = () => {
+        stopAutoplay();
+        intervalRef.current = setInterval(next, 6000);
+    };
+
+    const stopAutoplay = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+    };
 
     return (
         <section
             id="impact"
-            aria-label="Impact metrics — ICare dashboard edition"
             style={{
                 width: "min(1100px,92vw)",
-                margin: "7rem auto",
-                padding: "0 clamp(16px,3vw,28px)",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                margin: "8rem auto",
+                padding: "0 clamp(20px,3vw,32px)",
+                fontFamily: "Inter, system-ui, sans-serif",
             }}
         >
             {/* HEADER */}
             <h2
                 style={{
-                    margin: 0,
                     fontWeight: 900,
-                    fontSize: "clamp(2rem,2.7vw,2.4rem)",
-                    letterSpacing: "-0.4px",
+                    fontSize: "clamp(2rem,2.8vw,2.6rem)",
                     color: "#0F172A",
-                    lineHeight: 1.14,
+                    marginBottom: "1.4rem",
                 }}
             >
                 Our Impact
             </h2>
-
-            <p
-                style={{
-                    margin: "1rem 0 2.8rem",
-                    color: "#475569",
-                    maxWidth: "60ch",
-                    fontSize: "1.12rem",
-                    lineHeight: 1.65,
-                }}
-            >
-                We measure what matters — safer matches, fairer pay, and faster starts.
-            </p>
-
-            {/* GRID */}
+            {/* STORY-STYLE PRACTICAL TEXT */}
             <div
                 style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(260px,1fr))",
-                    gap: "4rem 3rem",
-                    paddingTop: "2.6rem",
-                    borderTop: "1px solid rgba(15,23,42,0.06)",
-                    position: "relative",
+                    maxWidth: "68ch",
+                    fontSize: "1.12rem",
+                    color: "#475569",
+                    lineHeight: 1.7,
+                    marginBottom: "2.8rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1.6rem",
                 }}
             >
-                {metrics.map((m, i) => (
-                    <div
-                        key={m.l}
-                        style={{
-                            display: "grid",
-                            gap: "0.7rem",
-                            paddingLeft: "0.4rem",
-                            paddingRight: "0.4rem",
-                            position: "relative",
-                            animation: `impactFade .8s ease forwards`,
-                            animationDelay: `${i * 0.12}s`,
-                            opacity: 0,
-                            transform: "translateY(16px)"
-                        }}
-                    >
-                        {/* ICON — UNIQUE FOR EACH KPI */}
-                        {/* ICON CONTAINER */}
-                        <div
-                            style={{
-                                width: 56,
-                                height: 56,
-                                borderRadius: 18,
-                                background: "rgba(31,171,31,0.07)",
-                                border: "1px solid rgba(31,171,31,0.14)",
-                                display: "grid",
-                                placeItems: "center",
-                                marginBottom: "0.6rem",
-                                backdropFilter: "blur(2px)",
-                            }}
-                        >
-                            {/* UNIQUE ICONS */}
-                            {i === 0 && (
-                                // ⚡ Faster Matching
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                    stroke="#1FAB1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="9" />
-                                    <path d="M12 7v5l3 2" />
-                                    <path d="M8 3l2 2" />
-                                </svg>
-                            )}
+                {/* INTRO */}
+                <p style={{ margin: 0 }}>
+                    We’re building a clearer, simpler way for families and caregivers to connect.
+                    No agencies deciding for you. No outdated processes. Just transparent tools
+                    that help two people meet, talk and decide together.
+                </p>
 
-                            {i === 1 && (
-                                // ★ Feedback
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                    stroke="#1FAB1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M12 4l2.4 4.8 5.3.7-3.9 3.8.9 5.3L12 16.6l-4.7 2.5.9-5.3-3.9-3.8 5.3-.7L12 4z" />
-                                </svg>
-                            )}
+                {/* BULLETS */}
+                <div
+                    style={{
+                        display: "grid",
+                        gap: "0.85rem",
+                        paddingLeft: "1.2rem",
+                        color: "#334155",
+                        fontSize: "1.05rem",
+                    }}
+                >
+                    <div style={{ display: "flex", gap: ".6rem" }}>
+                        <span style={{ fontWeight: 700 }}>•</span>
+                        <span>You see caregiver profiles directly — skills, availability and preferences.</span>
+                    </div>
 
-                            {i === 2 && (
-                                // ↓ Cost Reduction
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                    stroke="#1FAB1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                                    <circle cx="12" cy="12" r="9" />
-                                    <path d="M12 8v8" />
-                                    <path d="M9 13l3 3 3-3" />
-                                </svg>
-                            )}
+                    <div style={{ display: "flex", gap: ".6rem" }}>
+                        <span style={{ fontWeight: 700 }}>•</span>
+                        <span>Caregivers see exactly what families need before applying.</span>
+                    </div>
 
-                            {i === 3 && (
-                                // 🛡 Verification
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                                    stroke="#1FAB1F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6z" />
-                                    <path d="M9.5 12.5l2 2 4-4" />
-                                </svg>
-                            )}
-                        </div>
+                    <div style={{ display: "flex", gap: ".6rem" }}>
+                        <span style={{ fontWeight: 700 }}>•</span>
+                        <span>Both sides communicate without middle layers or hidden conditions.</span>
+                    </div>
 
-                        {/* NUMBER */}
-                        <div
-                            style={{
-                                fontWeight: 900,
-                                fontSize: "clamp(2.4rem,3.5vw,3rem)",
-                                letterSpacing: "-0.45px",
-                                color: "#0F172A",
-                                lineHeight: 1,
-                            }}
-                        >
-                            {m.n}
-                        </div>
+                    <div style={{ display: "flex", gap: ".6rem" }}>
+                        <span style={{ fontWeight: 700 }}>•</span>
+                        <span>Matching happens naturally when expectations align.</span>
+                    </div>
 
-                        {/* LABEL */}
-                        <div
-                            style={{
-                                fontSize: "1.08rem",
-                                fontWeight: 700,
-                                color: "#1E293B",
-                            }}
-                        >
-                            {m.l}
-                        </div>
+                    <div style={{ display: "flex", gap: ".6rem" }}>
+                        <span style={{ fontWeight: 700 }}>•</span>
+                        <span>The process is guided but never controlled — you stay in charge.</span>
+                    </div>
+                </div>
 
-                        {/* DESCRIPTION */}
-                        <p
-                            style={{
-                                margin: 0,
-                                fontSize: ".97rem",
-                                color: "#475569",
-                                lineHeight: 1.58,
-                                maxWidth: "48ch",
-                            }}
-                        >
-                            {m.d}
-                        </p>
+                {/* OUTRO */}
+                <p style={{ margin: 0 }}>
+                    It’s care designed around people, not systems — giving families clarity and
+                    caregivers the dignity of choosing where and how they work.
+                </p>
+            </div>
 
-                        {/* VERTICAL SEPARATOR (desktop only) */}
-                        {i < metrics.length - 1 && (
+
+            {/* ========================== */}
+            {/*         CAROUSEL           */}
+            {/* ========================== */}
+
+            <div
+                style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    borderRadius: "32px",
+                    boxShadow: "0 10px 34px rgba(0,0,0,0.12)",
+                    width: "min(820px, 100%)",     // ← ZMNIEJSZONA SZEROKOŚĆ
+                    margin: "0 auto",              // ← WYŚRODKOWANA
+                }}
+                onMouseEnter={stopAutoplay}
+                onMouseLeave={startAutoplay}
+            >
+                <div
+                    style={{
+                        display: "flex",
+                        transform: `translateX(-${index * 100}%)`,
+                        transition: "transform .7s cubic-bezier(0.25,0.1,0.25,1)",
+                    }}
+                >
+                    {images.map((src, i) => (
+                        <div key={i} style={{ minWidth: "100%", position: "relative" }}>
+                            <img
+                                src={src}
+                                alt=""
+                                style={{
+                                    width: "100%",
+                                    height: "290px", // ← 30% MNIEJSZA WYSOKOŚĆ
+                                    objectFit: "cover",
+                                    display: "block",
+                                }}
+                            />
+
+                            {/* Airbnb-like gradient */}
                             <div
                                 style={{
                                     position: "absolute",
-                                    right: "-1.5rem",
-                                    top: "8%",
-                                    bottom: "8%",
-                                    width: "1px",
-                                    background: "rgba(15,23,42,0.08)",
-                                    display: "none",
+                                    inset: 0,
+                                    background:
+                                        "linear-gradient(to top, rgba(0,0,0,0.20), rgba(0,0,0,0.04))",
+                                    pointerEvents: "none",
                                 }}
                             />
-                        )}
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div>
+
+                {/* ARROWS */}
+                <button onClick={prev} style={arrowStyle("left")}>‹</button>
+                <button onClick={next} style={arrowStyle("right")}>›</button>
             </div>
 
-            <style>{`
-        @keyframes impactFade {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (min-width: 860px) {
-            #impact div[style*="position: relative"] > div[style*="height:"] + div[style*="position: absolute"] {
-                display: block !important;
-            }
-        }
-    `}</style>
+            {/* DOTS */}
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: "10px",
+                marginTop: "1.6rem"
+            }}>
+                {images.map((_, i) => (
+                    <div
+                        key={i}
+                        onClick={() => setIndex(i)}
+                        style={{
+                            width: index === i ? 14 : 8,
+                            height: 8,
+                            borderRadius: 999,
+                            background: index === i ? "#0F3D20" : "rgba(0,0,0,0.15)",
+                            transition: "all .3s ease",
+                            cursor: "pointer",
+                        }}
+                    />
+                ))}
+            </div>
         </section>
-
     );
 }
+
+const arrowStyle = (side) => ({
+    position: "absolute",
+    top: "50%",
+    [side]: "14px",
+    transform: "translateY(-50%)",
+    width: "42px",
+    height: "42px",
+    borderRadius: "50%",
+    background: "rgba(255,255,255,0.9)",
+    border: "1px solid rgba(0,0,0,0.08)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.6rem",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+    transition: "all .25s ease",
+});

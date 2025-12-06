@@ -213,13 +213,6 @@ Get Started
                 ]}
             />
 
-
-
-
-
-
-
-
             <IcareSection className="full-bleed">
                 <IcareBanner className="full-bleed" imgSrc={bannerImage1} />
             </IcareSection>
