@@ -161,57 +161,213 @@ Get Started
                     </a>
                 }
             />
-            <TrustCareGrid
-                items={[
-                    {
-                        k: "Trust",
-                        desc: "Clear, transparent and predictable — so every family feels safe.",
-                        img: cardImage2,
-                        color: "#4C7865",
-                        iconBg: "rgba(76,120,101,0.14)",
+            <section
+                aria-label="Trust, Care & Community"
+                style={{
+                    width: "100%",
+                    margin: "8rem 0",
+                    padding: "clamp(60px,8vw,110px) clamp(20px,6vw,70px)",
+                    display: "grid",
+                    gap: "3.5rem",
+                    background: "#FFFFFF",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
+                }}
+            >
+                {/* TITLE */}
+                <header>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 800,
+                            fontSize: "clamp(2rem,3vw,2.6rem)",
+                            letterSpacing: "-0.4px",
+                            color: "#0F172A",
+                        }}
+                    >
+                        Trust, Care & Community
+                    </h2>
 
-                        icon: (
-                            <svg
-                                viewBox="0 0 24 24"
-                                width="38"
-                                height="38"
-                                stroke="#4C7865"
-                                fill="none"
-                                strokeWidth="1.4"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M12 3l7 3v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" />
-                                <path d="M9.2 12.5l2.1 2.2 4.2-4.4" />
-                            </svg>
-                        ),
-                    },
+                    <p
+                        style={{
+                            marginTop: "1rem",
+                            fontSize: "1.08rem",
+                            lineHeight: 1.65,
+                            color: "#475569",
+                            maxWidth: "60ch",
+                            fontWeight: 400,
+                        }}
+                    >
+                        Three values that define everything we do — safe, human and connected.
+                    </p>
+                </header>
 
-                    {
-                        k: "Care",
-                        desc: "Human support — from companionship to full live-in continuity.",
-                        img: cardImage7,
-                        color: "#A6725A",
-                        iconBg: "rgba(166,114,90,0.16)",
+                {/* GRID + HOVER LOGIC (IIFE z useState) */}
+                {(() => {
+                    const cards = [
+                        {
+                            k: "Trust",
+                            descShort: "Transparent terms and predictable care.",
+                            descFull:
+                                "Families always know what to expect — full transparency, no hidden margins and clear agreements.",
+                            img: cardImage2,
+                        },
+                        {
+                            k: "Care",
+                            descShort: "Warm, human support.",
+                            descFull:
+                                "From companionship visits to live-in continuity — every caregiver brings empathy and experience.",
+                            img: cardImage7,
+                        },
+                        {
+                            k: "Community",
+                            descShort: "Supportive families & caregivers.",
+                            descFull:
+                                "Practical help, knowledge sharing and a sense of belonging — everyone grows together.",
+                            img: cardImage4,
+                        },
+                    ];
 
-                        icon: (
-                            <svg
-                                viewBox="0 0 24 24"
-                                width="38"
-                                height="38"
-                                stroke="#A6725A"
-                                fill="none"
-                                strokeWidth="1.4"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M12 20c4.8-3 8-6.8 8-11V7l-8-4-8 4v2c0 4.2 3.2 8 8 11z" />
-                                <path d="M9 12l2 2 4-4" />
-                            </svg>
-                        ),
-                    },
-                ]}
-            />
+                    const [hoverIndex, setHoverIndex] = React.useState(null);
+
+                    return (
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
+                                gap: "clamp(32px,4vw,48px)",
+                            }}
+                        >
+                            {cards.map((item, idx) => {
+                                const isOpen = hoverIndex === idx;
+
+                                return (
+                                    <div
+                                        key={item.k}
+                                        style={{
+                                            position: "relative",
+                                            borderRadius: 32,
+                                            overflow: "hidden",
+                                            cursor: "pointer",
+                                            background: "#000",
+                                            display: "block",
+                                            boxShadow: "0 10px 30px rgba(15,23,42,0.18)",
+                                            transition: "box-shadow .3s ease",
+                                        }}
+                                        onMouseEnter={() => setHoverIndex(idx)}
+                                        onMouseLeave={() => setHoverIndex(null)}
+                                    >
+                                        {/* IMAGE */}
+                                        <img
+                                            src={item.img}
+                                            alt={item.k}
+                                            style={{
+                                                width: "100%",
+                                                height: "360px",
+                                                objectFit: "cover",
+                                                borderRadius: 32,
+                                                filter: "brightness(.9)",
+                                                display: "block",
+                                            }}
+                                        />
+
+                                        {/* OVERLAY */}
+                                        <div
+                                            style={{
+                                                position: "absolute",
+                                                inset: 0,
+                                                background:
+                                                    "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,.60) 100%)",
+                                            }}
+                                        />
+
+                                        {/* TEXT CONTENT */}
+                                        <div
+                                            style={{
+                                                position: "absolute",
+                                                left: 0,
+                                                right: 0,
+                                                bottom: 0,
+                                                padding: "1.9rem 2rem 2rem",
+                                                color: "#fff",
+                                                display: "grid",
+                                                gap: ".45rem",
+                                            }}
+                                        >
+                                            <strong
+                                                style={{
+                                                    fontSize: "1.35rem",
+                                                    fontWeight: 700,
+                                                    letterSpacing: "-0.22px",
+                                                }}
+                                            >
+                                                {item.k}
+                                            </strong>
+
+                                            {/* SHORT LINE – zawsze widoczny, minimalna zmiana */}
+                                            <p
+                                                style={{
+                                                    margin: 0,
+                                                    fontSize: "1rem",
+                                                    lineHeight: 1.5,
+                                                    fontWeight: 400,
+                                                    opacity: isOpen ? 0.55 : 0.9,
+                                                    transition: "opacity .6s ease",
+                                                }}
+                                            >
+                                                {item.descShort}
+                                            </p>
+
+                                            {/* "Learn more" label (tylko gdy nie hover) */}
+                                            {!isOpen && (
+                                                <span
+                                                    style={{
+                                                        marginTop: ".15rem",
+                                                        fontSize: ".9rem",
+                                                        opacity: 0.9,
+                                                        textDecoration: "underline",
+                                                        textUnderlineOffset: "3px",
+                                                        fontWeight: 400,
+                                                    }}
+                                                >
+                                                    Learn more
+                                                </span>
+                                            )}
+
+                                            {/* FULL TEXT – SOFT, SLOW FADE */}
+                                            <div
+                                                style={{
+                                                    overflow: "hidden",
+                                                    maxHeight: isOpen ? "130px" : "0px",
+                                                    transition:
+                                                        "max-height .8s ease",
+                                                    marginTop: isOpen ? ".35rem" : "0",
+                                                }}
+                                            >
+                                                <p
+                                                    style={{
+                                                        margin: 0,
+                                                        fontSize: ".96rem",
+                                                        lineHeight: 1.6,
+                                                        fontWeight: 400,
+                                                        opacity: isOpen ? 1 : 0,
+                                                        transition: "opacity .8s ease",
+                                                        color: "rgba(241,245,249,0.96)",
+                                                    }}
+                                                >
+                                                    {item.descFull}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                })()}
+            </section>
+
+
 
             <IcareSection className="full-bleed">
                 <IcareBanner className="full-bleed" imgSrc={bannerImage1} />

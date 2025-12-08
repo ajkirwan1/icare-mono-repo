@@ -1,26 +1,23 @@
-import React from "react";
-
 export default function WhoCanJoin() {
     return (
         <section
-            aria-label="Who can join ICare — Luxe Edition"
+            aria-label="Who can join ICare"
             style={{
-                margin: "6rem auto",
-                width: "min(1100px, 92vw)",
-                padding: "clamp(40px,5vw,60px)",
-                borderRadius: 32,
-                background: "#FFFFFF",
-                border: "1px solid rgba(15,23,42,0.06)",  // soft luxe border
+                width: "min(1100px,92vw)",
+                margin: "7rem auto",
+                padding: "0",
+                fontFamily:
+                    "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
             }}
         >
             {/* HEADER */}
-            <header style={{ marginBottom: "3.4rem" }}>
+            <header style={{ marginBottom: "4rem", textAlign: "left" }}>
                 <h2
                     style={{
                         margin: 0,
                         fontWeight: 900,
-                        fontSize: "clamp(2rem,2.8vw,2.6rem)",
-                        letterSpacing: "-0.4px",
+                        fontSize: "clamp(2.2rem,3vw,2.8rem)",
+                        letterSpacing: "-0.45px",
                         lineHeight: 1.12,
                         color: "#0F172A",
                     }}
@@ -30,40 +27,31 @@ export default function WhoCanJoin() {
 
                 <p
                     style={{
-                        marginTop: "1.1rem",
+                        marginTop: "1.2rem",
                         color: "#475569",
-                        fontSize: "1.14rem",
-                        lineHeight: 1.68,
+                        fontSize: "1.18rem",
+                        lineHeight: 1.7,
                         maxWidth: "62ch",
                         fontWeight: 400,
                     }}
                 >
-                    Verified, trusted caregivers with real experience and a human approach.
+                    Verified professional caregivers, specialists, and experienced helpers
+                    who provide safe and compassionate care.
                 </p>
-
-                {/* Subtle divider — Airbnb Luxe style */}
-                <div
-                    style={{
-                        marginTop: "1.6rem",
-                        width: "100%",
-                        height: 1,
-                        background: "rgba(15,23,42,0.06)", // **soft neutral rule**
-                    }}
-                />
             </header>
 
             {/* CARDS */}
             <div
                 style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                    gap: "clamp(28px,2.6vw,40px)",
+                    gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))",
+                    gap: "clamp(32px,2.6vw,40px)",
                 }}
             >
                 {[
                     {
                         t: "Professional caregivers & nurses",
-                        d: "Verified experience, strong references and excellent communication.",
+                        d: "Verified experience, references and professional approach.",
                         icon: (
                             <svg
                                 width="26"
@@ -82,7 +70,7 @@ export default function WhoCanJoin() {
                     },
                     {
                         t: "Live-in & flexible hours",
-                        d: "Full-time, flexible schedules or live-in support tailored to each family.",
+                        d: "Flexible schedules, overnight help and full-time support.",
                         icon: (
                             <svg
                                 width="26"
@@ -100,8 +88,8 @@ export default function WhoCanJoin() {
                         ),
                     },
                     {
-                        t: "Specialist care expertise",
-                        d: "Dementia care, mobility support or post-surgery recovery.",
+                        t: "Specialist support",
+                        d: "Dementia care, post-surgery, mobility and advanced needs.",
                         icon: (
                             <svg
                                 width="26"
@@ -120,7 +108,7 @@ export default function WhoCanJoin() {
                     },
                     {
                         t: "Languages & driving",
-                        d: "Multilingual caregivers and certified drivers highly valued.",
+                        d: "Bilingual caregivers and certified drivers highly valued.",
                         icon: (
                             <svg
                                 width="26"
@@ -143,50 +131,31 @@ export default function WhoCanJoin() {
                         key={item.t}
                         style={{
                             background: "#FFFFFF",
-                            borderRadius: 24,
-
-                            /* consistent luxe borders */
-                            border: "1px solid rgba(15,23,42,0.06)",
-
-                            padding: "30px 28px",
+                            borderRadius: 28,
+                            padding: "34px 30px",
                             display: "grid",
                             gap: 18,
                             transition:
-                                "transform .22s ease, border-color .22s ease, background .22s ease",
+                                "transform .25s ease, background .25s ease, border-color .25s ease",
                             opacity: 0,
                             transform: "translateY(16px)",
-                            animation: `fadeUpCards .7s ease forwards ${i * 0.12}s`,
+                            animation: `fadeIn .75s ease forwards ${i * 0.14}s`,
                         }}
                         onMouseEnter={(e) => {
                             e.currentTarget.style.transform = "translateY(-4px)";
-                            e.currentTarget.style.borderColor = "rgba(31,171,31,0.22)"; // SUBTLE ICare green accent
-                            e.currentTarget.style.background = "rgba(31,171,31,0.04)";
+                            e.currentTarget.style.background = "rgba(31,171,31,0.05)";
                         }}
                         onMouseLeave={(e) => {
                             e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.borderColor = "rgba(15,23,42,0.06)";
                             e.currentTarget.style.background = "#FFFFFF";
                         }}
                     >
-                        {/* ICON */}
-                        <div
-                            style={{
-                                width: 60,
-                                height: 60,
-                                borderRadius: 18,
-                                background: "rgba(15,23,42,0.05)",   // soft grey, not green
-                                border: "1px solid rgba(15,23,42,0.12)",
-                                display: "grid",
-                                placeItems: "center",
-                            }}
-                        >
-                            {item.icon}
-                        </div>
+                        <div style={{ width: 34, opacity: 0.9 }}>{item.icon}</div>
 
                         <strong
                             style={{
                                 color: "#0F172A",
-                                fontSize: "1.22rem",
+                                fontSize: "1.24rem",
                                 fontWeight: 800,
                                 letterSpacing: "-0.25px",
                             }}
@@ -199,7 +168,7 @@ export default function WhoCanJoin() {
                                 margin: 0,
                                 color: "#475569",
                                 lineHeight: 1.65,
-                                fontSize: "1.06rem",
+                                fontSize: "1.05rem",
                                 fontWeight: 400,
                             }}
                         >
@@ -210,12 +179,11 @@ export default function WhoCanJoin() {
             </div>
 
             <style>{`
-        @keyframes fadeUpCards {
-            from { opacity: 0; transform: translateY(18px);}
-            to { opacity: 1; transform: translateY(0);}
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(18px);}
+          to { opacity: 1; transform: translateY(0);}
         }
-    `}</style>
+      `}</style>
         </section>
-
     );
 }

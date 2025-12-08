@@ -44,7 +44,7 @@ export default function ICareProtectionSection() {
                     marginBottom: "0.75rem",
                 }}
             >
-                Safety & Peace of mind
+                Safety & peace of mind
             </h2>
 
             <p

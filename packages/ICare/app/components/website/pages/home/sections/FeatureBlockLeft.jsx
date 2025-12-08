@@ -6,51 +6,53 @@ export default function FeatureBlockLeft({ imgSrc, header, body }) {
         <IcareWebBlock
             imgSrc={imgSrc}
             style={{
-                background: "#F4F5F4",
-                borderRadius: "28px",
-                padding: "clamp(3.2rem, 5vw, 4.2rem) clamp(1.5rem, 4vw, 3rem)",
+                borderRadius: 32,
+                padding: "clamp(3rem,5vw,4rem) clamp(1.8rem,5vw,3rem)",
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: "2.5rem",
                 flexDirection: "row",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
-                marginBottom: "clamp(48px, 6vw, 72px)",
+                alignItems: "center",
+                gap: "3rem",
+                flexWrap: "wrap",
+                background: "rgba(31,171,31,0.05)",       // 💚 ICare tint
+                border: "1px solid rgba(31,171,31,0.12)", // light green border
+                boxShadow: "0 10px 32px rgba(0,0,0,0.04)",
+                marginBottom: "clamp(48px,6vw,72px)",
                 maxWidth: 1200,
                 marginInline: "auto",
-                border: "1px solid rgba(0,0,0,0.04)",
             }}
         >
+            {/* HEADER */}
             <span
                 slot="header-contents"
                 style={{
                     display: "block",
-                    fontSize: "clamp(2.05rem, 3.8vw, 2.35rem)",
+                    fontSize: "clamp(2.2rem,3.5vw,2.6rem)",
                     fontWeight: 900,
                     color: "#0F172A",
-                    marginBottom: "1.25rem",
-                    lineHeight: 1.12,
-                    letterSpacing: "-0.35px",
+                    marginBottom: "1.2rem",
+                    lineHeight: 1.1,
+                    letterSpacing: "-0.4px",
+                    maxWidth: "22ch",
                 }}
             >
                 {header}
             </span>
 
+            {/* BODY */}
             <span
                 slot="body-contents"
                 style={{
-                    fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
-                    lineHeight: 1.82,
-                    color: "rgba(15,23,42,0.72)",
+                    fontSize: "clamp(1.06rem,1.25vw,1.18rem)",
+                    lineHeight: 1.8,
+                    color: "#475569",
                     fontWeight: 400,
-                    maxWidth: "640px",
+                    maxWidth: "48ch",
                     display: "block",
-                    letterSpacing: "0.25px",
                 }}
             >
                 {body}
             </span>
         </IcareWebBlock>
+
     );
 }

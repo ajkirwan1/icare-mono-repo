@@ -12,11 +12,10 @@ export default function ContactCTABanner() {
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
 
-                /* 🟩 bardziej elegancki, jaśniejszy pastel */
                 background: "rgba(31,171,31,0.06)",
-
                 borderTop: "1px solid rgba(0,0,0,0.04)",
                 padding: "clamp(5rem,7vw,6rem) 0",
+
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -25,12 +24,7 @@ export default function ContactCTABanner() {
                 style={{
                     maxWidth: 1100,
                     margin: "0 auto",
-
-                    /* miękkie obramowanie sekcji wewnętrznej */
-                    padding: "clamp(28px,4vw,48px)",
-                    background: "#FFFFFF",
-                    borderRadius: 28,
-                    border: "1px solid rgba(31,171,31,0.12)",
+                    padding: "0 clamp(28px,4vw,48px)",
 
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
@@ -45,8 +39,6 @@ export default function ContactCTABanner() {
                             margin: 0,
                             color: "#0F172A",
                             fontWeight: 800,
-
-                            /* trochę większy – premium */
                             fontSize: "clamp(2rem,2.8vw,2.3rem)",
                             lineHeight: 1.12,
                             letterSpacing: "-0.35px",
@@ -70,7 +62,7 @@ export default function ContactCTABanner() {
                     </p>
                 </div>
 
-                {/* BUTTON */}
+                {/* CTA BUTTON */}
                 <a
                     href="/contact"
                     style={{
@@ -78,30 +70,31 @@ export default function ContactCTABanner() {
                         alignItems: "center",
                         gap: 12,
                         textDecoration: "none",
+
                         padding: "1.1rem 2.4rem",
                         borderRadius: 999,
+
                         fontWeight: 800,
                         letterSpacing: ".02em",
                         fontSize: "1.05rem",
 
-                        /* Luxe ICare button */
-                        color: "#ffffffff",
                         background: "#0f3d20e5",
                         border: "2px solid #0f3d20e5",
+                        color: "#FFFFFF",
 
                         transition: "all .22s ease",
                         whiteSpace: "nowrap",
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "#0f3d20e5";
                         e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.border = "2px solid #0f3d20e5";
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "#FFFFFF";
                         e.currentTarget.style.transform = "translateY(0)";
                     }}
                 >
                     Contact us
+
                     <svg
                         width="20"
                         height="20"
@@ -120,6 +113,7 @@ export default function ContactCTABanner() {
                 </a>
             </div>
         </section>
+
 
     );
 }

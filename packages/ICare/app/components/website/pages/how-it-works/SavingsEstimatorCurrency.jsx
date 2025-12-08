@@ -56,7 +56,7 @@ export default function SavingsEstimatorCurrency() {
                 alignItems: "start",
             }}
         >
-            {/* LEFT SIDE */}
+            {/* LEFT */}
             <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
                 <h2
                     style={{
@@ -86,7 +86,7 @@ export default function SavingsEstimatorCurrency() {
                 </p>
             </div>
 
-            {/* RIGHT SIDE */}
+            {/* RIGHT GRID */}
             <div
                 style={{
                     display: "grid",
@@ -95,17 +95,14 @@ export default function SavingsEstimatorCurrency() {
                     alignItems: "stretch",
                 }}
             >
-                {/* FORM CARD */}
+                {/* ====== FORM (no outer card) ====== */}
                 <form
                     onSubmit={(e) => e.preventDefault()}
                     style={{
-                        border: "1px solid rgba(15,23,42,0.06)",
-                        borderRadius: 24,
                         padding: "clamp(26px, 2.4vw, 32px)",
-                        background: "#FFFFFF",
+                        background: "transparent",   // <- instead of white box
                         display: "grid",
                         gap: 18,
-                        animation: "fadeCard 0.8s ease 0.15s both",
                     }}
                 >
                     {/* Currency */}
@@ -205,21 +202,17 @@ export default function SavingsEstimatorCurrency() {
                             color: "#14532D",
                         }}
                     >
-                        ICare fee:{" "}
-                        <span style={{ color: BRAND, fontWeight: 800 }}>flat 10%</span> on contract
+                        ICare fee: <span style={{ color: BRAND, fontWeight: 800 }}>flat 10%</span>
                     </div>
                 </form>
 
-                {/* RESULTS CARD */}
+                {/* ===== RESULTS (no outer card) ===== */}
                 <div
                     style={{
-                        border: "1px solid rgba(15,23,42,0.06)",
-                        borderRadius: 24,
                         padding: "clamp(26px, 2.4vw, 32px)",
-                        background: "#FFFFFF",
+                        background: "transparent", // <- removed box
                         display: "grid",
                         gap: 18,
-                        animation: "fadeCard 0.8s ease 0.25s both",
                     }}
                 >
                     <h3
@@ -249,12 +242,11 @@ export default function SavingsEstimatorCurrency() {
                             <div
                                 key={row.k}
                                 style={{
-                                    border: "1px solid rgba(15,23,42,0.08)",
                                     borderRadius: 14,
                                     padding: "14px",
                                     background: row.highlight
                                         ? "rgba(31,171,31,0.06)"
-                                        : "#FFFFFF",
+                                        : "rgba(255,255,255,0.3)", /* soft background only */
                                 }}
                             >
                                 <div
@@ -281,7 +273,7 @@ export default function SavingsEstimatorCurrency() {
                         ))}
                     </div>
 
-                    {/* SAVINGS BAR */}
+                    {/* SAVINGS bar stays */}
                     <div style={{ marginTop: 10 }}>
                         <div
                             style={{
@@ -304,37 +296,11 @@ export default function SavingsEstimatorCurrency() {
                                 }}
                             />
                         </div>
-
-                        <div
-                            style={{
-                                marginTop: 6,
-                                fontSize: ".88rem",
-                                color: "#334155",
-                                display: "flex",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <span>Estimated savings vs agency</span>
-                            <strong style={{ color: BRAND }}>
-                                {savePct.toFixed(0)}%
-                            </strong>
-                        </div>
                     </div>
                 </div>
             </div>
-
-            {/* ANIMATIONS */}
-            <style>{`
-        @keyframes fadeEstimator {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeCard {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    `}</style>
         </section>
+
 
     );
 }

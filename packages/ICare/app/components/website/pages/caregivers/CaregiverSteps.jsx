@@ -222,9 +222,9 @@ export default function CaregiverSteps() {
                         alignItems: "center",
                         padding: "1.05rem 2.1rem",
                         borderRadius: 999,
-                        background: "#FFFFFF",
-                        border: "2px solid #1FAB1F",
-                        color: "#0F172A",
+                        background: "#126012c8",
+                        border: " #126012c8",
+                        color: "#ffffffff",
                         fontWeight: 900,
                         letterSpacing: ".02em",
                         fontSize: "1.07rem",
@@ -232,12 +232,12 @@ export default function CaregiverSteps() {
                         transition: "all .25s ease",
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "rgba(31,171,31,0.08)";
-                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.background = "#126012c8";
+                        e.currentTarget.style.transform = "brightness(1)";
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "#FFFFFF";
-                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.background = "#126012c8";
+                        e.currentTarget.style.transform = "brightness(1.2)";
                     }}
                 >
                     CREATE YOUR FREE ACCOUNT
