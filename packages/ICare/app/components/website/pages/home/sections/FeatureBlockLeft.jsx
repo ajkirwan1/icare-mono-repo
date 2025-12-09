@@ -6,33 +6,33 @@ export default function FeatureBlockLeft({ imgSrc, header, body }) {
         <IcareWebBlock
             imgSrc={imgSrc}
             style={{
-                borderRadius: 32,
-                padding: "clamp(3rem,5vw,4rem) clamp(1.8rem,5vw,3rem)",
-                display: "flex",
-                flexDirection: "row",
+                borderRadius: 0,
+                padding: "0",
+                background: "transparent",
+                border: "none",
+                boxShadow: "none",
+                display: "grid",
+                gridTemplateColumns: "1.05fr 0.95fr",
+                gap: "clamp(48px,6vw,80px)",
                 alignItems: "center",
-                gap: "3rem",
-                flexWrap: "wrap",
-                background: "rgba(31,171,31,0.05)",       // 💚 ICare tint
-                border: "1px solid rgba(31,171,31,0.12)", // light green border
-                boxShadow: "0 10px 32px rgba(0,0,0,0.04)",
-                marginBottom: "clamp(48px,6vw,72px)",
-                maxWidth: 1200,
+                maxWidth: 1280,
                 marginInline: "auto",
+                paddingBlock: "clamp(4rem,7vw,6rem)",
             }}
         >
+
             {/* HEADER */}
             <span
                 slot="header-contents"
                 style={{
                     display: "block",
-                    fontSize: "clamp(2.2rem,3.5vw,2.6rem)",
-                    fontWeight: 900,
-                    color: "#0F172A",
-                    marginBottom: "1.2rem",
-                    lineHeight: 1.1,
+                    fontSize: "clamp(1.9rem,2.6vw,2.35rem)", // ⬅️ mniejszy, subtelniejszy
+                    fontWeight: 800,
+                    color: "#1A1A1A",
+                    marginBottom: "1.1rem",
+                    lineHeight: 1.18,
                     letterSpacing: "-0.4px",
-                    maxWidth: "22ch",
+                    maxWidth: "26ch",
                 }}
             >
                 {header}
@@ -42,17 +42,46 @@ export default function FeatureBlockLeft({ imgSrc, header, body }) {
             <span
                 slot="body-contents"
                 style={{
-                    fontSize: "clamp(1.06rem,1.25vw,1.18rem)",
-                    lineHeight: 1.8,
-                    color: "#475569",
-                    fontWeight: 400,
-                    maxWidth: "48ch",
                     display: "block",
+                    fontSize: "clamp(1rem,1.2vw,1.14rem)", // ⬅️ mniejszy, bardziej naturalny
+                    lineHeight: 1.72,
+                    color: "#4A4A4A",
+                    fontWeight: 400,
+                    maxWidth: "58ch",
+                    opacity: 0.95,
+                    marginBottom: "0.6rem",
                 }}
             >
                 {body}
             </span>
+
+            {/* MEDIA — Norfolk Editorial Image */}
+            <div
+                slot="media"
+                style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "min(480px, 52vh)",
+                    borderRadius: 28,
+                    overflow: "hidden",
+                }}
+            >
+                <img
+                    src={imgSrc}
+                    alt=""
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "50% 50%",
+                    }}
+                />
+            </div>
+
         </IcareWebBlock>
+
 
     );
 }

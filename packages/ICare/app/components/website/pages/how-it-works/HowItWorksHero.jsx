@@ -9,7 +9,7 @@ export default function HowItWorksHero() {
             aria-label="How it works hero"
             style={{
                 position: "relative",
-                height: "clamp(560px, 78vh, 840px)", // Airbnb Luxe: większe, spokojne hero
+                height: "clamp(600px, 78vh, 880px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
@@ -28,16 +28,19 @@ export default function HowItWorksHero() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    filter: "brightness(0.74) saturate(1.06)",
+                    objectPosition: "50% 40%",
+                    filter: "brightness(0.68) saturate(1.08) contrast(1.02)",
+                    transform: "scale(1.06)", // subtle depth
                 }}
             />
 
-            {/* Luxe Overlay – very soft, no blur, no gradient */}
+            {/* Luxe Film Overlay */}
             <div
                 style={{
                     position: "absolute",
                     inset: 0,
-                    background: "rgba(0,0,0,0.24)", // soft, muted, premium
+                    background:
+                        "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.38))",
                 }}
             />
 
@@ -48,11 +51,12 @@ export default function HowItWorksHero() {
                     top: 0,
                     left: 0,
                     right: 0,
-                    padding: "1.6rem clamp(24px,4vw,40px)", // Luxe: bigger breathing room
+                    padding: "1.8rem clamp(26px,4vw,46px)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     zIndex: 20,
+                    backdropFilter: "blur(1px)", // Luxe micro-blur
                 }}
             >
                 <Link
@@ -60,9 +64,10 @@ export default function HowItWorksHero() {
                     style={{
                         color: "#fff",
                         fontWeight: 900,
-                        fontSize: "1.35rem",
+                        fontSize: "1.42rem",
                         letterSpacing: "-0.3px",
                         textDecoration: "none",
+                        opacity: 0.95,
                     }}
                 >
                     ICare
@@ -71,7 +76,7 @@ export default function HowItWorksHero() {
                 <nav
                     style={{
                         display: "flex",
-                        gap: "1.2rem 1.6rem", // Luxe spacing
+                        gap: "1.4rem 1.8rem",
                         alignItems: "center",
                     }}
                 >
@@ -87,15 +92,21 @@ export default function HowItWorksHero() {
                             key={l.to}
                             to={l.to}
                             style={{
-                                color: "rgba(255,255,255,0.94)",
+                                color: "rgba(255,255,255,0.88)",
                                 textDecoration: "none",
                                 fontSize: "clamp(.95rem,1.2vw,1.05rem)",
                                 fontWeight: 600,
                                 padding: ".35rem 0",
-                                transition: "opacity .2s ease",
+                                transition: "opacity .25s ease, transform .25s ease",
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
-                            onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.94")}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.opacity = "1";
+                                e.currentTarget.style.transform = "translateY(-1px)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.opacity = "0.88";
+                                e.currentTarget.style.transform = "translateY(0)";
+                            }}
                         >
                             {l.label}
                         </Link>
@@ -113,83 +124,56 @@ export default function HowItWorksHero() {
                     padding: "0 clamp(24px,4vw,32px)",
                     color: "#fff",
                     textAlign: "left",
-                    transform: "translateY(10%)", // calmer
+                    transform: "translateY(6%)",
+                    animation: "fadeSlide 1.1s ease forwards",
+                    opacity: 0,
                 }}
             >
-                {/* Luxe ICare Badge */}
-                <span
-                    style={{
-                        display: "inline-block",
-                        marginBottom: "3rem", // Luxe big spacing
-                        fontSize: ".95rem",
-                        fontWeight: 700,
-                        letterSpacing: ".14em",
-                        textTransform: "uppercase",
-                        color: "#fff",
-
-                        padding: ".65rem 1.55rem",
-                        borderRadius: 999,
-
-                        /* ICare Green with Airbnb Luxe opacity (~20%) */
-                        background: "rgba(31,171,31,0.22)",
-
-                        border: "1px solid rgba(255,255,255,0.28)",
-                    }}
-                >
-                    Direct • Fair • Transparent
-                </span>
-
                 {/* Title */}
                 <h1
                     style={{
-                        margin: "0 0 1.8rem",
+                        margin: "0 0 2rem",
                         fontWeight: 800,
                         lineHeight: 1.04,
-                        letterSpacing: "-0.5px",
-                        fontSize: "clamp(3rem,5.2vw,3.7rem)", // Luxe: bigger
+                        letterSpacing: "-0.55px",
+                        fontSize: "clamp(3.2rem,5.6vw,4rem)",
                         color: "#fff",
+                        textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                     }}
                 >
                     How it works
                 </h1>
 
                 {/* Paragraphs */}
-                <p
-                    style={{
-                        margin: "0 0 .6rem",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
-                        maxWidth: "62ch",
-                        color: "rgba(255,255,255,0.96)",
-                    }}
-                >
-                    <b>Why choose ICare instead of going through an agency?</b>
-                </p>
-
-                <p
-                    style={{
-                        margin: "0 0 .6rem",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
-                        maxWidth: "62ch",
-                        color: "rgba(255,255,255,0.96)",
-                    }}
-                >
-                    <b>We don’t charge high margins for matching or management.</b>
-                </p>
-
-                <p
-                    style={{
-                        margin: "0",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.18rem,1.4vw,1.28rem)",
-                        maxWidth: "62ch",
-                        color: "rgba(255,255,255,0.96)",
-                    }}
-                >
-                    <b>You save money — and the caregiver earns more.</b>
-                </p>
+                {[
+                    "Why choose ICare instead of going through an agency?",
+                    "We don’t charge high margins for matching or management.",
+                    "You save money — and the caregiver earns more.",
+                ].map((text, i) => (
+                    <p
+                        key={i}
+                        style={{
+                            margin: i === 0 ? "0 0 1rem" : "0 0 .7rem",
+                            lineHeight: 1.72,
+                            fontSize: "clamp(1.18rem,1.45vw,1.32rem)",
+                            maxWidth: "62ch",
+                            color: "rgba(255,255,255,0.95)",
+                            fontWeight: 500,
+                            textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        <b>{text}</b>
+                    </p>
+                ))}
             </div>
+
+            {/* Animation */}
+            <style>{`
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(6%); }
+        }
+    `}</style>
         </section>
 
     );

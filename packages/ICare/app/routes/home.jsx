@@ -162,7 +162,7 @@ Get Started
                 }
             />
             <section
-                aria-label="Trust, Care & Community"
+                aria-label="Trust, care & community"
                 style={{
                     width: "100%",
                     margin: "8rem 0",
@@ -179,12 +179,12 @@ Get Started
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            fontSize: "clamp(2.1rem,3.2vw,2.8rem)",
+                            fontSize: "clamp(2.1rem,3.2vw,2.6rem)",
                             letterSpacing: "-0.35px",
                             color: "#0F172A",
                         }}
                     >
-                        Trust, Care & Community
+                        Trust, care & community
                     </h2>
 
                     <p
@@ -209,7 +209,7 @@ Get Started
 You see who you are talking to, what the terms are, and how your caregiver works.
 Trust isn’t built through marketing — it’s built through honest relationships between families and caregivers.`,
 
-                            img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+                            img: "images/web/homepage/trust.jpg",
                         },
                         {
                             k: "Care",
@@ -218,7 +218,7 @@ Trust isn’t built through marketing — it’s built through honest relationsh
 From companionship visits to full live-in continuity, families receive genuine human support with real presence.
 We focus on people first – not processes, margins or bureaucracy.`,
 
-                            img: "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
+                            img: "images/web/homepage/care.jpg",
                         },
                         {
                             k: "Community",
@@ -227,7 +227,7 @@ We focus on people first – not processes, margins or bureaucracy.`,
 Our growing community connects people with similar needs, experiences and challenges — so nobody navigates care alone.
 Stronger together. That’s what care should always feel like.`,
 
-                            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
+                            img: "images/web/homepage/community.jpg",
                         },
                     ];
 
@@ -409,23 +409,19 @@ Stronger together. That’s what care should always feel like.`,
                             title: "ICare for Care Receivers",
                         },
                     ].map((c, i) => (
-                        <a
+                        <div
                             key={i}
-                            href={c.href}
                             style={{
                                 position: "relative",
-                                display: "block",
                                 width: "min(620px, 46vw)",
                                 height: "430px",
                                 borderRadius: "34px",
                                 overflow: "hidden",
-                                textDecoration: "none",
                                 backgroundColor: "#000",
                                 boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
-                                transition: "box-shadow .4s ease",
                             }}
                         >
-                            {/* IMAGE (no hover animation) */}
+                            {/* IMAGE */}
                             <img
                                 src={c.img}
                                 alt={c.title}
@@ -437,9 +433,8 @@ Stronger together. That’s what care should always feel like.`,
                                 }}
                             />
 
-                            {/* SOFT OVERLAY (non-hover) */}
+                            {/* OVERLAY */}
                             <div
-                                data-overlay
                                 style={{
                                     position: "absolute",
                                     inset: 0,
@@ -448,22 +443,27 @@ Stronger together. That’s what care should always feel like.`,
                                 }}
                             />
 
-                            {/* TEXT */}
+                            {/* TEXT WRAPPER */}
                             <div
                                 style={{
                                     position: "absolute",
                                     top: "50%",
                                     left: "50%",
                                     transform: "translate(-50%, -50%)",
-                                    textAlign: "center",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                     width: "85%",
+                                    textAlign: "center",
                                 }}
                             >
+                                {/* TITLE */}
                                 <h3
                                     style={{
                                         color: "#fff",
                                         fontSize: "clamp(1.9rem, 3vw, 2.4rem)",
-                                        fontWeight: 600, // DELIKATNIEJSZY FONT
+                                        fontWeight: 600,
                                         marginBottom: "1rem",
                                         letterSpacing: "-0.25px",
                                         lineHeight: 1.15,
@@ -473,25 +473,28 @@ Stronger together. That’s what care should always feel like.`,
                                     {c.title}
                                 </h3>
 
-                                {/* MINIMALISTYCZNY NAPIS EXPLORE */}
-                                <div
+                                {/* EXPLORE → */}
+                                <a
+                                    href={c.href}
                                     style={{
-                                        marginBottom: "2.2rem",
+                                        marginBottom: "1.6rem",
                                         fontSize: "1.08rem",
-                                        color: "rgba(255,255,255,0.85)",
+                                        color: "rgba(255,255,255,0.9)",
                                         fontWeight: 400,
                                         letterSpacing: "-0.2px",
-                                        opacity: 0.9,
+                                        opacity: 0.95,
+                                        textDecoration: "none",
                                     }}
                                 >
                                     Explore →
-                                </div>
+                                </a>
 
-                                {/* GREEN PREMIUM BUTTON — lighter */}
-                                <div
+                                {/* GET STARTED BUTTON */}
+                                <a
+                                    href="/register"
                                     style={{
                                         display: "inline-block",
-                                        backgroundColor: "#126012ff",
+                                        backgroundColor: "#b97a57",
                                         color: "#fff",
                                         fontWeight: 600,
                                         padding: "0.85rem 2.4rem",
@@ -500,22 +503,23 @@ Stronger together. That’s what care should always feel like.`,
                                         letterSpacing: "-0.15px",
                                         transition: "all .25s ease",
                                         boxShadow: "0 8px 20px rgba(0,0,0,0.18)",
+                                        textDecoration: "none",
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#126012c8";
+                                        e.currentTarget.style.backgroundColor = "#b97a57";
                                         e.currentTarget.style.boxShadow =
                                             "0 10px 26px rgba(0,0,0,0.22)";
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#126012c8",
-                                            e.currentTarget.style.boxShadow =
+                                        e.currentTarget.style.backgroundColor = "#b97a57";
+                                        e.currentTarget.style.boxShadow =
                                             "0 8px 20px rgba(0,0,0,0.18)";
                                     }}
                                 >
                                     Get started
-                                </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
             </IcareSection>

@@ -7,7 +7,7 @@ export default function ThreeStepGuide() {
         {
             title: "Create your profile",
             desc: "Introduce yourself, choose your role, and tell us what support you need — or offer.",
-            img: "https://images.unsplash.com/photo-1581579184439-1f3a5c7f1b5f?auto=format&fit=crop&w=1000&q=80",
+            img: "images/web/how-it-works/signup.jpg",
         },
         {
             title: "Get matched instantly",
@@ -17,7 +17,7 @@ export default function ThreeStepGuide() {
         {
             title: "Start working together",
             desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "https://images.unsplash.com/photo-1587502537745-84bb8a0d4a01?auto=format&fit=crop&w=1000&q=80",
+            img: "images/web/how-it-works/handshake.jpg",
         },
     ];
 
@@ -156,7 +156,7 @@ export default function ThreeStepGuide() {
                             color: "#fff",
 
                             // ICare Green Luxe
-                            background: "#0f3d20e5",
+                            background: "#126012c8",
                             padding: "1.25rem 2.4rem",
                             borderRadius: 999,
                             fontWeight: 800,
@@ -169,12 +169,13 @@ export default function ThreeStepGuide() {
                                 "background .2s ease, transform .2s ease, opacity .2s ease",
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "#17931A";
-                            e.currentTarget.style.transform = "translateY(-2px)";
+                            e.currentTarget.style.background = "#126012c8"
+
+
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "#1FAB1F";
-                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.background = "#126012c8";
+
                         }}
                     >
                         Create your free account

@@ -17,8 +17,13 @@ export default function CompareAgencyVsICare() {
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            <div style={{ maxWidth: 1180, margin: "0 auto", animation: "fadeUp 1s ease both" }}>
-
+            <div
+                style={{
+                    maxWidth: 1180,
+                    margin: "0 auto",
+                    animation: "fadeUp 1s ease both",
+                }}
+            >
                 {/* Title */}
                 <h2
                     style={{
@@ -43,7 +48,8 @@ export default function CompareAgencyVsICare() {
                         fontWeight: 400,
                     }}
                 >
-                    A modern, transparent alternative to traditional agencies — where families retain choice, clarity, and fair pricing.
+                    A modern, transparent alternative to traditional agencies — where families retain choice,
+                    clarity, and fair pricing.
                 </p>
 
                 {/* GRID */}
@@ -55,10 +61,10 @@ export default function CompareAgencyVsICare() {
                         alignItems: "start",
                     }}
                 >
-                    {/* PHOTO */}
+                    {/* PHOTO — Traditional Agency */}
                     <img
-                        src="/images/luxe-family-living.jpg"
-                        alt="Family care environment"
+                        src="images/web/how-it-works/paperwork.jpg"
+                        alt="Traditional agency paperwork"
                         style={{
                             width: "100%",
                             height: "340px",
@@ -118,7 +124,14 @@ export default function CompareAgencyVsICare() {
                                             lineHeight: 1.55,
                                         }}
                                     >
-                                        <svg width="18" height="18" viewBox="0 0 24 24" stroke="#9CA3AF" strokeWidth="1.6" fill="none">
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            stroke="#9CA3AF"
+                                            strokeWidth="1.6"
+                                            fill="none"
+                                        >
                                             <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
                                         </svg>
                                         {item}
@@ -128,9 +141,9 @@ export default function CompareAgencyVsICare() {
                         </div>
                     </article>
 
-                    {/* PHOTO */}
+                    {/* PHOTO — ICare */}
                     <img
-                        src="/images/luxe-care-home.jpg"
+                        src="/images/web/how-it-works/icare.jpg"
                         alt="Caregiver supportive environment"
                         style={{
                             width: "100%",
@@ -141,7 +154,6 @@ export default function CompareAgencyVsICare() {
                             boxShadow: "0 12px 28px rgba(0,0,0,0.06)",
                         }}
                     />
-
 
                     {/* ICARE CARD */}
                     <article
@@ -192,8 +204,19 @@ export default function CompareAgencyVsICare() {
                                             lineHeight: 1.55,
                                         }}
                                     >
-                                        <svg width="18" height="18" viewBox="0 0 24 24" stroke="#1FAB1F" strokeWidth="1.7" fill="none">
-                                            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            stroke="#1FAB1F"
+                                            strokeWidth="1.7"
+                                            fill="none"
+                                        >
+                                            <path
+                                                d="M5 13l4 4L19 7"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
                                         </svg>
                                         {item}
                                     </li>
@@ -205,14 +228,12 @@ export default function CompareAgencyVsICare() {
             </div>
 
             <style>{`
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `}</style>
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
-
-
 
     );
 }
