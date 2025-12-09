@@ -174,14 +174,13 @@ Get Started
                         "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
                 }}
             >
-                {/* TITLE */}
                 <header>
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 800,
-                            fontSize: "clamp(2rem,3vw,2.6rem)",
-                            letterSpacing: "-0.4px",
+                            fontWeight: 900,
+                            fontSize: "clamp(2.1rem,3.2vw,2.8rem)",
+                            letterSpacing: "-0.35px",
                             color: "#0F172A",
                         }}
                     >
@@ -191,42 +190,47 @@ Get Started
                     <p
                         style={{
                             marginTop: "1rem",
-                            fontSize: "1.08rem",
-                            lineHeight: 1.65,
+                            fontSize: "1.22rem",
+                            lineHeight: 1.72,
                             color: "#475569",
                             maxWidth: "60ch",
-                            fontWeight: 400,
                         }}
                     >
                         Three values that define everything we do — safe, human and connected.
                     </p>
                 </header>
 
-                {/* GRID + HOVER LOGIC (IIFE z useState) */}
                 {(() => {
                     const cards = [
                         {
                             k: "Trust",
                             descShort: "Transparent terms and predictable care.",
-                            descFull:
-                                "Families always know what to expect — full transparency, no hidden margins and clear agreements.",
-                            img: cardImage2,
+                            descFull: `Families always know what to expect — full transparency, no hidden margins and clear agreements.
+You see who you are talking to, what the terms are, and how your caregiver works.
+Trust isn’t built through marketing — it’s built through honest relationships between families and caregivers.`,
+
+                            img: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
                         },
                         {
                             k: "Care",
                             descShort: "Warm, human support.",
-                            descFull:
-                                "From companionship visits to live-in continuity — every caregiver brings empathy and experience.",
-                            img: cardImage7,
+                            descFull: `Care is not just a service — it’s a relationship. Our caregivers focus on dignity, comfort and emotional connection.
+From companionship visits to full live-in continuity, families receive genuine human support with real presence.
+We focus on people first – not processes, margins or bureaucracy.`,
+
+                            img: "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
                         },
                         {
                             k: "Community",
                             descShort: "Supportive families & caregivers.",
-                            descFull:
-                                "Practical help, knowledge sharing and a sense of belonging — everyone grows together.",
-                            img: cardImage4,
+                            descFull: `Knowledge shared between families helps everyone make better decisions and feel supported.
+Our growing community connects people with similar needs, experiences and challenges — so nobody navigates care alone.
+Stronger together. That’s what care should always feel like.`,
+
+                            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80",
                         },
                     ];
+
 
                     const [hoverIndex, setHoverIndex] = React.useState(null);
 
@@ -250,109 +254,113 @@ Get Started
                                             overflow: "hidden",
                                             cursor: "pointer",
                                             background: "#000",
-                                            display: "block",
                                             boxShadow: "0 10px 30px rgba(15,23,42,0.18)",
-                                            transition: "box-shadow .3s ease",
+                                            transition: "box-shadow .35s ease",
                                         }}
                                         onMouseEnter={() => setHoverIndex(idx)}
                                         onMouseLeave={() => setHoverIndex(null)}
                                     >
-                                        {/* IMAGE */}
+                                        {/* ⬇️⬇️ TUTAJ JEST POPRAWIONY FRAGMENT */}
                                         <img
                                             src={item.img}
                                             alt={item.k}
                                             style={{
                                                 width: "100%",
-                                                height: "360px",
+                                                height: "380px",
                                                 objectFit: "cover",
                                                 borderRadius: 32,
-                                                filter: "brightness(.9)",
-                                                display: "block",
+
+                                                /* JAŚNIEJSZY obraz, tylko lekko przyciemnia się na hoverze */
+                                                filter: isOpen ? "brightness(0.8)" : "brightness(1)",
+                                                transition: "filter .45s ease",
                                             }}
                                         />
 
-                                        {/* OVERLAY */}
+                                        {/* ⬆️⬆️ KONIEC ZMIANY */}
+
+                                        {/* overlay */}
                                         <div
                                             style={{
                                                 position: "absolute",
                                                 inset: 0,
-                                                background:
-                                                    "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,.60) 100%)",
+                                                background: isOpen
+                                                    ? "rgba(0,0,0,0.35)"   // było 0.75 — bardzo ciemne
+                                                    : "rgba(0,0,0,0.25)",  // było 0.55 — ciemne
+                                                transition: "background .75s cubic-bezier(.25,.1,.25,1)",
                                             }}
                                         />
 
-                                        {/* TEXT CONTENT */}
                                         <div
                                             style={{
                                                 position: "absolute",
                                                 left: 0,
                                                 right: 0,
                                                 bottom: 0,
-                                                padding: "1.9rem 2rem 2rem",
+                                                padding: "2.4rem",
                                                 color: "#fff",
                                                 display: "grid",
-                                                gap: ".45rem",
+                                                gap: ".65rem",
                                             }}
                                         >
                                             <strong
                                                 style={{
-                                                    fontSize: "1.35rem",
-                                                    fontWeight: 700,
-                                                    letterSpacing: "-0.22px",
+                                                    fontSize: "1.48rem",
+                                                    fontWeight: 800,
+                                                    letterSpacing: "-0.25px",
+                                                    textShadow: "0 2px 10px rgba(0,0,0,0.55)",
                                                 }}
                                             >
                                                 {item.k}
                                             </strong>
 
-                                            {/* SHORT LINE – zawsze widoczny, minimalna zmiana */}
                                             <p
                                                 style={{
                                                     margin: 0,
-                                                    fontSize: "1rem",
-                                                    lineHeight: 1.5,
-                                                    fontWeight: 400,
-                                                    opacity: isOpen ? 0.55 : 0.9,
-                                                    transition: "opacity .6s ease",
+                                                    fontSize: "1.15rem",
+                                                    lineHeight: 1.62,
+                                                    opacity: isOpen ? 0.85 : 0.95,
+                                                    transition: "opacity 1s ease",
+                                                    color: "#fff",
+                                                    textShadow: "0 2px 8px rgba(0,0,0,0.55)",
                                                 }}
                                             >
                                                 {item.descShort}
                                             </p>
 
-                                            {/* "Learn more" label (tylko gdy nie hover) */}
                                             {!isOpen && (
                                                 <span
                                                     style={{
                                                         marginTop: ".15rem",
-                                                        fontSize: ".9rem",
-                                                        opacity: 0.9,
+                                                        fontSize: "1.04rem",
+                                                        opacity: 0.95,
                                                         textDecoration: "underline",
-                                                        textUnderlineOffset: "3px",
+                                                        textUnderlineOffset: "4px",
                                                         fontWeight: 400,
+                                                        color: "#fff",
+                                                        textShadow: "0 2px 8px rgba(0,0,0,0.55)",
                                                     }}
                                                 >
                                                     Learn more
                                                 </span>
                                             )}
 
-                                            {/* FULL TEXT – SOFT, SLOW FADE */}
                                             <div
                                                 style={{
                                                     overflow: "hidden",
-                                                    maxHeight: isOpen ? "130px" : "0px",
-                                                    transition:
-                                                        "max-height .8s ease",
-                                                    marginTop: isOpen ? ".35rem" : "0",
+                                                    maxHeight: isOpen ? "260px" : "0px",
+                                                    transition: "max-height 1.3s ease",
+                                                    marginTop: isOpen ? ".6rem" : "0",
                                                 }}
                                             >
                                                 <p
                                                     style={{
                                                         margin: 0,
-                                                        fontSize: ".96rem",
-                                                        lineHeight: 1.6,
-                                                        fontWeight: 400,
+                                                        fontSize: "1.12rem",
+                                                        lineHeight: 1.72,
                                                         opacity: isOpen ? 1 : 0,
-                                                        transition: "opacity .8s ease",
-                                                        color: "rgba(241,245,249,0.96)",
+                                                        transition: "opacity 1.3s ease",
+                                                        color: "rgba(255,255,255,0.98)",
+                                                        textShadow: "0 2px 8px rgba(0,0,0,0.60)",
                                                     }}
                                                 >
                                                     {item.descFull}
@@ -369,6 +377,7 @@ Get Started
 
 
 
+
             <IcareSection className="full-bleed">
                 <IcareBanner className="full-bleed" imgSrc={bannerImage1} />
             </IcareSection>
@@ -381,12 +390,11 @@ Get Started
                 <div
                     style={{
                         display: "flex",
-                        gap: "2rem",
+                        gap: "2.4rem",
                         flexWrap: "wrap",
                         justifyContent: "center",
-                        padding: "40px 0",
-                        fontFamily:
-                            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        padding: "80px 0",
+                        fontFamily: "Inter, system-ui",
                     }}
                 >
                     {[
@@ -407,31 +415,17 @@ Get Started
                             style={{
                                 position: "relative",
                                 display: "block",
-                                width: "min(640px, 46vw)",
-                                height: "420px",
-                                borderRadius: "26px",
+                                width: "min(620px, 46vw)",
+                                height: "430px",
+                                borderRadius: "34px",
                                 overflow: "hidden",
-                                boxShadow: "0 8px 28px rgba(0,0,0,0.12)",
                                 textDecoration: "none",
                                 backgroundColor: "#000",
-                                transition: "transform 0.4s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                                const img = e.currentTarget.querySelector("img");
-                                if (img) {
-                                    img.style.transform = "scale(1.1)";
-                                    img.style.filter = "brightness(1.20)";
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                const img = e.currentTarget.querySelector("img");
-                                if (img) {
-                                    img.style.transform = "scale(1)";
-                                    img.style.filter = "brightness(1)";
-                                }
+                                boxShadow: "0 18px 40px rgba(0,0,0,0.12)",
+                                transition: "box-shadow .4s ease",
                             }}
                         >
-                            {/* Background image */}
+                            {/* IMAGE (no hover animation) */}
                             <img
                                 src={c.img}
                                 alt={c.title}
@@ -439,23 +433,22 @@ Get Started
                                     width: "100%",
                                     height: "100%",
                                     objectFit: "cover",
-                                    transition: "transform 0.6s ease, filter 0.6s ease",
-                                    transform: "scale(1)",
-                                    filter: "brightness(1)",
+                                    filter: "brightness(.92)",
                                 }}
                             />
 
-                            {/* Overlay */}
+                            {/* SOFT OVERLAY (non-hover) */}
                             <div
+                                data-overlay
                                 style={{
                                     position: "absolute",
                                     inset: 0,
                                     background:
-                                        "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.55))",
+                                        "linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.55))",
                                 }}
                             />
 
-                            {/* Center content */}
+                            {/* TEXT */}
                             <div
                                 style={{
                                     position: "absolute",
@@ -469,43 +462,54 @@ Get Started
                                 <h3
                                     style={{
                                         color: "#fff",
-                                        fontSize: "clamp(2rem, 3vw, 2.4rem)", // editorial
-                                        fontWeight: 900, // stronger, Airbnb style
-                                        marginBottom: "1.5rem",
-                                        letterSpacing: "-0.35px",
-                                        lineHeight: 1.14,
-                                        textShadow: "0 3px 12px rgba(0,0,0,0.4)",
+                                        fontSize: "clamp(1.9rem, 3vw, 2.4rem)",
+                                        fontWeight: 600, // DELIKATNIEJSZY FONT
+                                        marginBottom: "1rem",
+                                        letterSpacing: "-0.25px",
+                                        lineHeight: 1.15,
+                                        textShadow: "0 6px 20px rgba(0,0,0,0.5)",
                                     }}
                                 >
                                     {c.title}
                                 </h3>
 
-                                {/* Button */}
+                                {/* MINIMALISTYCZNY NAPIS EXPLORE */}
+                                <div
+                                    style={{
+                                        marginBottom: "2.2rem",
+                                        fontSize: "1.08rem",
+                                        color: "rgba(255,255,255,0.85)",
+                                        fontWeight: 400,
+                                        letterSpacing: "-0.2px",
+                                        opacity: 0.9,
+                                    }}
+                                >
+                                    Explore →
+                                </div>
+
+                                {/* GREEN PREMIUM BUTTON — lighter */}
                                 <div
                                     style={{
                                         display: "inline-block",
-                                        backgroundColor: "#a5a5a5",
+                                        backgroundColor: "#126012ff",
                                         color: "#fff",
-                                        fontWeight: 700,
-                                        padding: "0.9rem 2.4rem",
+                                        fontWeight: 600,
+                                        padding: "0.85rem 2.4rem",
                                         borderRadius: "999px",
-                                        fontSize: "1.05rem",
-                                        letterSpacing: "-0.2px", // cleaner editorial
-                                        boxShadow: "0 4px 14px rgba(0,0,0,0.15)",
-                                        transition: "all 0.3s ease",
-                                        backdropFilter: "blur(4px)",
+                                        fontSize: "1.04rem",
+                                        letterSpacing: "-0.15px",
+                                        transition: "all .25s ease",
+                                        boxShadow: "0 8px 20px rgba(0,0,0,0.18)",
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#000";
-                                        e.currentTarget.style.transform = "scale(1.05)";
+                                        e.currentTarget.style.backgroundColor = "#126012c8";
                                         e.currentTarget.style.boxShadow =
-                                            "0 6px 18px rgba(0,0,0,0.25)";
+                                            "0 10px 26px rgba(0,0,0,0.22)";
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.backgroundColor = "#a5a5a5";
-                                        e.currentTarget.style.transform = "scale(1)";
-                                        e.currentTarget.style.boxShadow =
-                                            "0 4px 14px rgba(0,0,0,0.15)";
+                                        e.currentTarget.style.backgroundColor = "#126012c8",
+                                            e.currentTarget.style.boxShadow =
+                                            "0 8px 20px rgba(0,0,0,0.18)";
                                     }}
                                 >
                                     Get started
@@ -515,6 +519,7 @@ Get Started
                     ))}
                 </div>
             </IcareSection>
+
 
         </IcarePage>
     );
