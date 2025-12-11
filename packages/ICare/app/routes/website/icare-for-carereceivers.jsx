@@ -2,13 +2,17 @@ import { useEffect } from "react";
 import ICareForCareReceiversHero from "../../components/website/pages/carereceivers/ICareForCareReceiversHero";
 import ReceiversThreeSteps from "../../components/website/pages/carereceivers/ReceiversThreeSteps";
 import ReceiversEditorialBanner from "../../components/website/pages/carereceivers/ReceiversEditorialBanner";
-import ReceiversChecklist from "../../components/website/pages/carereceivers/ReceiversChecklist";
+// import ReceiversChecklist from "../../components/website/pages/carereceivers/CareRequestUnderMap";
 import ReceiversCompareICareVsAgency from "../../components/website/pages/carereceivers/ReceiversCompareICareVsAgency";
 import ReceiversFAQ from "../../components/website/pages/carereceivers/ReceiversFAQ";
 import ReceiversTrustBar from "../../components/website/pages/carereceivers/ReceiversTrustBar";
 import ReceiversContactCTA from "../../components/website/pages/carereceivers/ReceiversContactCTA";
 import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
 import ICareProtectionSection from "../../components/website/pages/carereceivers/ICareProtectionSection";
+import { EmptyStateNoCaregivers } from "../../components/website/pages/carereceivers/RequestCaregiverForm";
+import { PlaceholderCaregivers } from "../../components/website/pages/carereceivers/RequestCaregiverForm";
+import { WaitingListCTA } from "../../components/website/pages/carereceivers/RequestCaregiverForm";
+import { RequestCaregiverForm } from "../../components/website/pages/carereceivers/RequestCaregiverForm";
 
 export default function ICareForCareReceivers() {
 
@@ -43,13 +47,18 @@ export default function ICareForCareReceivers() {
             <ICareForCareReceiversHero />
             <ReceiversThreeSteps />
             <ReceiversEditorialBanner />
-            <ReceiversChecklist />
+            <EmptyStateNoCaregivers />
+            <PlaceholderCaregivers />
+            <WaitingListCTA />
+            <RequestCaregiverForm />
+            {/* <ReceiversChecklist /> */}
             <ReceiversCompareICareVsAgency />
             <ICareProtectionSection />
             <ReceiversFAQ />
             <ReceiversTrustBar />
             <ReceiversContactCTA />
             <ReceiversFooter />
+
 
         </div>
     );
