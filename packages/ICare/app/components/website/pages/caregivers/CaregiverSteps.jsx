@@ -1,56 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
-export default function CaregiverSteps() {
-    const BRAND = "#1FAB1F";
-    const stepsRef = useRef([]);
-
-    useEffect(() => {
-        const els = stepsRef.current.filter(Boolean);
-        const io = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((e) => {
-                    if (e.isIntersecting) {
-                        e.target.classList.add("reveal--in");
-                        io.unobserve(e.target);
-                    }
-                });
-            },
-            { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
-        );
-
-        els.forEach((el) => io.observe(el));
-        return () => io.disconnect();
-    }, []);
-
+export default function CaregiverStepsEmpathy() {
     const steps = [
         {
-            t: "Simple and free registration",
-            d: "Create your account safely with base information only.",
+            t: "Tell us about yourself",
+            d: "Your skills, experience and availability help families understand who you are.",
+            img: "/images/steps/profile-small.jpg",
         },
         {
-            t: "Contact clients directly",
-            d: "Message families to understand needs and expectations before you agree.",
+            t: "Complete your checks",
+            d: "Upload your ID, references and documents safely. We're here to guide you.",
+            img: "/images/steps/checks-small.jpg",
         },
         {
-            t: "Increase your earnings",
-            d: "Agree terms directly — keep more of your hard-earned income.",
+            t: "Start talking to families",
+            d: "Families reach out when your profile feels right. Ask questions, take your time.",
+            img: "/images/steps/messages-small.jpg",
         },
         {
-            t: "Tailor your profile",
-            d: "Upload CV/resume, add checks and specialist skills to boost visibility.",
+            t: "Agree the details together",
+            d: "You decide the hours, responsibilities and rate — openly and without pressure.",
+            img: "/images/steps/agreement-small.jpg",
         },
         {
-            t: "Manage your own employment contracts",
-            d: "Set schedule & rate, e-sign your agreement and keep everything in one place.",
+            t: "Begin supporting someone",
+            d: "Your care makes a real difference. Update availability anytime.",
+            img: "/images/steps/support-small.jpg",
         },
-    ];
-
-    const images = [
-        "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1604882737206-599d53f4f524?auto=format&fit=crop&w=900&q=80",
-        "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=900&q=80",
     ];
 
     return (
@@ -58,204 +34,141 @@ export default function CaregiverSteps() {
             id="caregiver-steps"
             aria-label="Caregiver steps"
             style={{
-                margin: "4.5rem auto",             // mniejsze marginesy
-                width: "min(980px, 92vw)",         // węższa o ~20%
-                paddingInline: "1rem",
+                margin: "5rem auto",
+                width: "min(760px, 92vw)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* HEADER */}
-            <header style={{ textAlign: "center", marginBottom: "2.6rem" }}>
-                <h3
+            <header style={{ textAlign: "center", marginBottom: "2.8rem" }}>
+                <h2
                     style={{
                         margin: 0,
-                        fontWeight: 900,
-                        letterSpacing: "-0.45px",
-                        fontSize: "clamp(1.7rem,2.3vw,2.1rem)", // mniejsze
+                        fontWeight: 800,
+                        fontSize: "clamp(1.8rem,2.3vw,2.2rem)",
+                        letterSpacing: "-0.35px",
                         color: "#0F172A",
-                        lineHeight: 1.12,
+                        lineHeight: 1.15,
                     }}
                 >
-                    Get started in 5 clear steps
-                </h3>
+                    We guide you every step of the way
+                </h2>
 
                 <p
                     style={{
                         marginTop: ".6rem",
                         color: "#475569",
-                        fontSize: "1.02rem", // mniejsze
-                        fontWeight: 400,
+                        fontSize: "1.05rem",
+                        lineHeight: 1.55,
                     }}
                 >
-                    From signup to your first match.
+                    A simple, supportive process — designed for real caregivers.
                 </p>
-
-                {/* soft divider */}
-                <div
-                    aria-hidden="true"
-                    style={{
-                        width: "100%",
-                        height: 1,
-                        background: "rgba(15,23,42,0.06)",
-                        margin: "1.2rem auto 0",
-                    }}
-                />
             </header>
 
-            {/* GRID */}
-            <div
-                style={{
-                    display: "grid",
-                    gap: "2.2rem",                  // mniejsze odstępy
-                    width: "min(760px, 90vw)",     // ciaśniej
-                    margin: "0 auto",
-                }}
-            >
-                {steps.map((p, idx) => {
-                    const alt = idx % 2 === 1;
-
-                    return (
-                        <article
-                            key={p.t}
-                            ref={(el) => (stepsRef.current[idx] = el)}
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: alt ? "1fr 130px" : "130px 1fr", // mniejsze obrazki
-                                gap: "1.6rem",
-                                alignItems: "center",
-                                padding: "20px 22px",    // mniejszy padding
-                                background: "#FFFFFF",
-                                borderRadius: "18px",
-                                border: "1px solid rgba(15,23,42,0.06)",
-                                boxShadow: "0 6px 16px rgba(0,0,0,0.04)",
-
-                                opacity: 0,
-                                transform: "translateY(14px)", // mniejsza animacja
-                                animation: `fadeUp .6s ease forwards ${0.12 + idx * 0.12}s`,
-                            }}
-                        >
-                            {/* IMAGE */}
-                            <figure
+            {/* LIST OF STEPS */}
+            <div style={{ display: "grid", gap: "1.9rem" }}>
+                {steps.map((s, i) => (
+                    <div
+                        key={i}
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 130px",
+                            gap: "1.4rem",
+                            alignItems: "center",
+                            padding: "16px 0",
+                            borderBottom: "1px solid rgba(0,0,0,0.08)",
+                        }}
+                    >
+                        {/* LEFT SIDE — NUMBER + TEXT */}
+                        <div>
+                            {/* BIG NUMBER */}
+                            <div
                                 style={{
-                                    order: alt ? 2 : 0,
-                                    margin: 0,
-                                    width: "100%",
-                                    height: "130px",        // mniejsze
-                                    borderRadius: "16px",
-                                    overflow: "hidden",
-                                    border: "1px solid rgba(15,23,42,0.06)",
-                                    boxShadow: "0 6px 14px rgba(0,0,0,0.05)",
+                                    fontSize: "2.4rem",
+                                    fontWeight: 800,
+                                    color: "rgba(18,96,18,0.8)",
+                                    marginBottom: ".4rem",
+                                    lineHeight: 1,
                                 }}
                             >
-                                <img
-                                    src={images[idx % images.length]}
-                                    alt=""
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "cover",
-                                    }}
-                                />
-                            </figure>
-
-                            {/* TEXT */}
-                            <div style={{ order: alt ? 1 : 1 }}>
-                                {/* step number */}
-                                <div
-                                    style={{
-                                        width: "40px",
-                                        height: "40px",
-                                        borderRadius: "12px",
-                                        background: "rgba(15,23,42,0.06)",
-                                        border: "1px solid rgba(15,23,42,0.12)",
-                                        display: "grid",
-                                        placeItems: "center",
-                                        fontWeight: 900,
-                                        fontSize: "1.05rem",
-                                        color: "#0F172A",
-                                        marginBottom: ".9rem",
-                                    }}
-                                >
-                                    {idx + 1}
-                                </div>
-
-                                <h4
-                                    style={{
-                                        margin: "0 0 .4rem",
-                                        fontSize: "clamp(1.06rem,1.4vw,1.28rem)", // mniejsze
-                                        fontWeight: 850,
-                                        color: "#0F172A",
-                                        letterSpacing: "-0.2px",
-                                    }}
-                                >
-                                    {p.t}
-                                </h4>
-
-                                <p
-                                    style={{
-                                        margin: 0,
-                                        color: "#475569",
-                                        fontSize: ".98rem", // mniejsze
-                                        lineHeight: 1.52,
-                                        fontWeight: 400,
-                                    }}
-                                >
-                                    {p.d}
-                                </p>
+                                {i + 1}
                             </div>
-                        </article>
-                    );
-                })}
+
+                            {/* TITLE */}
+                            <h3
+                                style={{
+                                    margin: "0 0 .25rem",
+                                    fontSize: "1.15rem",
+                                    fontWeight: 750,
+                                    color: "#0F172A",
+                                }}
+                            >
+                                {s.t}
+                            </h3>
+
+                            {/* DESCRIPTION — shorter & warmer */}
+                            <p
+                                style={{
+                                    margin: 0,
+                                    fontSize: ".98rem",
+                                    color: "#475569",
+                                    lineHeight: 1.48,
+                                }}
+                            >
+                                {s.d}
+                            </p>
+                        </div>
+
+                        {/* RIGHT SIDE — SMALL IMAGE */}
+                        <figure
+                            style={{
+                                margin: 0,
+                                width: "100%",
+                                height: "100px",
+                                borderRadius: "14px",
+                                overflow: "hidden",
+                                border: "1px solid rgba(0,0,0,0.06)",
+                                boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+                            }}
+                        >
+                            <img
+                                src={s.img}
+                                alt=""
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                }}
+                            />
+                        </figure>
+                    </div>
+                ))}
             </div>
 
             {/* CTA */}
-            <div style={{ marginTop: "3rem", textAlign: "center" }}>
+            <div style={{ textAlign: "center", marginTop: "2.8rem" }}>
                 <a
                     href="/register"
                     style={{
                         display: "inline-flex",
-                        alignItems: "center",
-                        padding: ".9rem 1.8rem",        // mniejsze
+                        padding: "0.9rem 1.9rem",
                         borderRadius: 999,
-                        background: "#126012c8",
+                        background: "#126012",
                         color: "#fff",
-                        fontWeight: 800,
-                        letterSpacing: ".02em",
                         fontSize: "1rem",
+                        fontWeight: 750,
                         textDecoration: "none",
-                        transition: "all .25s ease",
+                        letterSpacing: ".01em",
+                        transition: "background .25s ease",
                     }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "#126012dd";
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "#126012c8";
-                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "#147414")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "#126012")}
                 >
-                    CREATE YOUR FREE ACCOUNT
+                    Create your free account
                 </a>
             </div>
-
-
-            {/* ANIMATIONS */}
-            <style>{`
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 760px) {
-  article {
-      grid-template-columns: 1fr !important;
-  }
-  figure {
-      height: 120px !important;
-  }
-}
-`}</style>
         </section>
-
-
     );
 }

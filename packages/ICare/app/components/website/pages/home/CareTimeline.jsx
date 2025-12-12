@@ -62,7 +62,7 @@ export default function CareTimeline() {
                         style={{
                             margin: 0,
                             fontWeight: 900,
-                            fontSize: "clamp(2.6rem,3.4vw,3rem)",   // bigger title
+                            fontSize: "clamp(2.6rem,3.4vw,3rem)",
                             color: "#0F172A",
                             letterSpacing: "-0.5px",
                             lineHeight: 1.12,
@@ -76,7 +76,7 @@ export default function CareTimeline() {
                             margin: "1.8rem auto 0",
                             maxWidth: "64ch",
                             color: "#475569",
-                            fontSize: "clamp(1.35rem,1.6vw,1.45rem)", // larger lead
+                            fontSize: "clamp(1.35rem,1.6vw,1.45rem)",
                             lineHeight: 1.72,
                             fontWeight: 450,
                             opacity: 0.95,
@@ -98,6 +98,115 @@ export default function CareTimeline() {
                     />
                 </header>
 
+
+                {/* ----------------------------------------- */}
+                {/* ⭐ INSERTED SECTION — TYPES OF CARE ⭐ */}
+                {/* ----------------------------------------- */}
+
+                <section
+                    aria-label="Types of care"
+                    style={{
+                        width: "min(980px, 92vw)",          // było 1100px → ciaśniej
+                        margin: "0 auto 4rem",             // mniej przestrzeni
+                    }}
+                >
+                    <h3
+                        style={{
+                            fontSize: "clamp(1.4rem, 2vw, 1.8rem)",   // mniejszy o ~30%
+                            fontWeight: 800,
+                            margin: 0,
+                            color: "#0F172A",
+                            letterSpacing: "-0.25px",
+                        }}
+                    >
+                        Types of care we support
+                    </h3>
+
+                    <p
+                        style={{
+                            marginTop: ".6rem",
+                            color: "#475569",
+                            fontSize: "1rem",               // było 1.12rem → mniejsze
+                            maxWidth: "54ch",
+                            lineHeight: 1.55,
+                        }}
+                    >
+                        Choose the support your family needs. ICare connects you with trusted,
+                        independent caregivers for flexible home care.
+                    </p>
+
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                            // było 260px → boxy są węższe
+                            gap: "1rem",                    // mniej przerwy
+                            marginTop: "1.8rem",
+                        }}
+                    >
+                        {[
+                            { icon: "👵", label: "Elderly care", desc: "Daily support & companionship" },
+                            { icon: "🧹", label: "Household help", desc: "Cleaning, cooking & chores" },
+                            { icon: "🧑‍🦽", label: "Mobility support", desc: "Walking & transfers" },
+                            { icon: "⚕️", label: "Medication support", desc: "Reminders & stability" },
+                            { icon: "🌙", label: "Night care", desc: "Overnight presence & safety" },
+                            { icon: "🕒", label: "Hourly care", desc: "Short visits, flexible" },
+                            { icon: "🏡", label: "Live-in care", desc: "Full-time home assistance" },
+                            { icon: "🧒", label: "Specialist care", desc: "Dementia & extra needs" },
+                        ].map((box) => (
+                            <div
+                                key={box.label}
+                                style={{
+                                    padding: "1rem",          // było 1.4rem
+                                    borderRadius: "14px",     // mniejszy radius
+                                    border: "1.5px solid #E5E7EB",
+                                    background: "#fff",
+                                    transition: "all .25s ease",
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.borderColor = "#B97A57";
+                                    e.currentTarget.style.transform = "translateY(-2px)";
+                                    e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.06)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.borderColor = "#E5E7EB";
+                                    e.currentTarget.style.transform = "translateY(0)";
+                                    e.currentTarget.style.boxShadow = "none";
+                                }}
+                            >
+                                <div style={{ fontSize: "1.6rem", marginBottom: ".4rem" }}>{box.icon}</div>
+
+                                <h4
+                                    style={{
+                                        fontWeight: 700,
+                                        margin: "0 0 .2rem 0",
+                                        color: "#0F172A",
+                                        fontSize: "1.05rem",   // mniejsze
+                                    }}
+                                >
+                                    {box.label}
+                                </h4>
+
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        color: "#475569",
+                                        fontSize: ".85rem",     // mniejsze
+                                        lineHeight: 1.45,
+                                    }}
+                                >
+                                    {box.desc}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* ----------------------------------------- */}
+                {/* END OF INSERTED SECTION */}
+                {/* ----------------------------------------- */}
+
+
                 {/* TIMELINE */}
                 <div
                     style={{
@@ -110,16 +219,15 @@ export default function CareTimeline() {
 
             {/* Animations */}
             <style>{`
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    `}</style>
+                @keyframes fadeUp {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `}</style>
         </section>
-
-
     );
 }
+
 
 function Timeline({ items }) {
     return (

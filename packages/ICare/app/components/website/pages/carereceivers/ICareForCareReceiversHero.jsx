@@ -61,6 +61,7 @@ export default function ICareForCareReceiversHero() {
             </header>
 
             {/* ==== HERO ==== */}
+            {/* ==== HERO ==== */}
             <section
                 aria-label="ICare for Care Receivers hero"
                 style={{
@@ -74,6 +75,7 @@ export default function ICareForCareReceiversHero() {
                     paddingTop: "90px",
                 }}
             >
+                {/* Background */}
                 <img
                     src={heroImage}
                     alt="Care support background"
@@ -88,6 +90,7 @@ export default function ICareForCareReceiversHero() {
                     }}
                 />
 
+                {/* Overlay */}
                 <div
                     style={{
                         position: "absolute",
@@ -119,9 +122,10 @@ export default function ICareForCareReceiversHero() {
                         Find trusted caregivers
                     </h1>
 
+                    {/* ==== ORIGINAL SHORT DESCRIPTION (must be HERE) ==== */}
                     <p
                         style={{
-                            marginTop: "1.6rem",
+                            marginTop: "1.2rem",
                             fontSize: "clamp(1.05rem,1.3vw,1.2rem)",
                             maxWidth: "60ch",
                             lineHeight: 1.6,
@@ -132,41 +136,13 @@ export default function ICareForCareReceiversHero() {
                         clear terms, no agency markups.
                     </p>
 
-                    {/* ===== PLAIN LIST ===== */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gap: ".8rem",
-                            marginTop: "2rem",
-                            fontSize: "1.05rem",
-                        }}
-                    >
-                        <div>Care tailored to your needs</div>
-                        <div>Private & secure messaging</div>
-                        <div>Transparent one-time fee</div>
-                        <div>Caregivers keep 90%</div>
-                    </div>
+                    {/* ======================================================
+           ICare Launching Soon Block (NOW VISIBLE)
+        ======================================================= */}
 
-                    {/* ===== CTA ===== */}
-                    <Link
-                        to="/register"
-                        style={{
-                            display: "inline-flex",
-                            padding: "1rem 2rem",
-                            borderRadius: 999,
-                            marginTop: "2.4rem",
-                            background: "rgb(185, 122, 87",
-                            color: "#fff",
-                            fontWeight: 700,
-                            letterSpacing: ".02em",
-                            textDecoration: "none",
-                            transition: "all .22s ease",
-                        }}
-                    >
-                        Find a caregiver
-                    </Link>
                 </div>
             </section>
+
         </>
     );
 }

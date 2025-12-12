@@ -132,15 +132,127 @@ export default function HeroComponent({ imgSrc }) {
                         style={{
                             display: "block",
                             marginBottom: ".25rem",
-                            fontSize: "1.6rem",
+                            fontSize: "1.8rem",
                             fontWeight: 800,
                         }}
                     >
-                        Find a trusted caregiver
+
+                        Find a trusted and verified caregiver in your local area
+
                     </strong>
-                    Independent, verified carers. No agency markup.
-                    Simple, safe and affordable home care.
+
                 </span>
+                <div style={{ marginTop: "2.2rem", maxWidth: "48ch" }}>
+                    <h2
+                        style={{
+                            fontSize: "1.45rem",
+                            fontWeight: 800,
+                            color: "#fff",
+                            margin: 0,
+                            letterSpacing: "-0.3px",
+                        }}
+                    >
+                        ICare is launching soon
+                    </h2>
+
+                    <p
+                        style={{
+                            marginTop: ".7rem",
+                            fontSize: "1.05rem",
+                            color: "rgba(255,255,255,0.9)",
+                            lineHeight: 1.55,
+                        }}
+                    >
+                        We’re preparing trusted caregivers and finalising our platform.
+                        Join the early access list to be notified when ICare becomes available in your area.
+                    </p>
+
+                    {/* Bullets */}
+                    <ul
+                        style={{
+                            listStyle: "none",
+                            padding: 0,
+                            margin: "1.2rem 0 1.6rem 0",
+                            display: "grid",
+                            gap: "0.65rem",
+                        }}
+                    >
+                        {[
+                            "Verified caregivers arriving soon",
+                            "Secure messaging & transparent pricing",
+                            "Early access to care matches",
+                        ].map((text) => (
+                            <li
+                                key={text}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "10px",
+                                    fontSize: "1rem",
+                                    color: "rgba(255,255,255,0.9)",
+                                }}
+                            >
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#1FAB1F"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                >
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                {text}
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Email form */}
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            alert("You're on the early access list!");
+                        }}
+                        style={{
+                            display: "flex",
+                            gap: "8px",
+                            maxWidth: "420px",
+                        }}
+                    >
+                        <input
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                            style={{
+                                flex: 1,
+                                padding: "12px 14px",
+                                borderRadius: "10px",
+                                border: "1px solid rgba(255,255,255,0.35)",
+                                background: "rgba(255,255,255,0.12)",
+                                color: "#fff",
+                                fontSize: "0.95rem",
+                                outline: "none",
+                            }}
+                        />
+
+                        <button
+                            type="submit"
+                            style={{
+                                padding: "12px 18px",
+                                borderRadius: "10px",
+                                background: "#1FAB1F",
+                                color: "#fff",
+                                border: "none",
+                                fontWeight: 700,
+                                fontSize: "0.95rem",
+                                cursor: "pointer",
+                            }}
+                        >
+                            JOIN WAITING LIST
+                        </button>
+                    </form>
+                </div>
 
                 {/* ========================= CTAS ========================= */}
                 {/* ========================= CTAS ========================= */}
