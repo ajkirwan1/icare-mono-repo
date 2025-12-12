@@ -63,7 +63,7 @@ export function OurValuesSection() {
             title: "Dignity & Respect",
             description:
                 "We put people first — families and caregivers — in every decision we make.",
-            bg: "rgba(166, 122, 99, 0.15)",
+            bg: "#fff9ef",
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
                     <path d="M20 6L9 17l-5-5" />
@@ -76,7 +76,7 @@ export function OurValuesSection() {
             title: "Privacy by Design",
             description:
                 "Built-in data protection and security. Your privacy is never an afterthought.",
-            bg: "rgba(243, 241, 232, 0.55)",
+            bg: "#fff9ef",
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
                     <rect x="3" y="11" width="18" height="10" rx="3" />
@@ -90,7 +90,7 @@ export function OurValuesSection() {
             title: "Fair & Transparent",
             description:
                 "No hidden fees, no surprises. All agreements are clear, honest, and accessible.",
-            bg: "rgba(238, 243, 240, 0.55)", // airy sage tint
+            bg: "#fff9ef", // airy sage tint
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
                     <path d="M4 9h16" />
@@ -104,7 +104,7 @@ export function OurValuesSection() {
             title: "Trust & Safety",
             description:
                 "Verified caregivers, secure payments, and encrypted communication — always.",
-            bg: "rgba(221, 229, 223, 0.39)",
+            bg: "#fff9ef",
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

@@ -7,67 +7,43 @@ export function OurFoundationSection() {
         <section
             id="foundation"
             aria-label="Our foundation and mission"
-            className={styles.section}
             style={{
-                padding: "7rem 0",
-                background: "transparent",
-
-                /* ⭐ PRZESUWA CAŁĄ SEKCJĘ O 20% W LEWO */
-                transform: "translateX(-27%) translateY(-15%)",
-
-                overflow: "visible",
-
-                /* ⭐ poszerzona sekcja, aby przesunięcie nie ucinało treści */
-                width: "140vw",
+                width: "100vw",
+                marginLeft: "calc(50% - 50vw)",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
+            {/* ================= LEFT — OUR FOUNDATION ================= */}
             <div
-                className={styles.grid}
                 style={{
-                    display: "grid",
-                    gap: "3.4rem",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
-
-                    width: "min(120vw, 1600px)",
-                    marginLeft: "2vw",
+                    background: "#f1e2c9",
+                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)", // ↓ delikatnie
+                    display: "flex",
+                    justifyContent: "flex-end",
                 }}
             >
-
-
-                {/* === LEFT CARD — OUR FOUNDATION === */}
-                <InfoCard
-                    title="Our foundation"
-                    accent="left"
-                    style={{
-                        background: "rgba(185,122,87,0.05)",
-                        borderRadius: "20px",
-                        padding: "2.8rem 3rem",
-                        boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
-                        color: "#2f2f2f",
-                        borderLeft: "5px solid rgba(185,122,87,0.45)", // clay accent bar
-                    }}
-                >
-                    {/* LEADING STATEMENT */}
-                    <p
+                <div style={{ maxWidth: "600px", color: "#2f2f2f" }}>
+                    <h2
                         style={{
-                            fontSize: "1.32rem",
-                            lineHeight: 1.65,
-                            fontWeight: 600,
-                            marginBottom: "1.6rem",
-                            color: "#1f1f1f",
+                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)", // ↓ minimalnie
+                            fontWeight: 800,
+                            lineHeight: 1.22,
+                            letterSpacing: "-0.3px",
+                            marginBottom: "1.4rem",
+                            color: "#1B1F1A",
                         }}
                     >
-                        Finding the right care shouldn’t be overwhelming.
-                    </p>
+                        Our foundation
+                    </h2>
 
-                    {/* MAIN BODY */}
                     <p
                         style={{
-                            fontSize: "1.15rem",
-                            lineHeight: 1.72,
-                            color: "#2f2f2f",
-                            marginBottom: "2.2rem",
-                            maxWidth: "60ch",
+                            fontSize: "1.13rem",
+                            lineHeight: 1.65,
+                            marginBottom: "1.8rem",
                         }}
                     >
                         Families navigate big decisions — choosing a trusted caregiver,
@@ -76,28 +52,23 @@ export function OurFoundationSection() {
                         attentive support.
                     </p>
 
-                    {/* SUBHEADER */}
                     <h4
                         style={{
-                            fontSize: "1.22rem",
+                            fontSize: "1.15rem",
                             fontWeight: 700,
-                            marginBottom: "1.2rem",
-                            color: "#2f2f2f",
-                            letterSpacing: "-0.2px",
+                            marginBottom: "1rem",
                         }}
                     >
                         Families naturally ask:
                     </h4>
 
-                    {/* LIST */}
                     <ul
                         style={{
                             listStyle: "none",
                             padding: 0,
                             margin: 0,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "0.9rem",
+                            display: "grid",
+                            gap: "0.65rem", // ↓ ciaśniej
                         }}
                     >
                         {[
@@ -109,112 +80,95 @@ export function OurFoundationSection() {
                             <li
                                 key={q}
                                 style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: ".75rem",
-                                    color: "#3f3f3f",
-                                    fontSize: "1.08rem",
-                                    lineHeight: 1.6,
+                                    position: "relative",
+                                    paddingLeft: "1.1rem",
+                                    fontSize: "1.05rem",
+                                    lineHeight: 1.55,
                                 }}
                             >
                                 <span
                                     style={{
-                                        width: "11px",
-                                        height: "11px",
+                                        position: "absolute",
+                                        left: 0,
+                                        top: ".6em",
+                                        width: "6px",
+                                        height: "6px",
                                         borderRadius: "50%",
                                         background: "#B97A57",
-                                        opacity: 0.9,
                                     }}
                                 />
-                                <span>{q}</span>
+                                {q}
                             </li>
                         ))}
                     </ul>
 
-                    {/* FINAL STATEMENT */}
                     <p
                         style={{
-                            marginTop: "2.4rem",
-                            fontSize: "1.18rem",
-                            color: "#2f2f2f",
-                            lineHeight: 1.72,
-                            maxWidth: "60ch",
+                            marginTop: "2rem",
+                            fontSize: "1.08rem",
+                            lineHeight: 1.6,
                         }}
                     >
-                        <b style={{ fontWeight: 700 }}>At ICare, we’ve lived this journey.</b>{" "}
+                        <strong>At ICare, we’ve lived this journey.</strong>{" "}
                         That’s why we built a platform centred on dignity, empathy,
                         and trust — bringing peace of mind to families and recognition
                         to caregivers.
                     </p>
-                </InfoCard>
+                </div>
+            </div>
 
+            {/* ================= RIGHT — OUR MISSION ================= */}
+            <div
+                style={{
+                    background: "#fff9ef",
+                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)", // ↓ delikatnie
+                    display: "flex",
+                    justifyContent: "flex-start",
+                }}
+            >
+                <div style={{ maxWidth: "600px", color: "#2f2f2f" }}>
+                    <h2
+                        style={{
+                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)",
+                            fontWeight: 800,
+                            lineHeight: 1.22,
+                            letterSpacing: "-0.3px",
+                            marginBottom: "1.4rem",
+                            color: "#1B1F1A",
+                        }}
+                    >
+                        Our mission
+                    </h2>
 
-
-
-                {/* === RIGHT CARD — OUR MISSION === */}
-                <InfoCard
-                    title="Our mission"
-                    accent="right"
-                    style={{
-                        background: "rgba(185,122,87,0.05)", // subtle clay tint
-                        borderRadius: "20px",
-                        padding: "2.8rem 3rem",
-                        boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
-                        color: "#2f2f2f",
-
-                        /* ⭐ right clay accent bar – spójny z foundation */
-                        borderRight: "5px solid rgba(185,122,87,0.45)",
-                    }}
-                >
-                    {/* LEADING STATEMENT */}
                     <p
                         style={{
-                            fontSize: "1.32rem",
+                            fontSize: "1.13rem",
                             lineHeight: 1.65,
-                            fontWeight: 600,
-                            marginBottom: "1.7rem",
-                            color: "#1f1f1f",
-                            maxWidth: "60ch",
+                            marginBottom: "1.6rem",
                         }}
                     >
                         ICare grew from first-hand 24/7 live-in care experience across Europe.
-                    </p>
-
-                    {/* MAIN BODY */}
-                    <p
-                        style={{
-                            fontSize: "1.16rem",
-                            lineHeight: 1.72,
-                            marginBottom: "1.6rem",
-                            color: "#2f2f2f",
-                            maxWidth: "62ch",
-                        }}
-                    >
                         We combine healthcare and technology expertise to create a more
                         compassionate, transparent, and secure way to match families and
-                        caregivers. Our mission is to reduce stress, increase clarity, and
-                        make every stage of the care journey feel more human.
+                        caregivers.
                     </p>
 
-                    {/* SUPPORTING STATEMENT */}
                     <p
                         style={{
-                            fontSize: "1.16rem",
-                            lineHeight: 1.72,
-                            marginTop: "1.2rem",
-                            color: "#2f2f2f",
-                            maxWidth: "62ch",
+                            fontSize: "1.13rem",
+                            lineHeight: 1.65,
                         }}
                     >
-                        We minimise friction, prioritise privacy, and keep costs fair — so great
-                        care can start sooner, with dignity and confidence for everyone involved.
+                        Our mission is to reduce stress, increase clarity, and make every
+                        stage of the care journey feel more human — minimising friction,
+                        prioritising privacy, and keeping costs fair so great care can start sooner.
                     </p>
-                </InfoCard>
-
-
-
+                </div>
             </div>
         </section>
+
+
+
 
 
 

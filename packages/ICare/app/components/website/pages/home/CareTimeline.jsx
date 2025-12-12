@@ -49,21 +49,34 @@ export default function CareTimeline() {
             style={{
                 width: "100%",
                 background: "#FFFFFF",
-                padding: "clamp(6rem, 9vw, 8rem) 0",
+                padding: "0 0 clamp(6rem, 9vw, 8rem)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
-
-                {/* HEADER */}
-                <header style={{ textAlign: "center", marginBottom: "5.4rem" }}>
+            {/* ===== FULL-WIDTH HEADER ===== */}
+            <div
+                style={{
+                    width: "100vw",
+                    marginLeft: "calc(50% - 50vw)",
+                    background: "#bfc09c",
+                    padding: "clamp(4.5rem, 7vw, 6.5rem) 0",
+                    marginBottom: "5.4rem",
+                }}
+            >
+                <header
+                    style={{
+                        width: "min(1180px, 92vw)",
+                        margin: "0 auto",
+                        textAlign: "center",
+                    }}
+                >
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 900,
-                            fontSize: "clamp(2.6rem,3.4vw,3rem)",
-                            color: "#0F172A",
+                            fontWeight: 800,
+                            fontSize: "clamp(2.6rem,3.4vw,2.8rem)",
+                            color: "#fff",
                             letterSpacing: "-0.5px",
                             lineHeight: 1.12,
                         }}
@@ -73,46 +86,33 @@ export default function CareTimeline() {
 
                     <p
                         style={{
-                            margin: "1.8rem auto 0",
+                            margin: "1.6rem auto 0",
                             maxWidth: "64ch",
-                            color: "#475569",
-                            fontSize: "clamp(1.35rem,1.6vw,1.45rem)",
-                            lineHeight: 1.72,
+                            color: "#fff",
+                            fontSize: "clamp(1.3rem,1.6vw,1.45rem)",
+                            lineHeight: 1.7,
                             fontWeight: 450,
                             opacity: 0.95,
                         }}
                     >
                         Clear, step-by-step support to help you find the caregiver who truly fits your family.
                     </p>
-
-                    {/* Luxe Divider */}
-                    <div
-                        aria-hidden="true"
-                        style={{
-                            width: 80,
-                            height: 3,
-                            background: "rgba(31,171,31,0.22)",
-                            borderRadius: 99,
-                            margin: "2.4rem auto 0",
-                        }}
-                    />
                 </header>
+            </div>
 
-
-                {/* ----------------------------------------- */}
-                {/* ⭐ INSERTED SECTION — TYPES OF CARE ⭐ */}
-                {/* ----------------------------------------- */}
-
+            {/* ===== CONTENT ===== */}
+            <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
+                {/* TYPES OF CARE */}
                 <section
                     aria-label="Types of care"
                     style={{
-                        width: "min(980px, 92vw)",          // było 1100px → ciaśniej
-                        margin: "0 auto 4rem",             // mniej przestrzeni
+                        width: "min(980px, 92vw)",
+                        margin: "0 auto 4.8rem", // trochę więcej dołu
                     }}
                 >
                     <h3
                         style={{
-                            fontSize: "clamp(1.4rem, 2vw, 1.8rem)",   // mniejszy o ~30%
+                            fontSize: "clamp(1.55rem, 2.2vw, 2.2rem)", // +10% zostaje
                             fontWeight: 800,
                             margin: 0,
                             color: "#0F172A",
@@ -124,11 +124,11 @@ export default function CareTimeline() {
 
                     <p
                         style={{
-                            marginTop: ".6rem",
+                            marginTop: ".8rem",
                             color: "#475569",
-                            fontSize: "1rem",               // było 1.12rem → mniejsze
-                            maxWidth: "54ch",
-                            lineHeight: 1.55,
+                            fontSize: "1.05rem",
+                            maxWidth: "56ch",
+                            lineHeight: 1.65, // ⬅️ luźniej
                         }}
                     >
                         Choose the support your family needs. ICare connects you with trusted,
@@ -139,9 +139,8 @@ export default function CareTimeline() {
                         style={{
                             display: "grid",
                             gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                            // było 260px → boxy są węższe
-                            gap: "1rem",                    // mniej przerwy
-                            marginTop: "1.8rem",
+                            gap: "1.4rem",          // ⬅️ więcej oddechu między boxami
+                            marginTop: "2.4rem",
                         }}
                     >
                         {[
@@ -157,31 +156,27 @@ export default function CareTimeline() {
                             <div
                                 key={box.label}
                                 style={{
-                                    padding: "1rem",          // było 1.4rem
-                                    borderRadius: "14px",     // mniejszy radius
-                                    border: "1.5px solid #E5E7EB",
-                                    background: "#fff",
-                                    transition: "all .25s ease",
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.borderColor = "#B97A57";
-                                    e.currentTarget.style.transform = "translateY(-2px)";
-                                    e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.06)";
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.borderColor = "#E5E7EB";
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.style.boxShadow = "none";
+                                    padding: "1.4rem 1.35rem", // ⬅️ więcej powietrza w środku
+                                    borderRadius: "16px",
+                                    background: "rgba(249,245,240,0.6)",
                                 }}
                             >
-                                <div style={{ fontSize: "1.6rem", marginBottom: ".4rem" }}>{box.icon}</div>
+                                <div
+                                    style={{
+                                        fontSize: "1.7rem",
+                                        marginBottom: ".65rem",
+                                    }}
+                                >
+                                    {box.icon}
+                                </div>
 
                                 <h4
                                     style={{
                                         fontWeight: 700,
-                                        margin: "0 0 .2rem 0",
+                                        margin: "0 0 .45rem 0",
                                         color: "#0F172A",
-                                        fontSize: "1.05rem",   // mniejsze
+                                        fontSize: "1.08rem",
+                                        lineHeight: 1.35,
                                     }}
                                 >
                                     {box.label}
@@ -191,8 +186,8 @@ export default function CareTimeline() {
                                     style={{
                                         margin: 0,
                                         color: "#475569",
-                                        fontSize: ".85rem",     // mniejsze
-                                        lineHeight: 1.45,
+                                        fontSize: ".9rem",
+                                        lineHeight: 1.55, // ⬅️ czytelniej
                                     }}
                                 >
                                     {box.desc}
@@ -202,22 +197,13 @@ export default function CareTimeline() {
                     </div>
                 </section>
 
-                {/* ----------------------------------------- */}
-                {/* END OF INSERTED SECTION */}
-                {/* ----------------------------------------- */}
-
 
                 {/* TIMELINE */}
-                <div
-                    style={{
-                        animation: "fadeUp .8s ease both",
-                    }}
-                >
+                <div style={{ animation: "fadeUp .8s ease both" }}>
                     <Timeline items={items} />
                 </div>
             </div>
 
-            {/* Animations */}
             <style>{`
                 @keyframes fadeUp {
                     from { opacity: 0; transform: translateY(20px); }
@@ -227,7 +213,6 @@ export default function CareTimeline() {
         </section>
     );
 }
-
 
 function Timeline({ items }) {
     return (
@@ -293,7 +278,11 @@ function TimelineStep({ item, index }) {
                     margin: "0 auto 1.2rem",
                 }}
             >
-                <img src={item.img} alt={item.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <img
+                    src={item.img}
+                    alt={item.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
             </div>
 
             <h3 style={{ fontWeight: 800 }}>{item.title}</h3>

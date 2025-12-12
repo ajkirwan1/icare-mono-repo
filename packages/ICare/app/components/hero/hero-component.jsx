@@ -134,6 +134,7 @@ export default function HeroComponent({ imgSrc }) {
                             marginBottom: ".25rem",
                             fontSize: "1.8rem",
                             fontWeight: 800,
+                            color: "#d9d7bd"
                         }}
                     >
 
@@ -147,7 +148,7 @@ export default function HeroComponent({ imgSrc }) {
                         style={{
                             fontSize: "1.45rem",
                             fontWeight: 800,
-                            color: "#fff",
+                            color: "#d9d7bd",
                             margin: 0,
                             letterSpacing: "-0.3px",
                         }}
@@ -159,11 +160,11 @@ export default function HeroComponent({ imgSrc }) {
                         style={{
                             marginTop: ".7rem",
                             fontSize: "1.05rem",
-                            color: "rgba(255,255,255,0.9)",
+                            color: "#d9d7bd",
                             lineHeight: 1.55,
                         }}
                     >
-                        We’re preparing trusted caregivers and finalising our platform.
+                        We’re preparing trusted caregivers and finalising our platform.<br></br>
                         Join the early access list to be notified when ICare becomes available in your area.
                     </p>
 
@@ -189,7 +190,7 @@ export default function HeroComponent({ imgSrc }) {
                                     alignItems: "center",
                                     gap: "10px",
                                     fontSize: "1rem",
-                                    color: "rgba(255,255,255,0.9)",
+                                    color: "#d9d7bd",
                                 }}
                             >
                                 <svg
@@ -197,7 +198,7 @@ export default function HeroComponent({ imgSrc }) {
                                     height="18"
                                     viewBox="0 0 24 24"
                                     fill="none"
-                                    stroke="#1FAB1F"
+                                    stroke="#d9d7bd"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                 >
@@ -220,28 +221,14 @@ export default function HeroComponent({ imgSrc }) {
                             maxWidth: "420px",
                         }}
                     >
-                        <input
-                            name="email"
-                            placeholder="Enter your email"
-                            required
-                            style={{
-                                flex: 1,
-                                padding: "12px 14px",
-                                borderRadius: "10px",
-                                border: "1px solid rgba(255,255,255,0.35)",
-                                background: "rgba(255,255,255,0.12)",
-                                color: "#fff",
-                                fontSize: "0.95rem",
-                                outline: "none",
-                            }}
-                        />
+
 
                         <button
                             type="submit"
                             style={{
                                 padding: "12px 18px",
-                                borderRadius: "10px",
-                                background: "#1FAB1F",
+                                borderRadius: "999px",
+                                background: "#61674d",
                                 color: "#fff",
                                 border: "none",
                                 fontWeight: 700,
@@ -249,7 +236,7 @@ export default function HeroComponent({ imgSrc }) {
                                 cursor: "pointer",
                             }}
                         >
-                            JOIN WAITING LIST
+                            Join waiting list
                         </button>
                     </form>
                 </div>

@@ -133,7 +133,7 @@ export default function Home() {
             <HeroComponent imgSrc={heroImage} />
 
             {/* ⭐⭐⭐ BADGE W HERO */}
-            <ICareReviewBadge />
+
 
 
 

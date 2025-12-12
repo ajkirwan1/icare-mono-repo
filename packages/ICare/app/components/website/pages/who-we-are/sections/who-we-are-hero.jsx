@@ -10,7 +10,7 @@ export function WhoWeAreHero() {
             className={styles.heroWrap}
             aria-label="Who We Are hero"
         >
-            {/* Background */}
+            {/* BACKGROUND */}
             <img
                 src={heroImage}
                 alt="Care coordination background"
@@ -21,17 +21,16 @@ export function WhoWeAreHero() {
                 }}
             />
 
-            {/* Soft Luxe Overlay — identical to homepage */}
+            {/* OVERLAY — IDENTYCZNY */}
             <div
                 className={styles.heroOverlay}
                 style={{
                     background:
                         "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.65) 100%)",
-                    backdropFilter: "blur(2px)",
                 }}
             />
 
-            {/* NAV — same styling as homepage */}
+            {/* NAV */}
             <header
                 className={styles.headerOverlay}
                 style={{
@@ -47,66 +46,70 @@ export function WhoWeAreHero() {
                 </NavLink>
             </header>
 
-            {/* CONTENT */}
+            {/* ================= HERO CONTENT — APOLLO / LANDING STRUCTURE ================= */}
             <div className={styles.content}>
                 <div className={styles.inner}>
-                    <div
-                        className={styles.copyBlock}
+
+                    {/* HEADER BLOCK — IDENTYCZNY JAK LANDING */}
+                    <span
                         style={{
-                            transform: "translateX(-22%) scale(1.06)",
-                            transformOrigin: "top left",
+                            display: "block",
+                            width: "min(92vw, 1100px)",
+                            marginTop: "6rem",
                             textAlign: "left",
-                            width: "min(92vw,1100px)",
                             color: "#fff",
-                            textShadow: "0 2px 14px rgba(0,0,0,0.35)",
+                            textShadow: "0 2px 16px rgba(0,0,0,.35)",
+                            transform: "translateX(-25%) scale(1.1)",
+                            transformOrigin: "top left",
                         }}
                     >
-
-                        {/* TITLE — matched to homepage hero */}
                         <h1
-                            className={styles.title}
                             style={{
-                                margin: 0,
-                                fontSize: "clamp(3rem,5vw,3.8rem)",
+                                margin: ".35rem 0 0",
                                 fontWeight: 900,
                                 letterSpacing: "-0.35px",
                                 lineHeight: 1.05,
+                                fontSize: "clamp(3rem, 5.2vw, 4.2rem)",
                                 color: "#fdfdfd",
-                                textShadow: "0 2px 12px rgba(0,0,0,0.25)",
                             }}
                         >
                             Who we are
                         </h1>
+                    </span>
 
-                        {/* LEADS — spaced like homepage */}
-                        <p
-                            className={styles.lead}
-                            style={{
-                                fontSize: "clamp(1.25rem,1.9vw,1.55rem)",
-                                lineHeight: 1.55,
-                                marginTop: "1.2rem",
-                                maxWidth: "600px",
-                                letterSpacing: "-0.2px",
-                            }}
-                        >
-                            <b
+                    {/* ================= SUBHEADER ================= */}
+                    <span
+                        style={{
+                            display: "block",
+                            width: "min(92vw, 1100px)",
+                            marginTop: "1rem",
+                            textAlign: "left",
+                            color: "rgba(255,255,255,.94)",
+                            fontSize: "clamp(1.25rem, 2vw, 1.55rem)",
+                            lineHeight: 1.55,
+                            letterSpacing: "-0.25px",
+                            transform: "translateX(-25%) scale(1.1)",
+                            transformOrigin: "top left",
+                        }}
+                    >
+                        <span style={{ display: "block", maxWidth: 600 }}>
+                            <strong
                                 style={{
+                                    display: "block",
+                                    marginBottom: ".35rem",
                                     fontSize: "1.55rem",
                                     fontWeight: 800,
-                                    letterSpacing: "-0.3px",
+                                    color: "#fff",
                                 }}
                             >
                                 Fair pay for caregivers — fair prices for families.
-                            </b>
-                        </p>
+                            </strong>
+                        </span>
 
                         <p
-                            className={styles.lead}
                             style={{
-                                fontSize: "clamp(1.2rem,1.8vw,1.45rem)",
-                                lineHeight: 1.55,
+                                marginTop: ".4rem",
                                 maxWidth: "650px",
-                                marginTop: ".2rem",
                                 color: "rgba(255,255,255,0.95)",
                             }}
                         >
@@ -114,73 +117,65 @@ export function WhoWeAreHero() {
                             with clarity, dignity and privacy by design.
                         </p>
 
-                        {/* CTA — fully matched to homepage */}
-                        <div className={styles.ctaRow} style={{ marginTop: "2.4rem" }}>
+                        {/* ================= CTA — IDENTYCZNY ================= */}
+                        <div
+                            style={{
+                                display: "flex",
+                                gap: "1rem",
+                                marginTop: "2.2rem",
+                            }}
+                        >
                             <a
                                 href="/how-it-works"
                                 style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "10px",
                                     padding: ".9rem 1.4rem",
                                     borderRadius: "999px",
-
-                                    // EARTHY CLAY — same as homepage new CTA
-                                    background: "#B97A57",
                                     border: "2px solid #B97A57",
+                                    background: "#B97A57",
                                     color: "#fff",
-
                                     fontWeight: 600,
-                                    fontSize: "clamp(.95rem,1.15vw,1rem)",
-                                    letterSpacing: ".01em",
+                                    letterSpacing: "-0.2px",
+                                    fontSize: "clamp(1rem, 1.3vw, 1rem)",
                                     textDecoration: "none",
-
-                                    boxShadow: "0 6px 16px rgba(0,0,0,0.18)",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "0.55rem",
                                     transition: "all .25s ease",
+                                    boxShadow: "0 6px 16px rgba(0,0,0,0.16)",
                                 }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.background = "#C89A80";
                                     e.currentTarget.style.borderColor = "#C89A80";
                                     e.currentTarget.style.transform = "translateY(-2px)";
-                                    e.currentTarget.querySelector("svg").style.transform =
-                                        "translateX(3px)";
-                                    e.currentTarget.querySelector("svg").style.opacity = "1";
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.background = "#B97A57";
                                     e.currentTarget.style.borderColor = "#B97A57";
                                     e.currentTarget.style.transform = "translateY(0)";
-                                    e.currentTarget.querySelector("svg").style.transform =
-                                        "translateX(0)";
-                                    e.currentTarget.querySelector("svg").style.opacity = "0.95";
                                 }}
                             >
-                                How it works
-
+                                How ICare works
                                 <svg
-                                    width="18"
-                                    height="18"
+                                    width="16"
+                                    height="16"
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    aria-hidden="true"
-                                    style={{
-                                        opacity: 0.95,
-                                        transition: "transform .25s ease, opacity .25s ease",
-                                    }}
+                                    style={{ opacity: 0.9 }}
                                 >
                                     <path d="M5 12h14" />
                                     <path d="M13 5l7 7-7 7" />
                                 </svg>
                             </a>
                         </div>
-                    </div>
+                    </span>
                 </div>
             </div>
         </section>
+
 
 
     );

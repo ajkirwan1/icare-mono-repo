@@ -8,6 +8,26 @@ export function OurImpactSection() {
         "https://images.unsplash.com/photo-1530023367847-a683933f4177?auto=format&fit=crop&w=1200&q=80",
     ];
 
+    const items = [
+        {
+            title: "Transparent care choices",
+            desc: "Families see real caregiver profiles — experience, availability and care style — before starting a conversation.",
+        },
+        {
+            title: "Direct communication",
+            desc: "Private messaging without agencies or intermediaries deciding for either side.",
+        },
+        {
+            title: "Fair, clear agreements",
+            desc: "Care details, schedules and rates are agreed openly between families and caregivers.",
+        },
+        {
+            title: "Freedom on both sides",
+            desc: "Caregivers choose who they work with. Families choose who supports their home.",
+        },
+    ];
+
+    const [open, setOpen] = useState(0);
     const [index, setIndex] = useState(0);
     const intervalRef = useRef(null);
 
@@ -16,7 +36,7 @@ export function OurImpactSection() {
 
     useEffect(() => {
         startAutoplay();
-        return () => stopAutoplay();
+        return stopAutoplay;
     }, []);
 
     const startAutoplay = () => {
@@ -31,166 +51,189 @@ export function OurImpactSection() {
     return (
         <section
             id="impact"
+            aria-label="Our impact"
             style={{
-                width: "min(1100px,92vw)",
-                margin: "8rem auto",
-                padding: "0 clamp(20px,3vw,32px)",
-                fontFamily: "Inter, system-ui, sans-serif",
+                width: "100%",
+                background: "#bfc09c",
+                padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            {/* HEADER */}
-            <h2
-                style={{
-                    fontWeight: 900,
-                    fontSize: "clamp(2rem,2.8vw,2.6rem)",
-                    color: "#0F172A",
-                    marginBottom: "1.4rem",
-                }}
-            >
-                Our Impact
-            </h2>
-            {/* STORY-STYLE PRACTICAL TEXT */}
             <div
                 style={{
-                    maxWidth: "68ch",
-                    fontSize: "1.12rem",
-                    color: "#475569",
-                    lineHeight: 1.7,
-                    marginBottom: "2.8rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1.6rem",
+                    width: "min(1180px, 92vw)",
+                    margin: "0 auto",
                 }}
             >
-                {/* INTRO */}
-                <p style={{ margin: 0 }}>
-                    We’re building a clearer, simpler way for families and caregivers to connect.
-                    No agencies deciding for you. No outdated processes. Just transparent tools
-                    that help two people meet, talk and decide together.
-                </p>
-
-                {/* BULLETS */}
                 <div
                     style={{
                         display: "grid",
-                        gap: "0.85rem",
-                        paddingLeft: "1.2rem",
-                        color: "#334155",
-                        fontSize: "1.05rem",
+                        gridTemplateColumns: "1fr 1.1fr",
+                        gap: "clamp(2.6rem, 5vw, 4.2rem)",
+                        alignItems: "stretch",
                     }}
                 >
-                    <div style={{ display: "flex", gap: ".6rem" }}>
-                        <span style={{ fontWeight: 700 }}>•</span>
-                        <span>You see caregiver profiles directly — skills, availability and preferences.</span>
-                    </div>
-
-                    <div style={{ display: "flex", gap: ".6rem" }}>
-                        <span style={{ fontWeight: 700 }}>•</span>
-                        <span>Caregivers see exactly what families need before applying.</span>
-                    </div>
-
-                    <div style={{ display: "flex", gap: ".6rem" }}>
-                        <span style={{ fontWeight: 700 }}>•</span>
-                        <span>Both sides communicate without middle layers or hidden conditions.</span>
-                    </div>
-
-                    <div style={{ display: "flex", gap: ".6rem" }}>
-                        <span style={{ fontWeight: 700 }}>•</span>
-                        <span>Matching happens naturally when expectations align.</span>
-                    </div>
-
-                    <div style={{ display: "flex", gap: ".6rem" }}>
-                        <span style={{ fontWeight: 700 }}>•</span>
-                        <span>The process is guided but never controlled — you stay in charge.</span>
-                    </div>
-                </div>
-
-                {/* OUTRO */}
-                <p style={{ margin: 0 }}>
-                    It’s care designed around people, not systems — giving families clarity and
-                    caregivers the dignity of choosing where and how they work.
-                </p>
-            </div>
-
-
-            {/* ========================== */}
-            {/*         CAROUSEL           */}
-            {/* ========================== */}
-
-            <div
-                style={{
-                    position: "relative",
-                    overflow: "hidden",
-                    borderRadius: "32px",
-                    boxShadow: "0 10px 34px rgba(0,0,0,0.12)",
-                    width: "min(820px, 100%)",     // ← ZMNIEJSZONA SZEROKOŚĆ
-                    margin: "0 auto",              // ← WYŚRODKOWANA
-                }}
-                onMouseEnter={stopAutoplay}
-                onMouseLeave={startAutoplay}
-            >
-                <div
-                    style={{
-                        display: "flex",
-                        transform: `translateX(-${index * 100}%)`,
-                        transition: "transform .7s cubic-bezier(0.25,0.1,0.25,1)",
-                    }}
-                >
-                    {images.map((src, i) => (
-                        <div key={i} style={{ minWidth: "100%", position: "relative" }}>
-                            <img
-                                src={src}
-                                alt=""
+                    {/* ================= LEFT — CONDENSED ACCORDION ================= */}
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                            maxWidth: "52ch",
+                        }}
+                    >
+                        <header style={{ marginBottom: "1.8rem" }}>
+                            <h2
                                 style={{
-                                    width: "100%",
-                                    height: "290px", // ← 30% MNIEJSZA WYSOKOŚĆ
-                                    objectFit: "cover",
-                                    display: "block",
+                                    margin: 0,
+                                    fontWeight: 800,
+                                    fontSize: "clamp(1.9rem, 2.6vw, 2.2rem)",
+                                    color: "#000000",           // ← BLACK
+                                    letterSpacing: "-0.35px",
                                 }}
-                            />
+                            >
+                                How ICare changes home care
+                            </h2>
+                        </header>
 
-                            {/* Airbnb-like gradient */}
+                        <div style={{ display: "grid", gap: "1rem" }}>
+                            {items.map((item, i) => {
+                                const isOpen = open === i;
+
+                                return (
+                                    <div
+                                        key={item.title}
+                                        style={{
+                                            borderBottom: "1px solid rgba(0,0,0,0.35)", // ← BLACK TONE
+                                            paddingBottom: ".85rem",
+                                        }}
+                                    >
+                                        <button
+                                            onClick={() => setOpen(isOpen ? null : i)}
+                                            style={{
+                                                width: "100%",
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                background: "transparent",
+                                                border: "none",
+                                                padding: 0,
+                                                cursor: "pointer",
+                                                textAlign: "left",
+                                                color: "#000000",   // ← BLACK
+                                            }}
+                                        >
+                                            <span
+                                                style={{
+                                                    fontSize: "1.05rem",
+                                                    fontWeight: 600,
+                                                    letterSpacing: "-0.15px",
+                                                }}
+                                            >
+                                                {item.title}
+                                            </span>
+
+                                            <span
+                                                style={{
+                                                    transform: isOpen
+                                                        ? "rotate(90deg)"
+                                                        : "rotate(0deg)",
+                                                    transition: "transform .2s ease",
+                                                    fontSize: "1.2rem",
+                                                }}
+                                            >
+                                                →
+                                            </span>
+                                        </button>
+
+                                        {isOpen && (
+                                            <p
+                                                style={{
+                                                    marginTop: ".45rem",
+                                                    fontSize: ".95rem",
+                                                    lineHeight: 1.55,
+                                                    color: "rgba(0,0,0,0.9)", // ← BLACK
+                                                }}
+                                            >
+                                                {item.desc}
+                                            </p>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* ================= RIGHT — CAROUSEL ================= */}
+                    <div>
+                        <div
+                            style={{
+                                position: "relative",
+                                overflow: "hidden",
+                                borderRadius: "28px",
+                                boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
+                            }}
+                            onMouseEnter={stopAutoplay}
+                            onMouseLeave={startAutoplay}
+                        >
                             <div
                                 style={{
-                                    position: "absolute",
-                                    inset: 0,
-                                    background:
-                                        "linear-gradient(to top, rgba(0,0,0,0.20), rgba(0,0,0,0.04))",
-                                    pointerEvents: "none",
+                                    display: "flex",
+                                    transform: `translateX(-${index * 100}%)`,
+                                    transition: "transform .7s cubic-bezier(.25,.1,.25,1)",
                                 }}
-                            />
+                            >
+                                {images.map((src, i) => (
+                                    <img
+                                        key={i}
+                                        src={src}
+                                        alt=""
+                                        style={{
+                                            minWidth: "100%",
+                                            height: "300px",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                ))}
+                            </div>
+
+                            <button onClick={prev} style={arrowStyle("left")}>‹</button>
+                            <button onClick={next} style={arrowStyle("right")}>›</button>
                         </div>
-                    ))}
+
+                        {/* DOTS */}
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: "10px",
+                                marginTop: "1.2rem",
+                            }}
+                        >
+                            {images.map((_, i) => (
+                                <div
+                                    key={i}
+                                    onClick={() => setIndex(i)}
+                                    style={{
+                                        width: index === i ? 14 : 8,
+                                        height: 8,
+                                        borderRadius: 999,
+                                        background:
+                                            index === i
+                                                ? "#000000"                // ← BLACK
+                                                : "rgba(0,0,0,0.6)",       // ← BLACK
+                                        transition: "all .25s ease",
+                                        cursor: "pointer",
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
-
-                {/* ARROWS */}
-                <button onClick={prev} style={arrowStyle("left")}>‹</button>
-                <button onClick={next} style={arrowStyle("right")}>›</button>
-            </div>
-
-            {/* DOTS */}
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                gap: "10px",
-                marginTop: "1.6rem"
-            }}>
-                {images.map((_, i) => (
-                    <div
-                        key={i}
-                        onClick={() => setIndex(i)}
-                        style={{
-                            width: index === i ? 14 : 8,
-                            height: 8,
-                            borderRadius: 999,
-                            background: index === i ? "#0F3D20" : "rgba(0,0,0,0.15)",
-                            transition: "all .3s ease",
-                            cursor: "pointer",
-                        }}
-                    />
-                ))}
             </div>
         </section>
+
     );
 }
 
@@ -199,16 +242,12 @@ const arrowStyle = (side) => ({
     top: "50%",
     [side]: "14px",
     transform: "translateY(-50%)",
-    width: "42px",
-    height: "42px",
+    width: "40px",
+    height: "40px",
     borderRadius: "50%",
     background: "rgba(255,255,255,0.9)",
-    border: "1px solid rgba(0,0,0,0.08)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "1.6rem",
+    border: "none",
+    fontSize: "1.5rem",
     cursor: "pointer",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-    transition: "all .25s ease",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.18)",
 });
