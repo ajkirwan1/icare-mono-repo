@@ -33,7 +33,7 @@ export function HowWeWorkSection() {
             aria-label="How We Work"
             style={{
                 width: "100%",
-                background: "#e8e7d7",                 // ← FULL-WIDTH BACKGROUND
+                background: "#e8e7d7",
                 padding: "8rem 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -88,82 +88,97 @@ export function HowWeWorkSection() {
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: "1.4rem",
+                                justifyContent: "space-between", // 🔑 klucz
+                                height: "100%",
                             }}
                         >
-                            {/* BADGE */}
+                            {/* ===== TEXT BLOCK ===== */}
                             <div
                                 style={{
-                                    width: "48px",
-                                    height: "48px",
-                                    borderRadius: "14px",
-                                    background: "rgba(15,61,32,0.08)",
-                                    color: "#0F3D20",
-                                    fontWeight: 800,
-                                    fontSize: "1.15rem",
                                     display: "flex",
-                                    alignItems: "center",
+                                    flexDirection: "column",
+                                    gap: "1.4rem",
+                                }}
+                            >
+                                {/* BADGE */}
+                                <div
+                                    style={{
+                                        width: "48px",
+                                        height: "48px",
+                                        borderRadius: "14px",
+                                        background: "rgba(15,61,32,0.08)",
+                                        color: "#0F3D20",
+                                        fontWeight: 800,
+                                        fontSize: "1.15rem",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    {s.step}
+                                </div>
+
+                                {/* TITLE */}
+                                <h3
+                                    style={{
+                                        margin: 0,
+                                        fontSize: "1.25rem",
+                                        fontWeight: 700,
+                                        color: "#0F172A",
+                                    }}
+                                >
+                                    {s.title}
+                                </h3>
+
+                                {/* DESCRIPTION */}
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        color: "#475569",
+                                        lineHeight: 1.55,
+                                        fontSize: "1rem",
+                                    }}
+                                >
+                                    {s.description}
+                                </p>
+                            </div>
+
+                            {/* ===== IMAGE — ALWAYS ALIGNED ===== */}
+                            <div
+                                style={{
+                                    marginTop: "1.6rem",
+                                    width: "100%",
+                                    display: "flex",
                                     justifyContent: "center",
                                 }}
                             >
-                                {s.step}
-                            </div>
-
-                            {/* TITLE */}
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.25rem",
-                                    fontWeight: 700,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                {s.title}
-                            </h3>
-
-                            {/* DESCRIPTION */}
-                            <p
-                                style={{
-                                    margin: 0,
-                                    color: "#475569",
-                                    lineHeight: 1.55,
-                                    fontSize: "1rem",
-                                }}
-                            >
-                                {s.description}
-                            </p>
-
-                            {/* IMAGE */}
-                            <div
-                                style={{
-                                    width: "100%",
-                                    height: "120px",
-                                    borderRadius: "16px",
-                                    overflow: "hidden",
-                                    marginTop: "0.4rem",
-                                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                                    background: "#f3f4f6",
-                                }}
-                            >
-                                <img
-                                    src={
-                                        s.step === 1
-                                            ? "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60"
-                                            : s.step === 2
-                                                ? "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=60"
-                                                : s.step === 3
-                                                    ? "https://images.unsplash.com/photo-1586401100292-476323221c87?auto=format&fit=crop&w=500&q=60"
-                                                    : "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60"
-                                    }
-                                    alt=""
+                                <div
                                     style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "cover",
-                                        objectPosition: "center",
-                                        display: "block",
+                                        width: "92%",          // ⬅️ węższe
+                                        height: "240px",       // ⬅️ +35% wysokości
+                                        borderRadius: "16px",
+                                        overflow: "hidden",
+                                        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                                        background: "#f3f4f6",
                                     }}
-                                />
+                                >
+                                    <img
+                                        src={
+                                            s.step === 1
+                                                ? "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60"
+                                                : s.step === 2
+                                                    ? "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=60"
+                                                    : "https://images.unsplash.com/photo-1586401100292-476323221c87?auto=format&fit=crop&w=500&q=60"
+                                        }
+                                        alt=""
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                            display: "block",
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -207,6 +222,8 @@ export function HowWeWorkSection() {
                 </div>
             </div>
         </section>
+
+
 
     );
 }

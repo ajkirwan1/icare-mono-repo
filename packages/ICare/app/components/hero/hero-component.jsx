@@ -1,12 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { IcareHeroNew, IcareButton } from "react-library";
-import { Link } from "react-router";
-import navLinks from "./nav-links";
+import { useEffect, useRef } from "react";
+import { IcareHeroNew } from "react-library";
 
 export default function HeroComponent({ imgSrc }) {
     const heroRef = useRef(null);
 
-    /* PARALLAX */
     useEffect(() => {
         const hero = heroRef.current;
         if (!hero) return;
@@ -29,61 +26,6 @@ export default function HeroComponent({ imgSrc }) {
             ref={heroRef}
             style={{ overflow: "hidden" }}
         >
-
-            {/* ========================= NAV ========================= */}
-            {navLinks.map((link) => (
-                <li slot="nav-links" key={link.to} style={{ listStyle: "none", margin: 0 }}>
-                    <Link
-                        to={link.to}
-                        style={{
-                            color: "rgba(255,255,255,.92)",
-                            padding: ".35rem 0",
-                            textDecoration: "none",
-                            fontSize: "1.15rem",
-                            fontWeight: 500,
-                            letterSpacing: "-0.25px",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-                        onMouseLeave={(e) =>
-                            (e.currentTarget.style.color = "rgba(255,255,255,.92)")
-                        }
-                    >
-                        {link.text}
-                    </Link>
-                </li>
-            ))}
-
-            {/* ========================= HEADER BUTTON ========================= */}
-            <li slot="header-buttons" style={{ listStyle: "none" }}>
-                <IcareButton
-                    href="/register"
-                    style={{
-                        borderRadius: "999px",
-                        padding: ".65rem 1.1rem",
-                        fontWeight: 700,
-                        fontSize: "1rem",
-                        background: "rgba(255,255,255,.15)",
-                        border: "1.5px solid rgba(255,255,255,.75)",
-                        color: "#ffffff",
-                        backdropFilter: "blur(6px)",
-                        transition: "all .25s ease",
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-2px)";
-                        e.currentTarget.style.borderColor = "rgba(255,255,255,1)";
-                        e.currentTarget.style.background = "rgba(255,255,255,.25)";
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "translateY(0)";
-                        e.currentTarget.style.borderColor = "rgba(255,255,255,.75)";
-                        e.currentTarget.style.background = "rgba(255,255,255,.15)";
-                    }}
-                >
-                    Get Started
-                </IcareButton>
-            </li>
-
-            {/* ========================= HEADER CONTENT ========================= */}
             <span
                 slot="header-content"
                 style={{
@@ -110,8 +52,6 @@ export default function HeroComponent({ imgSrc }) {
                     ICare
                 </h1>
             </span>
-
-            {/* ========================= SUBHEADER ========================= */}
             <span
                 slot="subheader-content"
                 style={{
@@ -137,9 +77,7 @@ export default function HeroComponent({ imgSrc }) {
                             color: "#d9d7bd"
                         }}
                     >
-
                         Find a trusted and verified caregiver in your local area
-
                     </strong>
 
                 </span>
@@ -167,8 +105,6 @@ export default function HeroComponent({ imgSrc }) {
                         We’re preparing trusted caregivers and finalising our platform.<br></br>
                         Join the early access list to be notified when ICare becomes available in your area.
                     </p>
-
-                    {/* Bullets */}
                     <ul
                         style={{
                             listStyle: "none",
@@ -240,9 +176,6 @@ export default function HeroComponent({ imgSrc }) {
                         </button>
                     </form>
                 </div>
-
-                {/* ========================= CTAS ========================= */}
-                {/* ========================= CTAS ========================= */}
                 <div
                     style={{
                         display: "flex",
@@ -251,8 +184,6 @@ export default function HeroComponent({ imgSrc }) {
                         transform: "translateX(0) scale(1)",
                     }}
                 >
-
-                    {/* JEDYNY BUTTON — EARTH CLAY CTA */}
                     <a
                         href="#how-it-works"
                         style={{
@@ -284,7 +215,6 @@ export default function HeroComponent({ imgSrc }) {
                     >
                         How ICare works
 
-                        {/* MINIMALISTYCZNA STRZAŁKA → */}
                         <svg
                             width="16"
                             height="16"

@@ -36,19 +36,20 @@ export function OurValuesSection() {
                 <h3
                     style={{
                         margin: 0,
-                        fontSize: "1.15rem",
+                        fontSize: "1.09rem", // ⬅️ −5%
                         color: "#1B1F1A",
                         fontWeight: 700,
                     }}
                 >
                     {title}
                 </h3>
+
                 <p
                     style={{
                         margin: 0,
                         lineHeight: "1.45",
                         color: "#2F3A32",
-                        fontSize: ".95rem",
+                        fontSize: ".90rem", // ⬅️ −5%
                     }}
                 >
                     {description}
@@ -70,7 +71,6 @@ export function OurValuesSection() {
                 </svg>
             ),
         },
-
         {
             key: "privacy",
             title: "Privacy by Design",
@@ -84,13 +84,12 @@ export function OurValuesSection() {
                 </svg>
             ),
         },
-
         {
             key: "fair",
             title: "Fair & Transparent",
             description:
                 "No hidden fees, no surprises. All agreements are clear, honest, and accessible.",
-            bg: "#fff9ef", // airy sage tint
+            bg: "#fff9ef",
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
                     <path d="M4 9h16" />
@@ -98,7 +97,6 @@ export function OurValuesSection() {
                 </svg>
             ),
         },
-
         {
             key: "trust",
             title: "Trust & Safety",
