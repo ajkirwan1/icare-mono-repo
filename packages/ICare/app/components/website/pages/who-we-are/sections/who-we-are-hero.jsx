@@ -2,6 +2,8 @@ import React from "react";
 import heroImage from "/images/heros/who-we-are.jpg";
 import { NavLink } from "react-router";
 import styles from "../../../../../styles/components/website/pages/who-we-are/sections/who-we-are-hero.module.scss";
+import ICareNavbar from "../../shared/ICareNavbar";
+
 
 export function WhoWeAreHero() {
     return (
@@ -30,21 +32,7 @@ export function WhoWeAreHero() {
                 }}
             />
 
-            {/* NAV */}
-            <header
-                className={styles.headerOverlay}
-                style={{
-                    color: "#FFF",
-                    fontWeight: 900,
-                    fontSize: "1.4rem",
-                    letterSpacing: "-0.3px",
-                    textShadow: "0 3px 12px rgba(0,0,0,0.35)",
-                }}
-            >
-                <NavLink to="/" className={styles.brand}>
-                    ICare
-                </NavLink>
-            </header>
+            <ICareNavbar />
 
             {/* ================= HERO CONTENT — APOLLO / LANDING STRUCTURE ================= */}
             <div className={styles.content}>

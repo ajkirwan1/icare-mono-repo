@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
 import styles from "./how-it-works-hero.module.scss"; // optional (you can remove if not using SCSS)
+import ICareNavbar from "../shared/ICareNavbar";
+
 
 export default function HowItWorksHero() {
     return (
@@ -59,59 +61,7 @@ export default function HowItWorksHero() {
                     backdropFilter: "blur(1px)", // Luxe micro-blur
                 }}
             >
-                <Link
-                    to="/"
-                    style={{
-                        color: "#fff",
-                        fontWeight: 900,
-                        fontSize: "1.42rem",
-                        letterSpacing: "-0.3px",
-                        textDecoration: "none",
-                        opacity: 0.95,
-                    }}
-                >
-                    ICare
-                </Link>
-
-                <nav
-                    style={{
-                        display: "flex",
-                        gap: "1.4rem 1.8rem",
-                        alignItems: "center",
-                    }}
-                >
-                    {[
-                        { to: "/", label: "Home" },
-                        { to: "/how-it-works", label: "How it Works" },
-                        { to: "/who-we-are", label: "Who We Are" },
-                        { to: "/privacy", label: "Privacy" },
-                        { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                        { to: "/icare-for-carereceivers", label: "ICare For Care Receivers" },
-                    ].map((l) => (
-                        <Link
-                            key={l.to}
-                            to={l.to}
-                            style={{
-                                color: "rgba(255,255,255,0.88)",
-                                textDecoration: "none",
-                                fontSize: "clamp(.95rem,1.2vw,1.05rem)",
-                                fontWeight: 600,
-                                padding: ".35rem 0",
-                                transition: "opacity .25s ease, transform .25s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.opacity = "1";
-                                e.currentTarget.style.transform = "translateY(-1px)";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.opacity = "0.88";
-                                e.currentTarget.style.transform = "translateY(0)";
-                            }}
-                        >
-                            {l.label}
-                        </Link>
-                    ))}
-                </nav>
+                <ICareNavbar />
             </header>
 
             {/* HERO COPY */}

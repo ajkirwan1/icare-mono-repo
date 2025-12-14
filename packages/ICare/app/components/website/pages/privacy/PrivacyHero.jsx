@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import privacySrc from "/images/heros/privacy.jpg";
+import ICareNavbar from "../shared/ICareNavbar";
 
 const BRAND = "#1FAB1F";
 
@@ -44,7 +45,7 @@ export default function PrivacyHero() {
                         "linear-gradient(180deg, rgba(0,0,0,.38), rgba(0,0,0,.55))",
                 }}
             />
-
+            <ICareNavbar />
             {/* Header */}
             <header
                 style={{
@@ -62,49 +63,6 @@ export default function PrivacyHero() {
                     borderBottom: "1px solid rgba(255,255,255,0.14)",
                 }}
             >
-                <Link
-                    to="/"
-                    style={{
-                        fontWeight: 900,
-                        color: "#ffffff",
-                        textDecoration: "none",
-                        fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)",
-                    }}
-                >
-                    ICare
-                </Link>
-
-                <nav
-                    style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "0.75rem 1.1rem",
-                        alignItems: "center",
-                    }}
-                >
-                    {[
-                        { to: "/", label: "Home" },
-                        { to: "/how-it-works", label: "How it Works" },
-                        { to: "/who-we-are", label: "Who We Are" },
-                        { to: "/privacy", label: "Privacy" },
-                        { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                        { to: "/icare-for-carereceivers", label: "ICare For Care Receivers" },
-                    ].map((l) => (
-                        <Link
-                            key={l.to}
-                            to={l.to}
-                            style={{
-                                color: "rgba(255,255,255,.9)",
-                                textDecoration: "none",
-                                fontSize: "clamp(.85rem, 1.2vw, .95rem)",
-                                fontWeight: 600,
-                                padding: ".2rem 0",
-                            }}
-                        >
-                            {l.label}
-                        </Link>
-                    ))}
-                </nav>
             </header>
 
             {/* Hero Copy */}
