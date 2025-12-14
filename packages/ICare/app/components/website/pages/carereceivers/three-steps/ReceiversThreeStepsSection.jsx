@@ -26,7 +26,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
                 padding: "120px 0 130px",
-                background: "#FFFFFF",
+                background: "#e8e7d7",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -41,16 +41,16 @@ export default function ReceiversThreeStepsHeroSplit() {
                     alignItems: "center",
                 }}
             >
-                {/* LEFT SIDE — TEXT + STEPS */}
+                {/* ================= LEFT — TEXT + STEPS ================= */}
                 <div style={{ paddingRight: "1rem" }}>
                     <h2
                         style={{
                             margin: 0,
                             fontWeight: 800,
-                            fontSize: "clamp(2.5rem, 3vw, 3.1rem)",
+                            fontSize: "clamp(2.5rem, 3vw, 2.8rem)",
                             color: "#1A1A1A",
                             letterSpacing: "-0.6px",
-                            lineHeight: 1.12,
+                            lineHeight: 1.14,
                         }}
                     >
                         Find your caregiver
@@ -70,12 +70,12 @@ export default function ReceiversThreeStepsHeroSplit() {
                         A calm, human-centered process designed for clarity and trust.
                     </p>
 
-                    {/* STEPS LIST */}
+                    {/* STEPS */}
                     <div
                         style={{
                             marginTop: "2.6rem",
                             display: "grid",
-                            gap: "2.2rem", // więcej przestrzeni między krokami
+                            gap: "2.2rem",
                         }}
                     >
                         {steps.map((s) => (
@@ -87,13 +87,13 @@ export default function ReceiversThreeStepsHeroSplit() {
                                     alignItems: "flex-start",
                                 }}
                             >
-                                {/* NUMBER CIRCLE */}
+                                {/* NUMBER */}
                                 <div
                                     style={{
                                         width: 50,
                                         height: 50,
                                         borderRadius: "50%",
-                                        background: "#fff",
+                                        background: "#0f3d2014", // ✅ NEW COLOR
                                         border: "1px solid #E0DBD4",
                                         display: "flex",
                                         alignItems: "center",
@@ -102,13 +102,13 @@ export default function ReceiversThreeStepsHeroSplit() {
                                         fontSize: "1.2rem",
                                         color: "#6C5F52",
                                         boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
-                                        flexShrink: 0, // zapobiega ściśnięciu kółka
+                                        flexShrink: 0,
                                     }}
                                 >
                                     {s.n}
                                 </div>
 
-                                {/* TEXT BLOCK */}
+                                {/* TEXT */}
                                 <div>
                                     <div
                                         style={{
@@ -141,16 +141,19 @@ export default function ReceiversThreeStepsHeroSplit() {
                         <a
                             href="/find-a-caregiver"
                             style={{
-                                display: "inline-block",
-                                background: "#1FAB1F",
-                                padding: "17px 36px",
-                                borderRadius: "14px",
-                                color: "#FFFFFF",
-                                fontWeight: 600,
-                                fontSize: "1.1rem",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "10px",
+                                padding: "12px 18px",
+                                borderRadius: "999px",
+                                background: "#61674d",
+                                color: "#fff",
+                                border: "none",
+                                fontWeight: 700,
+                                fontSize: "0.95rem",
                                 textDecoration: "none",
-                                boxShadow: "0 10px 26px rgba(0,0,0,0.14)",
-                                transition: "all 0.3s ease",
+                                boxShadow: "0 8px 22px rgba(0,0,0,0.12)",
+                                transition: "all .25s ease",
                             }}
                         >
                             Find a caregiver
@@ -158,7 +161,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                     </div>
                 </div>
 
-                {/* RIGHT SIDE — IMAGE */}
+                {/* ================= RIGHT — IMAGE ================= */}
                 <figure
                     style={{
                         margin: 0,
@@ -167,23 +170,25 @@ export default function ReceiversThreeStepsHeroSplit() {
                         overflow: "hidden",
                         border: "1px solid rgba(0,0,0,0.06)",
                         boxShadow: "0 14px 40px rgba(0,0,0,0.08)",
-                        height: "480px", // zmniejszone zdjęcie
+                        aspectRatio: "1 / 1",
+                        maxWidth: "88%",          // ✅ 10% WIDER (was 80%)
+                        justifySelf: "center",
                     }}
                 >
                     <img
                         src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600"
                         alt="Caregiver assisting a senior"
                         style={{
-                            position: "absolute",
-                            inset: 0,
                             width: "100%",
                             height: "100%",
                             objectFit: "cover",
                             objectPosition: "50% 50%",
+                            display: "block",
                         }}
                     />
                 </figure>
             </div>
         </section>
+
     );
 }

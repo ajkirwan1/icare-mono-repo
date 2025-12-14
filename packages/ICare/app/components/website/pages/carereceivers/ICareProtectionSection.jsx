@@ -28,110 +28,127 @@ export default function ICareProtectionSection() {
 
     return (
         <section
-            aria-label="ICare Protection"
+            aria-label="ICare safety for families"
             style={{
-                margin: "120px auto",
-                width: "min(92vw,1100px)",
-                padding: "0", // removed outer padding/card
+                width: "100vw",
+                marginLeft: "calc(50% - 50vw)",
+                background: "#e8e7d7",
+                padding: "clamp(4.2rem, 5.6vw, 5.4rem) 0", // ⬅️ było ~6.8rem
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-            {/* HEADER */}
-            <h2
-                style={{
-                    fontSize: "clamp(1.9rem, 3vw, 2.4rem)",
-                    fontWeight: 800,
-                    color: "#0F172A",
-                    marginBottom: "0.75rem",
-                }}
-            >
-                Safety & peace of mind
-            </h2>
-
-            <p
-                style={{
-                    fontSize: "1.2rem",
-                    color: "#475569",
-                    marginBottom: "3.4rem",
-                }}
-            >
-                Your safety comes first. Every step of the way.
-            </p>
-
-            {/* GRID */}
             <div
                 style={{
-                    display: "grid",
-                    gridTemplateColumns:
-                        "repeat(auto-fit, minmax(280px, 1fr))",
-                    gap: "2.4rem",
+                    width: "min(92vw,1100px)",
+                    margin: "0 auto",
                 }}
             >
-                {/* 1 — VERIFIED */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>Verified caregivers</h4>
-                        <p style={descStyle}>
-                            ID, Right to Work, references and DBS checks when provided.
-                        </p>
-                    </div>
-                </div>
+                {/* HEADER */}
+                <h2
+                    style={{
+                        fontSize: "clamp(1.7rem, 2.7vw, 2.15rem)", // ⬅️ lekko mniejsze
+                        fontWeight: 800,
+                        color: "#0F172A",
+                        marginBottom: "0.55rem",
+                    }}
+                >
+                    Peace of mind for families
+                </h2>
 
-                {/* 2 — SECURE MESSAGING */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>Secure communication</h4>
-                        <p style={descStyle}>
-                            All conversations stay protected inside ICare’s secure messaging system.
-                        </p>
-                    </div>
-                </div>
+                <p
+                    style={{
+                        fontSize: "1.08rem", // ⬅️ było 1.18
+                        color: "#475569",
+                        marginBottom: "2.6rem", // ⬅️ było 3.4rem
+                        maxWidth: "60ch",
+                        lineHeight: 1.6,
+                    }}
+                >
+                    Choosing care for a loved one is a serious decision.
+                    ICare is built to help families feel confident, informed
+                    and supported at every stage.
+                </p>
 
-                {/* 3 — SAFE PAYMENTS */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>Protected payments</h4>
-                        <p style={descStyle}>
-                            Payments are processed safely through ICare — never directly or in cash.
-                        </p>
+                {/* GRID */}
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                        gap: "2rem", // ⬅️ było 2.4rem
+                    }}
+                >
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Verified caregivers</h4>
+                            <p style={descStyle}>
+                                Caregivers share verified identity, experience and,
+                                where available, DBS checks — so families can make
+                                informed choices.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                {/* 4 — DOCUMENTATION */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>Clear documentation</h4>
-                        <p style={descStyle}>
-                            Invoices, agreements and care details stay organised in one secure place.
-                        </p>
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Direct, secure communication</h4>
+                            <p style={descStyle}>
+                                Families communicate directly with caregivers
+                                through ICare’s secure messaging — no intermediaries,
+                                no information gaps.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                {/* 5 — SUPPORT */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>Support if anything changes</h4>
-                        <p style={descStyle}>
-                            If your needs change, ICare helps you adjust or find alternative support.
-                        </p>
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Safe, transparent payments</h4>
+                            <p style={descStyle}>
+                                Payments are handled securely through ICare,
+                                with clear records and no cash handling.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                {/* 6 — NO CONTRACTS */}
-                <div style={itemStyle}>
-                    <div style={accent} />
-                    <div>
-                        <h4 style={titleStyle}>No long-term contracts</h4>
-                        <p style={descStyle}>
-                            You stay in control. Adjust or cancel care anytime, directly with your caregiver.
-                        </p>
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Clear care agreements</h4>
+                            <p style={descStyle}>
+                                Care arrangements, schedules and expectations
+                                are documented clearly, so everyone knows
+                                what has been agreed.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Flexibility as needs change</h4>
+                            <p style={descStyle}>
+                                If care needs evolve, families can adjust arrangements
+                                or explore alternatives without long-term lock-ins.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style={itemStyle}>
+                        <div style={accent} />
+                        <div>
+                            <h4 style={titleStyle}>Family stays in control</h4>
+                            <p style={descStyle}>
+                                Decisions remain with the family and the caregiver —
+                                ICare supports the relationship, it does not control it.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
     );
 }
