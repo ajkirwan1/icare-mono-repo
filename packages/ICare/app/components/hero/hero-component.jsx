@@ -49,7 +49,7 @@ export default function HeroComponent({ imgSrc }) {
                         color: "#fdfdfd",
                     }}
                 >
-
+                    ICare
                 </h1>
             </span>
             <span
