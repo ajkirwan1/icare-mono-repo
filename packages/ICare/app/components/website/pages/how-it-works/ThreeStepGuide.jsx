@@ -7,7 +7,7 @@ export default function ThreeStepGuide() {
         {
             title: "Create your profile",
             desc: "Introduce yourself, choose your role, and tell us what support you need — or offer.",
-            img: "https://images.unsplash.com/photo-1581579184439-1f3a5c7f1b5f?auto=format&fit=crop&w=1000&q=80",
+            img: "images/web/how-it-works/signup.jpg",
         },
         {
             title: "Get matched instantly",
@@ -17,7 +17,7 @@ export default function ThreeStepGuide() {
         {
             title: "Start working together",
             desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "https://images.unsplash.com/photo-1587502537745-84bb8a0d4a01?auto=format&fit=crop&w=1000&q=80",
+            img: "images/web/how-it-works/handshake.jpg",
         },
     ];
 
@@ -30,9 +30,9 @@ export default function ThreeStepGuide() {
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
                 background: "#FFFFFF",
-                borderTop: "1px solid rgba(15,23,42,.06)",
-                borderBottom: "1px solid rgba(15,23,42,.06)",
-                padding: "clamp(5rem,8vw,8rem) 0",
+                borderTop: "1px solid rgba(15,23,42,0.06)",
+                borderBottom: "1px solid rgba(15,23,42,0.06)",
+                padding: "clamp(6rem,10vw,9rem) 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -41,32 +41,32 @@ export default function ThreeStepGuide() {
                 style={{
                     maxWidth: 1280,
                     margin: "0 auto",
-                    padding: "0 clamp(24px,5vw,48px)",
+                    padding: "0 clamp(28px,5vw,52px)",
                 }}
             >
                 {/* HEADER */}
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 900,
+                        fontWeight: 800,
                         color: "#0F172A",
-                        fontSize: "clamp(2.2rem,3vw,2.8rem)",
-                        lineHeight: 1.2,
-                        letterSpacing: ".25px",
+                        fontSize: "clamp(2.4rem,3.3vw,3rem)",
+                        lineHeight: 1.15,
+                        letterSpacing: "-0.5px",
                         animation: "fadeUp .8s ease both",
                     }}
                 >
                     Get started in 3 simple steps
                 </h2>
 
-                <div style={{ height: "clamp(2.5rem,4vw,3.5rem)" }} />
+                <div style={{ height: "clamp(3.5rem,5vw,4.5rem)" }} />
 
                 {/* STEPS GRID */}
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
-                        gap: "clamp(32px,4vw,48px)",
+                        gap: "clamp(40px,5vw,64px)",
                     }}
                 >
                     {steps.map((step) => (
@@ -74,28 +74,29 @@ export default function ThreeStepGuide() {
                             key={step.title}
                             style={{
                                 position: "relative",
-                                borderRadius: 24,
+                                borderRadius: 28,
                                 overflow: "hidden",
                                 background: "#fff",
-                                boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
-                                transition: "all .35s ease",
+
+                                // Airbnb Luxe: NO SHADOW, NO HOVER FLOAT
+                                border: "1px solid rgba(0,0,0,0.05)",
+
+                                transition: "background-color .25s ease, border-color .25s ease",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = "translateY(-6px)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 16px 38px rgba(0,0,0,0.12)";
+                                e.currentTarget.style.background = "rgba(248,248,248,0.7)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.08)";
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = "translateY(0px)";
-                                e.currentTarget.style.boxShadow =
-                                    "0 6px 20px rgba(0,0,0,0.05)";
+                                e.currentTarget.style.background = "#fff";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.05)";
                             }}
                         >
                             {/* IMAGE */}
                             <div
                                 style={{
                                     width: "100%",
-                                    height: 220,
+                                    height: 240,
                                     overflow: "hidden",
                                 }}
                             >
@@ -106,25 +107,22 @@ export default function ThreeStepGuide() {
                                         width: "100%",
                                         height: "100%",
                                         objectFit: "cover",
-                                        transition: "transform .45s ease",
+
+                                        // No zoom on hover — Luxe style
+                                        transform: "scale(1)",
                                     }}
-                                    onMouseEnter={(e) =>
-                                        (e.currentTarget.style.transform = "scale(1.05)")
-                                    }
-                                    onMouseLeave={(e) =>
-                                        (e.currentTarget.style.transform = "scale(1)")
-                                    }
                                 />
                             </div>
 
                             {/* TEXT */}
-                            <div style={{ padding: "24px 26px 30px" }}>
+                            <div style={{ padding: "32px 32px 40px" }}>
                                 <h3
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.35rem",
+                                        fontSize: "1.42rem",
                                         color: "#0F172A",
                                         fontWeight: 800,
+                                        letterSpacing: "-0.2px",
                                     }}
                                 >
                                     {step.title}
@@ -132,11 +130,11 @@ export default function ThreeStepGuide() {
 
                                 <p
                                     style={{
-                                        marginTop: 10,
+                                        marginTop: 14,
                                         marginBottom: 0,
                                         color: "#475569",
-                                        fontSize: "1rem",
-                                        lineHeight: 1.65,
+                                        fontSize: "1.05rem",
+                                        lineHeight: 1.72,
                                     }}
                                 >
                                     {step.desc}
@@ -147,35 +145,37 @@ export default function ThreeStepGuide() {
                 </div>
 
                 {/* CTA BUTTON */}
-                <div style={{ marginTop: "clamp(48px,4vw,64px)" }}>
+                <div style={{ marginTop: "clamp(64px,6vw,88px)" }}>
                     <a
                         href="/register"
                         style={{
                             display: "inline-flex",
                             alignItems: "center",
-                            gap: 10,
+                            gap: 12,
                             textDecoration: "none",
-                            color: "#FFFFFF",
-                            background: "#1F7A4A",
-                            padding: "1.1rem 2rem",
+                            color: "#fff",
+
+                            // ICare Green Luxe
+                            background: "#126012c8",
+                            padding: "1.25rem 2.4rem",
                             borderRadius: 999,
-                            fontWeight: 900,
-                            letterSpacing: ".03em",
-                            boxShadow: "0 10px 28px rgba(0,0,0,.12)",
-                            border: "1px solid rgba(0,0,0,.12)",
-                            transition: "all .25s ease",
+                            fontWeight: 800,
+                            letterSpacing: ".02em",
+                            fontSize: "1.05rem",
+
+                            border: "1px solid rgba(0,0,0,0.08)",
+
+                            transition:
+                                "background .2s ease, transform .2s ease, opacity .2s ease",
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "#16653C";
-                            e.currentTarget.style.transform = "translateY(-3px)";
-                            e.currentTarget.style.boxShadow =
-                                "0 14px 34px rgba(0,0,0,.16)";
+                            e.currentTarget.style.background = "#126012c8"
+
+
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "#1F7A4A";
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.boxShadow =
-                                "0 10px 28px rgba(0,0,0,.12)";
+                            e.currentTarget.style.background = "#126012c8";
+
                         }}
                     >
                         Create your free account
@@ -185,11 +185,12 @@ export default function ThreeStepGuide() {
 
             {/* ANIMATION */}
             <style>{`
-                @keyframes fadeUp {
-                    from { opacity: 0; transform: translateY(14px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    `}</style>
         </section>
+
     );
 }

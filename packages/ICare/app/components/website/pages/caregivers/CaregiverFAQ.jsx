@@ -40,30 +40,63 @@ export default function CaregiverFAQ() {
     ];
 
     return (
-        <section aria-label="Caregivers FAQ" style={{ ...container, margin: "0 auto 3.75rem" }}>
-            <h2 style={sectionTitle}>Frequently asked questions</h2>
+        <section
+            aria-label="Caregivers FAQ"
+            style={{
+                margin: "6rem auto 4rem",
+                width: "min(900px, 92vw)",
+                fontFamily:
+                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            }}
+        >
+            {/* HEADER */}
+            <header style={{ marginBottom: "2.6rem" }}>
+                <h2
+                    style={{
+                        margin: 0,
+                        fontWeight: 900,
+                        letterSpacing: "-0.5px",
+                        fontSize: "clamp(1.9rem,2.7vw,2.4rem)",
+                        color: "#0F172A",
+                        lineHeight: 1.14,
+                    }}
+                >
+                    Frequently asked questions
+                </h2>
 
-            <div
-                style={{
-                    width: 420,
-                    maxWidth: "90%",
-                    height: 4,
-                    background: BRAND,
-                    borderRadius: 999,
-                    margin: ".75rem 0 1.5rem 0",
-                    opacity: 0.95,
-                }}
-            />
+                {/* Soft Luxe divider */}
+                <div
+                    style={{
+                        marginTop: "1.2rem",
+                        width: "100%",
+                        height: 1,
+                        background: "rgba(15,23,42,0.06)",
+                    }}
+                />
+            </header>
 
-            <div style={{ display: "grid", gap: 10 }}>
-                {faqs.map((f) => (
+            {/* FAQ LIST */}
+            <div style={{ display: "grid", gap: "1rem" }}>
+                {faqs.map((f, idx) => (
                     <details
                         key={f.q}
                         style={{
                             background: "#FFFFFF",
-                            border: "1px solid rgba(15,23,42,0.10)",
-                            borderRadius: 14,
-                            padding: "12px 14px",
+                            borderRadius: 18,
+                            border: "1px solid rgba(15,23,42,0.08)",
+                            padding: "1.1rem 1.2rem",
+                            boxShadow: "0 8px 22px rgba(0,0,0,0.04)",
+                            transition: "all .25s ease",
+                        }}
+                        onToggle={(e) => {
+                            const icon = e.currentTarget.querySelector(".faq-icon");
+                            if (e.currentTarget.open) {
+                                icon.style.transform = "rotate(45deg)";
+                                icon.style.opacity = 0.85;
+                            } else {
+                                icon.style.transform = "rotate(0deg)";
+                                icon.style.opacity = 0.6;
+                            }
                         }}
                     >
                         <summary
@@ -71,26 +104,55 @@ export default function CaregiverFAQ() {
                                 listStyle: "none",
                                 cursor: "pointer",
                                 fontWeight: 800,
-                                color: NEUTRAL,
+                                fontSize: "1.05rem",
+                                color: "#0F172A",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
-                                gap: 12,
+                                gap: "1rem",
+                                padding: 0,
+                                transition: "color .2s ease",
                             }}
-                            onMouseOver={(e) => (e.currentTarget.style.color = BRAND)}
-                            onMouseOut={(e) => (e.currentTarget.style.color = NEUTRAL)}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = "#1FAB1F")}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = "#0F172A")}
                         >
                             {f.q}
-                            <span aria-hidden="true" style={{ color: BRAND }}>
+
+                            {/* ICON */}
+                            <span
+                                className="faq-icon"
+                                aria-hidden="true"
+                                style={{
+                                    fontSize: "1.4rem",
+                                    fontWeight: 700,
+                                    lineHeight: 1,
+                                    opacity: 0.6,
+                                    color: "#1FAB1F",
+                                    transition: "transform .25s ease, opacity .25s ease",
+                                    display: "inline-block",
+                                }}
+                            >
                                 +
                             </span>
                         </summary>
-                        <div style={{ marginTop: 8, color: "#334155", lineHeight: 1.65 }}>
+
+                        {/* ANSWER */}
+                        <div
+                            style={{
+                                marginTop: "0.8rem",
+                                color: "#475569",
+                                fontSize: "1rem",
+                                lineHeight: 1.66,
+                                fontWeight: 400,
+                                paddingRight: "0.3rem",
+                            }}
+                        >
                             {f.a}
                         </div>
                     </details>
                 ))}
             </div>
         </section>
+
     );
 }

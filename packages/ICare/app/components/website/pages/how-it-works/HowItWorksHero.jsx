@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
 import styles from "./how-it-works-hero.module.scss"; // optional (you can remove if not using SCSS)
+import ICareNavbar from "../shared/ICareNavbar";
+
 
 export default function HowItWorksHero() {
     return (
@@ -9,7 +11,7 @@ export default function HowItWorksHero() {
             aria-label="How it works hero"
             style={{
                 position: "relative",
-                height: "clamp(520px, 72vh, 760px)",
+                height: "clamp(600px, 78vh, 880px)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
@@ -28,92 +30,38 @@ export default function HowItWorksHero() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    filter: "brightness(0.62) contrast(1.08) saturate(1.08)",
+                    objectPosition: "50% 40%",
+                    filter: "brightness(0.68) saturate(1.08) contrast(1.02)",
+                    transform: "scale(1.06)", // subtle depth
                 }}
             />
 
-            {/* Overlay */}
+            {/* Luxe Film Overlay */}
             <div
                 style={{
                     position: "absolute",
                     inset: 0,
                     background:
-                        "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.75) 100%)",
+                        "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.38))",
                 }}
             />
 
-            {/* Header Navigation */}
+            {/* Navigation */}
             <header
                 style={{
                     position: "absolute",
                     top: 0,
                     left: 0,
                     right: 0,
-                    padding: "1.1rem clamp(16px,4vw,36px)",
+                    padding: "1.8rem clamp(26px,4vw,46px)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
                     zIndex: 20,
+                    backdropFilter: "blur(1px)", // Luxe micro-blur
                 }}
             >
-                <Link
-                    to="/"
-                    style={{
-                        color: "#fff",
-                        textDecoration: "none",
-                        fontWeight: 900,
-                        letterSpacing: "-0.3px",
-                        fontSize: "1.25rem",
-                    }}
-                >
-                    ICare
-                </Link>
-
-                <nav
-                    style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "0.75rem 1.1rem",
-                        alignItems: "center",
-                    }}
-                >
-                    {[
-                        { to: "/", label: "Home" },
-                        { to: "/how-it-works", label: "How it Works" },
-                        { to: "/who-we-are", label: "Who We Are" },
-                        { to: "/privacy", label: "Privacy" },
-                        { to: "/icare-for-caregivers", label: "ICare For Caregivers" },
-                        { to: "/icare-for-carereceivers", label: "ICare For Care Receivers" },
-                    ].map((l) => (
-                        <Link
-                            key={l.to}
-                            to={l.to}
-                            style={{
-                                color: "rgba(255,255,255,0.92)",
-                                textDecoration: "none",
-                                fontSize: "clamp(.9rem,1.2vw,.95rem)",
-                                fontWeight: 600,
-                                letterSpacing: ".01em",
-                                padding: ".2rem 0",
-                                textUnderlineOffset: "6px",
-                                transition:
-                                    "color .22s ease, text-decoration-color .22s ease, text-underline-offset .22s ease",
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.color = "#fff";
-                                e.currentTarget.style.textDecoration = "underline";
-                                e.currentTarget.style.textDecorationThickness = "2px";
-                                e.currentTarget.style.textUnderlineOffset = "7px";
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.color = "rgba(255,255,255,0.92)";
-                                e.currentTarget.style.textDecoration = "none";
-                            }}
-                        >
-                            {l.label}
-                        </Link>
-                    ))}
-                </nav>
+                <ICareNavbar />
             </header>
 
             {/* HERO COPY */}
@@ -123,89 +71,60 @@ export default function HowItWorksHero() {
                     zIndex: 10,
                     width: "min(92vw, 1100px)",
                     margin: "0 auto",
-                    padding: "0 clamp(16px, 4vw, 32px)",
+                    padding: "0 clamp(24px,4vw,32px)",
                     color: "#fff",
                     textAlign: "left",
-                    transform: "translateY(10%)",
+                    transform: "translateY(6%)",
+                    animation: "fadeSlide 1.1s ease forwards",
+                    opacity: 0,
                 }}
             >
-                {/* Tagline */}
-                <span
-                    style={{
-                        display: "inline-block",
-                        marginBottom: "2.4rem",
-                        fontSize: ".95rem",
-                        fontWeight: 700,
-                        letterSpacing: ".16em",
-                        textTransform: "uppercase",
-                        color: "#E9F8EC",
-                        padding: ".55rem 1.2rem",
-                        borderRadius: 999,
-                        background: "rgba(255,255,255,0.14)",
-                        border: "1px solid rgba(255,255,255,0.26)",
-                        backdropFilter: "blur(4px)",
-                    }}
-                >
-                    Direct • Fair • Transparent
-                </span>
-
                 {/* Title */}
                 <h1
                     style={{
-                        margin: "0 0 1.6rem",
-                        fontWeight: 900,
-                        lineHeight: 1.03,
-                        letterSpacing: "-0.5px",
-                        fontSize: "clamp(2.7rem, 5vw, 3.4rem)",
-                        textShadow: "0 6px 26px rgba(0,0,0,.55), 0 2px 10px rgba(0,0,0,.35)",
+                        margin: "0 0 2rem",
+                        fontWeight: 800,
+                        lineHeight: 1.04,
+                        letterSpacing: "-0.55px",
+                        fontSize: "clamp(3.2rem,5.6vw,4rem)",
+                        color: "#fff",
+                        textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                     }}
                 >
                     How it works
                 </h1>
 
-                {/* Body Copy */}
-                <p
-                    style={{
-                        margin: "0 0 .5rem",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
-                        maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
-                    }}
-                >
-                    <b>Why choose ICare instead of going through an agency?</b>
-                </p>
-
-                <p
-                    style={{
-                        margin: "0 0 .5rem",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
-                        maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
-                    }}
-                >
-                    <b>We don’t charge high margins for matching or management.</b>
-                </p>
-
-                <p
-                    style={{
-                        margin: ".2rem 0 0",
-                        lineHeight: 1.68,
-                        fontSize: "clamp(1.15rem,1.3vw,1.2rem)",
-                        color: "rgba(255,255,255,0.96)",
-                        maxWidth: "62ch",
-                        fontWeight: 400,
-                        textShadow: "0 2px 8px rgba(0,0,0,.35)",
-                    }}
-                >
-                    <b>You save money — and the caregiver earns more.</b>
-                </p>
+                {/* Paragraphs */}
+                {[
+                    "Why choose ICare instead of going through an agency?",
+                    "We don’t charge high margins for matching or management.",
+                    "You save money — and the caregiver earns more.",
+                ].map((text, i) => (
+                    <p
+                        key={i}
+                        style={{
+                            margin: i === 0 ? "0 0 1rem" : "0 0 .7rem",
+                            lineHeight: 1.72,
+                            fontSize: "clamp(1.18rem,1.45vw,1.32rem)",
+                            maxWidth: "62ch",
+                            color: "rgba(255,255,255,0.95)",
+                            fontWeight: 500,
+                            textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        <b>{text}</b>
+                    </p>
+                ))}
             </div>
+
+            {/* Animation */}
+            <style>{`
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(18px); }
+            100% { opacity: 1; transform: translateY(6%); }
+        }
+    `}</style>
         </section>
+
     );
 }

@@ -1,0 +1,40 @@
+.footer {
+    border-top: 1px solid #e2e8f0;
+    padding: 2.5rem 2rem;
+    background: #ffffff;
+    margin-top: 0;
+    text-align: center;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif;
+}
+
+.listReset {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.footerLink {
+    text-decoration: none;
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 0.9rem;
+    transition: color 0.25s ease;
+
+    &:hover {
+        color: #1fab1f;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+}
+
+.copy {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: #64748b;
+}

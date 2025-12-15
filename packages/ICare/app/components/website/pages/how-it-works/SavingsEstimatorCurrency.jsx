@@ -45,307 +45,277 @@ export default function SavingsEstimatorCurrency() {
             id="estimator"
             aria-label="Cost & Savings Estimator"
             style={{
-                margin: "5.4rem auto",
-                maxWidth: 1080,
-                padding: "0 clamp(14px, 3.6vw, 28px)",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                display: "grid",
-                gridTemplateColumns: "1fr 1.4fr",
-                gap: "clamp(40px, 4.5vw, 70px)",
-                alignItems: "start",
+                margin: "6rem 0",
+                padding: "clamp(80px, 10vw, 120px) 0",
+                background: "linear-gradient(180deg, #E7EFE6 0%, #EEF5EC 100%)",
+                borderTop: "1px solid rgba(15,23,42,0.06)",
+                borderBottom: "1px solid rgba(15,23,42,0.06)",
             }}
         >
-            {/* ================= LEFT SIDE ================= */}
-            <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
-                <h2
-                    style={{
-                        margin: 0,
-                        fontWeight: 800,
-                        letterSpacing: ".2px",
-                        color: "#0f172a",
-                        fontSize: "clamp(1.9rem, 2.7vw, 2.3rem)",
-                        lineHeight: 1.2,
-                    }}
-                >
-                    Cost & Savings Estimator
-                </h2>
-
-                <div
-                    aria-hidden="true"
-                    style={{
-                        width: 0,
-                        height: 4,
-                        background: BRAND,
-                        borderRadius: 999,
-                        margin: "0.9rem 0 1.3rem 0",
-                        opacity: 0.9,
-                    }}
-                />
-
-                <p
-                    style={{
-                        color: "#475569",
-                        margin: 0,
-                        fontSize: "1rem",
-                        lineHeight: "1.6",
-                        fontWeight: 600,
-                        maxWidth: "50ch",
-                    }}
-                >
-                    Estimate how much you and your caregiver can save each month when you work
-                    directly — without agency margins or hidden fees.
-                </p>
-            </div>
-
-            {/* ================= RIGHT SIDE ================= */}
             <div
                 style={{
+                    maxWidth: 1180,
+                    margin: "0 auto",
+                    padding: "0 clamp(20px, 4vw, 40px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
-                    gap: "clamp(18px, 2.2vw, 26px)",
-                    alignItems: "stretch",
+                    gridTemplateColumns: "1fr 1.4fr",
+                    gap: "clamp(50px, 6vw, 80px)",
+                    alignItems: "start",
                 }}
             >
-                {/* ===== FORM ===== */}
-                <form
-                    onSubmit={(e) => e.preventDefault()}
-                    style={{
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 18,
-                        padding: "clamp(22px, 2vw, 28px)",
-                        background: "#FFFFFF",
-                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
-                        display: "grid",
-                        gap: 14,
-                        animation: "fadeCard 0.8s ease 0.15s both",
-                    }}
-                >
-                    {/* Currency */}
-                    <label style={{ display: "grid", gap: 6 }}>
-                        <span
-                            style={{
-                                fontWeight: 800,
-                                color: "#1f2a37",
-                                fontSize: ".9rem",
-                            }}
-                        >
-                            Currency
-                        </span>
-                        <select
-                            value={currency}
-                            onChange={(e) => setCurrency(e.target.value.split(" ")[0])}
-                            style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
-                                background: "#fff",
-                            }}
-                        >
-                            <option>PLN — zł</option>
-                            <option>EUR — €</option>
-                            <option>GBP — £</option>
-                            <option>USD — $</option>
-                        </select>
-                    </label>
-
-                    {/* Hourly rate */}
-                    <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
-                            Hourly rate
-                        </span>
-                        <input
-                            type="number"
-                            value={hourly}
-                            onChange={(e) => setHourly(Number(e.target.value))}
-                            style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
-                            }}
-                        />
-                    </label>
-
-                    {/* Hours per week */}
-                    <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
-                            Hours per week
-                        </span>
-                        <input
-                            type="number"
-                            value={hoursWeek}
-                            onChange={(e) => setHoursWeek(Number(e.target.value))}
-                            style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
-                            }}
-                        />
-                    </label>
-
-                    {/* Agency margin */}
-                    <label style={{ display: "grid", gap: 6 }}>
-                        <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".9rem" }}>
-                            Agency margin (%)
-                        </span>
-                        <input
-                            type="number"
-                            value={agencyMargin}
-                            onChange={(e) => setAgencyMargin(Number(e.target.value))}
-                            style={{
-                                border: "1px solid rgba(15,23,42,0.18)",
-                                borderRadius: 12,
-                                padding: "11px 13px",
-                                fontSize: ".95rem",
-                            }}
-                        />
-                    </label>
-
-                    {/* ICare flat fee */}
-                    <div
-                        style={{
-                            marginTop: 2,
-                            padding: "9px 11px",
-                            borderRadius: 12,
-                            background: "rgba(31,171,31,0.08)",
-                            border: "1px solid rgba(31,171,31,0.20)",
-                            color: "#1f2a37",
-                            fontWeight: 700,
-                            fontSize: ".9rem",
-                        }}
-                    >
-                        ICare fee: <span style={{ color: BRAND }}>flat 10%</span> on contract
-                    </div>
-                </form>
-
-                {/* ===== RESULTS ===== */}
-                <div
-                    style={{
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        borderRadius: 18,
-                        padding: "clamp(22px, 2vw, 28px)",
-                        background: "#FFFFFF",
-                        boxShadow: "0 8px 22px rgba(15,23,42,0.05)",
-                        display: "grid",
-                        gap: 14,
-                        animation: "fadeCard 0.8s ease 0.25s both",
-                    }}
-                >
-                    <h3
+                {/* LEFT SIDE */}
+                <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
+                    <h2
                         style={{
                             margin: 0,
-                            fontWeight: 900,
-                            color: "#1f2a37",
-                            fontSize: "clamp(1.05rem, 1.9vw, 1.25rem)",
+                            fontWeight: 800,
+                            letterSpacing: "-0.3px",
+                            color: "#0F172A",
+                            fontSize: "clamp(2.2rem, 3vw, 2.8rem)",
+                            lineHeight: 1.1,
                         }}
                     >
-                        Monthly estimate
-                    </h3>
+                        Cost & Savings Estimator
+                    </h2>
 
+                    <p
+                        style={{
+                            color: "#475569",
+                            marginTop: "1.4rem",
+                            fontSize: "1.14rem",
+                            lineHeight: 1.68,
+                            maxWidth: "56ch",
+                        }}
+                    >
+                        Estimate how much you and your caregiver can save when working directly — without
+                        agency margins or hidden fees. Simple, transparent, and personalised to your needs.
+                    </p>
+                </div>
+
+                {/* RIGHT GRID */}
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
+                        gap: "clamp(30px, 3vw, 40px)",
+                        alignItems: "stretch",
+                    }}
+                >
+                    {/* ===== FORM ===== */}
+                    <form
+                        onSubmit={(e) => e.preventDefault()}
+                        style={{
+                            padding: "clamp(26px, 2.4vw, 32px)",
+                            display: "grid",
+                            gap: 22,
+                            background: "#fff",
+                            borderRadius: 22,
+                            boxShadow: "0 20px 45px rgba(15,23,42,0.08)",
+                        }}
+                    >
+                        {/* Currency */}
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span
+                                style={{
+                                    fontWeight: 700,
+                                    color: "#1f2a37",
+                                    fontSize: ".9rem",
+                                    letterSpacing: "-0.2px",
+                                }}
+                            >
+                                Currency
+                            </span>
+                            <select
+                                value={currency}
+                                onChange={(e) => setCurrency(e.target.value.split(" ")[0])}
+                                style={{
+                                    border: "1px solid rgba(15,23,42,0.12)",
+                                    borderRadius: 14,
+                                    padding: "12px 14px",
+                                    fontSize: "1rem",
+                                    background: "#fff",
+                                }}
+                            >
+                                <option>PLN — zł</option>
+                                <option>EUR — €</option>
+                                <option>GBP — £</option>
+                                <option>USD — $</option>
+                            </select>
+                        </label>
+
+                        {/* Hourly */}
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
+                                Hourly rate
+                            </span>
+                            <input
+                                type="number"
+                                value={hourly}
+                                onChange={(e) => setHourly(Number(e.target.value))}
+                                style={{
+                                    border: "1px solid rgba(15,23,42,0.12)",
+                                    borderRadius: 14,
+                                    padding: "12px 14px",
+                                    fontSize: "1rem",
+                                }}
+                            />
+                        </label>
+
+                        {/* Hours */}
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
+                                Hours per week
+                            </span>
+                            <input
+                                type="number"
+                                value={hoursWeek}
+                                onChange={(e) => setHoursWeek(Number(e.target.value))}
+                                style={{
+                                    border: "1px solid rgba(15,23,42,0.12)",
+                                    borderRadius: 14,
+                                    padding: "12px 14px",
+                                    fontSize: "1rem",
+                                }}
+                            />
+                        </label>
+
+                        {/* Margin */}
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
+                                Agency margin (%)
+                            </span>
+                            <input
+                                type="number"
+                                value={agencyMargin}
+                                onChange={(e) => setAgencyMargin(Number(e.target.value))}
+                                style={{
+                                    border: "1px solid rgba(15,23,42,0.12)",
+                                    borderRadius: 14,
+                                    padding: "12px 14px",
+                                    fontSize: "1rem",
+                                }}
+                            />
+                        </label>
+
+                        {/* ICare Fee */}
+                        <div
+                            style={{
+                                marginTop: 6,
+                                padding: "12px 16px",
+                                borderRadius: 14,
+                                background: "rgba(31,171,31,0.06)",
+                                border: "1px solid rgba(31,171,31,0.18)",
+                                fontWeight: 700,
+                                fontSize: ".92rem",
+                                color: "#14532D",
+                            }}
+                        >
+                            ICare fee:{" "}
+                            <span style={{ color: BRAND, fontWeight: 800 }}>flat 10%</span>
+                        </div>
+                    </form>
+
+                    {/* ===== RESULTS ===== */}
                     <div
                         style={{
+                            padding: "clamp(26px, 2.4vw, 32px)",
                             display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: 10,
+                            gap: 22,
+                            background: "#fff",
+                            borderRadius: 22,
+                            boxShadow: "0 20px 45px rgba(15,23,42,0.08)",
                         }}
                     >
-                        {[
-                            { k: "Base cost", v: monthlyBase },
-                            { k: "Agency total", v: monthlyAgency },
-                            { k: "ICare total", v: monthlyICare },
-                            { k: "You save with ICare", v: monthlySave, highlight: true },
-                        ].map((row) => (
+                        <h3
+                            style={{
+                                margin: 0,
+                                fontWeight: 800,
+                                color: "#0F172A",
+                                fontSize: "clamp(1.2rem, 1.8vw, 1.35rem)",
+                            }}
+                        >
+                            Monthly estimate
+                        </h3>
+
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gap: 16,
+                            }}
+                        >
+                            {[
+                                { k: "Base cost", v: monthlyBase },
+                                { k: "Agency total", v: monthlyAgency },
+                                { k: "ICare total", v: monthlyICare },
+                                { k: "You save with ICare", v: monthlySave, highlight: true },
+                            ].map((row) => (
+                                <div
+                                    key={row.k}
+                                    style={{
+                                        borderRadius: 14,
+                                        padding: "16px",
+                                        background: row.highlight
+                                            ? "rgba(31,171,31,0.08)"
+                                            : "rgba(241,245,249,0.6)",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            fontSize: ".85rem",
+                                            color: "#475569",
+                                            marginBottom: 4,
+                                            fontWeight: 700,
+                                        }}
+                                    >
+                                        {row.k}
+                                    </div>
+
+                                    <div
+                                        style={{
+                                            fontWeight: 900,
+                                            fontSize: "1.15rem",
+                                            color: row.highlight ? BRAND : "#0F172A",
+                                        }}
+                                    >
+                                        {nf.format(row.v)} {currency}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div style={{ marginTop: 10 }}>
                             <div
-                                key={row.k}
                                 style={{
-                                    border: "1px solid rgba(15,23,42,0.08)",
-                                    borderRadius: 10,
-                                    padding: "12px 14px",
-                                    background: row.highlight
-                                        ? "rgba(31,171,31,0.06)"
-                                        : "rgba(255,255,255,0.96)",
+                                    height: 9,
+                                    width: "100%",
+                                    background: "#F1F5F9",
+                                    borderRadius: 999,
+                                    overflow: "hidden",
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontSize: ".82rem",
-                                        color: "#475569",
-                                        marginBottom: 3,
-                                        fontWeight: 700,
+                                        height: "100%",
+                                        width: `${Math.max(
+                                            0,
+                                            Math.min(100, savePct)
+                                        ).toFixed(0)}%`,
+                                        background: BRAND,
+                                        transition: "width 0.6s ease",
                                     }}
-                                >
-                                    {row.k}
-                                </div>
-
-                                <div
-                                    style={{
-                                        fontWeight: 900,
-                                        fontSize: "1.1rem",
-                                        color: row.highlight ? BRAND : "#1f2a37",
-                                    }}
-                                >
-                                    {nf.format(row.v)} {currency}
-                                </div>
+                                />
                             </div>
-                        ))}
-                    </div>
-
-                    {/* ===== SAVINGS BAR ===== */}
-                    <div style={{ marginTop: 8 }}>
-                        <div
-                            style={{
-                                height: 9,
-                                width: "100%",
-                                background: "#F1F5F9",
-                                borderRadius: 999,
-                                overflow: "hidden",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    height: "100%",
-                                    width: `${Math.max(
-                                        0,
-                                        Math.min(100, savePct)
-                                    ).toFixed(0)}%`,
-                                    background: BRAND,
-                                    transition: "width 0.6s ease",
-                                }}
-                            />
-                        </div>
-
-                        <div
-                            style={{
-                                marginTop: 6,
-                                fontSize: ".88rem",
-                                color: "#334155",
-                                display: "flex",
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <span>Estimated savings vs agency</span>
-                            <strong style={{ color: BRAND }}>
-                                {savePct.toFixed(0)}%
-                            </strong>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            {/* ANIMATIONS */}
-            <style>{`
-                @keyframes fadeEstimator {
-                    from { opacity: 0; transform: translateY(16px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes fadeCard {
-                    from { opacity: 0; transform: translateY(12px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
-        </section >
+
+
+
     );
 }

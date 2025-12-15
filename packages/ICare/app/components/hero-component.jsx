@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
+import ICareProtectionSection from "./website/pages/carereceivers/ICareProtectionSection";
 
 const BRAND_GREEN = "#5b7573ff";
 const BRAND_GREEN_DARK = "#465C4D";

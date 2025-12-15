@@ -6,51 +6,82 @@ export default function FeatureBlockLeft({ imgSrc, header, body }) {
         <IcareWebBlock
             imgSrc={imgSrc}
             style={{
-                background: "#F4F5F4",
-                borderRadius: "28px",
-                padding: "clamp(3.2rem, 5vw, 4.2rem) clamp(1.5rem, 4vw, 3rem)",
-                display: "flex",
+                borderRadius: 0,
+                padding: "0",
+                background: "transparent",
+                border: "none",
+                boxShadow: "none",
+                display: "grid",
+                gridTemplateColumns: "1.05fr 0.95fr",
+                gap: "clamp(48px,6vw,80px)",
                 alignItems: "center",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                gap: "2.5rem",
-                flexDirection: "row",
-                boxShadow: "0 6px 24px rgba(0,0,0,0.04)",
-                marginBottom: "clamp(48px, 6vw, 72px)",
-                maxWidth: 1200,
+                maxWidth: 1280,
                 marginInline: "auto",
-                border: "1px solid rgba(0,0,0,0.04)",
+                paddingBlock: "clamp(4rem,7vw,6rem)",
             }}
         >
+
+            {/* HEADER */}
             <span
                 slot="header-contents"
                 style={{
                     display: "block",
-                    fontSize: "clamp(2.05rem, 3.8vw, 2.35rem)",
-                    fontWeight: 900,
-                    color: "#0F172A",
-                    marginBottom: "1.25rem",
-                    lineHeight: 1.12,
-                    letterSpacing: "-0.35px",
+                    fontSize: "clamp(1.9rem,2.6vw,2.35rem)", // ⬅️ mniejszy, subtelniejszy
+                    fontWeight: 800,
+                    color: "#1A1A1A",
+                    marginBottom: "1.1rem",
+                    lineHeight: 1.18,
+                    letterSpacing: "-0.4px",
+                    maxWidth: "26ch",
                 }}
             >
                 {header}
             </span>
 
+            {/* BODY */}
             <span
                 slot="body-contents"
                 style={{
-                    fontSize: "clamp(1rem, 1.2vw, 1.1rem)",
-                    lineHeight: 1.82,
-                    color: "rgba(15,23,42,0.72)",
-                    fontWeight: 400,
-                    maxWidth: "640px",
                     display: "block",
-                    letterSpacing: "0.25px",
+                    fontSize: "clamp(1rem,1.2vw,1.14rem)", // ⬅️ mniejszy, bardziej naturalny
+                    lineHeight: 1.72,
+                    color: "#4A4A4A",
+                    fontWeight: 400,
+                    maxWidth: "58ch",
+                    opacity: 0.95,
+                    marginBottom: "0.6rem",
                 }}
             >
                 {body}
             </span>
+
+            {/* MEDIA — Norfolk Editorial Image */}
+            <div
+                slot="media"
+                style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "min(480px, 52vh)",
+                    borderRadius: 28,
+                    overflow: "hidden",
+                }}
+            >
+                <img
+                    src={imgSrc}
+                    alt=""
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "50% 50%",
+                    }}
+                />
+            </div>
+
         </IcareWebBlock>
+
+
     );
 }
