@@ -28,7 +28,7 @@ jobs:
         run: npm run build --workspace=icare-components
 
       - name: Build ICare SSR app
-        run: npm run build --workspace=ICare
+        run: npm run build --workspace=icare-app
 
       # Package only the app you want to deploy
       - name: Prepare deploy package
@@ -70,4 +70,5 @@ jobs:
           app-name: ICare
           slot-name: Production
           package: deploy
+
 
