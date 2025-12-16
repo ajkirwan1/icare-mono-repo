@@ -27,9 +27,6 @@ jobs:
       - name: Build icare-components
         run: npm run build --workspace=icare-components
 
-      - name: Build react-library
-        run: npm run build --workspace=react-library
-
       - name: Build ICare SSR app
         run: npm run build --workspace=ICare
 
@@ -73,3 +70,4 @@ jobs:
           app-name: ICare
           slot-name: Production
           package: deploy
+
