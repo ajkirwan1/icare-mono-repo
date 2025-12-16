@@ -1,53 +1,65 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - ICare
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
+      - name: Use Node from .nvmrc
+        uses: actions/setup-node@v4
         with:
-          node-version: '24.x'
+          node-version-file: .nvmrc
+          cache: npm
 
-      - name: npm install, build, and test
+      - name: Install dependencies
+        run: npm ci
+
+      # Build workspace deps first (remove if not applicable)
+      - name: Build icare-components
+        run: npm run build --workspace=icare-components
+
+      - name: Build react-library
+        run: npm run build --workspace=react-library
+
+      - name: Build ICare SSR app
+        run: npm run build --workspace=ICare
+
+      # Package only the app you want to deploy
+      - name: Prepare deploy package
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          rm -rf deploy
+          mkdir -p deploy
+          cp -R packages/ICare/* deploy/
 
-      - name: Upload artifact for deployment job
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: .
+          name: icare-ssr
+          path: deploy
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact from build job
+      - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: node-app
-      
+          name: icare-ssr
+          path: deploy
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -55,11 +67,9 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_BFCB3C61D09047FCACCC60B71780F7D1 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AF16D6F649E24695A2C371EDF9325E22 }}
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'ICare'
-          slot-name: 'Production'
-          package: .
-          
+          app-name: ICare
+          slot-name: Production
+          package: deploy
