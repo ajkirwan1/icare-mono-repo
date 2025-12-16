@@ -1,5 +1,5 @@
 
-import heroImage from "/images/heros/hero-landing-page.jpg";
+// import heroImage from "/images/heros/hero-landing-page.jpg";
 import HeroRegisterComponent from "../components/hero/hero-register";
 import { login } from "../services/login-service";
 import { redirect } from "react-router";
@@ -36,6 +36,7 @@ export async function action({ request }) {
 export default function Register() {
 
   return (
-    <HeroRegisterComponent imgSrc={heroImage} />
+    // <HeroRegisterComponent imgSrc={heroImage} />
+    <div>Login</div>
   );
 }
