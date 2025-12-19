@@ -36,7 +36,7 @@ jobs:
           rm -rf deploy
           mkdir -p deploy
           cp package.json package-lock.json deploy/
-          cp -R packages/ICare/* deploy/
+          cp -R packages deploy/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
