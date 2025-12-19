@@ -20,14 +20,14 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
 
-      - name: Install dependencies
+      - name: Install dependencies (workspaces)
         run: npm ci
 
-      # Build workspace deps first (remove if not applicable)
-      - name: Build icare-components
-        run: npm run build --workspace=icare-components
+      - name: Build dependencies
+        run: |
+          npm run build --workspace=icare-components
 
-      - name: Build ICare SSR app
+      - name: Build SSR app
         run: npm run build --workspace=icare-app
 
       # Package only the app you want to deploy
@@ -35,6 +35,7 @@ jobs:
         run: |
           rm -rf deploy
           mkdir -p deploy
+          cp package.json package-lock.json deploy/
           cp -R packages/ICare/* deploy/
 
       - name: Upload artifact
