@@ -194,7 +194,7 @@ export function HowWeWorkSection() {
                             gap: "10px",
                             padding: "1.1rem 1.8rem",
                             borderRadius: "999px",
-                            background: "#61674d",
+                            background: "#b97a57",
                             color: "#fff",
                             fontWeight: 800,
                             fontSize: "1.05rem",

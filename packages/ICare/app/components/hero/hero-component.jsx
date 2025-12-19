@@ -7,6 +7,7 @@ export default function HeroComponent({ imgSrc }) {
     useEffect(() => {
         const hero = heroRef.current;
         if (!hero) return;
+
         const img = hero.querySelector("img");
 
         const handleScroll = () => {
@@ -26,6 +27,7 @@ export default function HeroComponent({ imgSrc }) {
             ref={heroRef}
             style={{ overflow: "hidden" }}
         >
+            {/* ================= HEADER ================= */}
             <span
                 slot="header-content"
                 style={{
@@ -52,6 +54,8 @@ export default function HeroComponent({ imgSrc }) {
                     ICare
                 </h1>
             </span>
+
+            {/* ================= SUBHEADER ================= */}
             <span
                 slot="subheader-content"
                 style={{
@@ -74,13 +78,13 @@ export default function HeroComponent({ imgSrc }) {
                             marginBottom: ".25rem",
                             fontSize: "1.8rem",
                             fontWeight: 800,
-                            color: "#d9d7bd"
+                            color: "#d9d7bd",
                         }}
                     >
                         Find a trusted and verified caregiver in your local area
                     </strong>
-
                 </span>
+
                 <div style={{ marginTop: "2.2rem", maxWidth: "48ch" }}>
                     <h2
                         style={{
@@ -102,14 +106,17 @@ export default function HeroComponent({ imgSrc }) {
                             lineHeight: 1.55,
                         }}
                     >
-                        We’re preparing trusted caregivers and finalising our platform.<br></br>
-                        Join the early access list to be notified when ICare becomes available in your area.
+                        We’re preparing trusted caregivers and finalising our platform.
+                        <br />
+                        Join the early access list to be notified when ICare becomes
+                        available in your area.
                     </p>
+
                     <ul
                         style={{
                             listStyle: "none",
                             padding: 0,
-                            margin: "1.2rem 0 1.6rem 0",
+                            margin: "1.2rem 0 1.6rem",
                             display: "grid",
                             gap: "0.65rem",
                         }}
@@ -145,100 +152,87 @@ export default function HeroComponent({ imgSrc }) {
                         ))}
                     </ul>
 
-                    {/* Email form */}
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            alert("You're on the early access list!");
-                        }}
+                    {/* ================= CTA BUTTONS ================= */}
+                    <div
                         style={{
                             display: "flex",
-                            gap: "8px",
-                            maxWidth: "420px",
-                        }}
-                    >
-
-
-                        <button
-                            type="submit"
-                            style={{
-                                padding: "12px 18px",
-                                borderRadius: "999px",
-                                background: "#61674d",
-                                color: "#fff",
-                                border: "none",
-                                fontWeight: 700,
-                                fontSize: "0.95rem",
-                                cursor: "pointer",
-                            }}
-                        >
-                            Join waiting list
-                        </button>
-                    </form>
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        gap: "1rem",
-                        marginTop: "2rem",
-                        transform: "translateX(0) scale(1)",
-                    }}
-                >
-                    <a
-                        href="#how-it-works"
-                        style={{
-                            padding: ".9rem 1.4rem",
-                            borderRadius: "999px",
-                            border: "2px solid #B97A57",
-                            background: "#B97A57",
-                            color: "#fff",
-                            fontWeight: 600,
-                            letterSpacing: "-0.2px",
-                            fontSize: "clamp(1rem, 1.3vw, 1rem)",
-                            textDecoration: "none",
-                            display: "inline-flex",
+                            gap: "1rem",
+                            marginTop: "2.4rem",
+                            flexWrap: "wrap",
                             alignItems: "center",
-                            gap: "0.55rem",
-                            transition: "all .25s ease",
-                            boxShadow: "0 6px 16px rgba(0,0,0,0.16)",
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "#C89A80";
-                            e.currentTarget.style.borderColor = "#C89A80";
-                            e.currentTarget.style.transform = "translateY(-2px)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "#B97A57";
-                            e.currentTarget.style.borderColor = "#B97A57";
-                            e.currentTarget.style.transform = "translateY(0)";
                         }}
                     >
-                        How ICare works
-
-                        <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{
-                                transition: "transform .3s ease, opacity .3s ease",
-                                opacity: 0.9,
+                        {/* FORM BUTTON */}
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                alert("You're on the early access list!");
                             }}
-                            className="arrow-icon"
+                            style={{
+                                margin: 0,
+                                display: "flex",
+                            }}
                         >
-                            <path d="M5 12h14" />
-                            <path d="M13 5l7 7-7 7" />
-                        </svg>
-                    </a>
+                            <button
+                                type="submit"
+                                style={{
+                                    minWidth: "220px",
+                                    height: "52px",
+                                    padding: "0 28px",
+                                    borderRadius: "999px",
+                                    background: "#61674d",
+                                    color: "#fff",
+                                    border: "none",
+                                    fontWeight: 700,
+                                    fontSize: "1rem",
+                                    cursor: "pointer",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                Join waiting list
+                            </button>
+                        </form>
 
+                        {/* LINK BUTTON */}
+                        <a
+                            href="#how-it-works"
+                            style={{
+                                minWidth: "220px",
+                                height: "52px",
+                                padding: "0 28px",
+                                borderRadius: "999px",
+                                background: "#B97A57",
+                                color: "#fff",
+                                fontWeight: 700,
+                                fontSize: "1rem",
+                                textDecoration: "none",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: "0.5rem",
+                                boxShadow: "0 6px 16px rgba(0,0,0,0.16)",
+                            }}
+                        >
+                            How ICare works
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M5 12h14" />
+                                <path d="M13 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-
             </span>
-
         </IcareHeroNew>
     );
 }

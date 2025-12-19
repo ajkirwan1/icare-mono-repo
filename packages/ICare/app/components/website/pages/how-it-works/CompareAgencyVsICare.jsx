@@ -9,14 +9,18 @@ export default function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "#FFFFFF",
+                background: "#f7e7d9",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px)",
+                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
+
+
+
+
             <div
                 style={{
                     maxWidth: 1180,

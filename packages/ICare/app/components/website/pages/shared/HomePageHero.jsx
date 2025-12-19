@@ -83,18 +83,7 @@ export default function HomePageHero({ imgSrc }) {
                             transformOrigin: "top left",
                         }}
                     >
-                        <h1
-                            style={{
-                                margin: ".35rem 0 0",
-                                fontWeight: 900,
-                                letterSpacing: "-0.35px",
-                                lineHeight: 1.05,
-                                fontSize: "clamp(3rem, 5.2vw, 4.2rem)",
-                                color: "#fdfdfd",
-                            }}
-                        >
-                            ICare
-                        </h1>
+
                     </div>
 
                     {/* ================= SUBHEADER ================= */}

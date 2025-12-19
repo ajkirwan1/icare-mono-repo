@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export default function CaregiverFAQ() {
     const BRAND = "#1FAB1F";
