@@ -1,5 +1,17 @@
-export default function CareTimeline() {
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faHandHoldingHeart,
+    faBroom,
+    faPersonWalking,
+    faPills,
+    faMoon,
+    faClock,
+    faBed,
+    faBrain,
+} from "@fortawesome/free-solid-svg-icons";
 
+export default function CareTimelineSection() {
     return (
         <section
             aria-label="Care timeline"
@@ -52,7 +64,8 @@ export default function CareTimeline() {
                             opacity: 0.95,
                         }}
                     >
-                        Clear, step-by-step support to help you find the caregiver who truly fits your family.
+                        Clear, step-by-step support to help you find the caregiver who truly
+                        fits your family.
                     </p>
                 </header>
             </div>
@@ -64,13 +77,12 @@ export default function CareTimeline() {
                     aria-label="Types of care (full width)"
                     style={{
                         width: "100vw",
-                        marginLeft: "calc(50% - 50vw)", // full-bleed
+                        marginLeft: "calc(50% - 50vw)",
                         background: "#f7e7d9",
-                        marginTop: "-5.4rem", // tło „dochodzi” do sekcji wyżej
+                        marginTop: "-5.4rem",
                         padding: "8.64rem 0 5.76rem",
                     }}
                 >
-                    {/* ===== CONTENT WRAPPER (BEZ ZMIAN) ===== */}
                     <div
                         style={{
                             width: "min(980px, 92vw)",
@@ -84,7 +96,7 @@ export default function CareTimeline() {
                                 margin: 0,
                                 color: "#0F172A",
                                 letterSpacing: "-0.25px",
-                                textAlign: "center",
+                                textAlign: "left",
                             }}
                         >
                             Types of care we support
@@ -92,219 +104,104 @@ export default function CareTimeline() {
 
                         <p
                             style={{
-                                margin: ".8rem auto 0",
+                                margin: ".8rem 0 0",
                                 color: "#475569",
                                 fontSize: "1.05rem",
                                 maxWidth: "56ch",
                                 lineHeight: 1.65,
-                                textAlign: "center",
+                                textAlign: "left",
                             }}
                         >
-                            Choose the support your family needs. ICare connects you with trusted,
-                            independent caregivers for flexible home care.
+                            Choose the support your family needs. ICare connects you with
+                            trusted, independent caregivers for flexible home care.
                         </p>
 
                         <div
+                            className="careBoxesGrid"
                             style={{
                                 display: "grid",
-                                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                                gap: "1.4rem",
-                                marginTop: "2.4rem",
+                                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                                gap: "1.68rem",
+                                marginTop: "2.88rem",
                             }}
                         >
                             {[
                                 {
                                     label: "Elderly care",
                                     desc: "Daily support & companionship",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M12 21s-7-4.5-9-9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 4.5-9 9-9 9z" />
-                                        </svg>
-                                    ),
+                                    icon: faHandHoldingHeart,
                                 },
                                 {
                                     label: "Household help",
                                     desc: "Cleaning, cooking & chores",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M3 10.5 12 3l9 7.5" />
-                                            <path d="M5 10v10h14V10" />
-                                            <path d="M10 20v-6h4v6" />
-                                        </svg>
-                                    ),
+                                    icon: faBroom,
                                 },
                                 {
                                     label: "Mobility support",
                                     desc: "Walking & transfers",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M5 12h6" />
-                                            <path d="M9 7l-4 5 4 5" />
-                                            <path d="M13 12h6" />
-                                            <path d="M15 7l4 5-4 5" />
-                                        </svg>
-                                    ),
+                                    icon: faPersonWalking,
                                 },
                                 {
                                     label: "Medication support",
                                     desc: "Reminders & stability",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M10 8l6 6" />
-                                            <path d="M8.5 15.5a4 4 0 0 1 0-5.7l1.3-1.3a4 4 0 0 1 5.7 0l.9.9a4 4 0 0 1 0 5.7l-1.3 1.3a4 4 0 0 1-5.7 0z" />
-                                        </svg>
-                                    ),
+                                    icon: faPills,
                                 },
                                 {
                                     label: "Night care",
                                     desc: "Overnight presence & safety",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M21 13a7.5 7.5 0 0 1-10-10 8.5 8.5 0 1 0 10 10z" />
-                                        </svg>
-                                    ),
+                                    icon: faMoon,
                                 },
                                 {
                                     label: "Hourly care",
                                     desc: "Short visits, flexible",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M12 7v5l3 2" />
-                                            <circle cx="12" cy="12" r="8.5" />
-                                        </svg>
-                                    ),
+                                    icon: faClock,
                                 },
                                 {
                                     label: "Live-in care",
                                     desc: "Full-time home assistance",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M4 12V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5" />
-                                            <path d="M3 14h18" />
-                                            <path d="M5 14v5h14v-5" />
-                                            <path d="M8 10h3" />
-                                        </svg>
-                                    ),
+                                    icon: faBed,
                                 },
                                 {
                                     label: "Specialist care",
                                     desc: "Dementia & extra needs",
-                                    icon: (
-                                        <svg
-                                            width="28"
-                                            height="28"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M9 4a3 3 0 0 0-3 3v2a3 3 0 0 0 2 2.8V15a3 3 0 0 0 3 3" />
-                                            <path d="M15 4a3 3 0 0 1 3 3v2a3 3 0 0 1-2 2.8V15a3 3 0 0 1-3 3" />
-                                            <path d="M10 8h1" />
-                                            <path d="M13 8h1" />
-                                            <path d="M11 12h2" />
-                                        </svg>
-                                    ),
+                                    icon: faBrain,
                                 },
                             ].map((box) => (
                                 <div
                                     key={box.label}
                                     style={{
-                                        padding: "1.4rem 1.35rem",
-                                        borderRadius: "16px",
+                                        padding: "1.68rem 1.62rem",
+                                        borderRadius: "19px",
                                         background: "rgba(249,245,240,0.6)",
-                                        textAlign: "center",
+                                        textAlign: "left",
+                                        position: "relative",
                                     }}
                                 >
+                                    {/* IKONA: lewy-górny róg (bez białego tła i bez obramówki) */}
                                     <div
                                         style={{
-                                            display: "flex",
+                                            display: "inline-flex",
                                             justifyContent: "center",
                                             alignItems: "center",
-                                            margin: "0 auto .85rem",
-                                            width: "44px",
-                                            height: "44px",
-                                            borderRadius: "14px",
-                                            background: "rgba(255,255,255,0.55)",
+                                            width: "54px",
+                                            height: "54px",
+                                            borderRadius: "17px",
+                                            background: "transparent", // ✅ usunięte białe tło
                                             color: "#61674d",
-                                            boxShadow: "0 10px 22px rgba(0,0,0,0.06)",
-                                            border: "1px solid rgba(15,23,42,0.08)",
+                                            boxShadow: "none", // ✅ bez “badge look”
+                                            fontSize: "24px",
+                                            marginBottom: "1.05rem",
                                         }}
                                     >
-                                        {box.icon}
+                                        <FontAwesomeIcon icon={box.icon} />
                                     </div>
 
                                     <h4
                                         style={{
                                             fontWeight: 700,
-                                            margin: "0 0 .45rem 0",
+                                            margin: "0 0 .55rem 0",
                                             color: "#0F172A",
-                                            fontSize: "1.08rem",
+                                            fontSize: "1.3rem",
                                             lineHeight: 1.35,
                                         }}
                                     >
@@ -315,7 +212,7 @@ export default function CareTimeline() {
                                         style={{
                                             margin: 0,
                                             color: "#475569",
-                                            fontSize: ".9rem",
+                                            fontSize: "1.08rem",
                                             lineHeight: 1.55,
                                         }}
                                     >
@@ -329,14 +226,16 @@ export default function CareTimeline() {
             </div>
 
             <style>{`
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 980px) {
+          .careBoxesGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         }
-    `}</style>
+        @media (max-width: 620px) {
+          .careBoxesGrid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
         </section>
-
     );
 }
+
 
 
