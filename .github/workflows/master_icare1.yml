@@ -31,8 +31,8 @@ jobs:
         run: npm run build --workspace=icare-app
 
       # OPTIONAL but recommended: shrink deploy by removing dev deps
-      - name: Prune dev dependencies
-        run: npm prune --omit=dev
+      # - name: Prune dev dependencies
+      #   run: npm prune --omit=dev
 
       - name: Prepare deploy package
         run: |
