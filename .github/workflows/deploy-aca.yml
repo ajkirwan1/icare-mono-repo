@@ -30,6 +30,13 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3528E4C9D9704243A6471042CCA96203 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A259613877694B3AB75FDE52F53CDB34 }}
 
+      - name: Show Azure context
+        run: |
+          az account show -o table
+          az group show -n $RESOURCE_GROUP -o table
+          az containerapp env list -g $RESOURCE_GROUP -o table
+
+
       - name: Login to ACR
         run: |
           az acr login --name $ACR_NAME
