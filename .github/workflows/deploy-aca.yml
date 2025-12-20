@@ -1,0 +1,64 @@
+name: Build & deploy SSR to Azure Container Apps
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  RESOURCE_GROUP: ICare_group
+  LOCATION: westeurope
+  CONTAINERAPPS_ENV: icare-aca-env
+  CONTAINERAPP_NAME: icare-ssr
+  ACR_NAME: icareacr12345
+  IMAGE_NAME: icare-ssr
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Login to ACR
+        run: |
+          az acr login --name $ACR_NAME
+
+      - name: Build and push image
+        run: |
+          IMAGE="$ACR_NAME.azurecr.io/$IMAGE_NAME:${{ github.sha }}"
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "IMAGE=$IMAGE" >> $GITHUB_ENV
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp create \
+            --name $CONTAINERAPP_NAME \
+            --resource-group $RESOURCE_GROUP \
+            --environment $CONTAINERAPPS_ENV \
+            --image $IMAGE \
+            --ingress external \
+            --target-port 8080 \
+            --cpu 0.5 \
+            --memory 1.0Gi \
+            --min-replicas 0 \
+            --max-replicas 1 \
+            --query properties.configuration.ingress.fqdn -o tsv
+
+      - name: Update image (on subsequent deploys)
+        run: |
+          az containerapp update \
+            --name $CONTAINERAPP_NAME \
+            --resource-group $RESOURCE_GROUP \
+            --image $IMAGE
