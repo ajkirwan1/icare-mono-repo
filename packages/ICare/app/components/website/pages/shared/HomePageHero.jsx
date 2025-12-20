@@ -59,7 +59,7 @@ export default function HomePageHero({ imgSrc }) {
                         position: "absolute",
                         inset: 0,
                         background:
-                            "linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.6))",
+                            "linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.2))",
                         zIndex: 1,
                     }}
                 />
@@ -89,7 +89,7 @@ export default function HomePageHero({ imgSrc }) {
                     {/* ================= SUBHEADER ================= */}
                     <div
                         style={{
-                            marginTop: "1rem",
+                            marginTop: "2.5rem",
                             textAlign: "left",
                             color: "rgba(255,255,255,.94)",
                             fontSize: "clamp(1.25rem, 2vw, 1.55rem)",
@@ -102,40 +102,44 @@ export default function HomePageHero({ imgSrc }) {
                         <span style={{ display: "block", maxWidth: 600 }}>
                             <strong
                                 style={{
-                                    display: "block",
+                                    display: "inline-block",
                                     marginBottom: ".25rem",
-                                    fontSize: "1.8rem",
-                                    fontWeight: 800,
-                                    color: "#d9d7bd",
+                                    fontSize: "1.2rem",
+                                    fontWeight: 600,
+                                    color: "#000000ff",
+                                    background: "rgba(255, 255, 255, 0.8)",
+                                    borderRadius: "12px",
+                                    padding: "8px 14px"
                                 }}
                             >
-                                Find a trusted and verified caregiver in your local area
+                                ICare is launching soon
+
                             </strong>
                         </span>
 
                         <div style={{ marginTop: "2.2rem", maxWidth: "48ch" }}>
                             <h2
                                 style={{
-                                    fontSize: "1.45rem",
+                                    fontSize: "2rem",
                                     fontWeight: 800,
-                                    color: "#d9d7bd",
+                                    color: "#ffffffff",
                                     margin: 0,
                                     letterSpacing: "-0.3px",
                                 }}
-                            >
-                                ICare is launching soon
+                            > Find a trusted and verified<br />
+                                caregiver in your local area
                             </h2>
 
                             <p
                                 style={{
                                     marginTop: ".7rem",
                                     fontSize: "1.05rem",
-                                    color: "#d9d7bd",
+                                    color: "#ffffffff",
                                     lineHeight: 1.55,
                                 }}
                             >
-                                We’re preparing trusted caregivers and finalising our platform.
-                                <br />
+
+
                                 Join the early access list to be notified when ICare becomes
                                 available in your area.
                             </p>
@@ -161,7 +165,7 @@ export default function HomePageHero({ imgSrc }) {
                                             alignItems: "center",
                                             gap: "10px",
                                             fontSize: "1rem",
-                                            color: "#d9d7bd",
+                                            color: "#ffffffff",
                                         }}
                                     >
                                         <svg
@@ -169,7 +173,7 @@ export default function HomePageHero({ imgSrc }) {
                                             height="18"
                                             viewBox="0 0 24 24"
                                             fill="none"
-                                            stroke="#d9d7bd"
+                                            stroke="#ffffffff"
                                             strokeWidth="2"
                                             strokeLinecap="round"
                                         >
@@ -179,7 +183,6 @@ export default function HomePageHero({ imgSrc }) {
                                     </li>
                                 ))}
                             </ul>
-
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
@@ -187,8 +190,18 @@ export default function HomePageHero({ imgSrc }) {
                                 }}
                                 style={{
                                     display: "flex",
-                                    gap: "8px",
-                                    maxWidth: "420px",
+                                    gap: "16px",
+
+                                    // ✅ responsywna szerokość + min
+                                    width: "min(420px, 92vw)",
+                                    minWidth: "300px",
+
+                                    // ✅ ważne, jeśli parent jest flexem i ściska element
+                                    flexShrink: 0,
+
+                                    // opcjonalnie: ładnie się łamie na małych ekranach
+                                    flexWrap: "wrap",
+                                    justifyContent: "center",
                                 }}
                             >
                                 <button
@@ -202,50 +215,58 @@ export default function HomePageHero({ imgSrc }) {
                                         fontWeight: 700,
                                         fontSize: "0.95rem",
                                         cursor: "pointer",
+
+                                        // ✅ pozwala sensownie się układać przy wrap
+                                        flex: "1 1 160px",
+                                        whiteSpace: "nowrap",
                                     }}
                                 >
                                     Join waiting list
                                 </button>
+
+                                <a
+                                    href="#how-it-works"
+                                    style={{
+                                        padding: ".9rem 1.4rem",
+                                        borderRadius: "999px",
+                                        border: "2px solid #B97A57",
+                                        background: "#B97A57",
+                                        color: "#fff",
+                                        fontWeight: 600,
+                                        letterSpacing: "-0.2px",
+                                        fontSize: "clamp(1rem, 1.3vw, 1rem)",
+                                        textDecoration: "none",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        gap: "0.55rem",
+                                        transition: "all .25s ease",
+                                        boxShadow: "0 6px 16px rgba(0,0,0,0.16)",
+
+                                        // ✅ pozwala sensownie się układać przy wrap
+                                        flex: "1 1 160px",
+                                        whiteSpace: "nowrap",
+                                    }}
+                                >
+                                    How ICare works
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M5 12h14" />
+                                        <path d="M13 5l7 7-7 7" />
+                                    </svg>
+                                </a>
                             </form>
+
                         </div>
 
-                        {/* ================= CTA ================= */}
-                        <div style={{ marginTop: "2rem" }}>
-                            <a
-                                href="#how-it-works"
-                                style={{
-                                    padding: ".9rem 1.4rem",
-                                    borderRadius: "999px",
-                                    border: "2px solid #B97A57",
-                                    background: "#B97A57",
-                                    color: "#fff",
-                                    fontWeight: 600,
-                                    letterSpacing: "-0.2px",
-                                    fontSize: "clamp(1rem, 1.3vw, 1rem)",
-                                    textDecoration: "none",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "0.55rem",
-                                    transition: "all .25s ease",
-                                    boxShadow: "0 6px 16px rgba(0,0,0,0.16)",
-                                }}
-                            >
-                                How ICare works
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path d="M5 12h14" />
-                                    <path d="M13 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </section>

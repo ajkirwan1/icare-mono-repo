@@ -45,76 +45,89 @@ export default function ICareForCaregiversHero() {
                     }}
                 />
 
+                {/* ✅ CONTENT WRAPPER — aligned left */}
                 <div
                     style={{
                         position: "relative",
                         zIndex: 2,
-                        width: "min(1100px, 92vw)",
-                        margin: "0 auto",
+
+                        /* full width + controlled gutters */
+                        width: "100%",
+                        paddingLeft: "clamp(20px, 6vw, 96px)",
+                        paddingRight: "clamp(20px, 6vw, 48px)",
+
+                        /* left-aligned layout */
+                        display: "grid",
+                        gridTemplateColumns: "minmax(0, 560px) 1fr",
+                        alignItems: "center",
                     }}
                 >
-                    {/* ===== WHITE TITLE ===== */}
-                    <h1
-                        style={{
-                            fontSize: "clamp(2.6rem,4vw,3.3rem)",
-                            margin: 0,
-                            fontWeight: 900,
-                            lineHeight: 1.05,
-                            color: "#fff",
-                            maxWidth: "14ch",
-                        }}
-                    >
-                        ICare for Caregivers
-                    </h1>
+                    <div style={{ maxWidth: "560px" }}>
+                        {/* ===== WHITE TITLE ===== */}
+                        <h1
+                            style={{
+                                fontSize: "clamp(2.6rem,4vw,3.3rem)",
+                                margin: 0,
+                                fontWeight: 900,
+                                lineHeight: 1.05,
+                                color: "#fff",
+                                maxWidth: "14ch",
+                            }}
+                        >
+                            ICare for Caregivers
+                        </h1>
 
-                    <p
-                        style={{
-                            marginTop: "1.6rem",
-                            fontSize: "clamp(1.05rem,1.3vw,1.2rem)",
-                            maxWidth: "60ch",
-                            lineHeight: 1.6,
-                            color: "rgba(255,255,255,.92)",
-                        }}
-                    >
-                        <strong>Work directly with families.</strong><br />
-                        <strong>No agencies. No unfair commissions.</strong>
-                    </p>
+                        <p
+                            style={{
+                                marginTop: "1.6rem",
+                                fontSize: "clamp(1.05rem,1.3vw,1.2rem)",
+                                maxWidth: "60ch",
+                                lineHeight: 1.6,
+                                color: "rgba(255,255,255,.92)",
+                            }}
+                        >
+                            <strong>Work directly with families.</strong>
+                            <br />
+                            <strong>No agencies.<br /> No unfair commissions.</strong>
+                        </p>
 
-                    {/* ===== PLAIN LIST (no bullets) ===== */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gap: ".8rem",
-                            marginTop: "2rem",
-                            fontSize: "1.05rem",
-                        }}
-                    >
-                        <div>Find care roles that suit your experience</div>
-                        <div>Agree transparent terms</div>
-                        <div>Keep 90% of your earnings</div>
-                        <div>Free registration — no subscription</div>
+                        {/* ===== PLAIN LIST (no bullets) ===== */}
+                        <div
+                            style={{
+                                display: "grid",
+                                gap: ".8rem",
+                                marginTop: "2rem",
+                                fontSize: "1.05rem",
+                            }}
+                        >
+                            <div>Find care roles that suit your experience</div>
+                            <div>Agree transparent terms</div>
+                            <div>Keep 90% of your earnings</div>
+                            <div>Free registration — no subscription</div>
+                        </div>
+
+                        {/* ===== BUTTON ===== */}
+                        <Link
+                            to="/register"
+                            style={{
+                                display: "inline-flex",
+                                padding: "1rem 2rem",
+                                borderRadius: 999,
+                                marginTop: "2.4rem",
+                                background: "rgb(185, 122, 87)",
+                                color: "#fff",
+                                fontWeight: 700,
+                                letterSpacing: ".02em",
+                                textDecoration: "none",
+                                transition: "all .22s ease",
+                            }}
+                        >
+                            Quick registration
+                        </Link>
                     </div>
-
-                    {/* ===== BUTTON (homepage green) ===== */}
-                    <Link
-                        to="/register"
-                        style={{
-                            display: "inline-flex",
-                            padding: "1rem 2rem",
-                            borderRadius: 999,
-                            marginTop: "2.4rem",
-                            background: "rgb(185, 122, 87)",
-                            color: "#fff",
-                            fontWeight: 700,
-                            letterSpacing: ".02em",
-                            textDecoration: "none",
-                            transition: "all .22s ease",
-                        }}
-                    >
-                        Quick registration
-                    </Link>
                 </div>
             </section>
+
         </>
     );
 }

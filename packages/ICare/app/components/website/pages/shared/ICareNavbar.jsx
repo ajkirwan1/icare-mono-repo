@@ -14,7 +14,7 @@ export default function ICareNavbar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "1rem clamp(20px,4vw,48px)",
+                padding: "1.4rem clamp(20px,4vw,48px)",
                 backdropFilter: "blur(10px)",
                 background: "rgba(0,0,0,0.25)",
                 borderBottom: "1px solid rgba(255,255,255,0.15)",
@@ -34,7 +34,7 @@ export default function ICareNavbar() {
             </Link>
 
             {/* NAV */}
-            <nav style={{ display: "flex", gap: "1.1rem 1.6rem", flexWrap: "wrap" }}>
+            <nav style={{ display: "flex", gap: "1.1rem 4rem", flexWrap: "wrap" }}>
                 {[
                     { to: "/", label: "Home" },
                     { to: "/how-it-works", label: "How it Works" },
@@ -48,8 +48,8 @@ export default function ICareNavbar() {
                         to={l.to}
                         style={{
                             color: "#ffffff",
-                            fontSize: "1.05rem",
-                            fontWeight: 600,
+                            fontSize: "1.20rem",
+                            fontWeight: 500,
                             textDecoration: "none",
                             letterSpacing: ".2px",
                         }}

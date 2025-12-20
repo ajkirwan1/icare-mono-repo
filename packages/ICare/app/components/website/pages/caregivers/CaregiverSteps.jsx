@@ -168,7 +168,7 @@ export default function CaregiverStepsEmpathy() {
                             display: "inline-flex",
                             padding: "0.85rem 1.8rem",
                             borderRadius: 999,
-                            background: "#61674d",
+                            background: "#b97a57",
                             color: "#fff",
                             fontSize: ".95rem",
                             fontWeight: 700,

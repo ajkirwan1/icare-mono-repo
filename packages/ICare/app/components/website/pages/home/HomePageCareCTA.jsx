@@ -16,7 +16,7 @@ export default function HomePageCareCTA() {
             {/* ================= CAREGIVERS ================= */}
             <div style={{ position: "relative" }}>
                 <img
-                    src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1600&auto=format&fit=crop"
+                    src="images/web/homepage/caregiverbottom2.png"
                     alt="Caregiver supporting an elderly person"
                     style={{
                         position: "absolute",
@@ -33,20 +33,20 @@ export default function HomePageCareCTA() {
                         position: "relative",
                         height: "100%",
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: "flex-end",
                         justifyContent: "center",
                         padding: "clamp(5rem, 8vw, 8rem)",
                     }}
                 >
                     <div
                         style={{
-                            background: "rgba(255,255,255,0.82)",
+                            background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "4.2rem",
+                            padding: "2.5rem",
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
-                            minHeight: "420px",
+                            minHeight: "300px",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
@@ -56,8 +56,8 @@ export default function HomePageCareCTA() {
                         <h2
                             style={{
                                 margin: 0,
-                                fontWeight: 900,
-                                fontSize: "clamp(2.6rem, 3.4vw, 3.1rem)",
+                                fontWeight: 800,
+                                fontSize: "clamp(2rem, 3vw, 2.6rem)",
                                 lineHeight: 1.05,
                             }}
                         >
@@ -66,7 +66,7 @@ export default function HomePageCareCTA() {
 
                         <p
                             style={{
-                                margin: "1.6rem 0 2.8rem",
+                                margin: "1rem 0px 1.8rem",
                                 fontSize: "1.2rem",
                                 lineHeight: 1.7,
                                 color: "#334155",
@@ -98,7 +98,7 @@ export default function HomePageCareCTA() {
             {/* ================= CARE RECEIVERS ================= */}
             <div style={{ position: "relative" }}>
                 <img
-                    src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=1600&auto=format&fit=crop"
+                    src="images/web/homepage/carerceiverbottom.png"
                     alt="Diverse family receiving care support"
                     style={{
                         position: "absolute",
@@ -115,20 +115,20 @@ export default function HomePageCareCTA() {
                         position: "relative",
                         height: "100%",
                         display: "flex",
-                        alignItems: "center",
+                        alignItems: "flex-end",
                         justifyContent: "center",
                         padding: "clamp(5rem, 8vw, 8rem)",
                     }}
                 >
                     <div
                         style={{
-                            background: "rgba(255,255,255,0.82)",
+                            background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "4.2rem",
+                            padding: "2.5em",
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
-                            minHeight: "420px",
+                            minHeight: "300px",
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "center",
@@ -138,9 +138,10 @@ export default function HomePageCareCTA() {
                         <h2
                             style={{
                                 margin: 0,
-                                fontWeight: 900,
-                                fontSize: "clamp(2.6rem, 3.4vw, 3.1rem)",
+                                fontWeight: 800,
+                                fontSize: "clamp(2rem, 3vw, 2.6rem)",
                                 lineHeight: 1.05,
+                                color: "#B97A57"
                             }}
                         >
                             ICare for care receivers
@@ -148,7 +149,7 @@ export default function HomePageCareCTA() {
 
                         <p
                             style={{
-                                margin: "1.6rem 0 2.8rem",
+                                margin: "1rem 0px 1.8rem",
                                 fontSize: "1.2rem",
                                 lineHeight: 1.7,
                                 color: "#334155",

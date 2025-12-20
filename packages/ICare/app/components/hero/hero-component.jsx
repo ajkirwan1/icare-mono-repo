@@ -81,6 +81,7 @@ export default function HeroComponent({ imgSrc }) {
                             color: "#d9d7bd",
                         }}
                     >
+                        ICare is launching soon
                         Find a trusted and verified caregiver in your local area
                     </strong>
                 </span>

@@ -18,7 +18,6 @@ export default function CareTimelineSection() {
             style={{
                 width: "100%",
                 background: "#FFFFFF",
-                padding: "0 0 clamp(6rem, 9vw, 8rem)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -28,26 +27,45 @@ export default function CareTimelineSection() {
                 style={{
                     width: "100vw",
                     marginLeft: "calc(50% - 50vw)",
-                    background: "#bfc09c",
-                    padding: "clamp(4.5rem, 7vw, 6.5rem) 0",
-                    marginBottom: "5.4rem",
+                    position: "relative",
+                    overflow: "hidden",
+
+                    /* ✅ nowy kolor tła */
+                    background: "#b97a57",
+
+                    padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
+                    marginBottom: "clamp(2.0rem, 3vw, 2.8rem)",
                 }}
             >
+                {/* subtle light wash (dopasowane do #b97a57) */}
+                <div
+                    aria-hidden="true"
+                    style={{
+                        position: "absolute",
+                        inset: 0,
+                        background:
+                            "#b97a57",
+                        pointerEvents: "none",
+                    }}
+                />
+
                 <header
                     style={{
                         width: "min(1180px, 92vw)",
                         margin: "0 auto",
                         textAlign: "center",
+                        position: "relative",
+                        zIndex: 1,
                     }}
                 >
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 800,
-                            fontSize: "clamp(2.6rem,3.4vw,2.8rem)",
+                            fontWeight: 900,
+                            fontSize: "clamp(1.85rem, 2.6vw, 2.35rem)",
                             color: "#fff",
-                            letterSpacing: "-0.5px",
-                            lineHeight: 1.12,
+                            letterSpacing: "-0.65px",
+                            lineHeight: 1.08,
                         }}
                     >
                         A guided — human way to find trusted care
@@ -55,20 +73,19 @@ export default function CareTimelineSection() {
 
                     <p
                         style={{
-                            margin: "1.6rem auto 0",
-                            maxWidth: "64ch",
-                            color: "#fff",
-                            fontSize: "clamp(1.3rem,1.6vw,1.45rem)",
-                            lineHeight: 1.7,
+                            margin: "0.85rem auto 0",
+                            maxWidth: "68ch",
+                            color: "rgba(255,255,255,0.92)",
+                            fontSize: "clamp(1.02rem, 1.25vw, 1.18rem)",
+                            lineHeight: 1.75,
                             fontWeight: 450,
-                            opacity: 0.95,
                         }}
                     >
-                        Clear, step-by-step support to help you find the caregiver who truly
-                        fits your family.
+                        Clear, step-by-step support to help you find the caregiver who truly fits your family.
                     </p>
                 </header>
             </div>
+
 
             {/* ===== CONTENT ===== */}
             <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
