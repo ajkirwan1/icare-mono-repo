@@ -32,7 +32,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/ajkrwan1/icare
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/icare
           tags: |
             type=raw,value=latest
             type=sha,format=short
