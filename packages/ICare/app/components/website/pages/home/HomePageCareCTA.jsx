@@ -57,7 +57,7 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(2rem, 3vw, 2.6rem)",
+                                fontSize: "clamp(2rem, 3vw, 2.4rem)",
                                 lineHeight: 1.05,
                             }}
                         >
@@ -139,7 +139,7 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(2rem, 3vw, 2.6rem)",
+                                fontSize: "clamp(2rem, 3vw, 2.4rem)",
                                 lineHeight: 1.05,
                                 color: "#B97A57"
                             }}

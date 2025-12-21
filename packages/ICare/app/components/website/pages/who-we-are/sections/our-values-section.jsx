@@ -20,7 +20,7 @@ export function OurValuesSection() {
                 padding: "1.8rem 1.6rem",
                 borderRadius: "20px",
                 background: bg,
-                boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+
             }}
         >
             <div style={{ display: "flex", alignItems: "flex-start" }}>{icon}</div>

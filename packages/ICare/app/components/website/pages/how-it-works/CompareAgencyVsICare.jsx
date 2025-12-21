@@ -9,18 +9,15 @@ export default function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "#f7e7d9",
+                background: "#fff9ef",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)",
+                padding:
+                    "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
-
-
-
-
             <div
                 style={{
                     maxWidth: 1180,
@@ -28,13 +25,13 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                {/* Title */}
+                {/* Title — smaller */}
                 <h2
                     style={{
                         margin: 0,
                         fontWeight: 800,
                         color: "#0F172A",
-                        fontSize: "clamp(2.4rem,3.2vw,3rem)",
+                        fontSize: "clamp(2.05rem,2.7vw,2.55rem)", // ✅ smaller headline, lead unchanged
                         letterSpacing: "-0.4px",
                         lineHeight: 1.15,
                     }}
@@ -42,6 +39,7 @@ export default function CompareAgencyVsICare() {
                     Why families choose ICare
                 </h2>
 
+                {/* Lead — unchanged */}
                 <p
                     style={{
                         margin: "1.3rem 0 4rem",
@@ -52,8 +50,8 @@ export default function CompareAgencyVsICare() {
                         fontWeight: 400,
                     }}
                 >
-                    A modern, transparent alternative to traditional agencies — where families retain choice,
-                    clarity, and fair pricing.
+                    A modern, transparent alternative to traditional agencies — where families retain
+                    choice, clarity, and fair pricing.
                 </p>
 
                 {/* GRID */}
@@ -82,7 +80,7 @@ export default function CompareAgencyVsICare() {
                     {/* AGENCY CARD */}
                     <article
                         style={{
-                            background: "#FAFAFA",
+                            background: "#44444415",
                             border: "1px solid rgba(31,171,31,0.10)",
                             borderRadius: 28,
                             overflow: "hidden",
@@ -162,7 +160,7 @@ export default function CompareAgencyVsICare() {
                     {/* ICARE CARD */}
                     <article
                         style={{
-                            background: "#FFFFFF",
+                            background: "#0aa80a2e",
                             border: "1px solid rgba(31,171,31,0.22)",
                             borderRadius: 28,
                             overflow: "hidden",
@@ -232,11 +230,11 @@ export default function CompareAgencyVsICare() {
             </div>
 
             <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-    `}</style>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `}</style>
         </section>
 
     );

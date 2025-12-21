@@ -32,7 +32,7 @@ export default function HowItWorksHero() {
                     objectFit: "cover",
                     objectPosition: "50% 40%",
                     filter: "brightness(0.68) saturate(1.08) contrast(1.02)",
-                    transform: "scale(1.06)", // subtle depth
+                    transform: "scale(1.06)",
                 }}
             />
 
@@ -58,20 +58,19 @@ export default function HowItWorksHero() {
                     justifyContent: "space-between",
                     alignItems: "center",
                     zIndex: 20,
-                    backdropFilter: "blur(1px)", // Luxe micro-blur
+                    backdropFilter: "blur(1px)",
                 }}
             >
                 <ICareNavbar />
             </header>
 
-            {/* HERO COPY */}
+            {/* HERO COPY — LEFT ANCHORED */}
             <div
                 style={{
                     position: "relative",
                     zIndex: 10,
-                    width: "min(92vw, 1100px)",
-                    margin: "0 auto",
-                    padding: "0 clamp(24px,4vw,32px)",
+                    width: "100%",
+                    padding: "0 clamp(26px,4vw,46px)",
                     color: "#fff",
                     textAlign: "left",
                     transform: "translateY(6%)",
@@ -79,52 +78,94 @@ export default function HowItWorksHero() {
                     opacity: 0,
                 }}
             >
-                {/* Title */}
-                <h1
-                    style={{
-                        margin: "0 0 2rem",
-                        fontWeight: 800,
-                        lineHeight: 1.04,
-                        letterSpacing: "-0.55px",
-                        fontSize: "clamp(3.2rem,5.6vw,4rem)",
-                        color: "#fff",
-                        textShadow: "0 8px 24px rgba(0,0,0,0.45)",
-                    }}
-                >
-                    How it works
-                </h1>
-
-                {/* Paragraphs */}
-                {[
-                    "Why choose ICare instead of going through an agency?",
-                    "We don’t charge high margins for matching or management.",
-                    "You save money — and the caregiver earns more.",
-                ].map((text, i) => (
-                    <p
-                        key={i}
+                <div style={{ maxWidth: "720px" }}>
+                    {/* Title */}
+                    <h1
                         style={{
-                            margin: i === 0 ? "0 0 1rem" : "0 0 .7rem",
-                            lineHeight: 1.72,
-                            fontSize: "clamp(1.18rem,1.45vw,1.32rem)",
-                            maxWidth: "62ch",
-                            color: "rgba(255,255,255,0.95)",
-                            fontWeight: 500,
-                            textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                            margin: "0 0 1.6rem",
+                            fontWeight: 850,
+                            lineHeight: 1.04,
+                            letterSpacing: "-0.55px",
+                            fontSize: "clamp(3.2rem,5.6vw,4rem)",
+                            color: "#fff",
+                            textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                         }}
                     >
-                        <b>{text}</b>
-                    </p>
-                ))}
+                        How it works
+                    </h1>
+
+                    {/* Improved copy */}
+                    {[
+                        "A calmer way to find care — without agency markups.",
+                        "Browse trusted caregivers, talk directly, and choose the right match at your pace.",
+                        "Pay fairly. Save more. Keep everything clear and simple — from first message to start date.",
+                    ].map((text, i) => (
+                        <p
+                            key={i}
+                            style={{
+                                margin: i === 0 ? "0 0 1rem" : "0 0 .7rem",
+                                lineHeight: 1.72,
+                                fontSize: "clamp(1.18rem,1.45vw,1.32rem)",
+                                maxWidth: "62ch",
+                                color: "rgba(255,255,255,0.95)",
+                                fontWeight: 520,
+                                textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                            }}
+                        >
+                            <b>{text}</b>
+                        </p>
+                    ))}
+
+                    {/* CTA */}
+                    <div style={{ marginTop: "2rem" }}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                const el = document.getElementById("how-it-works-steps"); // <- ID sekcji niżej
+                                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }}
+                            style={{
+                                appearance: "none",
+                                border: 0,
+                                cursor: "pointer",
+                                background: "#b97a57",
+                                color: "#ffffffff",
+                                fontWeight: 700,
+                                letterSpacing: "-0.2px",
+                                fontSize: "1.05rem",
+                                padding: "14px 22px",
+                                borderRadius: "999px",
+                                boxShadow:
+                                    "0 14px 34px rgba(0,0,0,0.35), 0 6px 16px rgba(255,138,30,0.24)",
+                                transition:
+                                    "transform .18s ease, box-shadow .18s ease, filter .18s ease",
+                                whiteSpace: "nowrap",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = "translateY(-2px)";
+                                e.currentTarget.style.filter = "brightness(1.02)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = "translateY(0)";
+                                e.currentTarget.style.filter = "none";
+                            }}
+                        >
+
+                            Get started
+                        </button>
+                    </div>
+                </div>
             </div>
 
             {/* Animation */}
             <style>{`
-        @keyframes fadeSlide {
-            0% { opacity: 0; transform: translateY(18px); }
-            100% { opacity: 1; transform: translateY(6%); }
-        }
-    `}</style>
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(18px); }
+      100% { opacity: 1; transform: translateY(6%); }
+    }
+  `}</style>
         </section>
+
 
     );
 }

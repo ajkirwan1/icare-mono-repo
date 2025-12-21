@@ -17,7 +17,7 @@ export default function ReceiversThreeStepsHeader() {
                     margin: 0,
                     fontWeight: 800,
                     color: "#1A1A1A",
-                    fontSize: "clamp(2.4rem, 3vw, 3rem)",
+                    fontSize: "2rem",
                     letterSpacing: "-0.5px",
                     lineHeight: 1.1,
                 }}
@@ -38,5 +38,6 @@ export default function ReceiversThreeStepsHeader() {
                 A calm, human-centered process designed for clarity, trust and ease.
             </p>
         </header>
+
     );
 }
