@@ -1,5 +1,4 @@
 # name: Build and deploy Node.js app to Azure Web App - ICare
-
 # on:
 #   push:
 #     branches: [ master ]
