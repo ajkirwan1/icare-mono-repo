@@ -103,13 +103,13 @@ export default function HomePageHero({ imgSrc }) {
                             <strong
                                 style={{
                                     display: "inline-block",
-                                    marginBottom: ".25rem",
+                                    marginBottom: ".20rem",
                                     fontSize: "1.2rem",
                                     fontWeight: 600,
                                     color: "#000000ff",
                                     background: "rgba(255, 255, 255, 0.8)",
                                     borderRadius: "12px",
-                                    padding: "8px 14px"
+                                    padding: "6px 12px"
                                 }}
                             >
                                 ICare is launching soon

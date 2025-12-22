@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
 
-
 export default function ICareNavbar() {
     return (
         <header
@@ -20,17 +19,32 @@ export default function ICareNavbar() {
                 borderBottom: "1px solid rgba(255,255,255,0.15)",
             }}
         >
-            {/* BRAND */}
+            {/* BRAND: Link -> home, image via src */}
             <Link
                 to="/"
+                aria-label="Go to home"
                 style={{
-                    fontWeight: 900,
-                    color: "#ffffff",
-                    fontSize: "clamp(1.3rem,2.4vw,1.6rem)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 12,
                     textDecoration: "none",
                 }}
             >
-                ICare
+                <img
+                    src="/images/logo/icarelogo4.png"
+                    alt="ICare"
+                    style={{
+                        height: 75,
+                        width: "auto",
+                        display: "block",
+                    }}
+                    onError={(e) => {
+                        // fallback: jeśli ścieżka zła, przynajmniej pokaże tekst
+                        e.currentTarget.style.display = "none";
+                    }}
+                />
+
+
             </Link>
 
             {/* NAV */}
@@ -48,7 +62,7 @@ export default function ICareNavbar() {
                         to={l.to}
                         style={{
                             color: "#ffffff",
-                            fontSize: "1.20rem",
+                            fontSize: "1.2rem",
                             fontWeight: 500,
                             textDecoration: "none",
                             letterSpacing: ".2px",

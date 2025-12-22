@@ -84,7 +84,7 @@ export default function SavingsEstimatorCurrency() {
             aria-label="Cost & Savings Estimator"
             style={{
                 padding: "clamp(64px, 8vw, 96px) 0",
-                background: "linear-gradient(180deg, #E7EFE6 0%, #EEF5EC 100%)",
+                background: "#bfc09c",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
             }}
