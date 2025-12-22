@@ -68,15 +68,16 @@ export default function SavingsEstimatorCurrency() {
             };
         }, [hourly, hoursWeek, agencyMargin, period]);
 
-    const marketingLine = React.useMemo(() => {
+    // ✅ More client-friendly copy
+    const friendlyLine = React.useMemo(() => {
         const pct = Math.round(savePct);
         if (youSave <= 0 || pct <= 0) {
-            return `Working directly keeps pricing clear and fair — with a simple 10% ICare fee.`;
+            return `Work directly with your caregiver with a simple 10% ICare fee — clear, fair, and transparent.`;
         }
-        return `With a ${agencyMargin}% agency margin, going direct with ICare saves you about ${nf.format(
+        return `Choose ICare and keep more of your budget: you save about ${nf.format(
             youSave
-        )} per ${period === "monthly" ? "month" : "week"} — roughly ${pct}% less than an agency.`;
-    }, [youSave, savePct, agencyMargin, nf, period]);
+        )} per ${period === "monthly" ? "month" : "week"} (around ${pct}% compared to an agency).`;
+    }, [youSave, savePct, nf, period]);
 
     return (
         <section
@@ -107,10 +108,10 @@ export default function SavingsEstimatorCurrency() {
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 800,
+                            fontWeight: 900,
                             letterSpacing: "-0.3px",
                             color: "#0F172A",
-                            fontSize: "clamp(1.85rem, 2.6vw, 2.3rem)",
+                            fontSize: "clamp(1.9rem, 2.6vw, 2.35rem)",
                             lineHeight: 1.1,
                         }}
                     >
@@ -120,31 +121,33 @@ export default function SavingsEstimatorCurrency() {
                     <p
                         style={{
                             color: "#475569",
-                            marginTop: "1.1rem",
-                            fontSize: "1.05rem",
-                            lineHeight: 1.65,
-                            maxWidth: "56ch",
+                            marginTop: "1.05rem",
+                            fontSize: "1.06rem",
+                            lineHeight: 1.7,
+                            maxWidth: "58ch",
+                            fontWeight: 550,
                         }}
                     >
-                        Estimate how much you and your caregiver can save when working directly — without
-                        agency margins or hidden fees. Simple, transparent, and personalised to your needs.
+                        A quick way to estimate the total cost of care — and see how much you could save by working
+                        directly with a caregiver instead of paying agency markups.
                     </p>
 
                     <div
                         style={{
-                            marginTop: "1rem",
+                            marginTop: "1.05rem",
                             padding: "12px 14px",
                             borderRadius: 16,
-                            background: "rgba(255,255,255,0.65)",
+                            background: "rgba(255,255,255,0.55)",
                             border: "1px solid rgba(15,23,42,0.10)",
                             color: "#0F172A",
-                            fontWeight: 700,
-                            lineHeight: 1.5,
+                            fontWeight: 750,
+                            lineHeight: 1.55,
                             fontSize: "0.98rem",
+                            maxWidth: "60ch",
                         }}
                     >
-                        <span style={{ color: BRAND, fontWeight: 900 }}>Savings highlight:</span>{" "}
-                        {marketingLine}
+                        <span style={{ fontWeight: 950, color: "#0F172A" }}>How to use:</span>{" "}
+                        Choose your currency, set the hourly rate and hours per week — the estimator updates instantly.
                     </div>
                 </div>
 
@@ -171,7 +174,7 @@ export default function SavingsEstimatorCurrency() {
                     >
                         {/* Currency */}
                         <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".88rem" }}>
+                            <span style={{ fontWeight: 900, color: "#1f2a37", fontSize: ".88rem" }}>
                                 Currency
                             </span>
 
@@ -189,10 +192,8 @@ export default function SavingsEstimatorCurrency() {
                                 <option value="PLN">PLN — zł</option>
                                 <option value="EUR">EUR — €</option>
                                 <option value="GBP">GBP — £</option>
-                                <option value="USD">USD — $</option>
                             </select>
 
-                            {/* ✅ Info about “official” basis + smart default */}
                             <span
                                 style={{
                                     marginTop: 6,
@@ -202,11 +203,10 @@ export default function SavingsEstimatorCurrency() {
                                     lineHeight: 1.35,
                                 }}
                             >
-                                Suggested hourly ranges use statutory minimum wage levels as a baseline, and the default
-                                rate resets to a typical midpoint for the selected currency. Adjust to your local market.
+                                We suggest a typical range for each currency and auto-set a “normal” starting rate.
+                                You can change it any time.
                             </span>
 
-                            {/* ✅ Mini sources note */}
                             <span
                                 style={{
                                     marginTop: 4,
@@ -222,8 +222,8 @@ export default function SavingsEstimatorCurrency() {
 
                         {/* Period */}
                         <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".88rem" }}>
-                                Estimate period
+                            <span style={{ fontWeight: 900, color: "#1f2a37", fontSize: ".88rem" }}>
+                                Show results as
                             </span>
                             <select
                                 value={period}
@@ -241,9 +241,9 @@ export default function SavingsEstimatorCurrency() {
                             </select>
                         </label>
 
-                        {/* Hourly (dynamic min/max) */}
+                        {/* Hourly */}
                         <label style={{ display: "grid", gap: 8 }}>
-                            <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".88rem" }}>
+                            <span style={{ fontWeight: 900, color: "#1f2a37", fontSize: ".88rem" }}>
                                 Hourly rate
                             </span>
 
@@ -278,17 +278,21 @@ export default function SavingsEstimatorCurrency() {
                                     justifyContent: "space-between",
                                     fontSize: ".82rem",
                                     color: "#64748B",
-                                    fontWeight: 700,
+                                    fontWeight: 800,
                                 }}
                             >
                                 <span>{range.min}</span>
                                 <span>{range.max}</span>
                             </div>
+
+                            <span style={{ fontSize: ".82rem", color: "#64748B", fontWeight: 700 }}>
+                                Tip: Use the slider for quick changes.
+                            </span>
                         </label>
 
                         {/* Hours */}
                         <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".88rem" }}>
+                            <span style={{ fontWeight: 900, color: "#1f2a37", fontSize: ".88rem" }}>
                                 Hours per week
                             </span>
                             <input
@@ -302,12 +306,15 @@ export default function SavingsEstimatorCurrency() {
                                     fontSize: "0.98rem",
                                 }}
                             />
+                            <span style={{ fontSize: ".82rem", color: "#64748B", fontWeight: 700 }}>
+                                Most families choose 20–40 hours/week (adjust to your needs).
+                            </span>
                         </label>
 
                         {/* Margin */}
                         <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 800, color: "#1f2a37", fontSize: ".88rem" }}>
-                                Agency margin (%)
+                            <span style={{ fontWeight: 900, color: "#1f2a37", fontSize: ".88rem" }}>
+                                Typical agency markup (%)
                             </span>
                             <input
                                 type="number"
@@ -320,6 +327,9 @@ export default function SavingsEstimatorCurrency() {
                                     fontSize: "0.98rem",
                                 }}
                             />
+                            <span style={{ fontSize: ".82rem", color: "#64748B", fontWeight: 700 }}>
+                                You can adjust this if you know the agency’s actual markup.
+                            </span>
                         </label>
 
                         {/* Fee + tooltip */}
@@ -333,7 +343,7 @@ export default function SavingsEstimatorCurrency() {
                                 borderRadius: 12,
                                 background: "rgba(31,171,31,0.06)",
                                 border: "1px solid rgba(31,171,31,0.18)",
-                                fontWeight: 800,
+                                fontWeight: 850,
                                 fontSize: ".9rem",
                                 color: "#14532D",
                                 display: "inline-flex",
@@ -342,7 +352,7 @@ export default function SavingsEstimatorCurrency() {
                                 width: "fit-content",
                             }}
                         >
-                            ICare fee: <span style={{ color: BRAND, fontWeight: 900 }}>flat 10%</span>
+                            ICare fee: <span style={{ color: BRAND, fontWeight: 950 }}>flat 10%</span>
 
                             <span
                                 aria-hidden="true"
@@ -378,7 +388,7 @@ export default function SavingsEstimatorCurrency() {
                                         fontWeight: 750,
                                         boxShadow: "0 18px 40px rgba(15,23,42,0.25)",
                                         width: "max-content",
-                                        maxWidth: 280,
+                                        maxWidth: 300,
                                         zIndex: 50,
                                     }}
                                 >
@@ -414,7 +424,7 @@ export default function SavingsEstimatorCurrency() {
                         <h3
                             style={{
                                 margin: 0,
-                                fontWeight: 900,
+                                fontWeight: 950,
                                 color: "#0F172A",
                                 fontSize: "clamp(1.1rem, 1.6vw, 1.28rem)",
                             }}
@@ -424,10 +434,10 @@ export default function SavingsEstimatorCurrency() {
 
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                             {[
-                                { k: "Base cost", v: baseCost },
-                                { k: "Agency total", v: agencyTotal },
+                                { k: "Care cost (without fees)", v: baseCost },
+                                { k: "Typical agency total", v: agencyTotal },
                                 { k: "ICare total", v: icareTotal },
-                                { k: "You save with ICare", v: youSave, highlight: true },
+                                { k: "Your savings with ICare", v: youSave, highlight: true },
                             ].map((row) => (
                                 <div
                                     key={row.k}
@@ -444,7 +454,7 @@ export default function SavingsEstimatorCurrency() {
                                             fontSize: ".84rem",
                                             color: "#475569",
                                             marginBottom: 4,
-                                            fontWeight: 800,
+                                            fontWeight: 850,
                                         }}
                                     >
                                         {row.k}
@@ -482,10 +492,154 @@ export default function SavingsEstimatorCurrency() {
                                 />
                             </div>
 
-                            <div style={{ marginTop: 10, fontSize: ".92rem", color: "#0F172A", fontWeight: 800 }}>
-                                Estimated savings:{" "}
-                                <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span>
+                            <div style={{ marginTop: 10, fontSize: ".92rem", color: "#0F172A", fontWeight: 850 }}>
+                                You save about{" "}
+                                <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span>{" "}
+                                compared to a typical agency price
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* ✅ Client-friendly summary (lower, clearer) */}
+            <div
+                style={{
+                    maxWidth: 1180,
+                    margin: "clamp(26px, 3vw, 34px) auto 0",
+                    padding: "0 clamp(18px, 3.2vw, 34px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                }}
+            >
+                <div
+                    style={{
+                        borderRadius: 22,
+                        padding: "clamp(16px, 2vw, 20px)",
+                        background: "rgba(255, 255, 255, 0.53)",
+                        border: "1px solid rgba(15,23,42,0.10)",
+                        boxShadow: "0 14px 34px rgba(15,23,42,0.08)",
+                        display: "grid",
+                        gap: 10,
+                    }}
+                >
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 12,
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <div style={{ display: "grid", gap: 4, minWidth: 260 }}>
+                            <div style={{ fontWeight: 950, color: "#0F172A", fontSize: "1.05rem" }}>
+                                Your quick summary
+                            </div>
+                            <div
+                                style={{
+                                    color: "#475569",
+                                    fontWeight: 700,
+                                    fontSize: ".95rem",
+                                    lineHeight: 1.45,
+                                    maxWidth: "70ch",
+                                }}
+                            >
+                                {friendlyLine}
+                            </div>
+                        </div>
+
+                        <div
+                            style={{
+                                padding: "10px 12px",
+                                borderRadius: 16,
+                                background: "rgba(31,171,31,0.10)",
+                                border: "1px solid rgba(31,171,31,0.22)",
+                                minWidth: 260,
+                            }}
+                        >
+                            <div style={{ fontSize: ".8rem", fontWeight: 900, color: "#14532D" }}>
+                                Estimated savings
+                            </div>
+                            <div style={{ fontSize: "1.25rem", fontWeight: 950, color: BRAND, lineHeight: 1.15 }}>
+                                {nf.format(youSave)}{" "}
+                                <span style={{ fontSize: ".95rem", color: "#14532D", fontWeight: 900 }}>
+                                    / {period === "monthly" ? "month" : "week"}
+                                </span>
+                            </div>
+                            <div style={{ marginTop: 6, fontSize: ".88rem", color: "#0F172A", fontWeight: 800 }}>
+                                Approx.{" "}
+                                <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span>{" "}
+                                cheaper than an agency
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                            gap: 12,
+                            marginTop: 2,
+                        }}
+                    >
+                        {[
+                            {
+                                k: "What this includes",
+                                v: "Care cost + a simple 10% ICare fee (shown above). No hidden agency markups.",
+                            },
+                            {
+                                k: "Good to know",
+                                v: "Results are estimates — rates vary by city, experience, and care needs.",
+                            },
+                            {
+                                k: "Try it",
+                                v: "Change hours/week or hourly rate to see how the total changes instantly.",
+                            },
+                        ].map((item) => (
+                            <div
+                                key={item.k}
+                                style={{
+                                    borderRadius: 16,
+                                    padding: "12px 12px",
+                                    background: "rgba(241,245,249,0.75)",
+                                    border: "1px solid rgba(15,23,42,0.06)",
+                                }}
+                            >
+                                <div style={{ fontSize: ".82rem", fontWeight: 950, color: "#0F172A" }}>
+                                    {item.k}
+                                </div>
+                                <div
+                                    style={{
+                                        marginTop: 4,
+                                        fontSize: ".9rem",
+                                        color: "#475569",
+                                        fontWeight: 700,
+                                        lineHeight: 1.45,
+                                    }}
+                                >
+                                    {item.v}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div
+                        style={{
+                            marginTop: 4,
+                            paddingTop: 10,
+                            borderTop: "1px solid rgba(15,23,42,0.08)",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: 12,
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <div style={{ fontSize: ".85rem", color: "#64748B", fontWeight: 750 }}>
+                            Tip: switching currency auto-sets a typical starting hourly rate for that market.
+                        </div>
+                        <div style={{ fontSize: ".82rem", color: "#94A3B8", fontWeight: 800 }}>
+                            Sources: UK GOV.UK • DE Destatis • PL gov.pl
                         </div>
                     </div>
                 </div>

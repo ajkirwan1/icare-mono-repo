@@ -13,7 +13,7 @@ export default function ICareNavbar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "1.4rem clamp(20px,4vw,48px)",
+                padding: "0.8rem clamp(20px,4vw,48px)",
                 backdropFilter: "blur(10px)",
                 background: "rgba(0,0,0,0.25)",
                 borderBottom: "1px solid rgba(255,255,255,0.15)",
@@ -50,12 +50,12 @@ export default function ICareNavbar() {
             {/* NAV */}
             <nav style={{ display: "flex", gap: "1.1rem 4rem", flexWrap: "wrap" }}>
                 {[
-                    { to: "/", label: "Home" },
-                    { to: "/how-it-works", label: "How it Works" },
-                    { to: "/who-we-are", label: "Who We Are" },
-                    { to: "/privacy", label: "Privacy" },
-                    { to: "/icare-for-caregivers", label: "Caregivers" },
-                    { to: "/icare-for-carereceivers", label: "Care Receivers" },
+
+                    { to: "/how-it-works", label: "how it works" },
+                    { to: "/who-we-are", label: "who we are" },
+                    { to: "/privacy", label: "privacy" },
+                    { to: "/icare-for-caregivers", label: " for caregivers" },
+                    { to: "/icare-for-carereceivers", label: " for care receivers" },
                 ].map((l) => (
                     <Link
                         key={l.to}

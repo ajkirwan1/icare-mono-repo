@@ -11,7 +11,7 @@ export default function HowItWorksFooter() {
         companyNo: "12345678",
         jurisdiction: "Registered in England & Wales",
         registeredOffice: "12 High Street, Cheltenham, GL50 1AA, United Kingdom",
-        email: "hello@icare.example",
+        email: "customershelp@icare.com",
         phone: "+44 20 1234 5678",
         vat: "GB123456789", // optional
     };
@@ -177,12 +177,7 @@ export default function HowItWorksFooter() {
 
                             <div style={{ ...value, color: colors.light }}>{COMPANY.jurisdiction}</div>
 
-                            {COMPANY.vat ? (
-                                <div>
-                                    <div style={label}>VAT (optional)</div>
-                                    <div style={value}>{COMPANY.vat}</div>
-                                </div>
-                            ) : null}
+
                         </div>
                     </div>
 
@@ -220,17 +215,6 @@ export default function HowItWorksFooter() {
                             </Link>
                         </nav>
 
-                        <div
-                            style={{
-                                marginTop: 14,
-                                fontSize: "0.84rem",
-                                color: colors.light,
-                                lineHeight: 1.45,
-                                fontWeight: 600,
-                            }}
-                        >
-                            Sources: UK GOV.UK, DE Destatis, PL gov.pl.
-                        </div>
                     </div>
                 </div>
 
