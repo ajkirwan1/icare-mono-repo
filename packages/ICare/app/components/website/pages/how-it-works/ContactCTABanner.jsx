@@ -12,9 +12,9 @@ export default function ContactCTABanner() {
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
 
-                background: "#fff9ef",
+                background: "#ffffff", // ✅ changed to #ffff (white)
                 borderTop: "1px solid rgba(0,0,0,0.04)",
-                padding: "clamp(5rem,7vw,6rem) 0",
+                padding: "clamp(2.8rem,4.2vw,3.6rem) 0", // ✅ smaller section
 
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -24,11 +24,11 @@ export default function ContactCTABanner() {
                 style={{
                     maxWidth: 1100,
                     margin: "0 auto",
-                    padding: "0 clamp(28px,4vw,48px)",
+                    padding: "0 clamp(20px,3vw,34px)", // ✅ smaller inner padding
 
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
-                    gap: "3.4rem",
+                    gap: "2.2rem", // ✅ smaller gap
                     alignItems: "center",
                 }}
             >
@@ -39,7 +39,7 @@ export default function ContactCTABanner() {
                             margin: 0,
                             color: "#0F172A",
                             fontWeight: 800,
-                            fontSize: "clamp(2rem,2.8vw,2.3rem)",
+                            fontSize: "clamp(1.6rem,2.2vw,1.95rem)", // ✅ smaller title
                             lineHeight: 1.12,
                             letterSpacing: "-0.35px",
                         }}
@@ -49,9 +49,9 @@ export default function ContactCTABanner() {
 
                     <p
                         style={{
-                            margin: "1rem 0 0",
+                            margin: "0.75rem 0 0", // ✅ tighter spacing
                             color: "#475569",
-                            fontSize: "clamp(1.08rem,1.25vw,1.18rem)",
+                            fontSize: "clamp(1rem,1.05vw,1.08rem)", // ✅ smaller text
                             lineHeight: 1.7,
                             fontWeight: 400,
                             maxWidth: "60ch",
@@ -71,12 +71,12 @@ export default function ContactCTABanner() {
                         gap: 12,
                         textDecoration: "none",
 
-                        padding: "1.1rem 2.4rem",
+                        padding: "0.9rem 1.9rem", // ✅ smaller button
                         borderRadius: 999,
 
                         fontWeight: 800,
                         letterSpacing: ".02em",
-                        fontSize: "1.05rem",
+                        fontSize: "1rem", // ✅ slightly smaller text
 
                         background: "#0f3d20e5",
                         border: "2px solid #0f3d20e5",

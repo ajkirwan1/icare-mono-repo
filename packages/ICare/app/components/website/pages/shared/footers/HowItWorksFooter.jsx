@@ -17,7 +17,7 @@ export default function HowItWorksFooter() {
     };
 
     const colors = {
-        bg: "#bfc09c",
+        bg: "#fff9ef", // ✅ changed from #bfc09c
         text: "#0F172A",
         muted: "rgba(15,23,42,0.70)",
         light: "rgba(15,23,42,0.58)",
@@ -27,7 +27,7 @@ export default function HowItWorksFooter() {
 
     const heading = {
         color: colors.text,
-        fontWeight: 800, // thinner than before
+        fontWeight: 800,
         fontSize: "0.98rem",
         marginBottom: 12,
         letterSpacing: "-0.15px",
@@ -105,7 +105,7 @@ export default function HowItWorksFooter() {
                     <div style={{ width: "100%" }}>
                         <div
                             style={{
-                                fontWeight: 850, // thinner
+                                fontWeight: 850,
                                 letterSpacing: "-0.35px",
                                 color: colors.text,
                                 fontSize: "1.22rem",
@@ -176,8 +176,6 @@ export default function HowItWorksFooter() {
                             </div>
 
                             <div style={{ ...value, color: colors.light }}>{COMPANY.jurisdiction}</div>
-
-
                         </div>
                     </div>
 
@@ -214,7 +212,6 @@ export default function HowItWorksFooter() {
                                 Contact
                             </Link>
                         </nav>
-
                     </div>
                 </div>
 
@@ -240,7 +237,9 @@ export default function HowItWorksFooter() {
                         lineHeight: 1.5,
                     }}
                 >
-                    <div>© {year} {COMPANY.legalName}. All rights reserved.</div>
+                    <div>
+                        © {year} {COMPANY.legalName}. All rights reserved.
+                    </div>
 
                     <div style={{ maxWidth: 760 }}>
                         ICare is a marketplace. Caregivers are independent providers and agreements are made directly

@@ -31,7 +31,7 @@ export default function CareTimelineSection() {
                     overflow: "hidden",
 
                     /* ✅ nowy kolor tła */
-                    background: "#b97a57",
+                    background: "#b97957c3",
 
                     padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
                     marginBottom: "clamp(2.0rem, 3vw, 2.8rem)",
@@ -44,7 +44,7 @@ export default function CareTimelineSection() {
                         position: "absolute",
                         inset: 0,
                         background:
-                            "#b97a57",
+                            "#b97957ff",
                         pointerEvents: "none",
                     }}
                 />

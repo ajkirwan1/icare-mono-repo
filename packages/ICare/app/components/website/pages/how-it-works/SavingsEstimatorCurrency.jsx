@@ -85,7 +85,7 @@ export default function SavingsEstimatorCurrency() {
             aria-label="Cost & Savings Estimator"
             style={{
                 padding: "clamp(64px, 8vw, 96px) 0",
-                background: "#bfc09c",
+                background: "#e8e7d7", // ✅ changed from #bfc09c
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
             }}
@@ -538,7 +538,7 @@ export default function SavingsEstimatorCurrency() {
                             </div>
                             <div
                                 style={{
-                                    color: "#475569",
+                                    color: "#475569d8",
                                     fontWeight: 700,
                                     fontSize: ".95rem",
                                     lineHeight: 1.45,

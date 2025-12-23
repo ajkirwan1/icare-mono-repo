@@ -104,7 +104,7 @@ export default function HomePageHero({ imgSrc }) {
                                 style={{
                                     display: "inline-block",
                                     marginBottom: ".20rem",
-                                    fontSize: "1.2rem",
+                                    fontSize: "1.1rem",
                                     fontWeight: 600,
                                     color: "#000000ff",
                                     background: "rgba(255, 255, 255, 0.8)",

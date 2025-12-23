@@ -86,7 +86,7 @@ export default function HowItWorksHero() {
                             fontWeight: 850,
                             lineHeight: 1.04,
                             letterSpacing: "-0.55px",
-                            fontSize: "clamp(3.2rem,5.6vw,4rem)",
+                            fontSize: "clamp(2.2rem,5.6vw,2rem)",
                             color: "#fff",
                             textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                         }}
@@ -96,26 +96,26 @@ export default function HowItWorksHero() {
 
                     {/* Improved copy */}
                     {[
-                        "A calmer way to find care — without agency markups.",
-                        "Browse trusted caregivers, talk directly, and choose the right match at your pace.",
-                        "Pay fairly. Save more. Keep everything clear and simple — from first message to start date.",
-                    ].map((text, i) => (
+                        "Care made simple. No agency markups.",
+                        "Browse. Message. Match.",
+                        "Clear pricing.",
+                        "Fair pay with peace of mind.",
+                    ].map((line, i) => (
                         <p
                             key={i}
                             style={{
-                                margin: i === 0 ? "0 0 1rem" : "0 0 .7rem",
-                                lineHeight: 1.72,
-                                fontSize: "clamp(1.18rem,1.45vw,1.32rem)",
+                                margin: i === 0 ? "0 0 12px" : "0 0 10px",
+                                lineHeight: 1.65,
+                                fontSize: "clamp(1.08rem, 1.35vw, 1.22rem)",
                                 maxWidth: "62ch",
                                 color: "rgba(255,255,255,0.95)",
-                                fontWeight: 520,
+                                fontWeight: 450,
                                 textShadow: "0 4px 16px rgba(0,0,0,0.4)",
                             }}
                         >
-                            <b>{text}</b>
+                            {line}
                         </p>
                     ))}
-
                     {/* CTA */}
                     <div style={{ marginTop: "2rem" }}>
                         <button

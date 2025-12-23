@@ -160,7 +160,7 @@ export default function CompareAgencyVsICare() {
                     {/* ICARE CARD */}
                     <article
                         style={{
-                            background: "#0aa80a2e",
+                            background: "#0aa80a1b",
                             border: "1px solid rgba(31,171,31,0.22)",
                             borderRadius: 28,
                             overflow: "hidden",

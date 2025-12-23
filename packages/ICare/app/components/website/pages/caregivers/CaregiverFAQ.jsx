@@ -1,4 +1,4 @@
-
+import React from "react";
 
 export default function CaregiverFAQ() {
     const BRAND = "#1FAB1F";
@@ -20,22 +20,47 @@ export default function CaregiverFAQ() {
         padding: "0 clamp(16px,4vw,32px)",
     };
 
+    // ✅ replaced with your provided FAQ
     const faqs = [
         {
-            q: "Is registration really free?",
-            a: "Yes. You only pay a flat 10% fee on the contract when you agree terms with a family.",
+            q: "Are caregivers verified?",
+            a: "Yes. ICare asks for baseline profile checks (identity / experience / documents depending on the country). You can also request references and have a call before starting.",
         },
         {
-            q: "Can I negotiate my rate?",
-            a: "Absolutely. You agree the hourly/daily rate directly with the family in the chat and contract.",
+            q: "Who signs the agreement?",
+            a: "You sign directly with the caregiver. ICare supports matching and communication, but is not a party to the contract.",
         },
         {
-            q: "How do contracts and payments work?",
-            a: "Set schedule and rate, e-sign your agreement, then manage everything in one place in ICare.",
+            q: "What if it’s not a good fit?",
+            a: "You can stop conversations or end the cooperation based on your agreed terms. We can also help you find an alternative match quickly.",
         },
         {
-            q: "Do I need documents?",
-            a: "We recommend a CV/resume and any checks/certifications to increase trust and visibility.",
+            q: "How do payments work?",
+            a: "You agree the rate and terms directly with the caregiver. ICare shows costs clearly upfront.",
+        },
+        {
+            q: "Is ICare the employer?",
+            a: "No. ICare is a marketplace. Caregivers are independent providers and families contract with caregivers directly.",
+        },
+        {
+            q: "How much does ICare cost?",
+            a: "ICare uses a simple, transparent fee (e.g., 10%). No hidden markups or agency-style extras.",
+        },
+        {
+            q: "Can I speak to multiple caregivers?",
+            a: "Yes. Talk to a few and choose the best fit—at your own pace, with no pressure.",
+        },
+        {
+            q: "How fast can I find care?",
+            a: "It depends on location, budget, and needs. Many families connect with candidates within days and agree a start date together.",
+        },
+        {
+            q: "What about safety and privacy?",
+            a: "Your data is protected and messaging is secure. Share sensitive details only when you’re comfortable moving forward.",
+        },
+        {
+            q: "Does ICare help with matching?",
+            a: "Yes. We help you clarify needs, compare candidates, and move through the process step by step.",
         },
     ];
 
@@ -57,7 +82,7 @@ export default function CaregiverFAQ() {
                         fontWeight: 900,
                         letterSpacing: "-0.5px",
                         fontSize: "clamp(1.9rem,2.7vw,2.4rem)",
-                        color: "#0F172A",
+                        color: NEUTRAL,
                         lineHeight: 1.14,
                     }}
                 >
@@ -77,7 +102,7 @@ export default function CaregiverFAQ() {
 
             {/* FAQ LIST */}
             <div style={{ display: "grid", gap: "1rem" }}>
-                {faqs.map((f, idx) => (
+                {faqs.map((f) => (
                     <details
                         key={f.q}
                         style={{
@@ -90,6 +115,7 @@ export default function CaregiverFAQ() {
                         }}
                         onToggle={(e) => {
                             const icon = e.currentTarget.querySelector(".faq-icon");
+                            if (!icon) return;
                             if (e.currentTarget.open) {
                                 icon.style.transform = "rotate(45deg)";
                                 icon.style.opacity = 0.85;
@@ -105,7 +131,7 @@ export default function CaregiverFAQ() {
                                 cursor: "pointer",
                                 fontWeight: 800,
                                 fontSize: "1.05rem",
-                                color: "#0F172A",
+                                color: NEUTRAL,
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
@@ -113,8 +139,8 @@ export default function CaregiverFAQ() {
                                 padding: 0,
                                 transition: "color .2s ease",
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = "#1FAB1F")}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = "#0F172A")}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = BRAND)}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = NEUTRAL)}
                         >
                             {f.q}
 
@@ -127,7 +153,7 @@ export default function CaregiverFAQ() {
                                     fontWeight: 700,
                                     lineHeight: 1,
                                     opacity: 0.6,
-                                    color: "#1FAB1F",
+                                    color: BRAND,
                                     transition: "transform .25s ease, opacity .25s ease",
                                     display: "inline-block",
                                 }}
@@ -153,6 +179,5 @@ export default function CaregiverFAQ() {
                 ))}
             </div>
         </section>
-
     );
 }

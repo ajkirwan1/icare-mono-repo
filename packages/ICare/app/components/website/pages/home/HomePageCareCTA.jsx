@@ -8,13 +8,13 @@ export default function HomePageCareCTA() {
             style={{
                 position: "relative",
                 width: "100%",
-                minHeight: "760px",
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
+                minHeight: "760px",
             }}
         >
             {/* ================= CAREGIVERS ================= */}
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", minHeight: "380px" }}>
                 <img
                     src="images/web/homepage/caregiverbottom2.png"
                     alt="Caregiver supporting an elderly person"
@@ -35,14 +35,14 @@ export default function HomePageCareCTA() {
                         display: "flex",
                         alignItems: "flex-end",
                         justifyContent: "center",
-                        padding: "clamp(5rem, 8vw, 8rem)",
+                        padding: "clamp(1.25rem, 4vw, 3rem)", // ✅ smaller on mobile
                     }}
                 >
                     <div
                         style={{
                             background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "2.5rem",
+                            padding: "clamp(1.4rem, 3vw, 2.5rem)", // ✅ responsive padding
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
@@ -57,7 +57,7 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(2rem, 3vw, 2.4rem)",
+                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", // ✅ clamps better
                                 lineHeight: 1.05,
                             }}
                         >
@@ -66,13 +66,13 @@ export default function HomePageCareCTA() {
 
                         <p
                             style={{
-                                margin: "1rem 0px 1.8rem",
-                                fontSize: "1.2rem",
+                                margin: "1rem 0 1.6rem",
+                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
                                 lineHeight: 1.7,
                                 color: "#334155",
                             }}
                         >
-                            Find fair care jobs, connect directly with families,
+                            Find fair care jobs, connect directly with families
                             and work on your own terms — without agencies.
                         </p>
 
@@ -80,13 +80,14 @@ export default function HomePageCareCTA() {
                             to="/icare-for-caregivers"
                             style={{
                                 alignSelf: "flex-start",
-                                padding: "16px 34px",
+                                padding: "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)", // ✅ responsive
                                 borderRadius: "999px",
                                 background: "#61674d",
                                 color: "#fff",
                                 fontWeight: 800,
-                                fontSize: "1.05rem",
+                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)", // ✅ responsive
                                 textDecoration: "none",
+                                whiteSpace: "nowrap",
                             }}
                         >
                             Join as caregiver
@@ -96,7 +97,7 @@ export default function HomePageCareCTA() {
             </div>
 
             {/* ================= CARE RECEIVERS ================= */}
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", minHeight: "380px" }}>
                 <img
                     src="images/web/homepage/carerceiverbottom.png"
                     alt="Diverse family receiving care support"
@@ -117,14 +118,14 @@ export default function HomePageCareCTA() {
                         display: "flex",
                         alignItems: "flex-end",
                         justifyContent: "center",
-                        padding: "clamp(5rem, 8vw, 8rem)",
+                        padding: "clamp(1.25rem, 4vw, 3rem)", // ✅ smaller on mobile
                     }}
                 >
                     <div
                         style={{
                             background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "2.5em",
+                            padding: "clamp(1.4rem, 3vw, 2.5rem)", // ✅ responsive padding
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
@@ -139,9 +140,9 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(2rem, 3vw, 2.4rem)",
+                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", // ✅ clamps better
                                 lineHeight: 1.05,
-                                color: "#B97A57"
+                                color: "#B97A57",
                             }}
                         >
                             ICare for care receivers
@@ -149,8 +150,8 @@ export default function HomePageCareCTA() {
 
                         <p
                             style={{
-                                margin: "1rem 0px 1.8rem",
-                                fontSize: "1.2rem",
+                                margin: "1rem 0 1.6rem",
+                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
                                 lineHeight: 1.7,
                                 color: "#334155",
                             }}
@@ -163,13 +164,14 @@ export default function HomePageCareCTA() {
                             to="/icare-for-care-receivers"
                             style={{
                                 alignSelf: "flex-start",
-                                padding: "16px 34px",
+                                padding: "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)", // ✅ responsive
                                 borderRadius: "999px",
                                 background: "#B97A57",
                                 color: "#fff",
                                 fontWeight: 800,
-                                fontSize: "1.05rem",
+                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)", // ✅ responsive
                                 textDecoration: "none",
+                                whiteSpace: "nowrap",
                             }}
                         >
                             Find care
@@ -177,6 +179,16 @@ export default function HomePageCareCTA() {
                     </div>
                 </div>
             </div>
+
+            {/* ✅ Responsive: stack on smaller screens */}
+            <style>{`
+        @media (max-width: 980px) {
+          section[aria-label="ICare caregivers and care receivers"] {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+        }
+      `}</style>
         </section>
     );
 }

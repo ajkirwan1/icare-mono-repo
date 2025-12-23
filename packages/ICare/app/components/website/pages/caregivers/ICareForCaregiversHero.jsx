@@ -66,7 +66,7 @@ export default function ICareForCaregiversHero() {
                         {/* ===== WHITE TITLE ===== */}
                         <h1
                             style={{
-                                fontSize: "clamp(2.6rem,4vw,3.3rem)",
+                                fontSize: "clamp(2.2rem,4vw,2rem)",
                                 margin: 0,
                                 fontWeight: 900,
                                 lineHeight: 1.05,
