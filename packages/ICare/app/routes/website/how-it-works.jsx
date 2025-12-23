@@ -12,7 +12,6 @@ export default function HowItWorks() {
     return (
         <div className={styles.page}>
             <HowItWorksHero />
-            <StickySubnav />
             <ThreeStepGuide />
             <CompareAgencyVsICare />
             <SavingsEstimatorCurrency />

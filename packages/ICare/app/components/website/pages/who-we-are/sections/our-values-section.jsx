@@ -1,14 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faHeart,
-    faShieldHeart,
-    faLock,
-    faScaleBalanced,
+    faHandsHolding,     // ✅ dignity / respect (more caring)
+    faUserShield,       // privacy by design
+    faScaleBalanced,    // fair & transparent
+    faShieldHeart,      // trust & safety
 } from "@fortawesome/free-solid-svg-icons";
 
 export function OurValuesSection() {
-    // ✅ softer / more subtle icons
     const faIconStyle = {
         fontSize: 23,
         color: "rgba(47,58,50,0.62)",
@@ -72,7 +71,7 @@ export function OurValuesSection() {
             description:
                 "We put people first — families and caregivers — in every decision we make.",
             bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faHeart} style={faIconStyle} />,
+            icon: <FontAwesomeIcon icon={faHandsHolding} style={faIconStyle} />,
         },
         {
             key: "privacy",
@@ -80,7 +79,7 @@ export function OurValuesSection() {
             description:
                 "Built-in data protection and security. Your privacy is never an afterthought.",
             bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faLock} style={faIconStyle} />,
+            icon: <FontAwesomeIcon icon={faUserShield} style={faIconStyle} />,
         },
         {
             key: "fair",
@@ -120,7 +119,6 @@ export function OurValuesSection() {
                     padding: "0 2rem",
                 }}
             >
-                {/* LEFT COLUMN */}
                 <header>
                     <h2
                         style={{
@@ -166,7 +164,6 @@ export function OurValuesSection() {
                     </div>
                 </header>
 
-                {/* RIGHT COLUMN — CARDS */}
                 <div
                     style={{
                         display: "grid",

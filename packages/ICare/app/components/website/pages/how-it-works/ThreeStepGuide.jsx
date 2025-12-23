@@ -15,7 +15,7 @@ export default function ThreeStepGuide() {
         {
             title: "Start working together",
             desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "images/web/how-it-works/handshake.jpg",
+            img: "images/web/how-it-works/handshake2.png",
         },
     ];
 
@@ -27,10 +27,7 @@ export default function ThreeStepGuide() {
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
-
-                // ✅ NEW BACKGROUND
                 background: "#e8e7d7",
-
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 padding: "clamp(3.5rem,6vw,5.2rem) 0",
@@ -61,7 +58,22 @@ export default function ThreeStepGuide() {
                     Get started in 3 simple steps
                 </h2>
 
-                <div style={{ height: "clamp(1.8rem,3vw,2.4rem)" }} />
+                {/* ✅ more space + calmer Curam-style line */}
+                <p
+                    style={{
+                        margin: "16px 0 0", // ✅ more space from heading
+                        color: "#334155",
+                        fontSize: "clamp(1.04rem, 1.2vw, 1.14rem)",
+                        lineHeight: 1.65,
+                        fontWeight: 400,
+                        maxWidth: "72ch",
+                    }}
+                >
+                    A simple way to search, speak  and agree care directly.
+                </p>
+
+                {/* ✅ bigger spacer before cards */}
+                <div style={{ height: "clamp(2.2rem,3.6vw,3rem)" }} />
 
                 {/* STEPS GRID */}
                 <div
@@ -78,10 +90,7 @@ export default function ThreeStepGuide() {
                                 position: "relative",
                                 borderRadius: 22,
                                 overflow: "hidden",
-
-                                // ✅ cards still white on beige background
                                 background: "#fff",
-
                                 border: "1px solid rgba(0,0,0,0.08)",
                                 transition: "background-color .2s ease, border-color .2s ease",
                             }}
@@ -184,6 +193,7 @@ export default function ThreeStepGuide() {
         }
       `}</style>
         </section>
+
     );
 }
 

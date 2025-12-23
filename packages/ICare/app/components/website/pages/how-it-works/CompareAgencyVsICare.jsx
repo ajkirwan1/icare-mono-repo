@@ -121,7 +121,7 @@ export default function CompareAgencyVsICare() {
                                         style={{
                                             display: "flex",
                                             gap: 12,
-                                            color: "#6B7280",
+                                            color: "#1f2a370",
                                             fontSize: "1.05rem",
                                             lineHeight: 1.55,
                                         }}
@@ -130,7 +130,7 @@ export default function CompareAgencyVsICare() {
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
-                                            stroke="#9CA3AF"
+                                            stroke="#1f2a37"
                                             strokeWidth="1.6"
                                             fill="none"
                                         >
@@ -160,7 +160,7 @@ export default function CompareAgencyVsICare() {
                     {/* ICARE CARD */}
                     <article
                         style={{
-                            background: "#0aa80a1b",
+                            background: "#0aa80a40",
                             border: "1px solid rgba(31,171,31,0.22)",
                             borderRadius: 28,
                             overflow: "hidden",
@@ -177,7 +177,8 @@ export default function CompareAgencyVsICare() {
                                     letterSpacing: "-0.15px",
                                 }}
                             >
-                                ICare
+                                <img width="100"
+                                    src="/images/logo/icarelogo4.png" />
                             </h3>
 
                             <ul
@@ -201,7 +202,7 @@ export default function CompareAgencyVsICare() {
                                         style={{
                                             display: "flex",
                                             gap: 12,
-                                            color: "#14532D",
+                                            color: "#1f2a37",
                                             fontSize: "1.05rem",
                                             lineHeight: 1.55,
                                         }}
@@ -210,7 +211,7 @@ export default function CompareAgencyVsICare() {
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
-                                            stroke="#1FAB1F"
+                                            stroke="#1f2a37"
                                             strokeWidth="1.7"
                                             fill="none"
                                         >
@@ -227,7 +228,7 @@ export default function CompareAgencyVsICare() {
                         </div>
                     </article>
                 </div>
-            </div>
+            </div >
 
             <style>{`
     @keyframes fadeUp {
@@ -235,7 +236,7 @@ export default function CompareAgencyVsICare() {
       to { opacity: 1; transform: translateY(0); }
     }
   `}</style>
-        </section>
+        </section >
 
     );
 }

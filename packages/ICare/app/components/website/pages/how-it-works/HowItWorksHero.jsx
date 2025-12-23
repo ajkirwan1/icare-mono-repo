@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
-import styles from "./how-it-works-hero.module.scss"; // optional (you can remove if not using SCSS)
+import styles from "./how-it-works-hero.module.scss"; // optional
 import ICareNavbar from "../shared/ICareNavbar";
-
 
 export default function HowItWorksHero() {
     return (
@@ -82,11 +81,11 @@ export default function HowItWorksHero() {
                     {/* Title */}
                     <h1
                         style={{
-                            margin: "0 0 1.6rem",
+                            margin: "0 0 1.2rem",
                             fontWeight: 850,
                             lineHeight: 1.04,
                             letterSpacing: "-0.55px",
-                            fontSize: "clamp(2.2rem,5.6vw,2rem)",
+                            fontSize: "clamp(2.2rem,5.6vw,3.2rem)",
                             color: "#fff",
                             textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                         }}
@@ -94,34 +93,34 @@ export default function HowItWorksHero() {
                         How it works
                     </h1>
 
-                    {/* Improved copy */}
-                    {[
-                        "Care made simple. No agency markups.",
-                        "Browse. Message. Match.",
-                        "Clear pricing.",
-                        "Fair pay with peace of mind.",
-                    ].map((line, i) => (
-                        <p
-                            key={i}
-                            style={{
-                                margin: i === 0 ? "0 0 12px" : "0 0 10px",
-                                lineHeight: 1.65,
-                                fontSize: "clamp(1.08rem, 1.35vw, 1.22rem)",
-                                maxWidth: "62ch",
-                                color: "rgba(255,255,255,0.95)",
-                                fontWeight: 450,
-                                textShadow: "0 4px 16px rgba(0,0,0,0.4)",
-                            }}
-                        >
-                            {line}
-                        </p>
-                    ))}
+                    {/* ✅ Curam-like one-liner */}
+                    <p
+                        style={{
+                            margin: 0,
+                            lineHeight: 1.72,
+                            fontSize: "clamp(1.08rem, 1.8vw, 1.25rem)",
+                            maxWidth: "62ch",
+                            color: "rgba(255,255,255,0.95)",
+                            fontWeight: 400,
+                            textShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                        }}
+                    >
+                        <b style={{
+                            display: "inline-block",
+                            fontWeight: 700,
+                            fontSize: "1.7rem",
+                            marginBottom: "1rem"
+                        }}
+                        >A simple way to find care locally.</b><br />
+                        Browse profiles, message, and agree terms directly.
+                    </p>
+
                     {/* CTA */}
                     <div style={{ marginTop: "2rem" }}>
                         <button
                             type="button"
                             onClick={() => {
-                                const el = document.getElementById("how-it-works-steps"); // <- ID sekcji niżej
+                                const el = document.getElementById("how-it-works-steps");
                                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                             }}
                             style={{
@@ -150,7 +149,6 @@ export default function HowItWorksHero() {
                                 e.currentTarget.style.filter = "none";
                             }}
                         >
-
                             Get started
                         </button>
                     </div>
@@ -159,13 +157,11 @@ export default function HowItWorksHero() {
 
             {/* Animation */}
             <style>{`
-    @keyframes fadeSlide {
-      0% { opacity: 0; transform: translateY(18px); }
-      100% { opacity: 1; transform: translateY(6%); }
-    }
-  `}</style>
+                @keyframes fadeSlide {
+                  0% { opacity: 0; transform: translateY(18px); }
+                  100% { opacity: 1; transform: translateY(6%); }
+                }
+              `}</style>
         </section>
-
-
     );
 }

@@ -78,20 +78,14 @@ export default function ContactCTABanner() {
                         letterSpacing: ".02em",
                         fontSize: "1rem", // ✅ slightly smaller text
 
-                        background: "#0f3d20e5",
-                        border: "2px solid #0f3d20e5",
+                        background: "#61674d",
+
                         color: "#FFFFFF",
 
                         transition: "all .22s ease",
                         whiteSpace: "nowrap",
                     }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = "translateY(-2px)";
-                        e.currentTarget.style.border = "2px solid #0f3d20e5";
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = "translateY(0)";
-                    }}
+
                 >
                     Contact us
 

@@ -51,11 +51,11 @@ export default function ICareNavbar() {
             <nav style={{ display: "flex", gap: "1.1rem 4rem", flexWrap: "wrap" }}>
                 {[
 
-                    { to: "/how-it-works", label: "how it works" },
-                    { to: "/who-we-are", label: "who we are" },
-                    { to: "/privacy", label: "privacy" },
-                    { to: "/icare-for-caregivers", label: " for caregivers" },
-                    { to: "/icare-for-carereceivers", label: " for care receivers" },
+                    { to: "/how-it-works", label: "How it works" },
+                    { to: "/who-we-are", label: "Who we are" },
+                    { to: "/privacy", label: "Privacy" },
+                    { to: "/icare-for-caregivers", label: " For caregivers" },
+                    { to: "/icare-for-carereceivers", label: " For care receivers" },
                 ].map((l) => (
                     <Link
                         key={l.to}

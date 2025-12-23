@@ -29,22 +29,16 @@ export default function CareTimelineSection() {
                     marginLeft: "calc(50% - 50vw)",
                     position: "relative",
                     overflow: "hidden",
-
-                    /* ✅ nowy kolor tła */
-                    background: "#b97957c3",
-
                     padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
                     marginBottom: "clamp(2.0rem, 3vw, 2.8rem)",
                 }}
             >
-                {/* subtle light wash (dopasowane do #b97a57) */}
                 <div
                     aria-hidden="true"
                     style={{
                         position: "absolute",
                         inset: 0,
-                        background:
-                            "#b97957ff",
+                        background: "#b979579e",
                         pointerEvents: "none",
                     }}
                 />
@@ -86,7 +80,6 @@ export default function CareTimelineSection() {
                 </header>
             </div>
 
-
             {/* ===== CONTENT ===== */}
             <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
                 {/* ================= FULL-WIDTH TYPES OF CARE ================= */}
@@ -96,8 +89,8 @@ export default function CareTimelineSection() {
                         width: "100vw",
                         marginLeft: "calc(50% - 50vw)",
                         background: "#f7e7d9",
-                        marginTop: "-5.4rem",
-                        padding: "8.64rem 0 5.76rem",
+                        marginTop: "-2.1rem", // ✅ was -2.8rem
+                        padding: "6.48rem 0 4.32rem", // ✅ 25% smaller (was 8.64rem 0 5.76rem)
                     }}
                 >
                     <div
@@ -108,7 +101,7 @@ export default function CareTimelineSection() {
                     >
                         <h3
                             style={{
-                                fontSize: "clamp(1.55rem, 2.2vw, 2.2rem)",
+                                fontSize: "clamp(1.35rem, 1.85vw, 1.65rem)", // ✅ smaller
                                 fontWeight: 800,
                                 margin: 0,
                                 color: "#0F172A",
@@ -121,11 +114,11 @@ export default function CareTimelineSection() {
 
                         <p
                             style={{
-                                margin: ".8rem 0 0",
+                                margin: ".6rem 0 0", // ✅ smaller
                                 color: "#475569",
-                                fontSize: "1.05rem",
+                                fontSize: "0.98rem", // ✅ smaller
                                 maxWidth: "56ch",
-                                lineHeight: 1.65,
+                                lineHeight: 1.6,
                                 textAlign: "left",
                             }}
                         >
@@ -138,76 +131,43 @@ export default function CareTimelineSection() {
                             style={{
                                 display: "grid",
                                 gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                                gap: "1.68rem",
-                                marginTop: "2.88rem",
+                                gap: "1.26rem", // ✅ was 1.68rem
+                                marginTop: "2.16rem", // ✅ was 2.88rem
                             }}
                         >
                             {[
-                                {
-                                    label: "Elderly care",
-                                    desc: "Daily support & companionship",
-                                    icon: faHandHoldingHeart,
-                                },
-                                {
-                                    label: "Household help",
-                                    desc: "Cleaning, cooking & chores",
-                                    icon: faBroom,
-                                },
-                                {
-                                    label: "Mobility support",
-                                    desc: "Walking & transfers",
-                                    icon: faPersonWalking,
-                                },
-                                {
-                                    label: "Medication support",
-                                    desc: "Reminders & stability",
-                                    icon: faPills,
-                                },
-                                {
-                                    label: "Night care",
-                                    desc: "Overnight presence & safety",
-                                    icon: faMoon,
-                                },
-                                {
-                                    label: "Hourly care",
-                                    desc: "Short visits, flexible",
-                                    icon: faClock,
-                                },
-                                {
-                                    label: "Live-in care",
-                                    desc: "Full-time home assistance",
-                                    icon: faBed,
-                                },
-                                {
-                                    label: "Specialist care",
-                                    desc: "Dementia & extra needs",
-                                    icon: faBrain,
-                                },
+                                { label: "Elderly care", desc: "Daily support & companionship", icon: faHandHoldingHeart },
+                                { label: "Household help", desc: "Cleaning, cooking & chores", icon: faBroom },
+                                { label: "Mobility support", desc: "Walking & transfers", icon: faPersonWalking },
+                                { label: "Medication support", desc: "Reminders & stability", icon: faPills },
+                                { label: "Night care", desc: "Overnight presence & safety", icon: faMoon },
+                                { label: "Hourly care", desc: "Short visits, flexible", icon: faClock },
+                                { label: "Live-in care", desc: "Full-time home assistance", icon: faBed },
+                                { label: "Specialist care", desc: "Dementia & extra needs", icon: faBrain },
                             ].map((box) => (
                                 <div
                                     key={box.label}
                                     style={{
-                                        padding: "1.68rem 1.62rem",
-                                        borderRadius: "19px",
+                                        padding: "1.26rem 1.22rem", // ✅ was 1.68rem 1.62rem
+                                        borderRadius: "16px", // ✅ slightly smaller
                                         background: "rgba(249,245,240,0.6)",
                                         textAlign: "left",
                                         position: "relative",
                                     }}
                                 >
-                                    {/* IKONA: lewy-górny róg (bez białego tła i bez obramówki) */}
                                     <div
                                         style={{
                                             display: "inline-flex",
                                             justifyContent: "center",
                                             alignItems: "center",
-                                            width: "54px",
-                                            height: "54px",
-                                            borderRadius: "17px",
-                                            background: "transparent", // ✅ usunięte białe tło
+                                            width: "40px", // ✅ was 54px
+                                            height: "40px", // ✅ was 54px
+                                            borderRadius: "14px",
+                                            background: "transparent",
                                             color: "#61674d",
-                                            boxShadow: "none", // ✅ bez “badge look”
-                                            fontSize: "24px",
-                                            marginBottom: "1.05rem",
+                                            boxShadow: "none",
+                                            fontSize: "20px", // ✅ was 24px
+                                            marginBottom: "0.8rem", // ✅ was 1.05rem
                                         }}
                                     >
                                         <FontAwesomeIcon icon={box.icon} />
@@ -215,10 +175,10 @@ export default function CareTimelineSection() {
 
                                     <h4
                                         style={{
-                                            fontWeight: 700,
-                                            margin: "0 0 .55rem 0",
+                                            fontWeight: 750,
+                                            margin: "0 0 .45rem 0",
                                             color: "#0F172A",
-                                            fontSize: "1.3rem",
+                                            fontSize: "1.06rem", // ✅ was 1.3rem
                                             lineHeight: 1.35,
                                         }}
                                     >
@@ -229,7 +189,7 @@ export default function CareTimelineSection() {
                                         style={{
                                             margin: 0,
                                             color: "#475569",
-                                            fontSize: "1.08rem",
+                                            fontSize: "0.95rem", // ✅ was 1.08rem
                                             lineHeight: 1.55,
                                         }}
                                     >
@@ -253,6 +213,3 @@ export default function CareTimelineSection() {
         </section>
     );
 }
-
-
-

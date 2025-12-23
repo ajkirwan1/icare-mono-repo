@@ -506,7 +506,7 @@ export default function SavingsEstimatorCurrency() {
             <div
                 style={{
                     maxWidth: 1180,
-                    margin: "clamp(26px, 3vw, 34px) auto 0",
+                    margin: "clamp(32px, 4vw, 46px) auto 0",
                     padding: "0 clamp(18px, 3.2vw, 34px)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -515,107 +515,112 @@ export default function SavingsEstimatorCurrency() {
                 <div
                     style={{
                         borderRadius: 22,
-                        padding: "clamp(16px, 2vw, 20px)",
-                        background: "rgba(255, 255, 255, 0.53)",
+                        padding: "clamp(18px, 2.2vw, 24px)",
+                        background: "rgba(255,255,255,0.72)",
                         border: "1px solid rgba(15,23,42,0.10)",
-                        boxShadow: "0 14px 34px rgba(15,23,42,0.08)",
+                        boxShadow: "0 16px 40px rgba(15,23,42,0.08)",
                         display: "grid",
-                        gap: 10,
+                        gap: 18,
+                        textAlign: "center"
                     }}
                 >
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            gap: 12,
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <div style={{ display: "grid", gap: 4, minWidth: 260 }}>
-                            <div style={{ fontWeight: 950, color: "#0F172A", fontSize: "1.05rem" }}>
-                                Your quick summary
-                            </div>
-                            <div
-                                style={{
-                                    color: "#475569d8",
-                                    fontWeight: 700,
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    maxWidth: "70ch",
-                                }}
-                            >
-                                {friendlyLine}
-                            </div>
+                    {/* ✅ TOP: QUICK SUMMARY */}
+                    <div style={{ display: "grid", gap: 10 }}>
+                        <div style={{ fontWeight: 900, color: "#0F172A", fontSize: "1.28rem" }}>
+                            Your quick summary
                         </div>
 
                         <div
                             style={{
-                                padding: "10px 12px",
-                                borderRadius: 16,
-                                background: "rgba(31,171,31,0.10)",
-                                border: "1px solid rgba(31,171,31,0.22)",
-                                minWidth: 260,
+                                color: "#334155",
+                                fontWeight: 650,
+                                fontSize: "1rem",
+                                lineHeight: 1.6,
+                                maxWidth: "68ch",
+                                margin: "0 auto"
                             }}
                         >
-                            <div style={{ fontSize: ".8rem", fontWeight: 900, color: "#14532D" }}>
-                                Estimated savings
-                            </div>
-                            <div style={{ fontSize: "1.25rem", fontWeight: 950, color: BRAND, lineHeight: 1.15 }}>
-                                {nf.format(youSave)}{" "}
-                                <span style={{ fontSize: ".95rem", color: "#14532D", fontWeight: 900 }}>
-                                    / {period === "monthly" ? "month" : "week"}
-                                </span>
-                            </div>
-                            <div style={{ marginTop: 6, fontSize: ".88rem", color: "#0F172A", fontWeight: 800 }}>
-                                Approx.{" "}
-                                <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span>{" "}
-                                cheaper than an agency
-                            </div>
+                            {friendlyLine}
                         </div>
                     </div>
 
+                    {/* ✅ BELOW: ESTIMATED SAVINGS */}
+                    <div
+                        style={{
+                            padding: "14px 14px",
+                            borderRadius: 18,
+                            background: "#69c11c40",
+                            border: "1px solid rgba(15,23,42,0.10)",
+                            display: "grid",
+                            gap: 8,
+                            maxWidth: 520,
+                            margin: "0 auto"
+                        }}
+                    >
+                        <div style={{ fontSize: ".85rem", fontWeight: 800, color: "#2da731ff" }}>
+                            Estimated savings
+                        </div>
+
+                        <div style={{ fontSize: "1.35rem", fontWeight: 950, color: "#0F172A", lineHeight: 1.1 }}>
+                            {nf.format(youSave)}{" "}
+                            <span style={{ fontSize: "1rem", color: "#475569", fontWeight: 800 }}>
+                                / {period === "monthly" ? "month" : "week"}
+                            </span>
+                        </div>
+
+                        <div style={{ fontSize: ".95rem", color: "#475569", fontWeight: 750 }}>
+                            About{" "}
+                            <span style={{ color: "#0F172A", fontWeight: 950 }}>{Math.round(savePct)}%</span>{" "}
+                            compared to an agency
+                        </div>
+                    </div>
+
+                    {/* DIVIDER */}
+                    <div style={{ height: 1, background: "rgba(15,23,42,0.08)" }} />
+
+                    {/* ✅ 3 INFO BOXES */}
                     <div
                         style={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                            gap: 12,
-                            marginTop: 2,
+                            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                            gap: 18,
                         }}
                     >
                         {[
                             {
-                                k: "What this includes",
+                                k: "What’s included",
                                 v: "Care cost + a simple 10% ICare fee (shown above). No hidden agency markups.",
                             },
                             {
                                 k: "Good to know",
-                                v: "Results are estimates — rates vary by city, experience, and care needs.",
+                                v: "These are estimates. Rates vary by city, experience, and care needs.",
                             },
                             {
                                 k: "Try it",
-                                v: "Change hours/week or hourly rate to see how the total changes instantly.",
+                                v: "Adjust hours/week or hourly rate to see the totals update instantly.",
                             },
                         ].map((item) => (
                             <div
                                 key={item.k}
                                 style={{
-                                    borderRadius: 16,
-                                    padding: "12px 12px",
-                                    background: "rgba(241,245,249,0.75)",
-                                    border: "1px solid rgba(15,23,42,0.06)",
+                                    borderRadius: 18,
+                                    padding: "14px 14px",
+                                    background: "rgba(255,255,255,0.85)",
+                                    border: "1px solid rgba(15,23,42,0.08)",
+                                    display: "grid",
+                                    gap: 6,
                                 }}
                             >
-                                <div style={{ fontSize: ".82rem", fontWeight: 950, color: "#0F172A" }}>
+                                <div style={{ fontSize: ".9rem", fontWeight: 900, color: "#0F172A" }}>
                                     {item.k}
                                 </div>
+
                                 <div
                                     style={{
-                                        marginTop: 4,
-                                        fontSize: ".9rem",
+                                        fontSize: ".98rem",
                                         color: "#475569",
-                                        fontWeight: 700,
-                                        lineHeight: 1.45,
+                                        fontWeight: 650,
+                                        lineHeight: 1.55,
                                     }}
                                 >
                                     {item.v}
@@ -624,27 +629,38 @@ export default function SavingsEstimatorCurrency() {
                         ))}
                     </div>
 
+                    {/* ✅ FOOTNOTES */}
                     <div
                         style={{
-                            marginTop: 4,
-                            paddingTop: 10,
+                            marginTop: 2,
+                            paddingTop: 14,
                             borderTop: "1px solid rgba(15,23,42,0.08)",
                             display: "flex",
                             justifyContent: "space-between",
-                            gap: 12,
+                            gap: 14,
                             flexWrap: "wrap",
                         }}
                     >
-                        <div style={{ fontSize: ".85rem", color: "#64748B", fontWeight: 750 }}>
-                            Tip: switching currency auto-sets a typical starting hourly rate for that market.
+                        <div style={{ fontSize: ".9rem", color: "#64748B", fontWeight: 650 }}>
+                            Tip: switching currency auto-sets a typical starting hourly rate.
                         </div>
-                        <div style={{ fontSize: ".82rem", color: "#94A3B8", fontWeight: 800 }}>
+
+                        <div style={{ fontSize: ".88rem", color: "#94A3B8", fontWeight: 750 }}>
                             Sources: UK GOV.UK • DE Destatis • PL gov.pl
                         </div>
                     </div>
                 </div>
-            </div>
 
+
+                <style>{`
+      @media (max-width: 860px) {
+        /* ✅ stack top row for mobile */
+        div[style*="grid-template-columns: 1.2fr 0.8fr"] {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    `}</style>
+            </div>
             <style>{`
         @keyframes fadeEstimator {
           from { opacity: 0; transform: translateY(16px); }
