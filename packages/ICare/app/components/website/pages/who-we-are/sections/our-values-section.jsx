@@ -10,7 +10,7 @@ import {
 export function OurValuesSection() {
     const faIconStyle = {
         fontSize: 23,
-        color: "rgba(47,58,50,0.62)",
+        color: "#000",
         opacity: 0.85,
         lineHeight: 1,
         flexShrink: 0,
@@ -54,14 +54,14 @@ export function OurValuesSection() {
                     style={{
                         margin: 0,
                         lineHeight: "1.45",
-                        color: "#2F3A32",
-                        fontSize: ".90rem",
+                        color: "#0f172a",
+                        fontSize: "1rem",
                     }}
                 >
                     {description}
                 </p>
             </div>
-        </div>
+        </div >
     );
 
     const cards = [
@@ -125,7 +125,7 @@ export function OurValuesSection() {
                             fontSize: "2.4rem",
                             margin: 0,
                             fontWeight: 800,
-                            color: "#1B1F1A",
+                            color: "#0f172a",
                         }}
                     >
                         Our Values
@@ -135,7 +135,7 @@ export function OurValuesSection() {
                         style={{
                             fontSize: "1.25rem",
                             marginTop: "1rem",
-                            color: "#2F3A32",
+                            color: "#0f172a",
                             fontWeight: 600,
                         }}
                     >
@@ -147,7 +147,7 @@ export function OurValuesSection() {
                             marginTop: "1rem",
                             lineHeight: "1.6",
                             fontSize: "1rem",
-                            color: "#2F3A32",
+                            color: "#0f172a",
                         }}
                     >
                         We build trust through fairness, clarity, and respect — every step of

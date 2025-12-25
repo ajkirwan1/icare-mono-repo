@@ -59,18 +59,19 @@ export default function PageHero({
                         position: "relative",
                         zIndex: 2,
                         width: contentWidth,
-                        margin: "0 auto",
+                        //margin: "0 auto",
+                        paddingLeft: "60px"
                     }}
                 >
                     {title && (
                         <h1
                             style={{
-                                fontSize: "clamp(2.6rem,4vw,3.3rem)",
+                                fontSize: "3rem",
                                 margin: 0,
                                 fontWeight: 900,
                                 lineHeight: 1.05,
                                 color: "#fff",
-                                maxWidth: "16ch",
+                                maxWidth: "25ch",
                             }}
                         >
                             {title}

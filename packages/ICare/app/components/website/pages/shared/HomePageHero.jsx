@@ -118,9 +118,10 @@ export default function HomePageHero({ imgSrc }) {
                         </span>
 
                         <div style={{ marginTop: "2.2rem", maxWidth: "48ch" }}>
-                            <h2
+                            <h1
                                 style={{
-                                    fontSize: "2rem",
+                                    fontSize: "2.2rem",
+                                    lineHeight: "1.25",
                                     fontWeight: 800,
                                     color: "#ffffffff",
                                     margin: 0,
@@ -128,7 +129,7 @@ export default function HomePageHero({ imgSrc }) {
                                 }}
                             > Find a trusted and verified<br />
                                 caregiver in your local area
-                            </h2>
+                            </h1>
 
                             <p
                                 style={{

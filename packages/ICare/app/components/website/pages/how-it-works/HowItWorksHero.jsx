@@ -85,7 +85,7 @@ export default function HowItWorksHero() {
                             fontWeight: 850,
                             lineHeight: 1.04,
                             letterSpacing: "-0.55px",
-                            fontSize: "clamp(2.2rem,5.6vw,3.2rem)",
+                            fontSize: "2.5rem",
                             color: "#fff",
                             textShadow: "0 8px 24px rgba(0,0,0,0.45)",
                         }}

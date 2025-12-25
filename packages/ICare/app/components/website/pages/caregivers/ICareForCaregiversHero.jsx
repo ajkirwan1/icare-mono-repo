@@ -62,16 +62,15 @@ export default function ICareForCaregiversHero() {
                         alignItems: "center",
                     }}
                 >
-                    <div style={{ maxWidth: "560px" }}>
+                    <div>
                         {/* ===== WHITE TITLE ===== */}
                         <h1
                             style={{
-                                fontSize: "clamp(2.2rem,4vw,2rem)",
+                                fontSize: "3rem",
                                 margin: 0,
-                                fontWeight: 900,
+                                fontWeight: 800,
                                 lineHeight: 1.05,
                                 color: "#fff",
-                                maxWidth: "14ch",
                             }}
                         >
                             ICare for Caregivers
@@ -86,25 +85,11 @@ export default function ICareForCaregiversHero() {
                                 color: "rgba(255,255,255,.92)",
                             }}
                         >
-                            <strong>Work directly with families.</strong>
-                            <br />
-                            <strong>No agencies.<br /> No unfair commissions.</strong>
+                            <p style={{ fontSize: "1.6rem", fontWeight: "700", marginBottom: "1rem" }}>Work directly with families.</p>
+                            <p style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>No agencies.</p>
+                            <p style={{ fontSize: "1.2rem" }}> No unfair commissions.</p>
                         </p>
 
-                        {/* ===== PLAIN LIST (no bullets) ===== */}
-                        <div
-                            style={{
-                                display: "grid",
-                                gap: ".8rem",
-                                marginTop: "2rem",
-                                fontSize: "1.05rem",
-                            }}
-                        >
-                            <div>Find care roles that suit your experience</div>
-                            <div>Agree transparent terms</div>
-                            <div>Keep 90% of your earnings</div>
-                            <div>Free registration — no subscription</div>
-                        </div>
 
                         {/* ===== BUTTON ===== */}
                         <Link

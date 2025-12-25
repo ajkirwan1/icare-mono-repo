@@ -82,23 +82,25 @@ export default function LocalCareMVP_Compact() {
                             fontWeight: 800,
                             color: "#1A1A1A",
                             lineHeight: 1.2,
-                            maxWidth: "24ch",
+                            maxWidth: "26ch",
                         }}
                     >
-                        Your care is just<br /> one click away
+                        Care that feels simple,
+                        <br /> clear and human
                     </h2>
 
                     <p
                         style={{
                             marginTop: "1rem",
                             fontSize: "1.05rem",
-                            color: "#555",
+                            color: "#1a1a1a",
                             lineHeight: 1.6,
-                            maxWidth: "46ch",
+                            maxWidth: "48ch",
                         }}
                     >
-                        ICare is designed for people receiving care and the families who support them.
-                        Clear, familiar and easy to use — with no learning curve and no unnecessary steps.
+                        ICare is built for people receiving care — and for families organising it.
+                        Everything is designed to feel familiar, calm and easy to navigate, without
+                        unnecessary steps or confusing options.
                     </p>
 
                     <ul
@@ -108,27 +110,29 @@ export default function LocalCareMVP_Compact() {
                             display: "grid",
                             gap: "0.7rem",
                             fontSize: "1rem",
-                            color: "#333",
+                            color: "#1a1a1a",
                             lineHeight: 1.5,
+                            maxWidth: "52ch",
+                            fontWeight: "700",
                         }}
                     >
-                        <li>Designed for comfortable one-thumb use</li>
-                        <li>Key actions available in a single tap</li>
-                        <li>Clear caregiver profiles, without complicated filters</li>
-                        <li>Help and support always just one click away</li>
+                        <li>Comfortable, one-hand use on any phone</li>
+                        <li>The essentials are always one tap away</li>
+                        <li>Clear caregiver profiles with the details that matter</li>
+                        <li>Help and support available whenever you need it</li>
                     </ul>
 
                     <p
                         style={{
                             marginTop: "1.6rem",
                             fontSize: "0.95rem",
-                            color: "#6B7280",
-                            maxWidth: "46ch",
+                            color: "#1a1a1a",
+                            maxWidth: "50ch",
                             lineHeight: 1.55,
                         }}
                     >
-                        Whether you’re arranging care for yourself or for a loved one,
-                        ICare keeps everything calm, readable and reassuring.
+                        Whether you’re arranging care for yourself or a loved one, ICare keeps the
+                        process reassuring — so you can focus on the person, not the paperwork.
                     </p>
                 </div>
             </div>

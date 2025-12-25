@@ -36,7 +36,7 @@ export function HowWeWorkSection() {
                 background: "#e8e7d7",
                 padding: "8rem 0",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "open sans",
             }}
         >
             {/* CONTENT WRAPPER */}
@@ -65,7 +65,7 @@ export function HowWeWorkSection() {
                         style={{
                             margin: "1.2rem 0 0",
                             fontSize: "1.2rem",
-                            color: "#475569",
+                            color: "#0f172a",
                             lineHeight: 1.65,
                             maxWidth: "60ch",
                         }}
@@ -124,7 +124,7 @@ export function HowWeWorkSection() {
                                         margin: 0,
                                         fontSize: "1.25rem",
                                         fontWeight: 700,
-                                        color: "#0F172A",
+                                        color: "#0f172a",
                                     }}
                                 >
                                     {s.title}
@@ -134,7 +134,7 @@ export function HowWeWorkSection() {
                                 <p
                                     style={{
                                         margin: 0,
-                                        color: "#475569",
+                                        color: "#0f172a",
                                         lineHeight: 1.55,
                                         fontSize: "1rem",
                                     }}

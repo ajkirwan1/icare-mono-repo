@@ -41,7 +41,7 @@ export function ContactCard() {
                 <p
                     style={{
                         margin: 0,
-                        color: "#475569",
+                        color: "#0f172a",
                         lineHeight: 1.62,
                         fontSize: "1.15rem",
                         maxWidth: "60ch",

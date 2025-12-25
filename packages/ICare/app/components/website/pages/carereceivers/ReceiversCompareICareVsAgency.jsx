@@ -1,155 +1,213 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 
-import CompareSectionHeader from "./compare/CompareSectionHeader";
-import CompareTagList from "./compare/CompareTagList";
-import CompareCardGrid from "./compare/CompareCardGrid";
-import CompareCard from "./compare/CompareCard";
+/**
+ * ICare — Launching Soon (Clients)
+ * ✅ compact, premium, fast
+ * ✅ centered, not full width
+ * ✅ email + postcode
+ * ✅ trust bullets + privacy note
+ */
 
-export default function ReceiversCompareICareVsAgency() {
-    const icareRef = useRef(null);
-    const agencyRef = useRef(null);
+const wrap = {
+    width: "min(560px, 92vw)",
+    margin: "3.2rem auto",
+    padding: "18px",
+    borderRadius: "18px",
+    background: "rgba(255,255,255,0.92)",
+    border: "1px solid rgba(15,23,42,0.10)",
+    boxShadow: "0 14px 40px rgba(15,23,42,0.10)",
+};
 
-    useEffect(() => {
-        const reveal = (el) => {
-            if (!el) return;
+const badge = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 8,
+    padding: "6px 10px",
+    borderRadius: 999,
+    fontSize: "0.78rem",
+    fontWeight: 900,
+    letterSpacing: "0.2px",
+    color: "#0F172A",
+    background: "rgba(31,171,31,0.10)",
+    border: "1px solid rgba(31,171,31,0.22)",
+};
 
-            const obs = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = 1;
-                            entry.target.style.transform = "translateY(0)";
-                            obs.disconnect();
-                        }
-                    });
-                },
-                { threshold: 0.2 }
-            );
+const title = {
+    margin: "10px 0 6px",
+    fontSize: "1.8rem",
+    lineHeight: 1.1,
+    letterSpacing: "-0.7px",
+    fontWeight: 950,
+    color: "#0F172A",
+};
 
-            obs.observe(el);
-        };
+const sub = {
+    margin: 0,
+    fontSize: "1.02rem",
+    lineHeight: 1.6,
+    color: "#475569",
+    maxWidth: "60ch",
+};
 
-        reveal(icareRef.current);
-        reveal(agencyRef.current);
-    }, []);
+const formGrid = {
+    marginTop: "14px",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "10px",
+};
+
+const input = {
+    width: "100%",
+    padding: "11px 12px",
+    borderRadius: "12px",
+    border: "1px solid rgba(15,23,42,0.12)",
+    background: "#fff",
+    outline: "none",
+    fontSize: "0.95rem",
+};
+
+const btn = {
+    marginTop: "10px",
+    width: "100%",
+    padding: "12px 14px",
+    borderRadius: "12px",
+    border: "none",
+    background: "#1FAB1F",
+    color: "#fff",
+    fontWeight: 900,
+    fontSize: "1rem",
+    cursor: "pointer",
+    boxShadow: "0 12px 22px rgba(31,171,31,0.20)",
+};
+
+const hr = {
+    height: 1,
+    width: "100%",
+    background:
+        "linear-gradient(90deg, rgba(15,23,42,0.05), rgba(15,23,42,0.12), rgba(15,23,42,0.05))",
+    margin: "14px 0 12px",
+};
+
+const bullets = {
+    listStyle: "none",
+    padding: 0,
+    margin: 0,
+    display: "grid",
+    gap: "10px",
+};
+
+const bullet = {
+    display: "flex",
+    gap: 10,
+    alignItems: "flex-start",
+    padding: "10px 12px",
+    borderRadius: 14,
+    background: "rgba(15,23,42,0.02)",
+    border: "1px solid rgba(15,23,42,0.06)",
+    color: "#334155",
+    fontSize: "0.95rem",
+    lineHeight: 1.45,
+};
+
+const note = {
+    marginTop: "10px",
+    fontSize: "0.78rem",
+    color: "#64748B",
+    lineHeight: 1.35,
+};
+
+const microCSS = `
+  @media (max-width: 520px){
+    .icare-launch-form{ grid-template-columns: 1fr !important; }
+  }
+  .icare-input:focus{
+    border-color: rgba(31,171,31,0.55) !important;
+    box-shadow: 0 0 0 4px rgba(31,171,31,0.14) !important;
+  }
+  .icare-btn{
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .icare-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(31,171,31,0.22);
+    background: #159815;
+  }
+  .icare-btn:active{ transform: translateY(0px); }
+`;
+
+export default function ICareLaunchingSoonClients() {
+    const [status, setStatus] = useState("idle"); // idle | ok
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setStatus("ok");
+        // TODO: replace with your API call / email provider
+    };
 
     return (
-        /* ================= FULL-WIDTH BACKGROUND (APOLLO STYLE) ================= */
-        <div
-            style={{
-                width: "100%",
-                background: "#d9d7bd",
-                padding: "110px 0",
-            }}
-        >
-            {/* ================= CONTENT CONTAINER ================= */}
-            <section
-                aria-label="ICare vs Agency"
-                style={{
-                    width: "min(92vw, 1100px)",
-                    margin: "0 auto",
-                }}
-            >
-                <CompareSectionHeader
-                    label="ICare vs Agencies"
-                    title="Why families choose ICare"
-                    style={{ marginBottom: "3.2rem" }}
-                />
+        <>
+            <style>{microCSS}</style>
 
-                <CompareTagList
-                    tags={[
-                        "Direct agreement",
-                        "Transparent pricing",
-                        "Secure messaging",
-                        "Fair pay for caregivers",
-                        "Consistent, familiar care",
-                    ]}
-                    style={{ marginBottom: "3rem" }}
-                />
+            <section aria-label="ICare launching soon" style={wrap}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center" }}>
+                    <span style={badge}>✨ Launching soon</span>
+                    <span style={{ fontSize: "0.78rem", fontWeight: 900, color: "#0F172A", opacity: 0.65 }}>
+                        For families & clients
+                    </span>
+                </div>
 
-                <CompareCardGrid gap="3rem">
-                    {/* ========================= ICARE CARD ========================= */}
-                    <div
-                        ref={icareRef}
-                        style={{
-                            background: "#F0FDF4",
-                            borderRadius: 26,
-                            opacity: 0,
-                            transform: "translateY(20px)",
-                            transition: "opacity .7s ease, transform .7s ease",
-                            display: "flex",
-                            flexDirection: "column",
-                            flex: 1,
-                        }}
-                    >
-                        <CompareCard
-                            title="ICare"
-                            icon="check"
-                            iconColor="#3a683ac8"
-                            iconBg="#ECFDF5"
-                            background="#12601214"
-                            items={[
-                                "Direct agreement with your caregiver",
-                                "Transparent 10% service fee",
-                                "Secure messaging and digital contracts",
-                                "Fair pay for caregivers & lower family cost",
-                                "Caregivers keep 90% of their earnings",
-                            ]}
-                            style={{
-                                padding: "48px 40px",
-                                lineHeight: 2.2,
-                                fontSize: "1.15rem",
-                                fontWeight: 600,
-                                color: "#2F4F3E",
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
+                <h2 style={title}>Find trusted care — without agency stress.</h2>
+                <p style={sub}>
+                    ICare is preparing verified caregivers and a calm, transparent matching process.
+                    Join the early access list and we’ll notify you when we open in your area.
+                </p>
+
+                <div style={hr} />
+
+                <ul style={bullets}>
+                    <li style={bullet}>
+                        <span style={{ color: "#1FAB1F", fontWeight: 950, marginTop: 1 }}>✓</span>
+                        <span>Verified profiles + clear information (no guesswork).</span>
+                    </li>
+                    <li style={bullet}>
+                        <span style={{ color: "#1FAB1F", fontWeight: 950, marginTop: 1 }}>✓</span>
+                        <span>Transparent pricing and secure messaging built-in.</span>
+                    </li>
+                    <li style={bullet}>
+                        <span style={{ color: "#1FAB1F", fontWeight: 950, marginTop: 1 }}>✓</span>
+                        <span>Early access to matches when we launch near you.</span>
+                    </li>
+                </ul>
+
+                <form onSubmit={onSubmit} style={{ marginTop: 14 }}>
+                    <div className="icare-launch-form" style={formGrid}>
+                        <input
+                            className="icare-input"
+                            name="email"
+                            type="email"
+                            placeholder="Email address"
+                            required
+                            style={input}
+                        />
+                        <input
+                            className="icare-input"
+                            name="postcode"
+                            placeholder="Postcode"
+                            required
+                            style={input}
                         />
                     </div>
 
-                    {/* ========================= AGENCY CARD ========================= */}
-                    <div
-                        ref={agencyRef}
-                        style={{
-                            background: "#FAFAFA",
-                            borderRadius: 26,
-                            boxShadow: "0 6px 14px rgba(0,0,0,0.02)",
-                            opacity: 0,
-                            transform: "translateY(20px)",
-                            transition: "opacity .7s ease, transform .7s ease",
-                            display: "flex",
-                            flexDirection: "column",
-                            flex: 1,
-                        }}
-                    >
-                        <CompareCard
-                            title="Traditional agency"
-                            icon="dash"
-                            iconColor="#CBD5E1"
-                            iconBg="#F8FAFC"
-                            borderColor="#E2E8F0"
-                            background="transparent"
-                            items={[
-                                "Intermediary in every step",
-                                "Recurring fees and markups",
-                                "Fragmented communication",
-                                "Lower pay for caregivers",
-                            ]}
-                            style={{
-                                padding: "48px 40px",
-                                lineHeight: 2.2,
-                                fontSize: "1.12rem",
-                                color: "#94A3B8",
-                                opacity: 0.85,
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "column",
-                            }}
-                        />
+                    <button className="icare-btn" type="submit" style={btn}>
+                        {status === "ok" ? "You're on the list ✓" : "Join the early access list"}
+                    </button>
+
+                    <div style={note}>
+                        We’ll send one launch email and occasional updates. Unsubscribe anytime. (GDPR-friendly)
                     </div>
-                </CompareCardGrid>
+                </form>
             </section>
-        </div>
+        </>
     );
 }
+
