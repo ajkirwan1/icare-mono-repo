@@ -16,12 +16,15 @@ export default function HowItWorksFooter() {
         vat: "GB123456789", // optional
     };
 
+    // ✅ ONE TEXT COLOR FOR WHOLE FOOTER
+    const TEXT = "#0F172A";
+
     const colors = {
-        bg: "#fff9ef", // ✅ changed from #bfc09c
-        text: "#0F172A",
-        muted: "rgba(15,23,42,0.70)",
-        light: "rgba(15,23,42,0.58)",
-        border: "rgba(15,23,42,0.14)",
+        bg: "#fff9ef",
+        text: TEXT,
+        muted: TEXT,
+        light: TEXT,
+        border: "rgba(15,23,42,0.18)",
         hoverBg: "rgba(15,23,42,0.08)",
     };
 
@@ -34,22 +37,24 @@ export default function HowItWorksFooter() {
     };
 
     const label = {
-        color: colors.light,
+        color: colors.text,
         fontWeight: 700,
         fontSize: "0.9rem",
         marginBottom: 4,
         letterSpacing: "-0.1px",
+        opacity: 0.9,
     };
 
     const value = {
-        color: colors.muted,
+        color: colors.text,
         fontWeight: 560,
         fontSize: "0.95rem",
         lineHeight: 1.5,
+        opacity: 0.9,
     };
 
     const linkBase = {
-        color: colors.muted,
+        color: colors.text,
         textDecoration: "none",
         fontWeight: 650,
         fontSize: "0.98rem",
@@ -58,19 +63,22 @@ export default function HowItWorksFooter() {
         display: "inline-flex",
         alignItems: "center",
         width: "fit-content",
-        transition: "background-color .16s ease, color .16s ease, transform .16s ease",
+        transition: "background-color .16s ease, color .16s ease, transform .16s ease, opacity .16s ease",
+        opacity: 0.95,
     };
 
     const onEnter = (e) => {
         e.currentTarget.style.background = colors.hoverBg;
-        e.currentTarget.style.color = "rgba(15,23,42,0.92)";
+        e.currentTarget.style.color = colors.text; // stays same
         e.currentTarget.style.transform = "translateY(-1px)";
+        e.currentTarget.style.opacity = "1";
     };
 
     const onLeave = (e) => {
         e.currentTarget.style.background = "transparent";
-        e.currentTarget.style.color = colors.muted;
+        e.currentTarget.style.color = colors.text; // stays same
         e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.opacity = "0.95";
     };
 
     return (
@@ -79,6 +87,7 @@ export default function HowItWorksFooter() {
             style={{
                 background: colors.bg,
                 borderTop: `1px solid ${colors.border}`,
+                color: colors.text, // ✅ whole footer text color
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -118,11 +127,12 @@ export default function HowItWorksFooter() {
                         <p
                             style={{
                                 margin: "12px 0 0",
-                                color: colors.muted,
+                                color: colors.text,
                                 lineHeight: 1.6,
                                 maxWidth: "52ch",
                                 fontSize: "0.98rem",
                                 fontWeight: 520,
+                                opacity: 0.9,
                             }}
                         >
                             A transparent marketplace connecting families with caregivers — without agency markups.
@@ -133,7 +143,7 @@ export default function HowItWorksFooter() {
                                 <div style={label}>Email</div>
                                 <a
                                     href={`mailto:${COMPANY.email}`}
-                                    style={{ ...value, textDecoration: "none", color: colors.muted }}
+                                    style={{ ...value, textDecoration: "none", color: colors.text }}
                                     onMouseEnter={onEnter}
                                     onMouseLeave={onLeave}
                                 >
@@ -145,7 +155,7 @@ export default function HowItWorksFooter() {
                                 <div style={label}>Phone</div>
                                 <a
                                     href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-                                    style={{ ...value, textDecoration: "none", color: colors.muted }}
+                                    style={{ ...value, textDecoration: "none", color: colors.text }}
                                     onMouseEnter={onEnter}
                                     onMouseLeave={onLeave}
                                 >
@@ -175,7 +185,7 @@ export default function HowItWorksFooter() {
                                 <div style={value}>{COMPANY.registeredOffice}</div>
                             </div>
 
-                            <div style={{ ...value, color: colors.light }}>{COMPANY.jurisdiction}</div>
+                            <div style={{ ...value, opacity: 0.85 }}>{COMPANY.jurisdiction}</div>
                         </div>
                     </div>
 
@@ -188,7 +198,12 @@ export default function HowItWorksFooter() {
                                 Home
                             </Link>
 
-                            <Link to="/how-it-works" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/how-it-works"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 How it works
                             </Link>
 
@@ -231,10 +246,11 @@ export default function HowItWorksFooter() {
                         gridTemplateColumns: "1fr 1.3fr",
                         gap: 12,
                         alignItems: "start",
-                        color: colors.light,
+                        color: colors.text,
                         fontWeight: 600,
                         fontSize: "0.92rem",
                         lineHeight: 1.5,
+                        opacity: 0.9,
                     }}
                 >
                     <div>
@@ -242,8 +258,8 @@ export default function HowItWorksFooter() {
                     </div>
 
                     <div style={{ maxWidth: 760 }}>
-                        ICare is a marketplace. Caregivers are independent providers and agreements are made directly
-                        between families and caregivers (see Terms).
+                        ICare is a marketplace. Caregivers are independent providers and agreements are made
+                        directly between families and caregivers (see Terms).
                     </div>
                 </div>
             </div>

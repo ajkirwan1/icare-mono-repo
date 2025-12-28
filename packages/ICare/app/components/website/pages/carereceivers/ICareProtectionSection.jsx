@@ -1,154 +1,298 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCheck, faShieldHalved, faComments } from "@fortawesome/free-solid-svg-icons";
 
-export default function ICareProtectionSection() {
-    const accent = {
-        width: "8px",
-        background: "rgba(18, 96, 18, 0.784)",
-        borderRadius: 6,
-        flexShrink: 0,
+export default function ICareTrustSEOSection({
+    imageSrc = "/images/heros/home-care-family.jpg",
+}) {
+    const COLORS = {
+        bg: "#e8e7d7",
+        text: "#0F172A",
+        muted: "rgba(15,23,42,0.72)",
+        border: "rgba(15,23,42,0.10)",
+
+        // ✅ cards: jaśniejsze + bardziej “see-through”
+        card: "rgba(255,255,255,0.55)",
+        cardHover: "rgba(255,255,255,0.62)",
+
+        // ✅ icon color
+        icon: "#61674d",
+        iconBg: "rgba(97,103,77,0.12)",
+        iconBorder: "rgba(97,103,77,0.24)",
     };
 
-    const itemStyle = {
+    const microCSS = `
+    @media (max-width: 980px){
+      .icare-trust-grid{ grid-template-columns: 1fr !important; }
+      .icare-photo{ order: -1; }
+    }
+    .icare-trust-card{
+      transition: background .14s ease, box-shadow .14s ease, border-color .14s ease;
+    }
+    .icare-trust-card:hover{
+      background: ${COLORS.cardHover};
+      box-shadow: 0 14px 34px rgba(15,23,42,0.08);
+      border-color: rgba(15,23,42,0.14);
+    }
+  `;
+
+    const wrap = {
+        width: "100vw",
+        marginLeft: "calc(50% - 50vw)",
+        background: COLORS.bg,
+        padding: "clamp(4.8rem, 6.2vw, 6.4rem) 0",
+        fontFamily:
+            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: COLORS.text,
+    };
+
+    const container = {
+        width: "min(92vw, 1100px)",
+        margin: "0 auto",
+    };
+
+    const grid = {
+        display: "grid",
+        gridTemplateColumns: "1.15fr 0.85fr",
+        gap: "clamp(26px, 3.4vw, 52px)",
+        alignItems: "start",
+    };
+
+    const h2 = {
+        fontSize: "clamp(1.85rem, 2.8vw, 2.25rem)",
+        fontWeight: 950,
+        color: COLORS.text,
+        margin: "0 0 .7rem",
+        letterSpacing: "-0.45px",
+        lineHeight: 1.1,
+    };
+
+    const leadHighlight = {
+        fontSize: "1.27rem",
+        color: COLORS.text,
+        fontWeight: 800,
+        lineHeight: 1.65,
+        margin: "0 0 0.95rem",
+        maxWidth: "72ch",
+        letterSpacing: "-0.15px",
+    };
+
+    const leadRest = {
+        fontSize: "1.06rem",
+        color: COLORS.muted,
+        margin: "0 0 2.1rem",
+        maxWidth: "75ch",
+        lineHeight: 1.7,
+        fontWeight: 600,
+    };
+
+    const card = {
+        padding: "18px 18px",
+        borderRadius: 18,
+        background: COLORS.card, // ✅ jaśniej + bardziej przezroczyste
+        border: `1px solid ${COLORS.border}`,
+        boxShadow: "0 10px 26px rgba(15,23,42,0.05)",
+        display: "grid",
+        gap: 10,
+    };
+
+    const iconWrap = {
+        width: 40,
+        height: 40,
+        borderRadius: 16,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: COLORS.iconBg,
+        border: `1px solid ${COLORS.iconBorder}`,
+        color: COLORS.icon,
+        flex: "0 0 auto",
+    };
+
+    const proofTitle = {
+        margin: 0,
+        fontWeight: 950,
+        color: COLORS.text,
+        fontSize: "1.04rem",
+        letterSpacing: "-0.15px",
+    };
+
+    const proofDesc = {
+        margin: "8px 0 0",
+        color: COLORS.muted,
+        lineHeight: 1.62,
+        fontSize: ".99rem",
+        fontWeight: 600,
+    };
+
+    const proofGrid = {
+        display: "grid",
+        gap: 14,
+        marginTop: 4,
+    };
+
+    // ✅ image card (right)
+    const photoCard = {
+
+        borderRadius: 22,
+        background: "rgba(255,255,255,0.62)",
+        border: `1px solid ${COLORS.border}`,
+        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
+        display: "grid",
+        gap: 12,
+    };
+
+    const photoWrap = {
+        borderRadius: 18,
+        overflow: "hidden",
+        border: `1px solid rgba(15,23,42,0.10)`,
+        background: "rgba(255,255,255,0.65)",
+        aspectRatio: "4 / 5",
+    };
+
+    // ✅ below section (no boxes)
+    const seoBlock = {
+        marginTop: "clamp(30px, 3.8vw, 44px)",
+        paddingTop: "clamp(18px, 2.4vw, 26px)",
+        borderTop: `1px solid ${COLORS.border}`,
+        maxWidth: "78ch",
+    };
+
+    const seoTitle = {
+        margin: 0,
+        fontWeight: 950,
+        color: COLORS.text,
+        fontSize: "1.08rem",
+        letterSpacing: "-0.2px",
+    };
+
+    const seoList = {
+        margin: "14px 0 0",
+        padding: 0,
+        listStyle: "none",
+        display: "grid",
+        gap: 16,
+    };
+
+    const seoItem = {
         display: "flex",
-        gap: "1rem",
-    };
-
-    const titleStyle = {
-        fontSize: "1.15rem",
-        fontWeight: 700,
-        color: "#0F172A",
-        marginBottom: ".35rem",
-    };
-
-    const descStyle = {
-        color: "#475569",
-        lineHeight: 1.55,
+        gap: 12,
+        alignItems: "flex-start",
+        color: COLORS.muted,
+        fontWeight: 650,
+        lineHeight: 1.65,
         fontSize: "1rem",
     };
 
-    return (
-        <section
-            aria-label="ICare safety for families"
-            style={{
-                width: "100vw",
-                marginLeft: "calc(50% - 50vw)",
-                background: "#e8e7d7",
-                padding: "clamp(4.2rem, 5.6vw, 5.4rem) 0", // ⬅️ było ~6.8rem
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
-        >
-            <div
-                style={{
-                    width: "min(92vw,1100px)",
-                    margin: "0 auto",
-                }}
-            >
-                {/* HEADER */}
-                <h2
-                    style={{
-                        fontSize: "clamp(1.7rem, 2.7vw, 2.15rem)", // ⬅️ lekko mniejsze
-                        fontWeight: 800,
-                        color: "#0F172A",
-                        marginBottom: "0.55rem",
-                    }}
-                >
-                    Peace of mind for families
-                </h2>
+    const dash = {
+        width: 16,
+        height: 2,
+        marginTop: 12,
+        borderRadius: 999,
+        background: COLORS.icon,
+        opacity: 0.45,
+        flex: "0 0 auto",
+    };
 
-                <p
-                    style={{
-                        fontSize: "1.08rem", // ⬅️ było 1.18
-                        color: "#475569",
-                        marginBottom: "2.6rem", // ⬅️ było 3.4rem
-                        maxWidth: "60ch",
-                        lineHeight: 1.6,
-                    }}
-                >
-                    Choosing care for a loved one is a serious decision.
-                    ICare is built to help families feel confident, informed
-                    and supported at every stage.
+    const Proof = [
+        {
+            icon: faUserCheck,
+            t: "Profiles built for trust",
+            d: "Clear caregiver information so families can compare calmly — experience, availability and what support is offered.",
+        },
+        {
+            icon: faShieldHalved,
+            t: "A safer way to choose home care",
+            d: "Structured steps that reduce risk and confusion. Families stay in control of decisions from first message to start date.",
+        },
+        {
+            icon: faComments,
+            t: "Direct communication, fewer misunderstandings",
+            d: "Speak with carers directly and agree expectations early — tasks, hours, start date and boundaries.",
+        },
+    ];
+
+    const CareNeeds = [
+        "Companionship, light household help, meal support, and day-to-day routines.",
+        "Mobility support, medication reminders, post-hospital recovery, and overnight peace of mind.",
+        "Dementia support and consistent, familiar care — matched to the person’s needs.",
+    ];
+
+    return (
+        <section aria-label="Home care trust section" style={wrap}>
+            <style>{microCSS}</style>
+
+            <div style={container}>
+                <h2 style={h2}>Home care with a calmer process</h2>
+
+                <p style={leadHighlight}>
+                    ICare is a caregiver marketplace designed for families looking for{" "}
+                    <strong>home care</strong> (hourly or <strong>live-in care</strong>) and reliable{" "}
+                    <strong>carers</strong>.
                 </p>
 
-                {/* GRID */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: "2rem", // ⬅️ było 2.4rem
-                    }}
-                >
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Verified caregivers</h4>
-                            <p style={descStyle}>
-                                Caregivers share verified identity, experience and,
-                                where available, DBS checks — so families can make
-                                informed choices.
-                            </p>
+                <p style={leadRest}>
+                    We focus on clear information, direct communication, and a structured flow that helps you
+                    choose with confidence — without the usual agency pressure.
+                </p>
+
+                <div className="icare-trust-grid" style={grid}>
+                    {/* LEFT */}
+                    <div>
+                        <div style={proofGrid}>
+                            {Proof.map((p) => (
+                                <div key={p.t} className="icare-trust-card" style={card}>
+                                    <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+                                        <div style={iconWrap} aria-hidden="true">
+                                            <FontAwesomeIcon icon={p.icon} />
+                                        </div>
+                                        <h3 style={proofTitle}>{p.t}</h3>
+                                    </div>
+                                    <p style={proofDesc}>{p.d}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Direct, secure communication</h4>
-                            <p style={descStyle}>
-                                Families communicate directly with caregivers
-                                through ICare’s secure messaging — no intermediaries,
-                                no information gaps.
-                            </p>
+                    {/* RIGHT: image — upewnij się, że istnieje plik pod imageSrc */}
+                    <aside className="icare-photo" aria-label="Care photo" style={photoCard}>
+                        <div style={photoWrap}>
+                            <img
+                                src="images/web/icare-for-carereceivers/calmprocess2.png"
+                                alt="Family home care support — elderly care and trusted carers"
+                                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                                loading="lazy"
+                                onError={(e) => {
+                                    // jeśli ścieżka jest zła, pokaż neutralne tło zamiast “pustki”
+                                    e.currentTarget.style.display = "none";
+                                    e.currentTarget.parentElement.style.display = "flex";
+                                    e.currentTarget.parentElement.style.alignItems = "center";
+                                    e.currentTarget.parentElement.style.justifyContent = "center";
+                                    e.currentTarget.parentElement.style.color = "rgba(15,23,42,0.55)";
+                                    e.currentTarget.parentElement.style.fontWeight = 700;
+                                    e.currentTarget.parentElement.style.fontSize = ".95rem";
+                                    e.currentTarget.parentElement.textContent =
+                                        "Add a care photo (update imageSrc)";
+                                }}
+                            />
                         </div>
-                    </div>
+                    </aside>
+                </div>
 
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Safe, transparent payments</h4>
-                            <p style={descStyle}>
-                                Payments are handled securely through ICare,
-                                with clear records and no cash handling.
-                            </p>
-                        </div>
-                    </div>
+                {/* BELOW */}
+                <div style={seoBlock} aria-label="Common care needs families search for">
+                    <h3 style={seoTitle}>Common care needs families search for</h3>
 
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Clear care agreements</h4>
-                            <p style={descStyle}>
-                                Care arrangements, schedules and expectations
-                                are documented clearly, so everyone knows
-                                what has been agreed.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Flexibility as needs change</h4>
-                            <p style={descStyle}>
-                                If care needs evolve, families can adjust arrangements
-                                or explore alternatives without long-term lock-ins.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style={itemStyle}>
-                        <div style={accent} />
-                        <div>
-                            <h4 style={titleStyle}>Family stays in control</h4>
-                            <p style={descStyle}>
-                                Decisions remain with the family and the caregiver —
-                                ICare supports the relationship, it does not control it.
-                            </p>
-                        </div>
-                    </div>
+                    <ul style={seoList}>
+                        {CareNeeds.map((t) => (
+                            <li key={t} style={seoItem}>
+                                <span style={dash} aria-hidden="true" />
+                                <span>{t}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </section>
-
     );
 }

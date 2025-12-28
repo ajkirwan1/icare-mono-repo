@@ -156,7 +156,7 @@ export default function CaregiverFAQ() {
                         <div
                             style={{
                                 padding: "0 1.1rem 1.15rem",
-                                color: "#475569",
+                                color: "#0f172a",
                                 fontSize: "1rem",
                                 lineHeight: 1.66,
                                 fontWeight: 450,

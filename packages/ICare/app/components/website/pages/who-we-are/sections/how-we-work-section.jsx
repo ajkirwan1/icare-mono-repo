@@ -165,10 +165,10 @@ export function HowWeWorkSection() {
                                     <img
                                         src={
                                             s.step === 1
-                                                ? "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60"
+                                                ? "images/web/who-we-are/brief.jpg"
                                                 : s.step === 2
-                                                    ? "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=60"
-                                                    : "https://images.unsplash.com/photo-1586401100292-476323221c87?auto=format&fit=crop&w=500&q=60"
+                                                    ? "images/web/who-we-are/directmatching.jpg"
+                                                    : "images/web/who-we-are/agreed.png"
                                         }
                                         alt=""
                                         style={{

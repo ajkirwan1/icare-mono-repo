@@ -50,7 +50,7 @@ export default function ContactCTABanner() {
                     <p
                         style={{
                             margin: "0.75rem 0 0", // ✅ tighter spacing
-                            color: "#475569",
+                            color: "#1f2a37",
                             fontSize: "clamp(1rem,1.05vw,1.08rem)", // ✅ smaller text
                             lineHeight: 1.7,
                             fontWeight: 400,

@@ -62,7 +62,7 @@ export default function ThreeStepGuide() {
                 <p
                     style={{
                         margin: "16px 0 0", // ✅ more space from heading
-                        color: "#334155",
+                        color: "#0f172a",
                         fontSize: "clamp(1.04rem, 1.2vw, 1.14rem)",
                         lineHeight: 1.65,
                         fontWeight: 400,
@@ -141,7 +141,7 @@ export default function ThreeStepGuide() {
                                     style={{
                                         marginTop: 10,
                                         marginBottom: 0,
-                                        color: "#475569",
+                                        color: "#0f172a",
                                         fontSize: "0.98rem",
                                         lineHeight: 1.65,
                                     }}

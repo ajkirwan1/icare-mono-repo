@@ -43,7 +43,7 @@ export default function CompareAgencyVsICare() {
                 <p
                     style={{
                         margin: "1.3rem 0 4rem",
-                        color: "#475569",
+                        color: "#0f172a",
                         maxWidth: "65ch",
                         lineHeight: 1.68,
                         fontSize: "1.12rem",
@@ -93,7 +93,7 @@ export default function CompareAgencyVsICare() {
                                     margin: 0,
                                     fontSize: "1.42rem",
                                     fontWeight: 800,
-                                    color: "#374151",
+                                    color: "#0f172a",
                                     letterSpacing: "-0.15px",
                                 }}
                             >
