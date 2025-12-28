@@ -57,7 +57,7 @@ export function WhoWeAreHero() {
                                 fontWeight: 900,
                                 letterSpacing: "-0.35px",
                                 lineHeight: 1.05,
-                                fontSize: "clamp(3rem, 5.2vw, 4.2rem)",
+                                fontSize: "2.2rem",
                                 color: "#fdfdfd",
                             }}
                         >

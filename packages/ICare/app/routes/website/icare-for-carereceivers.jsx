@@ -47,10 +47,8 @@ export default function ICareForCareReceivers() {
             <ICareForCareReceiversHero />
             <ReceiversThreeSteps />
             <ReceiversEditorialBanner />
-            <EmptyStateNoCaregivers />
-            <PlaceholderCaregivers />
-            <WaitingListCTA />
-            <RequestCaregiverForm />
+
+
             {/* <ReceiversChecklist /> */}
             <ReceiversCompareICareVsAgency />
             <ICareProtectionSection />

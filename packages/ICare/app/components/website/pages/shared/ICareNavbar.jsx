@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
 
-
 export default function ICareNavbar() {
     return (
         <header
@@ -14,42 +13,57 @@ export default function ICareNavbar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: "1rem clamp(20px,4vw,48px)",
+                padding: "0.8rem clamp(20px,4vw,48px)",
                 backdropFilter: "blur(10px)",
                 background: "rgba(0,0,0,0.25)",
                 borderBottom: "1px solid rgba(255,255,255,0.15)",
             }}
         >
-            {/* BRAND */}
+            {/* BRAND: Link -> home, image via src */}
             <Link
                 to="/"
+                aria-label="Go to home"
                 style={{
-                    fontWeight: 900,
-                    color: "#ffffff",
-                    fontSize: "clamp(1.3rem,2.4vw,1.6rem)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 12,
                     textDecoration: "none",
                 }}
             >
-                ICare
+                <img
+                    src="/images/logo/icarelogo4.png"
+                    alt="ICare"
+                    style={{
+                        height: 75,
+                        width: "auto",
+                        display: "block",
+                    }}
+                    onError={(e) => {
+                        // fallback: jeśli ścieżka zła, przynajmniej pokaże tekst
+                        e.currentTarget.style.display = "none";
+                    }}
+                />
+
+
             </Link>
 
             {/* NAV */}
-            <nav style={{ display: "flex", gap: "1.1rem 1.6rem", flexWrap: "wrap" }}>
+            <nav style={{ display: "flex", gap: "1.1rem 4rem", flexWrap: "wrap" }}>
                 {[
-                    { to: "/", label: "Home" },
-                    { to: "/how-it-works", label: "How it Works" },
-                    { to: "/who-we-are", label: "Who We Are" },
+
+                    { to: "/how-it-works", label: "How it works" },
+                    { to: "/who-we-are", label: "Who we are" },
                     { to: "/privacy", label: "Privacy" },
-                    { to: "/icare-for-caregivers", label: "Caregivers" },
-                    { to: "/icare-for-carereceivers", label: "Care Receivers" },
+                    { to: "/icare-for-caregivers", label: " For caregivers" },
+                    { to: "/icare-for-carereceivers", label: " For care receivers" },
                 ].map((l) => (
                     <Link
                         key={l.to}
                         to={l.to}
                         style={{
                             color: "#ffffff",
-                            fontSize: "1.05rem",
-                            fontWeight: 600,
+                            fontSize: "1.2rem",
+                            fontWeight: 500,
                             textDecoration: "none",
                             letterSpacing: ".2px",
                         }}

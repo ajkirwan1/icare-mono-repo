@@ -9,10 +9,11 @@ export default function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "#FFFFFF",
+                background: "#fff9ef",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px)",
+                padding:
+                    "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -24,13 +25,13 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                {/* Title */}
+                {/* Title — smaller */}
                 <h2
                     style={{
                         margin: 0,
                         fontWeight: 800,
                         color: "#0F172A",
-                        fontSize: "clamp(2.4rem,3.2vw,3rem)",
+                        fontSize: "clamp(2.05rem,2.7vw,2.55rem)", // ✅ smaller headline, lead unchanged
                         letterSpacing: "-0.4px",
                         lineHeight: 1.15,
                     }}
@@ -38,18 +39,19 @@ export default function CompareAgencyVsICare() {
                     Why families choose ICare
                 </h2>
 
+                {/* Lead — unchanged */}
                 <p
                     style={{
                         margin: "1.3rem 0 4rem",
-                        color: "#475569",
+                        color: "#0f172a",
                         maxWidth: "65ch",
                         lineHeight: 1.68,
                         fontSize: "1.12rem",
                         fontWeight: 400,
                     }}
                 >
-                    A modern, transparent alternative to traditional agencies — where families retain choice,
-                    clarity, and fair pricing.
+                    A modern, transparent alternative to traditional agencies — where families retain
+                    choice, clarity, and fair pricing.
                 </p>
 
                 {/* GRID */}
@@ -78,7 +80,7 @@ export default function CompareAgencyVsICare() {
                     {/* AGENCY CARD */}
                     <article
                         style={{
-                            background: "#FAFAFA",
+                            background: "#44444415",
                             border: "1px solid rgba(31,171,31,0.10)",
                             borderRadius: 28,
                             overflow: "hidden",
@@ -91,7 +93,7 @@ export default function CompareAgencyVsICare() {
                                     margin: 0,
                                     fontSize: "1.42rem",
                                     fontWeight: 800,
-                                    color: "#374151",
+                                    color: "#0f172a",
                                     letterSpacing: "-0.15px",
                                 }}
                             >
@@ -119,7 +121,7 @@ export default function CompareAgencyVsICare() {
                                         style={{
                                             display: "flex",
                                             gap: 12,
-                                            color: "#6B7280",
+                                            color: "#1f2a370",
                                             fontSize: "1.05rem",
                                             lineHeight: 1.55,
                                         }}
@@ -128,7 +130,7 @@ export default function CompareAgencyVsICare() {
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
-                                            stroke="#9CA3AF"
+                                            stroke="#1f2a37"
                                             strokeWidth="1.6"
                                             fill="none"
                                         >
@@ -158,7 +160,7 @@ export default function CompareAgencyVsICare() {
                     {/* ICARE CARD */}
                     <article
                         style={{
-                            background: "#FFFFFF",
+                            background: "#0aa80a40",
                             border: "1px solid rgba(31,171,31,0.22)",
                             borderRadius: 28,
                             overflow: "hidden",
@@ -175,7 +177,8 @@ export default function CompareAgencyVsICare() {
                                     letterSpacing: "-0.15px",
                                 }}
                             >
-                                ICare
+                                <img width="100"
+                                    src="/images/logo/icarelogo4.png" />
                             </h3>
 
                             <ul
@@ -199,7 +202,7 @@ export default function CompareAgencyVsICare() {
                                         style={{
                                             display: "flex",
                                             gap: 12,
-                                            color: "#14532D",
+                                            color: "#1f2a37",
                                             fontSize: "1.05rem",
                                             lineHeight: 1.55,
                                         }}
@@ -208,7 +211,7 @@ export default function CompareAgencyVsICare() {
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
-                                            stroke="#1FAB1F"
+                                            stroke="#1f2a37"
                                             strokeWidth="1.7"
                                             fill="none"
                                         >
@@ -225,15 +228,15 @@ export default function CompareAgencyVsICare() {
                         </div>
                     </article>
                 </div>
-            </div>
+            </div >
 
             <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-    `}</style>
-        </section>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `}</style>
+        </section >
 
     );
 }

@@ -36,7 +36,7 @@ export function HowWeWorkSection() {
                 background: "#e8e7d7",
                 padding: "8rem 0",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "open sans",
             }}
         >
             {/* CONTENT WRAPPER */}
@@ -65,7 +65,7 @@ export function HowWeWorkSection() {
                         style={{
                             margin: "1.2rem 0 0",
                             fontSize: "1.2rem",
-                            color: "#475569",
+                            color: "#0f172a",
                             lineHeight: 1.65,
                             maxWidth: "60ch",
                         }}
@@ -124,7 +124,7 @@ export function HowWeWorkSection() {
                                         margin: 0,
                                         fontSize: "1.25rem",
                                         fontWeight: 700,
-                                        color: "#0F172A",
+                                        color: "#0f172a",
                                     }}
                                 >
                                     {s.title}
@@ -134,7 +134,7 @@ export function HowWeWorkSection() {
                                 <p
                                     style={{
                                         margin: 0,
-                                        color: "#475569",
+                                        color: "#0f172a",
                                         lineHeight: 1.55,
                                         fontSize: "1rem",
                                     }}
@@ -165,10 +165,10 @@ export function HowWeWorkSection() {
                                     <img
                                         src={
                                             s.step === 1
-                                                ? "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=500&q=60"
+                                                ? "images/web/who-we-are/brief.jpg"
                                                 : s.step === 2
-                                                    ? "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=500&q=60"
-                                                    : "https://images.unsplash.com/photo-1586401100292-476323221c87?auto=format&fit=crop&w=500&q=60"
+                                                    ? "images/web/who-we-are/directmatching.jpg"
+                                                    : "images/web/who-we-are/agreed.png"
                                         }
                                         alt=""
                                         style={{
@@ -194,7 +194,7 @@ export function HowWeWorkSection() {
                             gap: "10px",
                             padding: "1.1rem 1.8rem",
                             borderRadius: "999px",
-                            background: "#61674d",
+                            background: "#b97a57",
                             color: "#fff",
                             fontWeight: 800,
                             fontSize: "1.05rem",

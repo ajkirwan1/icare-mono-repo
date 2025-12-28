@@ -1,13 +1,18 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faHandsHolding,     // ✅ dignity / respect (more caring)
+    faUserShield,       // privacy by design
+    faScaleBalanced,    // fair & transparent
+    faShieldHeart,      // trust & safety
+} from "@fortawesome/free-solid-svg-icons";
 
 export function OurValuesSection() {
-    const iconBase = {
-        width: 30,
-        height: 30,
-        stroke: "#2F3A32",
-        strokeWidth: 2.2,
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
+    const faIconStyle = {
+        fontSize: 23,
+        color: "#000",
+        opacity: 0.85,
+        lineHeight: 1,
         flexShrink: 0,
     };
 
@@ -20,10 +25,11 @@ export function OurValuesSection() {
                 padding: "1.8rem 1.6rem",
                 borderRadius: "20px",
                 background: bg,
-                boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
             }}
         >
-            <div style={{ display: "flex", alignItems: "flex-start" }}>{icon}</div>
+            <div style={{ display: "flex", alignItems: "flex-start", paddingTop: 2 }}>
+                {icon}
+            </div>
 
             <div
                 style={{
@@ -36,7 +42,7 @@ export function OurValuesSection() {
                 <h3
                     style={{
                         margin: 0,
-                        fontSize: "1.09rem", // ⬅️ −5%
+                        fontSize: "1.09rem",
                         color: "#1B1F1A",
                         fontWeight: 700,
                     }}
@@ -48,14 +54,14 @@ export function OurValuesSection() {
                     style={{
                         margin: 0,
                         lineHeight: "1.45",
-                        color: "#2F3A32",
-                        fontSize: ".90rem", // ⬅️ −5%
+                        color: "#0f172a",
+                        fontSize: "1rem",
                     }}
                 >
                     {description}
                 </p>
             </div>
-        </div>
+        </div >
     );
 
     const cards = [
@@ -65,11 +71,7 @@ export function OurValuesSection() {
             description:
                 "We put people first — families and caregivers — in every decision we make.",
             bg: "#fff9ef",
-            icon: (
-                <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
-                    <path d="M20 6L9 17l-5-5" />
-                </svg>
-            ),
+            icon: <FontAwesomeIcon icon={faHandsHolding} style={faIconStyle} />,
         },
         {
             key: "privacy",
@@ -77,12 +79,7 @@ export function OurValuesSection() {
             description:
                 "Built-in data protection and security. Your privacy is never an afterthought.",
             bg: "#fff9ef",
-            icon: (
-                <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
-                    <rect x="3" y="11" width="18" height="10" rx="3" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-            ),
+            icon: <FontAwesomeIcon icon={faUserShield} style={faIconStyle} />,
         },
         {
             key: "fair",
@@ -90,12 +87,7 @@ export function OurValuesSection() {
             description:
                 "No hidden fees, no surprises. All agreements are clear, honest, and accessible.",
             bg: "#fff9ef",
-            icon: (
-                <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
-                    <path d="M4 9h16" />
-                    <path d="M4 15h16" />
-                </svg>
-            ),
+            icon: <FontAwesomeIcon icon={faScaleBalanced} style={faIconStyle} />,
         },
         {
             key: "trust",
@@ -103,11 +95,7 @@ export function OurValuesSection() {
             description:
                 "Verified caregivers, secure payments, and encrypted communication — always.",
             bg: "#fff9ef",
-            icon: (
-                <svg viewBox="0 0 24 24" fill="none" style={iconBase}>
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-            ),
+            icon: <FontAwesomeIcon icon={faShieldHeart} style={faIconStyle} />,
         },
     ];
 
@@ -131,14 +119,13 @@ export function OurValuesSection() {
                     padding: "0 2rem",
                 }}
             >
-                {/* LEFT COLUMN */}
                 <header>
                     <h2
                         style={{
                             fontSize: "2.4rem",
                             margin: 0,
                             fontWeight: 800,
-                            color: "#1B1F1A",
+                            color: "#0f172a",
                         }}
                     >
                         Our Values
@@ -148,7 +135,7 @@ export function OurValuesSection() {
                         style={{
                             fontSize: "1.25rem",
                             marginTop: "1rem",
-                            color: "#2F3A32",
+                            color: "#0f172a",
                             fontWeight: 600,
                         }}
                     >
@@ -160,7 +147,7 @@ export function OurValuesSection() {
                             marginTop: "1rem",
                             lineHeight: "1.6",
                             fontSize: "1rem",
-                            color: "#2F3A32",
+                            color: "#0f172a",
                         }}
                     >
                         We build trust through fairness, clarity, and respect — every step of
@@ -177,7 +164,6 @@ export function OurValuesSection() {
                     </div>
                 </header>
 
-                {/* RIGHT COLUMN — CARDS */}
                 <div
                     style={{
                         display: "grid",

@@ -1,8 +1,6 @@
 import React from "react";
 
 export default function ThreeStepGuide() {
-    const BRAND = "#1FAB1F";
-
     const steps = [
         {
             title: "Create your profile",
@@ -17,56 +15,72 @@ export default function ThreeStepGuide() {
         {
             title: "Start working together",
             desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "images/web/how-it-works/handshake.jpg",
+            img: "images/web/how-it-works/handshake2.png",
         },
     ];
 
     return (
         <section
-            id="steps"
+            id="how-it-works-steps"
             aria-label="Three steps"
             style={{
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
-                background: "#FFFFFF",
+                background: "#e8e7d7",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(6rem,10vw,9rem) 0",
+                padding: "clamp(3.5rem,6vw,5.2rem) 0",
+                scrollMarginTop: "110px",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div
                 style={{
-                    maxWidth: 1280,
+                    maxWidth: 1180,
                     margin: "0 auto",
-                    padding: "0 clamp(28px,5vw,52px)",
+                    padding: "0 clamp(22px,4vw,44px)",
                 }}
             >
                 {/* HEADER */}
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 800,
+                        fontWeight: 850,
                         color: "#0F172A",
-                        fontSize: "clamp(2.4rem,3.3vw,3rem)",
+                        fontSize: "clamp(1.9rem,2.5vw,2.35rem)",
                         lineHeight: 1.15,
-                        letterSpacing: "-0.5px",
+                        letterSpacing: "-0.45px",
                         animation: "fadeUp .8s ease both",
                     }}
                 >
                     Get started in 3 simple steps
                 </h2>
 
-                <div style={{ height: "clamp(3.5rem,5vw,4.5rem)" }} />
+                {/* ✅ more space + calmer Curam-style line */}
+                <p
+                    style={{
+                        margin: "16px 0 0", // ✅ more space from heading
+                        color: "#0f172a",
+                        fontSize: "clamp(1.04rem, 1.2vw, 1.14rem)",
+                        lineHeight: 1.65,
+                        fontWeight: 400,
+                        maxWidth: "72ch",
+                    }}
+                >
+                    A simple way to search, speak  and agree care directly.
+                </p>
+
+                {/* ✅ bigger spacer before cards */}
+                <div style={{ height: "clamp(2.2rem,3.6vw,3rem)" }} />
 
                 {/* STEPS GRID */}
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
-                        gap: "clamp(40px,5vw,64px)",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+                        gap: "clamp(20px,3.2vw,34px)",
                     }}
                 >
                     {steps.map((step) => (
@@ -74,29 +88,26 @@ export default function ThreeStepGuide() {
                             key={step.title}
                             style={{
                                 position: "relative",
-                                borderRadius: 28,
+                                borderRadius: 22,
                                 overflow: "hidden",
                                 background: "#fff",
-
-                                // Airbnb Luxe: NO SHADOW, NO HOVER FLOAT
-                                border: "1px solid rgba(0,0,0,0.05)",
-
-                                transition: "background-color .25s ease, border-color .25s ease",
+                                border: "1px solid rgba(0,0,0,0.08)",
+                                transition: "background-color .2s ease, border-color .2s ease",
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.background = "rgba(248,248,248,0.7)";
-                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.08)";
+                                e.currentTarget.style.background = "rgba(255,255,255,0.92)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.12)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.background = "#fff";
-                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.05)";
+                                e.currentTarget.style.borderColor = "rgba(0,0,0,0.08)";
                             }}
                         >
                             {/* IMAGE */}
                             <div
                                 style={{
                                     width: "100%",
-                                    height: 240,
+                                    height: 180,
                                     overflow: "hidden",
                                 }}
                             >
@@ -107,21 +118,19 @@ export default function ThreeStepGuide() {
                                         width: "100%",
                                         height: "100%",
                                         objectFit: "cover",
-
-                                        // No zoom on hover — Luxe style
                                         transform: "scale(1)",
                                     }}
                                 />
                             </div>
 
                             {/* TEXT */}
-                            <div style={{ padding: "32px 32px 40px" }}>
+                            <div style={{ padding: "22px 22px 26px" }}>
                                 <h3
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.42rem",
+                                        fontSize: "1.18rem",
                                         color: "#0F172A",
-                                        fontWeight: 800,
+                                        fontWeight: 850,
                                         letterSpacing: "-0.2px",
                                     }}
                                 >
@@ -130,11 +139,11 @@ export default function ThreeStepGuide() {
 
                                 <p
                                     style={{
-                                        marginTop: 14,
+                                        marginTop: 10,
                                         marginBottom: 0,
-                                        color: "#475569",
-                                        fontSize: "1.05rem",
-                                        lineHeight: 1.72,
+                                        color: "#0f172a",
+                                        fontSize: "0.98rem",
+                                        lineHeight: 1.65,
                                     }}
                                 >
                                     {step.desc}
@@ -145,7 +154,7 @@ export default function ThreeStepGuide() {
                 </div>
 
                 {/* CTA BUTTON */}
-                <div style={{ marginTop: "clamp(64px,6vw,88px)" }}>
+                <div style={{ marginTop: "clamp(34px,4vw,48px)" }}>
                     <a
                         href="/register"
                         style={{
@@ -154,28 +163,22 @@ export default function ThreeStepGuide() {
                             gap: 12,
                             textDecoration: "none",
                             color: "#fff",
-
-                            // ICare Green Luxe
-                            background: "#126012c8",
-                            padding: "1.25rem 2.4rem",
+                            background: "#b97a57",
+                            padding: "0.95rem 1.8rem",
                             borderRadius: 999,
-                            fontWeight: 800,
-                            letterSpacing: ".02em",
-                            fontSize: "1.05rem",
-
+                            fontWeight: 850,
+                            letterSpacing: ".01em",
+                            fontSize: "1rem",
                             border: "1px solid rgba(0,0,0,0.08)",
-
-                            transition:
-                                "background .2s ease, transform .2s ease, opacity .2s ease",
+                            transition: "transform .18s ease, filter .18s ease",
                         }}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.background = "#126012c8"
-
-
+                            e.currentTarget.style.transform = "translateY(-1px)";
+                            e.currentTarget.style.filter = "brightness(1.02)";
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.background = "#126012c8";
-
+                            e.currentTarget.style.transform = "translateY(0)";
+                            e.currentTarget.style.filter = "none";
                         }}
                     >
                         Create your free account
@@ -183,14 +186,14 @@ export default function ThreeStepGuide() {
                 </div>
             </div>
 
-            {/* ANIMATION */}
             <style>{`
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-    `}</style>
+      `}</style>
         </section>
 
     );
 }
+

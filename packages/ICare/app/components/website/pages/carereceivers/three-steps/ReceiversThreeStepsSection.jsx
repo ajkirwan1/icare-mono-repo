@@ -47,7 +47,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                         style={{
                             margin: 0,
                             fontWeight: 800,
-                            fontSize: "clamp(2.5rem, 3vw, 2.8rem)",
+                            fontSize: "2.2rem",
                             color: "#1A1A1A",
                             letterSpacing: "-0.6px",
                             lineHeight: 1.14,
@@ -62,7 +62,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                         style={{
                             marginTop: "1.1rem",
                             fontSize: "1.22rem",
-                            color: "#4A4A4A",
+                            color: "#1A1A1A",
                             maxWidth: "60ch",
                             lineHeight: 1.66,
                         }}
@@ -100,7 +100,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                                         justifyContent: "center",
                                         fontWeight: 700,
                                         fontSize: "1.2rem",
-                                        color: "#6C5F52",
+                                        color: "#1A1A1A",
                                         boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
                                         flexShrink: 0,
                                     }}
@@ -114,7 +114,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                                         style={{
                                             fontSize: "1.35rem",
                                             fontWeight: 700,
-                                            color: "#2F2A24",
+                                            color: "#1A1A1A",
                                             letterSpacing: "-0.25px",
                                             marginBottom: "0.3rem",
                                         }}
@@ -124,7 +124,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                                     <div
                                         style={{
                                             fontSize: "1.05rem",
-                                            color: "#4C4842",
+                                            color: "#1A1A1A",
                                             lineHeight: 1.62,
                                             opacity: 0.95,
                                         }}

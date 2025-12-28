@@ -2,11 +2,37 @@ import React from "react";
 
 export default function SavingsEstimatorCurrency() {
     const BRAND = "#1FAB1F";
+    const TEXT = "#0F172A";
 
-    const [hourly, setHourly] = React.useState(20);
+    const hourlyRanges = React.useMemo(
+        () => ({
+            PLN: { min: 30.5, max: 60, step: 0.5 },
+            EUR: { min: 12.82, max: 30, step: 0.1 },
+            GBP: { min: 12.21, max: 35, step: 0.1 },
+            USD: { min: 15, max: 45, step: 1 },
+        }),
+        []
+    );
+
+    const snapToStep = (value, step) => {
+        const decimals = (step.toString().split(".")[1] || "").length;
+        const snapped = Math.round(value / step) * step;
+        return Number(snapped.toFixed(decimals));
+    };
+
+    const [currency, setCurrency] = React.useState("PLN");
+    const [period, setPeriod] = React.useState("monthly");
+    const [hourly, setHourly] = React.useState(40);
     const [hoursWeek, setHoursWeek] = React.useState(40);
     const [agencyMargin, setAgencyMargin] = React.useState(35);
-    const [currency, setCurrency] = React.useState("PLN");
+    const [showFeeTip, setShowFeeTip] = React.useState(false);
+
+    const range = hourlyRanges[currency] ?? hourlyRanges.PLN;
+
+    React.useEffect(() => {
+        const midRaw = (range.min + range.max) / 2;
+        setHourly(snapToStep(midRaw, range.step));
+    }, [currency, range.min, range.max, range.step]);
 
     const nf = React.useMemo(
         () =>
@@ -17,305 +43,608 @@ export default function SavingsEstimatorCurrency() {
         [currency]
     );
 
-    const {
-        monthlyBase,
-        monthlyAgency,
-        monthlyICare,
-        monthlySave,
-        savePct,
-    } = React.useMemo(() => {
-        const weeks = 4.33;
-        const base = hourly * hoursWeek * weeks;
+    const { baseCost, agencyTotal, icareTotal, youSave, savePct, periodLabel } = React.useMemo(() => {
+        const weeksPerMonth = 4.33;
+        const multiplier = period === "monthly" ? weeksPerMonth : 1;
+
+        const base = hourly * hoursWeek * multiplier;
         const agency = base * (1 + agencyMargin / 100);
-        const icare = base * 1.1; // 10% ICare fee
+        const icare = base * 1.1;
         const save = Math.max(0, agency - icare);
         const pct = agency > 0 ? (save / agency) * 100 : 0;
 
         return {
-            monthlyBase: base,
-            monthlyAgency: agency,
-            monthlyICare: icare,
-            monthlySave: save,
+            baseCost: base,
+            agencyTotal: agency,
+            icareTotal: icare,
+            youSave: save,
             savePct: pct,
+            periodLabel: period === "monthly" ? "Monthly" : "Weekly",
         };
-    }, [hourly, hoursWeek, agencyMargin]);
+    }, [hourly, hoursWeek, agencyMargin, period]);
+
+    const friendlyLine = React.useMemo(() => {
+        const pct = Math.round(savePct);
+        if (youSave <= 0 || pct <= 0) {
+            return `Work directly with your caregiver with a simple 10% ICare fee — clear, fair, and transparent.`;
+        }
+        return `Choose ICare and keep more of your budget: you save about ${nf.format(
+            youSave
+        )} per ${period === "monthly" ? "month" : "week"} (around ${pct}% compared to an agency).`;
+    }, [youSave, savePct, nf, period]);
+
+    const microCSS = `
+    @media (max-width: 860px) {
+      .icare-est-grid { grid-template-columns: 1fr !important; }
+    }
+  `;
 
     return (
         <section
             id="estimator"
             aria-label="Cost & Savings Estimator"
             style={{
-                margin: "6rem 0",
-                padding: "clamp(80px, 10vw, 120px) 0",
-                background: "linear-gradient(180deg, #E7EFE6 0%, #EEF5EC 100%)",
+                padding: "clamp(64px, 8vw, 96px) 0",
+                background: "#e8e7d7",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
+                color: TEXT,
             }}
         >
+            <style>{microCSS}</style>
+
             <div
+                className="icare-est-grid"
                 style={{
                     maxWidth: 1180,
                     margin: "0 auto",
-                    padding: "0 clamp(20px, 4vw, 40px)",
+                    padding: "0 clamp(18px, 3.2vw, 34px)",
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     display: "grid",
-                    gridTemplateColumns: "1fr 1.4fr",
-                    gap: "clamp(50px, 6vw, 80px)",
+                    gridTemplateColumns: "1fr 1.35fr",
+                    gap: "clamp(40px, 5vw, 64px)",
                     alignItems: "start",
+                    color: TEXT,
                 }}
             >
-                {/* LEFT SIDE */}
-                <div style={{ animation: "fadeEstimator 0.8s ease both" }}>
+                {/* LEFT */}
+                <div style={{ animation: "fadeEstimator 0.8s ease both", color: TEXT }}>
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 800,
+                            fontWeight: 900,
                             letterSpacing: "-0.3px",
-                            color: "#0F172A",
-                            fontSize: "clamp(2.2rem, 3vw, 2.8rem)",
+                            color: TEXT,
+                            fontSize: "clamp(1.9rem, 2.6vw, 2.35rem)",
                             lineHeight: 1.1,
                         }}
                     >
-                        Cost & Savings Estimator
+                        Cost &amp; Savings Estimator
                     </h2>
 
                     <p
                         style={{
-                            color: "#475569",
-                            marginTop: "1.4rem",
-                            fontSize: "1.14rem",
-                            lineHeight: 1.68,
-                            maxWidth: "56ch",
+                            color: TEXT,
+                            opacity: 0.9,
+                            marginTop: "1.05rem",
+                            fontSize: "1.06rem",
+                            lineHeight: 1.7,
+                            maxWidth: "58ch",
+                            fontWeight: 550,
                         }}
                     >
-                        Estimate how much you and your caregiver can save when working directly — without
-                        agency margins or hidden fees. Simple, transparent, and personalised to your needs.
+                        A quick way to estimate the total cost of care — and see how much you could save by
+                        working directly with a caregiver instead of paying agency markups.
                     </p>
+
+                    {/* ✅ SMALLER / ~50% "How to use" */}
+                    <div
+                        style={{
+                            marginTop: "0.9rem",
+                            padding: "10px 10px",
+                            borderRadius: 14,
+                            background: "rgba(255, 255, 255, 0.27)",
+                            border: "1px solid rgba(15,23,42,0.10)",
+                            color: TEXT,
+                            maxWidth: "56ch",
+                            boxShadow: "0 8px 18px rgba(15,23,42,0.05)",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: 8,
+                                marginBottom: 8,
+                            }}
+                        >
+                            <div style={{ fontWeight: 950, color: TEXT, fontSize: "0.92rem" }}>How to use</div>
+
+                            <div
+                                style={{
+                                    fontSize: ".72rem",
+                                    fontWeight: 900,
+                                    color: TEXT,
+                                    opacity: 0.72,
+                                    padding: "4px 8px",
+                                    borderRadius: 999,
+                                    border: "1px solid rgba(15,23,42,0.10)",
+                                    background: "rgba(255, 255, 255, 0.32)",
+                                    whiteSpace: "nowrap",
+                                }}
+                            >
+                                Updates instantly
+                            </div>
+                        </div>
+
+                        <div style={{ display: "grid", gap: 8 }}>
+                            {[
+                                { n: "1", t: "Choose currency", d: "Select PLN / EUR / GBP." },
+                                { n: "2", t: "Set hourly rate", d: "Type a value or use the slider." },
+                                { n: "3", t: "Set hours/week", d: "Results refresh automatically." },
+                            ].map((step) => (
+                                <div
+                                    key={step.n}
+                                    style={{
+                                        display: "flex",
+                                        gap: 10,
+                                        alignItems: "flex-start",
+                                        padding: "8px 10px",
+                                        borderRadius: 12,
+                                        background: "rgba(15,23,42,0.03)",
+                                        border: "1px solid rgba(15,23,42,0.06)",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            width: 22,
+                                            height: 22,
+                                            borderRadius: 999,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontWeight: 950,
+                                            fontSize: ".78rem",
+                                            color: TEXT,
+                                            background: "rgba(31,171,31,0.14)",
+                                            border: "1px solid rgba(31,171,31,0.22)",
+                                            flex: "0 0 auto",
+                                            marginTop: 1,
+                                        }}
+                                    >
+                                        {step.n}
+                                    </div>
+
+                                    <div style={{ display: "grid", gap: 1 }}>
+                                        <div style={{ fontWeight: 950, color: TEXT, fontSize: "0.88rem" }}>{step.t}</div>
+                                        <div style={{ color: TEXT, opacity: 0.82, fontWeight: 650, lineHeight: 1.35, fontSize: ".84rem" }}>
+                                            {step.d}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div style={{ marginTop: 8, color: TEXT, opacity: 0.72, fontWeight: 700, fontSize: ".80rem" }}>
+                            Tip: switching currency auto-sets a typical starting hourly rate.
+                        </div>
+                    </div>
                 </div>
 
-                {/* RIGHT GRID */}
+                {/* RIGHT */}
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(330px, 1fr))",
-                        gap: "clamp(30px, 3vw, 40px)",
+                        gridTemplateColumns: "repeat(auto-fit, minmax(310px, 1fr))",
+                        gap: "clamp(22px, 2.6vw, 32px)",
                         alignItems: "stretch",
+                        color: TEXT,
                     }}
                 >
-                    {/* ===== FORM ===== */}
+                    {/* FORM */}
                     <form
                         onSubmit={(e) => e.preventDefault()}
                         style={{
-                            padding: "clamp(26px, 2.4vw, 32px)",
+                            padding: "clamp(20px, 2vw, 26px)",
                             display: "grid",
-                            gap: 22,
+                            gap: 18,
                             background: "#fff",
-                            borderRadius: 22,
-                            boxShadow: "0 20px 45px rgba(15,23,42,0.08)",
+                            borderRadius: 20,
+                            boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
+                            color: TEXT,
                         }}
                     >
                         {/* Currency */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span
-                                style={{
-                                    fontWeight: 700,
-                                    color: "#1f2a37",
-                                    fontSize: ".9rem",
-                                    letterSpacing: "-0.2px",
-                                }}
-                            >
-                                Currency
-                            </span>
+                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
+                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Currency</span>
+
                             <select
                                 value={currency}
-                                onChange={(e) => setCurrency(e.target.value.split(" ")[0])}
+                                onChange={(e) => setCurrency(e.target.value)}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 14,
-                                    padding: "12px 14px",
-                                    fontSize: "1rem",
+                                    borderRadius: 12,
+                                    padding: "10px 12px",
+                                    fontSize: "0.98rem",
                                     background: "#fff",
+                                    color: TEXT,
                                 }}
                             >
-                                <option>PLN — zł</option>
-                                <option>EUR — €</option>
-                                <option>GBP — £</option>
-                                <option>USD — $</option>
+                                <option value="PLN">PLN — zł</option>
+                                <option value="EUR">EUR — €</option>
+                                <option value="GBP">GBP — £</option>
+                            </select>
+
+                            <span style={{ marginTop: 6, fontSize: ".84rem", color: TEXT, opacity: 0.78, fontWeight: 650 }}>
+                                We suggest a typical range for each currency and auto-set a “normal” starting rate.
+                                You can change it any time.
+                            </span>
+
+                            <span style={{ marginTop: 4, fontSize: ".8rem", color: TEXT, opacity: 0.62, fontWeight: 700 }}>
+                                Sources: UK GOV.UK, DE Destatis, PL gov.pl.
+                            </span>
+                        </label>
+
+                        {/* Period */}
+                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
+                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Show results as</span>
+                            <select
+                                value={period}
+                                onChange={(e) => setPeriod(e.target.value)}
+                                style={{
+                                    border: "1px solid rgba(15,23,42,0.12)",
+                                    borderRadius: 12,
+                                    padding: "10px 12px",
+                                    fontSize: "0.98rem",
+                                    background: "#fff",
+                                    color: TEXT,
+                                }}
+                            >
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
                             </select>
                         </label>
 
                         {/* Hourly */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
-                                Hourly rate
-                            </span>
+                        <label style={{ display: "grid", gap: 8, color: TEXT }}>
+                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Hourly rate</span>
+
                             <input
                                 type="number"
                                 value={hourly}
+                                min={range.min}
+                                max={range.max}
+                                step={range.step}
                                 onChange={(e) => setHourly(Number(e.target.value))}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 14,
-                                    padding: "12px 14px",
-                                    fontSize: "1rem",
+                                    borderRadius: 12,
+                                    padding: "10px 12px",
+                                    fontSize: "0.98rem",
+                                    color: TEXT,
                                 }}
                             />
+
+                            <input
+                                type="range"
+                                min={range.min}
+                                max={range.max}
+                                step={range.step}
+                                value={hourly}
+                                onChange={(e) => setHourly(Number(e.target.value))}
+                                style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
+                            />
+
+                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 800 }}>
+                                <span>{range.min}</span>
+                                <span>{range.max}</span>
+                            </div>
+
+                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
+                                Tip: Use the slider for quick changes.
+                            </span>
                         </label>
 
                         {/* Hours */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
-                                Hours per week
-                            </span>
+                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
+                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Hours per week</span>
                             <input
                                 type="number"
                                 value={hoursWeek}
                                 onChange={(e) => setHoursWeek(Number(e.target.value))}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 14,
-                                    padding: "12px 14px",
-                                    fontSize: "1rem",
+                                    borderRadius: 12,
+                                    padding: "10px 12px",
+                                    fontSize: "0.98rem",
+                                    color: TEXT,
                                 }}
                             />
+                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
+                                Most families choose 20–40 hours/week (adjust to your needs).
+                            </span>
                         </label>
 
                         {/* Margin */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 700, color: "#1f2a37", fontSize: ".9rem" }}>
-                                Agency margin (%)
-                            </span>
+                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
+                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Typical agency markup (%)</span>
                             <input
                                 type="number"
                                 value={agencyMargin}
                                 onChange={(e) => setAgencyMargin(Number(e.target.value))}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 14,
-                                    padding: "12px 14px",
-                                    fontSize: "1rem",
+                                    borderRadius: 12,
+                                    padding: "10px 12px",
+                                    fontSize: "0.98rem",
+                                    color: TEXT,
                                 }}
                             />
+                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
+                                You can adjust this if you know the agency’s actual markup.
+                            </span>
                         </label>
 
-                        {/* ICare Fee */}
+                        {/* Fee + tooltip */}
                         <div
+                            onMouseEnter={() => setShowFeeTip(true)}
+                            onMouseLeave={() => setShowFeeTip(false)}
                             style={{
-                                marginTop: 6,
-                                padding: "12px 16px",
-                                borderRadius: 14,
+                                position: "relative",
+                                marginTop: 2,
+                                padding: "10px 14px",
+                                borderRadius: 12,
                                 background: "rgba(31,171,31,0.06)",
                                 border: "1px solid rgba(31,171,31,0.18)",
-                                fontWeight: 700,
-                                fontSize: ".92rem",
-                                color: "#14532D",
+                                fontWeight: 850,
+                                fontSize: ".9rem",
+                                color: TEXT,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 10,
+                                width: "fit-content",
                             }}
                         >
-                            ICare fee:{" "}
-                            <span style={{ color: BRAND, fontWeight: 800 }}>flat 10%</span>
+                            ICare fee: <span style={{ color: TEXT, fontWeight: 950 }}>flat 10%</span>
+
+                            <span
+                                aria-hidden="true"
+                                style={{
+                                    width: 18,
+                                    height: 18,
+                                    borderRadius: 999,
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    background: "rgba(31,171,31,0.14)",
+                                    border: "1px solid rgba(31,171,31,0.25)",
+                                    color: TEXT,
+                                    fontSize: ".78rem",
+                                    fontWeight: 900,
+                                }}
+                            >
+                                i
+                            </span>
+
+                            {showFeeTip && (
+                                <div
+                                    role="tooltip"
+                                    style={{
+                                        position: "absolute",
+                                        left: 0,
+                                        top: "calc(100% + 10px)",
+                                        background: "rgba(255,255,255,0.98)",
+                                        color: TEXT,
+                                        border: "1px solid rgba(15,23,42,0.12)",
+                                        padding: "10px 12px",
+                                        borderRadius: 12,
+                                        fontSize: ".88rem",
+                                        fontWeight: 750,
+                                        boxShadow: "0 18px 40px rgba(15,23,42,0.18)",
+                                        width: "max-content",
+                                        maxWidth: 300,
+                                        zIndex: 50,
+                                    }}
+                                >
+                                    One-time payment — only after successful cooperation begins.
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            top: -6,
+                                            left: 14,
+                                            width: 12,
+                                            height: 12,
+                                            background: "rgba(255,255,255,0.98)",
+                                            transform: "rotate(45deg)",
+                                            borderRadius: 2,
+                                            borderLeft: "1px solid rgba(15,23,42,0.12)",
+                                            borderTop: "1px solid rgba(15,23,42,0.12)",
+                                        }}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </form>
 
-                    {/* ===== RESULTS ===== */}
+                    {/* RESULTS */}
                     <div
                         style={{
-                            padding: "clamp(26px, 2.4vw, 32px)",
+                            padding: "clamp(20px, 2vw, 26px)",
                             display: "grid",
-                            gap: 22,
+                            gap: 18,
                             background: "#fff",
-                            borderRadius: 22,
-                            boxShadow: "0 20px 45px rgba(15,23,42,0.08)",
+                            borderRadius: 20,
+                            boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
+                            color: TEXT,
                         }}
                     >
-                        <h3
-                            style={{
-                                margin: 0,
-                                fontWeight: 800,
-                                color: "#0F172A",
-                                fontSize: "clamp(1.2rem, 1.8vw, 1.35rem)",
-                            }}
-                        >
-                            Monthly estimate
+                        <h3 style={{ margin: 0, fontWeight: 950, color: TEXT, fontSize: "clamp(1.1rem, 1.6vw, 1.28rem)" }}>
+                            {periodLabel} estimate
                         </h3>
 
-                        <div
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: "1fr 1fr",
-                                gap: 16,
-                            }}
-                        >
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                             {[
-                                { k: "Base cost", v: monthlyBase },
-                                { k: "Agency total", v: monthlyAgency },
-                                { k: "ICare total", v: monthlyICare },
-                                { k: "You save with ICare", v: monthlySave, highlight: true },
+                                { k: "Care cost (without fees)", v: baseCost },
+                                { k: "Typical agency total", v: agencyTotal },
+                                { k: "ICare total", v: icareTotal },
+                                { k: "Your savings with ICare", v: youSave, highlight: true },
                             ].map((row) => (
                                 <div
                                     key={row.k}
                                     style={{
                                         borderRadius: 14,
-                                        padding: "16px",
-                                        background: row.highlight
-                                            ? "rgba(31,171,31,0.08)"
-                                            : "rgba(241,245,249,0.6)",
+                                        padding: "14px",
+                                        background: row.highlight ? "rgba(31,171,31,0.08)" : "rgba(241,245,249,0.6)",
                                     }}
                                 >
-                                    <div
-                                        style={{
-                                            fontSize: ".85rem",
-                                            color: "#475569",
-                                            marginBottom: 4,
-                                            fontWeight: 700,
-                                        }}
-                                    >
+                                    <div style={{ fontSize: ".84rem", color: TEXT, opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
                                         {row.k}
                                     </div>
-
-                                    <div
-                                        style={{
-                                            fontWeight: 900,
-                                            fontSize: "1.15rem",
-                                            color: row.highlight ? BRAND : "#0F172A",
-                                        }}
-                                    >
-                                        {nf.format(row.v)} {currency}
-                                    </div>
+                                    <div style={{ fontWeight: 950, fontSize: "1.08rem", color: TEXT }}>{nf.format(row.v)}</div>
                                 </div>
                             ))}
                         </div>
 
-                        <div style={{ marginTop: 10 }}>
-                            <div
-                                style={{
-                                    height: 9,
-                                    width: "100%",
-                                    background: "#F1F5F9",
-                                    borderRadius: 999,
-                                    overflow: "hidden",
-                                }}
-                            >
+                        <div style={{ marginTop: 6 }}>
+                            <div style={{ height: 9, width: "100%", background: "rgba(15,23,42,0.08)", borderRadius: 999, overflow: "hidden" }}>
                                 <div
                                     style={{
                                         height: "100%",
-                                        width: `${Math.max(
-                                            0,
-                                            Math.min(100, savePct)
-                                        ).toFixed(0)}%`,
+                                        width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`,
                                         background: BRAND,
                                         transition: "width 0.6s ease",
                                     }}
                                 />
                             </div>
+
+                            <div style={{ marginTop: 10, fontSize: ".92rem", color: TEXT, fontWeight: 850 }}>
+                                You save about <span style={{ color: TEXT, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared
+                                to a typical agency price
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {/* SUMMARY */}
+            <div
+                style={{
+                    maxWidth: 1180,
+                    margin: "clamp(32px, 4vw, 46px) auto 0",
+                    padding: "0 clamp(18px, 3.2vw, 34px)",
+                    fontFamily:
+                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    color: TEXT,
+                }}
+            >
+                <div
+                    style={{
+                        borderRadius: 22,
+                        padding: "clamp(18px, 2.2vw, 24px)",
+                        background: "rgba(255,255,255,0.72)",
+                        border: "1px solid rgba(15,23,42,0.10)",
+                        boxShadow: "0 16px 40px rgba(15,23,42,0.08)",
+                        display: "grid",
+                        gap: 18,
+                        textAlign: "center",
+                        color: TEXT,
+                    }}
+                >
+                    <div style={{ display: "grid", gap: 10 }}>
+                        <div style={{ fontWeight: 900, color: TEXT, fontSize: "1.28rem" }}>Your quick summary</div>
+
+                        <div style={{ color: TEXT, opacity: 0.88, fontWeight: 650, fontSize: "1rem", lineHeight: 1.6, maxWidth: "68ch", margin: "0 auto" }}>
+                            {friendlyLine}
+                        </div>
+                    </div>
+
+                    <div
+                        style={{
+                            padding: "12px 12px",
+                            borderRadius: 20,
+                            background: "rgba(31, 171, 31, 0.18)",
+
+                            display: "grid",
+                            gap: 8,
+                            maxWidth: 520,
+                            margin: "0 auto",
+                            color: TEXT,
+                        }}
+                    >
+                        <div style={{ fontSize: ".85rem", fontWeight: 800, color: TEXT, opacity: 0.85 }}>Estimated savings</div>
+
+                        <div style={{ fontSize: "1.35rem", fontWeight: 850, color: TEXT, lineHeight: 1.1 }}>
+                            {nf.format(youSave)}{" "}
+                            <span style={{ fontSize: "1rem", color: TEXT, opacity: 0.78, fontWeight: 800 }}>
+                                / {period === "monthly" ? "month" : "week"}
+                            </span>
+                        </div>
+
+                        <div style={{ fontSize: ".95rem", color: TEXT, opacity: 0.85, fontWeight: 750 }}>
+                            About <span style={{ color: TEXT, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared to an
+                            agency
+                        </div>
+                    </div>
+
+                    <div style={{ height: 1, background: "rgba(15,23,42,0.08)" }} />
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, color: TEXT }}>
+                        {[
+                            { k: "What’s included", v: "Care cost + a simple 10% ICare fee (shown above). No hidden agency markups." },
+                            { k: "Good to know", v: "These are estimates. Rates vary by city, experience, and care needs." },
+                            { k: "Try it", v: "Adjust hours/week or hourly rate to see the totals update instantly." },
+                        ].map((item) => (
+                            <div
+                                key={item.k}
+                                style={{
+                                    borderRadius: 18,
+                                    padding: "14px 14px",
+                                    background: "rgba(255,255,255,0.85)",
+                                    border: "1px solid rgba(15,23,42,0.08)",
+                                    display: "grid",
+                                    gap: 6,
+                                    color: TEXT,
+                                }}
+                            >
+                                <div style={{ fontSize: ".9rem", fontWeight: 900, color: TEXT }}>{item.k}</div>
+                                <div style={{ fontSize: ".98rem", color: TEXT, opacity: 0.86, fontWeight: 650, lineHeight: 1.55 }}>
+                                    {item.v}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div
+                        style={{
+                            marginTop: 2,
+                            paddingTop: 14,
+                            borderTop: "1px solid rgba(15,23,42,0.08)",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            gap: 14,
+                            flexWrap: "wrap",
+                            color: TEXT,
+                        }}
+                    >
+                        <div style={{ fontSize: ".9rem", color: TEXT, opacity: 0.78, fontWeight: 650 }}>
+                            Tip: switching currency auto-sets a typical starting hourly rate.
+                        </div>
+
+                        <div style={{ fontSize: ".88rem", color: TEXT, opacity: 0.65, fontWeight: 750 }}>
+                            Sources: UK GOV.UK • DE Destatis • PL gov.pl
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>{`
+        @keyframes fadeEstimator {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
         </section>
-
-
-
-
     );
 }
