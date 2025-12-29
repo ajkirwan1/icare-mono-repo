@@ -19,8 +19,7 @@ const COLORS = {
 const outerSection = {
     width: "100%",
     padding: "clamp(70px, 9vw, 110px) 0",
-    background: `radial-gradient(1200px 520px at 50% -140px, rgba(31,171,31,0.14), rgba(255,255,255,0) 60%),
-              linear-gradient(180deg, rgba(255,255,255,0.92), ${COLORS.BG})`,
+
     borderTop: `1px solid ${COLORS.SOFT}`,
     borderBottom: `1px solid ${COLORS.SOFT}`,
 };
@@ -154,8 +153,8 @@ const pill = (active) => ({
 const hr = {
     height: 1,
     width: "100%",
-    background:
-        "linear-gradient(90deg, rgba(15,23,42,0.05), rgba(15,23,42,0.12), rgba(15,23,42,0.05))",
+
+
     margin: "14px 0 12px",
 };
 
@@ -242,6 +241,7 @@ const microCSS = `
     filter: brightness(1.06);
     box-shadow: 0 18px 34px rgba(15,23,42,0.18);
   }
+    #icare-waitlist{background:#fff9ef;}
 `;
 
 export default function ICareLaunchingSoonClients() {

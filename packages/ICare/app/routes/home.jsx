@@ -5,10 +5,12 @@ import {
     IcareSection,
 } from "react-library";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
+import IcareBanner2 from "../components/website/pages/home/IcareBanner2";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/HomePageHero";
 import TrustIntroSection from "../components/website/pages/home/sections/TrustIntroSection";
 import TrustValuesSection from "../components/website/pages/home/sections/TrustValuesSection";
+import ICareFooter from "../components/website/pages/shared/footers/ICareFooter";
 
 export function meta() {
     return [
@@ -35,10 +37,9 @@ export default function Home() {
             <CareTimeline />
             <TrustIntroSection />
             <TrustValuesSection />
-            <IcareSection className="full-bleed">
-                <IcareBanner imgSrc={bannerImage1} />
-            </IcareSection>
+            <IcareBanner2 />
             <HomePageCareCTA />
+            <ICareFooter />
         </div>
     );
 }

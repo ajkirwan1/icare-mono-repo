@@ -4,6 +4,7 @@ import CaregiverSteps from "../../components/website/pages/caregivers/CaregiverS
 import WhoCanJoin from "../../components/website/pages/caregivers/WhoCanJoin";
 import CaregiverFAQ from "../../components/website/pages/caregivers/CaregiverFAQ";
 import ContactCTA from "../../components/website/pages/caregivers/ContactCTA";
+import ICareFooter from "../../components/website/pages/shared/footers/ICareFooter";
 
 export default function ICareForCaregivers() {
 
@@ -41,6 +42,7 @@ export default function ICareForCaregivers() {
             <WhoCanJoin />
             <CaregiverFAQ />
             <ContactCTA />
+            <ICareFooter />
         </div>
     );
 }

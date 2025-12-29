@@ -112,9 +112,9 @@ Stronger together. That’s what care should always feel like.`,
                                     position: "relative",
                                     borderRadius: 30,
                                     overflow: "hidden",
-                                    cursor: "pointer",
                                     background: "#000",
                                     boxShadow: "0 10px 30px rgba(15,23,42,0.14)",
+                                    cursor: "default"
                                 }}
                             >
                                 <img
@@ -151,6 +151,7 @@ Stronger together. That’s what care should always feel like.`,
                                         color: "#fff",
                                         display: "grid",
                                         gap: ".65rem",
+                                        cursor: "default",
                                     }}
                                 >
                                     <strong
@@ -192,8 +193,9 @@ Stronger together. That’s what care should always feel like.`,
                                             overflow: "hidden",
                                             maxHeight: isOpen ? "280px" : "0px",
                                             transitionProperty: "max-height",
-                                            transitionDuration: "1850ms",
+                                            transitionDuration: "2s",
                                             transitionTimingFunction: ease,
+
                                         }}
                                     >
                                         <div
@@ -208,6 +210,7 @@ Stronger together. That’s what care should always feel like.`,
                                                 transitionTimingFunction: ease,
                                                 transitionDelay: isOpen ? "260ms" : "0ms", // ✅ jak chciałaś
                                                 willChange: "transform, opacity",
+                                                cursor: "default",
                                             }}
                                         >
                                             <p

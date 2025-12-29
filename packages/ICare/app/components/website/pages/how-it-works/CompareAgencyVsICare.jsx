@@ -178,7 +178,7 @@ export default function CompareAgencyVsICare() {
                                 }}
                             >
                                 <img width="100"
-                                    src="/images/logo/icarelogo4.png" />
+                                    src="/images/logo/icare5.svg" />
                             </h3>
 
                             <ul

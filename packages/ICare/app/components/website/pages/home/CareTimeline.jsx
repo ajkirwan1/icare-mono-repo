@@ -30,7 +30,7 @@ export default function CareTimelineSection() {
                     position: "relative",
                     overflow: "hidden",
                     padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
-                    marginBottom: "clamp(2.0rem, 3vw, 2.8rem)",
+                    marginBottom: "clamp(2.0rem, 3vw, 2rem)",
                 }}
             >
                 <div

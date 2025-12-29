@@ -4,16 +4,16 @@ import { Link } from "react-router";
 export default function HowItWorksFooter() {
     const year = new Date().getFullYear();
 
-    // ✅ FAKE DATA (podmień na swoje)
+    // ✅ MVP (SOLE TRADER) — put your real name + a geographic UK address here
+    // Tip: If you don't want to show your home address, use a proper business/virtual office address.
     const COMPANY = {
         brand: "ICare",
-        legalName: "ICare Marketplace Ltd",
-        companyNo: "12345678",
-        jurisdiction: "Registered in England & Wales",
-        registeredOffice: "12 High Street, Cheltenham, GL50 1AA, United Kingdom",
+        operatorName: "Katarzyna Kruk", // ← CHANGE TO YOUR REAL NAME
+        tradingAs: "ICare",
+        address: "Cheltenham, Gloucestershire, GL50 1AA, United Kingdom", // ← PUT A REAL UK ADDRESS
         email: "customershelp@icare.com",
         phone: "+44 20 1234 5678",
-        vat: "GB123456789", // optional
+        vat: "", // optional: only if VAT registered, e.g. "GB123456789"
     };
 
     // ✅ ONE TEXT COLOR FOR WHOLE FOOTER
@@ -63,20 +63,21 @@ export default function HowItWorksFooter() {
         display: "inline-flex",
         alignItems: "center",
         width: "fit-content",
-        transition: "background-color .16s ease, color .16s ease, transform .16s ease, opacity .16s ease",
+        transition:
+            "background-color .16s ease, color .16s ease, transform .16s ease, opacity .16s ease",
         opacity: 0.95,
     };
 
     const onEnter = (e) => {
         e.currentTarget.style.background = colors.hoverBg;
-        e.currentTarget.style.color = colors.text; // stays same
+        e.currentTarget.style.color = colors.text;
         e.currentTarget.style.transform = "translateY(-1px)";
         e.currentTarget.style.opacity = "1";
     };
 
     const onLeave = (e) => {
         e.currentTarget.style.background = "transparent";
-        e.currentTarget.style.color = colors.text; // stays same
+        e.currentTarget.style.color = colors.text;
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.opacity = "0.95";
     };
@@ -87,7 +88,7 @@ export default function HowItWorksFooter() {
             style={{
                 background: colors.bg,
                 borderTop: `1px solid ${colors.border}`,
-                color: colors.text, // ✅ whole footer text color
+                color: colors.text,
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -135,7 +136,8 @@ export default function HowItWorksFooter() {
                                 opacity: 0.9,
                             }}
                         >
-                            A transparent marketplace connecting families with caregivers — without agency markups.
+                            A transparent marketplace connecting families with independent caregivers — without
+                            agency markups.
                         </p>
 
                         <div style={{ marginTop: 16, display: "grid", gap: 10 }}>
@@ -165,27 +167,33 @@ export default function HowItWorksFooter() {
                         </div>
                     </div>
 
-                    {/* LEGAL DETAILS (UK) */}
+                    {/* BUSINESS DETAILS (SOLE TRADER MVP) */}
                     <div style={{ width: "100%" }}>
-                        <div style={heading}>Company details</div>
+                        <div style={heading}>Business details</div>
 
                         <div style={{ display: "grid", gap: 12 }}>
                             <div>
-                                <div style={label}>Legal name</div>
-                                <div style={value}>{COMPANY.legalName}</div>
+                                <div style={label}>Operator</div>
+                                <div style={value}>
+                                    {COMPANY.operatorName} (sole trader) trading as {COMPANY.tradingAs}
+                                </div>
                             </div>
 
                             <div>
-                                <div style={label}>Company number</div>
-                                <div style={value}>{COMPANY.companyNo}</div>
+                                <div style={label}>Address</div>
+                                <div style={value}>{COMPANY.address}</div>
                             </div>
 
-                            <div>
-                                <div style={label}>Registered office</div>
-                                <div style={value}>{COMPANY.registeredOffice}</div>
-                            </div>
+                            {COMPANY.vat ? (
+                                <div>
+                                    <div style={label}>VAT number</div>
+                                    <div style={value}>{COMPANY.vat}</div>
+                                </div>
+                            ) : null}
 
-                            <div style={{ ...value, opacity: 0.85 }}>{COMPANY.jurisdiction}</div>
+                            <div style={{ ...value, opacity: 0.85 }}>
+                                Operated by a sole trader in the United Kingdom.
+                            </div>
                         </div>
                     </div>
 
@@ -207,23 +215,48 @@ export default function HowItWorksFooter() {
                                 How it works
                             </Link>
 
-                            <Link to="/landing" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/landing"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 Landing
                             </Link>
 
-                            <Link to="/terms" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/terms"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 Terms
                             </Link>
 
-                            <Link to="/privacy" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/privacy"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 Privacy Policy
                             </Link>
 
-                            <Link to="/cookies" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/cookies"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 Cookies
                             </Link>
 
-                            <Link to="/contact" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            <Link
+                                to="/contact"
+                                style={linkBase}
+                                onMouseEnter={onEnter}
+                                onMouseLeave={onLeave}
+                            >
                                 Contact
                             </Link>
                         </nav>
@@ -254,12 +287,12 @@ export default function HowItWorksFooter() {
                     }}
                 >
                     <div>
-                        © {year} {COMPANY.legalName}. All rights reserved.
+                        © {year} {COMPANY.operatorName} trading as {COMPANY.brand}. All rights reserved.
                     </div>
 
                     <div style={{ maxWidth: 760 }}>
-                        ICare is a marketplace. Caregivers are independent providers and agreements are made
-                        directly between families and caregivers (see Terms).
+                        ICare is an introductory marketplace (not a care agency). Caregivers are independent
+                        providers and agreements are made directly between families and caregivers (see Terms).
                     </div>
                 </div>
             </div>
