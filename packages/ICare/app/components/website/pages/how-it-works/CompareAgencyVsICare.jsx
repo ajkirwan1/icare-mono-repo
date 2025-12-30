@@ -177,8 +177,11 @@ export default function CompareAgencyVsICare() {
                                     letterSpacing: "-0.15px",
                                 }}
                             >
-                                <img width="100"
-                                    src="/images/logo/icare5.svg" />
+                                <img
+                                    src="/images/logo/icare14.svg"
+                                    alt="ICare"
+                                    style={{ height: 35, width: "auto", display: "block" }}
+                                />
                             </h3>
 
                             <ul

@@ -1,19 +1,22 @@
+import React from "react";
 import { Link } from "react-router";
 
 export default function ReceiversFooter() {
     const year = new Date().getFullYear();
 
-    // ✅ MVP (SOLE TRADER) — put your real name + a geographic UK address here
-    // Tip: If you don't want to show your home address, use a proper business/virtual office address.
+    // ✅ Put your real name + a geographic UK address here
     const COMPANY = {
         brand: "ICare",
-        operatorName: "Katarzyna Kruk", // ← CHANGE TO YOUR REAL NAME
+        operatorName: "Katarzyna Kruk",
         tradingAs: "ICare",
-        address: "Cheltenham, Gloucestershire, GL50 1AA, United Kingdom", // ← PUT A REAL UK ADDRESS
+        address: "Cheltenham, Gloucestershire, GL50 1AA, United Kingdom",
         email: "customershelp@icare.com",
         phone: "+44 20 1234 5678",
-        vat: "", // optional: only if VAT registered, e.g. "GB123456789"
+        vat: "",
     };
+
+    // ✅ Logo (put icare14.svg in /public so it works as "/icare14.svg")
+    const LOGO_SRC = "/images/logo/icare14.svg";
 
     // ✅ ONE TEXT COLOR FOR WHOLE FOOTER
     const TEXT = "#0F172A";
@@ -112,17 +115,27 @@ export default function ReceiversFooter() {
                 >
                     {/* BRAND + CONTACT */}
                     <div style={{ width: "100%" }}>
-                        <div
+                        {/* ✅ LOGO instead of text */}
+                        <Link
+                            to="/"
+                            aria-label="ICare home"
                             style={{
-                                fontWeight: 850,
-                                letterSpacing: "-0.35px",
-                                color: colors.text,
-                                fontSize: "1.22rem",
-                                lineHeight: 1.1,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                textDecoration: "none",
+                                lineHeight: 1,
                             }}
                         >
-                            {COMPANY.brand}
-                        </div>
+                            <img
+                                src={LOGO_SRC}
+                                alt="ICare"
+                                style={{
+                                    height: 40,
+                                    width: "auto",
+                                    display: "block",
+                                }}
+                            />
+                        </Link>
 
                         <p
                             style={{
