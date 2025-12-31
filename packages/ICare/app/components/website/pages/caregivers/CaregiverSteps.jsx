@@ -62,7 +62,7 @@ export default function CaregiverStepsEmpathy() {
                     <p
                         style={{
                             marginTop: ".55rem",
-                            color: "#475569",
+                            color: "#0f172a",
                             fontSize: "1rem",
                             lineHeight: 1.5,
                         }}
@@ -124,7 +124,7 @@ export default function CaregiverStepsEmpathy() {
                                         style={{
                                             margin: 0,
                                             fontSize: ".95rem",
-                                            color: "#475569",
+                                            color: "#0f172a",
                                             lineHeight: 1.45,
                                         }}
                                     >

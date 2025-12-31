@@ -73,7 +73,7 @@ Stronger together. That’s what care should always feel like.`,
                         marginTop: "1rem",
                         fontSize: "1.22rem",
                         lineHeight: 1.72,
-                        color: "#475569",
+                        color: "#0f172a",
                         maxWidth: "60ch",
                     }}
                 >

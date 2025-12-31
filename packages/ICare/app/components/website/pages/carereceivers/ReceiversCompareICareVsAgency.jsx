@@ -300,7 +300,7 @@ export default function ICareLaunchingSoonClients() {
                         {/* RIGHT CARD (FORM) */}
                         <div className="icare-card" style={card}>
                             <div style={{ display: "grid", gap: 6 }}>
-                                <div style={formTitle}>Join the waiting list</div>
+                                <div style={formTitle}>JOIN THE WAITING LIST</div>
                                 <div style={formSub}>
                                     30 seconds — your answers help us launch in the right places with the right caregivers.
                                 </div>
