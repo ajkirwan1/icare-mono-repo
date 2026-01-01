@@ -1,0 +1,32 @@
+@use "@styles/tokens" as *;
+
+.button {
+  padding: $space-12 $space-18;
+  border-radius: $radius-pill;
+
+  background: $primary-colour;
+  color: $on-dark;
+  border: none;
+
+  font-weight: $fw-bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+
+  flex: 1 1 160px;
+  white-space: nowrap;
+
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background: darken($primary-colour, 5%);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

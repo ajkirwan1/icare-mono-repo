@@ -1,0 +1,45 @@
+@use "@styles/tokens" as *;
+
+.link {
+  padding: $space-09 $space-14;
+  border-radius: $radius-pill;
+
+  border: 2px solid $secondary-colour;
+  background: $secondary-colour;
+  color: $on-dark;
+
+  font-weight: $fw-semibold;
+  letter-spacing: -0.2px;
+  font-size: clamp(1rem, 1.3vw, 1rem);
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-055;
+
+  transition: $transition-ui;
+  box-shadow: $shadow-elev;
+
+  flex: 1 1 160px;
+  white-space: nowrap;
+
+  &:hover {
+    background: darken($secondary-colour, 6%);
+    border-color: darken($secondary-colour, 6%);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-elev-active;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.active {
+  filter: brightness(0.98);
+}

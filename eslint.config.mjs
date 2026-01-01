@@ -6,6 +6,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import prettier from "eslint-config-prettier";
+import globals from "globals"; // 👈 add this
 
 export default [
   // ✅ Base ESLint recommended rules for plain JS
@@ -35,6 +36,9 @@ export default [
       parser: tsParser,
       ecmaVersion: "latest",
       sourceType: "module",
+      globals: {
+        ...globals.browser, // 👈 this gives you fetch, window, document, etc.
+      },
     },
     plugins: {
       react,
