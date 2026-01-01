@@ -3,6 +3,8 @@ import { InfoCard } from "../cards/info-card";
 import styles from "../../../../../styles/components/website/pages/who-we-are/sections/first-section.module.scss";
 
 export function OurFoundationSection() {
+    const TEXT = "#0F172A";
+
     return (
         <section
             id="foundation"
@@ -14,26 +16,28 @@ export function OurFoundationSection() {
                 gridTemplateColumns: "1fr 1fr",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                color: TEXT, // ✅ default for whole section
             }}
         >
             {/* ================= LEFT — OUR FOUNDATION ================= */}
             <div
                 style={{
                     background: "#f1e2c9",
-                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)", // ↓ delikatnie
+                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)",
                     display: "flex",
                     justifyContent: "flex-end",
+                    color: TEXT, // ✅
                 }}
             >
-                <div style={{ maxWidth: "600px", color: "#2f2f2f" }}>
+                <div style={{ maxWidth: "600px", color: TEXT }}>
                     <h2
                         style={{
-                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)", // ↓ minimalnie
+                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)",
                             fontWeight: 800,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
                             marginBottom: "1.4rem",
-                            color: "#1B1F1A",
+                            color: TEXT, // ✅
                         }}
                     >
                         Our foundation
@@ -44,12 +48,12 @@ export function OurFoundationSection() {
                             fontSize: "1.13rem",
                             lineHeight: 1.65,
                             marginBottom: "1.8rem",
+                            color: TEXT, // ✅
                         }}
                     >
-                        Families navigate big decisions — choosing a trusted caregiver,
-                        managing costs, and organising daily life. Caregivers, in turn,
-                        deserve respect, fair pay, and tools that help them deliver safe,
-                        attentive support.
+                        Families navigate big decisions — choosing a trusted caregiver, managing costs,
+                        and organising daily life. Caregivers, in turn, deserve respect, fair pay, and tools
+                        that help them deliver safe, attentive support.
                     </p>
 
                     <h4
@@ -57,6 +61,8 @@ export function OurFoundationSection() {
                             fontSize: "1.15rem",
                             fontWeight: 700,
                             marginBottom: "1rem",
+                            // ❗ zostawiamy bez narzucania #0F172A (jak prosisz: oprócz tego nagłówka)
+                            // color: TEXT,
                         }}
                     >
                         Families naturally ask:
@@ -68,7 +74,8 @@ export function OurFoundationSection() {
                             padding: 0,
                             margin: 0,
                             display: "grid",
-                            gap: "0.65rem", // ↓ ciaśniej
+                            gap: "0.65rem",
+                            color: TEXT, // ✅
                         }}
                     >
                         {[
@@ -84,6 +91,7 @@ export function OurFoundationSection() {
                                     paddingLeft: "1.1rem",
                                     fontSize: "1.05rem",
                                     lineHeight: 1.55,
+                                    color: TEXT, // ✅
                                 }}
                             >
                                 <span
@@ -107,12 +115,12 @@ export function OurFoundationSection() {
                             marginTop: "2rem",
                             fontSize: "1.08rem",
                             lineHeight: 1.6,
+                            color: TEXT, // ✅
                         }}
                     >
-                        <strong>At ICare, we’ve lived this journey.</strong>{" "}
-                        That’s why we built a platform centred on dignity, empathy,
-                        and trust — bringing peace of mind to families and recognition
-                        to caregivers.
+                        <strong>At ICare, we’ve lived this journey.</strong>{" "}<br />
+                        That’s why we built a platform centred on dignity, empathy, and trust — bringing peace
+                        of mind to families and recognition to caregivers.
                     </p>
                 </div>
             </div>
@@ -121,12 +129,13 @@ export function OurFoundationSection() {
             <div
                 style={{
                     background: "#fff9ef",
-                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)", // ↓ delikatnie
+                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)",
                     display: "flex",
                     justifyContent: "flex-start",
+                    color: TEXT, // ✅
                 }}
             >
-                <div style={{ maxWidth: "600px", color: "#2f2f2f" }}>
+                <div style={{ maxWidth: "600px", color: TEXT }}>
                     <h2
                         style={{
                             fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)",
@@ -134,7 +143,7 @@ export function OurFoundationSection() {
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
                             marginBottom: "1.4rem",
-                            color: "#1B1F1A",
+                            color: TEXT, // ✅
                         }}
                     >
                         Our mission
@@ -145,32 +154,27 @@ export function OurFoundationSection() {
                             fontSize: "1.13rem",
                             lineHeight: 1.65,
                             marginBottom: "1.6rem",
+                            color: TEXT, // ✅
                         }}
                     >
-                        ICare grew from first-hand 24/7 live-in care experience across Europe.
-                        We combine healthcare and technology expertise to create a more
-                        compassionate, transparent, and secure way to match families and
-                        caregivers.
+                        ICare grew from first-hand 24/7 live-in care experience across Europe.<br /> We combine
+                        healthcare and technology expertise to create a more compassionate, transparent and
+                        secure way to match families and caregivers.
                     </p>
 
                     <p
                         style={{
                             fontSize: "1.13rem",
                             lineHeight: 1.65,
+                            color: TEXT, // ✅
                         }}
                     >
-                        Our mission is to reduce stress, increase clarity, and make every
-                        stage of the care journey feel more human — minimising friction,
-                        prioritising privacy, and keeping costs fair so great care can start sooner.
+                        Our mission is to reduce stress, increase clarity, and make every stage of the care
+                        journey feel more human — minimising friction, prioritising privacy, and keeping costs
+                        fair so great care can start sooner.
                     </p>
                 </div>
             </div>
         </section>
-
-
-
-
-
-
     );
 }

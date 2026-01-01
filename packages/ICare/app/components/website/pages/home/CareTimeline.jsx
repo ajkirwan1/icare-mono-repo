@@ -62,7 +62,7 @@ export default function CareTimelineSection() {
                             lineHeight: 1.08,
                         }}
                     >
-                        A guided — human way to find trusted care
+                        A guided - human way to find trusted care
                     </h2>
 
                     <p

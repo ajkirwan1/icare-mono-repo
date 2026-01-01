@@ -82,7 +82,7 @@ export default function HeroComponent({ imgSrc }) {
                         }}
                     >
                         ICare is launching soon
-                        Find a trusted and verified caregiver in your local area
+                        Find a trusted and verified caregivel caregivers in Cheltenham.
                     </strong>
                 </span>
 
@@ -107,7 +107,7 @@ export default function HeroComponent({ imgSrc }) {
                             lineHeight: 1.55,
                         }}
                     >
-                        We’re preparing trusted caregivers and finalising our platform.
+                        We’re launching in Cheltenham first. Early access available.
                         <br />
                         Join the early access list to be notified when ICare becomes
                         available in your area.
