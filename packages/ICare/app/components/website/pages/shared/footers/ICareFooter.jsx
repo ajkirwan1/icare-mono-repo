@@ -144,7 +144,7 @@ export default function ReceiversFooter() {
                                 <div style={label}>Email</div>
                                 <a
                                     href={`mailto:${COMPANY.email}`}
-                                    style={{ ...value, textDecoration: "none", color: colors.text }}
+                                    style={{ ...value, textDecoration: "none", color: colors.text, fontWeight: "800" }}
                                     onMouseEnter={onEnter}
                                     onMouseLeave={onLeave}
                                 >
