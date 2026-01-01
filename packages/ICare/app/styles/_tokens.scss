@@ -1,28 +1,73 @@
 // Import all abstracts
-@use './abstracts/variables' as *;
-@use './abstracts/mixins';
-@use './abstracts/functions';
+// @use './abstracts/variables' as *;
 
-:root {
-  // Colors
-  --color-primary: #{$color-primary};
-  --color-text: #{$color-text};
-  --color-muted: #{$color-muted};
+// :root {
+//   // Colors
+//   --color-primary: #{$color-primary};
+//   --color-text: #{$color-text};
+//   --color-muted: #{$color-muted};
 
-  // Typography
-  --font-family-base: #{$font-family-base};
-  --font-size-base: #{$font-size-base};
-  --font-size-md: #{$font-size-md};
-  --font-size-lg: #{$font-size-lg};
-  --font-size-xl: #{$font-size-xl};
-  --font-weight-regular: #{$font-weight-regular};
-  --font-weight-bold: #{$font-weight-bold};
+//   // Typography
+//   --font-family-base: #{$font-family-base};
+//   --font-size-base: #{$font-size-base};
+//   --font-size-md: #{$font-size-md};
+//   --font-size-lg: #{$font-size-lg};
+//   --font-size-xl: #{$font-size-xl};
+//   --font-weight-regular: #{$font-weight-regular};
+//   --font-weight-bold: #{$font-weight-bold};
 
-  // Spacing
-  --space-sm: #{$space-sm};
-  --space-md: #{$space-md};
-  --space-lg: #{$space-lg};
+//   // Spacing
+//   --space-sm: #{$space-sm};
+//   --space-md: #{$space-md};
+//   --space-lg: #{$space-lg};
 
-  // Radius
-  --radius-md: #{$radius-md};
-}
+//   // Radius
+//   --radius-md: #{$radius-md};
+// }
+
+/* styles/_tokens.scss */
+
+/* colors */
+$txt: #0f172a;
+$muted: rgba(15, 23, 42, 0.72);
+$secondary-colour: #b97a57;
+$primary-colour: #61674d; // SubmitButton bg
+$bg: #f7f7f2;
+$on-dark: #fff;
+
+/* borders */
+$form-border: rgba(15, 23, 42, 0.12);
+$card-border: rgba(15, 23, 42, 0.10);
+
+/* shadows (keep originals as close as possible) */
+$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
+$shadow-elev: 0 6px 16px rgba(0, 0, 0, 0.16);
+$shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
+$shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
+
+/* focus / states */
+$focus-border: rgba(31, 171, 31, 0.55);
+$focus-ring: rgba(31, 171, 31, 0.14);
+
+$error-border: rgba(239, 68, 68, 0.55);
+$error-ring: rgba(239, 68, 68, 0.12);
+$error-text: rgba(185, 122, 87, 0.95);
+
+/* radii */
+$radius-sm: 12px;
+$radius-lg: 18px;
+$radius-pill: 999px;
+
+/* typography */
+$fw-semibold: 600;
+$fw-bold: 700;
+
+/* spacing (minimal reusable set; matches existing values closely) */
+$space-12: 12px; // btn padding-y
+$space-18: 18px; // btn padding-x
+$space-14: 1.4rem; // link padding-x
+$space-09: 0.9rem; // link padding-y
+$space-055: 0.55rem; // link gap
+
+/* motion */
+$transition-ui: all 0.25s ease;

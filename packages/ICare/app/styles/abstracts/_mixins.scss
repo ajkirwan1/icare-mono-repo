@@ -1,5 +1,58 @@
+@use "@styles/tokens" as t;
+
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin input-control {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: t.$radius-sm;
+  border: 1px solid t.$form-border;
+  background: #fff;
+  outline: none;
+  font-size: 0.95rem;
+  color: t.$txt;
+
+  &:focus {
+    border-color: t.$focus-border;
+    box-shadow: 0 0 0 4px t.$focus-ring;
   }
+
+  &[aria-invalid="true"] {
+    border-color: t.$error-border;
+    box-shadow: 0 0 0 4px t.$error-ring;
+  }
+}
+
+@mixin primary-button {
+  padding: 12px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: t.$secondary-colour;
+  color: #fff;
+  font-weight: 950;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: t.$shadow-btn;
+  transition: filter 0.14s ease, box-shadow 0.14s ease;
+
+  &:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.18);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+}
+
+@mixin card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid t.$card-border;
+  // border-radius: t.$radius-lg;
+  box-shadow: t.$shadow-card;
+}

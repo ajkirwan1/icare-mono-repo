@@ -9,22 +9,22 @@ import { WhoWeAreHero } from "../../components/website/pages/who-we-are/sections
 
 export default function WhoWeAre() {
 
-    return (
-        <div
-            className={styles.page}
-            style={{
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                color: "#0F172A"
-            }}
-        >
-            <WhoWeAreHero />
-            <OurFoundationSection />
-            <OurValuesSection />
-            <HowWeWorkSection />
-            <OurImpactSection />
-            <CtaSection />
-            <Footer />
-        </div>
-    );
+  return (
+    <div
+      className={styles.page}
+      style={{
+        fontFamily:
+          "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: "#0F172A"
+      }}
+    >
+      <WhoWeAreHero />
+      <OurFoundationSection />
+      <OurValuesSection />
+      <HowWeWorkSection />
+      <OurImpactSection />
+      <CtaSection />
+      <Footer />
+    </div>
+  );
 }

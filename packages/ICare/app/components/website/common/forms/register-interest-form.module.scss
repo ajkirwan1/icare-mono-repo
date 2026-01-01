@@ -1,0 +1,28 @@
+@use "@styles/tokens" as t;
+@use "@styles/abstracts/mixins" as m;
+
+.card {
+  @include m.card;
+  padding: 18px;
+}
+
+.control {
+  @include m.input-control;
+}
+
+.btn {
+  @include m.primary-button;
+  width: 70%;
+}
+
+.labelText {
+  font-weight: 900;
+  font-size: 0.86rem;
+  color: t.$txt;
+}
+
+.error {
+  font-size: 0.78rem;
+  font-weight: 750;
+  color: t.$error-text;
+}
