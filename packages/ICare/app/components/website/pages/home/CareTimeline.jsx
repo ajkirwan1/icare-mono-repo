@@ -30,7 +30,7 @@ export default function CareTimelineSection() {
                     position: "relative",
                     overflow: "hidden",
                     padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
-                    marginBottom: "clamp(2.0rem, 3vw, 2.8rem)",
+                    marginBottom: "clamp(2.0rem, 3vw, 2rem)",
                 }}
             >
                 <div
@@ -115,7 +115,7 @@ export default function CareTimelineSection() {
                         <p
                             style={{
                                 margin: ".6rem 0 0", // ✅ smaller
-                                color: "#475569",
+                                color: "#0f172a",
                                 fontSize: "0.98rem", // ✅ smaller
                                 maxWidth: "56ch",
                                 lineHeight: 1.6,
@@ -188,7 +188,7 @@ export default function CareTimelineSection() {
                                     <p
                                         style={{
                                             margin: 0,
-                                            color: "#475569",
+                                            color: "#0f172a",
                                             fontSize: "0.95rem", // ✅ was 1.08rem
                                             lineHeight: 1.55,
                                         }}

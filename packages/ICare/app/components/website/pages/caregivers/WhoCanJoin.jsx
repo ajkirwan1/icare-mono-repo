@@ -72,7 +72,7 @@ export default function WhoCanJoin() {
                                 style={{
                                     marginTop: ".4rem",
                                     fontSize: ".95rem",
-                                    color: "#475569",
+                                    color: "#0f172a",
                                     lineHeight: 1.45,
                                 }}
                             >
@@ -98,7 +98,7 @@ export default function WhoCanJoin() {
                                     marginTop: ".4rem",
                                     fontSize: ".95rem",
                                     lineHeight: 1.45,
-                                    color: "#475569",
+                                    color: "#0f172a",
                                 }}
                             >
                                 No monthly fees.
@@ -125,7 +125,7 @@ export default function WhoCanJoin() {
                                     marginTop: ".4rem",
                                     fontSize: ".95rem",
                                     lineHeight: 1.45,
-                                    color: "#475569",
+                                    color: "#0f172a",
                                 }}
                             >
                                 Pick the families you support.
@@ -151,7 +151,7 @@ export default function WhoCanJoin() {
                                     marginTop: ".4rem",
                                     fontSize: ".95rem",
                                     lineHeight: 1.45,
-                                    color: "#475569",
+                                    color: "#0f172a",
                                 }}
                             >
                                 Right to Work, ID, optional DBS,

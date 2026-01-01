@@ -16,24 +16,24 @@ const Template = ({ imgSrc, layout }) =>
 
 export const Default = Template.bind({});
 Default.args = {
-    imgSrc : "images/heros/who-we-are.jpg"
+    imgSrc: "images/heros/who-we-are.jpg"
 };
 
 export const TextRight = Template.bind({});
 TextRight.args = {
-    imgSrc : "images/heros/who-we-are.jpg",
+    imgSrc: "images/heros/who-we-are.jpg",
     layout: "text-right"
 };
 
 export const TextTop = Template.bind({});
 TextTop.args = {
-    imgSrc : "images/heros/who-we-are.jpg",
+    imgSrc: "images/heros/who-we-are.jpg",
     layout: "text-top"
 };
 
 export const TextBottom = Template.bind({});
 TextBottom.args = {
-    imgSrc : "images/heros/who-we-are.jpg",
+    imgSrc: "images/heros/who-we-are.jpg",
     layout: "text-bottom"
 };
 

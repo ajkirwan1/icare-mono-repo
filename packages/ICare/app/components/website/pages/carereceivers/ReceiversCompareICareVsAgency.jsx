@@ -19,8 +19,7 @@ const COLORS = {
 const outerSection = {
     width: "100%",
     padding: "clamp(70px, 9vw, 110px) 0",
-    background: `radial-gradient(1200px 520px at 50% -140px, rgba(31,171,31,0.14), rgba(255,255,255,0) 60%),
-              linear-gradient(180deg, rgba(255,255,255,0.92), ${COLORS.BG})`,
+
     borderTop: `1px solid ${COLORS.SOFT}`,
     borderBottom: `1px solid ${COLORS.SOFT}`,
 };
@@ -59,13 +58,16 @@ const title = {
 };
 
 const sub = {
+
     margin: 0,
     fontSize: "1.06rem",
     lineHeight: 1.7,
-    color: COLORS.MUTED,
+    color: "#0F172A", // ✅ ten sam kolor
     maxWidth: "62ch",
     fontWeight: 560,
 };
+
+
 
 const bullets = {
     listStyle: "none",
@@ -84,27 +86,29 @@ const bullet = {
     borderRadius: 16,
     background: "rgba(255,255,255,0.72)",
     border: "1px solid rgba(15,23,42,0.08)",
-    color: "rgba(15,23,42,0.80)",
+    color: "#0F172A",
     fontSize: "0.98rem",
     lineHeight: 1.45,
     boxShadow: "0 10px 22px rgba(15,23,42,0.05)",
 };
 
 const tick = {
+
     width: 22,
     height: 22,
     borderRadius: 999,
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    fontWeight: 950,
-    color: COLORS.TEXT,
-    background: "rgba(31,171,31,0.14)",
-    border: "1px solid rgba(31,171,31,0.22)",
+    fontWeight: 700,
+    color: "#0F172A",                 // ✅ czarny tick
+    background: "transparent",        // ✅ bez tła
+
     flex: "0 0 auto",
     marginTop: 1,
-    fontSize: "0.9rem",
-};
+    fontSize: "0.95rem",
+}
+
 
 const card = {
     width: "min(520px, 92vw)",
@@ -125,12 +129,15 @@ const formTitle = {
 };
 
 const formSub = {
+
     margin: "6px 0 0",
-    color: COLORS.MUTED,
+    color: "#0F172A", // ✅ czarne
     lineHeight: 1.55,
     fontSize: "0.98rem",
     fontWeight: 600,
 };
+
+
 
 const pillRow = {
     display: "flex",
@@ -154,8 +161,8 @@ const pill = (active) => ({
 const hr = {
     height: 1,
     width: "100%",
-    background:
-        "linear-gradient(90deg, rgba(15,23,42,0.05), rgba(15,23,42,0.12), rgba(15,23,42,0.05))",
+
+
     margin: "14px 0 12px",
 };
 
@@ -242,6 +249,7 @@ const microCSS = `
     filter: brightness(1.06);
     box-shadow: 0 18px 34px rgba(15,23,42,0.18);
   }
+    #icare-waitlist{background:#fff9ef;}
 `;
 
 export default function ICareLaunchingSoonClients() {
@@ -277,8 +285,8 @@ export default function ICareLaunchingSoonClients() {
                             <h2 style={title}>Find trusted care — without agency stress.</h2>
 
                             <p style={sub}>
-                                ICare is preparing verified caregivers and a calm, transparent matching process.
-                                Join the waiting list and answer a few quick questions — we’ll prioritise better matches in your area.
+                                ICare is preparing verified caregivers and a calm, transparent matching process.<br />
+                                Join the waiting list and answer a few quick questions - we’ll prioritise better matches in your area.
                             </p>
 
                             <ul style={bullets}>
@@ -300,7 +308,7 @@ export default function ICareLaunchingSoonClients() {
                         {/* RIGHT CARD (FORM) */}
                         <div className="icare-card" style={card}>
                             <div style={{ display: "grid", gap: 6 }}>
-                                <div style={formTitle}>Join the waiting list</div>
+                                <div style={formTitle}>JOIN THE WAITING LIST</div>
                                 <div style={formSub}>
                                     30 seconds — your answers help us launch in the right places with the right caregivers.
                                 </div>

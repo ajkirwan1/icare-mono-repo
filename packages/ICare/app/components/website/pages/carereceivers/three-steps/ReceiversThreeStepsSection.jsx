@@ -144,9 +144,9 @@ export default function ReceiversThreeStepsHeroSplit() {
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: "10px",
-                                padding: "12px 18px",
+                                padding: "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)",
                                 borderRadius: "999px",
-                                background: "#61674d",
+                                background: "#b97a57",
                                 color: "#fff",
                                 border: "none",
                                 fontWeight: 700,
@@ -170,13 +170,13 @@ export default function ReceiversThreeStepsHeroSplit() {
                         overflow: "hidden",
                         border: "1px solid rgba(0,0,0,0.06)",
                         boxShadow: "0 14px 40px rgba(0,0,0,0.08)",
-                        aspectRatio: "1 / 1",
-                        maxWidth: "88%",          // ✅ 10% WIDER (was 80%)
+                        aspectRatio: "0.8 / 1",
+                        maxWidth: "100%",          // ✅ 10% WIDER (was 80%)
                         justifySelf: "center",
                     }}
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600"
+                        src="images/web/icare-for-carereceivers/browse2.png"
                         alt="Caregiver assisting a senior"
                         style={{
                             width: "100%",
@@ -188,7 +188,7 @@ export default function ReceiversThreeStepsHeroSplit() {
                     />
                 </figure>
             </div>
-        </section>
+        </section >
 
     );
 }

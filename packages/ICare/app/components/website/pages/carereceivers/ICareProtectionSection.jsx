@@ -3,19 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck, faShieldHalved, faComments } from "@fortawesome/free-solid-svg-icons";
 
 export default function ICareTrustSEOSection({
-    imageSrc = "/images/heros/home-care-family.jpg",
+    imageSrc = "images/web/icare-for-carereceivers/calmprocess2.png",
 }) {
     const COLORS = {
         bg: "#e8e7d7",
         text: "#0F172A",
-        muted: "rgba(15,23,42,0.72)",
+        muted: "#0F172A",
         border: "rgba(15,23,42,0.10)",
-
-        // ✅ cards: jaśniejsze + bardziej “see-through”
         card: "rgba(255,255,255,0.55)",
         cardHover: "rgba(255,255,255,0.62)",
-
-        // ✅ icon color
         icon: "#61674d",
         iconBg: "rgba(97,103,77,0.12)",
         iconBorder: "rgba(97,103,77,0.24)",
@@ -49,6 +45,7 @@ export default function ICareTrustSEOSection({
     const container = {
         width: "min(92vw, 1100px)",
         margin: "0 auto",
+        color: COLORS.text,
     };
 
     const grid = {
@@ -89,11 +86,12 @@ export default function ICareTrustSEOSection({
     const card = {
         padding: "18px 18px",
         borderRadius: 18,
-        background: COLORS.card, // ✅ jaśniej + bardziej przezroczyste
+        background: COLORS.card,
         border: `1px solid ${COLORS.border}`,
         boxShadow: "0 10px 26px rgba(15,23,42,0.05)",
         display: "grid",
         gap: 10,
+        color: COLORS.text,
     };
 
     const iconWrap = {
@@ -131,15 +129,15 @@ export default function ICareTrustSEOSection({
         marginTop: 4,
     };
 
-    // ✅ image card (right)
     const photoCard = {
-
         borderRadius: 22,
         background: "rgba(255,255,255,0.62)",
         border: `1px solid ${COLORS.border}`,
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
         display: "grid",
         gap: 12,
+        color: COLORS.text,
+        padding: 12,
     };
 
     const photoWrap = {
@@ -150,15 +148,16 @@ export default function ICareTrustSEOSection({
         aspectRatio: "4 / 5",
     };
 
-    // ✅ below section (no boxes)
     const seoBlock = {
         marginTop: "clamp(30px, 3.8vw, 44px)",
         paddingTop: "clamp(18px, 2.4vw, 26px)",
         borderTop: `1px solid ${COLORS.border}`,
         maxWidth: "78ch",
+        color: COLORS.text,
     };
 
-    const seoTitle = {
+    // ✅ title (no badge)
+    const seoTitlePlain = {
         margin: 0,
         fontWeight: 950,
         color: COLORS.text,
@@ -166,32 +165,23 @@ export default function ICareTrustSEOSection({
         letterSpacing: "-0.2px",
     };
 
-    const seoList = {
-        margin: "14px 0 0",
-        padding: 0,
-        listStyle: "none",
-        display: "grid",
-        gap: 16,
-    };
-
-    const seoItem = {
+    // ✅ only badges (no long sentences)
+    const tagRow = {
         display: "flex",
-        gap: 12,
-        alignItems: "flex-start",
-        color: COLORS.muted,
-        fontWeight: 650,
-        lineHeight: 1.65,
-        fontSize: "1rem",
+        flexWrap: "wrap",
+        gap: 10,
+        marginTop: 14,
     };
 
-    const dash = {
-        width: 16,
-        height: 2,
-        marginTop: 12,
+    const tag = {
+        padding: "7px 11px",
         borderRadius: 999,
-        background: COLORS.icon,
-        opacity: 0.45,
-        flex: "0 0 auto",
+        border: "1px solid rgba(15,23,42,0.14)",
+        background: "rgba(255,255,255,0.58)",
+        fontSize: ".86rem",
+        fontWeight: 850,
+        color: COLORS.text,
+        letterSpacing: "-0.1px",
     };
 
     const Proof = [
@@ -212,10 +202,17 @@ export default function ICareTrustSEOSection({
         },
     ];
 
-    const CareNeeds = [
-        "Companionship, light household help, meal support, and day-to-day routines.",
-        "Mobility support, medication reminders, post-hospital recovery, and overnight peace of mind.",
-        "Dementia support and consistent, familiar care — matched to the person’s needs.",
+    // ✅ badges only
+    const CareTags = [
+        "Companionship",
+        "Light household help",
+        "Meal support",
+        "Daily routines",
+        "Mobility support",
+        "Medication reminders",
+        "Post-hospital recovery",
+        "Overnight care",
+        "Dementia support",
     ];
 
     return (
@@ -232,8 +229,9 @@ export default function ICareTrustSEOSection({
                 </p>
 
                 <p style={leadRest}>
-                    We focus on clear information, direct communication, and a structured flow that helps you
-                    choose with confidence — without the usual agency pressure.
+                    We focus on clear information, direct communication, and a structured flow
+                    <br />
+                    that helps you choose with confidence - without the usual agency pressure.
                 </p>
 
                 <div className="icare-trust-grid" style={grid}>
@@ -254,43 +252,40 @@ export default function ICareTrustSEOSection({
                         </div>
                     </div>
 
-                    {/* RIGHT: image — upewnij się, że istnieje plik pod imageSrc */}
+                    {/* RIGHT: IMAGE */}
                     <aside className="icare-photo" aria-label="Care photo" style={photoCard}>
                         <div style={photoWrap}>
                             <img
-                                src="images/web/icare-for-carereceivers/calmprocess2.png"
+                                src={imageSrc}
                                 alt="Family home care support — elderly care and trusted carers"
                                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                                 loading="lazy"
                                 onError={(e) => {
-                                    // jeśli ścieżka jest zła, pokaż neutralne tło zamiast “pustki”
                                     e.currentTarget.style.display = "none";
                                     e.currentTarget.parentElement.style.display = "flex";
                                     e.currentTarget.parentElement.style.alignItems = "center";
                                     e.currentTarget.parentElement.style.justifyContent = "center";
-                                    e.currentTarget.parentElement.style.color = "rgba(15,23,42,0.55)";
-                                    e.currentTarget.parentElement.style.fontWeight = 700;
+                                    e.currentTarget.parentElement.style.color = "#0F172A";
+                                    e.currentTarget.parentElement.style.fontWeight = 800;
                                     e.currentTarget.parentElement.style.fontSize = ".95rem";
-                                    e.currentTarget.parentElement.textContent =
-                                        "Add a care photo (update imageSrc)";
+                                    e.currentTarget.parentElement.textContent = "Add a care photo (update imageSrc)";
                                 }}
                             />
                         </div>
                     </aside>
                 </div>
 
-                {/* BELOW */}
+                {/* ✅ SEO block: title plain + ONLY badges */}
                 <div style={seoBlock} aria-label="Common care needs families search for">
-                    <h3 style={seoTitle}>Common care needs families search for</h3>
+                    <h3 style={seoTitlePlain}>Common care needs families search for</h3>
 
-                    <ul style={seoList}>
-                        {CareNeeds.map((t) => (
-                            <li key={t} style={seoItem}>
-                                <span style={dash} aria-hidden="true" />
-                                <span>{t}</span>
-                            </li>
+                    <div style={tagRow} aria-label="Care needs tags">
+                        {CareTags.map((t) => (
+                            <span key={t} style={tag}>
+                                {t}
+                            </span>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </section>

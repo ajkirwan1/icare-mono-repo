@@ -1,38 +1,62 @@
 import React from "react";
 
+/**
+ * ==========================
+ * OLD ESTIMATOR (COMMENTED OUT)
+ * ==========================
+ * Wklej tutaj swój obecny kod SavingsEstimatorCurrency
+ * i zostaw go jako komentarz, żeby nie był używany w MVP.
+ *
+ * 1) Wklej CAŁY swój stary komponent poniżej
+ * 2) Zostaw zakomentowany
+ *
+ * Przykład:
+ *
+ * export default function SavingsEstimatorCurrency() {
+ *   ...twój stary kod...
+ * }
+ *
+ */
+
+/* 
+export default function SavingsEstimatorCurrency() {
+  // <-- WKLEJ TU CAŁY STARY KOD i zostaw w komentarzu
+}
+*/
+
+
+/**
+ * ==========================
+ * MVP Estimator (SIMPLE)
+ * ==========================
+ * - Nie pokazuje porównań do agencji ani “modelu”
+ * - Tylko: stawka x godziny + 10% ICare fee
+ * - Prosty komunikat i disclaimer
+ */
+
 export default function SavingsEstimatorCurrency() {
     const BRAND = "#1FAB1F";
     const TEXT = "#0F172A";
 
-    const hourlyRanges = React.useMemo(
+    const ranges = React.useMemo(
         () => ({
-            PLN: { min: 30.5, max: 60, step: 0.5 },
-            EUR: { min: 12.82, max: 30, step: 0.1 },
-            GBP: { min: 12.21, max: 35, step: 0.1 },
-            USD: { min: 15, max: 45, step: 1 },
+            PLN: { min: 30, max: 65, step: 1, default: 40 },
+            EUR: { min: 12, max: 35, step: 0.5, default: 18 },
+            GBP: { min: 12, max: 40, step: 0.5, default: 16 },
         }),
         []
     );
 
-    const snapToStep = (value, step) => {
-        const decimals = (step.toString().split(".")[1] || "").length;
-        const snapped = Math.round(value / step) * step;
-        return Number(snapped.toFixed(decimals));
-    };
-
     const [currency, setCurrency] = React.useState("PLN");
-    const [period, setPeriod] = React.useState("monthly");
-    const [hourly, setHourly] = React.useState(40);
-    const [hoursWeek, setHoursWeek] = React.useState(40);
-    const [agencyMargin, setAgencyMargin] = React.useState(35);
-    const [showFeeTip, setShowFeeTip] = React.useState(false);
+    const [period, setPeriod] = React.useState("monthly"); // weekly | monthly
+    const [hourly, setHourly] = React.useState(ranges.PLN.default);
+    const [hoursWeek, setHoursWeek] = React.useState(20);
 
-    const range = hourlyRanges[currency] ?? hourlyRanges.PLN;
+    const range = ranges[currency] ?? ranges.PLN;
 
     React.useEffect(() => {
-        const midRaw = (range.min + range.max) / 2;
-        setHourly(snapToStep(midRaw, range.step));
-    }, [currency, range.min, range.max, range.step]);
+        setHourly(range.default);
+    }, [currency, range.default]);
 
     const nf = React.useMemo(
         () =>
@@ -43,46 +67,32 @@ export default function SavingsEstimatorCurrency() {
         [currency]
     );
 
-    const { baseCost, agencyTotal, icareTotal, youSave, savePct, periodLabel } = React.useMemo(() => {
+    const { careCost, icareFee, total, label } = React.useMemo(() => {
         const weeksPerMonth = 4.33;
         const multiplier = period === "monthly" ? weeksPerMonth : 1;
 
         const base = hourly * hoursWeek * multiplier;
-        const agency = base * (1 + agencyMargin / 100);
-        const icare = base * 1.1;
-        const save = Math.max(0, agency - icare);
-        const pct = agency > 0 ? (save / agency) * 100 : 0;
+        const fee = base * 0.1; // MVP: simple 10% fee
+        const sum = base + fee;
 
         return {
-            baseCost: base,
-            agencyTotal: agency,
-            icareTotal: icare,
-            youSave: save,
-            savePct: pct,
-            periodLabel: period === "monthly" ? "Monthly" : "Weekly",
+            careCost: base,
+            icareFee: fee,
+            total: sum,
+            label: period === "monthly" ? "Monthly" : "Weekly",
         };
-    }, [hourly, hoursWeek, agencyMargin, period]);
-
-    const friendlyLine = React.useMemo(() => {
-        const pct = Math.round(savePct);
-        if (youSave <= 0 || pct <= 0) {
-            return `Work directly with your caregiver with a simple 10% ICare fee — clear, fair, and transparent.`;
-        }
-        return `Choose ICare and keep more of your budget: you save about ${nf.format(
-            youSave
-        )} per ${period === "monthly" ? "month" : "week"} (around ${pct}% compared to an agency).`;
-    }, [youSave, savePct, nf, period]);
+    }, [hourly, hoursWeek, period]);
 
     const microCSS = `
-    @media (max-width: 860px) {
-      .icare-est-grid { grid-template-columns: 1fr !important; }
-    }
-  `;
+      @media (max-width: 860px) {
+        .icare-est-grid { grid-template-columns: 1fr !important; }
+      }
+    `;
 
     return (
         <section
             id="estimator"
-            aria-label="Cost & Savings Estimator"
+            aria-label="Care cost estimator"
             style={{
                 padding: "clamp(64px, 8vw, 96px) 0",
                 background: "#e8e7d7",
@@ -102,14 +112,13 @@ export default function SavingsEstimatorCurrency() {
                     fontFamily:
                         "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     display: "grid",
-                    gridTemplateColumns: "1fr 1.35fr",
-                    gap: "clamp(40px, 5vw, 64px)",
+                    gridTemplateColumns: "1fr 1.15fr",
+                    gap: "clamp(28px, 4vw, 54px)",
                     alignItems: "start",
-                    color: TEXT,
                 }}
             >
                 {/* LEFT */}
-                <div style={{ animation: "fadeEstimator 0.8s ease both", color: TEXT }}>
+                <div style={{ color: TEXT }}>
                     <h2
                         style={{
                             margin: 0,
@@ -120,7 +129,7 @@ export default function SavingsEstimatorCurrency() {
                             lineHeight: 1.1,
                         }}
                     >
-                        Cost &amp; Savings Estimator
+                        Quick Cost Estimator
                     </h2>
 
                     <p
@@ -134,101 +143,26 @@ export default function SavingsEstimatorCurrency() {
                             fontWeight: 550,
                         }}
                     >
-                        A quick way to estimate the total cost of care — and see how much you could save by
-                        working directly with a caregiver instead of paying agency markups.
+                        Estimate care costs in seconds. Set an hourly rate, weekly hours, and see your total — including
+                        the simple 10% ICare fee.
                     </p>
 
-                    {/* ✅ SMALLER / ~50% "How to use" */}
                     <div
                         style={{
-                            marginTop: "0.9rem",
-                            padding: "10px 10px",
-                            borderRadius: 14,
-                            background: "rgba(255, 255, 255, 0.27)",
+                            marginTop: "1.1rem",
+                            padding: "12px 14px",
+                            borderRadius: 16,
+                            background: "rgba(255, 255, 255, 0.40)",
                             border: "1px solid rgba(15,23,42,0.10)",
-                            color: TEXT,
-                            maxWidth: "56ch",
-                            boxShadow: "0 8px 18px rgba(15,23,42,0.05)",
+                            boxShadow: "0 10px 24px rgba(15,23,42,0.06)",
+                            maxWidth: "60ch",
                         }}
                     >
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                gap: 8,
-                                marginBottom: 8,
-                            }}
-                        >
-                            <div style={{ fontWeight: 950, color: TEXT, fontSize: "0.92rem" }}>How to use</div>
-
-                            <div
-                                style={{
-                                    fontSize: ".72rem",
-                                    fontWeight: 900,
-                                    color: TEXT,
-                                    opacity: 0.72,
-                                    padding: "4px 8px",
-                                    borderRadius: 999,
-                                    border: "1px solid rgba(15,23,42,0.10)",
-                                    background: "rgba(255, 255, 255, 0.32)",
-                                    whiteSpace: "nowrap",
-                                }}
-                            >
-                                Updates instantly
-                            </div>
+                        <div style={{ fontWeight: 900, fontSize: ".92rem", marginBottom: 6 }}>
+                            MVP note
                         </div>
-
-                        <div style={{ display: "grid", gap: 8 }}>
-                            {[
-                                { n: "1", t: "Choose currency", d: "Select PLN / EUR / GBP." },
-                                { n: "2", t: "Set hourly rate", d: "Type a value or use the slider." },
-                                { n: "3", t: "Set hours/week", d: "Results refresh automatically." },
-                            ].map((step) => (
-                                <div
-                                    key={step.n}
-                                    style={{
-                                        display: "flex",
-                                        gap: 10,
-                                        alignItems: "flex-start",
-                                        padding: "8px 10px",
-                                        borderRadius: 12,
-                                        background: "rgba(15,23,42,0.03)",
-                                        border: "1px solid rgba(15,23,42,0.06)",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            width: 22,
-                                            height: 22,
-                                            borderRadius: 999,
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontWeight: 950,
-                                            fontSize: ".78rem",
-                                            color: TEXT,
-                                            background: "rgba(31,171,31,0.14)",
-                                            border: "1px solid rgba(31,171,31,0.22)",
-                                            flex: "0 0 auto",
-                                            marginTop: 1,
-                                        }}
-                                    >
-                                        {step.n}
-                                    </div>
-
-                                    <div style={{ display: "grid", gap: 1 }}>
-                                        <div style={{ fontWeight: 950, color: TEXT, fontSize: "0.88rem" }}>{step.t}</div>
-                                        <div style={{ color: TEXT, opacity: 0.82, fontWeight: 650, lineHeight: 1.35, fontSize: ".84rem" }}>
-                                            {step.d}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div style={{ marginTop: 8, color: TEXT, opacity: 0.72, fontWeight: 700, fontSize: ".80rem" }}>
-                            Tip: switching currency auto-sets a typical starting hourly rate.
+                        <div style={{ fontSize: ".92rem", opacity: 0.82, fontWeight: 650, lineHeight: 1.55 }}>
+                            This is an estimate only. Final pricing depends on the caregiver’s rate and your care needs.
                         </div>
                     </div>
                 </div>
@@ -237,29 +171,24 @@ export default function SavingsEstimatorCurrency() {
                 <div
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(310px, 1fr))",
-                        gap: "clamp(22px, 2.6vw, 32px)",
-                        alignItems: "stretch",
-                        color: TEXT,
+                        gap: 18,
                     }}
                 >
                     {/* FORM */}
                     <form
                         onSubmit={(e) => e.preventDefault()}
                         style={{
-                            padding: "clamp(20px, 2vw, 26px)",
+                            padding: "clamp(18px, 2vw, 24px)",
                             display: "grid",
-                            gap: 18,
+                            gap: 14,
                             background: "#fff",
                             borderRadius: 20,
                             boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                            color: TEXT,
                         }}
                     >
                         {/* Currency */}
-                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
-                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Currency</span>
-
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Currency</span>
                             <select
                                 value={currency}
                                 onChange={(e) => setCurrency(e.target.value)}
@@ -276,20 +205,14 @@ export default function SavingsEstimatorCurrency() {
                                 <option value="EUR">EUR — €</option>
                                 <option value="GBP">GBP — £</option>
                             </select>
-
-                            <span style={{ marginTop: 6, fontSize: ".84rem", color: TEXT, opacity: 0.78, fontWeight: 650 }}>
-                                We suggest a typical range for each currency and auto-set a “normal” starting rate.
-                                You can change it any time.
-                            </span>
-
-                            <span style={{ marginTop: 4, fontSize: ".8rem", color: TEXT, opacity: 0.62, fontWeight: 700 }}>
-                                Sources: UK GOV.UK, DE Destatis, PL gov.pl.
+                            <span style={{ fontSize: ".82rem", opacity: 0.7, fontWeight: 650 }}>
+                                Typical range suggested — you can change the rate freely.
                             </span>
                         </label>
 
                         {/* Period */}
-                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
-                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Show results as</span>
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Show totals as</span>
                             <select
                                 value={period}
                                 onChange={(e) => setPeriod(e.target.value)}
@@ -308,8 +231,8 @@ export default function SavingsEstimatorCurrency() {
                         </label>
 
                         {/* Hourly */}
-                        <label style={{ display: "grid", gap: 8, color: TEXT }}>
-                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Hourly rate</span>
+                        <label style={{ display: "grid", gap: 8 }}>
+                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Hourly rate</span>
 
                             <input
                                 type="number"
@@ -337,22 +260,31 @@ export default function SavingsEstimatorCurrency() {
                                 style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
                             />
 
-                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 800 }}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    fontSize: ".82rem",
+                                    color: TEXT,
+                                    opacity: 0.72,
+                                    fontWeight: 800,
+                                }}
+                            >
                                 <span>{range.min}</span>
                                 <span>{range.max}</span>
                             </div>
-
-                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
-                                Tip: Use the slider for quick changes.
-                            </span>
                         </label>
 
                         {/* Hours */}
-                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
-                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Hours per week</span>
+                        <label style={{ display: "grid", gap: 6 }}>
+                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>
+                                Hours per week
+                            </span>
                             <input
                                 type="number"
                                 value={hoursWeek}
+                                min={1}
+                                max={168}
                                 onChange={(e) => setHoursWeek(Number(e.target.value))}
                                 style={{
                                     border: "1px solid rgba(15,23,42,0.12)",
@@ -362,38 +294,15 @@ export default function SavingsEstimatorCurrency() {
                                     color: TEXT,
                                 }}
                             />
-                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
-                                Most families choose 20–40 hours/week (adjust to your needs).
+                            <span style={{ fontSize: ".82rem", opacity: 0.7, fontWeight: 650 }}>
+                                Example: 20h/week for part-time support.
                             </span>
                         </label>
 
-                        {/* Margin */}
-                        <label style={{ display: "grid", gap: 6, color: TEXT }}>
-                            <span style={{ fontWeight: 900, color: TEXT, fontSize: ".88rem" }}>Typical agency markup (%)</span>
-                            <input
-                                type="number"
-                                value={agencyMargin}
-                                onChange={(e) => setAgencyMargin(Number(e.target.value))}
-                                style={{
-                                    border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 12,
-                                    padding: "10px 12px",
-                                    fontSize: "0.98rem",
-                                    color: TEXT,
-                                }}
-                            />
-                            <span style={{ fontSize: ".82rem", color: TEXT, opacity: 0.72, fontWeight: 700 }}>
-                                You can adjust this if you know the agency’s actual markup.
-                            </span>
-                        </label>
-
-                        {/* Fee + tooltip */}
+                        {/* Fee badge */}
                         <div
-                            onMouseEnter={() => setShowFeeTip(true)}
-                            onMouseLeave={() => setShowFeeTip(false)}
                             style={{
-                                position: "relative",
-                                marginTop: 2,
+                                marginTop: 4,
                                 padding: "10px 14px",
                                 borderRadius: 12,
                                 background: "rgba(31,171,31,0.06)",
@@ -401,250 +310,84 @@ export default function SavingsEstimatorCurrency() {
                                 fontWeight: 850,
                                 fontSize: ".9rem",
                                 color: TEXT,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 10,
                                 width: "fit-content",
                             }}
                         >
-                            ICare fee: <span style={{ color: TEXT, fontWeight: 950 }}>flat 10%</span>
-
-                            <span
-                                aria-hidden="true"
-                                style={{
-                                    width: 18,
-                                    height: 18,
-                                    borderRadius: 999,
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    background: "rgba(31,171,31,0.14)",
-                                    border: "1px solid rgba(31,171,31,0.25)",
-                                    color: TEXT,
-                                    fontSize: ".78rem",
-                                    fontWeight: 900,
-                                }}
-                            >
-                                i
-                            </span>
-
-                            {showFeeTip && (
-                                <div
-                                    role="tooltip"
-                                    style={{
-                                        position: "absolute",
-                                        left: 0,
-                                        top: "calc(100% + 10px)",
-                                        background: "rgba(255,255,255,0.98)",
-                                        color: TEXT,
-                                        border: "1px solid rgba(15,23,42,0.12)",
-                                        padding: "10px 12px",
-                                        borderRadius: 12,
-                                        fontSize: ".88rem",
-                                        fontWeight: 750,
-                                        boxShadow: "0 18px 40px rgba(15,23,42,0.18)",
-                                        width: "max-content",
-                                        maxWidth: 300,
-                                        zIndex: 50,
-                                    }}
-                                >
-                                    One-time payment — only after successful cooperation begins.
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            top: -6,
-                                            left: 14,
-                                            width: 12,
-                                            height: 12,
-                                            background: "rgba(255,255,255,0.98)",
-                                            transform: "rotate(45deg)",
-                                            borderRadius: 2,
-                                            borderLeft: "1px solid rgba(15,23,42,0.12)",
-                                            borderTop: "1px solid rgba(15,23,42,0.12)",
-                                        }}
-                                    />
-                                </div>
-                            )}
+                            ICare fee: <span style={{ fontWeight: 950 }}>10%</span>
                         </div>
                     </form>
 
                     {/* RESULTS */}
                     <div
                         style={{
-                            padding: "clamp(20px, 2vw, 26px)",
+                            padding: "clamp(18px, 2vw, 24px)",
                             display: "grid",
-                            gap: 18,
+                            gap: 14,
                             background: "#fff",
                             borderRadius: 20,
                             boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
                             color: TEXT,
                         }}
                     >
-                        <h3 style={{ margin: 0, fontWeight: 950, color: TEXT, fontSize: "clamp(1.1rem, 1.6vw, 1.28rem)" }}>
-                            {periodLabel} estimate
+                        <h3 style={{ margin: 0, fontWeight: 950, fontSize: "clamp(1.08rem, 1.5vw, 1.22rem)" }}>
+                            {label} estimate
                         </h3>
 
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                            {[
-                                { k: "Care cost (without fees)", v: baseCost },
-                                { k: "Typical agency total", v: agencyTotal },
-                                { k: "ICare total", v: icareTotal },
-                                { k: "Your savings with ICare", v: youSave, highlight: true },
-                            ].map((row) => (
-                                <div
-                                    key={row.k}
-                                    style={{
-                                        borderRadius: 14,
-                                        padding: "14px",
-                                        background: row.highlight ? "rgba(31,171,31,0.08)" : "rgba(241,245,249,0.6)",
-                                    }}
-                                >
-                                    <div style={{ fontSize: ".84rem", color: TEXT, opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
-                                        {row.k}
-                                    </div>
-                                    <div style={{ fontWeight: 950, fontSize: "1.08rem", color: TEXT }}>{nf.format(row.v)}</div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div style={{ marginTop: 6 }}>
-                            <div style={{ height: 9, width: "100%", background: "rgba(15,23,42,0.08)", borderRadius: 999, overflow: "hidden" }}>
-                                <div
-                                    style={{
-                                        height: "100%",
-                                        width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`,
-                                        background: BRAND,
-                                        transition: "width 0.6s ease",
-                                    }}
-                                />
-                            </div>
-
-                            <div style={{ marginTop: 10, fontSize: ".92rem", color: TEXT, fontWeight: 850 }}>
-                                You save about <span style={{ color: TEXT, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared
-                                to a typical agency price
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* SUMMARY */}
-            <div
-                style={{
-                    maxWidth: 1180,
-                    margin: "clamp(32px, 4vw, 46px) auto 0",
-                    padding: "0 clamp(18px, 3.2vw, 34px)",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                    color: TEXT,
-                }}
-            >
-                <div
-                    style={{
-                        borderRadius: 22,
-                        padding: "clamp(18px, 2.2vw, 24px)",
-                        background: "rgba(255,255,255,0.72)",
-                        border: "1px solid rgba(15,23,42,0.10)",
-                        boxShadow: "0 16px 40px rgba(15,23,42,0.08)",
-                        display: "grid",
-                        gap: 18,
-                        textAlign: "center",
-                        color: TEXT,
-                    }}
-                >
-                    <div style={{ display: "grid", gap: 10 }}>
-                        <div style={{ fontWeight: 900, color: TEXT, fontSize: "1.28rem" }}>Your quick summary</div>
-
-                        <div style={{ color: TEXT, opacity: 0.88, fontWeight: 650, fontSize: "1rem", lineHeight: 1.6, maxWidth: "68ch", margin: "0 auto" }}>
-                            {friendlyLine}
-                        </div>
-                    </div>
-
-                    <div
-                        style={{
-                            padding: "12px 12px",
-                            borderRadius: 20,
-                            background: "rgba(31, 171, 31, 0.18)",
-
-                            display: "grid",
-                            gap: 8,
-                            maxWidth: 520,
-                            margin: "0 auto",
-                            color: TEXT,
-                        }}
-                    >
-                        <div style={{ fontSize: ".85rem", fontWeight: 800, color: TEXT, opacity: 0.85 }}>Estimated savings</div>
-
-                        <div style={{ fontSize: "1.35rem", fontWeight: 850, color: TEXT, lineHeight: 1.1 }}>
-                            {nf.format(youSave)}{" "}
-                            <span style={{ fontSize: "1rem", color: TEXT, opacity: 0.78, fontWeight: 800 }}>
-                                / {period === "monthly" ? "month" : "week"}
-                            </span>
-                        </div>
-
-                        <div style={{ fontSize: ".95rem", color: TEXT, opacity: 0.85, fontWeight: 750 }}>
-                            About <span style={{ color: TEXT, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared to an
-                            agency
-                        </div>
-                    </div>
-
-                    <div style={{ height: 1, background: "rgba(15,23,42,0.08)" }} />
-
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18, color: TEXT }}>
-                        {[
-                            { k: "What’s included", v: "Care cost + a simple 10% ICare fee (shown above). No hidden agency markups." },
-                            { k: "Good to know", v: "These are estimates. Rates vary by city, experience, and care needs." },
-                            { k: "Try it", v: "Adjust hours/week or hourly rate to see the totals update instantly." },
-                        ].map((item) => (
+                        <div
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "1fr 1fr",
+                                gap: 14,
+                            }}
+                        >
                             <div
-                                key={item.k}
                                 style={{
-                                    borderRadius: 18,
-                                    padding: "14px 14px",
-                                    background: "rgba(255,255,255,0.85)",
-                                    border: "1px solid rgba(15,23,42,0.08)",
-                                    display: "grid",
-                                    gap: 6,
-                                    color: TEXT,
+                                    borderRadius: 16,
+                                    padding: "14px",
+                                    background: "rgba(241,245,249,0.7)",
                                 }}
                             >
-                                <div style={{ fontSize: ".9rem", fontWeight: 900, color: TEXT }}>{item.k}</div>
-                                <div style={{ fontSize: ".98rem", color: TEXT, opacity: 0.86, fontWeight: 650, lineHeight: 1.55 }}>
-                                    {item.v}
+                                <div style={{ fontSize: ".84rem", opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
+                                    Care cost
                                 </div>
+                                <div style={{ fontWeight: 950, fontSize: "1.08rem" }}>{nf.format(careCost)}</div>
                             </div>
-                        ))}
-                    </div>
 
-                    <div
-                        style={{
-                            marginTop: 2,
-                            paddingTop: 14,
-                            borderTop: "1px solid rgba(15,23,42,0.08)",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            gap: 14,
-                            flexWrap: "wrap",
-                            color: TEXT,
-                        }}
-                    >
-                        <div style={{ fontSize: ".9rem", color: TEXT, opacity: 0.78, fontWeight: 650 }}>
-                            Tip: switching currency auto-sets a typical starting hourly rate.
+                            <div
+                                style={{
+                                    borderRadius: 16,
+                                    padding: "14px",
+                                    background: "rgba(241,245,249,0.7)",
+                                }}
+                            >
+                                <div style={{ fontSize: ".84rem", opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
+                                    ICare fee (10%)
+                                </div>
+                                <div style={{ fontWeight: 950, fontSize: "1.08rem" }}>{nf.format(icareFee)}</div>
+                            </div>
+
+                            <div
+                                style={{
+                                    gridColumn: "1 / -1",
+                                    borderRadius: 18,
+                                    padding: "16px",
+                                    background: "rgba(31,171,31,0.10)",
+                                    border: "1px solid rgba(31,171,31,0.18)",
+                                }}
+                            >
+                                <div style={{ fontSize: ".84rem", opacity: 0.8, marginBottom: 6, fontWeight: 900 }}>
+                                    Total (estimate)
+                                </div>
+                                <div style={{ fontWeight: 980, fontSize: "1.28rem" }}>{nf.format(total)}</div>
+                            </div>
                         </div>
 
-                        <div style={{ fontSize: ".88rem", color: TEXT, opacity: 0.65, fontWeight: 750 }}>
-                            Sources: UK GOV.UK • DE Destatis • PL gov.pl
+                        <div style={{ fontSize: ".88rem", opacity: 0.72, fontWeight: 650, lineHeight: 1.55 }}>
+                            This estimate updates instantly and is shown before you contact a caregiver.
                         </div>
                     </div>
                 </div>
             </div>
-
-            <style>{`
-        @keyframes fadeEstimator {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
         </section>
     );
 }

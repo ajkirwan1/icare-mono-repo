@@ -106,20 +106,38 @@ export default function LocalCareMVP_Compact() {
                     <ul
                         style={{
                             marginTop: "1.6rem",
-                            paddingLeft: "1.1rem",
+                            paddingLeft: 0,
+                            listStyle: "none",
                             display: "grid",
                             gap: "0.7rem",
                             fontSize: "1rem",
                             color: "#1a1a1a",
                             lineHeight: 1.5,
                             maxWidth: "52ch",
-                            fontWeight: "700",
+                            fontWeight: 700,
                         }}
                     >
-                        <li>Comfortable, one-hand use on any phone</li>
-                        <li>The essentials are always one tap away</li>
-                        <li>Clear caregiver profiles with the details that matter</li>
-                        <li>Help and support available whenever you need it</li>
+                        {[
+                            "Comfortable, one-hand use on any phone",
+                            "The essentials are always one tap away",
+                            "Clear caregiver profiles with the details that matter",
+                            "Help and support available whenever you need it",
+                        ].map((t) => (
+                            <li key={t} style={{ display: "flex", alignItems: "flex-start", gap: "0.55rem" }}>
+                                <span
+                                    aria-hidden="true"
+                                    style={{
+                                        color: "#000",
+                                        fontWeight: 600,
+                                        lineHeight: 1,
+                                        marginTop: 3,
+                                    }}
+                                >
+                                    ✓
+                                </span>
+                                <span>{t}</span>
+                            </li>
+                        ))}
                     </ul>
 
                     <p

@@ -24,17 +24,19 @@ export default function ICareNavbar() {
                 to="/"
                 aria-label="Go to home"
                 style={{
-                    display: "inline-flex",
+                    display: "flex",
+                    flexDirection: "column",
                     alignItems: "center",
-                    gap: 12,
+                    gap: 6,
                     textDecoration: "none",
+                    paddingBottom: "10px"
                 }}
             >
                 <img
-                    src="/images/logo/icarelogo4.png"
+                    src="/images/logo/icare13.svg"
                     alt="ICare"
                     style={{
-                        height: 75,
+                        height: 60,
                         width: "auto",
                         display: "block",
                     }}
@@ -44,6 +46,12 @@ export default function ICareNavbar() {
                     }}
                 />
 
+                <span
+                    style={{
+                        fontSize: "12px",
+                        color: "white"
+                    }}
+                    className="slogan">Care made human</span>
 
             </Link>
 

@@ -69,7 +69,7 @@ export default function HomePageCareCTA() {
                                 margin: "1rem 0 1.6rem",
                                 fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
                                 lineHeight: 1.7,
-                                color: "#334155",
+                                color: "#0f172a",
                             }}
                         >
                             Find fair care jobs, connect directly with families
@@ -153,7 +153,7 @@ export default function HomePageCareCTA() {
                                 margin: "1rem 0 1.6rem",
                                 fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
                                 lineHeight: 1.7,
-                                color: "#334155",
+                                color: "#0f172a",
                             }}
                         >
                             Find trusted, verified caregivers matched
