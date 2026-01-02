@@ -1,45 +1,33 @@
-import bannerImage1 from "/images/banners/banner-image-1.jpg";
 import heroImage from "/images/heros/icare-hero-new.jpg";
-import {
-    IcareBanner,
-    IcareSection,
-} from "react-library";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
 import IcareBanner2 from "../components/website/pages/home/IcareBanner2";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
-import HomePageHero from "../components/website/pages/shared/HomePageHero";
+import HomePageHero from "../components/website/pages/shared/home-page-hero";
 import TrustIntroSection from "../components/website/pages/home/sections/TrustIntroSection";
-import TrustValuesSection from "../components/website/pages/home/sections/TrustValuesSection";
+import TrustValuesSection from "../components/website/pages/home/sections/trust-values-section";
 import ICareFooter from "../components/website/pages/shared/footers/ICareFooter";
 
 export function meta() {
-    return [
-        { title: "ICare | Home" },
-        {
-            name: "description",
-            content: "ICare – Supporting better care through intuitive tools.",
-        },
-    ];
+  return [
+    { title: "ICare | Home" },
+    {
+      name: "description",
+      content: "ICare – Supporting better care through intuitive tools."
+    }
+  ];
 }
 
 export default function Home() {
-    const NEUTRAL = "#0F172A";
-    const pageWrap = {
-        fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        color: NEUTRAL,
-        background: "linear-gradient(180deg, #FAFCFD 0%, #FFFFFF 70%)",
-    };
 
-    return (
-        <div style={pageWrap}>
-            <HomePageHero imgSrc={heroImage} />
-            <CareTimeline />
-            <TrustIntroSection />
-            <TrustValuesSection />
-            <IcareBanner2 />
-            <HomePageCareCTA />
-            <ICareFooter />
-        </div>
-    );
+  return (
+    <>
+      <HomePageHero imgSrc={heroImage} />
+      <CareTimeline />
+      <TrustIntroSection />
+      <TrustValuesSection />
+      <IcareBanner2 />
+      <HomePageCareCTA />
+      <ICareFooter />
+    </>
+  );
 }

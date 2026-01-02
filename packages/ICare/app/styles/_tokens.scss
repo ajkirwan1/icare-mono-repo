@@ -24,9 +24,9 @@ $on-dark: #fff;
 
 /* translucent surfaces */
 $card-glass: rgba(255, 255, 255, 0.55);
+$tag-glass: rgba(255, 255, 255, 0.58);
 $card-glass-hover: rgba(255, 255, 255, 0.62);
 $card-glass-strong: rgba(255, 255, 255, 0.65);
-$tag-glass: rgba(255, 255, 255, 0.58);
 
 /* icon accents */
 $icon-bg: rgba(97, 103, 77, 0.12);
@@ -40,27 +40,9 @@ $tint-soft-olive: #0f3d2014;
    -------------------------------- */
 $border-soft: rgba(0, 0, 0, 0.06);
 $border-warm: #e0dbd4;
-
 $card-border: rgba(15, 23, 42, 0.10);
 $form-border: rgba(15, 23, 42, 0.12);
 $border-strong: rgba(15, 23, 42, 0.14);
-
-/* --------------------------------
-   Shadows
-   -------------------------------- */
-$shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.06);
-
-$shadow-card-soft: 0 10px 26px rgba(15, 23, 42, 0.05);
-
-$shadow-cta: 0 8px 22px rgba(0, 0, 0, 0.12);
-$shadow-figure: 0 14px 40px rgba(0, 0, 0, 0.08);
-$shadow-photo: 0 18px 44px rgba(15, 23, 42, 0.08);
-
-$shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
-$shadow-elev: 0 6px 16px rgba(0, 0, 0, 0.16);
-
-$shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
-$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
 
 /* --------------------------------
    Focus / States
@@ -75,11 +57,30 @@ $error-text: rgba(185, 122, 87, 0.95);
 /* --------------------------------
    Radii
    -------------------------------- */
+$radius-pill: 999px;
 $radius-sm: 12px;
 $radius-lg: 18px;
-$radius-xl: 24px;
 $radius-xxl: 22px;
-$radius-pill: 999px;
+$radius-xl: 24px;
+$radius-30: 30px; // large media/card radius
+
+/* --------------------------------
+   Shadows
+   -------------------------------- */
+$shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.06);
+$shadow-card-soft: 0 10px 26px rgba(15, 23, 42, 0.05);
+
+$shadow-cta: 0 8px 22px rgba(0, 0, 0, 0.12);
+$shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
+$shadow-elev: 0 6px 16px rgba(0, 0, 0, 0.16);
+
+$shadow-figure: 0 14px 40px rgba(0, 0, 0, 0.08);
+$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
+$shadow-photo: 0 18px 44px rgba(15, 23, 42, 0.08);
+
+$shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
+$shadow-text-hero: 0 2px 16px rgba(0, 0, 0, 0.35);
+$shadow-card-pop: 0 10px 30px rgba(15, 23, 42, 0.14);
 
 /* --------------------------------
    Typography
@@ -101,18 +102,25 @@ $fs-base: 1.05rem;
 $fs-m: 1.06rem;
 $fs-l: 1.08rem;
 $fs-md: 1.2rem;
-$fs-xl2: 1.27rem;
 $fs-lg: 1.22rem;
+$fs-xl2: 1.27rem;
 $fs-xl: 1.35rem;
-$fs-2xl: 2rem;
+$fs-2xl: 2.6rem;
+
+/* font sizes (additional fixed) */
+$fs-lg-2: 1.15rem; // card short description size
+$fs-hero-title: 2.2rem;
+$fs-hero-h3: 1.48rem; // card title size
 
 /* font sizes (fluid / clamp) */
 $fs-h2-fluid: clamp(1.85rem, 2.8vw, 2.25rem);
+$fs-hero-lead-fluid: clamp(1.25rem, 2vw, 1.55rem);
 
 /* line heights */
 $lh-compact: 1.1;
 $lh-tight: 1.14;
 $lh-title: 1.2;
+$lh-hero-title: 1.25;
 $lh-list: 1.5;
 $lh-outro: 1.55;
 $lh-body: 1.6;
@@ -121,9 +129,15 @@ $lh-copy: 1.65;
 $lh-relaxed: 1.66;
 $lh-copy-lg: 1.7;
 
+/* line heights (additional) */
+$lh-card-full: 1.68; // expanded copy
+$lh-card: 1.72; // section intro paragraph
+
 /* letter spacing */
 $tracking-tight: -0.6px;
 $tracking-h2: -0.45px;
+$tracking-hero-h2: -0.35px; // section title spacing
+$tracking-hero-title: -0.3px;
 $tracking-tight-2: -0.25px;
 $tracking-s: -0.2px;
 $tracking-xs: -0.15px;
@@ -158,22 +172,45 @@ $space-56: 56px;
 
 /* rem-based */
 $space-055: 0.55rem; // FIX: was incorrectly 52px
+$space-065: 0.65rem; // common vertical gap
 $space-09: 0.9rem;
 $space-095: 0.95rem;
 $space-11: 0.7rem;
 $space-14: 1.4rem;
-$space-26: 1.6rem;
 $space-21: 2.1rem;
+$space-22: 2.2rem; // section header mb + card padding
+$space-25: 2.5rem;
+$space-26: 1.6rem;
+$space-6: 6rem;
 
-
-/* layout (fluid / clamp) */
+/* layout spacing (fluid / clamp) */
 $space-section-y: clamp(4.8rem, 6.2vw, 6.4rem);
 $gap-grid-fluid: clamp(26px, 3.4vw, 52px);
 $space-seo-mt: clamp(30px, 3.8vw, 44px);
 $space-seo-pt: clamp(18px, 2.4vw, 26px);
 
 /* --------------------------------
+   Layout sizing
+   -------------------------------- */
+$container-hero-max: 1100px;
+$container-hero-gutter: 92vw;
+$hero-copy-max: 48ch;
+$hero-badge-max: 600px;
+
+$h-card-media: 420px; // consistent card image height
+$maxh-reveal: 280px; // reveal area height cap
+$maxw-copy-lg: 60ch; // common readable line length
+
+/* --------------------------------
    Motion
    -------------------------------- */
+$transition-fast: transform 0.1s linear;
 $transition-ui: all 0.25s ease;
 $transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+/* reveal motion (additional) */
+$transition-reveal-height: max-height 2s cubic-bezier(0.18, 0.95, 0.18, 1);
+$transition-reveal-content: transform 1350ms cubic-bezier(0.18, 0.95, 0.18, 1),
+  opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
+
+$reveal-delay-open: 260ms;
