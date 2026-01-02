@@ -1,0 +1,59 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+
+.hero {
+  @include motifs.hero;
+}
+
+.image {
+  @include motifs.hero-image;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32); // no token
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-left: clamp(#{$space-20}, 6vw, 96px); // 20px tokenised
+  padding-right: clamp(#{$space-20}, 6vw, 48px); // 20px & 48px tokenised
+  display: grid;
+  grid-template-columns: minmax(0, 560px) 1fr; // no token
+  align-items: center;
+}
+
+.heading {
+  font-size: 3rem; // no token
+  margin: 0;
+  font-weight: $fw-extrabold;
+  line-height: 1.05; // no token
+  color: $on-dark;
+}
+
+.copy {
+  margin-top: $space-26; // 1.6rem
+  max-width: $maxw-copy-lg; // 60ch
+  line-height: $lh-body; // 1.6
+  color: rgba($on-dark, 0.92); // uses on-color token
+}
+
+/* individual copy lines */
+.copyPrimary {
+  font-size: 1.6rem; // no token
+  font-weight: $fw-bold;
+  margin-bottom: $fs-1; // 1rem
+}
+
+.copySecondary {
+  font-size: $fs-md; // 1.2rem
+  margin-bottom: 0.5rem; // no token
+}
+
+.copySecondaryLast {
+  font-size: $fs-md; // 1.2rem
+}

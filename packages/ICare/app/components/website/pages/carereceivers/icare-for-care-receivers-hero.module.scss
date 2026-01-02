@@ -1,29 +1,13 @@
 @use "@styles/tokens" as *;
 @use "@styles/abstracts/mixins" as m;
+@use "@styles/abstracts/motifs" as motifs;
 
-/* --------------------------------
-   PageHero (combined + overridden)
-   -------------------------------- */
-
-.section {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  color: $on-dark;
-  min-height: clamp(560px, 76vh, 980px);
-  padding-top: $space-56;
+.hero {
+  @include motifs.hero;
 }
 
 .image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  filter: brightness(.72) saturate(.97);
+  @include motifs.hero-image;
 }
 
 .overlay {

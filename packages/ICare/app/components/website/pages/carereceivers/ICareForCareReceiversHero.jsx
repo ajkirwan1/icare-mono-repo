@@ -7,7 +7,7 @@ export default function ICareForCareReceiversHero() {
   return (
     <>
       <ICareNavbar />
-      <section aria-label="Page hero" className={styles.section}>
+      <section aria-label="Page hero" className={styles.hero}>
         <img
           src={heroImage}
           alt=""
@@ -19,7 +19,7 @@ export default function ICareForCareReceiversHero() {
           <p className={styles.description}>
             <span className={styles.lead}>
               Get personalised help for your family.
-            </span>{" "}
+            </span>
             Verified caregivers, clear terms, no agency markups.
           </p>
         </div>
