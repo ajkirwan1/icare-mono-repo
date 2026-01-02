@@ -1,0 +1,49 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+
+.title {
+  @include motifs.title;
+}
+
+.intro {
+  margin-top: $space-16; // was 1rem
+  font-size: $fs-base; // was 1.05rem
+  color: $ink; // was #1a1a1a
+  line-height: $lh-body; // was 1.6
+  max-width: 48ch;
+}
+
+.list {
+  margin-top: $space-26; // was 1.6rem
+  padding-left: 0;
+  list-style: none;
+
+  display: grid;
+  gap: $space-11; // was 0.7rem
+
+  font-size: $fs-1; // was 1rem
+  color: $ink; // was #1a1a1a
+  line-height: $lh-list; // was 1.5
+  max-width: 52ch;
+  font-weight: $fw-bold; // was 700
+}
+
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-055; // was 0.55rem
+}
+
+.check {
+  color: $ink-strong; // was #000
+  font-weight: $fw-semibold; // was 600
+  margin-top: $space-3; // was 3px
+}
+
+.outro {
+  margin-top: $space-26; // was 1.6rem
+  font-size: $fs-sm; // was 0.95rem
+  color: $ink; // was #1a1a1a
+  max-width: 50ch;
+  line-height: $lh-outro; // was 1.55
+}

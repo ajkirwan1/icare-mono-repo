@@ -1,44 +1,86 @@
-@use '../abstracts/variables' as *;
+@use "@styles/tokens" as t;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $font-family-base;
-  font-weight: $font-weight-bold;
-  color: $icare-color-green;
-  margin: 0 0 $space-md;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   font-family: $font-family-base;
+//   font-weight: $font-weight-bold;
+//   color: $icare-color-green;
+//   margin: 0 0 $space-md;
+// }
+
+// h1 {
+//   font-size: $font-size-xl;
+// }
+
+// h2 {
+//   font-size: $font-size-lg;
+//   ;
+// }
+
+// h3 {
+//   font-size: $font-size-lg * 0.8;
+// }
+
+// p {
+//   margin: 0 0 $space-md;
+//   font-size: $font-size-md;
+//   line-height: 1.5;
+// }
+
+// a {
+//   text-decoration: none;
+
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// }
+
+// .text-center {
+//   text-align: center;
+// }
+
+/* Headings */
 
 h1 {
-  font-size: $font-size-xl;
+  font-size: t.$fs-2xl;
+  font-weight: t.$fw-extrabold;
+  line-height: t.$lh-tight;
+  letter-spacing: t.$tracking-tight;
+  color: t.$txt;
+  margin: 0 0 t.$space-24 0;
 }
 
 h2 {
-  font-size: $font-size-lg;
-  ;
+  font-size: t.$fs-2xl; // ← this is where $fs-xl belongs
+  font-weight: t.$fw-extrabold;
+  line-height: t.$lh-tight;
+  letter-spacing: t.$tracking-tight;
+  color: t.$txt;
+  margin: 0 0 t.$space-18 0;
 }
 
 h3 {
-  font-size: $font-size-lg * 0.8;
+  font-size: t.$fs-lg;
+  font-weight: t.$fw-bold;
+  line-height: t.$lh-tight;
+  letter-spacing: t.$tracking-tight-2;
+  margin: 0 0 t.$space-14 0;
 }
+
+/* Body text */
 
 p {
-  margin: 0 0 $space-md;
-  font-size: $font-size-md;
-  line-height: 1.5;
+  font-size: t.$fs-base;
+  line-height: t.$lh-relaxed;
+  margin: 0 0 t.$space-14 0;
+  color: t.$txt;
 }
 
-a {
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.text-center {
-  text-align: center;
+small {
+  font-size: t.$fs-sm;
+  color: t.$muted;
 }

@@ -1,0 +1,71 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/mixins" as m;
+
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  color: $on-dark;
+
+  /* was 90px */
+  padding-top: $space-56;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+
+  /* was 60px */
+  padding-left: $gap-grid-fluid;
+}
+
+.title {
+  /* was 3rem */
+  font-size: $fs-h2-fluid;
+  margin: 0;
+
+  /* was 900 */
+  font-weight: $fw-ultra;
+
+  /* was 1.05 */
+  line-height: $lh-compact;
+
+  color: $on-dark;
+  max-width: 25ch;
+
+  /* keep consistent with heading tracking */
+  letter-spacing: $tracking-h2;
+}
+
+.description {
+  /* was 1.2rem */
+  margin-top: $space-21;
+
+  /* was clamp(1.05rem, 1.3vw, 1.2rem) */
+  font-size: clamp(#{$fs-base}, 1.3vw, #{$fs-md});
+
+  max-width: 60ch;
+
+  /* was 1.6 */
+  line-height: $lh-body;
+
+  /* was rgba(255, 255, 255, 0.92) */
+  color: rgba($on-dark, 0.92);
+}

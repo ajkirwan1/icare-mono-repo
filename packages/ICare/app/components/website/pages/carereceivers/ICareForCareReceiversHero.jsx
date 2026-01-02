@@ -1,17 +1,29 @@
+import React from "react";
 import heroImage from "/images/heros/icare-for-carereceivers.jpg";
-import PageHero from "../shared/PageHero";
+import ICareNavbar from "../shared/ICareNavbar";
+import styles from "./icare-for-care-receivers-hero.module.scss";
 
 export default function ICareForCareReceiversHero() {
-    return (
-        <PageHero
-            image={heroImage}
-            title="Find trusted caregivers"
-            description={
-                <>
-                    <p style={{ fontSize: "1.6rem", fontWeight: "700", marginBottom: "1rem" }}>Get personalised help for your family.</p>
-                    Verified caregivers, clear terms, no agency markups.
-                </>
-            }
+  return (
+    <>
+      <ICareNavbar />
+      <section aria-label="Page hero" className={styles.section}>
+        <img
+          src={heroImage}
+          alt=""
+          className={styles.image}
         />
-    );
+        <div className={styles.overlay} />
+        <div className={styles.content}>
+          <h1 className={styles.title}>Find trusted caregivers</h1>
+          <p className={styles.description}>
+            <span className={styles.lead}>
+              Get personalised help for your family.
+            </span>{" "}
+            Verified caregivers, clear terms, no agency markups.
+          </p>
+        </div>
+      </section>
+    </>
+  );
 }

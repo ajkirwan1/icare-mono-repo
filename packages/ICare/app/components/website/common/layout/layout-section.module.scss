@@ -1,0 +1,12 @@
+.section {
+  width: 100vw;
+  padding: 6rem 2rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--section-bg, transparent);
+}
+
+.inner {
+  width: min(92vw, 1280px);
+  margin: 0 auto;
+}

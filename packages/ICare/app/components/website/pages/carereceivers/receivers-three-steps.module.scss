@@ -1,0 +1,67 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+@use "@styles/abstracts/mixins" as mixins;
+
+.title {
+  @include motifs.title;
+}
+
+.subtitle {
+  @include motifs.subtitle;
+}
+
+.steps {
+  margin-top: $space-20;
+  display: grid;
+  gap: $space-20;
+}
+
+.stepRow {
+  display: flex;
+  gap: $space-20;
+  align-items: baseline;
+}
+
+.stepTitle {
+  font-size: $fs-xl;
+  font-weight: $fw-bold;
+  color: $txt;
+  letter-spacing: $tracking-tight-2;
+  line-height: $lh-tight;
+  margin: 0;
+}
+
+.stepNum {
+  $title-line: calc(#{$fs-xl} * #{$lh-tight});
+
+  width: $title-line;
+  height: $title-line;
+  border-radius: 50%;
+
+  background: $tint-soft-olive;
+  border: 1px solid $border-warm;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: $fw-bold;
+  font-size: $fs-md;
+  line-height: 1;
+  color: $txt;
+
+  box-shadow: $shadow-xs;
+  flex: 0 0 auto;
+}
+
+.stepDesc {
+  margin-top: $space-4;
+  font-size: $fs-base;
+  color: $txt;
+  line-height: $lh-loose;
+  opacity: $opacity-95;
+}
+
+.image {
+  @include mixins.cover-image;
+}
