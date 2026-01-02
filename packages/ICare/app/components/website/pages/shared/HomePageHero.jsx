@@ -167,7 +167,9 @@ export default function HomePageHero({ imgSrc }) {
                                             alignItems: "center",
                                             gap: "10px",
                                             fontSize: "1rem",
-                                            color: "#ffffffff"
+                                            color: "#ffffffff",
+                                            fontWeight: "600"
+
                                         }}
                                     >
                                         <svg

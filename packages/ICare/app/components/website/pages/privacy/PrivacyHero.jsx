@@ -270,7 +270,7 @@ export default function PrivacyPage() {
                             fontWeight: 650,
                         }}
                     >
-                        We design ICare with privacy-first principles. <br />Below you’ll find what we collect, why
+                        We design ICare with privacy - first principles. <br />Below you’ll find what we collect, why
                         and how to exercise your rights.
                     </p>
 
