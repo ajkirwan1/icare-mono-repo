@@ -1,51 +1,70 @@
-// Import all abstracts
-// @use './abstracts/variables' as *;
-
-// :root {
-//   // Colors
-//   --color-primary: #{$color-primary};
-//   --color-text: #{$color-text};
-//   --color-muted: #{$color-muted};
-
-//   // Typography
-//   --font-family-base: #{$font-family-base};
-//   --font-size-base: #{$font-size-base};
-//   --font-size-md: #{$font-size-md};
-//   --font-size-lg: #{$font-size-lg};
-//   --font-size-xl: #{$font-size-xl};
-//   --font-weight-regular: #{$font-weight-regular};
-//   --font-weight-bold: #{$font-weight-bold};
-
-//   // Spacing
-//   --space-sm: #{$space-sm};
-//   --space-md: #{$space-md};
-//   --space-lg: #{$space-lg};
-
-//   // Radius
-//   --radius-md: #{$radius-md};
-// }
-
 /* styles/_tokens.scss */
 
-/* colors */
+/* --------------------------------
+   Colors
+   -------------------------------- */
+/* core text */
 $txt: #0f172a;
 $muted: rgba(15, 23, 42, 0.72);
-$secondary-colour: #b97a57;
+
+/* alternate text */
+$ink: #1a1a1a;
+$ink-strong: #000;
+
+/* brand */
 $primary-colour: #61674d; // SubmitButton bg
+$secondary-colour: #b97a57;
+
+/* surfaces */
 $bg: #f7f7f2;
+$bg-soft-sage: #e8e7d7;
+
+/* on-color */
 $on-dark: #fff;
 
-/* borders */
-$form-border: rgba(15, 23, 42, 0.12);
+/* translucent surfaces */
+$card-glass: rgba(255, 255, 255, 0.55);
+$card-glass-hover: rgba(255, 255, 255, 0.62);
+$card-glass-strong: rgba(255, 255, 255, 0.65);
+$tag-glass: rgba(255, 255, 255, 0.58);
+
+/* icon accents */
+$icon-bg: rgba(97, 103, 77, 0.12);
+$icon-border: rgba(97, 103, 77, 0.24);
+
+/* tints */
+$tint-soft-olive: #0f3d2014;
+
+/* --------------------------------
+   Borders
+   -------------------------------- */
+$border-soft: rgba(0, 0, 0, 0.06);
+$border-warm: #e0dbd4;
+
 $card-border: rgba(15, 23, 42, 0.10);
+$form-border: rgba(15, 23, 42, 0.12);
+$border-strong: rgba(15, 23, 42, 0.14);
 
-/* shadows (keep originals as close as possible) */
-$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
-$shadow-elev: 0 6px 16px rgba(0, 0, 0, 0.16);
+/* --------------------------------
+   Shadows
+   -------------------------------- */
+$shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.06);
+
+$shadow-card-soft: 0 10px 26px rgba(15, 23, 42, 0.05);
+
+$shadow-cta: 0 8px 22px rgba(0, 0, 0, 0.12);
+$shadow-figure: 0 14px 40px rgba(0, 0, 0, 0.08);
+$shadow-photo: 0 18px 44px rgba(15, 23, 42, 0.08);
+
 $shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
-$shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
+$shadow-elev: 0 6px 16px rgba(0, 0, 0, 0.16);
 
-/* focus / states */
+$shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
+$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
+
+/* --------------------------------
+   Focus / States
+   -------------------------------- */
 $focus-border: rgba(31, 171, 31, 0.55);
 $focus-ring: rgba(31, 171, 31, 0.14);
 
@@ -53,21 +72,108 @@ $error-border: rgba(239, 68, 68, 0.55);
 $error-ring: rgba(239, 68, 68, 0.12);
 $error-text: rgba(185, 122, 87, 0.95);
 
-/* radii */
+/* --------------------------------
+   Radii
+   -------------------------------- */
 $radius-sm: 12px;
 $radius-lg: 18px;
+$radius-xl: 24px;
+$radius-xxl: 22px;
 $radius-pill: 999px;
 
-/* typography */
+/* --------------------------------
+   Typography
+   -------------------------------- */
+/* font weights */
 $fw-semibold: 600;
 $fw-bold: 700;
+$fw-extrabold: 800;
+$fw-heavy: 850;
+$fw-ultra: 950;
 
-/* spacing (minimal reusable set; matches existing values closely) */
-$space-12: 12px; // btn padding-y
-$space-18: 18px; // btn padding-x
-$space-14: 1.4rem; // link padding-x
-$space-09: 0.9rem; // link padding-y
-$space-055: 0.55rem; // link gap
+/* font sizes (fixed) */
+$fs-xxs: 0.86rem;
+$fs-sm: 0.95rem;
+$fs-xs: 0.99rem;
+$fs-1: 1rem;
+$fs-s: 1.04rem;
+$fs-base: 1.05rem;
+$fs-m: 1.06rem;
+$fs-l: 1.08rem;
+$fs-md: 1.2rem;
+$fs-xl2: 1.27rem;
+$fs-lg: 1.22rem;
+$fs-xl: 1.35rem;
+$fs-2xl: 2rem;
 
-/* motion */
+/* font sizes (fluid / clamp) */
+$fs-h2-fluid: clamp(1.85rem, 2.8vw, 2.25rem);
+
+/* line heights */
+$lh-compact: 1.1;
+$lh-tight: 1.14;
+$lh-title: 1.2;
+$lh-list: 1.5;
+$lh-outro: 1.55;
+$lh-body: 1.6;
+$lh-loose: 1.62;
+$lh-copy: 1.65;
+$lh-relaxed: 1.66;
+$lh-copy-lg: 1.7;
+
+/* letter spacing */
+$tracking-tight: -0.6px;
+$tracking-h2: -0.45px;
+$tracking-tight-2: -0.25px;
+$tracking-s: -0.2px;
+$tracking-xs: -0.15px;
+$tracking-xxs: -0.1px;
+
+/* opacity */
+$opacity-95: 0.95;
+
+/* --------------------------------
+   Spacing
+   -------------------------------- */
+/* pixels */
+$space-2: 2px;
+$space-3: 3px;
+$space-4: 4px;
+$space-7: 7px;
+$space-8: 8px;
+$space-10: 10px;
+$space-11px: 11px;
+$space-12: 12px;
+$space-14px: 14px;
+$space-16: 16px;
+$space-18: 18px;
+$space-20: 20px;
+$space-24: 24px;
+$space-26px: 26px;
+$space-32: 32px;
+$space-36: 36px;
+$space-40: 40px;
+$space-48: 48px;
+$space-56: 56px;
+
+/* rem-based */
+$space-055: 0.55rem; // FIX: was incorrectly 52px
+$space-09: 0.9rem;
+$space-095: 0.95rem;
+$space-11: 0.7rem;
+$space-14: 1.4rem;
+$space-26: 1.6rem;
+$space-21: 2.1rem;
+
+
+/* layout (fluid / clamp) */
+$space-section-y: clamp(4.8rem, 6.2vw, 6.4rem);
+$gap-grid-fluid: clamp(26px, 3.4vw, 52px);
+$space-seo-mt: clamp(30px, 3.8vw, 44px);
+$space-seo-pt: clamp(18px, 2.4vw, 26px);
+
+/* --------------------------------
+   Motion
+   -------------------------------- */
 $transition-ui: all 0.25s ease;
+$transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);

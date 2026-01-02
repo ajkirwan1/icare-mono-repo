@@ -56,3 +56,20 @@
   // border-radius: t.$radius-lg;
   box-shadow: t.$shadow-card;
 }
+
+@mixin cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@mixin media-frame($radius: $radius-xl, $shadow: $shadow-figure, $border: $border-soft) {
+  margin: 0;
+  position: relative;
+  border-radius: $radius;
+  overflow: hidden;
+  border: 1px solid $border;
+  box-shadow: $shadow;
+  max-width: 100%;
+}

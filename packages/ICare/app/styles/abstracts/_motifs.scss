@@ -1,0 +1,32 @@
+@use "@styles/tokens" as t;
+
+@mixin title {
+  margin: 0;
+  font-weight: t.$fw-extrabold;
+  font-size: t.$fs-2xl;
+  color: t.$txt;
+  letter-spacing: t.$tracking-tight;
+  line-height: t.$lh-tight;
+}
+
+@mixin subtitle {
+  margin-top: t.$space-16;
+  font-size: t.$fs-lg;
+  color: t.$txt;
+  max-width: 60ch;
+  line-height: t.$lh-relaxed;
+}
+
+@mixin grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: t.$space-32;
+  align-items: start;
+}
+
+@mixin split-3-2($gap: t.$space-56, $align: center) {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: $gap;
+  align-items: $align;
+}

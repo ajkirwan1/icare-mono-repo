@@ -1,0 +1,12 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+
+.section {
+  width: min(92vw, 1100px);
+  margin: 60px auto 80px;
+  padding-top: $space-10;
+}
+
+.title {
+  @include motifs.title;
+}
