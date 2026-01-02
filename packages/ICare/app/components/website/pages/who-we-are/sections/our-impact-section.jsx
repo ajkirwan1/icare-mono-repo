@@ -4,7 +4,7 @@ export function OurImpactSection() {
     const items = [
         {
             title: "Transparent care choices",
-            desc: "Families see real caregiver profiles — experience, availability and care style — before starting a conversation.",
+            desc: "Families see real caregiver profiles — experience, availability and care style - before starting a conversation.",
         },
         {
             title: "Direct communication",

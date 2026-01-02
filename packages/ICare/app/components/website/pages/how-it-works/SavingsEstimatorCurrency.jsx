@@ -143,8 +143,9 @@ export default function SavingsEstimatorCurrency() {
                             fontWeight: 550,
                         }}
                     >
-                        Estimate care costs in seconds. Set an hourly rate, weekly hours, and see your total — including
-                        the simple 10% ICare fee.
+                        <strong>  See how much you could save with Icare.<br /></strong>
+
+                        Estimate care costs in seconds. <br />Set an hourly rate, weekly hours and see your total.
                     </p>
 
                     <div
@@ -159,10 +160,10 @@ export default function SavingsEstimatorCurrency() {
                         }}
                     >
                         <div style={{ fontWeight: 900, fontSize: ".92rem", marginBottom: 6 }}>
-                            MVP note
+                            Note:
                         </div>
                         <div style={{ fontSize: ".92rem", opacity: 0.82, fontWeight: 650, lineHeight: 1.55 }}>
-                            This is an estimate only. Final pricing depends on the caregiver’s rate and your care needs.
+                            This is an estimate.<br />Final pricing depends on the caregiver’s rate and your care needs.
                         </div>
                     </div>
                 </div>
