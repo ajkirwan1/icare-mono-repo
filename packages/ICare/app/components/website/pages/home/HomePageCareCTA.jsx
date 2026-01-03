@@ -35,14 +35,14 @@ export default function HomePageCareCTA() {
                         display: "flex",
                         alignItems: "flex-end",
                         justifyContent: "center",
-                        padding: "clamp(1.25rem, 4vw, 3rem)", // ✅ smaller on mobile
+                        padding: "clamp(1.25rem, 4vw, 3rem)",
                     }}
                 >
                     <div
                         style={{
                             background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "clamp(1.4rem, 3vw, 2.5rem)", // ✅ responsive padding
+                            padding: "clamp(1.4rem, 3vw, 2.5rem)",
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
@@ -57,8 +57,9 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", // ✅ clamps better
+                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)",
                                 lineHeight: 1.05,
+                                color: "#61674d",
                             }}
                         >
                             ICare for caregivers
@@ -67,25 +68,28 @@ export default function HomePageCareCTA() {
                         <p
                             style={{
                                 margin: "1rem 0 1.6rem",
-                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
+                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)",
                                 lineHeight: 1.7,
                                 color: "#0f172a",
+                                fontWeight: 600,
                             }}
                         >
-                            Find fair care jobs, connect directly with families
-                            and work on your own terms — without agencies.
+                            Find fair care jobs, connect directly with families and work on your
+                            own terms — without agencies.
                         </p>
 
+                        {/* ✅ caregivers route */}
                         <Link
                             to="/icare-for-caregivers"
                             style={{
                                 alignSelf: "flex-start",
-                                padding: "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)", // ✅ responsive
+                                padding:
+                                    "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)",
                                 borderRadius: "999px",
                                 background: "#61674d",
                                 color: "#fff",
                                 fontWeight: 800,
-                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)", // ✅ responsive
+                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)",
                                 textDecoration: "none",
                                 whiteSpace: "nowrap",
                             }}
@@ -118,14 +122,14 @@ export default function HomePageCareCTA() {
                         display: "flex",
                         alignItems: "flex-end",
                         justifyContent: "center",
-                        padding: "clamp(1.25rem, 4vw, 3rem)", // ✅ smaller on mobile
+                        padding: "clamp(1.25rem, 4vw, 3rem)",
                     }}
                 >
                     <div
                         style={{
                             background: "rgba(255,255,255,0.7)",
                             borderRadius: "36px",
-                            padding: "clamp(1.4rem, 3vw, 2.5rem)", // ✅ responsive padding
+                            padding: "clamp(1.4rem, 3vw, 2.5rem)",
                             color: "#0F172A",
                             width: "100%",
                             maxWidth: "640px",
@@ -140,7 +144,7 @@ export default function HomePageCareCTA() {
                             style={{
                                 margin: 0,
                                 fontWeight: 800,
-                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)", // ✅ clamps better
+                                fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)",
                                 lineHeight: 1.05,
                                 color: "#B97A57",
                             }}
@@ -151,25 +155,28 @@ export default function HomePageCareCTA() {
                         <p
                             style={{
                                 margin: "1rem 0 1.6rem",
-                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)", // ✅ clamps better
+                                fontSize: "clamp(1.02rem, 1.6vw, 1.2rem)",
                                 lineHeight: 1.7,
                                 color: "#0f172a",
+                                fontWeight: 600,
                             }}
                         >
-                            Find trusted, verified caregivers matched
-                            to your family’s real needs.
+                            Find trusted, verified caregivers matched to your family’s real needs.
                         </p>
 
+                        {/* ✅ care receivers route (forced hard navigation to avoid router mismatch) */}
                         <Link
                             to="/icare-for-care-receivers"
+                            reloadDocument
                             style={{
                                 alignSelf: "flex-start",
-                                padding: "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)", // ✅ responsive
+                                padding:
+                                    "clamp(12px, 1.6vw, 16px) clamp(22px, 2.6vw, 34px)",
                                 borderRadius: "999px",
                                 background: "#B97A57",
                                 color: "#fff",
                                 fontWeight: 800,
-                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)", // ✅ responsive
+                                fontSize: "clamp(.98rem, 1.2vw, 1.05rem)",
                                 textDecoration: "none",
                                 whiteSpace: "nowrap",
                             }}

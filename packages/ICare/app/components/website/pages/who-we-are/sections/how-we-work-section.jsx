@@ -9,22 +9,22 @@ export function HowWeWorkSection() {
             title: "Brief & preferences",
             description:
                 "Tell us your needs, schedule and preferred skills. We minimise data — only what’s necessary.",
-            variant: "green"
+            variant: "green",
         },
         {
             step: 2,
             title: "Direct matching",
             description:
-                "We show verified profiles that fit your brief — you speak directly with candidates.",
-            variant: "blue"
+                "We show verified caregiver profiles that fit your brief — you speak directly with candidates.",
+            variant: "blue",
         },
         {
             step: 3,
             title: "Agree & start",
             description:
                 "You agree terms directly with the caregiver. We provide guidance and safer-practice templates.",
-            variant: "orange"
-        }
+            variant: "orange",
+        },
     ];
 
     return (
@@ -35,8 +35,7 @@ export function HowWeWorkSection() {
                 width: "100%",
                 background: "#e8e7d7",
                 padding: "8rem 0",
-                fontFamily:
-                    "open sans",
+                fontFamily: "open sans",
             }}
         >
             {/* CONTENT WRAPPER */}
@@ -70,8 +69,19 @@ export function HowWeWorkSection() {
                             maxWidth: "60ch",
                         }}
                     >
-                        A clear, privacy-first process that connects families and caregivers directly.
+                        <span style={{ display: "block", marginBottom: "0.4rem" }}>
+                            <strong style={{ fontWeight: 900 }}>
+                                A simple, transparent way to arrange care at home.
+                            </strong>
+                        </span>
+
+                        <span style={{ display: "block" }}>
+                            Browse verified caregiver profiles, speak directly, and agree the right level of support — from short
+                            visits to overnight or live-in care.
+                        </span>
                     </p>
+
+
                 </div>
 
                 {/* STEPS GRID */}
@@ -88,7 +98,7 @@ export function HowWeWorkSection() {
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                justifyContent: "space-between", // 🔑 klucz
+                                justifyContent: "space-between",
                                 height: "100%",
                             }}
                         >
@@ -154,8 +164,8 @@ export function HowWeWorkSection() {
                             >
                                 <div
                                     style={{
-                                        width: "92%",          // ⬅️ węższe
-                                        height: "240px",       // ⬅️ +35% wysokości
+                                        width: "92%",
+                                        height: "240px",
                                         borderRadius: "16px",
                                         overflow: "hidden",
                                         boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
@@ -222,8 +232,5 @@ export function HowWeWorkSection() {
                 </div>
             </div>
         </section>
-
-
-
     );
 }
