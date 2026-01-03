@@ -10,21 +10,11 @@
 }
 
 .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.32); // no token
-  z-index: 1;
+  @include motifs.hero-overlay;
 }
 
 .content {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  padding-left: clamp(#{$space-20}, 6vw, 96px); // 20px tokenised
-  padding-right: clamp(#{$space-20}, 6vw, 48px); // 20px & 48px tokenised
-  display: grid;
-  grid-template-columns: minmax(0, 560px) 1fr; // no token
-  align-items: center;
+  @include motifs.hero-content;
 }
 
 .heading {

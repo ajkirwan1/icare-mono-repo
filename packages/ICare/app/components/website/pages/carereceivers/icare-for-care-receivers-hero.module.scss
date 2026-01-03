@@ -11,17 +11,11 @@
 }
 
 .overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.32);
+  @include motifs.hero-overlay;
 }
 
 .content {
-  position: relative;
-  z-index: 2;
-  width: min(1100px, 92vw);
-  padding-left: $gap-grid-fluid;
+  @include motifs.hero-content;
 }
 
 .title {

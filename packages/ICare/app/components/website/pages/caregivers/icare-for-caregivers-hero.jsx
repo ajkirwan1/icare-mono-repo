@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
 import ICareNavbar from "../shared/ICareNavbar";
