@@ -1,4 +1,4 @@
-import ICareForCareReceiversHero from "../../components/website/pages/carereceivers/ICareForCareReceiversHero";
+import ICareForCareReceiversHero from "../../components/website/pages/carereceivers/icare-for-care-receivers-hero";
 import ReceiversThreeSteps from "../../components/website/pages/carereceivers/receivers-three-steps";
 import ReceiversCompareICareVsAgency from "../../components/website/pages/carereceivers/ReceiversCompareICareVsAgency";
 import MobileMockupSection from "../../components/website/pages/carereceivers/mobile-mockup-section";

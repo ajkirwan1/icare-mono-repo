@@ -51,3 +51,21 @@
   z-index: 0;
   filter: brightness(.72) saturate(.97);
 }
+
+@mixin hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32); // no token
+  z-index: 1;
+}
+
+@mixin hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-left: clamp(#{t.$space-20}, 6vw, 96px); // 20px tokenised
+  padding-right: clamp(#{t.$space-20}, 6vw, 48px); // 20px & 48px tokenised
+  display: grid;
+  grid-template-columns: minmax(0, 560px) 1fr; // no token
+  align-items: center;
+}

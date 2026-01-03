@@ -1,4 +1,3 @@
-import React from "react";
 import heroImage from "/images/heros/icare-for-carereceivers.jpg";
 import ICareNavbar from "../shared/ICareNavbar";
 import styles from "./icare-for-care-receivers-hero.module.scss";

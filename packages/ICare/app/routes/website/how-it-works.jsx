@@ -1,6 +1,4 @@
-import styles from "./how-it-works.module.scss";
-import HowItWorksHero from "../../components/website/pages/how-it-works/HowItWorksHero";
-import StickySubnav from "../../components/website/pages/how-it-works/StickySubnav";
+import HowItWorksHero from "../../components/website/pages/how-it-works/how-it-works-hero";
 import ThreeStepGuide from "../../components/website/pages/how-it-works/ThreeStepGuide";
 import CompareAgencyVsICare from "../../components/website/pages/how-it-works/CompareAgencyVsICare";
 import ContactCTABanner from "../../components/website/pages/how-it-works/ContactCTABanner";
@@ -9,14 +7,14 @@ import HowItWorksFooter from "../../components/website/pages/shared/footers/HowI
 
 
 export default function HowItWorks() {
-    return (
-        <div className={styles.page}>
-            <HowItWorksHero />
-            <ThreeStepGuide />
-            <CompareAgencyVsICare />
-            <SavingsEstimatorCurrency />
-            <ContactCTABanner />
-            <HowItWorksFooter />
-        </div>
-    );
+  return (
+    <>
+      <HowItWorksHero />
+      <ThreeStepGuide />
+      <CompareAgencyVsICare />
+      <SavingsEstimatorCurrency />
+      <ContactCTABanner />
+      <HowItWorksFooter />
+    </>
+  );
 }

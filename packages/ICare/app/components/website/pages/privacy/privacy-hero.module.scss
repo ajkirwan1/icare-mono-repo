@@ -1,0 +1,92 @@
+$hero-bg: #0f172a;
+
+.hero {
+  position: relative;
+  min-height: clamp(640px, 78vh, 920px);
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center left;
+  color: #fff;
+  background: $hero-bg;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75) contrast(1.05);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.58));
+}
+
+.headerLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(2, 8, 23, 0.28);
+  backdrop-filter: saturate(1.05) blur(4px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  height: 0;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  width: min(92vw, 1100px);
+  padding-left: clamp(18px, 4vw, 60px);
+  padding-right: clamp(18px, 4vw, 60px);
+}
+
+.title {
+  margin: 0 0 1.2rem;
+  font-weight: 950;
+  font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+  color: #fff;
+  letter-spacing: -0.6px;
+  line-height: 1.05;
+}
+
+.lead {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.2vw, 1.16rem);
+  color: rgba(255, 255, 255, 0.96);
+  max-width: 66ch;
+  line-height: 1.8;
+  font-weight: 650;
+}
+
+.navWrap {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pillLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(2, 8, 23, 0.26);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 850;
+  font-size: 0.92rem;
+  backdrop-filter: blur(6px);
+}
