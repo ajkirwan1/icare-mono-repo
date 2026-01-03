@@ -2,155 +2,184 @@
 @use "@styles/abstracts/motifs" as motifs;
 
 .section {
-  width: 100%;
-  margin: $space-6 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+    width: 100%;
+    margin: $space-6 0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif;
 }
 
 /* full-bleed wrappers */
 .fullBleed {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding-left: clamp(#{$space-18}, 4vw, 70px);
-  padding-right: clamp(#{$space-18}, 4vw, 70px);
-  box-sizing: border-box;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(#{$space-18}, 4vw, 70px);
+    padding-right: clamp(#{$space-18}, 4vw, 70px);
+    box-sizing: border-box;
 }
 
 .header {
-  text-align: left;
-  margin-bottom: $space-22;
+    text-align: left;
+    margin-bottom: $space-22;
 }
 
 .title {
-  // margin: 0;
-  // font-weight: $fw-ultra;
-  // font-size: clamp(2.1rem, 3.2vw, 2.6rem);
-  // letter-spacing: $tracking-hero-h2;
-  // color: $txt;
-  @include motifs.title;
+    @include motifs.title;
 }
 
 .subtitle {
-  // margin-top: $fs-1;
-  // font-size: $fs-lg;
-  // line-height: $lh-card;
-  // color: $txt;
-  // max-width: $maxw-copy-lg;
-  @include motifs.subtitle;
+    @include motifs.subtitle;
+}
+
+/* ✅ NEW: informative text under subtitle (more air, no box) */
+.subinfo {
+    margin-top: $space-14;
+    max-width: $maxw-copy-lg;
+    font-size: $fs-base;
+    line-height: $lh-card;
+    color: $txt;
+    opacity: 0.9;
+}
+
+/* ✅ NEW: looks like a calm sub-heading */
+.subsubtitle {
+    margin: $space-14 0 0;
+    max-width: $maxw-copy-lg;
+    font-size: 1.2em;
+    /* ✅ ~20% bigger */
+    font-weight: $fw-extrabold;
+    letter-spacing: $tracking-tight-2;
+    color: $txt;
+    opacity: 0.92;
+}
+
+
+/* ✅ NEW: three calm lines under the subsubtitle */
+.sublines {
+    margin-top: $space-10;
+    max-width: $maxw-copy-lg;
+    display: grid;
+    gap: $space-10;
+}
+
+.subline {
+    margin: 0;
+    font-size: $fs-base;
+    line-height: $lh-loose;
+    color: $txt;
+    opacity: 0.9;
 }
 
 /* grid */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: $space-40;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-40;
 }
 
 @media (max-width: 980px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-26px;
-  }
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: $space-26px;
+    }
 }
 
 @media (max-width: 620px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: $space-18;
-  }
+    .grid {
+        grid-template-columns: 1fr;
+        gap: $space-18;
+    }
 }
 
 /* card */
 .card {
-  position: relative;
-  border-radius: $radius-30;
-  overflow: hidden;
-  background: $ink-strong;
-  box-shadow: $shadow-card-pop;
-  cursor: default;
+    position: relative;
+    border-radius: $radius-30;
+    overflow: hidden;
+    background: $ink-strong;
+    box-shadow: $shadow-card-pop;
+    cursor: default;
 }
 
 .image {
-  width: 100%;
-  height: $h-card-media;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: $h-card-media;
+    object-fit: cover;
+    display: block;
 }
 
 .gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.62) 0%,
-      rgba(0, 0, 0, 0.18) 55%,
-      rgba(0, 0, 0, 0.06) 100%);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.62) 0%,
+            rgba(0, 0, 0, 0.18) 55%,
+            rgba(0, 0, 0, 0.06) 100%);
 }
 
 .cardContent {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: $space-22;
-  color: $on-dark;
-  display: grid;
-  gap: $space-065;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: $space-22;
+    color: $on-dark;
+    display: grid;
+    gap: $space-065;
 
-  p,
-  span,
-  strong {
-    color: inherit;
-  }
+    p,
+    span,
+    strong {
+        color: inherit;
+    }
 }
 
 .cardTitle {
-  font-size: $fs-hero-h3;
-  font-weight: $fw-extrabold;
-  letter-spacing: $tracking-tight-2;
+    font-size: $fs-hero-h3;
+    font-weight: $fw-extrabold;
+    letter-spacing: $tracking-tight-2;
 }
 
 .cardShort {
-  margin: 0;
-  font-size: $fs-lg-2;
-  line-height: $lh-loose;
-  opacity: $opacity-95;
+    margin: 0;
+    font-size: $fs-lg-2;
+    line-height: $lh-loose;
+    opacity: $opacity-95;
 }
 
 .learnMore {
-  font-size: $fs-s;
-  text-decoration: underline;
-  opacity: $opacity-95;
+    font-size: $fs-s;
+    text-decoration: underline;
+    opacity: $opacity-95;
 }
 
 /* expandable content */
 .expandWrapper {
-  overflow: hidden;
-  max-height: 0;
-  transition: $transition-reveal-height;
+    overflow: hidden;
+    max-height: 0;
+    transition: $transition-reveal-height;
 }
 
 .expandWrapperOpen {
-  max-height: $maxh-reveal;
+    max-height: $maxh-reveal;
 }
 
 .expandInner {
-  padding-top: $space-065;
-  transform: translateY(14px);
-  opacity: 0;
-  transition: $transition-reveal-content;
-  will-change: transform, opacity;
+    padding-top: $space-065;
+    transform: translateY(14px);
+    opacity: 0;
+    transition: $transition-reveal-content;
+    will-change: transform, opacity;
 }
 
 .expandInnerOpen {
-  transform: translateY(0);
-  opacity: 1;
+    transform: translateY(0);
+    opacity: 1;
 }
 
 .expandText {
-  margin: 0;
-  font-size: $fs-base;
-  line-height: $lh-card-full;
-  opacity: 0.9;
+    margin: 0;
+    font-size: $fs-base;
+    line-height: $lh-card-full;
+    opacity: 0.9;
 }

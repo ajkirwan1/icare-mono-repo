@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import styles from "./ReceiversFooter.module.scss";
 
 export default function ReceiversFooter() {
     const year = new Date().getFullYear();
@@ -7,160 +8,46 @@ export default function ReceiversFooter() {
     // ✅ MVP-friendly: no personal name shown in UI
     const COMPANY = {
         brand: "ICare",
-        operatorLabel: "ICare (sole trader, UK)", // ✅ no name
+        operatorLabel: "ICare (sole trader, UK)",
         tradingAs: "ICare",
-        location: "Cheltenham, United Kingdom", // ✅ city + country only
+        location: "Cheltenham, United Kingdom",
         email: "customershelp@icare.com",
-        phone: "", // ✅ leave empty to hide phone
+        phone: "", // leave empty to hide phone
         vat: "",
     };
 
     const LOGO_SRC = "/images/logo/icare14.svg";
 
-    const TEXT = "#0F172A";
-    const colors = {
-        bg: "#fff9ef",
-        text: TEXT,
-        muted: TEXT,
-        light: TEXT,
-        border: "rgba(15,23,42,0.18)",
-        hoverBg: "rgba(15,23,42,0.08)",
-    };
-
-    const heading = {
-        color: colors.text,
-        fontWeight: 800,
-        fontSize: "0.98rem",
-        marginBottom: 12,
-        letterSpacing: "-0.15px",
-    };
-
-    const label = {
-        color: colors.text,
-        fontWeight: 700,
-        fontSize: "0.9rem",
-        marginBottom: 4,
-        letterSpacing: "-0.1px",
-        opacity: 0.9,
-    };
-
-    const value = {
-        color: colors.text,
-        fontWeight: 560,
-        fontSize: "0.95rem",
-        lineHeight: 1.5,
-        opacity: 0.9,
-    };
-
-    const linkBase = {
-        color: colors.text,
-        textDecoration: "none",
-        fontWeight: 650,
-        fontSize: "0.98rem",
-        padding: "6px 10px",
-        borderRadius: 999,
-        display: "inline-flex",
-        alignItems: "center",
-        width: "fit-content",
-        transition: "background-color .16s ease, opacity .16s ease",
-        opacity: 0.95,
-    };
-
-    const onEnter = (e) => {
-        e.currentTarget.style.background = colors.hoverBg;
-        e.currentTarget.style.opacity = "1";
-    };
-
-    const onLeave = (e) => {
-        e.currentTarget.style.background = "transparent";
-        e.currentTarget.style.opacity = "0.95";
-    };
-
     return (
-        <footer
-            aria-label="Site footer"
-            style={{
-                background: colors.bg,
-                borderTop: `1px solid ${colors.border}`,
-                color: colors.text,
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
-        >
-            <div
-                style={{
-                    maxWidth: 1180,
-                    margin: "0 auto",
-                    padding: "clamp(32px,4vw,52px) clamp(18px,4vw,44px)",
-                }}
-            >
+        <footer aria-label="Site footer" className={styles.footer}>
+            <div className={styles.inner}>
                 {/* TOP GRID */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1.35fr 1fr 1fr",
-                        gap: "clamp(18px,3vw,42px)",
-                        alignItems: "start",
-                        justifyItems: "start",
-                        textAlign: "left",
-                    }}
-                >
+                <div className={styles.topGrid}>
                     {/* BRAND + CONTACT */}
-                    <div style={{ width: "100%" }}>
-                        <Link
-                            to="/"
-                            aria-label="ICare home"
-                            style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                textDecoration: "none",
-                                lineHeight: 1,
-                            }}
-                        >
-                            <img
-                                src={LOGO_SRC}
-                                alt="ICare"
-                                style={{ height: 40, width: "auto", display: "block" }}
-                            />
+                    <div className={styles.col}>
+                        <Link to="/" aria-label="ICare home" className={styles.brandLink}>
+                            <img src={LOGO_SRC} alt="ICare" className={styles.logo} />
                         </Link>
 
-                        <p
-                            style={{
-                                margin: "12px 0 0",
-                                color: colors.text,
-                                lineHeight: 1.6,
-                                maxWidth: "52ch",
-                                fontSize: "0.98rem",
-                                fontWeight: 520,
-                                opacity: 0.9,
-                            }}
-                        >
+                        <p className={styles.tagline}>
                             A transparent marketplace connecting families with independent caregivers — without
                             agency markups.
                         </p>
 
-                        <div style={{ marginTop: 16, display: "grid", gap: 10 }}>
+                        <div className={styles.contactGrid}>
                             <div>
-                                <div style={label}>Email</div>
-                                <a
-                                    href={`mailto:${COMPANY.email}`}
-                                    style={{ ...value, textDecoration: "none", color: colors.text, fontWeight: "800" }}
-                                    onMouseEnter={onEnter}
-                                    onMouseLeave={onLeave}
-                                >
+                                <div className={styles.label}>Email</div>
+                                <a href={`mailto:${COMPANY.email}`} className={styles.valueLinkStrong}>
                                     {COMPANY.email}
                                 </a>
                             </div>
 
-                            {/* ✅ Hide phone if empty */}
                             {COMPANY.phone ? (
                                 <div>
-                                    <div style={label}>Phone</div>
+                                    <div className={styles.label}>Phone</div>
                                     <a
                                         href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-                                        style={{ ...value, textDecoration: "none", color: colors.text }}
-                                        onMouseEnter={onEnter}
-                                        onMouseLeave={onLeave}
+                                        className={styles.valueLink}
                                     >
                                         {COMPANY.phone}
                                     </a>
@@ -170,84 +57,52 @@ export default function ReceiversFooter() {
                     </div>
 
                     {/* BUSINESS DETAILS */}
-                    <div style={{ width: "100%" }}>
-                        <div style={heading}>Business details</div>
+                    <div className={styles.col}>
+                        <div className={styles.heading}>Business details</div>
 
-                        <div style={{ display: "grid", gap: 12 }}>
+                        <div className={styles.detailsGrid}>
                             <div>
-                                <div style={label}>Operator</div>
-                                <div style={value}>{COMPANY.operatorLabel}</div>
+                                <div className={styles.label}>Operator</div>
+                                <div className={styles.value}>{COMPANY.operatorLabel}</div>
                             </div>
 
                             <div>
-                                <div style={label}>Location</div>
-                                <div style={value}>{COMPANY.location}</div>
+                                <div className={styles.label}>Location</div>
+                                <div className={styles.value}>{COMPANY.location}</div>
                             </div>
 
                             {COMPANY.vat ? (
                                 <div>
-                                    <div style={label}>VAT number</div>
-                                    <div style={value}>{COMPANY.vat}</div>
+                                    <div className={styles.label}>VAT number</div>
+                                    <div className={styles.value}>{COMPANY.vat}</div>
                                 </div>
                             ) : null}
 
-                            <div style={{ ...value, opacity: 0.85 }}>
-                                Operated in the United Kingdom.
-                            </div>
+                            <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
                         </div>
                     </div>
 
                     {/* LINKS */}
-                    <div style={{ width: "100%" }}>
-                        <div style={heading}>Links</div>
+                    <div className={styles.col}>
+                        <div className={styles.heading}>Links</div>
 
-                        <nav aria-label="Footer links" style={{ display: "grid", gap: 10 }}>
-                            <Link to="/" style={linkBase} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                        <nav aria-label="Footer links" className={styles.links}>
+                            <Link to="/" className={styles.navLink}>
                                 Home
                             </Link>
-
-                            <Link
-                                to="/how-it-works"
-                                style={linkBase}
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                            >
+                            <Link to="/how-it-works" className={styles.navLink}>
                                 How it works
                             </Link>
-
-                            <Link
-                                to="/terms"
-                                style={linkBase}
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                            >
+                            <Link to="/terms" className={styles.navLink}>
                                 Terms
                             </Link>
-
-                            <Link
-                                to="/privacy"
-                                style={linkBase}
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                            >
+                            <Link to="/privacy" className={styles.navLink}>
                                 Privacy Policy
                             </Link>
-
-                            <Link
-                                to="/cookies"
-                                style={linkBase}
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                            >
+                            <Link to="/cookies" className={styles.navLink}>
                                 Cookies
                             </Link>
-
-                            <Link
-                                to="/contact"
-                                style={linkBase}
-                                onMouseEnter={onEnter}
-                                onMouseLeave={onLeave}
-                            >
+                            <Link to="/contact" className={styles.navLink}>
                                 Contact
                             </Link>
                         </nav>
@@ -255,33 +110,15 @@ export default function ReceiversFooter() {
                 </div>
 
                 {/* DIVIDER */}
-                <div
-                    style={{
-                        height: 1,
-                        background: colors.border,
-                        margin: "22px 0 14px",
-                    }}
-                />
+                <div className={styles.divider} />
 
                 {/* BOTTOM BAR */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1.3fr",
-                        gap: 12,
-                        alignItems: "start",
-                        color: colors.text,
-                        fontWeight: 600,
-                        fontSize: "0.92rem",
-                        lineHeight: 1.5,
-                        opacity: 0.9,
-                    }}
-                >
-                    <div>
+                <div className={styles.bottomBar}>
+                    <div className={styles.copyright}>
                         © {year} {COMPANY.brand}.<br /> All rights reserved.
                     </div>
 
-                    <div style={{ maxWidth: 760 }}>
+                    <div className={styles.disclaimer}>
                         ICare is an introductory marketplace (not a care agency). Caregivers are independent
                         providers and agreements are made directly between families and caregivers (see Terms).
                     </div>
