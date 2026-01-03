@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function WhoCanJoin() {
     return (
         <section
@@ -76,8 +78,9 @@ export default function WhoCanJoin() {
                                     lineHeight: 1.45,
                                 }}
                             >
-                                Keep <strong style={{ color: "#1FAB1F" }}>90%</strong> of what families pay —
-                                usually <strong>£4–£6/h more</strong> than agency work.
+                                Keep <strong style={{ color: "#1FAB1F" }}>90%</strong> of what
+                                families pay — usually <strong>£4–£6/h more</strong> than agency
+                                work.
                             </p>
                         </div>
 
@@ -101,10 +104,8 @@ export default function WhoCanJoin() {
                                     color: "#0f172a",
                                 }}
                             >
-                                No monthly fees.
-                                DBS: <strong>£0–£60</strong>.
-                                Insurance: <strong>£5–£15/mo</strong>.
-                                Self-employment: <strong>free</strong>.
+                                No monthly fees. DBS: <strong>£0–£60</strong>. Insurance:{" "}
+                                <strong>£5–£15/mo</strong>. Self-employment: <strong>free</strong>.
                             </p>
                         </div>
 
@@ -128,14 +129,13 @@ export default function WhoCanJoin() {
                                     color: "#0f172a",
                                 }}
                             >
-                                Pick the families you support.
-                                Set your own schedule.
-                                Work on your terms.
+                                Pick the families you support. Set your own schedule. Work on your
+                                terms.
                             </p>
                         </div>
 
                         {/* === SECTION 4 === */}
-                        <div>
+                        <div style={{ marginBottom: "1.6rem" }}>
                             <h3
                                 style={{
                                     margin: 0,
@@ -154,15 +154,63 @@ export default function WhoCanJoin() {
                                     color: "#0f172a",
                                 }}
                             >
-                                Right to Work, ID, optional DBS,
-                                insurance, UTR — and you're ready.
+                                Right to Work, ID, optional DBS, insurance, UTR — and you're ready.
+                            </p>
+                        </div>
+
+                        {/* === SECTION 5 (NEW) === */}
+                        <div style={{ marginBottom: "1.6rem" }}>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontSize: "1.1rem",
+                                    fontWeight: 800,
+                                    color: "#0F172A",
+                                }}
+                            >
+                                Clear agreements & safer practice
+                            </h3>
+                            <p
+                                style={{
+                                    marginTop: ".4rem",
+                                    fontSize: ".95rem",
+                                    lineHeight: 1.45,
+                                    color: "#0f172a",
+                                }}
+                            >
+                                Keep work professional and predictable — agree routines, tasks and
+                                boundaries upfront using simple templates and guidance.
+                            </p>
+                        </div>
+
+                        {/* === SECTION 6 (NEW) === */}
+                        <div>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    fontSize: "1.1rem",
+                                    fontWeight: 800,
+                                    color: "#0F172A",
+                                }}
+                            >
+                                Build a trusted profile
+                            </h3>
+                            <p
+                                style={{
+                                    marginTop: ".4rem",
+                                    fontSize: ".95rem",
+                                    lineHeight: 1.45,
+                                    color: "#0f172a",
+                                }}
+                            >
+                                Show your experience, references and training (plus optional DBS)
+                                so families can choose you with confidence — and you get better-fit
+                                enquiries.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     );
 }
-
