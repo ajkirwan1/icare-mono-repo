@@ -3,205 +3,178 @@
 @use "@styles/abstracts/motifs" as motifs;
 
 .title {
-  @include motifs.title;
+    @include motifs.title;
 }
 
 .subtitle {
-  @include motifs.subtitle;
-  max-width: unset;
+    @include motifs.subtitle;
+    max-width: unset;
 }
 
 .wrap {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  background: #e8e7d7;
-  padding: clamp(4.8rem, 6.2vw, 6.4rem) 0;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
-  color: $txt;
-  /* was #0f172a */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: #e8e7d7;
+
+    /* ✅ 10% smaller section (layout-safe) */
+    font-size: 0.9em;
+
+    /* was: clamp(4.8rem, 6.2vw, 6.4rem) 0 */
+    padding: clamp(4.32rem, 5.58vw, 5.76rem) 0;
+
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+    color: $txt;
 }
 
 .container {
-  width: min(92vw, 1100px);
-  margin: 0 auto;
-  color: $txt;
-  /* was #0f172a */
+    /* was: min(92vw, 1100px) */
+    width: min(82.8vw, 990px);
+    margin: 0 auto;
+    color: $txt;
 }
 
 .grid {
-  @include motifs.grid-two; // gap: clamp(26px, 3.4vw, 52px);
-  // align-items: start;
+    @include motifs.grid-two; // gap: clamp(26px, 3.4vw, 52px);
+    // align-items: start;
 }
 
 .h2Clamp {
-  font-size: clamp(1.85rem, 2.8vw, 2.25rem);
-  font-weight: 950;
-  color: $txt;
-  /* was #0f172a */
-  margin: 0 0 $space-11;
-  /* was 0.7rem */
-  letter-spacing: -0.45px;
-  line-height: 1.1;
+    font-size: clamp(1.85rem, 2.8vw, 2.25rem);
+    font-weight: 950;
+    color: $txt;
+    margin: 0 0 $space-11;
+    letter-spacing: -0.45px;
+    line-height: 1.1;
 }
 
 .h2 {
-  font-size: clamp(1.85rem, 2.8vw, 2.25rem);
-  font-weight: 950;
-  color: $txt;
-  /* was #0f172a */
-  margin: 0 0 $space-11;
-  /* was 0.7rem */
-  letter-spacing: -0.45px;
-  line-height: 1.1;
+    font-size: clamp(1.85rem, 2.8vw, 2.25rem);
+    font-weight: 950;
+    color: $txt;
+    margin: 0 0 $space-11;
+    letter-spacing: -0.45px;
+    line-height: 1.1;
 }
 
 .leadHighlight {
-  font-size: 1.27rem;
-  color: $txt;
-  /* was #0f172a */
-  font-weight: $fw-extrabold;
-  /* was 800 */
-  line-height: 1.65;
-  margin: 0 0 $space-09;
-  /* was 0.95rem (closest existing token) */
-  max-width: 72ch;
-  letter-spacing: -0.15px;
+    font-size: 1.27rem;
+    color: $txt;
+    font-weight: $fw-extrabold;
+    line-height: 1.65;
+    margin: 0 0 $space-09;
+    max-width: 72ch;
+    letter-spacing: -0.15px;
 }
 
 .leadRest {
-  font-size: 1.06rem;
-  color: $txt;
-  /* was #0f172a */
-  margin: 0 0 2.1rem;
-  max-width: 75ch;
-  line-height: 1.7;
-  font-weight: $fw-semibold;
-  /* was 600 */
+    font-size: 1.06rem;
+    color: $txt;
+    margin: 0 0 2.1rem;
+    max-width: 75ch;
+    line-height: 1.7;
+    font-weight: $fw-semibold;
 }
 
 .proofGrid {
-  height: 100%;
-  display: grid;
-  gap: 14px;
-  margin-top: $space-4;
-  /* was 4px */
+    height: 100%;
+    display: grid;
+    gap: 14px;
+    margin-top: $space-4;
 }
 
 .card {
-  height: 100%;
-  padding: $space-18 $space-18;
-  /* was 18px 18px */
-  border-radius: $radius-lg;
-  /* was 18px */
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid $card-border;
-  /* was rgba(15, 23, 42, 0.1) */
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
-  display: grid;
-  gap: $space-10;
-  /* was 10px */
-  color: $txt;
-  /* was #0f172a */
+    height: 100%;
+    padding: $space-18 $space-18;
+    border-radius: $radius-lg;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid $card-border;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+    display: grid;
+    gap: $space-10;
+    color: $txt;
 }
 
 .cardTop {
-  display: flex;
-  gap: $space-12;
-  /* was 12px */
-  align-items: center;
+    display: flex;
+    gap: $space-12;
+    align-items: center;
 }
 
 .iconWrap {
-  width: $space-40;
-  /* was 40px */
-  height: $space-40;
-  /* was 40px */
-  border-radius: $space-16;
-  /* was 16px */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(97, 103, 77, 0.12);
-  border: 1px solid rgba(97, 103, 77, 0.24);
-  color: $primary-colour;
-  /* was #61674d */
-  flex: 0 0 auto;
+    width: $space-40;
+    height: $space-40;
+    border-radius: $space-16;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(97, 103, 77, 0.12);
+    border: 1px solid rgba(97, 103, 77, 0.24);
+    color: $primary-colour;
+    flex: 0 0 auto;
 }
 
 .proofTitle {
-  margin: 0;
-  font-weight: 950;
-  color: $txt;
-  /* was #0f172a */
-  font-size: 1.04rem;
-  letter-spacing: -0.15px;
+    margin: 0;
+    font-weight: 950;
+    color: $txt;
+    font-size: 1.04rem;
+    letter-spacing: -0.15px;
 }
 
 .proofDesc {
-  margin: 8px 0 0;
-  color: $txt;
-  /* was #0f172a */
-  line-height: $lh-loose;
-  /* was 1.62 (closest token) */
-  font-size: 0.99rem;
-  font-weight: $fw-semibold;
-  /* was 600 */
+    margin: 8px 0 0;
+    color: $txt;
+    line-height: $lh-loose;
+    font-size: 0.99rem;
+    font-weight: $fw-semibold;
 }
 
 .seoBlock {
-  margin-top: clamp(30px, 3.8vw, 44px);
-  padding-top: clamp(18px, 2.4vw, 26px);
-  border-top: 1px solid $card-border;
-  /* was rgba(15, 23, 42, 0.1) */
-  max-width: 78ch;
-  color: $txt;
-  /* was #0f172a */
+    margin-top: clamp(30px, 3.8vw, 44px);
+    padding-top: clamp(18px, 2.4vw, 26px);
+    border-top: 1px solid $card-border;
+    max-width: 78ch;
+    color: $txt;
 }
 
 .seoTitlePlain {
-  margin: 0;
-  font-weight: 950;
-  color: $txt;
-  /* was #0f172a */
-  font-size: 1.08rem;
-  letter-spacing: -0.2px;
+    margin: 0;
+    font-weight: 950;
+    color: $txt;
+    font-size: 1.08rem;
+    letter-spacing: -0.2px;
 }
 
 .tagRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $space-10;
-  /* was 10px */
-  margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-10;
+    margin-top: 14px;
 }
 
 .tag {
-  padding: 7px 11px;
-  border-radius: $radius-pill;
-  /* was 999px */
-  border: 1px solid rgba(15, 23, 42, 0.14);
-  background: rgba(255, 255, 255, 0.58);
-  font-size: 0.86rem;
-  font-weight: 850;
-  color: $txt;
-  /* was #0f172a */
-  letter-spacing: -0.1px;
+    padding: 7px 11px;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    background: rgba(255, 255, 255, 0.58);
+    font-size: 0.86rem;
+    font-weight: 850;
+    color: $txt;
+    letter-spacing: -0.1px;
 }
 
 .photoWrap {
-  border-radius: $radius-lg;
-  /* was 18px */
-  overflow: hidden;
-  border: 1px solid $card-border;
-  /* was rgba(15, 23, 42, 0.1) */
-  background: rgba(255, 255, 255, 0.65);
-  aspect-ratio: 4 / 5;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    border: 1px solid $card-border;
+    background: rgba(255, 255, 255, 0.65);
+    aspect-ratio: 4 / 5;
 }
 
 .photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
