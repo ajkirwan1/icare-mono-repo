@@ -1,0 +1,70 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+
+.section {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: $section-split-min-h;
+
+  @media (max-width: 980px) {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+.column {
+  position: relative;
+  min-height: $section-split-col-min-h;
+}
+
+.bgImage {
+  @include motifs.hero-image;
+}
+
+.cardWrap {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: $space-card-wrap-fluid;
+}
+
+/* Typography */
+
+.h2 {
+  margin: 0;
+  font-weight: $fw-extrabold;
+  font-size: $fs-card-title-fluid;
+  line-height: $lh-tight;
+}
+
+.caregiverTitle {
+  color: $primary-colour;
+}
+
+.receiverTitle {
+  color: $secondary-colour;
+}
+
+.p {
+  margin: $space-16 0 $space-26;
+  font-size: $fs-card-body-fluid;
+  line-height: $lh-copy-lg;
+  font-weight: $fw-semibold;
+  color: $txt;
+}
+
+/* CTA wrapper to prevent big/stretchy buttons */
+.ctaRow {
+  margin-top: $space-cta-top;
+  display: flex;
+  justify-content: flex-start;
+
+  >* {
+    width: auto;
+    max-width: fit-content;
+  }
+}

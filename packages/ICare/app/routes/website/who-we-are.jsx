@@ -6,6 +6,32 @@ import { HowWeWorkSection } from "../../components/website/pages/who-we-are/sect
 import { OurImpactSection } from "../../components/website/pages/who-we-are/sections/our-impact-section";
 import { CtaSection } from "../../components/website/pages/who-we-are/sections/cta-section";
 import { WhoWeAreHero } from "../../components/website/pages/who-we-are/sections/who-we-are-hero";
+import { buildSeo } from "../../utils/seo/seo";
+
+export function meta() {
+  const seo = buildSeo({
+    title: "Who We are",
+    description:
+      "Who we are.",
+    imagePath: "/images/og/who-we-are.jpg"
+  });
+
+  return [
+    { title: seo.title },
+    { name: "description", content: seo.description },
+
+    { property: "og:title", content: seo.title },
+    { property: "og:description", content: seo.description },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: seo.url },
+    { property: "og:image", content: seo.image }
+
+    // { name: "twitter:card", content: "summary_large_image" },
+    // { name: "twitter:title", content: seo.title },
+    // { name: "twitter:description", content: seo.description },
+    // { name: "twitter:image", content: seo.image },
+  ];
+}
 
 export default function WhoWeAre() {
 
