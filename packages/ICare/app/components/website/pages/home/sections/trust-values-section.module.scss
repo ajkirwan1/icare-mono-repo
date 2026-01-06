@@ -53,6 +53,37 @@
     opacity: 0.92;
 }
 
+.ctaRow {
+    margin-top: 14px;
+}
+
+.ctaLink {
+    display: inline-flex;
+    font-weight: 800;
+    text-decoration: none;
+    color: #0f172a;
+    opacity: 0.82;
+    transition: opacity .14s ease;
+}
+
+.ctaLink:hover {
+    opacity: 1;
+}
+
+.inlineCta {
+    margin-top: 10px;
+    display: inline-flex;
+    font-weight: 850;
+    text-decoration: none;
+    color: #0f172a;
+    opacity: 0.9;
+    transition: opacity .14s ease;
+}
+
+.inlineCta:hover {
+    opacity: 1;
+}
+
 
 /* ✅ NEW: three calm lines under the subsubtitle */
 .sublines {
