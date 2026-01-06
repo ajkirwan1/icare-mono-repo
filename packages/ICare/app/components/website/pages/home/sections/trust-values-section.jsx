@@ -43,7 +43,7 @@ export default function TrustValuesSection() {
         <h2 className={styles.title}>Trust, care &amp; community</h2>
 
         <p className={styles.subtitle}>
-          Built for families who want a calmer way to choose home care — with clarity, dignity and control.
+          <strong>Built for families who want a calmer way to choose home care — with clarity, dignity and control.</strong>
         </p>
 
         {/* ✅ simplified, more “sales” */}
