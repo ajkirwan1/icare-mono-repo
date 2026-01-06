@@ -1,12 +1,16 @@
 import heroImage from "/images/heros/icare-hero-new.jpg";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
-import IcareBanner2 from "../components/website/pages/home/IcareBanner2";
-import HomePageCareCTA from "../components/website/pages/home/home-page-care-cta";
+
+import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
 import TrustIntroSection from "../components/website/pages/home/sections/TrustIntroSection";
 import TrustValuesSection from "../components/website/pages/home/sections/trust-values-section";
+import IcareSafetyBlock from "../components/website/pages/home/sections/IcareSafetyBlock";
 import ICareFooter from "../components/website/pages/shared/footers/ICareFooter";
 import { buildSeo } from "../utils/seo/seo";
+import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
+import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
+import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
 
 export function meta() {
   const seo = buildSeo({
@@ -40,9 +44,14 @@ export default function Home() {
       <HomePageHero imgSrc={heroImage} />
       <CareTimeline />
       <TrustIntroSection />
+
       <TrustValuesSection />
-      <IcareBanner2 />
+
       <HomePageCareCTA />
+      <IcareSafetyBlock />
+      <ICareCostEstimator />
+      <ICareTypesOfCareSEO />
+      <ICareWaitlistFinal />
       <ICareFooter />
     </>
   );
