@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2-dev.20](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.4.2-dev.19...icare-app@0.4.2-dev.20) (2026-01-06)
+
+**Note:** Version bump only for package icare-app
+
 ## [0.4.2-dev.19](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.4.2-dev.18...icare-app@0.4.2-dev.19) (2026-01-05)
 
 **Note:** Version bump only for package icare-app
