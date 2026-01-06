@@ -11,6 +11,9 @@ import { buildSeo } from "../utils/seo/seo";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
 import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
+import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
+import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
+import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
 
 export function meta() {
   const seo = buildSeo({
