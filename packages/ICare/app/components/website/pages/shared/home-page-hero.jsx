@@ -7,42 +7,32 @@ export default function HomePageHero({ imgSrc }) {
     return (
         <>
             <ICareNavbar />
-            <section
-                aria-label="ICare homepage hero"
-                className={styles.hero}
-            >
-                <img
-                    src={imgSrc}
-                    alt="Care support background"
-                    className={styles.backgroundImage}
-                />
-                <div
-                    aria-hidden="true"
-                    className={styles.overlay}
-                />
+
+            <section aria-label="ICare homepage hero" className={styles.hero}>
+                <img src={imgSrc} alt="Care support background" className={styles.backgroundImage} />
+                <div aria-hidden="true" className={styles.overlay} />
+
                 <div className={styles.content}>
                     <div className={styles.textWrapper}>
                         <span className={styles.badgeWrapper}>
-                            <strong className={styles.badge}>
-                                ICare is launching soon in Cheltenham
-                            </strong>
+                            <strong className={styles.badge}>Launching soon in Cheltenham</strong>
                         </span>
 
                         <div className={styles.copyBlock}>
                             <h1 className={styles.heading}>
-                                Care in Cheltenham you can trust
+                                Find trusted <span>home care</span> in Cheltenham - without agency stress.
                             </h1>
 
                             <p className={styles.subheading}>
-                                <strong>No agency fees – just direct care.</strong>
+                                <strong>Transparent pricing. Direct communication. A calmer, guided process for families.</strong>
                             </p>
 
                             <ul className={styles.features}>
                                 {[
-                                    "Verified caregivers",
-                                    "Secure messaging",
-                                    "Early access to care matches",
-                                    "No agency markup"
+                                    "Clear caregiver profiles",
+                                    "Structured matching — agree tasks & schedule upfront",
+                                    "Safety details shown on profiles",
+                                    "No agency markups — simple and transparent",
                                 ].map((text) => (
                                     <li key={text} className={styles.featureItem}>
                                         <svg
@@ -61,16 +51,19 @@ export default function HomePageHero({ imgSrc }) {
                                 ))}
                             </ul>
 
-                            <form
-                                className={styles.form}
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    alert("You're on the early access list!");
-                                }}
-                            >
-                                <SubmitButton>Join waiting list</SubmitButton>
-                                <NavigationButton to="/">How ICare works</NavigationButton>
-                            </form>
+                            {/* ✅ Two buttons side-by-side */}
+                            <div className={styles.form}>
+                                <a href="#waitlist" style={{ textDecoration: "none" }}>
+                                    <SubmitButton>Join waiting list</SubmitButton>
+                                </a>
+
+                                <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
+                            </div>
+
+                            {/* tiny reassurance */}
+                            <p style={{ marginTop: 12, opacity: 0.85 }}>
+                                One launch email + occasional updates. Unsubscribe anytime.
+                            </p>
                         </div>
                     </div>
                 </div>

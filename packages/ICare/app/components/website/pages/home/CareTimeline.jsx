@@ -1,213 +1,228 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faHandHoldingHeart,
-    faBroom,
-    faPersonWalking,
-    faPills,
-    faMoon,
-    faClock,
-    faBed,
-    faBrain,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faComments, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-export default function CareTimelineSection() {
+/**
+ * ICare — How it works (3 steps)
+ * ✅ calm + short + sales-friendly
+ * ✅ first section after Hero
+ * ✅ anchors: id="how-it-works"
+ * ✅ CTA leads to #waitlist
+ */
+
+export default function HowItWorksThreeSteps() {
+    const COLORS = {
+        bg: "#ffffff",
+        text: "#0F172A",
+        muted: "rgba(15,23,42,0.72)",
+        border: "rgba(15,23,42,0.10)",
+        chip: "rgba(255,255,255,0.82)",
+        accent: "#b97a57",
+        icon: "#61674d",
+    };
+
+    const wrap = {
+        width: "100%",
+        background: COLORS.bg,
+        fontFamily:
+            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: COLORS.text,
+        padding: "clamp(3.2rem, 4.6vw, 4.2rem) 0",
+    };
+
+    const container = {
+        width: "min(92vw, 1100px)",
+        margin: "0 auto",
+    };
+
+    const title = {
+        margin: 0,
+        fontWeight: 950,
+        letterSpacing: "-0.45px",
+        lineHeight: 1.08,
+        fontSize: "clamp(1.65rem, 2.4vw, 2.05rem)",
+        color: COLORS.text,
+    };
+
+    const sub = {
+        margin: "0.9rem 0 0",
+        maxWidth: "72ch",
+        color: COLORS.muted,
+        fontSize: "1.02rem",
+        lineHeight: 1.7,
+        fontWeight: 600,
+    };
+
+    const grid = {
+        marginTop: "clamp(1.6rem, 2.6vw, 2.1rem)",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        gap: "clamp(12px, 1.8vw, 18px)",
+        alignItems: "stretch",
+    };
+
+    const card = {
+        background: COLORS.chip,
+        border: `1px solid ${COLORS.border}`,
+        borderRadius: 18,
+        padding: "16px 16px",
+        boxShadow: "0 12px 26px rgba(15,23,42,0.06)",
+        display: "grid",
+        gap: 10,
+    };
+
+    const stepRow = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 12,
+    };
+
+    const stepPill = {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "6px 10px",
+        borderRadius: 999,
+        fontSize: ".82rem",
+        fontWeight: 900,
+        color: COLORS.text,
+        background: "rgba(15,23,42,0.04)",
+        border: "1px solid rgba(15,23,42,0.08)",
+    };
+
+    const iconWrap = {
+        width: 38,
+        height: 38,
+        borderRadius: 16,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "rgba(97,103,77,0.12)",
+        border: "1px solid rgba(97,103,77,0.24)",
+        color: COLORS.icon,
+        flex: "0 0 auto",
+    };
+
+    const h3 = {
+        margin: 0,
+        fontWeight: 950,
+        color: COLORS.text,
+        fontSize: "1.06rem",
+        letterSpacing: "-0.15px",
+        lineHeight: 1.25,
+    };
+
+    const p = {
+        margin: 0,
+        color: COLORS.muted,
+        lineHeight: 1.65,
+        fontSize: ".98rem",
+        fontWeight: 600,
+    };
+
+    const ctaWrap = {
+        marginTop: "clamp(1.6rem, 2.6vw, 2.1rem)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 14,
+        flexWrap: "wrap",
+        paddingTop: "clamp(14px, 2vw, 18px)",
+        borderTop: `1px solid ${COLORS.border}`,
+    };
+
+    const ctaText = {
+        margin: 0,
+        color: COLORS.muted,
+        fontWeight: 650,
+        lineHeight: 1.6,
+        fontSize: ".98rem",
+        maxWidth: "68ch",
+    };
+
+    const btn = {
+        border: "none",
+        borderRadius: 20, // ✅ requested feel
+        background: COLORS.accent, // ✅ #b97a57
+        color: "#fff",
+        fontWeight: 900,
+        fontSize: "0.98rem",
+        padding: "12px 18px",
+        cursor: "pointer",
+        width: "min(260px, 88vw)", // ✅ ~30% shorter feel
+        alignSelf: "center",
+        transition: "filter .14s ease, background .14s ease",
+    };
+
+    const onEnter = (e) => {
+        e.currentTarget.style.filter = "brightness(1.06)";
+    };
+    const onLeave = (e) => {
+        e.currentTarget.style.filter = "brightness(1)";
+    };
+
     return (
-        <section
-            aria-label="Care timeline"
-            style={{
-                width: "100%",
-                background: "#FFFFFF",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
-        >
-            {/* ===== FULL-WIDTH HEADER ===== */}
-            <div
-                style={{
-                    width: "100vw",
-                    marginLeft: "calc(50% - 50vw)",
-                    position: "relative",
-                    overflow: "hidden",
-                    padding: "clamp(2.8rem, 4.4vw, 3.8rem) 0",
-                    marginBottom: "clamp(2.0rem, 3vw, 2rem)",
-                }}
-            >
-                <div
-                    aria-hidden="true"
-                    style={{
-                        position: "absolute",
-                        inset: 0,
-                        background: "#b979579e",
-                        pointerEvents: "none",
-                    }}
-                />
+        <section id="how-it-works" aria-label="How ICare works" style={wrap}>
+            <div style={container}>
+                <h2 style={title}>How ICare works</h2>
+                <p style={sub}>
+                    A simple, guided flow designed to keep families calm and in control — from first search to
+                    starting care.
+                </p>
 
-                <header
-                    style={{
-                        width: "min(1180px, 92vw)",
-                        margin: "0 auto",
-                        textAlign: "center",
-                        position: "relative",
-                        zIndex: 1,
-                    }}
-                >
-                    <h2
-                        style={{
-                            margin: 0,
-                            fontWeight: 900,
-                            fontSize: "clamp(1.85rem, 2.6vw, 2.35rem)",
-                            color: "#fff",
-                            letterSpacing: "-0.65px",
-                            lineHeight: 1.08,
-                        }}
-                    >
-                        A guided - human way to find trusted care
-                    </h2>
+                <div className="hiwGrid" style={grid}>
+                    {[
+                        {
+                            n: "Step 1",
+                            icon: faMagnifyingGlass,
+                            t: "Browse and compare carers",
+                            d: "See clear profiles, availability and support — so you can shortlist with confidence.",
+                        },
+                        {
+                            n: "Step 2",
+                            icon: faComments,
+                            t: "Message and agree the details",
+                            d: "Talk directly and confirm tasks, hours, start date and expectations — in one place.",
+                        },
+                        {
+                            n: "Step 3",
+                            icon: faCircleCheck,
+                            t: "Start care with clarity",
+                            d: "Begin support knowing what’s agreed. No agency pressure — just a clear arrangement.",
+                        },
+                    ].map((x) => (
+                        <div key={x.t} style={card}>
+                            <div style={stepRow}>
+                                <span style={stepPill}>{x.n}</span>
+                                <span style={iconWrap} aria-hidden="true">
+                                    <FontAwesomeIcon icon={x.icon} />
+                                </span>
+                            </div>
 
-                    <p
-                        style={{
-                            margin: "0.85rem auto 0",
-                            maxWidth: "68ch",
-                            color: "rgba(255,255,255,0.92)",
-                            fontSize: "clamp(1.02rem, 1.25vw, 1.18rem)",
-                            lineHeight: 1.75,
-                            fontWeight: 450,
-                        }}
-                    >
-                        Clear, step-by-step support to help you find the caregiver who truly fits your family.
-                    </p>
-                </header>
-            </div>
-
-            {/* ===== CONTENT ===== */}
-            <div style={{ width: "min(1180px, 92vw)", margin: "0 auto" }}>
-                {/* ================= FULL-WIDTH TYPES OF CARE ================= */}
-                <section
-                    aria-label="Types of care (full width)"
-                    style={{
-                        width: "100vw",
-                        marginLeft: "calc(50% - 50vw)",
-                        background: "#f7e7d9",
-                        marginTop: "-2.1rem", // ✅ was -2.8rem
-                        padding: "6.48rem 0 4.32rem", // ✅ 25% smaller (was 8.64rem 0 5.76rem)
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "min(980px, 92vw)",
-                            margin: "0 auto",
-                        }}
-                    >
-                        <h3
-                            style={{
-                                fontSize: "clamp(1.35rem, 1.85vw, 1.65rem)", // ✅ smaller
-                                fontWeight: 800,
-                                margin: 0,
-                                color: "#0F172A",
-                                letterSpacing: "-0.25px",
-                                textAlign: "left",
-                            }}
-                        >
-                            Types of care we support
-                        </h3>
-
-                        <p
-                            style={{
-                                margin: ".6rem 0 0", // ✅ smaller
-                                color: "#0f172a",
-                                fontSize: "0.98rem", // ✅ smaller
-                                maxWidth: "56ch",
-                                lineHeight: 1.6,
-                                textAlign: "left",
-                            }}
-                        >
-                            Choose the support your family needs. ICare connects you with
-                            trusted, independent caregivers for flexible home care.
-                        </p>
-
-                        <div
-                            className="careBoxesGrid"
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                                gap: "1.26rem", // ✅ was 1.68rem
-                                marginTop: "2.16rem", // ✅ was 2.88rem
-                            }}
-                        >
-                            {[
-                                { label: "Elderly care", desc: "Daily support & companionship", icon: faHandHoldingHeart },
-                                { label: "Household help", desc: "Cleaning, cooking & chores", icon: faBroom },
-                                { label: "Mobility support", desc: "Walking & transfers", icon: faPersonWalking },
-                                { label: "Medication support", desc: "Reminders & stability", icon: faPills },
-                                { label: "Night care", desc: "Overnight presence & safety", icon: faMoon },
-                                { label: "Hourly care", desc: "Short visits, flexible", icon: faClock },
-                                { label: "Live-in care", desc: "Full-time home assistance", icon: faBed },
-                                { label: "Specialist care", desc: "Dementia & extra needs", icon: faBrain },
-                            ].map((box) => (
-                                <div
-                                    key={box.label}
-                                    style={{
-                                        padding: "1.26rem 1.22rem", // ✅ was 1.68rem 1.62rem
-                                        borderRadius: "16px", // ✅ slightly smaller
-                                        background: "rgba(249,245,240,0.6)",
-                                        textAlign: "left",
-                                        position: "relative",
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            display: "inline-flex",
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                            width: "40px", // ✅ was 54px
-                                            height: "40px", // ✅ was 54px
-                                            borderRadius: "14px",
-                                            background: "transparent",
-                                            color: "#61674d",
-                                            boxShadow: "none",
-                                            fontSize: "20px", // ✅ was 24px
-                                            marginBottom: "0.8rem", // ✅ was 1.05rem
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={box.icon} />
-                                    </div>
-
-                                    <h4
-                                        style={{
-                                            fontWeight: 750,
-                                            margin: "0 0 .45rem 0",
-                                            color: "#0F172A",
-                                            fontSize: "1.06rem", // ✅ was 1.3rem
-                                            lineHeight: 1.35,
-                                        }}
-                                    >
-                                        {box.label}
-                                    </h4>
-
-                                    <p
-                                        style={{
-                                            margin: 0,
-                                            color: "#0f172a",
-                                            fontSize: "0.95rem", // ✅ was 1.08rem
-                                            lineHeight: 1.55,
-                                        }}
-                                    >
-                                        {box.desc}
-                                    </p>
-                                </div>
-                            ))}
+                            <h3 style={h3}>{x.t}</h3>
+                            <p style={p}>{x.d}</p>
                         </div>
-                    </div>
-                </section>
+                    ))}
+                </div>
+
+                <div style={ctaWrap}>
+                    <p style={ctaText}>
+                        Want early access in your area? Join the waiting list — we’ll notify you when ICare opens
+                        near you.
+                    </p>
+
+                    <a href="#waitlist" style={{ textDecoration: "none" }}>
+                        <button type="button" style={btn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                            Join the waiting list
+                        </button>
+                    </a>
+                </div>
             </div>
 
             <style>{`
-        @media (max-width: 980px) {
-          .careBoxesGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-        }
-        @media (max-width: 620px) {
-          .careBoxesGrid { grid-template-columns: 1fr !important; }
+        @media (max-width: 920px){
+          .hiwGrid{ grid-template-columns: 1fr !important; }
         }
       `}</style>
         </section>

@@ -1,67 +1,144 @@
-@use "@styles/tokens" as *;
-@use "@styles/abstracts/motifs" as motifs;
-@use "@styles/abstracts/mixins" as mixins;
+/* receivers-three-steps.module.scss */
+
+.content {
+    max-width: 640px;
+    color: #0f172a;
+}
+
+.header {
+    margin-bottom: 18px;
+}
 
 .title {
-  @include motifs.title;
+    margin: 0 0 10px;
+    font-size: clamp(1.9rem, 2.6vw, 2.25rem);
+    font-weight: 950;
+    letter-spacing: -0.45px;
+    line-height: 1.12;
 }
 
 .subtitle {
-  @include motifs.subtitle;
+    margin: 0;
+    font-size: 1.06rem;
+    line-height: 1.65;
+    font-weight: 650;
+    opacity: 0.92;
+    max-width: 62ch;
 }
 
 .steps {
-  margin-top: $space-20;
-  display: grid;
-  gap: $space-20;
+    display: grid;
+    gap: 0;
+    /* ✅ bez “kart” – bardziej listowo */
+    margin-top: 18px;
 }
 
-.stepRow {
-  display: flex;
-  gap: $space-20;
-  align-items: baseline;
+/* ✅ NO white frames: żadnych białych boxów, żadnych ramek */
+.step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.step:last-child {
+    border-bottom: none;
+}
+
+.badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 950;
+    font-size: 0.95rem;
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.06);
+    border: none;
+    /* ✅ bez ramek */
+    flex: 0 0 auto;
+    margin-top: 2px;
+}
+
+.stepText {
+    display: grid;
+    gap: 6px;
 }
 
 .stepTitle {
-  font-size: $fs-xl;
-  font-weight: $fw-bold;
-  color: $txt;
-  letter-spacing: $tracking-tight-2;
-  line-height: $lh-tight;
-  margin: 0;
-}
-
-.stepNum {
-  $title-line: calc(#{$fs-xl} * #{$lh-tight});
-
-  width: $title-line;
-  height: $title-line;
-  border-radius: 50%;
-
-  background: $tint-soft-olive;
-  border: 1px solid $border-warm;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  font-weight: $fw-bold;
-  font-size: $fs-md;
-  line-height: 1;
-  color: $txt;
-
-  box-shadow: $shadow-xs;
-  flex: 0 0 auto;
+    font-weight: 950;
+    letter-spacing: -0.2px;
+    font-size: 1.02rem;
+    line-height: 1.2;
 }
 
 .stepDesc {
-  margin-top: $space-4;
-  font-size: $fs-base;
-  color: $txt;
-  line-height: $lh-loose;
-  opacity: $opacity-95;
+    font-weight: 650;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    opacity: 0.92;
+    max-width: 62ch;
 }
 
-.image {
-  @include mixins.cover-image;
+.ctaRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+/* ✅ spójne buttony, kolor #B97A57 */
+.primaryBtn,
+.secondaryBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 950;
+    font-size: 0.98rem;
+    letter-spacing: -0.15px;
+    text-decoration: none;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease,
+        opacity 0.14s ease;
+    outline: none;
+    border: none;
+    /* ✅ zero ramek */
+}
+
+.primaryBtn {
+    background: #b97a57;
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+}
+
+.primaryBtn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+    opacity: 0.98;
+}
+
+.primaryBtn:focus-visible {
+    box-shadow: 0 0 0 4px rgba(185, 122, 87, 0.26), 0 16px 34px rgba(15, 23, 42, 0.18);
+}
+
+/* ✅ secondary bez ramek i bez białych tła-kart */
+.secondaryBtn {
+    background: rgba(15, 23, 42, 0.06);
+    color: #0f172a;
+}
+
+.secondaryBtn:hover {
+    transform: translateY(-1px);
+    background: rgba(15, 23, 42, 0.09);
+}
+
+.secondaryBtn:focus-visible {
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.12);
 }
