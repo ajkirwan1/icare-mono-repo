@@ -5,17 +5,20 @@ import MobileMockupSection from "../../components/website/pages/carereceivers/mo
 import ReceiversFAQ from "../../components/website/pages/carereceivers/ReceiversFAQ";
 import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
 import ProtectionSection from "../../components/website/pages/carereceivers/protection-section";
+import AboutICareSection from "../../components/website/pages/home/sections/about-icare-section";
 
 export default function ICareForCareReceivers() {
 
   return (
     <>
       <ICareForCareReceiversHero />
+      <AboutICareSection />
       <ReceiversThreeSteps />
       <MobileMockupSection />
       <ReceiversCompareICareVsAgency />
       <ProtectionSection />
       <ReceiversFAQ />
+
       <ReceiversFooter />
     </>
   );

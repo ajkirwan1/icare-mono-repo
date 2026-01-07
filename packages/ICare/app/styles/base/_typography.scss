@@ -54,14 +54,14 @@ h1 {
   margin: 0 0 t.$space-24 0;
 }
 
-h2 {
-  font-size: t.$fs-2xl; // ← this is where $fs-xl belongs
-  font-weight: t.$fw-extrabold;
-  line-height: t.$lh-tight;
-  letter-spacing: t.$tracking-tight;
-  color: t.$txt;
-  margin: 0 0 t.$space-18 0;
-}
+// h2 {
+//   font-size: t.$fs-2xl; // ← this is where $fs-xl belongs
+//   font-weight: t.$fw-extrabold;
+//   line-height: t.$lh-tight;
+//   letter-spacing: t.$tracking-tight;
+//   color: t.$txt;
+//   margin: 0 0 t.$space-18 0;
+// }
 
 h3 {
   font-size: t.$fs-lg;

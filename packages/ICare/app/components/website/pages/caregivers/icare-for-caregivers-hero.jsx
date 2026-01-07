@@ -43,7 +43,27 @@ export default function ICareForCaregiversHero() {
             </Link>
           </div>
         </div>
+        <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
+          <h2 className={styles.title}>
+            A platform for caregivers and care receivers to connect in a safe,
+            secure, and trusted place
+          </h2>
+          <img
+            src="/images/logo/logo-cropped.png"
+            alt="ICare"
+            style={{
+              height: 120,
+              width: "auto"
+              // display: "block"
+            }}
+          />
+        </div>
       </section>
+      <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
+        <h2 className={styles.title}>
+          ICare provides a unified platform to find your next care-giving role, and arrange and manage your contracts.
+        </h2>
+      </div>
     </>
   );
 }

@@ -5,6 +5,19 @@
   @include motifs.hero;
 }
 
+.section {
+  width: 100vw;
+  padding: 2rem 8rem 2rem 8rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.title {
+  @include motifs.title;
+  letter-spacing: normal;
+  font-weight: 300;
+}
+
 .image {
   @include motifs.hero-image;
 }
