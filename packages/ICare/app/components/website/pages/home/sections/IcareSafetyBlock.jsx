@@ -1,193 +1,181 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIdCard, faUserCheck, faFileCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { faIdCard, faUserCheck, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
-/**
- * ICare — SafetyBlock (compact, calm)
- * ✅ ideal AFTER "Two paths" (Families / Caregivers)
- * ✅ calm block, lots of air, not a hero banner
- * ✅ icons in #61674d, accent line in #b97a57
- */
-export default function IcareSafetyBlock() {
+export default function SafetyComesFirstThreeBoxes() {
     const COLORS = {
-        bg: "#ffffff",
+        sectionBg: "#f7e7d9",
+        boxBg: "#0f172a12", // ✅ updated
+        border: "rgba(15,23,42,0.10)",
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
-        border: "rgba(15,23,42,0.10)",
-        card: "rgba(255,255,255,0.70)",
         accent: "#b97a57",
-        icon: "#61674d",
-        iconBg: "rgba(97,103,77,0.12)",
-        iconBorder: "rgba(97,103,77,0.24)",
-        soft: "rgba(15,23,42,0.02)",
-        softBorder: "rgba(15,23,42,0.06)",
+        olive: "#61674d",
+        oliveBg: "rgba(97,103,77,0.10)",
     };
 
-    const ITEMS = [
-        { icon: faIdCard, title: "Identity & eligibility", text: "Photo ID and Right to Work required." },
-        { icon: faUserCheck, title: "Relevant experience", text: "Carers with references and appropriate experience." },
+    const boxes = [
         {
-            icon: faFileCircleCheck,
+            icon: faIdCard,
+            title: "Identity & eligibility",
+            desc: "Photo ID and Right to Work required",
+        },
+        {
+            icon: faUserCheck,
+            title: "Relevant experience",
+            desc: "Carers with references and appropriate experience",
+        },
+        {
+            icon: faShieldHalved,
             title: "Checks where applicable",
-            text: "DBS and insurance shown when available (depends on location and documents).",
+            desc: "DBS and insurance shown when available (depends on location and documents).",
         },
     ];
 
     const wrap = {
+        position: "relative",
         width: "100%",
-        background: COLORS.bg,
-        color: COLORS.text,
-        padding: "clamp(3.2rem, 4.6vw, 4.2rem) 0",
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        color: COLORS.text,
+        padding: "clamp(4.3rem, 6.0vw, 5.6rem) 0",
+        background: COLORS.sectionBg,
     };
 
     const container = {
+        position: "relative",
         width: "min(92vw, 1100px)",
         margin: "0 auto",
     };
 
-    const shell = {
-        borderRadius: 24,
-        border: `1px solid ${COLORS.border}`,
-        background: COLORS.card,
-        boxShadow: "0 16px 44px rgba(15,23,42,0.06)",
-        padding: "clamp(18px, 2.4vw, 26px)",
-        display: "grid",
-        gap: "clamp(14px, 2vw, 18px)",
-    };
-
     const header = {
-        maxWidth: "78ch",
         display: "grid",
         gap: 10,
+        margin: "0 0 clamp(22px, 3.2vw, 34px)",
+        maxWidth: "78ch",
+        textAlign: "left",
     };
 
-    const mini = {
-        fontSize: "1.1rem", // ~20% bigger
-        fontWeight: 850,
-        color: COLORS.accent,
-        letterSpacing: "-0.1px",
-        marginBottom: 2,
-    };
-
-    const h3 = {
+    const h1 = {
         margin: 0,
         fontWeight: 950,
-        letterSpacing: "-0.45px",
+        letterSpacing: "-0.55px",
         lineHeight: 1.12,
-        fontSize: "clamp(1.35rem, 1.8vw, 1.55rem)",
+        fontSize: "clamp(2.4rem, 2.8vw, 2.8rem)",
         color: COLORS.text,
     };
 
-    const p = {
+    const h2 = {
         margin: 0,
-        color: COLORS.muted,
+        marginTop: "10px",
+        fontWeight: 900,
+        letterSpacing: "-0.35px",
+        lineHeight: 1.25,
+        fontSize: "clamp(1.35rem, 1.8vw, 1.4rem)",
+        color: COLORS.text,
+    };
+
+    const leadStyle = {
+        margin: "0.25rem 0 0",
+        color: COLORS.text,
+        fontSize: "1.1rem",
+        lineHeight: 1.65,
         fontWeight: 650,
-        lineHeight: 1.75,
-        fontSize: "1.02rem",
-        maxWidth: "74ch",
+        maxWidth: "78ch",
     };
 
     const grid = {
         display: "grid",
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: "clamp(12px, 1.6vw, 16px)",
-        marginTop: 4,
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gap: "clamp(14px, 1.9vw, 18px)",
+        alignItems: "stretch",
     };
 
-    const item = {
-        borderRadius: 20,
-        background: COLORS.soft,
-        border: `1px solid ${COLORS.softBorder}`,
-        padding: "14px 14px",
+    const cardBase = {
+        background: COLORS.boxBg, // ✅ updated
+        border: `1px solid ${COLORS.border}`,
+        borderRadius: 18,
+        padding: "clamp(16px, 2.1vw, 20px)",
+        boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
         display: "grid",
         gap: 10,
+        minHeight: 192,
+    };
+
+    const topRow = {
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
     };
 
     const iconWrap = {
-        width: 40,
-        height: 40,
+        width: 44,
+        height: 44,
         borderRadius: 16,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: COLORS.iconBg,
-        border: `1px solid ${COLORS.iconBorder}`,
-        color: COLORS.icon,
+        color: COLORS.olive,
+        background: COLORS.oliveBg,
+        border: "1px solid rgba(97,103,77,0.18)",
+        flex: "0 0 auto",
+        fontSize: "1.05rem",
     };
 
-    const itemTitle = {
+    // ✅ +10% vs previous 1.15rem
+    const title = {
         margin: 0,
-        fontWeight: 950,
+        fontWeight: 900,
+        fontSize: "1.265rem",
         color: COLORS.text,
-        letterSpacing: "-0.15px",
-        fontSize: "1.02rem",
         lineHeight: 1.2,
     };
 
-    const itemText = {
+    const desc = {
         margin: 0,
-        color: COLORS.muted,
+        color: COLORS.text,
         fontWeight: 650,
-        lineHeight: 1.65,
-        fontSize: ".98rem",
+        lineHeight: 1.55,
+        fontSize: "1.0rem",
     };
-
-    const foot = {
-        marginTop: 4,
-        paddingTop: 12,
-        borderTop: `1px solid ${COLORS.border}`,
-        color: COLORS.muted,
-        fontWeight: 650,
-        lineHeight: 1.6,
-        fontSize: ".95rem",
-        maxWidth: "90ch",
-    };
-
-    const microCSS = `
-    @media (max-width: 980px){
-      .icare-safety-grid{ grid-template-columns: 1fr !important; }
-    }
-  `;
 
     return (
         <section aria-label="Safety comes first" style={wrap}>
-            <style>{microCSS}</style>
-
             <div style={container}>
-                <div style={shell}>
-                    <div style={header}>
-                        <div style={mini}>Safety comes first</div>
-                        <h3 style={h3}>A safer way to start home care</h3>
-                        <p style={p}>
-                            Once you’ve chosen your path, it helps to know what “verified” really means.
-                            ICare publishes profiles only when key details are in place — so families can reach out
-                            with confidence and caregivers can be understood clearly from day one.
-                        </p>
-                    </div>
+                <div style={header}>
+                    <h1 style={h1}>Safety comes first</h1>
+                    <h2 style={h2}>A safer way to start home care</h2>
+                    <p style={leadStyle}>
+                        Once you’ve chosen your path, it helps to know what “verified” really means. ICare
+                        publishes profiles only when key details are in place — so families can reach out
+                        with confidence and caregivers can be understood clearly from day one.
+                    </p>
+                </div>
 
-                    <div className="icare-safety-grid" style={grid} aria-label="Safety checks">
-                        {ITEMS.map((x) => (
-                            <div key={x.title} style={item}>
-                                <div style={iconWrap} aria-hidden="true">
-                                    <FontAwesomeIcon icon={x.icon} />
-                                </div>
-
-                                <div style={{ display: "grid", gap: 6 }}>
-                                    <h4 style={itemTitle}>{x.title}</h4>
-                                    <p style={itemText}>{x.text}</p>
-                                </div>
+                <div className="icare-safety-3boxes" style={grid}>
+                    {boxes.map((b) => (
+                        <div key={b.title} style={cardBase}>
+                            <div style={topRow}>
+                                <span style={iconWrap} aria-hidden="true">
+                                    <FontAwesomeIcon icon={b.icon} />
+                                </span>
+                                <h3 style={title}>{b.title}</h3>
                             </div>
-                        ))}
-                    </div>
 
-                    <div style={foot}>
-                        Note: verification steps can vary by country and availability of documents. We show what is provided
-                        transparently on each profile.
-                    </div>
+                            <p style={desc}>{b.desc}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
+
+            <style>{`
+        @media (max-width: 980px){
+          .icare-safety-3boxes{ grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 640px){
+          .icare-safety-3boxes{ grid-template-columns: 1fr !important; }
+        }
+      `}</style>
         </section>
     );
 }
