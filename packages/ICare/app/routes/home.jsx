@@ -10,6 +10,7 @@ import { buildSeo } from "../utils/seo/seo";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
 import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
+import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 
 
 export function meta() {
@@ -42,6 +43,7 @@ export default function Home() {
   return (
     <>
       <HomePageHero imgSrc={heroImage} />
+      <AboutICareSection />
       <CareTimeline />
       {/* <TrustIntroSection /> */}
 

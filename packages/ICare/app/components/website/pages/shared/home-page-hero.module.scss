@@ -1,123 +1,139 @@
-@use "@styles/tokens" as *; // adjust path if needed
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/mixins" as m;
+@use "@styles/abstracts/motifs" as motifs;
+
 
 .hero {
-    position: relative;
-    min-height: clamp(680px, 85vh, 980px);
-    width: 100%;
-    overflow: hidden;
-    color: $on-dark;
+  position: relative;
+  min-height: clamp(680px, 80vh, 980px);
+  width: 100%;
+  overflow: hidden;
+  color: $on-dark;
+}
+
+.section {
+  width: 100vw;
+  padding: 2rem 8rem 2rem 8rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.title {
+  @include motifs.title;
+  letter-spacing: normal;
+  font-weight: 300;
 }
 
 .backgroundImage {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.05);
-    filter: brightness(0.72) saturate(0.97);
-    transition: $transition-fast;
-    z-index: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+  filter: brightness(0.72) saturate(0.97);
+  transition: $transition-fast;
+  z-index: 0;
 }
 
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.1),
-            rgba(0, 0, 0, 0.2));
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.2));
+  z-index: 1;
 }
 
 .content {
-    position: relative;
-    z-index: 2;
-    width: min($container-hero-gutter, $container-hero-max);
-    margin: 0 auto;
-    padding-top: $space-6;
+  position: relative;
+  z-index: 2;
+  width: min($container-hero-gutter, $container-hero-max);
+  margin: 0 auto;
+  padding-top: $space-6;
 }
 
 .textWrapper {
-    margin-top: 4em;
-    text-align: left;
-    color: rgba($on-dark, 0.94);
-    font-size: $fs-hero-lead-fluid;
-    line-height: $lh-outro;
-    letter-spacing: $tracking-tight-2;
-    transform: translateX(-25%) scale(1.1);
-    transform-origin: top left;
-    text-shadow: $shadow-text-hero;
+  margin-top: $space-25;
+  text-align: left;
+  color: rgba($on-dark, 0.94);
+  font-size: $fs-hero-lead-fluid;
+  line-height: $lh-outro;
+  letter-spacing: $tracking-tight-2;
+  transform: translateX(-25%) scale(1.1);
+  transform-origin: top left;
+  text-shadow: $shadow-text-hero;
 }
 
 .badgeWrapper {
-    display: block;
-    max-width: $hero-badge-max;
+  display: block;
+  max-width: $hero-badge-max;
 }
 
 .badge {
-    display: inline-block;
-    margin-bottom: 0.2rem;
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: $ink-strong;
-    background: rgba($on-dark, 0.8);
-    border-radius: $radius-sm;
-    padding: 6px $space-12;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+  font-weight: $fw-semibold;
+  color: $ink-strong;
+  background: rgba($on-dark, 0.8);
+  border-radius: $radius-sm;
+  padding: 6px $space-12;
 }
 
 .copyBlock {
-    margin-top: 2.2rem;
-    max-width: $hero-copy-max;
+  margin-top: 2.2rem;
+  max-width: $hero-copy-max;
 }
 
 .heading {
-    font-size: $fs-hero-title;
-    line-height: $lh-hero-title;
-    font-weight: $fw-extrabold;
-    color: $on-dark;
-    margin: 0;
-    letter-spacing: $tracking-hero-title;
+  font-size: $fs-hero-title;
+  line-height: $lh-hero-title;
+  font-weight: $fw-extrabold;
+  color: $on-dark;
+  margin: 0;
+  letter-spacing: $tracking-hero-title;
 }
 
 .subheading {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-    line-height: $lh-outro;
-    color: $on-dark;
+  margin-top: 0.7rem;
+  font-size: 1.25rem;
+  line-height: $lh-outro;
+  color: $on-dark;
 }
 
 .subheading span {
-    margin-right: 14px;
-    display: inline-block;
-    color: rgb(240, 240, 220);
+  margin-right: 14px;
+  display: inline-block;
+  color: rgb(240, 240, 220);
 }
 
 .features {
-    list-style: none;
-    padding: 0;
-    margin: 1.2rem 0 1.6rem;
-    display: grid;
-    gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 1.6rem;
+  display: grid;
+  gap: 0.65rem;
 }
 
 .featureItem {
-    display: flex;
-    align-items: center;
-    gap: $space-10;
-    font-size: $fs-1;
-    font-weight: 400;
-    color: $on-dark;
+  display: flex;
+  align-items: center;
+  gap: $space-10;
+  font-size: $fs-1;
+  font-weight: $fw-semibold;
+  color: $on-dark;
 
-    svg {
-        flex-shrink: 0;
-    }
+  svg {
+    flex-shrink: 0;
+  }
 }
 
 .form {
-    display: flex;
-    gap: $space-16;
-    width: min(420px, 92vw);
-    min-width: 300px;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  gap: $space-16;
+  width: min(420px, 92vw);
+  min-width: 300px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
