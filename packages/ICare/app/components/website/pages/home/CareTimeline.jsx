@@ -17,6 +17,7 @@ export default function HowItWorksThreeSteps() {
         muted: "rgba(15,23,42,0.72)",
         border: "rgba(15,23,42,0.10)",
         chip: "rgba(255,255,255,0.82)",
+        beige: "#fff9ef",
         accent: "#b97a57",
         icon: "#61674d",
     };
@@ -40,17 +41,17 @@ export default function HowItWorksThreeSteps() {
         fontWeight: 950,
         letterSpacing: "-0.45px",
         lineHeight: 1.08,
-        fontSize: "clamp(1.65rem, 2.4vw, 2.05rem)",
+        fontSize: "clamp(2.4rem, 2.8vw, 2.8rem)",
         color: COLORS.text,
     };
 
     const sub = {
         margin: "0.9rem 0 0",
         maxWidth: "72ch",
-        color: COLORS.muted,
-        fontSize: "1.02rem",
-        lineHeight: 1.7,
-        fontWeight: 600,
+        color: "#000",
+        fontSize: "1.6rem",
+        lineHeight: 1.5,
+        fontWeight: 500,
     };
 
     const grid = {
@@ -62,7 +63,7 @@ export default function HowItWorksThreeSteps() {
     };
 
     const card = {
-        background: COLORS.chip,
+        background: "#eee",
         border: `1px solid ${COLORS.border}`,
         borderRadius: 18,
         padding: "16px 16px",
@@ -86,8 +87,8 @@ export default function HowItWorksThreeSteps() {
         borderRadius: 999,
         fontSize: ".82rem",
         fontWeight: 900,
-        color: COLORS.text,
-        background: "rgba(15,23,42,0.04)",
+        color: "white",
+        background: "rgba(97, 103, 80, 0.7)",
         border: "1px solid rgba(15,23,42,0.08)",
     };
 
@@ -108,7 +109,7 @@ export default function HowItWorksThreeSteps() {
         margin: 0,
         fontWeight: 950,
         color: COLORS.text,
-        fontSize: "1.06rem",
+        fontSize: "1.25rem",
         letterSpacing: "-0.15px",
         lineHeight: 1.25,
     };
@@ -122,7 +123,7 @@ export default function HowItWorksThreeSteps() {
     };
 
     const ctaWrap = {
-        marginTop: "clamp(1.6rem, 2.6vw, 2.1rem)",
+        marginTop: "clamp(3.6rem, 4.6vw, 4.1rem)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -130,29 +131,32 @@ export default function HowItWorksThreeSteps() {
         flexWrap: "wrap",
         paddingTop: "clamp(14px, 2vw, 18px)",
         borderTop: `1px solid ${COLORS.border}`,
+        textAlign: "center"
     };
 
     const ctaText = {
-        margin: 0,
-        color: COLORS.muted,
-        fontWeight: 650,
+        margin: "0 auto",
+        color: '#000',
+        fontWeight: 500,
         lineHeight: 1.6,
-        fontSize: ".98rem",
+        fontSize: "1.25rem",
         maxWidth: "68ch",
+        textAlign: "center"
     };
 
     const btn = {
         border: "none",
-        borderRadius: 20, // ✅ requested feel
+        borderRadius: 36, // ✅ requested feel
         background: COLORS.accent, // ✅ #b97a57
         color: "#fff",
-        fontWeight: 900,
-        fontSize: "0.98rem",
-        padding: "12px 18px",
+        fontWeight: 700,
+        fontSize: "1.2rem",
+        padding: "18px 16px",
         cursor: "pointer",
         width: "min(260px, 88vw)", // ✅ ~30% shorter feel
         alignSelf: "center",
         transition: "filter .14s ease, background .14s ease",
+        marginTop: "1.5rem"
     };
 
     const onEnter = (e) => {
@@ -167,7 +171,7 @@ export default function HowItWorksThreeSteps() {
             <div style={container}>
                 <h2 style={title}>How ICare works</h2>
                 <p style={sub}>
-                    A simple, guided flow designed to keep families calm and in control — from first search to
+                    A simple, guided flow designed to keep families calm<br />and in control from first search to
                     starting care.
                 </p>
 
@@ -212,7 +216,7 @@ export default function HowItWorksThreeSteps() {
                         near you.
                     </p>
 
-                    <a href="#waitlist" style={{ textDecoration: "none" }}>
+                    <a href="#waitlist" style={{ textDecoration: "none", margin: "0 auto" }}>
                         <button type="button" style={btn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
                             Join the waiting list
                         </button>

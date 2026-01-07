@@ -121,7 +121,12 @@ $fs-hero-h3: 1.48rem;
 $fs-hero-title: 2.2rem;
 $fs-2xl: 2.6rem;
 
-/* font sizes (fluid) */
+/* font sizes (additional fixed) */
+$fs-lg-2: 1.15rem; // card short description size
+$fs-hero-title: 2.2rem;
+$fs-hero-h3: 1.8rem; // card title size
+
+/* font sizes (fluid / clamp) */
 $fs-h2-fluid: clamp(1.85rem, 2.8vw, 2.25rem);
 $fs-hero-lead-fluid: clamp(1.25rem, 2vw, 1.55rem);
 
@@ -215,8 +220,7 @@ $space-cta-top: $space-065;
 
 $container-hero-max: 1100px;
 $container-hero-gutter: 92vw;
-
-$hero-copy-max: 48ch;
+$hero-copy-max: 66ch;
 $hero-badge-max: 600px;
 
 $h-card-media: 420px;

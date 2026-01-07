@@ -35,7 +35,7 @@
 .subinfo {
     margin-top: $space-14;
     max-width: $maxw-copy-lg;
-    font-size: $fs-base;
+    font-size: $fs-lg;
     line-height: $lh-card;
     color: $txt;
     opacity: 0.9;
@@ -45,12 +45,17 @@
 .subsubtitle {
     margin: $space-14 0 0;
     max-width: $maxw-copy-lg;
-    font-size: 1.2em;
+    font-size: 1.35em;
     /* ✅ ~20% bigger */
     font-weight: $fw-extrabold;
     letter-spacing: $tracking-tight-2;
     color: $txt;
     opacity: 0.92;
+}
+
+.subsubtitle span {
+    display: inline-block;
+    margin: 0 10px 0 0;
 }
 
 .ctaRow {
@@ -132,6 +137,35 @@
     cursor: default;
 }
 
+.expandWrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 320ms ease;
+}
+
+.expandInner {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.card.isOpen {
+    .expandWrapper {
+        max-height: 240px; // dopasuj
+    }
+
+    .expandInner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .learnMore {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+
 .image {
     width: 100%;
     height: $h-card-media;
@@ -176,6 +210,7 @@
     font-size: $fs-lg-2;
     line-height: $lh-loose;
     opacity: $opacity-95;
+    font-weight: 700
 }
 
 .learnMore {
@@ -189,6 +224,7 @@
     overflow: hidden;
     max-height: 0;
     transition: $transition-reveal-height;
+    font-weight: 600;
 }
 
 .expandWrapperOpen {

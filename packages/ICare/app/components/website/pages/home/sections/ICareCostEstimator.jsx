@@ -1,12 +1,18 @@
 import React from "react";
 
 /**
- * ICare — Cost Estimator (calm, compact)
- * ✅ decision helper (not a CTA-heavy form)
- * ✅ gentle link to #waitlist
- * ✅ global text #0F172A
+ * ICare — Cost Estimator (MVP, condensed) + background banner
+ * ✅ Header (H1 + H2 + lead) left-aligned
+ * ✅ H2 = “Budget clarity — quick estimate” under H1, white like H1
+ * ✅ 2 boxes in one row, SAME HEIGHT
+ * ✅ explanation below both boxes
+ * ✅ trimmed: fixed agency margin + monthly only
  */
-export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#waitlist" }) {
+export default function ICareCostEstimator({
+    icareFeePct = 10,
+    agencyMarginPct = 35,
+    waitlistHref = "#waitlist",
+}) {
     const BRAND = "#b97a57";
     const TEXT = "#0F172A";
     const OLIVE = "#61674d";
@@ -27,17 +33,16 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
     };
 
     const [currency, setCurrency] = React.useState("GBP");
-    const [period, setPeriod] = React.useState("monthly"); // monthly | weekly
     const [hourly, setHourly] = React.useState(18);
     const [hoursWeek, setHoursWeek] = React.useState(30);
-    const [agencyMargin, setAgencyMargin] = React.useState(35);
 
     const range = hourlyRanges[currency] ?? hourlyRanges.GBP;
 
     React.useEffect(() => {
         const mid = (range.min + range.max) / 2;
         setHourly(snapToStep(mid, range.step));
-    }, [currency, range.min, range.max, range.step]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currency]);
 
     const nf = React.useMemo(
         () =>
@@ -48,94 +53,93 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
         [currency]
     );
 
-    const { baseCost, agencyTotal, icareTotal, youSave, savePct, periodLabel } = React.useMemo(() => {
-        const weeksPerMonth = 4.33;
-        const multiplier = period === "monthly" ? weeksPerMonth : 1;
-
-        const base = hourly * hoursWeek * multiplier;
-        const agency = base * (1 + agencyMargin / 100);
+    const { baseCost, agencyTotal, icareTotal, youSave, savePct } = React.useMemo(() => {
+        const weeksPerMonth = 4.33; // MVP: monthly only
+        const base = hourly * hoursWeek * weeksPerMonth;
+        const agency = base * (1 + agencyMarginPct / 100);
         const icare = base * (1 + icareFeePct / 100);
         const save = Math.max(0, agency - icare);
         const pct = agency > 0 ? (save / agency) * 100 : 0;
 
-        return {
-            baseCost: base,
-            agencyTotal: agency,
-            icareTotal: icare,
-            youSave: save,
-            savePct: pct,
-            periodLabel: period === "monthly" ? "Monthly" : "Weekly",
-        };
-    }, [hourly, hoursWeek, agencyMargin, period, icareFeePct]);
+        return { baseCost: base, agencyTotal: agency, icareTotal: icare, youSave: save, savePct: pct };
+    }, [hourly, hoursWeek, agencyMarginPct, icareFeePct]);
 
     const wrap = {
         width: "100vw",
         marginLeft: "calc(50% - 50vw)",
-        background: "#e8e7d7",
-        color: TEXT,
         padding: "clamp(4.2rem, 5.6vw, 5.4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
-        fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+
+        // ✅ background banner (from /public)
+        backgroundImage:
+            "linear-gradient(160deg, rgba(0,0,0,0.50), rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.50)), url('/images/banners/banner-image-1.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
     };
 
     const container = {
         width: "min(92vw, 1100px)",
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: "1fr 1.15fr",
-        gap: "clamp(22px, 3.2vw, 44px)",
+        gap: "clamp(16px, 2.4vw, 24px)",
         alignItems: "start",
     };
 
-    const topMini = {
-        fontSize: "1.08rem",
-        fontWeight: 850,
-        color: BRAND,
-        letterSpacing: "-0.1px",
-        marginBottom: 10,
+    // ✅ header spans full width so BOTH boxes can align on same top edge
+    const header = {
+        maxWidth: "72ch",
+        textAlign: "left",
     };
 
-    const h2 = {
+    const h1 = {
         margin: 0,
         fontWeight: 950,
         letterSpacing: "-0.55px",
-        lineHeight: 1.1,
-        fontSize: "clamp(1.6rem, 2.2vw, 2rem)",
-        color: TEXT,
+        lineHeight: 1.06,
+        fontSize: "clamp(1.75rem, 2.3vw, 2.05rem)",
+        color: "#fff",
+    };
+
+    // ✅ “Budget clarity — quick estimate” as H2 under H1 (white like H1)
+    const h2Mini = {
+        margin: "10px 0 0",
+        fontWeight: 900,
+        letterSpacing: "-0.2px",
+        fontSize: "1.08rem",
+        color: "#fff",
+        opacity: 0.95,
     };
 
     const lead = {
-        margin: "0.95rem 0 0",
-        color: TEXT,
-        opacity: 0.78,
+        margin: "0.9rem 0 0",
+        color: "rgba(255,255,255,0.92)",
         fontWeight: 650,
-        lineHeight: 1.75,
-        fontSize: "1.04rem",
-        maxWidth: "72ch",
+        lineHeight: 1.65,
+        fontSize: "1.02rem",
     };
 
-    const hint = {
-        marginTop: 12,
-        padding: "12px 14px",
-        borderRadius: 18,
-        background: "rgba(255,255,255,0.52)",
-        border: "1px solid rgba(15,23,42,0.10)",
-        color: TEXT,
-        fontWeight: 700,
-        lineHeight: 1.7,
-        fontSize: ".98rem",
-        maxWidth: "72ch",
+    // ✅ 2 cards row; align-stretch + card height:100% => same height
+    const cardsRow = {
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "clamp(16px, 2.4vw, 24px)",
+        alignItems: "stretch",
     };
 
     const card = {
-        background: "rgba(255,255,255,0.78)",
+        height: "100%", // ✅ forces equal heights within the row
+        background: "rgba(255,255,255,0.84)",
         border: "1px solid rgba(15,23,42,0.10)",
         borderRadius: 22,
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
-        padding: "clamp(16px, 2vw, 22px)",
+        padding: "clamp(14px, 1.8vw, 18px)",
         color: TEXT,
+        backdropFilter: "blur(6px)",
+        display: "flex",
+        flexDirection: "column",
     };
 
     const label = {
@@ -210,8 +214,21 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
         transition: "width .45s ease",
     };
 
+    const explanation = {
+        marginTop: 10,
+        padding: "14px 16px",
+        borderRadius: 18,
+        background: "rgba(255,255,255,0.62)",
+        border: "1px solid rgba(15,23,42,0.10)",
+        color: TEXT,
+        fontWeight: 700,
+        lineHeight: 1.7,
+        fontSize: ".98rem",
+        backdropFilter: "blur(6px)",
+    };
+
     const softLink = {
-        marginTop: 16,
+        marginTop: 10,
         display: "inline-flex",
         alignItems: "center",
         gap: 8,
@@ -225,7 +242,7 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
 
     const microCSS = `
     @media (max-width: 920px){
-      .icare-est-grid{ grid-template-columns: 1fr !important; }
+      .icare-est-cards{ grid-template-columns: 1fr !important; }
     }
     .icare-est-input:focus{
       border-color: rgba(185,122,87,0.55) !important;
@@ -237,26 +254,19 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
         <section aria-label="Cost estimator" style={wrap}>
             <style>{microCSS}</style>
 
-            <div className="icare-est-grid" style={container}>
-                {/* LEFT */}
-                <div>
-                    <div style={topMini}>Budget clarity — quick estimate</div>
-                    <h2 style={h2}>Cost & savings estimator</h2>
+            <div style={container}>
+                {/* HEADER */}
+                <div style={header}>
+                    <h1 style={h1}>Cost & savings estimator</h1>
+                    <h2 style={h2Mini}>Budget clarity — quick estimate</h2>
                     <p style={lead}>
                         A calm way to sense-check your budget. Adjust hourly rate and hours/week — results update instantly.
                     </p>
-
-                    <div style={hint}>
-                        <strong style={{ color: TEXT }}>How to use:</strong>{" "}
-                        Choose currency → set the hourly rate → set hours/week.
-                        <br />
-                        You’ll see typical agency cost vs ICare with a simple {icareFeePct}% fee.
-                    </div>
                 </div>
 
-                {/* RIGHT */}
-                <div style={{ display: "grid", gap: 14 }}>
-                    {/* CONTROLS */}
+                {/* 2 BOXES (same height) */}
+                <div className="icare-est-cards" style={cardsRow}>
+                    {/* LEFT = controls */}
                     <div style={card}>
                         <div style={{ display: "grid", gap: 14 }}>
                             <label style={{ display: "grid", gap: 6 }}>
@@ -265,15 +275,6 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
                                     <option value="GBP">GBP — £</option>
                                     <option value="EUR">EUR — €</option>
                                     <option value="PLN">PLN — zł</option>
-                                </select>
-                                <div style={small}>We set a typical starting rate based on the selected currency.</div>
-                            </label>
-
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={label}>Show results as</span>
-                                <select value={period} onChange={(e) => setPeriod(e.target.value)} style={field}>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="weekly">Weekly</option>
                                 </select>
                             </label>
 
@@ -313,27 +314,18 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
                                     onChange={(e) => setHoursWeek(Number(e.target.value))}
                                     style={field}
                                 />
-                                <div style={small}>Most families choose 20–40 hours/week (adjust to your needs).</div>
-                            </label>
-
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={label}>Typical agency markup (%)</span>
-                                <input
-                                    className="icare-est-input"
-                                    type="number"
-                                    value={agencyMargin}
-                                    onChange={(e) => setAgencyMargin(Number(e.target.value))}
-                                    style={field}
-                                />
-                                <div style={small}>If you know the real markup, set it here.</div>
+                                <div style={small}>Typical range: 20–40 hours/week.</div>
                             </label>
                         </div>
+
+                        {/* keeps controls card nicely balanced if results card is taller */}
+                        <div style={{ marginTop: "auto" }} />
                     </div>
 
-                    {/* RESULTS */}
+                    {/* RIGHT = results */}
                     <div style={card}>
                         <div style={{ fontWeight: 950, fontSize: "1.12rem", letterSpacing: "-0.2px" }}>
-                            {periodLabel} estimate
+                            Monthly estimate
                         </div>
 
                         <div style={resultGrid}>
@@ -363,8 +355,7 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
                         </div>
 
                         <div style={{ marginTop: 10, color: TEXT, fontWeight: 800, opacity: 0.85 }}>
-                            You save about <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span>{" "}
-                            compared to a typical agency price.
+                            You save about <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span> vs a typical agency.
                         </div>
 
                         <a href={waitlistHref} style={softLink}>
@@ -372,9 +363,20 @@ export default function ICareCostEstimator({ icareFeePct = 10, waitlistHref = "#
                         </a>
 
                         <div style={{ marginTop: 10, ...small }}>
-                            These are estimates. Rates vary by city, experience and care needs.
+                            MVP estimate. Rates vary by city, experience and care needs.
                         </div>
+
+                        {/* ensures results card fills height similarly */}
+                        <div style={{ marginTop: "auto" }} />
                     </div>
+                </div>
+
+                {/* EXPLANATION BELOW BOTH */}
+                <div style={explanation}>
+                    <strong style={{ color: TEXT }}>How this MVP estimate works:</strong>{" "}
+                    Monthly cost uses <strong>4.33 weeks/month</strong>. “Agency total” assumes{" "}
+                    <strong>{agencyMarginPct}%</strong> typical markup. ICare total adds a simple{" "}
+                    <strong>{icareFeePct}%</strong> fee.
                 </div>
             </div>
         </section>

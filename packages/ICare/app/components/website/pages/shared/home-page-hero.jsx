@@ -10,7 +10,6 @@ export default function HomePageHero({ imgSrc }) {
 
             <section aria-label="ICare homepage hero" className={styles.hero}>
                 <img src={imgSrc} alt="Care support background" className={styles.backgroundImage} />
-                <div aria-hidden="true" className={styles.overlay} />
 
                 <div className={styles.content}>
                     <div className={styles.textWrapper}>
@@ -20,11 +19,11 @@ export default function HomePageHero({ imgSrc }) {
 
                         <div className={styles.copyBlock}>
                             <h1 className={styles.heading}>
-                                Find trusted <span>home care</span> in Cheltenham - without agency stress.
+                                Find trusted <span>home care</span> in Cheltenham<br />without agency stress.
                             </h1>
 
                             <p className={styles.subheading}>
-                                <strong>Transparent pricing. Direct communication. A calmer, guided process for families.</strong>
+                                <strong><span>Transparent pricing.</span><span>Direct communication.</span><span>A calmer, guided process for families.</span></strong>
                             </p>
 
                             <ul className={styles.features}>
@@ -60,10 +59,7 @@ export default function HomePageHero({ imgSrc }) {
                                 <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
                             </div>
 
-                            {/* tiny reassurance */}
-                            <p style={{ marginTop: 12, opacity: 0.85 }}>
-                                One launch email + occasional updates. Unsubscribe anytime.
-                            </p>
+
                         </div>
                     </div>
                 </div>

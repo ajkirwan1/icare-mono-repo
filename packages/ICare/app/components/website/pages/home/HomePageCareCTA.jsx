@@ -22,9 +22,12 @@ export default function ICareTwoPathsSection({
 }) {
     const COLORS = {
         bg: "#ffffff",
-        panel: "rgba(255,255,255,0.70)",
+        panel: "rgba(226, 228, 221, 1)",
+        panel2: "rgba(216, 218, 206, 1)",
         border: "rgba(15,23,42,0.10)",
         text: "#0F172A",
+        textWhite: "#FFF",
+        textBlack: "#000",
         muted: "rgba(15,23,42,0.72)",
         accent: "#b97a57",
         olive: "#61674d",
@@ -32,15 +35,19 @@ export default function ICareTwoPathsSection({
     };
 
     const wrap = {
+        position: "relative",
         width: "100%",
-        background: COLORS.bg,
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
+        backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
+        backgroundSize: "cover"
     };
 
     const container = {
+        position: "relative",
+        zIndex: "2",
         width: "min(92vw, 1100px)",
         margin: "0 auto",
     };
@@ -48,6 +55,7 @@ export default function ICareTwoPathsSection({
     const header = {
         display: "grid",
         gap: 10,
+        margin: "0 auto",
         marginBottom: "clamp(18px, 2.6vw, 26px)",
         maxWidth: "78ch",
     };
@@ -56,17 +64,19 @@ export default function ICareTwoPathsSection({
         margin: 0,
         fontWeight: 950,
         letterSpacing: "-0.55px",
-        lineHeight: 1.08,
+        lineHeight: 1.3,
         fontSize: "clamp(1.75rem, 2.4vw, 2.15rem)",
-        color: COLORS.text,
+        color: COLORS.textWhite,
+        textAlign: "center"
     };
 
     const lead = {
-        margin: 0,
-        color: COLORS.muted,
-        fontSize: "1.05rem",
-        lineHeight: 1.75,
+        margin: "2rem 0 3rem",
+        color: COLORS.textWhite,
+        fontSize: "1.25rem",
+        lineHeight: 1.6,
         fontWeight: 600,
+        textAlign: "center"
     };
 
     const grid = {
@@ -100,24 +110,23 @@ export default function ICareTwoPathsSection({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: COLORS.oliveBg,
-        border: "1px solid rgba(97,103,77,0.22)",
+        //background: COLORS.oliveBg,
+        //border: "1px solid rgba(97,103,77,0.22)",
         color: COLORS.olive,
         flex: "0 0 auto",
     };
 
     const title = {
         margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.2px",
-        fontSize: "1.12rem",
+        fontWeight: 900,
+        fontSize: "1.6rem",
         color: COLORS.text,
         lineHeight: 1.2,
     };
 
     const sub = {
         margin: 0,
-        color: COLORS.muted,
+        color: COLORS.textBlack,
         fontWeight: 650,
         lineHeight: 1.65,
         fontSize: ".99rem",
@@ -136,8 +145,8 @@ export default function ICareTwoPathsSection({
         display: "flex",
         alignItems: "flex-start",
         gap: 10,
-        color: COLORS.muted,
-        fontWeight: 650,
+        color: COLORS.textBlack,
+        fontWeight: 500,
         lineHeight: 1.6,
         fontSize: ".98rem",
     };
@@ -176,9 +185,9 @@ export default function ICareTwoPathsSection({
 
     const secondaryBtn = {
         borderRadius: 20,
-        background: "rgba(97,103,77,0.12)",
+        background: "#61674d",
         border: "1px solid rgba(97,103,77,0.24)",
-        color: COLORS.text,
+        color: COLORS.textWhite,
         fontWeight: 900,
         fontSize: "0.98rem",
         padding: "12px 18px",
@@ -187,14 +196,24 @@ export default function ICareTwoPathsSection({
         width: "min(260px, 88vw)",
     };
 
+    const overlay = {
+        pointerEvents: "none",
+        position: "absolute",
+        height: "100%",
+        inset: 0,
+        background: "linear-gradient(160deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.55))"
+    };
+
+
     const onEnter = (e) => (e.currentTarget.style.filter = "brightness(1.06)");
     const onLeave = (e) => (e.currentTarget.style.filter = "brightness(1)");
 
     return (
         <section aria-label="ICare for families and caregivers" style={wrap}>
+            <div style={overlay} />
             <div style={container}>
                 <div style={header}>
-                    <h2 style={h2}>A calmer home care marketplace — for families and caregivers</h2>
+                    <h2 style={h2}>A calmer home care marketplace<br />for families and caregivers</h2>
                     <p style={lead}>
                         ICare connects families with independent carers through clear profiles, direct messaging and a guided
                         process — so both sides can agree support with confidence.
@@ -218,7 +237,7 @@ export default function ICareTwoPathsSection({
                         <ul style={list}>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                Clear caregiver profiles and availability (compare calmly).
+                                Clear caregiver profiles and availability.
                             </li>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
@@ -244,7 +263,7 @@ export default function ICareTwoPathsSection({
                     </div>
 
                     {/* Caregivers */}
-                    <div style={card}>
+                    <div style={{ ...card, background: COLORS.panel2 }}>
                         <div style={topRow}>
                             <span style={icon} aria-hidden="true">
                                 <FontAwesomeIcon icon={faUserNurse} />
