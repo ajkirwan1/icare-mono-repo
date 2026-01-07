@@ -3,41 +3,54 @@
 @use "@styles/abstracts/motifs" as motifs;
 
 .hero {
-    @include motifs.hero;
+  @include motifs.hero;
 }
 
-.image {
-    @include motifs.hero-image;
-}
-
-.overlay {
-    @include motifs.hero-overlay;
-}
-
-.content {
-    @include motifs.hero-content;
+.section {
+  width: 100vw;
+  padding: 2rem 8rem 2rem 8rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .title {
-    font-size: $fs-h2-fluid;
-    margin: 0;
-    font-weight: $fw-ultra;
-    line-height: $lh-compact;
-    color: $on-dark;
-    max-width: 25ch;
-    letter-spacing: $tracking-h2;
+  @include motifs.title;
+  letter-spacing: normal;
+  font-weight: 300;
 }
 
+.image {
+  @include motifs.hero-image;
+}
+
+.overlay {
+  @include motifs.hero-overlay;
+}
+
+.content {
+  @include motifs.hero-content;
+}
+
+// .title {
+//   font-size: $fs-h2-fluid;
+//   margin: 0;
+//   font-weight: $fw-ultra;
+//   line-height: $lh-compact;
+//   color: $on-dark;
+//   max-width: 25ch;
+//   letter-spacing: $tracking-h2;
+// }
+
 .description {
-    margin-top: $space-21;
-    font-size: clamp(#{$fs-base}, 1.3vw, #{$fs-md});
-    max-width: 60ch;
-    line-height: $lh-body;
-    color: rgba($on-dark, 0.92);
+  margin-top: $space-21;
+  font-size: clamp(#{$fs-base}, 1.3vw, #{$fs-md});
+  max-width: 60ch;
+  line-height: $lh-body;
+  color: rgba($on-dark, 0.92);
 }
 
 .lead {
-    font-size: $fs-2xl;
-    font-weight: $fw-bold;
-    margin-bottom: $space-16;
+  font-size: $fs-2xl;
+  font-weight: $fw-bold;
+  margin-bottom: $space-16;
 }
