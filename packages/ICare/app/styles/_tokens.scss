@@ -110,7 +110,7 @@ $fs-2xl: 2.6rem;
 /* font sizes (additional fixed) */
 $fs-lg-2: 1.15rem; // card short description size
 $fs-hero-title: 2.2rem;
-$fs-hero-h3: 1.48rem; // card title size
+$fs-hero-h3: 1.8rem; // card title size
 
 /* font sizes (fluid / clamp) */
 $fs-h2-fluid: clamp(1.85rem, 2.8vw, 2.25rem);
@@ -194,7 +194,7 @@ $space-seo-pt: clamp(18px, 2.4vw, 26px);
    -------------------------------- */
 $container-hero-max: 1100px;
 $container-hero-gutter: 92vw;
-$hero-copy-max: 48ch;
+$hero-copy-max: 66ch;
 $hero-badge-max: 600px;
 
 $h-card-media: 420px; // consistent card image height
@@ -211,6 +211,6 @@ $transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 /* reveal motion (additional) */
 $transition-reveal-height: max-height 2s cubic-bezier(0.18, 0.95, 0.18, 1);
 $transition-reveal-content: transform 1350ms cubic-bezier(0.18, 0.95, 0.18, 1),
-  opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
+    opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
 
 $reveal-delay-open: 260ms;

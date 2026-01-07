@@ -37,8 +37,21 @@ export default function TrustValuesSection() {
     const [hoverIndex, setHoverIndex] = React.useState(null);
     const ease = "cubic-bezier(0.18, 0.95, 0.18, 1)";
 
+
+    const sectionStyles = {
+        background: "rgba(228, 233, 216, 1)",
+        margin: "0",
+        padding: "4rem 0"
+    }
+
+    const ctaStyles = {
+        fontSize: "1.2rem",
+        margin: "0.5rem 0 2rem",
+        borderBottom: "1px solid"
+    }
+
     return (
-        <section aria-label="Trust care and community intro + values" className={styles.section}>
+        <section aria-label="Trust care and community intro + values" className={styles.section} style={sectionStyles}>
             <div className={`${styles.fullBleed} ${styles.header}`}>
                 <h2 className={styles.title}>Trust, care &amp; community</h2>
 
@@ -55,16 +68,17 @@ export default function TrustValuesSection() {
 
                 {/* ✅ single clean line (instead of multiple blocks) */}
                 <p className={styles.subsubtitle}>
-                    Clear expectations. Human care. Flexible support — with visibility from the start.
+                    <span>Clear expectations.</span> <span>Human care.</span> <span>Flexible support — with visibility from the start.</span>
                 </p>
 
                 {/* ✅ gentle CTA (text link) */}
                 <div className={styles.ctaRow}>
-                    <a href="#waitlist" className={styles.ctaLink}>
+                    <a href="#waitlist" className={styles.ctaLink} style={ctaStyles}>
                         Join the waiting list to get early access →
                     </a>
                 </div>
             </div>
+
 
             <div className={styles.fullBleed}>
                 <div className={styles.grid}>
@@ -74,39 +88,22 @@ export default function TrustValuesSection() {
                         return (
                             <div
                                 key={item.k}
-                                className={styles.card}
+                                className={`${styles.card} ${isOpen ? styles.isOpen : ""}`}
                                 onMouseEnter={() => setHoverIndex(idx)}
                                 onMouseLeave={() => setHoverIndex(null)}
                             >
-                                {/* ✅ keep existing images */}
                                 <img src={item.img} alt={item.k} className={styles.image} />
-
                                 <div className={styles.gradient} />
 
                                 <div className={styles.cardContent}>
                                     <strong className={styles.cardTitle}>{item.k}</strong>
-
                                     <p className={styles.cardShort}>{item.descShort}</p>
 
-                                    {!isOpen && <span className={styles.learnMore}>Learn more</span>}
+                                    <span className={styles.learnMore}>Learn more</span>
 
-                                    <div
-                                        className={`${styles.expandWrapper} ${isOpen ? styles.expandWrapperOpen : ""}`}
-                                        style={{ transitionTimingFunction: ease }}
-                                    >
-                                        <div
-                                            className={`${styles.expandInner} ${isOpen ? styles.expandInnerOpen : ""}`}
-                                            style={{
-                                                transitionTimingFunction: ease,
-                                                transitionDelay: isOpen ? "200ms" : "0ms",
-                                            }}
-                                        >
+                                    <div className={styles.expandWrapper}>
+                                        <div className={styles.expandInner}>
                                             <p className={styles.expandText}>{item.descFull}</p>
-
-                                            {/* ✅ small inline CTA inside expanded state */}
-                                            <a href="#waitlist" className={styles.inlineCta}>
-                                                Get early access in your area →
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -115,6 +112,9 @@ export default function TrustValuesSection() {
                     })}
                 </div>
             </div>
-        </section>
+
+
+
+        </section >
     );
 }

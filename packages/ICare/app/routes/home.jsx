@@ -3,7 +3,6 @@ import CareTimeline from "../components/website/pages/home/CareTimeline";
 
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
-import TrustIntroSection from "../components/website/pages/home/sections/TrustIntroSection";
 import TrustValuesSection from "../components/website/pages/home/sections/trust-values-section";
 import IcareSafetyBlock from "../components/website/pages/home/sections/IcareSafetyBlock";
 import ICareFooter from "../components/website/pages/shared/footers/ICareFooter";
@@ -27,8 +26,6 @@ export default function Home() {
         <>
             <HomePageHero imgSrc={heroImage} />
             <CareTimeline />
-            <TrustIntroSection />
-
             <TrustValuesSection />
 
             <HomePageCareCTA />
