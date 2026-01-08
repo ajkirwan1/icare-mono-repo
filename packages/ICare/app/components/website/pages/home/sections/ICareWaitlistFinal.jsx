@@ -2,10 +2,9 @@ import React, { useState } from "react";
 
 /**
  * ICare — Waitlist Final (conversion section)
- * ✅ id="waitlist" for anchors
- * ✅ calm + airy, not full width
- * ✅ a few basic questions (without being heavy)
- * ✅ button #b97a57, radius 20, shorter, centered
+ * ✅ LEFT card same height as RIGHT image card
+ * ✅ H1 smaller 20%
+ * ✅ H2 smaller 20% + another 20% (so overall smaller)
  */
 export default function ICareWaitlistFinal() {
     const TEXT = "#0F172A";
@@ -17,7 +16,7 @@ export default function ICareWaitlistFinal() {
         width: "100%",
         background: "#ffffff",
         color: TEXT,
-        padding: "clamp(3.6rem, 5.2vw, 4.8rem) 0",
+        padding: "clamp(3.8rem, 5.6vw, 5.2rem) 0",
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
@@ -26,37 +25,60 @@ export default function ICareWaitlistFinal() {
         width: "min(92vw, 1100px)",
         margin: "0 auto",
         display: "grid",
-        justifyItems: "center",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "clamp(18px, 3vw, 40px)",
+        alignItems: "stretch", // ✅ both columns same height
     };
 
     const card = {
-        width: "min(680px, 92vw)",
+        height: "100%",
         borderRadius: 24,
         background: "rgba(255,255,255,0.92)",
         border: "1px solid rgba(15,23,42,0.10)",
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
         padding: "clamp(18px, 2.4vw, 26px)",
+        display: "flex",
+        flexDirection: "column",
     };
 
-    const topMini = {
-        fontSize: "1.08rem",
-        fontWeight: 850,
-        color: BRAND,
-        letterSpacing: "-0.1px",
-        marginBottom: 10,
+    const imageWrap = {
+        height: "100%",
+        borderRadius: 24,
+        overflow: "hidden",
+        border: "1px solid rgba(15,23,42,0.10)",
+        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
+        background: "rgba(15,23,42,0.03)",
     };
 
-    const h2 = {
+    const image = {
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "cover",
+    };
+
+    // ✅ H1 20% smaller
+    const h1 = {
         margin: 0,
         fontWeight: 950,
         letterSpacing: "-0.55px",
+        lineHeight: 1.12,
+        fontSize: "clamp(1.28rem, 1.84vw, 1.64rem)",
+        color: TEXT,
+    };
+
+    // ✅ H2 smaller 20% + another 20%
+    const h2 = {
+        margin: "10px 0 0",
+        fontWeight: 950,
+        letterSpacing: "-0.55px",
         lineHeight: 1.1,
-        fontSize: "clamp(1.6rem, 2.2vw, 2rem)",
+        fontSize: "clamp(0.86rem, 1.22vw, 1.12rem)",
         color: TEXT,
     };
 
     const lead = {
-        margin: "0.95rem 0 0",
+        margin: "0.85rem 0 0",
         color: TEXT,
         opacity: 0.78,
         fontWeight: 650,
@@ -98,16 +120,17 @@ export default function ICareWaitlistFinal() {
     };
 
     const btnWrap = {
-        marginTop: 18, // ✅ more air before note
         display: "grid",
         justifyItems: "center",
         gap: 14,
+        marginTop: "auto", // ✅ pins CTA to bottom, helps equal height
+        paddingTop: 16,
     };
 
     const btn = {
-        width: "min(320px, 86vw)", // ✅ shorter + centered
+        width: "min(320px, 86vw)",
         padding: "12px 18px",
-        borderRadius: 20, // ✅ radius 20
+        borderRadius: 20,
         border: "none",
         background: BRAND,
         color: "#fff",
@@ -129,6 +152,10 @@ export default function ICareWaitlistFinal() {
     };
 
     const microCSS = `
+    @media (max-width: 980px){
+      .icare-wl-layout{ grid-template-columns: 1fr !important; }
+      .icare-wl-image{ aspect-ratio: 4 / 3; }
+    }
     @media (max-width: 620px){
       .icare-wl-grid2{ grid-template-columns: 1fr !important; }
     }
@@ -144,27 +171,33 @@ export default function ICareWaitlistFinal() {
     const onSubmit = (e) => {
         e.preventDefault();
         setStatus("ok");
-        // TODO: replace with API call (Mailchimp / ConvertKit / your backend)
     };
 
     return (
         <section id="waitlist" aria-label="Join the ICare waiting list" style={wrap}>
             <style>{microCSS}</style>
 
-            <div style={container}>
+            <div className="icare-wl-layout" style={container}>
+                {/* LEFT */}
                 <div style={card}>
-                    <div style={topMini}>Launching soon — early access</div>
+                    <h1 style={h1}>Launching soon — early access</h1>
                     <h2 style={h2}>Get early access in your area</h2>
                     <p style={lead}>
-                        Leave a few details and we’ll notify you when ICare opens near you. Your answers help us prioritise
-                        caregiver supply in the right towns first.
+                        Leave a few details and we’ll notify you when ICare opens near you. Your answers help us
+                        prioritise caregiver supply in the right towns first.
                     </p>
 
                     <form onSubmit={onSubmit} style={form}>
                         <div className="icare-wl-grid2" style={grid2}>
                             <div>
                                 <label style={label}>Email</label>
-                                <input className="icare-wl-input" type="email" required placeholder="you@email.com" style={field} />
+                                <input
+                                    className="icare-wl-input"
+                                    type="email"
+                                    required
+                                    placeholder="you@email.com"
+                                    style={field}
+                                />
                             </div>
                             <div>
                                 <label style={label}>Postcode</label>
@@ -213,6 +246,15 @@ export default function ICareWaitlistFinal() {
                             </p>
                         </div>
                     </form>
+                </div>
+
+                {/* RIGHT */}
+                <div style={imageWrap}>
+                    <img
+                        src="/images/web/icare-for-carereceivers/browse2.png"
+                        alt="Browse caregivers"
+                        style={image}
+                    />
                 </div>
             </div>
         </section>

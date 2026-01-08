@@ -5,8 +5,8 @@ import React from "react";
  * ✅ Header (H1 + H2 + lead) left-aligned
  * ✅ H2 = “Budget clarity — quick estimate” under H1, white like H1
  * ✅ 2 boxes in one row, SAME HEIGHT
- * ✅ explanation below both boxes
  * ✅ trimmed: fixed agency margin + monthly only
+ * ✅ UK live-in average shown in a framed box at the bottom + source
  */
 export default function ICareCostEstimator({
     icareFeePct = 10,
@@ -16,6 +16,9 @@ export default function ICareCostEstimator({
     const BRAND = "#b97a57";
     const TEXT = "#0F172A";
     const OLIVE = "#61674d";
+
+    // ✅ Live-in average (UK) used as default for GBP
+    const UK_LIVE_IN_AVG_HOURLY_GBP = 13;
 
     const hourlyRanges = React.useMemo(
         () => ({
@@ -33,12 +36,16 @@ export default function ICareCostEstimator({
     };
 
     const [currency, setCurrency] = React.useState("GBP");
-    const [hourly, setHourly] = React.useState(18);
+    const [hourly, setHourly] = React.useState(UK_LIVE_IN_AVG_HOURLY_GBP);
     const [hoursWeek, setHoursWeek] = React.useState(30);
 
     const range = hourlyRanges[currency] ?? hourlyRanges.GBP;
 
     React.useEffect(() => {
+        if (currency === "GBP") {
+            setHourly(snapToStep(UK_LIVE_IN_AVG_HOURLY_GBP, range.step));
+            return;
+        }
         const mid = (range.min + range.max) / 2;
         setHourly(snapToStep(mid, range.step));
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,7 +61,7 @@ export default function ICareCostEstimator({
     );
 
     const { baseCost, agencyTotal, icareTotal, youSave, savePct } = React.useMemo(() => {
-        const weeksPerMonth = 4.33; // MVP: monthly only
+        const weeksPerMonth = 4.33;
         const base = hourly * hoursWeek * weeksPerMonth;
         const agency = base * (1 + agencyMarginPct / 100);
         const icare = base * (1 + icareFeePct / 100);
@@ -71,8 +78,6 @@ export default function ICareCostEstimator({
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
         fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-
-        // ✅ background banner (from /public)
         backgroundImage:
             "linear-gradient(160deg, rgba(0,0,0,0.50), rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.50)), url('/images/banners/banner-image-1.jpg')",
         backgroundSize: "cover",
@@ -88,7 +93,6 @@ export default function ICareCostEstimator({
         alignItems: "start",
     };
 
-    // ✅ header spans full width so BOTH boxes can align on same top edge
     const header = {
         maxWidth: "72ch",
         textAlign: "left",
@@ -103,7 +107,6 @@ export default function ICareCostEstimator({
         color: "#fff",
     };
 
-    // ✅ “Budget clarity — quick estimate” as H2 under H1 (white like H1)
     const h2Mini = {
         margin: "10px 0 0",
         fontWeight: 900,
@@ -121,7 +124,6 @@ export default function ICareCostEstimator({
         fontSize: "1.02rem",
     };
 
-    // ✅ 2 cards row; align-stretch + card height:100% => same height
     const cardsRow = {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -130,7 +132,7 @@ export default function ICareCostEstimator({
     };
 
     const card = {
-        height: "100%", // ✅ forces equal heights within the row
+        height: "100%",
         background: "rgba(255,255,255,0.84)",
         border: "1px solid rgba(15,23,42,0.10)",
         borderRadius: 22,
@@ -214,19 +216,6 @@ export default function ICareCostEstimator({
         transition: "width .45s ease",
     };
 
-    const explanation = {
-        marginTop: 10,
-        padding: "14px 16px",
-        borderRadius: 18,
-        background: "rgba(255,255,255,0.62)",
-        border: "1px solid rgba(15,23,42,0.10)",
-        color: TEXT,
-        fontWeight: 700,
-        lineHeight: 1.7,
-        fontSize: ".98rem",
-        backdropFilter: "blur(6px)",
-    };
-
     const softLink = {
         marginTop: 10,
         display: "inline-flex",
@@ -238,6 +227,19 @@ export default function ICareCostEstimator({
         borderBottom: "1px solid rgba(97,103,77,0.35)",
         paddingBottom: 2,
         width: "fit-content",
+    };
+
+    const avgPayBox = {
+        marginTop: 12,
+        padding: "14px 16px",
+        borderRadius: 18,
+        background: "rgba(255,255,255,0.62)",
+        border: "1px solid rgba(15,23,42,0.10)",
+        color: TEXT,
+        fontWeight: 700,
+        lineHeight: 1.7,
+        fontSize: ".98rem",
+        backdropFilter: "blur(6px)",
     };
 
     const microCSS = `
@@ -318,7 +320,6 @@ export default function ICareCostEstimator({
                             </label>
                         </div>
 
-                        {/* keeps controls card nicely balanced if results card is taller */}
                         <div style={{ marginTop: "auto" }} />
                     </div>
 
@@ -366,17 +367,22 @@ export default function ICareCostEstimator({
                             MVP estimate. Rates vary by city, experience and care needs.
                         </div>
 
-                        {/* ensures results card fills height similarly */}
                         <div style={{ marginTop: "auto" }} />
                     </div>
                 </div>
 
-                {/* EXPLANATION BELOW BOTH */}
-                <div style={explanation}>
-                    <strong style={{ color: TEXT }}>How this MVP estimate works:</strong>{" "}
-                    Monthly cost uses <strong>4.33 weeks/month</strong>. “Agency total” assumes{" "}
-                    <strong>{agencyMarginPct}%</strong> typical markup. ICare total adds a simple{" "}
-                    <strong>{icareFeePct}%</strong> fee.
+                {/* ✅ bottom framed live-in average + source */}
+                <div style={avgPayBox}>
+                    <strong style={{ color: TEXT }}>UK live-in reference pay (average):</strong>{" "}
+                    Live-in Carer average shown as <strong>~£13/hour</strong> (UK).{" "}
+                    <a
+                        href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: OLIVE, fontWeight: 900, textDecoration: "underline" }}
+                    >
+                        Source
+                    </a>
                 </div>
             </div>
         </section>

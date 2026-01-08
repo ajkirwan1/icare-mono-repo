@@ -4,8 +4,8 @@ import { faIdCard, faUserCheck, faShieldHalved } from "@fortawesome/free-solid-s
 
 export default function SafetyComesFirstThreeBoxes() {
     const COLORS = {
-        sectionBg: "#f7e7d9",
-        boxBg: "#0f172a12", // ✅ updated
+        sectionBg: "#f7e7d952",
+        boxBg: "#0f172a12",
         border: "rgba(15,23,42,0.10)",
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
@@ -56,12 +56,13 @@ export default function SafetyComesFirstThreeBoxes() {
         textAlign: "left",
     };
 
+    // ✅ H1 10% smaller
     const h1 = {
         margin: 0,
         fontWeight: 950,
         letterSpacing: "-0.55px",
         lineHeight: 1.12,
-        fontSize: "clamp(2.4rem, 2.8vw, 2.8rem)",
+        fontSize: "clamp(2.16rem, 2.52vw, 2.52rem)",
         color: COLORS.text,
     };
 
@@ -92,7 +93,7 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const cardBase = {
-        background: COLORS.boxBg, // ✅ updated
+        background: COLORS.boxBg,
         border: `1px solid ${COLORS.border}`,
         borderRadius: 18,
         padding: "clamp(16px, 2.1vw, 20px)",
@@ -122,7 +123,6 @@ export default function SafetyComesFirstThreeBoxes() {
         fontSize: "1.05rem",
     };
 
-    // ✅ +10% vs previous 1.15rem
     const title = {
         margin: 0,
         fontWeight: 900,
