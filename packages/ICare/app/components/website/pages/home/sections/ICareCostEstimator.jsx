@@ -1,12 +1,14 @@
 import React from "react";
 
 /**
- * ICare — Cost Estimator (MVP, condensed) + background banner
+ * ICare — Budget Estimator (caring tone)
  * ✅ Header (H1 + H2 + lead) left-aligned
- * ✅ H2 = “Budget clarity — quick estimate” under H1, white like H1
+ * ✅ H1 weight 500, clamp(2.25rem, 3vw, 2.6rem)
+ * ✅ H2 weight 600, size 1.25rem
+ * ✅ P size 1.22rem, weight 600
  * ✅ 2 boxes in one row, SAME HEIGHT
- * ✅ trimmed: fixed agency margin + monthly only
- * ✅ UK live-in average shown in a framed box at the bottom + source
+ * ✅ boxes solid white (no see-through)
+ * ✅ bottom note uses multiple sources + explains why hourly can be misleading for live-in
  */
 export default function ICareCostEstimator({
     icareFeePct = 10,
@@ -17,7 +19,7 @@ export default function ICareCostEstimator({
     const TEXT = "#0F172A";
     const OLIVE = "#61674d";
 
-    // ✅ Live-in average (UK) used as default for GBP
+    // Live-in average (UK) used as default for GBP (editable)
     const UK_LIVE_IN_AVG_HOURLY_GBP = 13;
 
     const hourlyRanges = React.useMemo(
@@ -98,30 +100,33 @@ export default function ICareCostEstimator({
         textAlign: "left",
     };
 
+    // ✅ requested H1
     const h1 = {
         margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.55px",
-        lineHeight: 1.06,
-        fontSize: "clamp(1.75rem, 2.3vw, 2.05rem)",
+        fontWeight: 500,
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
         color: "#fff",
     };
 
+    // ✅ requested H2
     const h2Mini = {
         margin: "10px 0 0",
-        fontWeight: 900,
+        fontWeight: 600,
         letterSpacing: "-0.2px",
-        fontSize: "1.08rem",
+        fontSize: "1.25rem",
         color: "#fff",
         opacity: 0.95,
     };
 
+    // ✅ requested P
     const lead = {
         margin: "0.9rem 0 0",
         color: "rgba(255,255,255,0.92)",
-        fontWeight: 650,
+        fontWeight: 600,
         lineHeight: 1.65,
-        fontSize: "1.02rem",
+        fontSize: "1.22rem",
     };
 
     const cardsRow = {
@@ -131,15 +136,15 @@ export default function ICareCostEstimator({
         alignItems: "stretch",
     };
 
+    // ✅ boxes solid white (no see-through, no blur)
     const card = {
         height: "100%",
-        background: "rgba(255,255,255,0.84)",
+        background: "#ffffff",
         border: "1px solid rgba(15,23,42,0.10)",
         borderRadius: 22,
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
         padding: "clamp(14px, 1.8vw, 18px)",
         color: TEXT,
-        backdropFilter: "blur(6px)",
         display: "flex",
         flexDirection: "column",
     };
@@ -229,17 +234,23 @@ export default function ICareCostEstimator({
         width: "fit-content",
     };
 
+    // ✅ solid (no see-through, no blur) + clearer, legit note
     const avgPayBox = {
         marginTop: 12,
         padding: "14px 16px",
         borderRadius: 18,
-        background: "rgba(255,255,255,0.62)",
+        background: "#ffffff",
         border: "1px solid rgba(15,23,42,0.10)",
         color: TEXT,
-        fontWeight: 700,
+        fontWeight: 650,
         lineHeight: 1.7,
         fontSize: ".98rem",
-        backdropFilter: "blur(6px)",
+    };
+
+    const sourceLink = {
+        color: OLIVE,
+        fontWeight: 900,
+        textDecoration: "underline",
     };
 
     const microCSS = `
@@ -259,10 +270,10 @@ export default function ICareCostEstimator({
             <div style={container}>
                 {/* HEADER */}
                 <div style={header}>
-                    <h1 style={h1}>Cost & savings estimator</h1>
-                    <h2 style={h2Mini}>Budget clarity — quick estimate</h2>
+                    <h1 style={h1}>A simple estimate to support <br />your care decisions</h1>
+                    <h2 style={h2Mini}>Budget clarity — in under a minute</h2>
                     <p style={lead}>
-                        A calm way to sense-check your budget. Adjust hourly rate and hours/week — results update instantly.
+                        Caring is emotional — money shouldn’t add extra stress. <br />Adjust rate and hours/week for a monthly estimate.
                     </p>
                 </div>
 
@@ -270,7 +281,11 @@ export default function ICareCostEstimator({
                 <div className="icare-est-cards" style={cardsRow}>
                     {/* LEFT = controls */}
                     <div style={card}>
-                        <div style={{ display: "grid", gap: 14 }}>
+                        <div style={{ fontWeight: 900, fontSize: "1.06rem", letterSpacing: "-0.2px" }}>
+                            Your inputs
+                        </div>
+
+                        <div style={{ display: "grid", gap: 14, marginTop: 10 }}>
                             <label style={{ display: "grid", gap: 6 }}>
                                 <span style={label}>Currency</span>
                                 <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={field}>
@@ -305,6 +320,7 @@ export default function ICareCostEstimator({
                                     <span>{range.min}</span>
                                     <span>{range.max}</span>
                                 </div>
+                                <div style={small}>Tip: choose a rate that’s fair and sustainable for the carer.</div>
                             </label>
 
                             <label style={{ display: "grid", gap: 6 }}>
@@ -316,7 +332,7 @@ export default function ICareCostEstimator({
                                     onChange={(e) => setHoursWeek(Number(e.target.value))}
                                     style={field}
                                 />
-                                <div style={small}>Typical range: 20–40 hours/week.</div>
+                                <div style={small}>A helpful starting point is 20–40 hours/week.</div>
                             </label>
                         </div>
 
@@ -325,7 +341,7 @@ export default function ICareCostEstimator({
 
                     {/* RIGHT = results */}
                     <div style={card}>
-                        <div style={{ fontWeight: 950, fontSize: "1.12rem", letterSpacing: "-0.2px" }}>
+                        <div style={{ fontWeight: 900, fontSize: "1.06rem", letterSpacing: "-0.2px" }}>
                             Monthly estimate
                         </div>
 
@@ -356,7 +372,8 @@ export default function ICareCostEstimator({
                         </div>
 
                         <div style={{ marginTop: 10, color: TEXT, fontWeight: 800, opacity: 0.85 }}>
-                            You save about <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span> vs a typical agency.
+                            You may save around{" "}
+                            <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared with a typical agency.
                         </div>
 
                         <a href={waitlistHref} style={softLink}>
@@ -364,25 +381,48 @@ export default function ICareCostEstimator({
                         </a>
 
                         <div style={{ marginTop: 10, ...small }}>
-                            MVP estimate. Rates vary by city, experience and care needs.
+                            This is a gentle estimate — needs, cities and experience can change rates.
                         </div>
 
                         <div style={{ marginTop: "auto" }} />
                     </div>
                 </div>
 
-                {/* ✅ bottom framed live-in average + source */}
+                {/* ✅ more legit reference note (multiple sources) */}
                 <div style={avgPayBox}>
-                    <strong style={{ color: TEXT }}>UK live-in reference pay (average):</strong>{" "}
-                    Live-in Carer average shown as <strong>~£13/hour</strong> (UK).{" "}
-                    <a
-                        href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
-                        target="_blank"
-                        rel="noreferrer"
-                        style={{ color: OLIVE, fontWeight: 900, textDecoration: "underline" }}
-                    >
-                        Source
-                    </a>
+                    <strong style={{ color: TEXT }}>UK pay reference (live-in):</strong>{" "}
+                    Hourly equivalents can vary because many live-in roles are described per day/week and include different
+                    expectations around “active” hours. As a rough benchmark, Glassdoor estimates about{" "}
+                    <strong>~£11/hour average</strong> for “Live-in Carer” (UK) and shows higher reports around{" "}
+                    <strong>~£13/hour</strong>. The UK National Living Wage from{" "}
+                    <strong>1 April 2026</strong> is <strong>£12.71/hour</strong> (21+). Some market guides also describe live-in as{" "}
+                    <strong>~£120/day or ~£800/week</strong> (example platform guidance).
+                    <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 12 }}>
+                        <a
+                            href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
+                            target="_blank"
+                            rel="noreferrer"
+                            style={sourceLink}
+                        >
+                            Glassdoor
+                        </a>
+                        <a
+                            href="https://www.gov.uk/government/publications/minimum-wage-rates-for-2026"
+                            target="_blank"
+                            rel="noreferrer"
+                            style={sourceLink}
+                        >
+                            GOV.UK (2026 rates)
+                        </a>
+                        <a
+                            href="https://www.curamcare.com/blogs/a-guide-to-the-cost-of-care-in-the-uk"
+                            target="_blank"
+                            rel="noreferrer"
+                            style={sourceLink}
+                        >
+                            Curam (live-in day/week)
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>

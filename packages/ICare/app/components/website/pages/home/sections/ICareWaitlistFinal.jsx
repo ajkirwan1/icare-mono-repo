@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 /**
  * ICare — Waitlist Final (conversion section)
- * ✅ LEFT card same height as RIGHT image card
- * ✅ H1 smaller 20%
- * ✅ H2 smaller 20% + another 20% (so overall smaller)
+ * ✅ H1: 10% smaller
+ * ✅ H2: #778d43, underline, +30% bigger
+ * ✅ Lead: 10% smaller
+ * ✅ Button identical to “How ICare works” CTA button
  */
 export default function ICareWaitlistFinal() {
     const TEXT = "#0F172A";
-    const BRAND = "#b97a57";
+    const BRAND_CTA = "rgb(231 153 97)";
+    const OLIVE = "#778d43";
 
     const [status, setStatus] = useState("idle"); // idle | ok
 
@@ -27,7 +29,7 @@ export default function ICareWaitlistFinal() {
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         gap: "clamp(18px, 3vw, 40px)",
-        alignItems: "stretch", // ✅ both columns same height
+        alignItems: "stretch",
     };
 
     const card = {
@@ -57,33 +59,34 @@ export default function ICareWaitlistFinal() {
         objectFit: "cover",
     };
 
-    // ✅ H1 20% smaller
+    // ✅ H1 10% smaller (previous clamp: 1.58–1.82)
     const h1 = {
         margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.55px",
-        lineHeight: 1.12,
-        fontSize: "clamp(1.28rem, 1.84vw, 1.64rem)",
+        fontWeight: 500,
+        letterSpacing: "-0.5px",
+        lineHeight: 1.18,
+        fontSize: "clamp(1.42rem, 1.89vw, 1.64rem)", // ~10% down
         color: TEXT,
     };
 
-    // ✅ H2 smaller 20% + another 20%
     const h2 = {
         margin: "10px 0 0",
-        fontWeight: 950,
-        letterSpacing: "-0.55px",
-        lineHeight: 1.1,
-        fontSize: "clamp(0.86rem, 1.22vw, 1.12rem)",
-        color: TEXT,
+        fontWeight: 600,
+        letterSpacing: "-0.15px",
+        lineHeight: 1.28,
+        fontSize: "1.38rem",
+        color: OLIVE,
+        textDecoration: "underline",
+        textDecorationThickness: "2px",
+        textUnderlineOffset: "6px",
     };
 
     const lead = {
-        margin: "0.85rem 0 0",
+        margin: "10px 0 0",
         color: TEXT,
-        opacity: 0.78,
-        fontWeight: 650,
-        lineHeight: 1.75,
-        fontSize: "1.04rem",
+        fontWeight: 600,
+        lineHeight: 1.65,
+        fontSize: "1.01rem",
         maxWidth: "72ch",
     };
 
@@ -123,21 +126,21 @@ export default function ICareWaitlistFinal() {
         display: "grid",
         justifyItems: "center",
         gap: 14,
-        marginTop: "auto", // ✅ pins CTA to bottom, helps equal height
+        marginTop: "auto",
         paddingTop: 16,
     };
 
     const btn = {
-        width: "min(320px, 86vw)",
-        padding: "12px 18px",
-        borderRadius: 20,
         border: "none",
-        background: BRAND,
+        borderRadius: 36,
+        background: BRAND_CTA,
         color: "#fff",
-        fontWeight: 900,
-        fontSize: "1rem",
+        fontWeight: 700,
+        fontSize: "1.2rem",
+        padding: "18px 16px",
         cursor: "pointer",
-        transition: "filter .14s ease",
+        width: "min(260px, 88vw)",
+        transition: "filter .14s ease, background .14s ease",
     };
 
     const note = {
@@ -160,8 +163,8 @@ export default function ICareWaitlistFinal() {
       .icare-wl-grid2{ grid-template-columns: 1fr !important; }
     }
     .icare-wl-input:focus{
-      border-color: rgba(185,122,87,0.55) !important;
-      box-shadow: 0 0 0 4px rgba(185,122,87,0.14) !important;
+      border-color: rgba(231,153,97,0.55) !important;
+      box-shadow: 0 0 0 4px rgba(231,153,97,0.16) !important;
     }
   `;
 
@@ -180,7 +183,7 @@ export default function ICareWaitlistFinal() {
             <div className="icare-wl-layout" style={container}>
                 {/* LEFT */}
                 <div style={card}>
-                    <h1 style={h1}>Launching soon — early access</h1>
+                    <h1 style={h1}>Be first to know when ICare <br />opens near you</h1>
                     <h2 style={h2}>Get early access in your area</h2>
                     <p style={lead}>
                         Leave a few details and we’ll notify you when ICare opens near you. Your answers help us
@@ -238,7 +241,7 @@ export default function ICareWaitlistFinal() {
 
                         <div style={btnWrap}>
                             <button type="submit" style={btn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-                                {status === "ok" ? "You're on the list ✓" : "Join the waiting list"}
+                                {status === "ok" ? "You are now on the list ✓" : "Join the waiting list"}
                             </button>
 
                             <p style={note}>

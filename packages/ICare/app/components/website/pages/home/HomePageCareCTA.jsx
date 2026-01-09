@@ -1,13 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faHouse,
-    faUserNurse,
-    faComments,
-    faListCheck,
-    faShieldHalved,
-    faWallet,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHouseUser, faHandHoldingMedical } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ICare — Two paths (Families + Caregivers)
@@ -21,9 +14,6 @@ export default function ICareTwoPathsSection({
     caregiverCtaHref = "/icare-for-caregivers",
 }) {
     const COLORS = {
-        bg: "#ffffff",
-        panel: "rgba(226, 228, 221, 1)",
-        panel2: "rgba(216, 218, 206, 1)",
         border: "rgba(15,23,42,0.10)",
         text: "#0F172A",
         textWhite: "#FFF",
@@ -31,7 +21,10 @@ export default function ICareTwoPathsSection({
         muted: "rgba(15,23,42,0.72)",
         accent: "#b97a57",
         olive: "#61674d",
-        oliveBg: "rgba(97,103,77,0.12)",
+
+        // buttons
+        btnFamily: "#e79961",
+        btnCaregiver: "#778d43",
     };
 
     const wrap = {
@@ -42,7 +35,16 @@ export default function ICareTwoPathsSection({
         color: COLORS.text,
         padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
         backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
-        backgroundSize: "cover"
+        backgroundSize: "cover",
+    };
+
+    const overlay = {
+        pointerEvents: "none",
+        position: "absolute",
+        height: "100%",
+        inset: 0,
+        background:
+            "linear-gradient(160deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.55))",
     };
 
     const container = {
@@ -63,12 +65,11 @@ export default function ICareTwoPathsSection({
     const h2 = {
         margin: 0,
         fontWeight: 500,
-        letterSpacing: "-0.55px",
         lineHeight: 1.14,
         fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
         color: COLORS.textWhite,
         textAlign: "center",
-        letterSpacing: "-0.6px"
+        letterSpacing: "-0.6px",
     };
 
     const lead = {
@@ -77,7 +78,7 @@ export default function ICareTwoPathsSection({
         fontSize: "1.25rem",
         lineHeight: 1.6,
         fontWeight: 600,
-        textAlign: "center"
+        textAlign: "center",
     };
 
     const grid = {
@@ -104,17 +105,21 @@ export default function ICareTwoPathsSection({
         gap: 12,
     };
 
+    // icons: calm + a bit smaller
     const icon = {
-        width: 44,
-        height: 44,
+        width: 50,
+        height: 50,
         borderRadius: 18,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        //background: COLORS.oliveBg,
-        //border: "1px solid rgba(97,103,77,0.22)",
         color: COLORS.olive,
         flex: "0 0 auto",
+    };
+
+    const iconSvg = {
+        fontSize: "27px",
+        lineHeight: 1,
     };
 
     const title = {
@@ -170,41 +175,32 @@ export default function ICareTwoPathsSection({
         alignItems: "center",
     };
 
-    // ✅ premium: 1 mocny button, 1 spokojny link-button
+    // buttons: radius 36px
     const primaryBtn = {
         border: "none",
-        borderRadius: 20,
-        background: COLORS.accent,
+        borderRadius: 36,
+        background: COLORS.btnFamily,
         color: "#fff",
         fontWeight: 900,
         fontSize: "0.98rem",
-        padding: "12px 18px",
+        padding: "16px 2.2rem",
         cursor: "pointer",
         transition: "filter .14s ease",
         width: "min(260px, 88vw)",
     };
 
     const secondaryBtn = {
-        borderRadius: 20,
-        background: "#61674d",
+        borderRadius: 36,
+        background: COLORS.btnCaregiver,
         border: "1px solid rgba(97,103,77,0.24)",
         color: COLORS.textWhite,
         fontWeight: 900,
         fontSize: "0.98rem",
-        padding: "12px 18px",
+        padding: "16px 2.2rem",
         cursor: "pointer",
         transition: "filter .14s ease",
         width: "min(260px, 88vw)",
     };
-
-    const overlay = {
-        pointerEvents: "none",
-        position: "absolute",
-        height: "100%",
-        inset: 0,
-        background: "linear-gradient(160deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.55))"
-    };
-
 
     const onEnter = (e) => (e.currentTarget.style.filter = "brightness(1.06)");
     const onLeave = (e) => (e.currentTarget.style.filter = "brightness(1)");
@@ -214,10 +210,14 @@ export default function ICareTwoPathsSection({
             <div style={overlay} />
             <div style={container}>
                 <div style={header}>
-                    <h2 style={h2}>A calmer home care marketplace<br />for families and caregivers</h2>
+                    <h2 style={h2}>
+                        A calmer home care marketplace
+                        <br />
+                        for families and caregivers
+                    </h2>
                     <p style={lead}>
-                        ICare connects families with independent carers through clear profiles, direct messaging and a guided
-                        process — so both sides can agree support with confidence.
+                        ICare connects families with independent carers through clear profiles,
+                        direct messaging and a guided process — so both sides can agree support with confidence.
                     </p>
                 </div>
 
@@ -226,7 +226,7 @@ export default function ICareTwoPathsSection({
                     <div style={card}>
                         <div style={topRow}>
                             <span style={icon} aria-hidden="true">
-                                <FontAwesomeIcon icon={faHouse} />
+                                <FontAwesomeIcon style={iconSvg} icon={faHouseUser} />
                             </span>
                             <h3 style={title}>For families & care receivers</h3>
                         </div>
@@ -252,7 +252,12 @@ export default function ICareTwoPathsSection({
 
                         <div style={ctaRow}>
                             <a href={familyCtaHref} style={{ textDecoration: "none" }}>
-                                <button type="button" style={primaryBtn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                                <button
+                                    type="button"
+                                    style={primaryBtn}
+                                    onMouseEnter={onEnter}
+                                    onMouseLeave={onLeave}
+                                >
                                     Join the waiting list
                                 </button>
                             </a>
@@ -267,7 +272,7 @@ export default function ICareTwoPathsSection({
                     <div style={card}>
                         <div style={topRow}>
                             <span style={icon} aria-hidden="true">
-                                <FontAwesomeIcon icon={faUserNurse} />
+                                <FontAwesomeIcon style={iconSvg} icon={faHandHoldingMedical} />
                             </span>
                             <h3 style={title}>For caregivers</h3>
                         </div>
@@ -293,7 +298,12 @@ export default function ICareTwoPathsSection({
 
                         <div style={ctaRow}>
                             <a href={caregiverCtaHref} style={{ textDecoration: "none" }}>
-                                <button type="button" style={secondaryBtn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+                                <button
+                                    type="button"
+                                    style={secondaryBtn}
+                                    onMouseEnter={onEnter}
+                                    onMouseLeave={onLeave}
+                                >
                                     I’m a caregiver
                                 </button>
                             </a>
