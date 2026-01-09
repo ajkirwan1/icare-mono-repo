@@ -1,11 +1,12 @@
 @use "@styles/tokens" as *;
 
+
 .link {
-    padding: $space-14 $space-22;
+    padding: $space-16 $space-22;
     border-radius: $radius-pill;
 
-    border: 2px solid $secondary-colour;
-    background: $secondary-colour;
+    /* border: 2px solid $secondary-colour; */
+    background: $link-bg;
     color: $on-dark;
 
     font-weight: $fw-semibold;
@@ -27,9 +28,7 @@
     white-space: nowrap;
 
     &:hover {
-        background: darken($secondary-colour, 6%);
-        border-color: darken($secondary-colour, 6%);
-        transform: translateY(-1px);
+        background: darken($link-bg, 3%);
     }
 
     &:active {

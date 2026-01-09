@@ -15,16 +15,18 @@ export default function HowItWorksThreeSteps() {
         bg: "#ffffff",
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
-        border: "rgba(15,23,42,0.10)",
+        border: "rgba(15,23,42,0.30)",
         chip: "rgba(255,255,255,0.82)",
-        beige: "#fff9ef",
-        accent: "#b97a57",
-        icon: "#61674d",
+        beige: "rgb(255, 249, 239)",
+        accent: "rgb(231 153 97)",
+        accent2: "rgb(119, 141, 67)",
+        lightGreen: "rgb(240 247 222)",
+        icon: "#111",
     };
 
     const wrap = {
         width: "100%",
-        background: COLORS.bg,
+        background: COLORS.lightGreen,
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
@@ -34,40 +36,42 @@ export default function HowItWorksThreeSteps() {
     const container = {
         width: "min(92vw, 1100px)",
         margin: "0 auto",
+        maxWidth: "600px"
     };
 
     const title = {
-        margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.45px",
-        lineHeight: 1.08,
-        fontSize: "clamp(2.4rem, 2.8vw, 2.8rem)",
         color: COLORS.text,
+        margin: 0,
+        fontWeight: 800,
+        fontSize: "2.6rem",
+        color: "#0f172a",
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontWeight: 500
     };
 
     const sub = {
         margin: "0.9rem 0 0",
         maxWidth: "72ch",
-        color: "#000",
-        fontSize: "1.6rem",
-        lineHeight: 1.5,
-        fontWeight: 500,
+        color: "#0f172a",
+        fontSize: "1.4rem",
+        lineHeight: 1.66,
+        fontWeight: 500
     };
 
     const grid = {
         marginTop: "clamp(1.6rem, 2.6vw, 2.1rem)",
         display: "grid",
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         gap: "clamp(12px, 1.8vw, 18px)",
         alignItems: "stretch",
+        maxWidth: "600px"
     };
 
     const card = {
-        background: "#eee",
         border: `1px solid ${COLORS.border}`,
         borderRadius: 18,
-        padding: "16px 16px",
-        boxShadow: "0 12px 26px rgba(15,23,42,0.06)",
+        background: "white",
+        padding: "32px",
         display: "grid",
         gap: 10,
     };
@@ -75,51 +79,49 @@ export default function HowItWorksThreeSteps() {
     const stepRow = {
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
-        gap: 12,
+        justifyContent: "space-between"
     };
 
     const stepPill = {
         display: "inline-flex",
         alignItems: "center",
-        gap: 8,
-        padding: "6px 10px",
-        borderRadius: 999,
-        fontSize: ".82rem",
-        fontWeight: 900,
-        color: "white",
-        background: "rgba(97, 103, 80, 0.7)",
-        border: "1px solid rgba(15,23,42,0.08)",
+        fontSize: "1.1rem",
+        fontWeight: 700,
+        color: COLORS.accent2,
+        textTransform: "uppercase",
+        borderBottom: "1px solid",
+        paddingBottom: "0.5rem"
     };
 
     const iconWrap = {
-        width: 38,
-        height: 38,
+        width: 36,
+        height: 36,
         borderRadius: 16,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(97,103,77,0.12)",
-        border: "1px solid rgba(97,103,77,0.24)",
-        color: COLORS.icon,
+        color: COLORS.text,
         flex: "0 0 auto",
     };
 
+    const icon = {
+        fontSize: "26px"
+    }
+
     const h3 = {
         margin: 0,
-        fontWeight: 950,
-        color: COLORS.text,
-        fontSize: "1.25rem",
+        fontWeight: 600,
+        fontSize: "1.5rem",
         letterSpacing: "-0.15px",
         lineHeight: 1.25,
     };
 
     const p = {
         margin: 0,
-        color: COLORS.muted,
+        color: COLORS.step,
         lineHeight: 1.65,
-        fontSize: ".98rem",
-        fontWeight: 600,
+        fontSize: "1.22rem",
+        fontWeight: 500,
     };
 
     const ctaWrap = {
@@ -130,16 +132,15 @@ export default function HowItWorksThreeSteps() {
         gap: 14,
         flexWrap: "wrap",
         paddingTop: "clamp(14px, 2vw, 18px)",
-        borderTop: `1px solid ${COLORS.border}`,
         textAlign: "center"
     };
 
     const ctaText = {
         margin: "0 auto",
         color: '#000',
-        fontWeight: 500,
+        fontWeight: 600,
         lineHeight: 1.6,
-        fontSize: "1.25rem",
+        fontSize: "1.4rem",
         maxWidth: "68ch",
         textAlign: "center"
     };
@@ -200,7 +201,7 @@ export default function HowItWorksThreeSteps() {
                             <div style={stepRow}>
                                 <span style={stepPill}>{x.n}</span>
                                 <span style={iconWrap} aria-hidden="true">
-                                    <FontAwesomeIcon icon={x.icon} />
+                                    <FontAwesomeIcon style={icon} icon={x.icon} />
                                 </span>
                             </div>
 

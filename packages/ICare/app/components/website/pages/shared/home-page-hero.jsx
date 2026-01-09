@@ -19,11 +19,11 @@ export default function HomePageHero({ imgSrc }) {
 
                         <div className={styles.copyBlock}>
                             <h1 className={styles.heading}>
-                                Find trusted <span>home care</span> in Cheltenham - without agency stress.
+                                Find trusted <span>home care</span> in Cheltenham<br />without agency stress.
                             </h1>
 
                             <p className={styles.subheading}>
-                                <strong>Transparent pricing. Direct communication. A calmer, guided process for families.</strong>
+                                <span>Transparent pricing.</span> <span>Direct communication.</span> <span>A calmer, guided process for families.</span>
                             </p>
 
                             <ul className={styles.features}>
@@ -49,15 +49,13 @@ export default function HomePageHero({ imgSrc }) {
                                     </li>
                                 ))}
                             </ul>
+                            <div className={styles.form}>
+                                <a href="#waitlist" style={{ textDecoration: "none" }}>
+                                    <SubmitButton>Join waiting list</SubmitButton>
+                                </a>
 
-                            {/* ✅ Two buttons side-by-side */}
-                            {/* <div className={styles.form}>
-                <a href="#waitlist" style={{ textDecoration: "none" }}>
-                  <SubmitButton>Join waiting list</SubmitButton>
-                </a>
-
-                <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
-              </div> */}
+                                <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
+                            </div>
 
                             {/* tiny reassurance */}
                             {/* <p style={{ marginTop: 12, opacity: 0.85 }}>
@@ -67,7 +65,7 @@ export default function HomePageHero({ imgSrc }) {
                     </div>
                 </div>
             </section>
-            <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
+            <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center", justifyContent: "center", textAlign: "center" }} className={styles.section}>
                 <h2 className={styles.title}>
                     A platform for caregivers and care receivers to connect in a safe,
                     secure, and trusted place

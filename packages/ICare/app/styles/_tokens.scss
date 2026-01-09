@@ -11,10 +11,11 @@ $muted: rgba(15, 23, 42, 0.72);
 /* alternate text */
 $ink: #1a1a1a;
 $ink-strong: #000;
+$link-bg: rgb(119 141 67);
 
 /* brand */
-$primary-colour: #61674d;
-$secondary-colour: #b97a57;
+$primary-colour: #ffffff;
+$secondary-colour: rgb(176 196 127);
 
 /* on-color */
 $on-dark: #fff;
@@ -97,6 +98,7 @@ $shadow-text-hero: 0 2px 16px rgba(0, 0, 0, 0.35);
    ================================= */
 
 /* font weights */
+$fw-normal: 400;
 $fw-semibold: 600;
 $fw-bold: 700;
 $fw-extrabold: 800;
@@ -247,6 +249,6 @@ $transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 /* reveal motion */
 $transition-reveal-height: max-height 2s cubic-bezier(0.18, 0.95, 0.18, 1);
 $transition-reveal-content: transform 1350ms cubic-bezier(0.18, 0.95, 0.18, 1),
-  opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
+    opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
 
 $reveal-delay-open: 260ms;

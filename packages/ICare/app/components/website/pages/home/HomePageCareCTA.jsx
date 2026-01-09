@@ -62,12 +62,13 @@ export default function ICareTwoPathsSection({
 
     const h2 = {
         margin: 0,
-        fontWeight: 950,
+        fontWeight: 500,
         letterSpacing: "-0.55px",
-        lineHeight: 1.3,
-        fontSize: "clamp(1.75rem, 2.4vw, 2.15rem)",
+        lineHeight: 1.14,
+        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
         color: COLORS.textWhite,
-        textAlign: "center"
+        textAlign: "center",
+        letterSpacing: "-0.6px"
     };
 
     const lead = {
@@ -87,7 +88,7 @@ export default function ICareTwoPathsSection({
     };
 
     const card = {
-        background: COLORS.panel,
+        background: "white",
         border: `1px solid ${COLORS.border}`,
         borderRadius: 22,
         padding: "clamp(18px, 2.2vw, 22px)",
@@ -263,7 +264,7 @@ export default function ICareTwoPathsSection({
                     </div>
 
                     {/* Caregivers */}
-                    <div style={{ ...card, background: COLORS.panel2 }}>
+                    <div style={card}>
                         <div style={topRow}>
                             <span style={icon} aria-hidden="true">
                                 <FontAwesomeIcon icon={faUserNurse} />

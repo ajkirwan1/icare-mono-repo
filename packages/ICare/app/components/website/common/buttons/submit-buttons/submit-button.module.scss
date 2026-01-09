@@ -1,11 +1,11 @@
 @use "@styles/tokens" as *;
 
 .button {
-    padding: $space-12 $space-18;
+    padding: $space-16 $space-24;
     border-radius: $radius-pill;
 
     background: $primary-colour;
-    color: $on-dark;
+    color: #111;
     border: none;
 
     font-weight: $fw-bold;
@@ -23,9 +23,11 @@
 
     transition: background-color 0.2s ease, transform 0.1s ease;
 
+    /*
     &:hover {
         background: darken($primary-colour, 5%);
     }
+    */
 
     &:active {
         transform: translateY(1px);
