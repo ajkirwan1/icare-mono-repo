@@ -107,7 +107,7 @@ export default function SafetyComesFirstThreeBoxes() {
 
     const leadStyle = {
         margin: "0.35rem 0 0",
-        color: "rgba(15,23,42,0.84)",
+        color: "rgba(15,23,42,1)",
         fontSize: "1.22rem",
         lineHeight: 1.65,
         fontWeight: 600,

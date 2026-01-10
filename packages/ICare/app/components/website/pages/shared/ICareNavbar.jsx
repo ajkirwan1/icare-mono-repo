@@ -33,10 +33,10 @@ export default function ICareNavbar() {
                 }}
             >
                 <img
-                    src="/images/logo/icare13.svg"
+                    src="/images/logo/icare17.svg"
                     alt="ICare"
                     style={{
-                        height: 60,
+                        height: 45,
                         width: "auto",
                         display: "block",
                     }}

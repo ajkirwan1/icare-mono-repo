@@ -9,7 +9,7 @@ export default function HomePageHero({ imgSrc }) {
             <ICareNavbar />
             <section aria-label="ICare homepage hero" className={styles.hero}>
                 <img src={imgSrc} alt="Care support background" className={styles.backgroundImage} />
-                <div aria-hidden="true" className={styles.overlay} />
+
 
                 <div className={styles.content}>
                     <div className={styles.textWrapper}>
@@ -21,10 +21,6 @@ export default function HomePageHero({ imgSrc }) {
                             <h1 className={styles.heading}>
                                 Find trusted <span>home care</span> in Cheltenham<br />without agency stress.
                             </h1>
-
-                            <p className={styles.subheading}>
-                                <span>Transparent pricing.</span> <span>Direct communication.</span> <span>A calmer, guided process for families.</span>
-                            </p>
 
                             <ul className={styles.features}>
                                 {[
@@ -64,6 +60,11 @@ export default function HomePageHero({ imgSrc }) {
                         </div>
                     </div>
                 </div>
+
+                <p className={styles.subheading}>
+                    <span>Transparent pricing.</span> <span>Direct communication.</span> <span>A calmer, guided process for families.</span>
+                </p>
+
             </section>
             <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center", justifyContent: "center", textAlign: "center" }} className={styles.section}>
                 <h2 className={styles.title}>

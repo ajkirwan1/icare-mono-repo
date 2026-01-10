@@ -30,8 +30,8 @@ export default function HowItWorksFooter() {
 
     const heading = {
         color: colors.text,
-        fontWeight: 800,
-        fontSize: "0.98rem",
+        fontWeight: 700,
+        fontSize: "1.1rem",
         marginBottom: 12,
         letterSpacing: "-0.15px",
     };

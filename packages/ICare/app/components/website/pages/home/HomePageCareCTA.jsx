@@ -133,9 +133,9 @@ export default function ICareTwoPathsSection({
     const sub = {
         margin: 0,
         color: COLORS.textBlack,
-        fontWeight: 650,
+        fontWeight: 700,
         lineHeight: 1.65,
-        fontSize: ".99rem",
+        fontSize: "1.1rem",
         maxWidth: "56ch",
     };
 
@@ -154,7 +154,7 @@ export default function ICareTwoPathsSection({
         color: COLORS.textBlack,
         fontWeight: 500,
         lineHeight: 1.6,
-        fontSize: ".98rem",
+        fontSize: "1.1rem",
     };
 
     const dot = {

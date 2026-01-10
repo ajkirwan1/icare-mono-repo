@@ -1,7 +1,7 @@
 @use "@styles/tokens" as *;
 
 .button {
-    padding: $space-16 $space-24;
+    padding: $space-12 $space-18;
     border-radius: $radius-pill;
 
     background: $primary-colour;

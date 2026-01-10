@@ -13,21 +13,22 @@ import {
 
 /**
  * ICare — Types of care (SEO, short, calm)
- * ✅ separators: horizontal only (NO vertical)
+ * ✅ NO bottom separators (removed borders)
  * ✅ more space between H1 and H2
  * ✅ lead text black (not grey)
  * ✅ icons: no background, slightly larger
+ * ✅ equal heights per row (no "stair" effect)
+ * ✅ no text cutting
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
     const ICON = "#61674d";
-    const SEP = "rgba(15,23,42,0.10)";
 
     const wrap = {
         width: "100%",
-        background: "rgba(255, 249, 239, 0.85)", // subtle beige
+        background: "rgba(255, 249, 239, 0.85)",
         color: TEXT,
-        padding: "clamp(4.8rem, 6.6vw, 6.2rem) 0", // more space
+        padding: "clamp(4.8rem, 6.6vw, 6.2rem) 0",
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
@@ -56,7 +57,6 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
     };
 
-    // more air between H1 and H2
     const h2 = {
         margin: 0,
         paddingTop: "14px",
@@ -67,7 +67,6 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
     };
 
-    // lead in black (not grey)
     const lead = {
         margin: "12px 0 0",
         padding: 0,
@@ -83,15 +82,17 @@ export default function ICareTypesOfCareSEO() {
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: "clamp(18px, 2.2vw, 26px)",
-        alignItems: "start",
+        alignItems: "stretch",
     };
 
+    // ✅ no borderBottom
     const item = {
         display: "flex",
         gap: 14,
         alignItems: "flex-start",
         padding: "18px 0",
-        borderBottom: `1px solid ${SEP}`,
+        height: "100%",
+        alignSelf: "stretch",
     };
 
     const iconWrap = {
@@ -106,8 +107,15 @@ export default function ICareTypesOfCareSEO() {
     };
 
     const icon = {
-        fontSize: "20px", // slightly larger
+        fontSize: "20px",
         lineHeight: 1,
+    };
+
+    const content = {
+        display: "flex",
+        flexDirection: "column",
+        gap: 6,
+        minWidth: 0,
     };
 
     const title = {
@@ -118,29 +126,25 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
         fontSize: "1.05rem",
         lineHeight: 1.2,
-        display: "-webkit-box",
-        WebkitLineClamp: 1,
-        WebkitBoxOrient: "vertical",
-        overflow: "hidden",
+        whiteSpace: "normal",
+        overflow: "visible",
     };
 
     const desc = {
-        margin: "6px 0 0",
-        color: TEXT, // black
+        margin: 0,
+        color: TEXT,
         fontWeight: 600,
         lineHeight: 1.65,
         fontSize: "1.0rem",
-        display: "-webkit-box",
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: "vertical",
-        overflow: "hidden",
+        whiteSpace: "normal",
+        overflow: "visible",
     };
 
     const types = [
         {
             icon: faHandHoldingHeart,
             t: "Elderly care & companionship",
-            d: "Day-to-day support at home with calm routines and human presence.",
+            d: "Day-to-day support at home with routines and human presence.",
         },
         {
             icon: faClock,
@@ -186,8 +190,9 @@ export default function ICareTypesOfCareSEO() {
                     <h1 style={h1}>Care services we support</h1>
                     <h2 style={h2}>Care matched to real life</h2>
                     <p style={lead}>
-                        Families use ICare to find reliable carers for home care, including hourly and
-                        live-in care with flexible support that fits the person and the routine.
+                        Families use ICare to find reliable carers for home care, including
+                        hourly and live-in care with flexible support that fits the person
+                        and the routine.
                     </p>
                 </div>
 
@@ -197,7 +202,8 @@ export default function ICareTypesOfCareSEO() {
                             <span style={iconWrap} aria-hidden="true">
                                 <FontAwesomeIcon style={icon} icon={x.icon} />
                             </span>
-                            <div>
+
+                            <div style={content}>
                                 <h3 style={title}>{x.t}</h3>
                                 <p style={desc}>{x.d}</p>
                             </div>
@@ -206,24 +212,14 @@ export default function ICareTypesOfCareSEO() {
                 </div>
             </div>
 
+            {/* responsive columns only (no border rules anymore) */}
             <style>{`
-        /* Desktop: 4 columns => last row = last 4 items (5-8) */
-        .icare-types-item:nth-last-child(-n+4){
-          border-bottom: none;
-        }
-
         @media (max-width: 1020px){
           .icare-types-grid{ grid-template-columns: repeat(2, 1fr) !important; }
-          /* Tablet: 2 columns => last row = last 2 items */
-          .icare-types-item:nth-last-child(-n+4){ border-bottom: 1px solid rgba(15,23,42,0.10); }
-          .icare-types-item:nth-last-child(-n+2){ border-bottom: none; }
         }
 
         @media (max-width: 640px){
           .icare-types-grid{ grid-template-columns: 1fr !important; }
-          /* Mobile: last item only */
-          .icare-types-item:nth-last-child(-n+2){ border-bottom: 1px solid rgba(15,23,42,0.10); }
-          .icare-types-item:last-child{ border-bottom: none; }
         }
       `}</style>
         </section>
