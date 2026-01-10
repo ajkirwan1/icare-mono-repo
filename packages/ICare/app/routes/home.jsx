@@ -1,6 +1,5 @@
 import heroImage from "/images/heros/icare-hero-new.jpg";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
-
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
 import TrustValuesSection from "../components/website/pages/home/sections/trust-values-section";

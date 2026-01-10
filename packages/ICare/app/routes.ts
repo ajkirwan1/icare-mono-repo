@@ -10,6 +10,8 @@ export default [
   route("carerecipient", "routes/carerecipient.jsx"),
   route("register", "routes/register.jsx"),
   route("register-interest", "routes/website/register-interest.jsx"),
+  route("terms-of-service", "routes/website/terms-of-service.jsx"),
+  route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
   route("login", "routes/login.jsx"),
 
 

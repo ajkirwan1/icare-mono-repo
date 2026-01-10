@@ -2,61 +2,64 @@
 @use "@styles/abstracts/motifs" as motifs;
 
 .hero {
-    @include motifs.hero;
+  @include motifs.hero;
 }
 
 .section {
-    width: 100vw;
-    padding: 2rem 8rem 2rem 8rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+  width: 100vw;
+  padding: 2rem 8rem 2rem 8rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .title {
-    @include motifs.title;
-    letter-spacing: normal;
-    font-weight: 300;
+  @include motifs.title;
+  letter-spacing: normal;
+  font-weight: 300;
 }
 
 .image {
-    @include motifs.hero-image;
+  @include motifs.hero-image;
 }
 
 .overlay {
-    @include motifs.hero-overlay;
+  @include motifs.hero-overlay;
 }
 
 .content {
-    @include motifs.hero-content;
+  @include motifs.hero-content;
 }
 
 .heading {
-    font-size: 3rem; // no token
-    margin: 0;
-    font-weight: $fw-extrabold;
-    line-height: 1.05; // no token
-    color: $on-dark;
+  font-size: 3rem; // no token
+  margin: 0;
+  font-weight: $fw-extrabold;
+  line-height: 1.05; // no token
+  color: $on-dark;
 }
 
 .copy {
-    margin-top: $space-26; // 1.6rem
-    max-width: $maxw-copy-lg; // 60ch
-    line-height: $lh-body; // 1.6
-    color: rgba($on-dark, 0.92); // uses on-color token
+  margin-top: $space-26; // 1.6rem
+  max-width: $maxw-copy-lg; // 60ch
+  line-height: $lh-body; // 1.6
+  color: #fff;
 }
 
 /* individual copy lines */
 .copyPrimary {
-    font-size: 1.6rem; // no token
-    font-weight: $fw-bold;
-    margin-bottom: $fs-1; // 1rem
+  font-size: 1.6rem; // no token
+  font-weight: $fw-bold;
+  margin-bottom: $fs-1; // 1rem
+  color: #fff;
 }
 
 .copySecondary {
-    font-size: $fs-md; // 1.2rem
-    margin-bottom: 0.5rem; // no token
+  font-size: $fs-md; // 1.2rem
+  margin-bottom: 0.5rem; // no token
+  color: #fff;
 }
 
 .copySecondaryLast {
-    font-size: $fs-md; // 1.2rem
+  font-size: $fs-md; // 1.2rem
+  color: #fff;
 }
