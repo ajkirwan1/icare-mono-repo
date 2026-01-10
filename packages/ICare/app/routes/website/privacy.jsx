@@ -2,6 +2,7 @@ import React from "react";
 import privacySrc from "/images/heros/privacy.jpg";
 import PrivacyHero from "../../components/website/pages/privacy/privacy-hero";
 import PrivacyContent from "../../components/website/pages/privacy/privacy-content";
+import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
 import styles from "./privacy-page.module.scss";
 
 export default function PrivacyPage() {
@@ -43,6 +44,7 @@ export default function PrivacyPage() {
       />
 
       <PrivacyContent company={COMPANY} styles={styles} />
+      <ReceiversFooter />
     </>
   );
 }

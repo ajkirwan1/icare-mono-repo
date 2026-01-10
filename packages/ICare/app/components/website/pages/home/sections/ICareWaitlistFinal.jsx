@@ -2,14 +2,15 @@ import React, { useState } from "react";
 
 /**
  * ICare — Waitlist Final (conversion section)
- * ✅ id="waitlist" for anchors
- * ✅ calm + airy, not full width
- * ✅ a few basic questions (without being heavy)
- * ✅ button #b97a57, radius 20, shorter, centered
+ * ✅ H1: 10% smaller
+ * ✅ H2: #778d43, underline, +30% bigger
+ * ✅ Lead: 10% smaller
+ * ✅ Button identical to “How ICare works” CTA button
  */
 export default function ICareWaitlistFinal() {
     const TEXT = "#0F172A";
-    const BRAND = "#b97a57";
+    const BRAND_CTA = "rgb(231 153 97)";
+    const OLIVE = "#778d43";
 
     const [status, setStatus] = useState("idle"); // idle | ok
 
@@ -17,7 +18,7 @@ export default function ICareWaitlistFinal() {
         width: "100%",
         background: "#ffffff",
         color: TEXT,
-        padding: "clamp(3.6rem, 5.2vw, 4.8rem) 0",
+        padding: "clamp(3.8rem, 5.6vw, 5.2rem) 0",
         fontFamily:
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
@@ -26,42 +27,66 @@ export default function ICareWaitlistFinal() {
         width: "min(92vw, 1100px)",
         margin: "0 auto",
         display: "grid",
-        justifyItems: "center",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "clamp(18px, 3vw, 40px)",
+        alignItems: "stretch",
     };
 
     const card = {
-        width: "min(680px, 92vw)",
+        height: "100%",
         borderRadius: 24,
         background: "rgba(255,255,255,0.92)",
         border: "1px solid rgba(15,23,42,0.10)",
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
         padding: "clamp(18px, 2.4vw, 26px)",
+        display: "flex",
+        flexDirection: "column",
     };
 
-    const topMini = {
-        fontSize: "1.08rem",
-        fontWeight: 850,
-        color: BRAND,
-        letterSpacing: "-0.1px",
-        marginBottom: 10,
+    const imageWrap = {
+        height: "100%",
+        borderRadius: 24,
+        overflow: "hidden",
+        border: "1px solid rgba(15,23,42,0.10)",
+        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
+        background: "rgba(15,23,42,0.03)",
+    };
+
+    const image = {
+        width: "100%",
+        height: "100%",
+        display: "block",
+        objectFit: "cover",
+    };
+
+    // ✅ H1 10% smaller (previous clamp: 1.58–1.82)
+    const h1 = {
+        margin: 0,
+        fontWeight: 500,
+        letterSpacing: "-0.5px",
+        lineHeight: 1.18,
+        fontSize: "clamp(1.42rem, 1.89vw, 1.64rem)", // ~10% down
+        color: TEXT,
     };
 
     const h2 = {
-        margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.55px",
-        lineHeight: 1.1,
-        fontSize: "clamp(1.6rem, 2.2vw, 2rem)",
-        color: TEXT,
+        margin: "10px 0 0",
+        fontWeight: 600,
+        letterSpacing: "-0.15px",
+        lineHeight: 1.28,
+        fontSize: "1.38rem",
+        color: OLIVE,
+        textDecoration: "underline",
+        textDecorationThickness: "2px",
+        textUnderlineOffset: "6px",
     };
 
     const lead = {
-        margin: "0.95rem 0 0",
+        margin: "10px 0 0",
         color: TEXT,
-        opacity: 0.78,
-        fontWeight: 650,
-        lineHeight: 1.75,
-        fontSize: "1.04rem",
+        fontWeight: 600,
+        lineHeight: 1.65,
+        fontSize: "1.01rem",
         maxWidth: "72ch",
     };
 
@@ -98,23 +123,24 @@ export default function ICareWaitlistFinal() {
     };
 
     const btnWrap = {
-        marginTop: 18, // ✅ more air before note
         display: "grid",
         justifyItems: "center",
         gap: 14,
+        marginTop: "auto",
+        paddingTop: 16,
     };
 
     const btn = {
-        width: "min(320px, 86vw)", // ✅ shorter + centered
-        padding: "12px 18px",
-        borderRadius: 20, // ✅ radius 20
         border: "none",
-        background: BRAND,
+        borderRadius: 36,
+        background: BRAND_CTA,
         color: "#fff",
-        fontWeight: 900,
-        fontSize: "1rem",
+        fontWeight: 700,
+        fontSize: "1.2rem",
+        padding: "18px 16px",
         cursor: "pointer",
-        transition: "filter .14s ease",
+        width: "min(260px, 88vw)",
+        transition: "filter .14s ease, background .14s ease",
     };
 
     const note = {
@@ -129,12 +155,16 @@ export default function ICareWaitlistFinal() {
     };
 
     const microCSS = `
+    @media (max-width: 980px){
+      .icare-wl-layout{ grid-template-columns: 1fr !important; }
+      .icare-wl-image{ aspect-ratio: 4 / 3; }
+    }
     @media (max-width: 620px){
       .icare-wl-grid2{ grid-template-columns: 1fr !important; }
     }
     .icare-wl-input:focus{
-      border-color: rgba(185,122,87,0.55) !important;
-      box-shadow: 0 0 0 4px rgba(185,122,87,0.14) !important;
+      border-color: rgba(231,153,97,0.55) !important;
+      box-shadow: 0 0 0 4px rgba(231,153,97,0.16) !important;
     }
   `;
 
@@ -144,27 +174,33 @@ export default function ICareWaitlistFinal() {
     const onSubmit = (e) => {
         e.preventDefault();
         setStatus("ok");
-        // TODO: replace with API call (Mailchimp / ConvertKit / your backend)
     };
 
     return (
         <section id="waitlist" aria-label="Join the ICare waiting list" style={wrap}>
             <style>{microCSS}</style>
 
-            <div style={container}>
+            <div className="icare-wl-layout" style={container}>
+                {/* LEFT */}
                 <div style={card}>
-                    <div style={topMini}>Launching soon — early access</div>
+                    <h1 style={h1}>Be first to know when ICare <br />opens near you</h1>
                     <h2 style={h2}>Get early access in your area</h2>
                     <p style={lead}>
-                        Leave a few details and we’ll notify you when ICare opens near you. Your answers help us prioritise
-                        caregiver supply in the right towns first.
+                        Leave a few details and we’ll notify you when ICare opens near you. Your answers help us
+                        prioritise caregiver supply in the right towns first.
                     </p>
 
                     <form onSubmit={onSubmit} style={form}>
                         <div className="icare-wl-grid2" style={grid2}>
                             <div>
                                 <label style={label}>Email</label>
-                                <input className="icare-wl-input" type="email" required placeholder="you@email.com" style={field} />
+                                <input
+                                    className="icare-wl-input"
+                                    type="email"
+                                    required
+                                    placeholder="you@email.com"
+                                    style={field}
+                                />
                             </div>
                             <div>
                                 <label style={label}>Postcode</label>
@@ -205,7 +241,7 @@ export default function ICareWaitlistFinal() {
 
                         <div style={btnWrap}>
                             <button type="submit" style={btn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-                                {status === "ok" ? "You're on the list ✓" : "Join the waiting list"}
+                                {status === "ok" ? "You are now on the list ✓" : "Join the waiting list"}
                             </button>
 
                             <p style={note}>
@@ -213,6 +249,15 @@ export default function ICareWaitlistFinal() {
                             </p>
                         </div>
                     </form>
+                </div>
+
+                {/* RIGHT */}
+                <div style={imageWrap}>
+                    <img
+                        src="/images/web/icare-for-carereceivers/browse2.png"
+                        alt="Browse caregivers"
+                        style={image}
+                    />
                 </div>
             </div>
         </section>

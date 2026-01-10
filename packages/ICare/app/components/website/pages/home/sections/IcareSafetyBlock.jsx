@@ -1,34 +1,46 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIdCard, faUserCheck, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
+import {
+    faIdBadge,
+    faUserCheck,
+    faShieldHalved, // ✅ zamiast faShieldCheck
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SafetyComesFirstThreeBoxes() {
     const COLORS = {
-        sectionBg: "#f7e7d9",
-        boxBg: "#0f172a12", // ✅ updated
+        sectionBgTop: "rgba(167,182,129,0.20)",
+        sectionBgBottom: "rgba(255,249,239,0.90)",
+        boxBg: "#ffffff",
         border: "rgba(15,23,42,0.10)",
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
-        accent: "#b97a57",
         olive: "#61674d",
-        oliveBg: "rgba(97,103,77,0.10)",
     };
 
     const boxes = [
         {
-            icon: faIdCard,
+            icon: faIdBadge,
             title: "Identity & eligibility",
             desc: "Photo ID and Right to Work required",
+            image:
+                "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&h=900&q=75",
+            alt: "Identity verification documents",
         },
         {
             icon: faUserCheck,
             title: "Relevant experience",
             desc: "Carers with references and appropriate experience",
+            image:
+                "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=1200&h=900&q=75",
+            alt: "Caregiver helping at home",
         },
         {
-            icon: faShieldHalved,
+            icon: faShieldHalved, // ✅ fixed
             title: "Checks where applicable",
             desc: "DBS and insurance shown when available (depends on location and documents).",
+            image:
+                "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&h=900&q=75",
+            alt: "Safety checks and protection",
         },
     ];
 
@@ -39,7 +51,25 @@ export default function SafetyComesFirstThreeBoxes() {
             "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(4.3rem, 6.0vw, 5.6rem) 0",
-        background: COLORS.sectionBg,
+        background: `linear-gradient(180deg, ${COLORS.sectionBgTop} 0%, ${COLORS.sectionBgBottom} 100%)`,
+    };
+
+    const dividerTop = {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 1,
+        background: "rgba(15,23,42,0.10)",
+    };
+
+    const dividerBottom = {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 1,
+        background: "rgba(15,23,42,0.10)",
     };
 
     const container = {
@@ -58,29 +88,29 @@ export default function SafetyComesFirstThreeBoxes() {
 
     const h1 = {
         margin: 0,
-        fontWeight: 950,
-        letterSpacing: "-0.55px",
-        lineHeight: 1.12,
-        fontSize: "clamp(2.4rem, 2.8vw, 2.8rem)",
+        fontWeight: 500,
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
         color: COLORS.text,
     };
 
     const h2 = {
         margin: 0,
-        marginTop: "10px",
-        fontWeight: 900,
+        marginTop: "8px",
+        fontWeight: 800,
         letterSpacing: "-0.35px",
         lineHeight: 1.25,
-        fontSize: "clamp(1.35rem, 1.8vw, 1.4rem)",
+        fontSize: "clamp(1.25rem, 1.8vw, 1.45rem)",
         color: COLORS.text,
     };
 
     const leadStyle = {
-        margin: "0.25rem 0 0",
-        color: COLORS.text,
-        fontSize: "1.1rem",
+        margin: "0.35rem 0 0",
+        color: "rgba(15,23,42,1)",
+        fontSize: "1.22rem",
         lineHeight: 1.65,
-        fontWeight: 650,
+        fontWeight: 600,
         maxWidth: "78ch",
     };
 
@@ -92,14 +122,14 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const cardBase = {
-        background: COLORS.boxBg, // ✅ updated
+        background: COLORS.boxBg,
         border: `1px solid ${COLORS.border}`,
-        borderRadius: 18,
-        padding: "clamp(16px, 2.1vw, 20px)",
+        borderRadius: 20,
+        padding: "clamp(16px, 2.1vw, 22px)",
         boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
         display: "grid",
         gap: 10,
-        minHeight: 192,
+        minHeight: 280,
     };
 
     const topRow = {
@@ -108,39 +138,60 @@ export default function SafetyComesFirstThreeBoxes() {
         gap: 12,
     };
 
+    // ✅ icons: no background, no border
     const iconWrap = {
-        width: 44,
-        height: 44,
-        borderRadius: 16,
+        width: 30,
+        height: 30,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         color: COLORS.olive,
-        background: COLORS.oliveBg,
-        border: "1px solid rgba(97,103,77,0.18)",
         flex: "0 0 auto",
-        fontSize: "1.05rem",
     };
 
-    // ✅ +10% vs previous 1.15rem
+    const icon = {
+        fontSize: "18px",
+        lineHeight: 1,
+    };
+
     const title = {
         margin: 0,
         fontWeight: 900,
-        fontSize: "1.265rem",
+        fontSize: "1.25rem",
         color: COLORS.text,
         lineHeight: 1.2,
+        letterSpacing: "-0.15px",
     };
 
     const desc = {
         margin: 0,
-        color: COLORS.text,
-        fontWeight: 650,
+        color: "rgba(15,23,42,0.86)",
+        fontWeight: 600,
         lineHeight: 1.55,
-        fontSize: "1.0rem",
+        fontSize: "1.02rem",
+    };
+
+    // ✅ taller ratio so image isn't a wide banner
+    const thumbWrap = {
+        marginTop: 10,
+        borderRadius: 16,
+        overflow: "hidden",
+        background: "rgba(15,23,42,0.03)",
+        aspectRatio: "4 / 3",
+    };
+
+    const thumb = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
     };
 
     return (
         <section aria-label="Safety comes first" style={wrap}>
+            <div style={dividerTop} />
+            <div style={dividerBottom} />
+
             <div style={container}>
                 <div style={header}>
                     <h1 style={h1}>Safety comes first</h1>
@@ -157,12 +208,22 @@ export default function SafetyComesFirstThreeBoxes() {
                         <div key={b.title} style={cardBase}>
                             <div style={topRow}>
                                 <span style={iconWrap} aria-hidden="true">
-                                    <FontAwesomeIcon icon={b.icon} />
+                                    <FontAwesomeIcon style={icon} icon={b.icon} />
                                 </span>
                                 <h3 style={title}>{b.title}</h3>
                             </div>
 
                             <p style={desc}>{b.desc}</p>
+
+                            <div style={thumbWrap}>
+                                <img
+                                    src={b.image}
+                                    alt={b.alt}
+                                    style={thumb}
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer"
+                                />
+                            </div>
                         </div>
                     ))}
                 </div>

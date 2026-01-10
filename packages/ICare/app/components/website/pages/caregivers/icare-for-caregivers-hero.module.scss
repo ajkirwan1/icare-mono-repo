@@ -42,7 +42,7 @@
   margin-top: $space-26; // 1.6rem
   max-width: $maxw-copy-lg; // 60ch
   line-height: $lh-body; // 1.6
-  color: rgba($on-dark, 0.92); // uses on-color token
+  color: #fff;
 }
 
 /* individual copy lines */
@@ -50,13 +50,16 @@
   font-size: 1.6rem; // no token
   font-weight: $fw-bold;
   margin-bottom: $fs-1; // 1rem
+  color: #fff;
 }
 
 .copySecondary {
   font-size: $fs-md; // 1.2rem
   margin-bottom: 0.5rem; // no token
+  color: #fff;
 }
 
 .copySecondaryLast {
   font-size: $fs-md; // 1.2rem
+  color: #fff;
 }
