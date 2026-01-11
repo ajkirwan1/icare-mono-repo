@@ -1,5 +1,5 @@
 import styles from "./who-we-are.module.scss";
-import { Footer } from "../../components/layout/footer";
+// import { Footer } from "../../components/layout/footer";
 import { OurFoundationSection } from "../../components/website/pages/who-we-are/sections/our-foundation-section";
 import { OurValuesSection } from "../../components/website/pages/who-we-are/sections/our-values-section";
 import { HowWeWorkSection } from "../../components/website/pages/who-we-are/sections/how-we-work-section";
@@ -7,6 +7,8 @@ import { OurImpactSection } from "../../components/website/pages/who-we-are/sect
 import { CtaSection } from "../../components/website/pages/who-we-are/sections/cta-section";
 import { WhoWeAreHero } from "../../components/website/pages/who-we-are/sections/who-we-are-hero";
 import { buildSeo } from "../../utils/seo/seo";
+import ICareFooter from "../../components/website/pages/shared/footers/ICareFooter";
+
 
 export function meta() {
   const seo = buildSeo({
@@ -49,8 +51,8 @@ export default function WhoWeAre() {
       <OurValuesSection />
       <HowWeWorkSection />
       <OurImpactSection />
-      <CtaSection />
-      <Footer />
+      {/* <CtaSection /> */}
+      <ICareFooter />
     </div>
   );
 }
