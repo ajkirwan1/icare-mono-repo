@@ -242,7 +242,7 @@ export default function ICareCostEstimator({
         background: "#ffffff",
         border: "1px solid rgba(15,23,42,0.10)",
         color: TEXT,
-        fontWeight: 650,
+        fontWeight: 500,
         lineHeight: 1.7,
         fontSize: ".98rem",
     };
@@ -381,7 +381,7 @@ export default function ICareCostEstimator({
                         </a>
 
                         <div style={{ marginTop: 10, ...small }}>
-                            This is a gentle estimate — needs, cities and experience can change rates.
+                            This is an estimate — needs, cities and experience can change rates.
                         </div>
 
                         <div style={{ marginTop: "auto" }} />
@@ -397,7 +397,7 @@ export default function ICareCostEstimator({
                     <strong>~£13/hour</strong>. The UK National Living Wage from{" "}
                     <strong>1 April 2026</strong> is <strong>£12.71/hour</strong> (21+). Some market guides also describe live-in as{" "}
                     <strong>~£120/day or ~£800/week</strong> (example platform guidance).
-                    <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 12 }}>
+                    <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 12, }}>
                         <a
                             href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
                             target="_blank"
@@ -414,14 +414,7 @@ export default function ICareCostEstimator({
                         >
                             GOV.UK (2026 rates)
                         </a>
-                        <a
-                            href="https://www.curamcare.com/blogs/a-guide-to-the-cost-of-care-in-the-uk"
-                            target="_blank"
-                            rel="noreferrer"
-                            style={sourceLink}
-                        >
-                            Curam (live-in day/week)
-                        </a>
+
                     </div>
                 </div>
             </div>
