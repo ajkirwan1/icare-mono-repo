@@ -6,6 +6,7 @@ import CaregiverFAQ from "../../components/website/pages/caregivers/CaregiverFAQ
 import ICareFooter from "../../components/website/pages/shared/footers/ICareFooter";
 // import AboutICareSection from "../../components/website/pages/home/sections/about-icare-section";
 import AboutICareForCaregiversSection from "../../components/website/pages/caregivers/about-icare-for-caregivers-section";
+import CaregiversPageCTA from "../../components/website/pages/caregivers/CaregiversPageCTA";
 
 export default function ICareForCaregivers() {
 
@@ -13,11 +14,10 @@ export default function ICareForCaregivers() {
     <>
       <ICareForCaregiversHero />
       <AboutICareForCaregiversSection />
-      {/* <AboutICareSection /> */}
       <CaregiverSteps />
+      <CaregiversPageCTA />
       <WhoCanJoin />
       <CaregiverFAQ />
-      {/* <ContactCTA /> */}
       <ICareFooter />
     </>
   );

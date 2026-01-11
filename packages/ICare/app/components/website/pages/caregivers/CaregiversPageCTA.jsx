@@ -9,7 +9,7 @@ import { faHouseUser, faHandHoldingMedical } from "@fortawesome/free-solid-svg-i
  * ✅ full width background, centered content
  * ✅ works for both sides of marketplace
  */
-export default function ICareTwoPathsSection({
+export default function CaregiversPageCTA({
   familyCtaHref = "#waitlist",
   caregiverCtaHref = "/icare-for-caregivers"
 }) {
@@ -31,12 +31,11 @@ export default function ICareTwoPathsSection({
     position: "relative",
     width: "100%",
     fontFamily:
-      "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+      "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     color: COLORS.text,
     padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
     backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
-    backgroundSize: "cover",
-    paddingTop: "calc(var(--navbar-height) + 5vh)"
+    backgroundSize: "cover"
   };
 
   const overlay = {

@@ -99,7 +99,7 @@ $shadow-text-hero: 0 2px 16px rgba(0, 0, 0, 0.35);
 
 /* font weights */
 $fw-normal: 400;
-$fw-semibold: 600;
+$fw-semibold: 500;
 $fw-bold: 700;
 $fw-extrabold: 800;
 $fw-heavy: 850;
@@ -249,6 +249,8 @@ $transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
 /* reveal motion */
 $transition-reveal-height: max-height 2s cubic-bezier(0.18, 0.95, 0.18, 1);
 $transition-reveal-content: transform 1350ms cubic-bezier(0.18, 0.95, 0.18, 1),
-    opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
+  opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
 
 $reveal-delay-open: 260ms;
+
+$nav-bar-height: 12vh;
