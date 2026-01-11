@@ -79,7 +79,7 @@ export default function ICareCostEstimator({
         padding: "clamp(4.2rem, 5.6vw, 5.4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
-        fontFamily: "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        fontFamily: "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         backgroundImage:
             "linear-gradient(160deg, rgba(0,0,0,0.50), rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.50)), url('/images/banners/banner-image-1.jpg')",
         backgroundSize: "cover",
@@ -237,7 +237,7 @@ export default function ICareCostEstimator({
     // ✅ solid (no see-through, no blur) + clearer, legit note
     const avgPayBox = {
         marginTop: 12,
-        padding: "14px 16px",
+        padding: "20px 24px", // ✅ było 18px 18px → trochę więcej po bokach
         borderRadius: 18,
         background: "#ffffff",
         border: "1px solid rgba(15,23,42,0.10)",
@@ -270,10 +270,14 @@ export default function ICareCostEstimator({
             <div style={container}>
                 {/* HEADER */}
                 <div style={header}>
-                    <h1 style={h1}>A simple estimate to support <br />your care decisions</h1>
+                    <h1 style={h1}>
+                        A simple estimate to support <br />
+                        your care decisions
+                    </h1>
                     <h2 style={h2Mini}>Budget clarity — in under a minute</h2>
                     <p style={lead}>
-                        Caring is emotional — money shouldn’t add extra stress. <br />Adjust rate and hours/week for a monthly estimate.
+                        Caring is emotional — money shouldn’t add extra stress. <br />
+                        Adjust rate and hours/week for a monthly estimate.
                     </p>
                 </div>
 
@@ -395,9 +399,9 @@ export default function ICareCostEstimator({
                     expectations around “active” hours. As a rough benchmark, Glassdoor estimates about{" "}
                     <strong>~£11/hour average</strong> for “Live-in Carer” (UK) and shows higher reports around{" "}
                     <strong>~£13/hour</strong>. The UK National Living Wage from{" "}
-                    <strong>1 April 2026</strong> is <strong>£12.71/hour</strong> (21+). Some market guides also describe live-in as{" "}
+                    <strong>1 April 2026</strong> is <strong>£12.71/hour</strong> (21+).<br /> Some market guides also describe live-in as{" "}
                     <strong>~£120/day or ~£800/week</strong> (example platform guidance).
-                    <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 12, }}>
+                    <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 12 }}>
                         <a
                             href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
                             target="_blank"
@@ -414,7 +418,6 @@ export default function ICareCostEstimator({
                         >
                             GOV.UK (2026 rates)
                         </a>
-
                     </div>
                 </div>
             </div>

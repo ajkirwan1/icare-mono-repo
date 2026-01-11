@@ -30,7 +30,7 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
         padding: "clamp(4.8rem, 6.6vw, 6.2rem) 0",
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {

@@ -38,8 +38,24 @@ export default function ReceiversFooter() {
                 <div className={styles.topGrid}>
                     {/* BRAND + CONTACT */}
                     <div className={styles.col}>
-                        <Link to="/" aria-label="ICare home" className={styles.brandLink}>
+                        <Link to="/" aria-label="ICare home" className={styles.brandLink}
+                            style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-start",
+                                gap: 16,
+                                textDecoration: "none",
+                                paddingBottom: "10px"
+                            }}
+                        >
                             <img src={LOGO_SRC} alt="ICare" className={styles.logo} style={logoStyle} />
+                            <span
+                                style={{
+                                    fontSize: "16px",
+                                    color: "black"
+                                }}
+                                className="slogan">Care made human</span>
+
                         </Link>
 
                         <p className={styles.tagline} style={{ color: "rgb(15, 23, 42)" }}>

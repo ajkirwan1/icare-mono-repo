@@ -14,10 +14,7 @@ export default function ContactCTABanner() {
 
                 background: "#ffffff", // ✅ changed to #ffff (white)
                 borderTop: "1px solid rgba(0,0,0,0.04)",
-                padding: "clamp(2.8rem,4.2vw,3.6rem) 0", // ✅ smaller section
-
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                padding: "clamp(2.8rem,4.2vw,3.6rem) 0" // ✅ smaller section
             }}
         >
             <div
