@@ -157,15 +157,6 @@ export default function ICareTwoPathsSection({
     lineHeight: 1.6,
     fontSize: "1.1rem"
   };
-  const li = {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: 10,
-    color: COLORS.textBlack,
-    fontWeight: 500,
-    lineHeight: 1.6,
-    fontSize: "1.1rem"
-  };
 
   const dot = {
     width: 10,

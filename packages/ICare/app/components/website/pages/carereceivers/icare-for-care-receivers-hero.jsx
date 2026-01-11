@@ -23,11 +23,11 @@ export default function ICareForCareReceiversHero() {
           </p>
         </div>
       </section>
-      <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
+      {/* <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
         <h2 className={styles.title}>
           ICare provides a unified platform to find your next care-giving role, and arrange and manage your contracts.
         </h2>
-      </div>
+      </div> */}
     </>
   );
 }
