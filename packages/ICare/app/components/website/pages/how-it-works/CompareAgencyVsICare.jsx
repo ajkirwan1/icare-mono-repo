@@ -2,9 +2,55 @@ import React from "react";
 
 export default function CompareAgencyVsICare() {
     const BRAND = "#1FAB1F";
+    const TEXT = "#0F172A";
+
+    // Home-page typography (same feel)
+    const H1 = {
+        margin: 0,
+        fontWeight: 500,
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
+        color: TEXT,
+    };
+
+    const H2 = {
+        margin: "10px 0 0",
+        fontWeight: 600,
+        letterSpacing: "-0.2px",
+        lineHeight: 1.25,
+        fontSize: "1.25rem",
+        color: TEXT,
+    };
+
+    const LEAD = {
+        margin: "0.9rem 0 4rem",
+        color: TEXT,
+        maxWidth: "65ch",
+        lineHeight: 1.65,
+        fontSize: "1.22rem",
+        fontWeight: 600,
+    };
+
+    const CARD_TITLE = {
+        margin: 0,
+        fontSize: "1.25rem",
+        fontWeight: 700,
+        color: TEXT,
+        letterSpacing: "-0.15px",
+        lineHeight: 1.25,
+    };
+
+    const LI_TEXT = {
+        display: "flex",
+        gap: 12,
+        color: "#1f2a37",
+        fontSize: "1.05rem",
+        lineHeight: 1.55,
+        fontWeight: 500,
+    };
 
     return (
-
         <section
             id="compare"
             aria-label="Compare agency vs ICare"
@@ -12,10 +58,7 @@ export default function CompareAgencyVsICare() {
                 background: "#fff9ef",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding:
-                    "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)"
             }}
         >
             <div
@@ -25,31 +68,11 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                {/* Title — smaller */}
-                <h2
-                    style={{
-                        margin: 0,
-                        fontWeight: 800,
-                        color: "#0F172A",
-                        fontSize: "clamp(2.05rem,2.7vw,2.55rem)", // ✅ smaller headline, lead unchanged
-                        letterSpacing: "-0.4px",
-                        lineHeight: 1.15,
-                    }}
-                >
-                    Why families choose ICare
-                </h2>
+                {/* Home-like header typography */}
+                <h1 style={H1}>Why families choose ICare</h1>
+                <h2 style={H2}>A clearer alternative to agencies</h2>
 
-                {/* Lead — unchanged */}
-                <p
-                    style={{
-                        margin: "1.3rem 0 4rem",
-                        color: "#0f172a",
-                        maxWidth: "65ch",
-                        lineHeight: 1.68,
-                        fontSize: "1.12rem",
-                        fontWeight: 400,
-                    }}
-                >
+                <p style={LEAD}>
                     A modern, transparent alternative to traditional agencies — where families retain
                     choice, clarity, and fair pricing.
                 </p>
@@ -88,17 +111,7 @@ export default function CompareAgencyVsICare() {
                         }}
                     >
                         <div style={{ padding: "32px" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.42rem",
-                                    fontWeight: 800,
-                                    color: "#0f172a",
-                                    letterSpacing: "-0.15px",
-                                }}
-                            >
-                                Traditional Agency
-                            </h3>
+                            <h3 style={CARD_TITLE}>Traditional Agency</h3>
 
                             <ul
                                 style={{
@@ -116,16 +129,7 @@ export default function CompareAgencyVsICare() {
                                     "Extra fees for changes",
                                     "Limited transparency",
                                 ].map((item) => (
-                                    <li
-                                        key={item}
-                                        style={{
-                                            display: "flex",
-                                            gap: 12,
-                                            color: "#1f2a370",
-                                            fontSize: "1.05rem",
-                                            lineHeight: 1.55,
-                                        }}
-                                    >
+                                    <li key={item} style={LI_TEXT}>
                                         <svg
                                             width="18"
                                             height="18"
@@ -170,15 +174,12 @@ export default function CompareAgencyVsICare() {
                         <div style={{ padding: "32px" }}>
                             <h3
                                 style={{
-                                    margin: 0,
-                                    fontSize: "1.42rem",
-                                    fontWeight: 800,
-                                    color: "#1FAB1F",
-                                    letterSpacing: "-0.15px",
+                                    ...CARD_TITLE,
+                                    color: BRAND,
                                 }}
                             >
                                 <img
-                                    src="/images/logo/icare17.svg"
+                                    src="/images/logo/icareblack.svg"
                                     alt="ICare"
                                     style={{ height: 35, width: "auto", display: "block" }}
                                 />
@@ -200,16 +201,7 @@ export default function CompareAgencyVsICare() {
                                     "Direct agreements",
                                     "Better pay for caregivers",
                                 ].map((item) => (
-                                    <li
-                                        key={item}
-                                        style={{
-                                            display: "flex",
-                                            gap: 12,
-                                            color: "#1f2a37",
-                                            fontSize: "1.05rem",
-                                            lineHeight: 1.55,
-                                        }}
-                                    >
+                                    <li key={item} style={LI_TEXT}>
                                         <svg
                                             width="18"
                                             height="18"
@@ -218,11 +210,7 @@ export default function CompareAgencyVsICare() {
                                             strokeWidth="1.7"
                                             fill="none"
                                         >
-                                            <path
-                                                d="M5 13l4 4L19 7"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                            />
+                                            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         {item}
                                     </li>
@@ -231,15 +219,14 @@ export default function CompareAgencyVsICare() {
                         </div>
                     </article>
                 </div>
-            </div >
+            </div>
 
             <style>{`
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `}</style>
-        </section >
-
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+        </section>
     );
 }

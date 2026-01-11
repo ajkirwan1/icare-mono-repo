@@ -48,7 +48,7 @@ export default function SafetyComesFirstThreeBoxes() {
         position: "relative",
         width: "100%",
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(4.3rem, 6.0vw, 5.6rem) 0",
         background: `linear-gradient(180deg, ${COLORS.sectionBgTop} 0%, ${COLORS.sectionBgBottom} 100%)`,
@@ -110,7 +110,7 @@ export default function SafetyComesFirstThreeBoxes() {
         color: "rgba(15,23,42,1)",
         fontSize: "1.22rem",
         lineHeight: 1.65,
-        fontWeight: 600,
+        fontWeight: 500,
         maxWidth: "78ch",
     };
 

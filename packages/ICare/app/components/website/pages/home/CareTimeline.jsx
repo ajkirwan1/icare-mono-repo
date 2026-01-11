@@ -6,8 +6,8 @@ import { faMagnifyingGlass, faComments, faCircleCheck } from "@fortawesome/free-
  * ICare — How it works (3 steps)
  * ✅ new layout: 3 columns desktop, 2 columns tablet (last spans), 1 column mobile
  * ✅ same background + CTA button style
+ * ✅ ONLY: "Step 1/2/3" labels 20% bigger
  */
-
 export default function HowItWorksThreeSteps() {
     const COLORS = {
         bg: "#ffffff",
@@ -22,7 +22,7 @@ export default function HowItWorksThreeSteps() {
         width: "100%",
         background: "#d9d7bd", // ✅ CHANGED: new background
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.2rem, 4.6vw, 4.2rem) 0",
     };
@@ -83,7 +83,7 @@ export default function HowItWorksThreeSteps() {
     const stepPill = {
         display: "inline-flex",
         alignItems: "center",
-        fontSize: "0.98rem",
+        fontSize: "1.25rem", // ✅ was 0.98rem (+20%)
         fontWeight: 800,
         color: COLORS.accent2,
         textTransform: "uppercase",
@@ -191,7 +191,6 @@ export default function HowItWorksThreeSteps() {
                     <h2 style={title}>How ICare works</h2>
                     <p style={sub}>
                         A calmer path through a big decision with clear steps and no pressure.
-
                     </p>
                 </div>
 

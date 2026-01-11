@@ -30,10 +30,10 @@ export default function ThreeStepGuide() {
                 background: "#e8e7d7",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(3.5rem,6vw,5.2rem) 0",
+                padding: "clamp(3.8rem, 6.2vw, 5.6rem) 0",
                 scrollMarginTop: "110px",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div
@@ -43,44 +43,54 @@ export default function ThreeStepGuide() {
                     padding: "0 clamp(22px,4vw,44px)",
                 }}
             >
-                {/* HEADER */}
-                <h2
+                {/* HEADER (match HomePage: H1 + H2 + P sizing/weights) */}
+                <h1
                     style={{
                         margin: 0,
-                        fontWeight: 850,
+                        fontWeight: 500,
+                        letterSpacing: "-0.6px",
+                        lineHeight: 1.14,
+                        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
                         color: "#0F172A",
-                        fontSize: "clamp(1.9rem,2.5vw,2.35rem)",
-                        lineHeight: 1.15,
-                        letterSpacing: "-0.45px",
-                        animation: "fadeUp .8s ease both",
                     }}
                 >
                     Get started in 3 simple steps
-                </h2>
+                </h1>
 
-                {/* ✅ more space + calmer Curam-style line */}
-                <p
+                <h2
                     style={{
-                        margin: "16px 0 0", // ✅ more space from heading
-                        color: "#0f172a",
-                        fontSize: "clamp(1.04rem, 1.2vw, 1.14rem)",
-                        lineHeight: 1.65,
-                        fontWeight: 400,
-                        maxWidth: "72ch",
+                        margin: "18px 0 0",
+                        fontWeight: 600,
+                        letterSpacing: "-0.2px",
+                        lineHeight: 1.25,
+                        fontSize: "1.25rem",
+                        color: "#0F172A",
                     }}
                 >
-                    A simple way to search, speak  and agree care directly.
+                    A calmer, guided process
+                </h2>
+
+                <p
+                    style={{
+                        margin: "18px 0 0",
+                        color: "#0F172A",
+                        fontWeight: 600,
+                        lineHeight: 1.65,
+                        fontSize: "1.22rem",
+                        maxWidth: "78ch",
+                    }}
+                >
+                    A simple way to search, speak and agree care directly.
                 </p>
 
-                {/* ✅ bigger spacer before cards */}
-                <div style={{ height: "clamp(2.2rem,3.6vw,3rem)" }} />
+                <div style={{ height: "clamp(2.6rem, 4.2vw, 3.4rem)" }} />
 
                 {/* STEPS GRID */}
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
-                        gap: "clamp(20px,3.2vw,34px)",
+                        gap: "clamp(22px, 3.4vw, 36px)",
                     }}
                 >
                     {steps.map((step) => (
@@ -93,6 +103,8 @@ export default function ThreeStepGuide() {
                                 background: "#fff",
                                 border: "1px solid rgba(0,0,0,0.08)",
                                 transition: "background-color .2s ease, border-color .2s ease",
+                                transform: "scale(1.05)", // ✅ boxy 5% większe
+                                transformOrigin: "center",
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "rgba(255,255,255,0.92)";
@@ -128,10 +140,11 @@ export default function ThreeStepGuide() {
                                 <h3
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.18rem",
-                                        color: "#0F172A",
-                                        fontWeight: 850,
-                                        letterSpacing: "-0.2px",
+                                        fontWeight: 700,
+                                        fontSize: "1.25rem",
+                                        letterSpacing: "-0.15px",
+                                        lineHeight: 1.25,
+                                        color: "rgb(15, 23, 42)",
                                     }}
                                 >
                                     {step.title}
@@ -139,11 +152,15 @@ export default function ThreeStepGuide() {
 
                                 <p
                                     style={{
+                                        display: "flex",
+                                        alignItems: "flex-start",
+                                        gap: 10,
+                                        color: "rgb(0, 0, 0)",
+                                        fontWeight: 500,
+                                        lineHeight: 1.6,
+                                        fontSize: "1.05rem", // ✅ było 1rem
                                         marginTop: 10,
                                         marginBottom: 0,
-                                        color: "#0f172a",
-                                        fontSize: "0.98rem",
-                                        lineHeight: 1.65,
                                     }}
                                 >
                                     {step.desc}
@@ -153,8 +170,10 @@ export default function ThreeStepGuide() {
                     ))}
                 </div>
 
-                {/* CTA BUTTON */}
-                <div style={{ marginTop: "clamp(34px,4vw,48px)" }}>
+                <div style={{ height: "clamp(2.0rem, 3.2vw, 2.8rem)" }} />
+
+                {/* CTA BUTTON (orange) */}
+                <div>
                     <a
                         href="/register"
                         style={{
@@ -163,7 +182,7 @@ export default function ThreeStepGuide() {
                             gap: 12,
                             textDecoration: "none",
                             color: "#fff",
-                            background: "#b97a57",
+                            background: "rgb(231 153 97)",
                             padding: "0.95rem 1.8rem",
                             borderRadius: 999,
                             fontWeight: 850,
@@ -185,15 +204,6 @@ export default function ThreeStepGuide() {
                     </a>
                 </div>
             </div>
-
-            <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(14px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
         </section>
-
     );
 }
-

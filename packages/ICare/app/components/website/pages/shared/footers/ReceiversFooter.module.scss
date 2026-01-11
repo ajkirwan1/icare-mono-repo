@@ -9,7 +9,7 @@
     border-top: 1px solid var(--border);
     color: var(--text);
 
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: Nunito, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .inner {
@@ -130,6 +130,7 @@
 .links {
     display: grid;
     gap: 10px;
+    margin-left: -10px;
 }
 
 .navLink {

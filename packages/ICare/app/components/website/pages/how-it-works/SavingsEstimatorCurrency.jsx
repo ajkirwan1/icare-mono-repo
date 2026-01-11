@@ -109,8 +109,6 @@ export default function SavingsEstimatorCurrency() {
                     maxWidth: 1180,
                     margin: "0 auto",
                     padding: "0 clamp(18px, 3.2vw, 34px)",
-                    fontFamily:
-                        "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                     display: "grid",
                     gridTemplateColumns: "1fr 1.15fr",
                     gap: "clamp(28px, 4vw, 54px)",

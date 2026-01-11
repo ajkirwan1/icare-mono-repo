@@ -29,7 +29,7 @@ export default function AboutICareSection() {
                 />
                 <div>
                     <h2 className={styles.title}>
-                        The ICare idea explained
+                        ICare idea explained
                     </h2>
 
                     <p className={styles.subtitle}>

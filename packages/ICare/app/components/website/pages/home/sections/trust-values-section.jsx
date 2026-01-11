@@ -15,21 +15,21 @@ export default function TrustValuesSection() {
             k: "Trust",
             descShort: "Clear profiles, clear agreements.",
             descFull:
-                "See who you’re speaking with, what support is offered, and what it costs — without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
+                "See who you’re speaking with, what support is offered, and what it costs - without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
             img: "/images/web/homepage/trust.jpg",
         },
         {
             k: "Care",
             descShort: "Human support, not bureaucracy.",
             descFull:
-                "Care is a relationship. We prioritise dignity, consistency and real presence — from companionship visits to live-in continuity, matched to your needs.",
+                "Care is a relationship. We prioritise dignity, consistency and real presence  - from companionship visits to live-in continuity, matched to your needs.",
             img: "/images/web/homepage/care.jpg",
         },
         {
             k: "Community",
             descShort: "Support that scales locally.",
             descFull:
-                "Families and caregivers benefit from shared clarity and better matching over time. Early access helps us prioritise the right towns first — starting with your area.",
+                "Families and caregivers benefit from shared clarity and better matching over time. Early access helps us prioritise the right towns first - starting with your area.",
             img: "/images/web/homepage/community.jpg",
         },
     ];

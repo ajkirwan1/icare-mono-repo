@@ -30,7 +30,7 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
         padding: "clamp(4.8rem, 6.6vw, 6.2rem) 0",
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {
@@ -190,8 +190,9 @@ export default function ICareTypesOfCareSEO() {
                     <h1 style={h1}>Care services we support</h1>
                     <h2 style={h2}>Care matched to real life</h2>
                     <p style={lead}>
-                        Families use ICare to find reliable carers for home care, including
-                        hourly and live-in care with flexible support that fits the person
+                        Families use ICare to find reliable carers for{" "}
+                        <strong>home care</strong>, including <strong>hourly</strong> and{" "}
+                        <strong>live in care</strong> with <strong>flexible support</strong>  that fits the person
                         and the routine.
                     </p>
                 </div>

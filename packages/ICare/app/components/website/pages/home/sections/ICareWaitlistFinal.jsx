@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 /**
  * ICare — Waitlist Final (conversion section)
- * ✅ H1: 10% smaller
+ * ✅ H1: 10% bigger
  * ✅ H2: #778d43, underline, +30% bigger
  * ✅ Lead: 10% smaller
  * ✅ Button identical to “How ICare works” CTA button
+ * ✅ Button 15% smaller
  */
 export default function ICareWaitlistFinal() {
     const TEXT = "#0F172A";
@@ -20,7 +21,7 @@ export default function ICareWaitlistFinal() {
         color: TEXT,
         padding: "clamp(3.8rem, 5.6vw, 5.2rem) 0",
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {
@@ -59,18 +60,18 @@ export default function ICareWaitlistFinal() {
         objectFit: "cover",
     };
 
-    // ✅ H1 10% smaller (previous clamp: 1.58–1.82)
+    // ✅ H1 10% bigger (was clamp(1.42–1.64))
     const h1 = {
         margin: 0,
         fontWeight: 500,
         letterSpacing: "-0.5px",
         lineHeight: 1.18,
-        fontSize: "clamp(1.42rem, 1.89vw, 1.64rem)", // ~10% down
+        fontSize: "clamp(1.56rem, 2.08vw, 1.80rem)", // ✅ +10%
         color: TEXT,
     };
 
     const h2 = {
-        margin: "10px 0 0",
+        margin: "22px 0 0",
         fontWeight: 600,
         letterSpacing: "-0.15px",
         lineHeight: 1.28,
@@ -82,9 +83,9 @@ export default function ICareWaitlistFinal() {
     };
 
     const lead = {
-        margin: "10px 0 0",
+        margin: "18px 0 0",
         color: TEXT,
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.65,
         fontSize: "1.01rem",
         maxWidth: "72ch",
@@ -130,16 +131,17 @@ export default function ICareWaitlistFinal() {
         paddingTop: 16,
     };
 
+    // ✅ Button 15% smaller: font, padding, width
     const btn = {
         border: "none",
         borderRadius: 36,
         background: BRAND_CTA,
         color: "#fff",
         fontWeight: 700,
-        fontSize: "1.2rem",
-        padding: "18px 16px",
+        fontSize: "1.02rem", // ✅ was 1.2rem
+        padding: "15px 14px", // ✅ was 18px 16px
         cursor: "pointer",
-        width: "min(260px, 88vw)",
+        width: "min(221px, 86vw)", // ✅ was min(260px, 88vw)
         transition: "filter .14s ease, background .14s ease",
     };
 
