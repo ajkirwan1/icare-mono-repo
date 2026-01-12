@@ -1,10 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faHandsHolding,     // ✅ dignity / respect (more caring)
-    faUserShield,       // privacy by design
-    faScaleBalanced,    // fair & transparent
-    faShieldHeart,      // trust & safety
+    faHandsHolding,
+    faUserShield,
+    faScaleBalanced,
+    faShieldHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
 export function OurValuesSection() {
@@ -36,32 +36,36 @@ export function OurValuesSection() {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
-                    gap: ".35rem",
+                    gap: ".4rem",
                 }}
             >
+                {/* ✅ h3 — 1.5rem / 600 */}
                 <h3
                     style={{
                         margin: 0,
-                        fontSize: "1.09rem",
+                        fontSize: "1.35rem",
+                        fontWeight: 600,
+                        lineHeight: 1.25,
                         color: "#1B1F1A",
-                        fontWeight: 700,
                     }}
                 >
                     {title}
                 </h3>
 
+                {/* ✅ p — 1.22rem / 400 */}
                 <p
                     style={{
                         margin: 0,
-                        lineHeight: "1.45",
+                        fontSize: "1.15rem",
+                        fontWeight: 400,
+                        lineHeight: 1.6,
                         color: "#0f172a",
-                        fontSize: "1rem",
                     }}
                 >
                     {description}
                 </p>
             </div>
-        </div >
+        </div>
     );
 
     const cards = [
@@ -93,7 +97,7 @@ export function OurValuesSection() {
             key: "trust",
             title: "Trust & Safety",
             description:
-                "Verified caregivers, secure payments, and encrypted communication — always.",
+                "Verified caregivers, secure payments, and encrypted communication - always.",
             bg: "#fff9ef",
             icon: <FontAwesomeIcon icon={faShieldHeart} style={faIconStyle} />,
         },
@@ -119,12 +123,13 @@ export function OurValuesSection() {
                     padding: "0 2rem",
                 }}
             >
+                {/* LEFT CONTENT */}
                 <header>
                     <h2
                         style={{
                             fontSize: "2.4rem",
                             margin: 0,
-                            fontWeight: 800,
+                            fontWeight: 500,
                             color: "#0f172a",
                         }}
                     >
@@ -133,7 +138,7 @@ export function OurValuesSection() {
 
                     <p
                         style={{
-                            fontSize: "1.25rem",
+                            fontSize: "1.55rem",
                             marginTop: "1rem",
                             color: "#0f172a",
                             fontWeight: 600,
@@ -145,17 +150,27 @@ export function OurValuesSection() {
                     <p
                         style={{
                             marginTop: "1rem",
-                            lineHeight: "1.6",
-                            fontSize: "1rem",
+                            lineHeight: 1.6,
+                            fontSize: "1.22rem",
+                            fontWeight: 400,
                             color: "#0f172a",
                         }}
                     >
-                        We build trust through fairness, clarity, and respect — every step of
-                        the way. Together, we’re shaping a care system built on trust —
+                        We build trust through fairness, clarity, and respect
+                        <br />
+                        every step of the way.
+                        <br />
+                        Together, we are shaping a care system built on trust —
                         empowering families and caregivers to work as equals.
                     </p>
 
-                    <div style={{ marginTop: "2rem", borderRadius: "18px", overflow: "hidden" }}>
+                    <div
+                        style={{
+                            marginTop: "2rem",
+                            borderRadius: "18px",
+                            overflow: "hidden",
+                        }}
+                    >
                         <img
                             src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
                             alt="Kind caregiver supporting an elderly person"
@@ -164,6 +179,7 @@ export function OurValuesSection() {
                     </div>
                 </header>
 
+                {/* RIGHT CARDS */}
                 <div
                     style={{
                         display: "grid",

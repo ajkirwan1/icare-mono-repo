@@ -45,20 +45,21 @@ export function OurFoundationSection() {
 
                     <p
                         style={{
-                            fontSize: "1.13rem",
+                            fontSize: "1.22rem",
                             lineHeight: 1.65,
                             marginBottom: "1.8rem",
                             color: TEXT, // ✅
+                            fontWeight: 400,
                         }}
                     >
                         Families navigate big decisions — choosing a trusted caregiver, managing costs,
-                        and organising daily life. Caregivers, in turn, deserve respect, fair pay, and tools
+                        and organising daily life.<br /> Caregivers, in turn, deserve respect, fair pay, and tools
                         that help them deliver safe, attentive support.
                     </p>
 
                     <h4
                         style={{
-                            fontSize: "1.15rem",
+                            fontSize: "1.22rem",
                             fontWeight: 700,
                             marginBottom: "1rem",
                             // ❗ zostawiamy bez narzucania #0F172A (jak prosisz: oprócz tego nagłówka)
@@ -89,7 +90,7 @@ export function OurFoundationSection() {
                                 style={{
                                     position: "relative",
                                     paddingLeft: "1.1rem",
-                                    fontSize: "1.05rem",
+                                    fontSize: "1.22rem",
                                     lineHeight: 1.55,
                                     color: TEXT, // ✅
                                 }}
@@ -113,7 +114,7 @@ export function OurFoundationSection() {
                     <p
                         style={{
                             marginTop: "2rem",
-                            fontSize: "1.08rem",
+                            fontSize: "1.22rem",
                             lineHeight: 1.6,
                             color: TEXT, // ✅
                         }}
@@ -151,7 +152,7 @@ export function OurFoundationSection() {
 
                     <p
                         style={{
-                            fontSize: "1.13rem",
+                            fontSize: "1.22rem",
                             lineHeight: 1.65,
                             marginBottom: "1.6rem",
                             color: TEXT, // ✅
@@ -164,7 +165,7 @@ export function OurFoundationSection() {
 
                     <p
                         style={{
-                            fontSize: "1.13rem",
+                            fontSize: "1.22rem",
                             lineHeight: 1.65,
                             color: TEXT, // ✅
                         }}

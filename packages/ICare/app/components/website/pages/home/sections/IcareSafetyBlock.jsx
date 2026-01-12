@@ -12,7 +12,7 @@ export default function SafetyComesFirstThreeBoxes() {
         sectionBgBottom: "rgba(255,249,239,0.90)",
         boxBg: "#ffffff",
         border: "rgba(15,23,42,0.10)",
-        text: "#0F172A",
+        text: "#000000ff",
         muted: "rgba(15,23,42,0.72)",
         olive: "#61674d",
     };
@@ -21,7 +21,11 @@ export default function SafetyComesFirstThreeBoxes() {
         {
             icon: faIdBadge,
             title: "Identity & eligibility",
-            desc: "Photo ID and Right to Work required",
+            desc: (
+                <>
+                    <strong>Photo ID</strong> and <strong>Right to Work</strong> required
+                </>
+            ),
             image:
                 "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&h=900&q=75",
             alt: "Identity verification documents",
@@ -29,15 +33,25 @@ export default function SafetyComesFirstThreeBoxes() {
         {
             icon: faUserCheck,
             title: "Relevant experience",
-            desc: "Carers with references and appropriate experience",
+            desc: (
+                <>
+                    Carers with <strong>references</strong> and appropriate{" "}
+                    <strong>experience</strong>
+                </>
+            ),
             image:
                 "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=1200&h=900&q=75",
             alt: "Caregiver helping at home",
         },
         {
-            icon: faShieldHalved, // ✅ fixed
+            icon: faShieldHalved,
             title: "Checks where applicable",
-            desc: "DBS and insurance shown when available (depends on location and documents).",
+            desc: (
+                <>
+                    <strong>DBS</strong> and <strong>insurance</strong> shown when available
+                    (depends on location and documents).
+                </>
+            ),
             image:
                 "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&h=900&q=75",
             alt: "Safety checks and protection",
@@ -150,7 +164,7 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const icon = {
-        fontSize: "18px",
+        fontSize: "20px",
         lineHeight: 1,
     };
 
@@ -165,10 +179,10 @@ export default function SafetyComesFirstThreeBoxes() {
 
     const desc = {
         margin: 0,
-        color: "rgba(15,23,42,0.86)",
-        fontWeight: 600,
+        color: "rgba(0, 0, 0, 0.86)",
+        fontWeight: 500,
         lineHeight: 1.55,
-        fontSize: "1.02rem",
+        fontSize: "1.1rem",
     };
 
     // ✅ taller ratio so image isn't a wide banner
@@ -197,9 +211,10 @@ export default function SafetyComesFirstThreeBoxes() {
                     <h1 style={h1}>Safety comes first</h1>
                     <h2 style={h2}>A safer way to start home care</h2>
                     <p style={leadStyle}>
-                        Once you’ve chosen your path, it helps to know what “verified” really means. ICare
-                        publishes profiles only when key details are in place — so families can reach out
-                        with confidence and caregivers can be understood clearly from day one.
+                        Trust in home care depends on clear standards, not assumptions.<br />
+                        ICare operates with defined verification requirements covering identity, right to work and relevant background information.
+                        Profiles are made visible only once these foundations are met, ensuring consistency and accountability across the platform.
+                        This approach helps families make informed choices while giving caregivers a fair, accurate way to present their experience.
                     </p>
                 </div>
 

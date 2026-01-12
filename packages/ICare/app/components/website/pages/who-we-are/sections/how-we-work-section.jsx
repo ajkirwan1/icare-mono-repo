@@ -35,7 +35,8 @@ export function HowWeWorkSection() {
                 width: "100%",
                 background: "#e8e7d7",
                 padding: "8rem 0",
-                fontFamily: "open sans",
+                fontFamily:
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* CONTENT WRAPPER */}
@@ -50,8 +51,8 @@ export function HowWeWorkSection() {
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 900,
-                            fontSize: "clamp(2.4rem,3vw,2.8rem)",
+                            fontWeight: 500,
+                            fontSize: "2.4rem",
                             color: "#0F172A",
                             letterSpacing: "-0.5px",
                             lineHeight: 1.15,
@@ -63,21 +64,21 @@ export function HowWeWorkSection() {
                     <p
                         style={{
                             margin: "1.2rem 0 0",
-                            fontSize: "1.2rem",
+                            fontSize: "1.25rem",
                             color: "#0f172a",
                             lineHeight: 1.65,
                             maxWidth: "60ch",
                         }}
                     >
                         <span style={{ display: "block", marginBottom: "0.4rem" }}>
-                            <strong style={{ fontWeight: 900 }}>
+                            <strong style={{ fontWeight: 600, fontSize: "1.5rem" }}>
                                 A simple, transparent way to arrange care at home.
                             </strong>
                         </span>
 
                         <span style={{ display: "block" }}>
-                            Browse verified caregiver profiles, speak directly, and agree the right level of support — from short
-                            visits to overnight or live-in care.
+                            Browse verified caregiver profiles, speak directly, and agree the right level of support — from <strong>short visits </strong>
+                            to  <strong>overnight </strong>or <strong>live-in care.</strong>
                         </span>
                     </p>
 
@@ -113,13 +114,13 @@ export function HowWeWorkSection() {
                                 {/* BADGE */}
                                 <div
                                     style={{
-                                        width: "48px",
-                                        height: "48px",
-                                        borderRadius: "14px",
+                                        width: "60px",
+                                        height: "60px",
+                                        borderRadius: "100%",
                                         background: "rgba(15,61,32,0.08)",
-                                        color: "#0F3D20",
-                                        fontWeight: 800,
-                                        fontSize: "1.15rem",
+                                        color: "#000000ff",
+                                        fontWeight: 700,
+                                        fontSize: "1.4rem",
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
@@ -132,8 +133,8 @@ export function HowWeWorkSection() {
                                 <h3
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.25rem",
-                                        fontWeight: 700,
+                                        fontSize: "1.5rem",
+                                        fontWeight: 600,
                                         color: "#0f172a",
                                     }}
                                 >
@@ -144,9 +145,9 @@ export function HowWeWorkSection() {
                                 <p
                                     style={{
                                         margin: 0,
-                                        color: "#0f172a",
+                                        color: "#000000ff",
                                         lineHeight: 1.55,
-                                        fontSize: "1rem",
+                                        fontSize: "1.12rem",
                                     }}
                                 >
                                     {s.description}
@@ -204,7 +205,7 @@ export function HowWeWorkSection() {
                             gap: "10px",
                             padding: "1.1rem 1.8rem",
                             borderRadius: "999px",
-                            background: "#b97a57",
+                            background: "#778d43",
                             color: "#fff",
                             fontWeight: 800,
                             fontSize: "1.05rem",
