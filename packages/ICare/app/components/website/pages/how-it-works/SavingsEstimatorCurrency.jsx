@@ -1,37 +1,11 @@
 import React from "react";
 
 /**
- * ==========================
- * OLD ESTIMATOR (COMMENTED OUT)
- * ==========================
- * Wklej tutaj swój obecny kod SavingsEstimatorCurrency
- * i zostaw go jako komentarz, żeby nie był używany w MVP.
- *
- * 1) Wklej CAŁY swój stary komponent poniżej
- * 2) Zostaw zakomentowany
- *
- * Przykład:
- *
- * export default function SavingsEstimatorCurrency() {
- *   ...twój stary kod...
- * }
- *
- */
-
-/* 
-export default function SavingsEstimatorCurrency() {
-  // <-- WKLEJ TU CAŁY STARY KOD i zostaw w komentarzu
-}
-*/
-
-
-/**
- * ==========================
  * MVP Estimator (SIMPLE)
- * ==========================
- * - Nie pokazuje porównań do agencji ani “modelu”
- * - Tylko: stawka x godziny + 10% ICare fee
- * - Prosty komunikat i disclaimer
+ * ✅ ONLY care cost = hourly × hours/week × (weekly/monthly)
+ * ✅ NO info about ICare fee
+ * ✅ Left: UK market context
+ * ✅ Subtle separators between list items
  */
 
 export default function SavingsEstimatorCurrency() {
@@ -67,322 +41,446 @@ export default function SavingsEstimatorCurrency() {
         [currency]
     );
 
-    const { careCost, icareFee, total, label } = React.useMemo(() => {
+    const { careCost, label } = React.useMemo(() => {
         const weeksPerMonth = 4.33;
         const multiplier = period === "monthly" ? weeksPerMonth : 1;
-
         const base = hourly * hoursWeek * multiplier;
-        const fee = base * 0.1; // MVP: simple 10% fee
-        const sum = base + fee;
 
         return {
             careCost: base,
-            icareFee: fee,
-            total: sum,
             label: period === "monthly" ? "Monthly" : "Weekly",
         };
     }, [hourly, hoursWeek, period]);
 
     const microCSS = `
-      @media (max-width: 860px) {
-        .icare-est-grid { grid-template-columns: 1fr !important; }
-      }
-    `;
+    @media (max-width: 860px) {
+      .icare-est-row { grid-template-columns: 1fr !important; }
+    }
+
+    .icare-est-input:focus{
+      border-color: rgba(31,171,31,0.45) !important;
+      box-shadow: 0 0 0 4px rgba(31,171,31,0.12) !important;
+      outline: none !important;
+    }
+
+    /* ✅ subtle separators between list items */
+    .icare-left-boxes ul li{
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(15,23,42,0.10);
+    }
+    .icare-left-boxes ul li:last-child{
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  `;
+
+    // Home typography (same sizes/weights)
+    const homeH1 = {
+        margin: 0,
+        fontWeight: 500,
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
+        color: TEXT,
+    };
+
+    const homeH2 = {
+        margin: "10px 0 0",
+        fontWeight: 600,
+        letterSpacing: "-0.2px",
+        lineHeight: 1.25,
+        fontSize: "1.25rem",
+        color: TEXT,
+    };
+
+    const homeLead = {
+        margin: "0.9rem 0 0",
+        color: TEXT,
+        fontWeight: 600,
+        lineHeight: 1.72,
+        fontSize: "1.22rem",
+        maxWidth: "58ch",
+    };
+
+    // ✅ the 2 sentences now live on the RIGHT
+    const rightIntro = {
+        margin: 0,
+        color: TEXT,
+        fontWeight: 600,
+        lineHeight: 1.7,
+        fontSize: "1.05rem",
+        opacity: 0.95,
+    };
+
+    const labelStyle = {
+        fontWeight: 900,
+        fontSize: ".88rem",
+        color: TEXT,
+        letterSpacing: "-0.1px",
+    };
+
+    const fieldStyle = {
+        border: "1px solid rgba(15,23,42,0.12)",
+        borderRadius: 12,
+        padding: "10px 12px",
+        fontSize: "0.98rem",
+        background: "#fff",
+        color: TEXT,
+    };
+
+    const hintStyle = {
+        fontSize: ".86rem",
+        opacity: 0.74,
+        fontWeight: 650,
+        lineHeight: 1.55,
+        color: TEXT,
+    };
+
+    // Left boxes (stacked)
+    const leftBoxesGrid = {
+        display: "grid",
+        gridTemplateColumns: "1fr",
+        gap: 18,
+        alignItems: "stretch",
+        maxWidth: "62ch",
+    };
+
+    const infoCard = {
+        padding: "26px 26px",
+        borderRadius: 24,
+        background: "rgba(255, 255, 255, 0.72)",
+        border: "1px solid rgba(15,23,42,0.10)",
+        boxShadow: "0 10px 24px rgba(15,23,42,0.06)",
+    };
+
+    const infoTitle = {
+        margin: 0,
+        fontWeight: 900,
+        fontSize: "1.12rem",
+        letterSpacing: "-0.15px",
+        color: TEXT,
+        lineHeight: 1.25,
+    };
+
+    const divider = {
+        height: 1,
+        background: "rgba(15,23,42,0.08)",
+        marginTop: 14,
+        marginBottom: 14,
+        width: "100%",
+    };
+
+    const infoText = {
+        margin: 0,
+        fontSize: "1.05rem",
+        opacity: 0.92,
+        fontWeight: 650,
+        lineHeight: 1.72,
+        color: TEXT,
+    };
+
+    const pillRow = {
+        marginTop: 14,
+        display: "grid",
+        gap: 10,
+    };
+
+    const pill = {
+        display: "grid",
+        gridTemplateColumns: "1fr auto",
+        gap: 10,
+        alignItems: "center",
+        padding: "12px 14px",
+        borderRadius: 18,
+        background: "rgba(15,23,42,0.04)",
+        border: "1px solid rgba(15,23,42,0.08)",
+        fontSize: "1.0rem",
+        fontWeight: 750,
+        color: TEXT,
+        lineHeight: 1.4,
+    };
+
+    const bullets = {
+        margin: 0,
+        paddingLeft: 18,
+        display: "grid",
+        gap: 12,
+        color: TEXT,
+        opacity: 0.92,
+        fontWeight: 650,
+        lineHeight: 1.7,
+        fontSize: "1.03rem",
+    };
+
+    const sourceNote = {
+        marginTop: 14,
+        paddingTop: 14,
+        fontSize: ".92rem",
+        opacity: 0.78,
+        fontWeight: 650,
+        lineHeight: 1.6,
+        color: TEXT,
+        borderTop: "1px dashed rgba(15,23,42,0.14)",
+    };
 
     return (
         <section
             id="estimator"
             aria-label="Care cost estimator"
             style={{
-                padding: "clamp(64px, 8vw, 96px) 0",
+                padding: "clamp(72px, 8.6vw, 104px) 0",
                 background: "#e8e7d7",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 color: TEXT,
+                fontFamily:
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <style>{microCSS}</style>
 
             <div
-                className="icare-est-grid"
                 style={{
                     maxWidth: 1180,
                     margin: "0 auto",
                     padding: "0 clamp(18px, 3.2vw, 34px)",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1.15fr",
-                    gap: "clamp(28px, 4vw, 54px)",
-                    alignItems: "start",
                 }}
             >
-                {/* LEFT */}
+                {/* HEADER ABOVE GRID */}
                 <div style={{ color: TEXT }}>
-                    <h2
-                        style={{
-                            margin: 0,
-                            fontWeight: 900,
-                            letterSpacing: "-0.3px",
-                            color: TEXT,
-                            fontSize: "clamp(1.9rem, 2.6vw, 2.35rem)",
-                            lineHeight: 1.1,
-                        }}
-                    >
-                        Quick Cost Estimator
-                    </h2>
-
-                    <p
-                        style={{
-                            color: TEXT,
-                            opacity: 0.9,
-                            marginTop: "1.05rem",
-                            fontSize: "1.06rem",
-                            lineHeight: 1.7,
-                            maxWidth: "58ch",
-                            fontWeight: 550,
-                        }}
-                    >
-                        <strong>  See how much you could save with Icare.<br /></strong>
-
-                        Estimate care costs in seconds. <br />Set an hourly rate, weekly hours and see your total.
-                    </p>
-
-                    <div
-                        style={{
-                            marginTop: "1.1rem",
-                            padding: "12px 14px",
-                            borderRadius: 16,
-                            background: "rgba(255, 255, 255, 0.40)",
-                            border: "1px solid rgba(15,23,42,0.10)",
-                            boxShadow: "0 10px 24px rgba(15,23,42,0.06)",
-                            maxWidth: "60ch",
-                        }}
-                    >
-                        <div style={{ fontWeight: 900, fontSize: ".92rem", marginBottom: 6 }}>
-                            Note:
-                        </div>
-                        <div style={{ fontSize: ".92rem", opacity: 0.82, fontWeight: 650, lineHeight: 1.55 }}>
-                            This is an estimate.<br />Final pricing depends on the caregiver’s rate and your care needs.
-                        </div>
-                    </div>
+                    <h1 style={homeH1}>Quick Cost Estimator</h1>
+                    <h2 style={homeH2}>Clear numbers. Calm decisions.</h2>
+                    <p style={homeLead}>UK pricing context (live-in & hourly)</p>
                 </div>
 
-                {/* RIGHT */}
+                <div style={{ height: "1.55rem" }} />
+
                 <div
+                    className="icare-est-row"
                     style={{
                         display: "grid",
-                        gap: 18,
+                        gridTemplateColumns: "1fr 1.15fr",
+                        gap: "clamp(28px, 4.2vw, 56px)",
+                        alignItems: "start",
                     }}
                 >
-                    {/* FORM */}
-                    <form
-                        onSubmit={(e) => e.preventDefault()}
-                        style={{
-                            padding: "clamp(18px, 2vw, 24px)",
-                            display: "grid",
-                            gap: 14,
-                            background: "#fff",
-                            borderRadius: 20,
-                            boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                        }}
-                    >
-                        {/* Currency */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Currency</span>
-                            <select
-                                value={currency}
-                                onChange={(e) => setCurrency(e.target.value)}
-                                style={{
-                                    border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 12,
-                                    padding: "10px 12px",
-                                    fontSize: "0.98rem",
-                                    background: "#fff",
-                                    color: TEXT,
-                                }}
-                            >
-                                <option value="PLN">PLN — zł</option>
-                                <option value="EUR">EUR — €</option>
-                                <option value="GBP">GBP — £</option>
-                            </select>
-                            <span style={{ fontSize: ".82rem", opacity: 0.7, fontWeight: 650 }}>
-                                Typical range suggested — you can change the rate freely.
-                            </span>
-                        </label>
+                    {/* LEFT BOXES */}
+                    <div className="icare-left-boxes" style={leftBoxesGrid}>
+                        <div style={infoCard}>
+                            <div style={infoTitle}>UK pricing context (live-in)</div>
+                            <div style={divider} />
+                            <p style={infoText}>
+                                Live-in care is often discussed as a <strong>weekly rate</strong>. <br />
+                                As a broad market guide, you’ll commonly see ranges around{" "}
+                                <strong>£950–£1,400/week</strong>, depending on needs and location.
+                            </p>
 
-                        {/* Period */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Show totals as</span>
-                            <select
-                                value={period}
-                                onChange={(e) => setPeriod(e.target.value)}
-                                style={{
-                                    border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 12,
-                                    padding: "10px 12px",
-                                    fontSize: "0.98rem",
-                                    background: "#fff",
-                                    color: TEXT,
-                                }}
-                            >
-                                <option value="monthly">Monthly</option>
-                                <option value="weekly">Weekly</option>
-                            </select>
-                        </label>
-
-                        {/* Hourly */}
-                        <label style={{ display: "grid", gap: 8 }}>
-                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>Hourly rate</span>
-
-                            <input
-                                type="number"
-                                value={hourly}
-                                min={range.min}
-                                max={range.max}
-                                step={range.step}
-                                onChange={(e) => setHourly(Number(e.target.value))}
-                                style={{
-                                    border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 12,
-                                    padding: "10px 12px",
-                                    fontSize: "0.98rem",
-                                    color: TEXT,
-                                }}
-                            />
-
-                            <input
-                                type="range"
-                                min={range.min}
-                                max={range.max}
-                                step={range.step}
-                                value={hourly}
-                                onChange={(e) => setHourly(Number(e.target.value))}
-                                style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
-                            />
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    fontSize: ".82rem",
-                                    color: TEXT,
-                                    opacity: 0.72,
-                                    fontWeight: 800,
-                                }}
-                            >
-                                <span>{range.min}</span>
-                                <span>{range.max}</span>
+                            <div style={pillRow}>
+                                <div style={pill}>
+                                    <span>Everyday live-in support</span>
+                                    <span>~£950–£1,100</span>
+                                </div>
+                                <div style={pill}>
+                                    <span>Higher needs / specialist</span>
+                                    <span>~£1,100–£1,350</span>
+                                </div>
+                                <div style={pill}>
+                                    <span>Extra night input</span>
+                                    <span>~£1,250–£1,400</span>
+                                </div>
+                                <div style={pill}>
+                                    <span>Couples (one carer)</span>
+                                    <span>~£1,350–£1,600</span>
+                                </div>
                             </div>
-                        </label>
-
-                        {/* Hours */}
-                        <label style={{ display: "grid", gap: 6 }}>
-                            <span style={{ fontWeight: 900, fontSize: ".88rem", color: TEXT }}>
-                                Hours per week
-                            </span>
-                            <input
-                                type="number"
-                                value={hoursWeek}
-                                min={1}
-                                max={168}
-                                onChange={(e) => setHoursWeek(Number(e.target.value))}
-                                style={{
-                                    border: "1px solid rgba(15,23,42,0.12)",
-                                    borderRadius: 12,
-                                    padding: "10px 12px",
-                                    fontSize: "0.98rem",
-                                    color: TEXT,
-                                }}
-                            />
-                            <span style={{ fontSize: ".82rem", opacity: 0.7, fontWeight: 650 }}>
-                                Example: 20h/week for part-time support.
-                            </span>
-                        </label>
-
-                        {/* Fee badge */}
-                        <div
-                            style={{
-                                marginTop: 4,
-                                padding: "10px 14px",
-                                borderRadius: 12,
-                                background: "rgba(31,171,31,0.06)",
-                                border: "1px solid rgba(31,171,31,0.18)",
-                                fontWeight: 850,
-                                fontSize: ".9rem",
-                                color: TEXT,
-                                width: "fit-content",
-                            }}
-                        >
-                            ICare fee: <span style={{ fontWeight: 950 }}>10%</span>
                         </div>
-                    </form>
 
-                    {/* RESULTS */}
-                    <div
-                        style={{
-                            padding: "clamp(18px, 2vw, 24px)",
-                            display: "grid",
-                            gap: 14,
-                            background: "#fff",
-                            borderRadius: 20,
-                            boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                            color: TEXT,
-                        }}
-                    >
-                        <h3 style={{ margin: 0, fontWeight: 950, fontSize: "clamp(1.08rem, 1.5vw, 1.22rem)" }}>
-                            {label} estimate
-                        </h3>
+                        <div style={infoCard}>
+                            <div style={infoTitle}>What changes the cost most</div>
+                            <div style={divider} />
+                            <ul style={bullets}>
+                                <li>
+                                    <strong>Care needs:</strong> dementia, mobility, complex routines, clinical tasks
+                                </li>
+                                <li>
+                                    <strong>Nights:</strong> sleeping vs waking nights can shift weekly pricing
+                                </li>
+                                <li>
+                                    <strong>Location:</strong> some areas (e.g. London/South East) are often higher
+                                </li>
+                                <li>
+                                    <strong>Experience:</strong> specialist skills and proven experience can cost more
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div style={infoCard}>
+                            <div style={infoTitle}>Funding routes to explore (UK)</div>
+                            <div style={divider} />
+                            <ul style={bullets}>
+                                <li>Local authority assessment + personal budget (if eligible)</li>
+                                <li>NHS Continuing Healthcare for complex health needs (in some cases fully funded)</li>
+                                <li>Direct payments / personal budgets (where available)</li>
+                                <li>Benefits and allowances that can support costs (eligibility varies)</li>
+                            </ul>
+
+                            <div style={{ height: 12 }} />
+
+                            <p style={{ ...infoText, opacity: 0.92 }}>
+                                Residential and nursing home fees are also often discussed weekly, and can be higher for two people.
+                            </p>
+                        </div>
+
+                        <div style={infoCard}>
+                            <div style={infoTitle}>Note</div>
+                            <div style={divider} />
+                            <p style={{ ...infoText, opacity: 0.92 }}>
+                                This estimator is based on your inputs. Final pricing depends on the caregiver’s rate and your care needs.
+                            </p>
+
+                            <div style={sourceNote}>
+                                Pricing ranges are based on publicly available UK care cost guides and industry summaries. Figures are
+                                indicative and will vary by region and needs.
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* RIGHT ESTIMATOR */}
+                    <div style={{ display: "grid", gap: 18 }}>
+                        {/* ✅ ONLY these 2 sentences moved here */}
+                        <p style={rightIntro}>
+                            Choose a rate and weekly hours that fit your situation.
+                            <br />
+                            We’ll show an estimated total for your selected period.
+                        </p>
+
+                        <form
+                            onSubmit={(e) => e.preventDefault()}
+                            style={{
+                                padding: "clamp(18px, 2vw, 24px)",
+                                display: "grid",
+                                gap: 14,
+                                background: "#fff",
+                                borderRadius: 20,
+                                boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                            }}
+                        >
+                            <label style={{ display: "grid", gap: 6 }}>
+                                <span style={labelStyle}>Currency</span>
+                                <select
+                                    className="icare-est-input"
+                                    value={currency}
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                    style={fieldStyle}
+                                >
+                                    <option value="PLN">PLN — zł</option>
+                                    <option value="EUR">EUR — €</option>
+                                    <option value="GBP">GBP — £</option>
+                                </select>
+                                <span style={hintStyle}>Typical range suggested — you can change the rate freely.</span>
+                            </label>
+
+                            <label style={{ display: "grid", gap: 6 }}>
+                                <span style={labelStyle}>Show totals as</span>
+                                <select
+                                    className="icare-est-input"
+                                    value={period}
+                                    onChange={(e) => setPeriod(e.target.value)}
+                                    style={fieldStyle}
+                                >
+                                    <option value="monthly">Monthly</option>
+                                    <option value="weekly">Weekly</option>
+                                </select>
+                            </label>
+
+                            <label style={{ display: "grid", gap: 8 }}>
+                                <span style={labelStyle}>Hourly rate</span>
+
+                                <input
+                                    className="icare-est-input"
+                                    type="number"
+                                    value={hourly}
+                                    min={range.min}
+                                    max={range.max}
+                                    step={range.step}
+                                    onChange={(e) => setHourly(Number(e.target.value))}
+                                    style={fieldStyle}
+                                />
+
+                                <input
+                                    type="range"
+                                    min={range.min}
+                                    max={range.max}
+                                    step={range.step}
+                                    value={hourly}
+                                    onChange={(e) => setHourly(Number(e.target.value))}
+                                    style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
+                                />
+
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        fontSize: ".82rem",
+                                        color: TEXT,
+                                        opacity: 0.72,
+                                        fontWeight: 800,
+                                    }}
+                                >
+                                    <span>{range.min}</span>
+                                    <span>{range.max}</span>
+                                </div>
+                            </label>
+
+                            <label style={{ display: "grid", gap: 6 }}>
+                                <span style={labelStyle}>Hours per week</span>
+                                <input
+                                    className="icare-est-input"
+                                    type="number"
+                                    value={hoursWeek}
+                                    min={1}
+                                    max={168}
+                                    onChange={(e) => setHoursWeek(Number(e.target.value))}
+                                    style={fieldStyle}
+                                />
+                                <span style={hintStyle}>Example: 20h/week for part-time support.</span>
+                            </label>
+                        </form>
 
                         <div
                             style={{
+                                padding: "clamp(18px, 2vw, 24px)",
                                 display: "grid",
-                                gridTemplateColumns: "1fr 1fr",
-                                gap: 14,
+                                gap: 12,
+                                background: "#fff",
+                                borderRadius: 20,
+                                boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
+                                border: "1px solid rgba(15,23,42,0.08)",
+                                color: TEXT,
                             }}
                         >
-                            <div
-                                style={{
-                                    borderRadius: 16,
-                                    padding: "14px",
-                                    background: "rgba(241,245,249,0.7)",
-                                }}
-                            >
-                                <div style={{ fontSize: ".84rem", opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
-                                    Care cost
-                                </div>
-                                <div style={{ fontWeight: 950, fontSize: "1.08rem" }}>{nf.format(careCost)}</div>
-                            </div>
+                            <h3 style={{ margin: 0, fontWeight: 950, fontSize: "clamp(1.08rem, 1.5vw, 1.22rem)" }}>
+                                {label} estimate
+                            </h3>
 
                             <div
                                 style={{
-                                    borderRadius: 16,
-                                    padding: "14px",
-                                    background: "rgba(241,245,249,0.7)",
-                                }}
-                            >
-                                <div style={{ fontSize: ".84rem", opacity: 0.78, marginBottom: 4, fontWeight: 850 }}>
-                                    ICare fee (10%)
-                                </div>
-                                <div style={{ fontWeight: 950, fontSize: "1.08rem" }}>{nf.format(icareFee)}</div>
-                            </div>
-
-                            <div
-                                style={{
-                                    gridColumn: "1 / -1",
                                     borderRadius: 18,
                                     padding: "16px",
                                     background: "rgba(31,171,31,0.10)",
                                     border: "1px solid rgba(31,171,31,0.18)",
                                 }}
                             >
-                                <div style={{ fontSize: ".84rem", opacity: 0.8, marginBottom: 6, fontWeight: 900 }}>
-                                    Total (estimate)
+                                <div style={{ fontSize: ".9rem", opacity: 0.82, marginBottom: 6, fontWeight: 900 }}>
+                                    Estimated total
                                 </div>
-                                <div style={{ fontWeight: 980, fontSize: "1.28rem" }}>{nf.format(total)}</div>
+                                <div style={{ fontWeight: 980, fontSize: "1.28rem" }}>{nf.format(careCost)}</div>
                             </div>
-                        </div>
 
-                        <div style={{ fontSize: ".88rem", opacity: 0.72, fontWeight: 650, lineHeight: 1.55 }}>
-                            This estimate updates instantly and is shown before you contact a caregiver.
+                            <div style={{ fontSize: ".92rem", opacity: 0.76, fontWeight: 650, lineHeight: 1.6 }}>
+                                Updates instantly as you adjust the rate and hours.
+                            </div>
                         </div>
                     </div>
                 </div>
