@@ -4,6 +4,8 @@
   /* local CSS vars fed by tokens */
   --border: #{$border-strong};
   --hover-bg: #{$tint-soft-olive}; // closest tokenized "soft hover" tint
+  --bg: #fff9ef;
+  background: #fff9ef;
 
   border-top: 1px solid var(--border);
   color: $txt;

@@ -1,12 +1,10 @@
+import React, { useState } from "react";
 import ICareNavbar from "../../components/website/pages/shared/ICareNavbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
-export default function ContactUPage({
-  familyCtaHref = "#waitlist"
-}) {
+export default function ContactUPage() {
   const COLORS = {
     border: "rgba(15,23,42,0.10)",
     text: "#0F172A",
@@ -15,10 +13,14 @@ export default function ContactUPage({
     muted: "rgba(15,23,42,0.72)",
     accent: "#b97a57",
     olive: "#61674d",
+    btnFamily: "#e79961"
+  };
 
-    // buttons
-    btnFamily: "#e79961",
-    btnCaregiver: "#778d43"
+  const [status, setStatus] = useState("idle"); // idle | ok
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setStatus("ok");
   };
 
   const wrap = {
@@ -77,8 +79,8 @@ export default function ContactUPage({
   };
 
   const grid = {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    // display: "grid",
+    // gridTemplateColumns: "1fr 1fr",
     gap: "clamp(14px, 2.2vw, 22px)",
     alignItems: "stretch"
   };
@@ -100,7 +102,6 @@ export default function ContactUPage({
     gap: 12
   };
 
-  // icons: calm + a bit smaller
   const icon = {
     width: 50,
     height: 50,
@@ -130,47 +131,55 @@ export default function ContactUPage({
     color: COLORS.textBlack,
     fontWeight: 700,
     lineHeight: 1.65,
-    fontSize: "1.1rem",
-    maxWidth: "56ch"
+    fontSize: "1.1rem"
+    // maxWidth: "56ch"
   };
 
-  const list = {
-    listStyle: "none",
-    padding: 0,
-    margin: "6px 0 0",
+  const form = {
+    marginTop: 6,
     display: "grid",
+    gap: 12
+  };
+
+  const grid2 = {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
     gap: 10
   };
 
-  const li = {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: 10,
-    color: COLORS.textBlack,
-    fontWeight: 500,
-    lineHeight: 1.6,
-    fontSize: "1.1rem"
+  const label = {
+    fontWeight: 900,
+    color: COLORS.text,
+    fontSize: ".88rem",
+    letterSpacing: "-0.1px",
+    marginBottom: 6,
+    display: "block"
   };
 
-  const dot = {
-    width: 10,
-    height: 10,
-    borderRadius: 999,
-    background: COLORS.accent,
-    opacity: 0.55,
-    marginTop: 7,
-    flex: "0 0 auto"
+  const field = {
+    width: "100%",
+    border: "1px solid rgba(15,23,42,0.12)",
+    borderRadius: 14,
+    padding: "11px 12px",
+    background: "#fff",
+    fontSize: "0.98rem",
+    color: COLORS.text,
+    outline: "none"
   };
 
-  const ctaRow = {
-    marginTop: "clamp(14px, 2.2vw, 18px)",
-    display: "flex",
-    gap: 12,
-    flexWrap: "wrap",
-    alignItems: "center"
+  const textarea = {
+    ...field,
+    resize: "vertical",
+    minHeight: 140
   };
 
-  // buttons: radius 36px
+  const btnWrap = {
+    display: "grid",
+    justifyItems: "center",
+    gap: 14,
+    marginTop: 6
+  };
+
   const primaryBtn = {
     border: "none",
     borderRadius: 36,
@@ -184,26 +193,35 @@ export default function ContactUPage({
     width: "min(260px, 88vw)"
   };
 
-
+  const note = {
+    margin: 0,
+    color: COLORS.muted,
+    fontWeight: 650,
+    fontSize: ".95rem",
+    textAlign: "center",
+    lineHeight: 1.55,
+    maxWidth: "66ch"
+  };
 
   const onEnter = (e) => (e.currentTarget.style.filter = "brightness(1.06)");
   const onLeave = (e) => (e.currentTarget.style.filter = "brightness(1)");
+
   return (
     <>
       <ICareNavbar />
-      <section aria-label="ICare for families and caregivers" style={wrap}>
+
+      <section aria-label="ICare contact us" style={wrap}>
         <div style={overlay} />
         <div style={container}>
           <div style={header}>
-            <h2 style={h2}>
-              Contact us
-            </h2>
+            <h2 style={h2}>Contact us</h2>
             <p style={lead}>
               If you have any questions, please feel free to contact us and we will respond as quickly as possible
             </p>
           </div>
 
           <div className="icare-2paths" style={grid}>
+            {/* CARD: insert form here */}
             <div style={card}>
               <div style={topRow}>
                 <span style={icon} aria-hidden="true">
@@ -213,49 +231,94 @@ export default function ContactUPage({
               </div>
 
               <p style={sub}>
-                Find support that fits your home — without agency pressure and without guessing what happens next.
+                Send us a message about care needs, availability, pricing, or anything else — we’ll reply as soon as possible.
               </p>
 
-              <ul style={list}>
-                <li style={li}>
-                  <span style={dot} aria-hidden="true" />
-                  Clear caregiver profiles and availability.
-                </li>
-                <li style={li}>
-                  <span style={dot} aria-hidden="true" />
-                  Direct, secure messaging to align tasks, hours and start date.
-                </li>
-                <li style={li}>
-                  <span style={dot} aria-hidden="true" />
-                  Transparent costs — more of your budget goes to real care.
-                </li>
-              </ul>
+              <form onSubmit={onSubmit} style={form}>
+                <div className="icare-contact-grid2" style={grid2}>
+                  <div>
+                    <label style={label} htmlFor="contact-email">Email</label>
+                    <input
+                      id="contact-email"
+                      className="icare-contact-input"
+                      type="email"
+                      required
+                      placeholder="you@email.com"
+                      style={field}
+                    />
+                  </div>
 
-              <div style={ctaRow}>
-                <a href={familyCtaHref} style={{ textDecoration: "none" }}>
+                  <div>
+                    <label style={label} htmlFor="contact-subject">Subject</label>
+                    <input
+                      id="contact-subject"
+                      className="icare-contact-input"
+                      required
+                      placeholder="How can we help?"
+                      style={field}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={label} htmlFor="contact-topic">Topic</label>
+                  <select
+                    id="contact-topic"
+                    className="icare-contact-input"
+                    defaultValue="general"
+                    style={field}
+                  >
+                    <option value="general">General question</option>
+                    <option value="care">Care needs</option>
+                    <option value="caregiver">Caregiver onboarding</option>
+                    <option value="safety">Trust & safety</option>
+                    <option value="billing">Billing / payments</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={label} htmlFor="contact-message">Message</label>
+                  <textarea
+                    id="contact-message"
+                    className="icare-contact-input"
+                    required
+                    placeholder="Tell us what’s going on…"
+                    style={textarea}
+                  />
+                </div>
+
+                <div style={btnWrap}>
                   <button
-                    type="button"
+                    type="submit"
                     style={primaryBtn}
                     onMouseEnter={onEnter}
                     onMouseLeave={onLeave}
                   >
-                    Join the waiting list
+                    {status === "ok" ? "Message sent ✓" : "Send message"}
                   </button>
-                </a>
 
-                <span style={{ color: COLORS.muted, fontWeight: 650, fontSize: ".95rem" }}>
-                  We’ll notify you when we open in your area.
-                </span>
-              </div>
+                  <p style={note}>
+                    We’ll only use your details to reply. We don’t sell personal data.
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
         <style>{`
-        @media (max-width: 900px){
-          .icare-2paths{ grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+          @media (max-width: 900px){
+            .icare-2paths{ grid-template-columns: 1fr !important; }
+          }
+          @media (max-width: 620px){
+            .icare-contact-grid2{ grid-template-columns: 1fr !important; }
+          }
+          .icare-contact-input:focus{
+            border-color: rgba(231,153,97,0.55) !important;
+            box-shadow: 0 0 0 4px rgba(231,153,97,0.16) !important;
+          }
+        `}</style>
       </section>
 
       <ICareFooter />
