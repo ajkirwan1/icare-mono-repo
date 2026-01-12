@@ -74,7 +74,7 @@ export default function SavingsEstimatorCurrency() {
     }
   `;
 
-    // Home typography (same sizes/weights)
+    // Home typography (same sizes/weights) — ✅ reduced spacing
     const homeH1 = {
         margin: 0,
         fontWeight: 500,
@@ -85,7 +85,7 @@ export default function SavingsEstimatorCurrency() {
     };
 
     const homeH2 = {
-        margin: "10px 0 0",
+        margin: "14px 0 0", // ✅ less spacing
         fontWeight: 600,
         letterSpacing: "-0.2px",
         lineHeight: 1.25,
@@ -94,22 +94,22 @@ export default function SavingsEstimatorCurrency() {
     };
 
     const homeLead = {
-        margin: "0.9rem 0 0",
+        margin: "12px 0 0", // ✅ less spacing
         color: TEXT,
-        fontWeight: 600,
+        fontWeight: 400,
         lineHeight: 1.72,
         fontSize: "1.22rem",
         maxWidth: "58ch",
     };
 
-    // ✅ the 2 sentences now live on the RIGHT
-    const rightIntro = {
-        margin: 0,
+    // ✅ right intro as paragraph (like P), left-aligned
+    const rightIntroP = {
+        margin: "0 0 20px",
         color: TEXT,
-        fontWeight: 600,
-        lineHeight: 1.7,
-        fontSize: "1.05rem",
-        opacity: 0.95,
+        fontWeight: 400,
+        lineHeight: 1.65,
+        fontSize: "1.1rem",
+        textAlign: "left",
     };
 
     const labelStyle = {
@@ -174,7 +174,7 @@ export default function SavingsEstimatorCurrency() {
         margin: 0,
         fontSize: "1.05rem",
         opacity: 0.92,
-        fontWeight: 650,
+        fontWeight: 400,
         lineHeight: 1.72,
         color: TEXT,
     };
@@ -207,7 +207,7 @@ export default function SavingsEstimatorCurrency() {
         gap: 12,
         color: TEXT,
         opacity: 0.92,
-        fontWeight: 650,
+        fontWeight: 400,
         lineHeight: 1.7,
         fontSize: "1.03rem",
     };
@@ -327,7 +327,7 @@ export default function SavingsEstimatorCurrency() {
                             <div style={{ height: 12 }} />
 
                             <p style={{ ...infoText, opacity: 0.92 }}>
-                                Residential and nursing home fees are also often discussed weekly, and can be higher for two people.
+
                             </p>
                         </div>
 
@@ -335,11 +335,11 @@ export default function SavingsEstimatorCurrency() {
                             <div style={infoTitle}>Note</div>
                             <div style={divider} />
                             <p style={{ ...infoText, opacity: 0.92 }}>
-                                This estimator is based on your inputs. Final pricing depends on the caregiver’s rate and your care needs.
+                                This estimator is based on your inputs.<br /> Final pricing depends on the caregiver’s rate and your care needs.
                             </p>
 
                             <div style={sourceNote}>
-                                Pricing ranges are based on publicly available UK care cost guides and industry summaries. Figures are
+                                Pricing ranges are based on publicly available UK care cost guides and industry summaries.<br /> Figures are
                                 indicative and will vary by region and needs.
                             </div>
                         </div>
@@ -347,12 +347,7 @@ export default function SavingsEstimatorCurrency() {
 
                     {/* RIGHT ESTIMATOR */}
                     <div style={{ display: "grid", gap: 18 }}>
-                        {/* ✅ ONLY these 2 sentences moved here */}
-                        <p style={rightIntro}>
-                            Choose a rate and weekly hours that fit your situation.
-                            <br />
-                            We’ll show an estimated total for your selected period.
-                        </p>
+                        {/* ✅ now as paragraph + left aligned */}
 
                         <form
                             onSubmit={(e) => e.preventDefault()}
@@ -366,6 +361,8 @@ export default function SavingsEstimatorCurrency() {
                                 border: "1px solid rgba(15,23,42,0.08)",
                             }}
                         >
+
+                            <p style={rightIntroP}>Choose a rate and weekly hours that fit your situation.<br /> We will show an estimated total for your selected period.</p>
                             <label style={{ display: "grid", gap: 6 }}>
                                 <span style={labelStyle}>Currency</span>
                                 <select

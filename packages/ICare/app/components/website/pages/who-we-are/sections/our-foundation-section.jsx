@@ -15,7 +15,7 @@ export function OurFoundationSection() {
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 color: TEXT, // ✅ default for whole section
             }}
         >
@@ -32,8 +32,8 @@ export function OurFoundationSection() {
                 <div style={{ maxWidth: "600px", color: TEXT }}>
                     <h2
                         style={{
-                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)",
-                            fontWeight: 800,
+                            fontSize: "2.6rem",
+                            fontWeight: 500,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
                             marginBottom: "1.4rem",
@@ -138,8 +138,8 @@ export function OurFoundationSection() {
                 <div style={{ maxWidth: "600px", color: TEXT }}>
                     <h2
                         style={{
-                            fontSize: "clamp(1.95rem, 2.7vw, 2.35rem)",
-                            fontWeight: 800,
+                            fontSize: "2.6rem",
+                            fontWeight: 500,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
                             marginBottom: "1.4rem",

@@ -4,7 +4,7 @@ export default function ThreeStepGuide() {
     const steps = [
         {
             title: "Create your profile",
-            desc: "Introduce yourself, choose your role, and tell us what support you need — or offer.",
+            desc: "Introduce yourself, choose your role, and tell us what support you need or offer.",
             img: "images/web/how-it-works/signup.jpg",
         },
         {
@@ -74,7 +74,7 @@ export default function ThreeStepGuide() {
                     style={{
                         margin: "18px 0 0",
                         color: "#0F172A",
-                        fontWeight: 600,
+                        fontWeight: 400,
                         lineHeight: 1.65,
                         fontSize: "1.22rem",
                         maxWidth: "78ch",
@@ -156,7 +156,7 @@ export default function ThreeStepGuide() {
                                         alignItems: "flex-start",
                                         gap: 10,
                                         color: "rgb(0, 0, 0)",
-                                        fontWeight: 500,
+                                        fontWeight: 400,
                                         lineHeight: 1.6,
                                         fontSize: "1.05rem", // ✅ było 1rem
                                         marginTop: 10,
@@ -182,7 +182,7 @@ export default function ThreeStepGuide() {
                             gap: 12,
                             textDecoration: "none",
                             color: "#fff",
-                            background: "rgb(231 153 97)",
+                            background: "#778d43",
                             padding: "0.95rem 1.8rem",
                             borderRadius: 999,
                             fontWeight: 850,

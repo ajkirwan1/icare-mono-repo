@@ -21,7 +21,6 @@ export default function ContactCTABanner() {
                 style={{
                     maxWidth: 1100,
                     margin: "0 auto",
-                    padding: "0 clamp(20px,3vw,34px)", // ✅ smaller inner padding
 
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
@@ -35,8 +34,8 @@ export default function ContactCTABanner() {
                         style={{
                             margin: 0,
                             color: "#0F172A",
-                            fontWeight: 800,
-                            fontSize: "clamp(1.6rem,2.2vw,1.95rem)", // ✅ smaller title
+                            fontWeight: 500,
+                            fontSize: "2.2rem", // ✅ smaller title
                             lineHeight: 1.12,
                             letterSpacing: "-0.35px",
                         }}
@@ -50,11 +49,11 @@ export default function ContactCTABanner() {
                             color: "#1f2a37",
                             fontSize: "clamp(1rem,1.05vw,1.08rem)", // ✅ smaller text
                             lineHeight: 1.7,
-                            fontWeight: 400,
+                            fontWeight: 500,
                             maxWidth: "60ch",
                         }}
                     >
-                        We’re here to help you understand matching, agreements and setup —
+                        We’re here to help you understand matching, agreements <br />and setup
                         with clarity and no pressure.
                     </p>
                 </div>
@@ -75,7 +74,7 @@ export default function ContactCTABanner() {
                         letterSpacing: ".02em",
                         fontSize: "1rem", // ✅ slightly smaller text
 
-                        background: "#61674d",
+                        background: "#778d43",
 
                         color: "#FFFFFF",
 
