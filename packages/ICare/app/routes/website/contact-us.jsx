@@ -1,5 +1,5 @@
 import ICareNavbar from "../../components/website/pages/shared/ICareNavbar";
-import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -258,7 +258,7 @@ export default function ContactUPage({
       `}</style>
       </section>
 
-      <ReceiversFooter />
+      <ICareFooter />
     </>
   );
 }

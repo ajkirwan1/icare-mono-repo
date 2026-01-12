@@ -3,8 +3,9 @@ import ThreeStepGuide from "../../components/website/pages/how-it-works/ThreeSte
 import CompareAgencyVsICare from "../../components/website/pages/how-it-works/CompareAgencyVsICare";
 import ContactCTABanner from "../../components/website/pages/how-it-works/ContactCTABanner";
 import SavingsEstimatorCurrency from "../../components/website/pages/how-it-works/SavingsEstimatorCurrency";
-import HowItWorksFooter from "../../components/website/pages/shared/footers/HowItWorksFooter";
+// import HowItWorksFooter from "../../components/website/pages/shared/footers/HowItWorksFooter";
 import { buildSeo } from "../../utils/seo/seo";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
 export function meta() {
   const seo = buildSeo({
@@ -39,7 +40,8 @@ export default function HowItWorks() {
       <CompareAgencyVsICare />
       <SavingsEstimatorCurrency />
       <ContactCTABanner />
-      <HowItWorksFooter />
+      {/* <HowItWorksFooter /> */}
+      <ICareFooter />
     </>
   );
 }

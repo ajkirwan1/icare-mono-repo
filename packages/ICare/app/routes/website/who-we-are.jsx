@@ -4,10 +4,10 @@ import { OurFoundationSection } from "../../components/website/pages/who-we-are/
 import { OurValuesSection } from "../../components/website/pages/who-we-are/sections/our-values-section";
 import { HowWeWorkSection } from "../../components/website/pages/who-we-are/sections/how-we-work-section";
 import { OurImpactSection } from "../../components/website/pages/who-we-are/sections/our-impact-section";
-import { CtaSection } from "../../components/website/pages/who-we-are/sections/cta-section";
+// import { CtaSection } from "../../components/website/pages/who-we-are/sections/cta-section";
 import { WhoWeAreHero } from "../../components/website/pages/who-we-are/sections/who-we-are-hero";
 import { buildSeo } from "../../utils/seo/seo";
-import ICareFooter from "../../components/website/pages/shared/footers/ICareFooter";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
 
 export function meta() {

@@ -2,18 +2,9 @@ import React from "react";
 import privacySrc from "/images/heros/privacy.jpg";
 import PrivacyHero from "../../components/website/pages/privacy/privacy-hero";
 import PrivacyContent from "../../components/website/pages/privacy/privacy-content";
-import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
-import styles from "./privacy-page.module.scss";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
 export default function PrivacyPage() {
-  const COMPANY = {
-    brand: "ICare",
-    operator: "Katarzyna Kruk (sole trader)",
-    tradingAs: "ICare",
-    email: "customershelp@icare.com",
-    address: "Cheltenham, Gloucestershire, GL50 1AA, United Kingdom",
-    lastUpdated: "January 1, 2026"
-  };
 
   const navItems = [
     ["#who", "Who we are"],
@@ -42,9 +33,8 @@ export default function PrivacyPage() {
         }
         navItems={navItems}
       />
-
-      <PrivacyContent company={COMPANY} styles={styles} />
-      <ReceiversFooter />
+      <PrivacyContent />
+      <ICareFooter />
     </>
   );
 }

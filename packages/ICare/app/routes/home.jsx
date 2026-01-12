@@ -4,7 +4,7 @@ import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
 import TrustValuesSection from "../components/website/pages/home/sections/trust-values-section";
 import IcareSafetyBlock from "../components/website/pages/home/sections/IcareSafetyBlock";
-import ICareFooter from "../components/website/pages/shared/footers/ICareFooter";
+import ICareFooter from "../components/website/pages/shared/footers/icare-footer";
 import { buildSeo } from "../utils/seo/seo";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
@@ -45,9 +45,7 @@ export default function Home() {
       <AboutICareSection />
       <CareTimeline />
       {/* <TrustIntroSection /> */}
-
       <TrustValuesSection />
-
       <HomePageCareCTA />
       <IcareSafetyBlock />
       <ICareCostEstimator />
