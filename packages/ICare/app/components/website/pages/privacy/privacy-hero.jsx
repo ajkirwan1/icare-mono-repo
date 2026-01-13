@@ -1,5 +1,5 @@
 import React from "react";
-import ICareNavbar from "~/components/website/pages/shared/ICareNavbar";
+import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
 import styles from "./privacy-hero.module.scss";
 
 export default function PrivacyHero({

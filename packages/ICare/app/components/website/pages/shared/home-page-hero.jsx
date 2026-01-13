@@ -1,13 +1,22 @@
-import ICareNavbar from "./ICareNavbar";
+import ICareNavbar from "./icare-navbar";
 import SubmitButton from "../../common/buttons/submit-buttons/submit-button";
 import NavigationButton from "../../common/buttons/navigation-buttons/navigation-button";
 import styles from "./home-page-hero.module.scss";
 
 export default function HomePageHero({ imgSrc }) {
+
+  const emit = (active) => {
+    window.dispatchEvent(
+      new CustomEvent("hero-hover", {
+        detail: { active }
+      })
+    );
+  };
+
   return (
     <>
       <ICareNavbar />
-      <section aria-label="ICare homepage hero" className={styles.hero}>
+      <section aria-label="ICare homepage hero" className={styles.hero} onMouseEnter={() => emit(true)}>
         <img src={imgSrc} alt="Care support background" className={styles.backgroundImage} />
 
 

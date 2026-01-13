@@ -1,4 +1,4 @@
-import ICareNavbar from "../../components/website/pages/shared/ICareNavbar";
+import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
 const styles = {

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import heroImage from "/images/heros/icare-for-caregivers.jpg";
-import ICareNavbar from "../shared/ICareNavbar";
+import ICareNavbar from "../shared/icare-navbar";
 import styles from "./icare-for-caregivers-hero.module.scss";
 
 export default function ICareForCaregiversHero() {
