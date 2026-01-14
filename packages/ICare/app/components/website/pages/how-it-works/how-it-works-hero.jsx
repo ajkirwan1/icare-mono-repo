@@ -1,44 +1,44 @@
 import React from "react";
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
-import ICareNavbar from "../shared/ICareNavbar";
+import ICareNavbar from "../shared/icare-navbar";
 import styles from "./how-it-works-hero.module.scss";
 import NavigationButton from "../../common/buttons/navigation-buttons/navigation-button";
 
 export default function HowItWorksHero() {
-    return (
-        <>
-            <ICareNavbar />
-            <section aria-label="How it works hero" className={styles.hero}>
-                <img
-                    src={whoWeAreHeroSrc}
-                    alt="Care coordination background"
-                    className={styles.image}
-                />
-                <div className={styles.overlay} />
+  return (
+    <>
+      <ICareNavbar />
+      <section aria-label="How it works hero" className={styles.hero}>
+        <img
+          src={whoWeAreHeroSrc}
+          alt="Care coordination background"
+          className={styles.image}
+        />
+        <div className={styles.overlay} />
 
-                <div className={styles.content}>
-                    <div>
-                        <h1 className={styles.title}>How ICare works</h1>
-                        <p className={styles.lead}>
-                            <b className={styles.leadStrong}>A simple way to find care locally.</b>
-                            <br />
-                            Browse profiles, message, and agree terms directly.
-                        </p>
-                        <div className={styles.ctaRow}>
-                            <NavigationButton to="#how-it-works-steps">See the 3 steps</NavigationButton>
-                        </div>
-                    </div>
-                </div>
+        <div className={styles.content}>
+          <div>
+            <h1 className={styles.title}>How ICare works</h1>
+            <p className={styles.lead}>
+              <b className={styles.leadStrong}>A simple way to find care locally.</b>
+              <br />
+              Browse profiles, message, and agree terms directly.
+            </p>
+            <div className={styles.ctaRow}>
+              <NavigationButton to="#how-it-works-steps">See the 3 steps</NavigationButton>
+            </div>
+          </div>
+        </div>
 
-                {/* ✅ identyczny pasek jak home page, tylko steps */}
-                <p className={styles.subheading}>
-                    <span><b>Step 1:</b> Compare profiles.</span>
-                    <span>|</span>
-                    <span><b>Step 2: </b>Agree tasks &amp; schedule.</span>
-                    <span>|</span>
-                    <span><b>Step 3:</b> Begin care - calmly.</span>
-                </p>
-            </section>
-        </>
-    );
+        {/* ✅ identyczny pasek jak home page, tylko steps */}
+        <p className={styles.subheading}>
+          <span><b>Step 1:</b> Compare profiles.</span>
+          <span>|</span>
+          <span><b>Step 2: </b>Agree tasks &amp; schedule.</span>
+          <span>|</span>
+          <span><b>Step 3:</b> Begin care - calmly.</span>
+        </p>
+      </section>
+    </>
+  );
 }

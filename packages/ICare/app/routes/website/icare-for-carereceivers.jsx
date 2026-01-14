@@ -3,7 +3,7 @@ import ReceiversThreeSteps from "../../components/website/pages/carereceivers/re
 import ReceiversCompareICareVsAgency from "../../components/website/pages/carereceivers/ReceiversCompareICareVsAgency";
 import MobileMockupSection from "../../components/website/pages/carereceivers/mobile-mockup-section";
 import ReceiversFAQ from "../../components/website/pages/carereceivers/ReceiversFAQ";
-import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ProtectionSection from "../../components/website/pages/carereceivers/protection-section";
 import AboutICareSection from "../../components/website/pages/home/sections/about-icare-section";
 
@@ -19,7 +19,7 @@ export default function ICareForCareReceivers() {
       <ProtectionSection />
       <ReceiversFAQ />
 
-      <ReceiversFooter />
+      <ICareFooter />
     </>
   );
 }

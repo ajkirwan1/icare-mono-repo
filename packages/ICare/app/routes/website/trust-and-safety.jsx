@@ -1,5 +1,5 @@
-import ICareNavbar from "../../components/website/pages/shared/ICareNavbar";
-import ReceiversFooter from "../../components/website/pages/shared/footers/ICareFooter";
+import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
+import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
 const styles = {
   page: {
@@ -33,14 +33,6 @@ export default function TrustAndSafetyPage() {
       <ICareNavbar />
 
       <section style={styles.page}>
-        {/* Intro */}
-        {/* <div style={styles.intro}> */}
-        {/* <img
-          src="images/web/trust-and-security/key.webp"
-          alt="Trust and security"
-          style={styles.introImage}
-        /> */}
-
         <h1>Trust and Safety</h1>
         <p>
           Trust and safety are at the heart of ICare. We are building a platform
@@ -53,9 +45,6 @@ export default function TrustAndSafetyPage() {
           ICare is built around transparency, respect, and informed choice, helping
           families feel confident as they navigate care decisions.
         </p>
-        {/* </div> */}
-
-        {/* Our Promise */}
         <div style={styles.section}>
           <h2>Our Promise to You</h2>
           <div style={styles.intro}>
@@ -90,8 +79,6 @@ export default function TrustAndSafetyPage() {
             </p>
           </div>
         </div>
-
-        {/* Caregiver Profiles */}
         <div style={styles.section}>
           <h2>Caregiver Profiles</h2>
           <p>
@@ -107,8 +94,6 @@ export default function TrustAndSafetyPage() {
             explicabo.
           </p>
         </div>
-
-        {/* Privacy and Data Protection */}
         <div style={styles.section}>
           <h2>Privacy and Data Protection</h2>
           <p>
@@ -123,8 +108,6 @@ export default function TrustAndSafetyPage() {
             sequi nesciunt.
           </p>
         </div>
-
-        {/* Reporting Concerns */}
         <div style={styles.section}>
           <h2>Reporting Concerns</h2>
           <p>
@@ -139,8 +122,6 @@ export default function TrustAndSafetyPage() {
             incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
           </p>
         </div>
-
-        {/* Important Disclaimer */}
         <div style={styles.section}>
           <h2>Important Disclaimer</h2>
           <p>
@@ -151,8 +132,7 @@ export default function TrustAndSafetyPage() {
           </p>
         </div>
       </section>
-
-      <ReceiversFooter />
+      <ICareFooter />
     </>
   );
 }
