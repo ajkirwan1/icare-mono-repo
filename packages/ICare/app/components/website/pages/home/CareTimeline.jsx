@@ -116,10 +116,10 @@ export default function HowItWorksThreeSteps() {
 
     const p = {
         margin: 0,
-        color: COLORS.muted,
+        color: COLORS.text,
         lineHeight: 1.65,
         fontSize: "1.08rem",
-        fontWeight: 600,
+        fontWeight: 500,
     };
 
     const ctaWrap = {
@@ -168,19 +168,19 @@ export default function HowItWorksThreeSteps() {
             n: "Step 1",
             icon: faMagnifyingGlass,
             t: "Browse and compare carers",
-            d: "See clear profiles, availability and support — so you can shortlist with confidence.",
+            d: "See clear profiles, availability and support - so you can shortlist with confidence.",
         },
         {
             n: "Step 2",
             icon: faComments,
             t: "Message and agree the details",
-            d: "Talk directly and confirm tasks, hours, start date and expectations — in one place.",
+            d: "Talk directly and confirm tasks, hours, start date and expectations - in one place.",
         },
         {
             n: "Step 3",
             icon: faCircleCheck,
             t: "Start care with clarity",
-            d: "Begin support knowing what’s agreed. No agency pressure — just a clear arrangement.",
+            d: "Begin support knowing what’s agreed. No agency pressure - just a clear arrangement.",
         },
     ];
 

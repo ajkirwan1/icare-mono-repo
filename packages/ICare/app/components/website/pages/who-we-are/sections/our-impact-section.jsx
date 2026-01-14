@@ -4,7 +4,7 @@ export function OurImpactSection() {
     const items = [
         {
             title: "Transparent care choices",
-            desc: "Families see real caregiver profiles — experience, availability and care style - before starting a conversation.",
+            desc: "Families see real caregiver profiles — experience, availability and care style — before starting a conversation.",
         },
         {
             title: "Direct communication",
@@ -48,29 +48,59 @@ export function OurImpactSection() {
                         alignItems: "stretch",
                     }}
                 >
-                    {/* ================= LEFT — ACCORDION ================= */}
+                    {/* ================= LEFT — TEXT + ACCORDION ================= */}
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "column",
                             justifyContent: "space-between",
-                            maxWidth: "52ch",
+                            maxWidth: "54ch",
                         }}
                     >
-                        <header style={{ marginBottom: "1.8rem" }}>
+                        <header style={{ marginBottom: "1.9rem" }}>
                             <h2
                                 style={{
                                     margin: 0,
-                                    fontWeight: 800,
-                                    fontSize: "clamp(1.9rem, 2.6vw, 2.2rem)",
+                                    fontWeight: 500,
+                                    fontSize: "2.4rem",
                                     color: "#000",
                                     letterSpacing: "-0.35px",
                                 }}
                             >
                                 How ICare changes home care
                             </h2>
+
+                            {/* ✅ SYSTEM / POLICY TEXT */}
+                            <div
+                                style={{
+                                    marginTop: "1.1rem",
+                                    display: "grid",
+                                    gap: ".85rem",
+                                    fontSize: "1.22rem",
+                                    lineHeight: 1.65,
+                                    color: "rgba(0,0,0,0.9)",
+                                    fontWeight: 400,
+                                }}
+                            >
+                                <p style={{ margin: 0, fontSize: "1.15rem", }}>
+                                    Home care is often shaped by complex structures that limit choice and create unnecessary pressure.
+                                </p>
+                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
+                                    Families struggle to understand costs, processes, and who is really making decisions.
+                                </p>
+                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
+                                    ICare simplifies this system by removing barriers between families and caregivers.
+                                </p>
+                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
+                                    We replace fragmented steps with a clear, guided process built on transparency and fairness.
+                                </p>
+                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
+                                    This shift allows care to be organised with more confidence, dignity, and mutual respect.
+                                </p>
+                            </div>
                         </header>
 
+                        {/* ================= ACCORDION ================= */}
                         <div style={{ display: "grid", gap: "1rem" }}>
                             {items.map((item, i) => {
                                 const isOpen = open === i;
@@ -100,7 +130,7 @@ export function OurImpactSection() {
                                         >
                                             <span
                                                 style={{
-                                                    fontSize: "1.05rem",
+                                                    fontSize: "1.22rem",
                                                     fontWeight: 600,
                                                     letterSpacing: "-0.15px",
                                                 }}
@@ -123,9 +153,10 @@ export function OurImpactSection() {
                                             <p
                                                 style={{
                                                     marginTop: ".45rem",
-                                                    fontSize: ".95rem",
+                                                    fontSize: "1.15rem",
                                                     lineHeight: 1.55,
                                                     color: "rgba(0,0,0,0.9)",
+                                                    fontWeight: 400,
                                                 }}
                                             >
                                                 {item.desc}
@@ -137,7 +168,7 @@ export function OurImpactSection() {
                         </div>
                     </div>
 
-                    {/* ================= RIGHT — SINGLE IMAGE ================= */}
+                    {/* ================= RIGHT — IMAGE ================= */}
                     <div>
                         <div
                             style={{
@@ -145,6 +176,7 @@ export function OurImpactSection() {
                                 overflow: "hidden",
                                 borderRadius: "28px",
                                 boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
+                                height: "100%",
                             }}
                         >
                             <img
@@ -157,7 +189,6 @@ export function OurImpactSection() {
                                     display: "block",
                                 }}
                             />
-
                         </div>
                     </div>
                 </div>

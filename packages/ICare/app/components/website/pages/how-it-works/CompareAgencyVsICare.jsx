@@ -29,13 +29,13 @@ export default function CompareAgencyVsICare() {
         maxWidth: "65ch",
         lineHeight: 1.65,
         fontSize: "1.22rem",
-        fontWeight: 600,
+        fontWeight: 400, // ✅ was 600
     };
 
     const CARD_TITLE = {
         margin: 0,
-        fontSize: "1.25rem",
-        fontWeight: 700,
+        fontSize: "1.50rem",
+        fontWeight: 500,
         color: TEXT,
         letterSpacing: "-0.15px",
         lineHeight: 1.25,
@@ -45,10 +45,16 @@ export default function CompareAgencyVsICare() {
         display: "flex",
         gap: 12,
         color: "#1f2a37",
-        fontSize: "1.05rem",
+        fontSize: "1.15rem",
         lineHeight: 1.55,
-        fontWeight: 500,
+        fontWeight: 400,
     };
+
+
+    const LI_SVG = {
+        position: "relative",
+        top: "5px"
+    }
 
     return (
         <section
@@ -131,6 +137,7 @@ export default function CompareAgencyVsICare() {
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
+                                            style={LI_SVG}
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
@@ -203,6 +210,7 @@ export default function CompareAgencyVsICare() {
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
+                                            style={LI_SVG}
                                             width="18"
                                             height="18"
                                             viewBox="0 0 24 24"
