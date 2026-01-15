@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route, layout, prefix } from "@react-router/dev/routes";
+import { type RouteConfig, index, route, prefix, layout } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.jsx"),
@@ -12,45 +12,60 @@ export default [
   route("register-interest", "routes/website/register-interest.jsx"),
   route("terms-of-service", "routes/website/terms-of-service.jsx"),
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
+  route("news-and-articles", "routes/website/news-and-articles.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
-  route("login", "routes/login.jsx"),
-
+  route("login", "routes/auth/login.jsx"),
 
   ...prefix("carerecipient", [
-    layout("routes/carerecipient/layout.jsx", [
-      index("routes/carerecipient/carerecipient.jsx"),
+    layout("routes/app/carerecipient/layout.jsx", [
+      index("routes/app/carerecipient/care-receiver-home.jsx"),
 
-      ...prefix("caregivers", [
-        index("routes/carerecipient/caregivers.jsx"),
-        route(":caregiverId", "routes/carerecipient/single-caregiver.jsx"),
-        route(":caregiverId/resume", "routes/carerecipient/resume.jsx"),
-        route(":caregiverId/messages", "routes/carerecipient/messages.jsx")
-      ]),
-
-      ...prefix("contacts", [
-        layout("routes/carerecipient/contacts/contacts-layout.jsx", [
-          route("home", "routes/carerecipient/contacts/home.jsx"),
-          route("", "routes/carerecipient/_redirect-messages.jsx"), // catch base and redirect
-          route(":contactId", "routes/carerecipient/contacts/messages.jsx"),
-          route(":contactId/diary", "routes/carerecipient/contacts/diary.jsx")
-        ])
-      ]),
       ...prefix("profile", [
-        layout("routes/carerecipient/profile/my-profile-layout.jsx", [
-          route("", "routes/carerecipient/profile/_redirect-messages.jsx"),
-          route("personal-details", "routes/carerecipient/profile/personal-details.jsx"),
-          route("medical-information", "routes/carerecipient/profile/medical-information.jsx"),
-          route("security-settings", "routes/carerecipient/profile/security-settings.jsx"),
-          route("notification-settings", "routes/carerecipient/profile/notification-settings.jsx")
+        layout("routes/app/carerecipient/profile/my-profile-layout.jsx", [
+          route("", "routes/app/carerecipient/profile/_redirect-messages.jsx"),
+          route("personal-details", "routes/app/carerecipient/profile/personal-details.jsx")
         ])
-      ]),
-      ...prefix("diary", [
-        index("routes/carerecipient/diary/carerecipient-diary.jsx")
-      ]),
-      ...prefix("my-account", [
-        index("routes/carerecipient/account/my-account.jsx")
       ])
     ])
   ]
   )
+
+
+  // ...prefix("carerecipient", [
+  //   layout("routes/carerecipient/layout.jsx", [
+  //     index("routes/carerecipient/carerecipient.jsx"),
+
+  //     ...prefix("caregivers", [
+  //       index("routes/carerecipient/caregivers.jsx"),
+  //       route(":caregiverId", "routes/carerecipient/single-caregiver.jsx"),
+  //       route(":caregiverId/resume", "routes/carerecipient/resume.jsx"),
+  //       route(":caregiverId/messages", "routes/carerecipient/messages.jsx")
+  //     ]),
+
+  //     ...prefix("contacts", [
+  //       layout("routes/carerecipient/contacts/contacts-layout.jsx", [
+  //         route("home", "routes/carerecipient/contacts/home.jsx"),
+  //         route("", "routes/carerecipient/_redirect-messages.jsx"), // catch base and redirect
+  //         route(":contactId", "routes/carerecipient/contacts/messages.jsx"),
+  //         route(":contactId/diary", "routes/carerecipient/contacts/diary.jsx")
+  //       ])
+  //     ]),
+  //     ...prefix("profile", [
+  //       layout("routes/carerecipient/profile/my-profile-layout.jsx", [
+  //         route("", "routes/carerecipient/profile/_redirect-messages.jsx"),
+  //         route("personal-details", "routes/carerecipient/profile/personal-details.jsx"),
+  //         route("medical-information", "routes/carerecipient/profile/medical-information.jsx"),
+  //         route("security-settings", "routes/carerecipient/profile/security-settings.jsx"),
+  //         route("notification-settings", "routes/carerecipient/profile/notification-settings.jsx")
+  //       ])
+  //     ]),
+  //     ...prefix("diary", [
+  //       index("routes/carerecipient/diary/carerecipient-diary.jsx")
+  //     ]),
+  //     ...prefix("my-account", [
+  //       index("routes/carerecipient/account/my-account.jsx")
+  //     ])
+  //   ])
+  // ]
+  // )
 ] satisfies RouteConfig;

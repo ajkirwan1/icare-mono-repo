@@ -1,13 +1,13 @@
 import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
 import { useNavigate } from "react-router";
 import { useEffect, useState, lazy, Suspense } from "react";
-import ProfileCard from "../../features/profile/profile-card.jsx";
-import ContractsCard from "../../features/pages/carerecipient/homepage/contracts-card.jsx";
-import DocumentsCard from "../../features/pages/carerecipient/homepage/documents-card.jsx";
+import ProfileCard from "../../../features/profile/profile-card.jsx";
+import ContractsCard from "../../../features/pages/carerecipient/homepage/contracts-card.jsx";
+import DocumentsCard from "../../../features/pages/carerecipient/homepage/documents-card.jsx";
 // import NotificationsLabel from "../../components/application/ui/notifications-label/notifications-label.jsx";
-import { IconChip } from "../../components/application/ui/icon-chip/icon-chip.jsx";
-import NotificationsCard from "../../features/pages/carerecipient/homepage/notifications-card.jsx";
-import { ToggleSwitch } from "../../components/application/ui/toggle-switch/toggle-switch.jsx";
+import { IconChip } from "../../../components/application/ui/icon-chip/icon-chip.jsx";
+import NotificationsCard from "../../../features/pages/carerecipient/homepage/notifications-card.jsx";
+import { ToggleSwitch } from "../../../components/application/ui/toggle-switch/toggle-switch.jsx";
 
 /* ===== Meta ===== */
 export function meta() {
@@ -19,7 +19,7 @@ export function meta() {
 export const handle = { breadcrumb: "Home" };
 
 /* ===== Lazy chunks ===== */
-const MyDiaryCard = lazy(() => import("../../components/cards/my-diary-card.client.jsx"));
+const MyDiaryCard = lazy(() => import("../../../components/cards/my-diary-card.client.jsx"));
 
 /* ===== Skeleton ===== */
 function Skeleton({ h = 120 }) {

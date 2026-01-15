@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NavLink } from "react-router";
-import styles from "./icare-navbar.module.scss";
+import styles from "./icare-app-navbar.module.scss";
 
 function DropdownPortal({ anchorEl, open, onClose, navDropdownAnchor, children }) {
   const menuRef = useRef(null);
@@ -74,7 +74,7 @@ function DropdownPortal({ anchorEl, open, onClose, navDropdownAnchor, children }
   );
 }
 
-export default function ICareAppNavbar() {
+export default function ICareNavbar() {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const mobileMenuRef = useRef(null);
@@ -84,24 +84,13 @@ export default function ICareAppNavbar() {
   const items = useMemo(
     () => [
       {
-        id: "icare",
-        label: "ICare",
-        children: [
-          { to: "/icare-for-caregivers", label: "For caregivers" },
-          { to: "/icare-for-carereceivers", label: "For care receivers" }
-        ]
+        to: "/",
+        label: "Logout"
       },
-      { to: "/how-it-works", label: "How it works" },
-      { to: "/who-we-are", label: "Who we are" },
-      { to: "/news-and-articles", label: "News and articles" },
-      {
-        id: "privacy",
-        label: "Privacy",
-        children: [
-          { to: "/privacy", label: "Privacy policy" },
-          { to: "/trust-and-safety", label: "Trust and safety" }
-        ]
-      }
+      { to: "/how-it-works", label: "Find caregivers" },
+      { to: "/how-it-works", label: "Inbox" },
+      { to: "/who-we-are", label: "Documents" },
+      { to: "/news-and-articles", label: "My profile" }
     ],
     []
   );

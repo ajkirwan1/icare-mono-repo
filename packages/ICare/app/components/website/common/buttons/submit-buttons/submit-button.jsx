@@ -1,23 +1,24 @@
 import styles from "./submit-button.module.scss";
+import clsx from "clsx";
 
-export default function SubmitButton({ children }) {
-    return (
-        <button type='submit' className={styles.button}>
-            {children}
-            <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-            >
-                <path d="M5 12h14" />
-                <path d="M13 5l7 7-7 7" />
-            </svg>
-        </button>
-    );
+export default function SubmitButton({ children, variant = "primary" }) {
+  return (
+    <button type='submit' className={clsx(styles.button, styles[variant])}>
+      {children}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14" />
+        <path d="M13 5l7 7-7 7" />
+      </svg>
+    </button>
+  );
 }

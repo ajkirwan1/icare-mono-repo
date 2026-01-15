@@ -37,7 +37,7 @@ export default function Breadcrumbs() {
   if (crumbs.length === 0) { return null; }
 
   return (
-    <nav aria-label="breadcrumb" style={{ margin: "1rem 0" }}>
+    <nav aria-label="breadcrumb" style={{ padding: "1rem" }}>
       <ul
         className="breadcrumb"
         style={{

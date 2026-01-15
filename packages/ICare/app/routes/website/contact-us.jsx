@@ -1,8 +1,19 @@
+const API = import.meta.env.VITE_API_URL;
+
 import React, { useState } from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
+// export async function loader() {
+//   // const formData = await request.formData();
+//   console.log("FIRED");
+//   const res = await fetch(`${API}/api/todos`);
+//   if (!res.ok) { throw new Response("API error", { status: res.status }); }
+//   console.log(res);
+// }
 
 export default function ContactUPage() {
   const COLORS = {

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { IcareSection, IcareCard } from "react-library";
 import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.png";
 // import PillComponent from "../../../components/pill/pill-component.jsx";
-import ModalComponent from "../../../components/modals/modal-component.jsx";
+import ModalComponent from "../../../../components/modals/modal-component.jsx";
 import { NavLink } from "react-router";
-import DynamicForm from "../../../forms/dynamic-form.jsx";
+import DynamicForm from "../../../../forms/dynamic-form.jsx";
 
 /* =========================
    META

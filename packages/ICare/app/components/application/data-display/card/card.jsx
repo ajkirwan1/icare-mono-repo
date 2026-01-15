@@ -1,7 +1,7 @@
 // components/data-display/Card.jsx
 import { PillButton } from "../../ui/pill-button";
 import styles from "./card.module.scss";
-import NotificationsLabel from "../../ui/notifications-label/notifications-label";
+// import NotificationsLabel from "../../ui/notifications-label/notifications-label";
 
 function SectionHeader({ title, subtitle, cta }) {
   const hasCTA = Boolean(cta);
@@ -10,7 +10,7 @@ function SectionHeader({ title, subtitle, cta }) {
     <header className={styles.header}>
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <NotificationsLabel />
+          {/* <NotificationsLabel /> */}
           <h3 className={styles.title}>{title}</h3>
         </div>
         {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
