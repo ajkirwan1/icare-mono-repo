@@ -61,8 +61,8 @@ export default function CaregiverStepsEmpathy() {
                     <h2
                         style={{
                             margin: 0,
-                            fontWeight: 800,
-                            fontSize: "clamp(1.7rem,2.2vw,2.1rem)",
+                            fontWeight: 500,
+                            fontSize: "2.6rem",
                             letterSpacing: "-0.35px",
                             color: "#0F172A",
                             lineHeight: 1.15
@@ -77,10 +77,10 @@ export default function CaregiverStepsEmpathy() {
                             marginTop: ".75rem",
                             marginBottom: 0,
                             color: "#0f172a",
-                            fontSize: "1.12rem", // ~10–15% bigger than 1rem
+                            fontSize: "1.22rem", // ~10–15% bigger than 1rem
                             lineHeight: 1.55,
                             maxWidth: "70ch",
-                            fontWeight: 800 // strong-like
+                            fontWeight: 400 // strong-like
                         }}
                     >
                         A simple way to take control of your care work and earnings.
@@ -92,10 +92,13 @@ export default function CaregiverStepsEmpathy() {
                     className="icare-whygrid"
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "1.1fr 0.9fr",
-                        gap: "2.6rem",
+                        gap: "1.75rem",
                         alignItems: "start",
-                        marginBottom: "3.1rem" // ✅ more air
+                        marginBottom: "3.1rem", // ✅ more air
+                        background: "rgba(255,255,255,0.7)",
+                        borderRadius: "40px",
+                        padding: "30px 40px 40px",
+                        maxWidth: "800px"
                     }}
                 >
                     {/* LEFT: Why copy (slightly bolder) */}
@@ -103,8 +106,8 @@ export default function CaregiverStepsEmpathy() {
                         <h3
                             style={{
                                 margin: 0,
-                                fontSize: "1.30rem",
-                                fontWeight: 900,
+                                fontSize: "1.6rem",
+                                fontWeight: 600,
                                 color: "#0F172A",
                                 letterSpacing: "-0.2px",
                                 lineHeight: 1.2
@@ -117,16 +120,15 @@ export default function CaregiverStepsEmpathy() {
                             style={{
                                 marginTop: ".85rem",
                                 marginBottom: 0,
-                                fontSize: "1.03rem",
-                                lineHeight: 1.65,
+                                fontSize: "1.22rem",
+                                lineHeight: 1.5,
                                 color: "#0f172a",
-                                fontWeight: 750, // ✅ a bit bolder
-                                opacity: 0.95,
-                                maxWidth: "72ch"
+                                fontWeight: 400, // ✅ a bit bolder
+                                maxWidth: "66ch"
                             }}
                         >
                             ICare is built for independent caregivers — not agencies. <br />You stay in control of your
-                            working life: speak directly with families, agree the right support, and work on terms
+                            working life: speak directly with families,<br />agree the right support and work on terms
                             that fit you.
                         </p>
 
@@ -137,7 +139,7 @@ export default function CaregiverStepsEmpathy() {
                                 fontSize: "1.01rem",
                                 lineHeight: 1.6,
                                 color: "#0f172a",
-                                fontWeight: 650, // ✅ slightly bolder
+                                fontWeight: 600, // ✅ slightly bolder
                                 opacity: 0.9,
                                 maxWidth: "72ch"
                             }}
@@ -150,7 +152,7 @@ export default function CaregiverStepsEmpathy() {
                         style={{
                             display: "grid",
                             gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                            gap: "1rem",
+                            gap: "2rem",
                             padding: 0, // ✅ removed big block padding
                             background: "transparent", // ✅ removed rectangle
                             border: "none",
@@ -177,10 +179,8 @@ export default function CaregiverStepsEmpathy() {
                                         display: "flex",
                                         alignItems: "center",
                                         justifyContent: "center",
-                                        background: "rgba(97,103,77,0.14)",
-                                        border: "1px solid rgba(97,103,77,0.22)",
                                         color: "#0F3D20",
-                                        transform: "translateY(1px)"
+                                        transform: "translateY(-4px)"
                                     }}
                                 >
                                     <FontAwesomeIcon icon={h.icon} style={{ fontSize: 16 }} />
@@ -189,9 +189,9 @@ export default function CaregiverStepsEmpathy() {
                                 <div>
                                     <div
                                         style={{
-                                            fontWeight: 900,
+                                            fontWeight: 600,
                                             color: "#0F172A",
-                                            fontSize: ".98rem",
+                                            fontSize: "1.22rem",
                                             letterSpacing: "-0.12px",
                                             lineHeight: 1.2
                                         }}
@@ -200,10 +200,9 @@ export default function CaregiverStepsEmpathy() {
                                     </div>
                                     <div
                                         style={{
-                                            marginTop: ".35rem",
+                                            marginTop: ".25rem",
                                             color: "#0f172a",
-                                            opacity: 0.88,
-                                            fontSize: ".92rem",
+                                            fontSize: "1rem",
                                             lineHeight: 1.35
                                         }}
                                     >
@@ -220,9 +219,10 @@ export default function CaregiverStepsEmpathy() {
                     className="icare-main-grid"
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
+                        gridTemplateColumns: "1.2fr .8fr",
                         gap: "3rem",
-                        alignItems: "center"
+                        marginTop: "6rem",
+                        alignItems: "flex-start"
                     }}
                 >
                     {/* LEFT — STEPS */}
@@ -232,22 +232,22 @@ export default function CaregiverStepsEmpathy() {
                                 key={i}
                                 style={{
                                     display: "grid",
-                                    gridTemplateColumns: "26px 1fr",
-                                    gap: "1.15rem",
+                                    gridTemplateColumns: "60px 1fr",
+                                    gap: "2rem",
                                     paddingBottom: "1.15rem",
-                                    borderBottom:
-                                        i !== steps.length - 1
-                                            ? "1px solid rgba(0,0,0,0.06)"
-                                            : "none"
+
                                 }}
                             >
                                 <div
                                     style={{
-                                        fontSize: "0.9rem",
+                                        marginTop: "-3px",
+                                        fontSize: "1.5rem",
                                         fontWeight: 700,
                                         color: "#0F3D20",
-                                        opacity: 0.55,
-                                        lineHeight: "1.6"
+                                        opacity: 0.75,
+                                        paddingRight: "20px",
+                                        lineHeight: "1.6",
+                                        borderRight: "1px solid rgba(0,0,0,0.5)",
                                     }}
                                 >
                                     {String(i + 1).padStart(2, "0")}
@@ -257,8 +257,8 @@ export default function CaregiverStepsEmpathy() {
                                     <h3
                                         style={{
                                             margin: "0 0 .25rem",
-                                            fontSize: "1.08rem",
-                                            fontWeight: 700,
+                                            fontSize: "1.22rem",
+                                            fontWeight: 600,
                                             color: "#0F172A"
                                         }}
                                     >
@@ -268,10 +268,9 @@ export default function CaregiverStepsEmpathy() {
                                     <p
                                         style={{
                                             margin: 0,
-                                            fontSize: ".95rem",
+                                            fontSize: "1.1rem",
                                             color: "#0f172a",
                                             lineHeight: 1.45,
-                                            opacity: 0.95
                                         }}
                                     >
                                         {s.d}
@@ -322,7 +321,7 @@ export default function CaregiverStepsEmpathy() {
                             letterSpacing: ".01em"
                         }}
                     >
-                        Create your free account
+                        Join the Caregiver Zone
                     </a>
                 </div>
 
