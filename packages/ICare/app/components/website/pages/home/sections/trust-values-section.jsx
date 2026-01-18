@@ -55,7 +55,7 @@ export default function TrustValuesSection() {
 
                 {/* ✅ single clean line (instead of multiple blocks) */}
                 <p className={styles.subsubtitle}>
-                    Clear expectations. Human care.<br />Flexible support — with visibility from the start.
+                    Clear expectations. Human care.<br />Flexible support - with visibility from the start.
                 </p>
 
                 {/* ✅ gentle CTA (text link) */}

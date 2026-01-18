@@ -184,30 +184,29 @@ export default function WhatMakesAGreatProfile() {
     };
 
     const note = {
-        marginTop: "clamp(1.6rem, 2.8vw, 2.0rem)",
+        marginTop: "3rem",
         paddingTop: "clamp(14px, 2vw, 18px)",
-        borderTop: "1px dashed rgba(15,23,42,0.18)",
-        maxWidth: "88ch",
         color: "rgba(15,23,42,0.9)",
+        maxWidth: "50%"
     };
 
     const noteTitle = {
         margin: 0,
-        fontSize: "1.15rem",
+        fontSize: "1.25rem",
         fontWeight: 700,
         letterSpacing: "-0.1px",
     };
 
     const noteText = {
         margin: "0.5rem 0 0",
-        fontSize: "1.12rem",
+        fontSize: "1.25rem",
         lineHeight: 1.6,
         fontWeight: 400,
         color: COLORS.text,
     };
 
     return (
-        <section aria-label="What makes a great caregiver profile" style={wrap}>
+        <section id="great-profile-section" aria-label="What makes a great caregiver profile" style={wrap}>
             <div style={{ ...divider, top: 0 }} />
             <div style={{ ...divider, bottom: 0 }} />
 
@@ -216,7 +215,7 @@ export default function WhatMakesAGreatProfile() {
                     <h2 style={h2}>What makes a great profile</h2>
                     <p style={lead}>
                         A strong profile helps families understand you quickly and reach out
-                        with confidence. Think of it as a short, structured introduction —
+                        with confidence.<br />Think of it as a short, structured introduction —
                         clear, honest and easy to scan.
                     </p>
                 </header>
@@ -238,7 +237,7 @@ export default function WhatMakesAGreatProfile() {
                 <div style={note}>
                     <p style={noteTitle}>Why this structure works</p>
                     <p style={noteText}>
-                        Families often compare profiles quickly. Clear sections reduce
+                        Families often compare profiles quickly.<br />Clear sections reduce
                         uncertainty, speed up decisions, and lead to better-matched
                         conversations from the start.
                     </p>
