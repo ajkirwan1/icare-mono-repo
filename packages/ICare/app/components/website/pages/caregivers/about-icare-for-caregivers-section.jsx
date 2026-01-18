@@ -1,40 +1,250 @@
 import React from "react";
-import styles from "./about-icare-for-caregivers-section.module.scss";
-// import NavigationButton from "../../../common/buttons/navigation-buttons/navigation-button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faIdCard,
+    faComments,
+    faCalendarCheck,
+    faScaleBalanced,
+} from "@fortawesome/free-solid-svg-icons";
 
-export default function AboutICareForCaregiversSection() {
+export default function HowICareWorksForCaregiversSystem() {
+    const COLORS = {
+        bgTop: "rgba(167,182,129,0.20)",
+        bgBottom: "rgba(255,249,239,0.92)",
+        text: "#0F172A",
+        muted: "rgba(15,23,42,0.55)",
+        border: "rgba(15,23,42,0.10)",
+        olive: "#61674d",
+    };
 
-  return (
-    <section className={styles.section} style={{ background: "rgb(255, 249, 239)" }}>
-      <div className={styles.gridThreeQuarter}>
-        <div>
-          <h2 className={styles.title}>
-            Keep more of your hard-earned income
-          </h2>
-          <p className={styles.subtitle}>
-            Your healh in your and hands
-          </p>
-          <p className={styles.subtitle}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <p className={styles.subtitle}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <p className={styles.subtitle}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          {/* <div style={{ marginTop: "2vh" }}>
-            <NavigationButton to="/who-we-are">Who we are</NavigationButton>
-          </div> */}
-        </div>
-      </div>
-    </section>
-  );
+    const steps = [
+        {
+            step: "01",
+            icon: faIdCard,
+            title: "Create a clear caregiver profile",
+            desc:
+                "Show your experience, availability and care preferences so families understand you from the start.",
+            image:
+                "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&q=80",
+            alt: "Photo ID and profile details for verification",
+        },
+        {
+            step: "02",
+            icon: faComments,
+            title: "Speak directly with families",
+            desc:
+                "Message privately, ask questions and discuss care details without agency pressure or intermediaries.",
+            image:
+                "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
+            alt: "Caregiver and family talking at home",
+        },
+        {
+            step: "03",
+            icon: faCalendarCheck,
+            title: "Agree schedules and expectations",
+            desc:
+                "Confirm hours, tasks and start dates openly — everything is clear before care begins.",
+            image:
+                "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1200&q=80",
+            alt: "Planning schedules and expectations",
+        },
+        {
+            step: "04",
+            icon: faScaleBalanced,
+            title: "Work within a fairer system",
+            desc:
+                "ICare removes hidden margins and supports a more transparent, balanced way of organising care.",
+            image:
+                "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
+            alt: "Fair and balanced care system",
+        },
+    ];
+
+    const stepCardImageWrap = {
+        marginTop: "1rem",
+        borderRadius: 18,
+        overflow: "hidden",
+        background: "rgba(15,23,42,0.03)",
+        border: `1px solid ${COLORS.border}`,
+        aspectRatio: "16 / 10",
+    };
+
+    const stepCardImage = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
+    };
+
+    return (
+        <section
+            aria-label="How ICare works for caregivers"
+            style={{
+                width: "100%",
+                padding: "clamp(5rem, 7vw, 6.8rem) 0",
+                background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
+                fontFamily:
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                color: COLORS.text,
+                position: "relative",
+            }}
+        >
+            {/* subtle separators */}
+            <div
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 1,
+                    background: COLORS.border,
+                }}
+            />
+            <div
+                style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: 1,
+                    background: COLORS.border,
+                }}
+            />
+
+            <div style={{ width: "min(96vw, 1240px)", margin: "0 auto" }}>
+                {/* HEADER */}
+                <header style={{ maxWidth: "78ch", marginBottom: "2.6rem" }}>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 500,
+                            letterSpacing: "-0.6px",
+                            lineHeight: 1.14,
+                            fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
+                        }}
+                    >
+                        How ICare works for caregivers
+                    </h2>
+
+                    <p
+                        style={{
+                            marginTop: "0.9rem",
+                            fontSize: "1.18rem",
+                            lineHeight: 1.65,
+                            fontWeight: 400,
+                        }}
+                    >
+                        A clear profile works like a short introduction. <br />
+                        Explain who you are, what care you provide, your availability and
+                        boundaries — this helps families decide quickly and contact you
+                        directly without agencies.
+                    </p>
+
+                    <p
+                        style={{
+                            marginTop: "0.8rem",
+                            fontSize: "1.22rem",
+                            lineHeight: 1.65,
+                            fontWeight: 400,
+                        }}
+                    >
+                        A clearer, more balanced way to organise care — built around
+                        transparency, autonomy and mutual respect.
+                    </p>
+                </header>
+
+                {/* ✅ 2 columns / 2 rows (each card ~50% width) */}
+                <div className="icare-caregivers-steps-grid">
+                    {steps.map((s) => (
+                        <div
+                            key={s.step}
+                            style={{
+                                background: "#ffffff",
+                                border: `1px solid ${COLORS.border}`,
+                                borderRadius: 22,
+                                padding: "20px",
+                                boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space-between"
+                            }}
+                        >
+                            <div className="icare-caregivers-text">
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "flex-start",
+                                        marginBottom: "0.6rem",
+                                    }}
+                                >
+                                    <div>
+
+                                        <h3
+                                            style={{
+                                                margin: "0.4rem 0 0",
+                                                fontSize: "1.38rem",
+                                                fontWeight: 600,
+                                                paddingRight: "30px",
+                                                lineHeight: 1.3,
+                                            }}
+                                        >
+                                            {s.title}
+                                        </h3>
+                                    </div>
+
+                                    <FontAwesomeIcon
+                                        icon={s.icon}
+                                        style={{
+                                            fontSize: 28,
+                                            color: COLORS.olive,
+                                        }}
+                                    />
+                                </div>
+
+                                <p
+                                    style={{
+                                        margin: 0,
+                                        fontSize: "1.1rem",
+                                        lineHeight: 1.6,
+                                        fontWeight: 400,
+                                    }}
+                                >
+                                    {s.desc}
+                                </p>
+
+
+                            </div>
+
+                            <div style={stepCardImageWrap}>
+                                <img
+                                    src={s.image}
+                                    alt={s.alt}
+                                    style={stepCardImage}
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer"
+                                />
+                            </div>
+
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <style>{`
+        .icare-caregivers-steps-grid{
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 20px;
+          align-items: stretch;
+        }
+
+        @media (max-width: 860px){
+          .icare-caregivers-steps-grid{
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+        </section>
+    );
 }

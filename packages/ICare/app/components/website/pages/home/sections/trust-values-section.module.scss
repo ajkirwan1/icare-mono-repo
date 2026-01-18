@@ -25,7 +25,7 @@
 .headerSection {
     padding-bottom: 2rem;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1100px;
 }
 
 .header {
@@ -51,15 +51,14 @@
 .subinfo {
     margin-top: $space-14;
     max-width: $maxw-copy-lg;
-    font-size: $fs-lg;
+    font-size: $fs-xl;
     line-height: $lh-card;
     color: $txt;
-    opacity: 0.9;
 }
 
 /* ✅ NEW: looks like a calm sub-heading */
 .subsubtitle {
-    margin: $space-14 0 0;
+    margin: $space-22 0 0;
     max-width: $maxw-copy-lg;
     font-size: 1.35em;
     /* ✅ ~20% bigger */
