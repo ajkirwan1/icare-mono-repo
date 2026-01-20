@@ -11,7 +11,10 @@ export default function ProfileCard() {
   const percentage = 66;
 
   return (
-    <Card title="My profile" subtitle="Basic details & account status">
+    <Card title="My profile summary"
+      subtitle="Basic details & account status"
+      footerLinkContent="View your full profile"
+      footerLinkTo="/carerecipient/profile/personal-details">
       <div className={styles.container}>
         <img
           src={imgSrc}
@@ -66,11 +69,11 @@ export default function ProfileCard() {
         </div>
       </div>
 
-      <div className={styles.editRow}>
+      {/* <div className={styles.editRow}>
         <NavLink className={styles.editLink} to="/carerecipient/profile/personal-details">
-          Edit Profile
+          View your full profile
         </NavLink>
-      </div>
+      </div> */}
     </Card>
   );
 }

@@ -1,0 +1,170 @@
+/* caregiver-profile-summary-card.scss */
+/* Plain SCSS file (NOT a module). Class names are prefixed with ps- to avoid collisions. */
+
+.ps-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ps-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ps-avatar {
+  width: 40px;
+  /* significantly smaller */
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  border: 2px solid rgba(97, 148, 130, 0.35);
+}
+
+.ps-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ps-nameRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ps-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #1f2937;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #2f5b4b;
+  background: rgba(97, 148, 130, 0.12);
+  border: 1px solid rgba(97, 148, 130, 0.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ps-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.ps-dot {
+  opacity: 0.6;
+}
+
+.ps-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: #f4f9f7;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.ps-stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ps-statLabel {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.ps-statValue {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #111827;
+  text-align: right;
+}
+
+.ps-statValueSmall {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.ps-sectionList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ps-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.ps-rowLabel {
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.ps-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ps-iconOk {
+  color: #16a34a;
+}
+
+.ps-iconBad {
+  color: #dc2626;
+}
+
+.ps-tip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #475569;
+  background: rgba(255, 248, 230, 0.9);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.ps-tipLink {
+  font-weight: 800;
+  text-decoration: none;
+  color: #2f5b4b;
+  background: rgba(97, 148, 130, 0.14);
+  border: 1px solid rgba(97, 148, 130, 0.22);
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.ps-tipLink:hover {
+  background: rgba(97, 148, 130, 0.22);
+}

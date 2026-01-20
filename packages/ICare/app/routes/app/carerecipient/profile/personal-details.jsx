@@ -1,20 +1,7 @@
 import { useState } from "react";
-import { IcareSection, IcareCard } from "react-library";
 import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.png";
-// import PillComponent from "../../../components/pill/pill-component.jsx";
-import ModalComponent from "../../../../components/modals/modal-component.jsx";
 import { NavLink } from "react-router";
-import DynamicForm from "../../../../forms/dynamic-form.jsx";
-
-/* =========================
-   META
-========================= */
-export function meta() {
-  return [
-    { title: "ICare | Home" },
-    { name: "description", content: "ICare – Supporting better care through intuitive tools." }
-  ];
-}
+import Card from "../../../../components/application/data-display/card/card";
 
 /* =========================
    DESIGN TOKENS (SPÓJNE)
@@ -93,192 +80,182 @@ export default function CaregiverRecipientHome() {
     setModalTitle(title);
     setModalOpen(true);
   };
-  const currentFormKey =
-    modalTitle.includes("Health") ? "healthInfo" :
-      modalTitle.includes("Personal") ? "personalInfo" :
-        modalTitle.includes("Skills") ? "skillsForm" :
-          modalTitle.includes("Languages") ? "languagesForm" :
-            modalTitle.includes("Schedule") ? "scheduleForm" :
-              "personalInfo";
+
 
 
   return (
-    <>
-      <IcareSection>
-        <div style={styles.grid}>
-          {/* LEFT: Profile & Health */}
-          <div style={{ display: "grid", gap: TOKENS.gap }}>
-            {/* PROFILE */}
-            <SectionShell
-              title="My profile"
-              subtitle="Basic details & account status"
-              right={
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <GhostButton onClick={() => openModal("Edit Personal Information")}>Edit info</GhostButton>
-                  <PrimaryButton onClick={() => openModal("Edit Profile Picture")}>Change photo</PrimaryButton>
+    <div style={styles.grid}>
+      {/* LEFT: Profile & Health */}
+      <div style={{ display: "grid", gap: TOKENS.gap }}>
+        {/* PROFILE */}
+        <SectionShell
+          title="My profile"
+          subtitle="Basic details & account status"
+          right={
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <GhostButton onClick={() => openModal("Edit Personal Information")}>Edit info</GhostButton>
+              <PrimaryButton onClick={() => openModal("Edit Profile Picture")}>Change photo</PrimaryButton>
+            </div>
+          }
+        >
+          <div style={styles.profileWrap}>
+            <figure style={styles.figure}>
+              <img src={imgSrc} alt="Profile" style={styles.profileImg} />
+            </figure>
+            <div style={{ flex: 1 }}>
+              <dl style={styles.dl}>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Name</dt>
+                  <dd style={styles.dd}>Jane Doe</dd>
                 </div>
-              }
-            >
-              <div style={styles.profileWrap}>
-                <figure style={styles.figure}>
-                  <img src={imgSrc} alt="Profile" style={styles.profileImg} />
-                </figure>
-                <div style={{ flex: 1 }}>
-                  <dl style={styles.dl}>
-                    <div style={styles.dtdd}>
-                      <dt style={styles.dt}>Name</dt>
-                      <dd style={styles.dd}>Jane Doe</dd>
-                    </div>
-                    <div style={styles.dtdd}>
-                      <dt style={styles.dt}>Age</dt>
-                      <dd style={styles.dd}>68</dd>
-                    </div>
-                    <div style={styles.dtdd}>
-                      <dt style={styles.dt}>Location</dt>
-                      <dd style={styles.dd}>Springfield, IL</dd>
-                    </div>
-                  </dl>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Age</dt>
+                  <dd style={styles.dd}>68</dd>
                 </div>
-              </div>
-            </SectionShell>
-
-            {/* CONDITIONS */}
-            <SectionShell
-              title="Conditions"
-              subtitle="Provide important context for caregivers"
-              right={<GhostButton onClick={() => openModal("Edit Health Information")}>Edit</GhostButton>}
-            >
-              <IcareCard variant="elevated">
-                <span slot="contents">
-                  <div style={{ padding: "12px 10px" }}>
-                    <p style={styles.pMuted}>Jane’s current medical conditions:</p>
-
-                    <ul style={styles.pills}>
-                      {[
-                        "Parkinson’s disease",
-                        "Hypertension",
-                        "Arthritis",
-                        "Diabetes type II",
-                        "High cholesterol",
-                        "Vision impairment",
-                        "Hearing loss",
-                        "Allergy: Penicillin",
-                        "Mobility aid: Walker",
-                        "Sleep disturbances"
-                      ].map((tag) => (
-                        <li key={tag} style={styles.pillItem}>{tag}</li>
-                      ))}
-                    </ul>
-
-                    <div style={{ marginTop: 14 }}>
-                      <p style={styles.pText}>
-                        <strong>Notes:</strong> Jane experiences mild tremors and stiffness, particularly in the mornings.
-                        Hypertension managed with medication; follows a diabetic-friendly diet.
-                      </p>
-                    </div>
-
-                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 14 }}>
-                      <PrimaryButton onClick={() => openModal("Edit Health Information")}>
-                        Update health info
-                      </PrimaryButton>
-                    </div>
-                  </div>
-                </span>
-              </IcareCard>
-            </SectionShell>
-
-            {/* MEDICATIONS */}
-            <SectionShell
-              title="Medications"
-              subtitle="Keep this list up to date"
-              right={<GhostButton onClick={() => openModal("Edit Medications")}>Edit</GhostButton>}
-            >
-              <IcareCard variant="elevated">
-                <span slot="contents">
-                  <div style={{ padding: "12px 10px" }}>
-                    <p style={styles.pMuted}>Current prescribed medications:</p>
-                    <ul style={styles.pills}>
-                      {[
-                        "Amantadine",
-                        "L-dopa",
-                        "Metformin",
-                        "Atorvastatin",
-                        "Losartan",
-                        "Vitamin D"
-                      ].map((tag) => (
-                        <li key={tag} style={styles.pillItem}>{tag}</li>
-                      ))}
-                    </ul>
-
-                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 14 }}>
-                      <PrimaryButton onClick={() => openModal("Edit Medications")}>
-                        Update medications
-                      </PrimaryButton>
-                    </div>
-                  </div>
-                </span>
-              </IcareCard>
-            </SectionShell>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Location</dt>
+                  <dd style={styles.dd}>Springfield, IL</dd>
+                </div>
+              </dl>
+            </div>
           </div>
-
-          {/* RIGHT: ACCOUNT */}
-          <div style={{ display: "grid", gap: TOKENS.gap, alignSelf: "start" }}>
-            <SectionShell
-              title="Account summary"
-              subtitle="Payments & protection"
-              right={
-                <NavLink to="/carerecipient/my-account" style={{ textDecoration: "none" }}>
-                  <GhostButton>Manage</GhostButton>
-                </NavLink>
-              }
-            >
-              <IcareCard variant="elevated">
-                <span slot="contents">
-                  <div style={{ padding: "12px 10px" }}>
-                    <p style={styles.row}><strong>Balance:</strong> £2,300</p>
-                    <p style={styles.row}><strong>Upcoming payment:</strong> £450 on 15 Jul 2024</p>
-                    <p style={styles.row}><strong>Last payment:</strong> £400 on 15 Jun 2024</p>
-                  </div>
-                </span>
-              </IcareCard>
-            </SectionShell>
-            <SectionShell
-              title="Caregiver preferences"
-              subtitle="Skills, languages & availability"
-              right={<GhostButton onClick={() => openModal("Edit Caregiver Preferences")}>Edit</GhostButton>}
-            >
-              <IcareCard variant="elevated">
-                <span slot="contents">
-                  <div style={{ padding: "12px 10px" }}>
-                    <p style={styles.pText}>Add preferences to improve your matches.</p>
-
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
-                      <GhostButton onClick={() => openModal("Add Skills")}>Add skills</GhostButton>
-                      <GhostButton onClick={() => openModal("Add Languages")}>Add languages</GhostButton>
-                      <GhostButton onClick={() => openModal("Set Schedule")}>Set schedule</GhostButton>
-                    </div>
-                  </div>
-                </span>
-              </IcareCard>
-            </SectionShell>
-
+        </SectionShell>
+        <Card title="My profile"
+          subtitle="Basic details & account status">
+          <div style={styles.profileWrap}>
+            <figure style={styles.figure}>
+              <img src={imgSrc} alt="Profile" style={styles.profileImg} />
+            </figure>
+            <div style={{ flex: 1 }}>
+              <dl style={styles.dl}>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Name</dt>
+                  <dd style={styles.dd}>Jane Doe</dd>
+                </div>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Age</dt>
+                  <dd style={styles.dd}>68</dd>
+                </div>
+                <div style={styles.dtdd}>
+                  <dt style={styles.dt}>Location</dt>
+                  <dd style={styles.dd}>Springfield, IL</dd>
+                </div>
+              </dl>
+            </div>
           </div>
-        </div>
-      </IcareSection>
-      <ModalComponent
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title={modalTitle}
-      >
-        <DynamicForm
-          formKey={currentFormKey}
-          onSubmit={(formData) => {
-            console.log("Form submitted:", formData);
-            setModalOpen(false);
-          }}
-        />
-      </ModalComponent>
-    </>
+        </Card>
+
+        <Card title="My medical conditions"
+          subtitle="Basic details & account status" />
+
+        {/* CONDITIONS */}
+        <SectionShell
+          title="Conditions"
+          subtitle="Provide important context for caregivers"
+          right={<GhostButton onClick={() => openModal("Edit Health Information")}>Edit</GhostButton>}
+        >
+          <div style={{ padding: "12px 10px" }}>
+            <p style={styles.pMuted}>Jane’s current medical conditions:</p>
+
+            <ul style={styles.pills}>
+              {[
+                "Parkinson’s disease",
+                "Hypertension",
+                "Arthritis",
+                "Diabetes type II",
+                "High cholesterol",
+                "Vision impairment",
+                "Hearing loss",
+                "Allergy: Penicillin",
+                "Mobility aid: Walker",
+                "Sleep disturbances"
+              ].map((tag) => (
+                <li key={tag} style={styles.pillItem}>{tag}</li>
+              ))}
+            </ul>
+
+            <div style={{ marginTop: 14 }}>
+              <p style={styles.pText}>
+                <strong>Notes:</strong> Jane experiences mild tremors and stiffness, particularly in the mornings.
+                Hypertension managed with medication; follows a diabetic-friendly diet.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 14 }}>
+              <PrimaryButton onClick={() => openModal("Edit Health Information")}>
+                Update health info
+              </PrimaryButton>
+            </div>
+          </div>
+        </SectionShell>
+
+        {/* MEDICATIONS */}
+        <SectionShell
+          title="Medications"
+          subtitle="Keep this list up to date"
+          right={<GhostButton onClick={() => openModal("Edit Medications")}>Edit</GhostButton>}
+        >
+          <div style={{ padding: "12px 10px" }}>
+            <p style={styles.pMuted}>Current prescribed medications:</p>
+            <ul style={styles.pills}>
+              {[
+                "Amantadine",
+                "L-dopa",
+                "Metformin",
+                "Atorvastatin",
+                "Losartan",
+                "Vitamin D"
+              ].map((tag) => (
+                <li key={tag} style={styles.pillItem}>{tag}</li>
+              ))}
+            </ul>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 14 }}>
+              <PrimaryButton onClick={() => openModal("Edit Medications")}>
+                Update medications
+              </PrimaryButton>
+            </div>
+          </div>
+        </SectionShell>
+      </div>
+
+      {/* RIGHT: ACCOUNT */}
+      <div style={{ display: "grid", gap: TOKENS.gap, alignSelf: "start" }}>
+        <SectionShell
+          title="Account summary"
+          subtitle="Payments & protection"
+          right={
+            <NavLink to="/carerecipient/my-account" style={{ textDecoration: "none" }}>
+              <GhostButton>Manage</GhostButton>
+            </NavLink>
+          }
+        >
+
+          <div style={{ padding: "12px 10px" }}>
+            <p style={styles.row}><strong>Balance:</strong> £2,300</p>
+            <p style={styles.row}><strong>Upcoming payment:</strong> £450 on 15 Jul 2024</p>
+            <p style={styles.row}><strong>Last payment:</strong> £400 on 15 Jun 2024</p>
+          </div>
+        </SectionShell>
+        <SectionShell
+          title="Caregiver preferences"
+          subtitle="Skills, languages & availability"
+          right={<GhostButton onClick={() => openModal("Edit Caregiver Preferences")}>Edit</GhostButton>}
+        >
+
+          <div style={{ padding: "12px 10px" }}>
+            <p style={styles.pText}>Add preferences to improve your matches.</p>
+
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+              <GhostButton onClick={() => openModal("Add Skills")}>Add skills</GhostButton>
+              <GhostButton onClick={() => openModal("Add Languages")}>Add languages</GhostButton>
+              <GhostButton onClick={() => openModal("Set Schedule")}>Set schedule</GhostButton>
+            </div>
+          </div>
+        </SectionShell>
+
+      </div>
+    </div>
   );
 }
 

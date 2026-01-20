@@ -1,7 +1,10 @@
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import { Link, useLoaderData } from "react-router";
-import { getNewsList } from "../../lib/news.server";
+// import { getNewsList } from "../../lib/news.server";
+import { urlFor } from "../../lib/sanityImage";
+import classes from "./news-and-articles.module.scss";
+
 
 const styles = {
   page: {
@@ -30,34 +33,81 @@ const styles = {
 };
 
 export async function loader() {
+  const { getNewsList } = await import("../../lib/news.server");
   const posts = await getNewsList();
   return { posts };
 }
 
-export default function TrustAndSafetyPage() {
+export default function NewsAndArticlesPage() {
   const { posts } = useLoaderData();
+
   return (
     <div style={{ minHeight: "100vh" }}>
       <ICareNavbar />
-      <section style={styles.page}>
+
+      <main className={classes.page}>
         <h1>News and articles</h1>
-        <ul style={{ listStyle: "none", padding: 0 }}>
+
+        <p className={classes.intro}>
+          Updates, research and insights on aging, in-home care, workforce
+          challenges, and the growing impact of care costs on families across
+          the UK and Europe.
+        </p>
+
+        <ul className={classes.grid}>
           {posts.map((p) => (
-            <li key={p._id} style={{ padding: "12px 0", borderBottom: "1px solid #eee" }}>
-              <div style={{ display: "flex", gap: 12, alignItems: "baseline" }}>
-                <Link to={`/news/${p.slug}`} style={{ fontSize: 18 }}>
-                  {p.title}
-                </Link>
-                <small style={{ opacity: 0.7 }}>
-                  {new Date(p.publishedAt).toLocaleDateString()}
-                </small>
-              </div>
-              {p.excerpt ? <p style={{ margin: "8px 0 0" }}>{p.excerpt}</p> : null}
+            <li key={p._id} className={classes.newsCard}>
+              <Link
+                to={`/news-and-articles/${p.slug}`}
+                className={classes.cardLink}
+              >
+                {p.heroImage && (
+                  <img
+                    src={urlFor(p.heroImage)
+                      .width(600)
+                      .height(360)
+                      .fit("crop")
+                      .url()}
+                    alt={p.heroImage?.alt || p.title}
+                    className={classes.heroImage}
+                  />
+                )}
+
+                <div className={classes.cardContent}>
+                  <div className={classes.titleRow}>
+                    <h2 className={classes.title}>{p.title}</h2>
+                    <small className={classes.date}>
+                      {new Date(p.publishedAt).toLocaleDateString()}
+                    </small>
+                  </div>
+
+                  {p.subtitle && (
+                    <p className={classes.subtitle}>{p.subtitle}</p>
+                  )}
+
+                  {p.excerpt && (
+                    <p className={classes.excerpt}>{p.excerpt}</p>
+                  )}
+
+                  {Array.isArray(p.tags) && p.tags.length > 0 && (
+                    <div className={classes.tags}>
+                      {p.tags.map((tag) => (
+                        <span key={tag} className={classes.tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
-      </section>
+      </main>
+
       <ICareFooter />
     </div>
   );
 }
+
+
