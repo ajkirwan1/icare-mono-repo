@@ -27,7 +27,7 @@ export default function SafetyComesFirstThreeBoxes() {
                 </>
             ),
             image:
-                "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&h=900&q=75",
+                "/images/web/homepage/id.png",
             alt: "Identity verification documents",
         },
         {
@@ -40,7 +40,7 @@ export default function SafetyComesFirstThreeBoxes() {
                 </>
             ),
             image:
-                "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=1200&h=900&q=75",
+                "/images/web/homepage/interview.png",
             alt: "Caregiver helping at home",
         },
         {
@@ -53,7 +53,7 @@ export default function SafetyComesFirstThreeBoxes() {
                 </>
             ),
             image:
-                "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&h=900&q=75",
+                "/images/web/homepage/confirmeddocs.png",
             alt: "Safety checks and protection",
         },
     ];
@@ -120,12 +120,12 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const leadStyle = {
-        margin: "0.35rem 0 0",
+        margin: "0.35rem 0 1.5rem",
         color: "rgba(15,23,42,1)",
-        fontSize: "1.22rem",
+        fontSize: "1.35rem",
         lineHeight: 1.65,
-        fontWeight: 500,
-        maxWidth: "78ch",
+        fontWeight: 400,
+        maxWidth: "50ch",
     };
 
     const grid = {
@@ -170,8 +170,8 @@ export default function SafetyComesFirstThreeBoxes() {
 
     const title = {
         margin: 0,
-        fontWeight: 900,
-        fontSize: "1.25rem",
+        fontWeight: 600,
+        fontSize: "1.4rem",
         color: COLORS.text,
         lineHeight: 1.2,
         letterSpacing: "-0.15px",
@@ -180,9 +180,10 @@ export default function SafetyComesFirstThreeBoxes() {
     const desc = {
         margin: 0,
         color: "rgba(0, 0, 0, 0.86)",
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.55,
-        fontSize: "1.1rem",
+        fontSize: "1.15rem",
+        paddingTop: "1rem"
     };
 
     // ✅ taller ratio so image isn't a wide banner
@@ -213,7 +214,7 @@ export default function SafetyComesFirstThreeBoxes() {
                     <p style={leadStyle}>
                         Trust in home care depends on clear standards, not assumptions.<br />
                         ICare operates with defined verification requirements covering identity, right to work and relevant background information.
-                        Profiles are made visible only once these foundations are met, ensuring consistency and accountability across the platform.
+                        <br /><br />Profiles are made visible only once these foundations are met, ensuring consistency and accountability across the platform.
                         This approach helps families make informed choices while giving caregivers a fair, accurate way to present their experience.
                     </p>
                 </div>

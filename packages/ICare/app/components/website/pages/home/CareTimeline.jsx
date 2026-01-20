@@ -20,7 +20,7 @@ export default function HowItWorksThreeSteps() {
 
     const wrap = {
         width: "100%",
-        background: "#d9d7bd", // ✅ CHANGED: new background
+        background: "#f2eee6", // ✅ CHANGED: new background
         fontFamily:
             "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
@@ -64,13 +64,13 @@ export default function HowItWorksThreeSteps() {
     };
 
     const card = {
-        border: `1px solid ${COLORS.border}`,
+
         borderRadius: 18,
-        background: "white",
+
         padding: "clamp(18px, 2.4vw, 26px)",
         display: "grid",
         gap: 12,
-        boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
+
     };
 
     const top = {
@@ -83,11 +83,11 @@ export default function HowItWorksThreeSteps() {
     const stepPill = {
         display: "inline-flex",
         alignItems: "center",
-        fontSize: "1.25rem", // ✅ was 0.98rem (+20%)
+        fontSize: "1.6rem", // ✅ was 0.98rem (+20%)
         fontWeight: 800,
-        color: COLORS.accent2,
-        textTransform: "uppercase",
-        borderBottom: "1px solid",
+        color: "#d26618",
+
+
         paddingBottom: "0.45rem",
         whiteSpace: "nowrap",
     };
@@ -103,7 +103,7 @@ export default function HowItWorksThreeSteps() {
         flex: "0 0 auto",
     };
 
-    const icon = { fontSize: "26px" };
+    const icon = { fontSize: "20px" };
 
     const h3 = {
         margin: 0,

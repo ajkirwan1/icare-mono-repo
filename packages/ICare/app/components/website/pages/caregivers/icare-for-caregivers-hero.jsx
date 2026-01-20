@@ -85,12 +85,17 @@ export default function ICareForCaregiversHero() {
                                 </svg>
                                 You choose who you work with.
                             </p>
-
-
                         </div>
 
                     </div>
                 </div>
+                <p className={styles.subheading}>
+                    <span>No hidden fees.</span>{" "}
+                    <span>One clear, fair model.</span>
+                    <span>Built around people, not margins.</span>
+
+                </p>
+
                 <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
                     <h2 className={styles.title}>
                         A platform for caregivers and care receivers to connect in a safe,

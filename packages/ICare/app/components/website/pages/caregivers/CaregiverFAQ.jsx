@@ -3,31 +3,35 @@ import React from "react";
 export default function CaregiverFAQ() {
     const NEUTRAL = "#0F172A";
 
-    // ✅ 6 most important questions (condensed)
+    // ✅ Caregivers FAQ (based on common Curam/Elder-style questions, adapted for ICare)
     const faqs = [
         {
-            q: "Are caregivers verified?",
-            a: "Yes. We request basic checks (ID, experience and documents depending on the country). You can also ask for references and have a call before starting.",
+            q: "How does ICare work for caregivers?",
+            a: "ICare is a platform that connects independent caregivers directly with families looking for care. You create a profile, set your availability and rates, and families can message you to discuss support — without an agency middleman.",
         },
         {
-            q: "Who signs the agreement?",
-            a: "You agree terms and sign directly with the caregiver. ICare supports the process but isn’t part of the contract.",
+            q: "Do I have to pay to join ICare?",
+            a: "No. Creating your profile is free. If there is a platform fee, it is shown clearly and agreed upfront — so you always know what you keep from your earnings.",
         },
         {
-            q: "How do payments work?",
-            a: "You agree the rate and schedule with the caregiver. Costs are shown clearly upfront (and in-app payments can be supported if enabled).",
+            q: "Can I choose the hours I work?",
+            a: "Yes. You decide your hours, days, and the type of care you offer. You can accept or decline enquiries based on what fits your life.",
         },
         {
-            q: "What if it’s not a good fit?",
-            a: "You can end care based on your agreed terms. We can help you find another match.",
+            q: "What do I need to join (DBS, insurance, Right to Work)?",
+            a: "Requirements depend on the type of care you provide. Typically you’ll need Right to Work and ID, and you may add DBS, insurance, training certificates and references to strengthen your profile and build trust with families.",
         },
         {
-            q: "Is ICare the employer?",
-            a: "No. ICare is a marketplace — caregivers work independently and families contract with them directly.",
+            q: "How do families find and contact me?",
+            a: "Families view caregiver profiles (experience, skills, availability) and contact you directly through secure messaging on ICare to discuss needs, rates and schedules.",
         },
         {
-            q: "How much does ICare cost?",
-            a: "A simple fee (e.g., 10%). No agency-style markups or hidden extras.",
+            q: "How does ICare help protect caregivers?",
+            a: "ICare provides tools and guidance to support safer, more professional work - secure messaging, clear agreements and expectations, and practical safeguarding and boundary guidance.",
+        },
+        {
+            q: "What if a client isn’t the right fit?",
+            a: "Care arrangements are agreed directly between you and the family. If something needs to change, you can clarify expectations, adjust the arrangement, or agree next steps together — with ICare guidance and support resources available where needed.",
         },
     ];
 
@@ -53,7 +57,7 @@ export default function CaregiverFAQ() {
                 <h2
                     style={{
                         margin: 0,
-                        fontWeight: 900,
+                        fontWeight: 500,
                         letterSpacing: "-0.5px",
                         fontSize: "clamp(1.9rem,2.7vw,2.4rem)",
                         color: NEUTRAL,
@@ -68,7 +72,7 @@ export default function CaregiverFAQ() {
                         marginTop: "1.3rem",
                         width: "100%",
                         height: 1,
-                        background: "rgba(15,23,42,0.08)",
+
                     }}
                 />
             </header>
@@ -109,8 +113,8 @@ export default function CaregiverFAQ() {
                         >
                             <span
                                 style={{
-                                    fontWeight: 850,
-                                    fontSize: "1.03rem",
+                                    fontWeight: 700,
+                                    fontSize: "1.1rem",
                                     color: NEUTRAL,
                                     letterSpacing: "-0.1px",
                                     lineHeight: 1.25,
@@ -130,8 +134,7 @@ export default function CaregiverFAQ() {
                                     display: "inline-flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    background: "rgba(15,23,42,0.06)",
-                                    border: "1px solid rgba(15,23,42,0.14)",
+
                                     color: NEUTRAL,
                                     transition: "transform .22s ease, opacity .22s ease",
                                     opacity: 0.65,
@@ -157,7 +160,7 @@ export default function CaregiverFAQ() {
                             style={{
                                 padding: "0 1.1rem 1.15rem",
                                 color: "#0f172a",
-                                fontSize: "1rem",
+                                fontSize: "1.1rem",
                                 lineHeight: 1.66,
                                 fontWeight: 450,
                                 maxWidth: "78ch",

@@ -28,7 +28,7 @@ export function OurImpactSection() {
             aria-label="Our impact"
             style={{
                 width: "100%",
-                background: "#bfc09c",
+                background: "rgb(199 216 183 / 75%)",
                 padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",

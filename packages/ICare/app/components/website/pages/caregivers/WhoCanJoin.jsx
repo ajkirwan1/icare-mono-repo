@@ -25,189 +25,110 @@ export default function WhoCanJoin() {
                         display: "grid",
                         gridTemplateColumns: "1fr 1fr",
                         gap: "2.6rem",
-                        alignItems: "center",
+                        alignItems: "start",
                     }}
                 >
-                    {/* LEFT PHOTO — CAREER FOCUSED */}
-                    <img
-                        src="images/web/icare-for-caregivers/blackcarer.jpg"
-                        alt="Black caregiver providing home care support"
-                        style={{
-                            width: "100%",
-                            height: "380px",
-                            objectFit: "cover",
-                            borderRadius: "22px",
-                            boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
-                        }}
-                    />
-
-                    {/* RIGHT TEXT */}
+                    {/* LEFT — TEXT (stacked, no boxes) */}
                     <div>
                         <h2
                             style={{
                                 margin: 0,
-                                fontWeight: 850,
-                                fontSize: "clamp(1.7rem,2.8vw,2.2rem)",
+                                fontWeight: 500,
+                                fontSize: "2.6rem",
                                 color: "#0F172A",
-                                lineHeight: 1.1,
+                                lineHeight: 1.15,
                                 letterSpacing: "-0.4px",
                             }}
                         >
-                            Built for caregivers, not agencies
+                            A platform designed<br />around caregivers
                         </h2>
 
-                        <div style={{ height: "1.4rem" }} />
+                        <div style={{ height: "1.6rem" }} />
 
                         {/* === SECTION 1 === */}
                         <div style={{ marginBottom: "1.6rem" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Earn more with every hour
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                ICare is not an agency
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    color: "#0f172a",
-                                    lineHeight: 1.45,
-                                }}
-                            >
-                                Keep <strong style={{ color: "#1FAB1F" }}>90%</strong> of what
-                                families pay — usually <strong>£4–£6/h more</strong> than agency
-                                work.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                We don’t allocate shifts or run your schedule for you.
+                                ICare helps you connect directly with families looking for care - while keeping your work organised in one place.
                             </p>
                         </div>
 
                         {/* === SECTION 2 === */}
                         <div style={{ marginBottom: "1.6rem" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Low start-up cost
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                Your schedule stays yours
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    color: "#0f172a",
-                                }}
-                            >
-                                No monthly fees. DBS: <strong>£0–£60</strong>. Insurance:{" "}
-                                <strong>£5–£15/mo</strong>. Self-employment: <strong>free</strong>.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                Set your availability, hours, and care types. You choose what you
+                                take on and what you decline - always on your terms.
                             </p>
                         </div>
 
                         {/* === SECTION 3 === */}
                         <div style={{ marginBottom: "1.6rem" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Choose your clients
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                Your rates stay yours
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    color: "#0f172a",
-                                }}
-                            >
-                                Pick the families you support. Set your own schedule. Work on your
-                                terms.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                You set your pricing based on experience and the support required,
+                                then agree details directly with families - clear, respectful, and
+                                pressure-free.
                             </p>
                         </div>
 
                         {/* === SECTION 4 === */}
                         <div style={{ marginBottom: "1.6rem" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Simple requirements
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                Flexible arrangements (no tie-ins)
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    color: "#0f172a",
-                                }}
-                            >
-                                Right to Work, ID, optional DBS, insurance, UTR — and you're ready.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                There are no rigid agency-style commitments. As your work evolves,
+                                you can adjust your availability and the type of support you offer.
                             </p>
                         </div>
 
-                        {/* === SECTION 5 (NEW) === */}
+                        {/* === SECTION 5 === */}
                         <div style={{ marginBottom: "1.6rem" }}>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Clear agreements & safer practice
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                Independent - with professional protection
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    color: "#0f172a",
-                                }}
-                            >
-                                Keep work professional and predictable — agree routines, tasks and
-                                boundaries upfront using simple templates and guidance.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                ICare provides tools that help protect you in your work — clear
+                                agreements, care expectations, secure messaging, and guidance on
+                                boundaries, safeguarding, and best practice.
                             </p>
                         </div>
 
-                        {/* === SECTION 6 (NEW) === */}
+                        {/* === SECTION 6 === */}
                         <div>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.1rem",
-                                    fontWeight: 800,
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Build a trusted profile
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                                You stay independent. We provide structure and safeguards.
                             </h3>
-                            <p
-                                style={{
-                                    marginTop: ".4rem",
-                                    fontSize: ".95rem",
-                                    lineHeight: 1.45,
-                                    color: "#0f172a",
-                                }}
-                            >
-                                Show your experience, references and training (plus optional DBS)
-                                so families can choose you with confidence — and you get better-fit
-                                enquiries.
+                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                From first contact to ongoing work, ICare supports you with the
+                                tools, clarity, and protections needed to work safely, confidently,
+                                and professionally with families.
                             </p>
                         </div>
+                    </div>
+
+                    {/* RIGHT — IMAGE (top aligned) */}
+                    <div>
+                        <img
+                            src="images/web/icare-for-caregivers/blackcarer.jpg"
+                            alt="Caregiver providing home care support"
+                            style={{
+                                width: "100%",
+                                height: "380px",
+                                objectFit: "cover",
+                                borderRadius: "22px",
+                                boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
+                                display: "block",
+                            }}
+                        />
                     </div>
                 </div>
             </div>
