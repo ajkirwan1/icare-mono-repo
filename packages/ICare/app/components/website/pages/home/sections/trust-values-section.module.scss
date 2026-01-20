@@ -223,7 +223,7 @@
 
 .cardShort {
     margin: 0;
-    font-size: $fs-lg-2;
+    font-size: $fs-xl;
     line-height: $lh-loose;
     opacity: $opacity-95;
     font-weight: 700
@@ -265,4 +265,9 @@
     font-size: $fs-md;
     font-weight: 500;
     line-height: $lh-card-full;
+}
+
+.subsubtitle span {
+    display: inline-block;
+    width: 10px;
 }

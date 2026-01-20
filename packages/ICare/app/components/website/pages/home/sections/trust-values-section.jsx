@@ -43,27 +43,23 @@ export default function TrustValuesSection() {
                 <h2 className={styles.title}>Trust, care &amp; community</h2>
 
                 <p className={styles.subtitle}>
-                    Built for families who want a calmer way to choose home care — with clarity, dignity and control.
+                    Built for families who want a calmer way to choose home care <br /> with clarity, dignity and control.
                 </p>
 
                 {/* ✅ simplified, more “sales” */}
                 <p className={styles.subinfo}>
-                    ICare is a transparent marketplace — not a traditional care agency.
+                    ICare is a transparent marketplace - not a traditional care agency.
                     <br />
-                    Families connect directly with independent caregivers, agree support and costs clearly, and stay in control.
+                    Families connect directly with independent caregivers, agree support<br /> and costs clearly staying in control.
                 </p>
 
                 {/* ✅ single clean line (instead of multiple blocks) */}
                 <p className={styles.subsubtitle}>
-                    Clear expectations. Human care.<br />Flexible support - with visibility from the start.
+                    Clear expectations.<span className="separator"></span> Human care.<span className="separatorxx"></span> Flexible support with visibility from the start.
                 </p>
 
-                {/* ✅ gentle CTA (text link) */}
-                <div className={styles.ctaRow}>
-                    <a href="#waitlist" className={styles.ctaLink}>
-                        Join the waiting list to get early access →
-                    </a>
-                </div>
+
+
             </div>
 
             <div className={styles.fullBleed}>
