@@ -74,26 +74,14 @@ function DropdownPortal({ anchorEl, open, onClose, navDropdownAnchor, children }
   );
 }
 
-export default function ICareNavbar() {
+export default function ICareAppNavbar({ itemsProp }) {
   const [open, setOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const mobileMenuRef = useRef(null);
   const dropdownAnchors = useRef({});
   const navDropdownAnchor = useRef({});
 
-  const items = useMemo(
-    () => [
-      {
-        to: "/",
-        label: "Logout"
-      },
-      { to: "/how-it-works", label: "Find caregivers" },
-      { to: "/how-it-works", label: "Inbox" },
-      { to: "/who-we-are", label: "Documents" },
-      { to: "/news-and-articles", label: "My profile" }
-    ],
-    []
-  );
+  const items = itemsProp;
 
   useEffect(() => {
     const onDocClick = (e) => {

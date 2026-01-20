@@ -35,6 +35,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+        <link rel="shortcut icon" href="/public/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="ICare" />
+        <link rel="manifest" href="/public/site.webmanifest" />
       </head>
       <body>
         {children}

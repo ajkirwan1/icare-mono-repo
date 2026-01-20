@@ -13,19 +13,46 @@ export default [
   route("terms-of-service", "routes/website/terms-of-service.jsx"),
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
   route("news-and-articles", "routes/website/news-and-articles.jsx"),
+  route("news-and-articles/:slug", "routes/website/news-item.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
+  route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
   route("login", "routes/auth/login.jsx"),
 
   ...prefix("carerecipient", [
     layout("routes/app/carerecipient/layout.jsx", [
       index("routes/app/carerecipient/care-receiver-home.jsx"),
+      route("c", "routes/app/carerecipient/carerecipient.jsx"),
+
+      ...prefix("caregivers", [
+        index("routes/app/carerecipient/caregivers.jsx"),
+        route(":caregiverId", "routes/app/carerecipient/single-caregiver.jsx")
+      ]),
+
+      ...prefix("documents", [
+        index("routes/app/carerecipient/documents.jsx")
+      ]),
+
+      ...prefix("care-requests", [
+        index("routes/app/carerecipient/care-requests.jsx")
+      ]),
+
+      ...prefix("contacts", [
+        route("home", "routes/app/carerecipient/contacts/home.jsx"),
+        route(":contactId", "routes/app/carerecipient/contacts/messages.jsx")
+      ]),
 
       ...prefix("profile", [
         layout("routes/app/carerecipient/profile/my-profile-layout.jsx", [
-          route("", "routes/app/carerecipient/profile/_redirect-messages.jsx"),
           route("personal-details", "routes/app/carerecipient/profile/personal-details.jsx")
         ])
       ])
+    ])
+  ]),
+
+  ...prefix("caregiver", [
+    layout("routes/app/caregiver/layout.jsx", [
+      index("routes/app/caregiver/caregiver-home.jsx"),
+      route("available-care-roles", "routes/app/caregiver/available-care-roles.jsx")
     ])
   ]
   )
