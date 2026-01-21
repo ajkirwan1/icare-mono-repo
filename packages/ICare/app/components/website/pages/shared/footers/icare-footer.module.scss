@@ -1,204 +1,232 @@
 @use "@styles/tokens" as *;
 
 .footer {
-  /* local CSS vars fed by tokens */
-  --border: #{$border-strong};
-  --hover-bg: #{$tint-soft-olive}; // closest tokenized "soft hover" tint
-  --bg: #fff9ef;
-  background: #fff9ef;
+    /* local CSS vars fed by tokens */
+    --border: #{$border-strong};
+    --hover-bg: #{$tint-soft-olive}; // closest tokenized "soft hover" tint
+    --bg: #fff9ef;
+    background: #fff9ef;
 
-  border-top: 1px solid var(--border);
-  color: $txt;
+    border-top: 1px solid var(--border);
+    color: $txt;
 
-  /* “120% bigger” -> tokenized font size choice */
-  font-size: $fs-md;
+    /* “120% bigger” -> tokenized font size choice */
+    font-size: $fs-md;
 
-  /* keep font-family in your typography/base layer */
+    /* keep font-family in your typography/base layer */
 }
 
 .inner {
-  max-width: 1180px; // no token provided
-  margin: 0 auto;
+    max-width: 1180px; // no token provided
+    margin: 0 auto;
 
-  /* tokenized clamp spacing */
-  padding: $space-section-y $gap-grid-fluid;
+    /* tokenized clamp spacing */
+    padding: $space-section-y $gap-grid-fluid;
 }
 
 /* TOP GRID */
 .topGrid {
-  display: grid;
-  grid-template-columns: 1.35fr 1fr 1fr; // no token
-  gap: $gap-grid-fluid;
-  align-items: start;
-  justify-items: start;
-  text-align: left;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr 1fr; // no token
+    gap: $gap-grid-fluid;
+    align-items: start;
+    justify-items: start;
+    text-align: left;
 
-  @media (max-width: 980px) {
-    grid-template-columns: 1fr;
-  }
+    @media (max-width: 980px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .col {
-  width: 100%;
+    width: 100%;
 }
 
 /* BRAND */
 .brandLink {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: $space-16;
-  text-decoration: none;
-  line-height: $lh-compact;
-  padding-bottom: $space-10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-16;
+    text-decoration: none;
+    line-height: $lh-compact;
+    padding-bottom: $space-10;
 }
 
 .logo {
-  height: $space-40; // was 40px
-  width: auto;
-  display: block;
+    height: $space-40; // was 40px
+    width: auto;
+    display: block;
 
-  /* “logo 30% bigger” */
-  transform: scale(1.3);
-  transform-origin: left center;
+    /* “logo 30% bigger” */
+    transform: scale(1.3);
+    transform-origin: left center;
 }
 
 .slogan {
-  font-size: $fs-1; // ~16px
-  color: $ink-strong;
+    font-size: $fs-1; // ~16px
+    color: $ink-strong;
 }
 
 .tagline {
-  margin: $space-12 0 0;
-  line-height: $lh-body;
-  max-width: $maxw-copy-lg;
-  font-size: $fs-lg-2;
-  font-weight: $fw-semibold;
+    margin: $space-12 0 0;
+    line-height: $lh-body;
+    max-width: $maxw-copy-lg;
+    font-size: $fs-lg-2;
+    font-weight: $fw-semibold;
 }
 
 /* TYPOGRAPHY */
 .heading {
-  color: $ink-strong;
-  font-weight: $fw-bold;
-  font-size: $fs-md;
-  margin-bottom: $space-12;
-  letter-spacing: $tracking-xs;
-  // margin-left: -$space-10;
+    color: $ink-strong;
+    font-weight: $fw-bold;
+    font-size: $fs-md;
+    margin-bottom: $space-12;
+    letter-spacing: $tracking-xs;
+    // margin-left: -$space-10;
 }
 
 .label {
-  color: $ink-strong;
-  font-weight: $fw-bold;
-  font-size: $fs-lg-2;
-  margin-bottom: $space-4;
-  letter-spacing: $tracking-xxs;
+    color: $ink-strong;
+    font-weight: $fw-bold;
+    font-size: $fs-lg-2;
+    margin-bottom: $space-4;
+    letter-spacing: $tracking-xxs;
 }
 
 .value {
-  color: $ink-strong;
-  font-size: $fs-lg-2;
-  line-height: $lh-list;
+    color: $ink-strong;
+    font-size: $fs-lg-2;
+    line-height: $lh-list;
 }
 
 .valueMuted {
-  @extend .value;
+    @extend .value;
 }
 
 .valueLink {
-  @extend .value;
+    @extend .value;
 
-  text-decoration: none;
-  display: inline-flex;
-  width: fit-content;
-  border-radius: $radius-pill;
-  padding: $space-7 $space-10;
+    text-decoration: none;
+    display: inline-flex;
+    width: fit-content;
+    border-radius: $radius-pill;
+    padding: $space-7 $space-10;
 
-  transition: $transition-ui;
+    transition: $transition-ui;
 
-  &:hover {
-    background: var(--hover-bg);
-  }
+    &:hover {
+        background: var(--hover-bg);
+    }
 
-  &:focus-visible {
-    background: var(--hover-bg);
-    outline: $space-2 solid $focus-border;
-    outline-offset: $space-2;
-    box-shadow: 0 0 0 $space-4 $focus-ring;
-  }
+    &:focus-visible {
+        background: var(--hover-bg);
+        outline: $space-2 solid $focus-border;
+        outline-offset: $space-2;
+        box-shadow: 0 0 0 $space-4 $focus-ring;
+    }
 }
 
 
 /* DETAILS */
 .detailsGrid {
-  display: grid;
-  gap: $space-12;
+    display: grid;
+    gap: $space-12;
 }
 
 /* LINKS */
 .links {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: $space-10 $space-24;
-  // margin-left: -$space-10;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-10 $space-24;
+    // margin-left: -$space-10;
 
-  @media (max-width: 600px) {
-    grid-template-columns: 1fr;
-  }
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .navLink {
-  color: $txt;
-  text-decoration: none;
-  font-weight: $fw-semibold;
-  font-size: $fs-lg-2;
-  border-radius: $radius-pill;
+    color: $txt;
+    text-decoration: none;
+    font-weight: $fw-semibold;
+    font-size: $fs-lg-2;
+    border-radius: $radius-pill;
 
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
 
-  transition: $transition-ui;
+    transition: $transition-ui;
 
-  &:hover {
-    background: var(--hover-bg);
-  }
+    &:hover {
+        background: var(--hover-bg);
+    }
 
-  &:focus-visible {
-    background: var(--hover-bg);
-    outline: $space-2 solid $focus-border;
-    outline-offset: $space-2;
-    box-shadow: 0 0 0 $space-4 $focus-ring;
-  }
+    &:focus-visible {
+        background: var(--hover-bg);
+        outline: $space-2 solid $focus-border;
+        outline-offset: $space-2;
+        box-shadow: 0 0 0 $space-4 $focus-ring;
+    }
 }
 
 /* DIVIDER */
 .divider {
-  height: 1px;
-  background: var(--border);
-  margin: $space-22 0 $space-22; // tokenized rem spacing
+    height: 1px;
+    background: var(--border);
+    margin: $space-22 0 $space-22; // tokenized rem spacing
 }
 
 /* BOTTOM BAR */
 .bottomBar {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr; // no token
-  gap: $space-12;
-  align-items: start;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr; // no token
+    gap: $space-12;
+    align-items: start;
 
-  color: $txt;
-  font-weight: $fw-semibold;
-  font-size: $fs-sm;
-  line-height: $lh-list;
+    color: $txt;
+    font-weight: $fw-semibold;
+    font-size: $fs-sm;
+    line-height: $lh-list;
 
-  @media (max-width: 980px) {
-    grid-template-columns: 1fr;
-  }
+    @media (max-width: 980px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 .disclaimer {
-  max-width: 760px; // no token provided
+    max-width: 760px; // no token provided
 }
 
 .copyright {
-  color: $txt;
+    color: $txt;
+}
+
+.socials {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 3rem; // bliżej tagline
+    align-items: center;
+}
+
+.socialLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.6rem; // ~15% większe
+    line-height: 1;
+    color: #0f172a; // czarne, spójne z tekstem
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &:hover {
+        opacity: 0.7;
+        transform: none; // ❌ brak skakania
+    }
 }
