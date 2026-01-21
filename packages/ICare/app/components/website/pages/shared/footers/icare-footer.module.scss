@@ -66,6 +66,7 @@
 .slogan {
     font-size: $fs-1; // ~16px
     color: $ink-strong;
+    font-weight: 500;
 }
 
 .tagline {
@@ -73,7 +74,7 @@
     line-height: $lh-body;
     max-width: $maxw-copy-lg;
     font-size: $fs-lg-2;
-    font-weight: $fw-semibold;
+    font-weight: 500;
 }
 
 /* TYPOGRAPHY */
@@ -197,6 +198,7 @@
 
 .disclaimer {
     max-width: 760px; // no token provided
+    font-weight: 400;
 }
 
 .copyright {

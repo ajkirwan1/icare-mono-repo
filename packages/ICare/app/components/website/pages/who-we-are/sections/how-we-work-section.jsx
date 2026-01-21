@@ -111,23 +111,6 @@ export function HowWeWorkSection() {
                                     gap: "1.4rem",
                                 }}
                             >
-                                {/* BADGE */}
-                                <div
-                                    style={{
-                                        width: "60px",
-                                        height: "60px",
-                                        borderRadius: "100%",
-                                        background: "rgba(15,61,32,0.08)",
-                                        color: "#000000ff",
-                                        fontWeight: 700,
-                                        fontSize: "1.4rem",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    {s.step}
-                                </div>
 
                                 {/* TITLE */}
                                 <h3
@@ -138,7 +121,7 @@ export function HowWeWorkSection() {
                                         color: "#0f172a",
                                     }}
                                 >
-                                    {s.title}
+                                    <span style={{ marginRight: "10px" }}>{s.step}.</span>{s.title}
                                 </h3>
 
                                 {/* DESCRIPTION */}

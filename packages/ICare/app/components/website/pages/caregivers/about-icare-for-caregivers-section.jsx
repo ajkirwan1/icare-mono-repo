@@ -159,11 +159,10 @@ export default function HowICareWorksForCaregiversSystem() {
                         <div
                             key={s.step}
                             style={{
-                                background: "#ffffff",
-                                border: `1px solid ${COLORS.border}`,
+
                                 borderRadius: 22,
                                 padding: "20px",
-                                boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
+
                                 display: "flex",
                                 flexDirection: "column",
                                 justifyContent: "space-between"

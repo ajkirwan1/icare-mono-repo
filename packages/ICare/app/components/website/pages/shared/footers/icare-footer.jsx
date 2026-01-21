@@ -41,7 +41,7 @@ export default function ICareFooter() {
                         </NavLink>
 
                         <p className={styles.tagline}>
-                            A transparent marketplace connecting families with independent caregivers — without
+                            A transparent marketplace connecting families with independent caregivers <br />without
                             agency markups.
                         </p>
 
@@ -133,9 +133,8 @@ export default function ICareFooter() {
                     </div>
 
                     <div className={styles.disclaimer}>
-                        ICare is an introductory marketplace (not a care agency).<br />
-                        Caregivers are independent providers and agreements are made directly
-                        between families and caregivers (see Terms).
+                        ICare is a marketplace that helps families and caregivers connect directly.<br />
+                        Caregivers work independently, and care arrangements are agreed<br /> directly between families and caregivers (see <strong>Terms</strong>).
                     </div>
                 </div>
             </div>

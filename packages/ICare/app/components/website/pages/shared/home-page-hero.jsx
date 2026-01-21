@@ -56,14 +56,11 @@ export default function HomePageHero({ imgSrc }) {
                                 <a href="#waitlist" style={{ textDecoration: "none" }}>
                                     <SubmitButton>Join waiting list</SubmitButton>
                                 </a>
-                                <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
                             </div>
                         </div>
                     </div>
                 </div>
-                <p className={styles.subheading}>
-                    <span>Transparent pricing.</span> <span>Direct communication.</span> <span>A calmer, guided process for families.</span>
-                </p>
+
             </section>
         </>
     );

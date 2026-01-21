@@ -190,10 +190,10 @@ export default function SavingsEstimatorCurrency() {
         gridTemplateColumns: "1fr auto",
         gap: 10,
         alignItems: "center",
-        padding: "12px 14px",
+        padding: "12px 0",
         borderRadius: 18,
-        background: "rgba(15,23,42,0.04)",
-        border: "1px solid rgba(15,23,42,0.08)",
+
+
         fontSize: "1.0rem",
         fontWeight: 750,
         color: TEXT,

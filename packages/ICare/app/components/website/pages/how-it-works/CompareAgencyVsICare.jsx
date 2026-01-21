@@ -109,14 +109,11 @@ export default function CompareAgencyVsICare() {
                     {/* AGENCY CARD */}
                     <article
                         style={{
-                            background: "#44444415",
-                            border: "1px solid rgba(31,171,31,0.10)",
-                            borderRadius: 28,
-                            overflow: "hidden",
+
                             transition: "background .25s ease, border .25s ease",
                         }}
                     >
-                        <div style={{ padding: "32px" }}>
+                        <div>
                             <h3 style={CARD_TITLE}>Traditional Agency</h3>
 
                             <ul
@@ -171,14 +168,10 @@ export default function CompareAgencyVsICare() {
                     {/* ICARE CARD */}
                     <article
                         style={{
-                            background: "#0aa80a40",
-                            border: "1px solid rgba(31,171,31,0.22)",
-                            borderRadius: 28,
-                            overflow: "hidden",
                             transition: "background .25s ease, border .25s ease",
                         }}
                     >
-                        <div style={{ padding: "32px" }}>
+                        <div>
                             <h3
                                 style={{
                                     ...CARD_TITLE,

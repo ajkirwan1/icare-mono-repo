@@ -1,6 +1,13 @@
 import React from "react";
 
 export default function WhoCanJoin() {
+    const separator = {
+        height: "1px",
+        background: "rgba(15,23,42,0.12)",
+        margin: "1.6rem 0",
+        width: "100%",
+    };
+
     return (
         <section
             aria-label="Caregiver benefits"
@@ -8,7 +15,7 @@ export default function WhoCanJoin() {
                 width: "100vw",
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
-                background: "#fff9ef",
+                background: "#f2eee6",
                 padding: "6rem 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
@@ -28,7 +35,7 @@ export default function WhoCanJoin() {
                         alignItems: "start",
                     }}
                 >
-                    {/* LEFT — TEXT (stacked, no boxes) */}
+                    {/* LEFT — TEXT */}
                     <div>
                         <h2
                             style={{
@@ -46,42 +53,49 @@ export default function WhoCanJoin() {
                         <div style={{ height: "1.6rem" }} />
 
                         {/* === SECTION 1 === */}
-                        <div style={{ marginBottom: "1.6rem" }}>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 ICare is not an agency
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 We don’t allocate shifts or run your schedule for you.
-                                ICare helps you connect directly with families looking for care - while keeping your work organised in one place.
+                                ICare helps you connect directly with families looking for care —
+                                while keeping your work organised in one place.
                             </p>
                         </div>
 
+                        <div style={separator} />
+
                         {/* === SECTION 2 === */}
-                        <div style={{ marginBottom: "1.6rem" }}>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Your schedule stays yours
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 Set your availability, hours, and care types. You choose what you
-                                take on and what you decline - always on your terms.
+                                take on and what you decline — always on your terms.
                             </p>
                         </div>
 
+                        <div style={separator} />
+
                         {/* === SECTION 3 === */}
-                        <div style={{ marginBottom: "1.6rem" }}>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Your rates stay yours
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 You set your pricing based on experience and the support required,
-                                then agree details directly with families - clear, respectful, and
+                                then agree details directly with families — clear, respectful, and
                                 pressure-free.
                             </p>
                         </div>
 
+                        <div style={separator} />
+
                         {/* === SECTION 4 === */}
-                        <div style={{ marginBottom: "1.6rem" }}>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Flexible arrangements (no tie-ins)
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
@@ -90,10 +104,12 @@ export default function WhoCanJoin() {
                             </p>
                         </div>
 
+                        <div style={separator} />
+
                         {/* === SECTION 5 === */}
-                        <div style={{ marginBottom: "1.6rem" }}>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
-                                Independent - with professional protection
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
+                                Independent — with professional protection
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 ICare provides tools that help protect you in your work — clear
@@ -102,9 +118,11 @@ export default function WhoCanJoin() {
                             </p>
                         </div>
 
+                        <div style={separator} />
+
                         {/* === SECTION 6 === */}
                         <div>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 800, color: "#0F172A" }}>
+                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 You stay independent. We provide structure and safeguards.
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
@@ -115,7 +133,7 @@ export default function WhoCanJoin() {
                         </div>
                     </div>
 
-                    {/* RIGHT — IMAGE (top aligned) */}
+                    {/* RIGHT — IMAGE */}
                     <div>
                         <img
                             src="images/web/icare-for-caregivers/blackcarer.jpg"

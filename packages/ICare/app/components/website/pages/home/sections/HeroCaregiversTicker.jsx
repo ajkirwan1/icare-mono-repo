@@ -13,7 +13,7 @@ export default function ICareNewCaregiversTickerSection() {
 
     const wrap = {
         width: "100%",
-        background: BG,
+        background: "rgb(236 221 209 / 55%)",
         color: TEXT,
         padding: "clamp(3.6rem, 5.6vw, 5rem) 0",
         fontFamily:
