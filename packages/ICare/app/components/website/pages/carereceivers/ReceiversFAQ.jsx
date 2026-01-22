@@ -3,25 +3,41 @@ import Accordion from "../../../../components/website/common/accordian/accordian
 import styles from "./receivers-faq.module.scss";
 
 export default function ReceiversFAQ() {
-  const faqs = [
-    {
-      q: "Do I pay anything to register?",
-      a: "No. Registering and browsing caregivers is completely free. You only pay a simple 10% service fee when you book care."
-    },
-    {
-      q: "How do I verify a caregiver?",
-      a: "Profiles include experience, checks, skills and availability. You can message privately, schedule a call, and request documents before agreeing terms."
-    },
-    {
-      q: "How does ICare work?",
-      a: "You browse verified caregivers, message them directly and choose the person who feels right. Once you agree on support, you confirm the booking and pay securely through ICare."
-    }
-  ];
+    const faqs = [
+        {
+            q: "Do I pay anything to register?",
+            a: "No. Creating an account and browsing caregiver profiles is free. You only pay a clear service fee if you decide to go ahead with care."
+        },
+        {
+            q: "How much does care cost?",
+            a: "Caregivers set their own rates based on experience and the support required. You see the rate clearly on the profile and confirm the total before starting care."
+        },
+        {
+            q: "Are caregivers verified?",
+            a: "Before profiles are visible, ICare checks key information such as identity and eligibility where applicable. Profiles also show experience and supporting details so you can make an informed choice."
+        },
+        {
+            q: "How do I know if a caregiver is the right fit?",
+            a: "You can message caregivers privately, ask about routines and expectations, and arrange a call before agreeing anything. Many families speak to more than one caregiver before deciding."
+        },
+        {
+            q: "What happens if it’s not working out?",
+            a: "Care arrangements are agreed directly with the caregiver. If it’s not the right fit, you can give notice under your agreed terms and look for a different caregiver on ICare."
+        },
+        {
+            q: "Does ICare manage the care or employ caregivers?",
+            a: "No. ICare is a marketplace, not a care agency. Caregivers work independently, and families and caregivers agree care arrangements directly."
+        },
+        {
+            q: "Is support available if I need help?",
+            a: "Yes. ICare provides guidance throughout the process and can help you understand next steps if you need to change or adjust a care arrangement."
+        }
+    ];
 
-  return (
-    <section aria-label="FAQ" className={styles.section}>
-      <h2 className={styles.title}>Frequently asked questions</h2>
-      <Accordion items={faqs} />
-    </section>
-  );
+    return (
+        <section aria-label="FAQ" className={styles.section}>
+            <h2 className={styles.title}>Frequently asked questions</h2>
+            <Accordion items={faqs} />
+        </section>
+    );
 }

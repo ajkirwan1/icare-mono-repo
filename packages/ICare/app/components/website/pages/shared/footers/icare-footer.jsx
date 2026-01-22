@@ -31,6 +31,12 @@ export default function ICareFooter() {
 
     const LOGO_SRC = "/images/logo/icareblack.svg";
 
+    // ✅ −10% icon size (global for footer)
+    const iconStyle = {
+        fontSize: "0.9em",
+        lineHeight: 1,
+    };
+
     const handleShare = async () => {
         const shareData = {
             title: "ICare",
@@ -41,15 +47,14 @@ export default function ICareFooter() {
         if (navigator.share) {
             try {
                 await navigator.share(shareData);
-            } catch (err) {
-                // user cancelled
+            } catch {
+                // user cancelled — silent
             }
         } else {
             try {
                 await navigator.clipboard.writeText(shareData.url);
-                // silent copy (bez alertu)
-            } catch (err) {
-                // fail silently
+            } catch {
+                // silent fail
             }
         }
     };
@@ -80,7 +85,7 @@ export default function ICareFooter() {
                                 aria-label="ICare on Instagram"
                                 className={styles.socialLink}
                             >
-                                <FontAwesomeIcon icon={faInstagram} />
+                                <FontAwesomeIcon icon={faInstagram} style={iconStyle} />
                             </a>
 
                             <a
@@ -90,7 +95,7 @@ export default function ICareFooter() {
                                 aria-label="ICare on LinkedIn"
                                 className={styles.socialLink}
                             >
-                                <FontAwesomeIcon icon={faLinkedin} />
+                                <FontAwesomeIcon icon={faLinkedin} style={iconStyle} />
                             </a>
 
                             <a
@@ -100,10 +105,10 @@ export default function ICareFooter() {
                                 aria-label="ICare on Facebook"
                                 className={styles.socialLink}
                             >
-                                <FontAwesomeIcon icon={faFacebook} />
+                                <FontAwesomeIcon icon={faFacebook} style={iconStyle} />
                             </a>
 
-                            {/* TWITTER / X */}
+                            {/* X / Twitter */}
                             <a
                                 href={COMPANY.socials.twitter}
                                 target="_blank"
@@ -111,7 +116,7 @@ export default function ICareFooter() {
                                 aria-label="ICare on X (Twitter)"
                                 className={styles.socialLink}
                             >
-                                <FontAwesomeIcon icon={faXTwitter} />
+                                <FontAwesomeIcon icon={faXTwitter} style={iconStyle} />
                             </a>
 
                             {/* SHARE */}
@@ -122,7 +127,7 @@ export default function ICareFooter() {
                                 className={styles.socialLink}
                                 style={{ background: "none", border: "none", padding: 0 }}
                             >
-                                <FontAwesomeIcon icon={faShareNodes} />
+                                <FontAwesomeIcon icon={faShareNodes} style={iconStyle} />
                             </button>
                         </div>
                     </div>
@@ -142,7 +147,9 @@ export default function ICareFooter() {
                                 <div className={styles.value}>{COMPANY.location}</div>
                             </div>
 
-                            <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
+                            <div className={styles.valueMuted}>
+                                Operated in the United Kingdom.
+                            </div>
                         </div>
                     </div>
 
@@ -170,7 +177,8 @@ export default function ICareFooter() {
                 {/* BOTTOM BAR */}
                 <div className={styles.bottomBar}>
                     <div className={styles.copyright}>
-                        © {year} {COMPANY.brand}.<br /> All rights reserved.
+                        © {year} {COMPANY.brand}.<br />
+                        All rights reserved.
                     </div>
 
                     <div className={styles.disclaimer}>

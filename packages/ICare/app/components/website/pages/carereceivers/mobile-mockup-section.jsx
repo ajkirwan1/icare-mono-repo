@@ -23,10 +23,13 @@ export default function MobileMockupSection() {
                 </p>
                 <ul className={styles.list}>
                     {[
-                        "Comfortable, one-hand use on any phone",
-                        "The essentials are always one tap away",
-                        "Clear caregiver profiles with the details that matter",
-                        "Help and support available whenever you need it"
+                        "Simple, familiar interface — easy to use on any phone",
+
+                        "Care details, messages and profiles in one place",
+
+                        "Clear caregiver profiles with the information that matters",
+
+                        "Support available if you need guidance",
                     ].map((t) => (
                         <li key={t} className={styles.listItem}>
                             <span aria-hidden="true" className={styles.check}>
