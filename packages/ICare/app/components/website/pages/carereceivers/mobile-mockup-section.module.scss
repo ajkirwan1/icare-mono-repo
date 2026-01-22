@@ -3,47 +3,48 @@
 
 .title {
     @include motifs.title;
+    font-weight: 500; // ✅ h2 = 500
 }
 
 .intro {
-    margin-top: $space-16; // was 1rem
-    font-size: $fs-base; // was 1.05rem
-    color: $ink; // was #1a1a1a
-    line-height: $lh-body; // was 1.6
+    margin-top: $space-22;
+    font-size: 1.2rem; // ✅ explicit 1.2rem
+    color: $ink;
+    line-height: $lh-body;
     max-width: 48ch;
 }
 
 .list {
-    margin-top: $space-26; // was 1.6rem
+    margin-top: $space-26;
     padding-left: 0;
     list-style: none;
 
     display: grid;
-    gap: $space-11; // was 0.7rem
+    gap: $space-11;
 
-    font-size: $fs-1; // was 1rem
-    color: $ink; // was #1a1a1a
-    line-height: $lh-list; // was 1.5
+    font-size: $fs-1;
+    color: $ink;
+    line-height: $lh-list;
     max-width: 52ch;
-    font-weight: $fw-bold; // was 700
+    font-weight: $fw-bold;
 }
 
 .listItem {
     display: flex;
     align-items: flex-start;
-    gap: $space-055; // was 0.55rem
+    gap: $space-055;
 }
 
 .check {
-    color: $ink-strong; // was #000
-    font-weight: $fw-semibold; // was 600
-    margin-top: $space-3; // was 3px
+    color: $ink-strong;
+    font-weight: $fw-semibold;
+    margin-top: $space-3;
 }
 
 .outro {
-    margin-top: $space-26; // was 1.6rem
-    font-size: $fs-sm; // was 0.95rem
-    color: $ink; // was #1a1a1a
+    margin-top: $space-26;
+    font-size: 1.2rem; // ✅ explicit 1.2rem
+    color: $ink;
     max-width: 50ch;
-    line-height: $lh-outro; // was 1.55
+    line-height: $lh-outro;
 }

@@ -28,7 +28,7 @@ export function OurImpactSection() {
             aria-label="Our impact"
             style={{
                 width: "100%",
-                background: "rgb(199 216 183 / 75%)",
+                background: "#ecddd18c",
                 padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -45,7 +45,8 @@ export function OurImpactSection() {
                         display: "grid",
                         gridTemplateColumns: "1fr 1.1fr",
                         gap: "clamp(2.6rem, 5vw, 4.2rem)",
-                        alignItems: "stretch",
+                        // ✅ IMPORTANT: don't stretch columns to same height
+                        alignItems: "start",
                     }}
                 >
                     {/* ================= LEFT — TEXT + ACCORDION ================= */}
@@ -70,7 +71,6 @@ export function OurImpactSection() {
                                 How ICare changes home care
                             </h2>
 
-                            {/* ✅ SYSTEM / POLICY TEXT */}
                             <div
                                 style={{
                                     marginTop: "1.1rem",
@@ -82,7 +82,7 @@ export function OurImpactSection() {
                                     fontWeight: 400,
                                 }}
                             >
-                                <p style={{ margin: 0, fontSize: "1.15rem", }}>
+                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
                                     Home care is often shaped by complex structures that limit choice and create unnecessary pressure.
                                 </p>
                                 <p style={{ margin: 0, fontSize: "1.15rem" }}>
@@ -141,8 +141,9 @@ export function OurImpactSection() {
                                             <span
                                                 style={{
                                                     transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-                                                    transition: "transform .2s ease",
-                                                    fontSize: "1.2rem",
+                                                    transition: "transform .2.5s ease",
+                                                    fontSize: "1.4rem",
+
                                                 }}
                                             >
                                                 →
@@ -168,7 +169,7 @@ export function OurImpactSection() {
                         </div>
                     </div>
 
-                    {/* ================= RIGHT — IMAGE ================= */}
+                    {/* ================= RIGHT — IMAGE (fixed height) ================= */}
                     <div>
                         <div
                             style={{
@@ -176,7 +177,8 @@ export function OurImpactSection() {
                                 overflow: "hidden",
                                 borderRadius: "28px",
                                 boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
-                                height: "100%",
+                                // ✅ lock image block height so it doesn't change with accordion
+                                height: "clamp(420px, 52vw, 620px)",
                             }}
                         >
                             <img

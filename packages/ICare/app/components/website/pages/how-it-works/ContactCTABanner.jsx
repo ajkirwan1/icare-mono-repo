@@ -12,9 +12,9 @@ export default function ContactCTABanner() {
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
 
-                background: "#ffffff", // ✅ changed to #ffff (white)
+                background: "#f5f5f53b", // ✅ changed to #ffff (white)
                 borderTop: "1px solid rgba(0,0,0,0.04)",
-                padding: "clamp(2.8rem,4.2vw,3.6rem) 0" // ✅ smaller section
+                padding: "clamp(2.8rem,4.4vw,3.8rem) 0" // ✅ smaller section
             }}
         >
             <div
@@ -35,7 +35,7 @@ export default function ContactCTABanner() {
                             margin: 0,
                             color: "#0F172A",
                             fontWeight: 500,
-                            fontSize: "2.2rem", // ✅ smaller title
+                            fontSize: "2.4rem", // ✅ smaller title
                             lineHeight: 1.12,
                             letterSpacing: "-0.35px",
                         }}
@@ -47,13 +47,13 @@ export default function ContactCTABanner() {
                         style={{
                             margin: "0.75rem 0 0", // ✅ tighter spacing
                             color: "#1f2a37",
-                            fontSize: "clamp(1rem,1.05vw,1.08rem)", // ✅ smaller text
+                            fontSize: "1.25rem", // ✅ smaller text
                             lineHeight: 1.7,
-                            fontWeight: 500,
+                            fontWeight: 400,
                             maxWidth: "60ch",
                         }}
                     >
-                        We’re here to help you understand matching, agreements <br />and setup
+                        We are here to help you understand matching, <br />agreements and setup
                         with clarity and no pressure.
                     </p>
                 </div>
@@ -67,7 +67,7 @@ export default function ContactCTABanner() {
                         gap: 12,
                         textDecoration: "none",
 
-                        padding: "0.9rem 1.9rem", // ✅ smaller button
+                        padding: "0.9rem 2rem", // ✅ smaller button
                         borderRadius: 999,
 
                         fontWeight: 800,

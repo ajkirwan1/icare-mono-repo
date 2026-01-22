@@ -19,7 +19,7 @@ export default function CompareAgencyVsICare() {
         fontWeight: 600,
         letterSpacing: "-0.2px",
         lineHeight: 1.25,
-        fontSize: "1.25rem",
+        fontSize: "1.30rem",
         color: TEXT,
     };
 
@@ -28,7 +28,7 @@ export default function CompareAgencyVsICare() {
         color: TEXT,
         maxWidth: "65ch",
         lineHeight: 1.65,
-        fontSize: "1.22rem",
+        fontSize: "1.35rem",
         fontWeight: 400, // ✅ was 600
     };
 
@@ -45,7 +45,7 @@ export default function CompareAgencyVsICare() {
         display: "flex",
         gap: 12,
         color: "#1f2a37",
-        fontSize: "1.15rem",
+        fontSize: "1.25rem",
         lineHeight: 1.55,
         fontWeight: 400,
     };
@@ -79,7 +79,7 @@ export default function CompareAgencyVsICare() {
                 <h2 style={H2}>A clearer alternative to agencies</h2>
 
                 <p style={LEAD}>
-                    A modern, transparent alternative to traditional agencies — where families retain
+                    A modern, transparent alternative to traditional agencies where families retain
                     choice, clarity, and fair pricing.
                 </p>
 

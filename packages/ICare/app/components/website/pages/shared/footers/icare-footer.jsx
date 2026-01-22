@@ -5,7 +5,9 @@ import {
     faInstagram,
     faLinkedin,
     faFacebook,
+    faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import styles from "./icare-footer.module.scss";
 
 export default function ICareFooter() {
@@ -23,17 +25,41 @@ export default function ICareFooter() {
             instagram: "https://www.instagram.com/icare",
             linkedin: "https://www.linkedin.com/company/icare",
             facebook: "https://www.facebook.com/icare",
+            twitter: "https://twitter.com/icare", // lub https://x.com/icare
         },
     };
 
     const LOGO_SRC = "/images/logo/icareblack.svg";
+
+    const handleShare = async () => {
+        const shareData = {
+            title: "ICare",
+            text: "A transparent way to arrange home care — without agency markups.",
+            url: window.location.origin,
+        };
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                // user cancelled
+            }
+        } else {
+            try {
+                await navigator.clipboard.writeText(shareData.url);
+                // silent copy (bez alertu)
+            } catch (err) {
+                // fail silently
+            }
+        }
+    };
 
     return (
         <footer aria-label="Site footer" className={styles.footer}>
             <div className={styles.inner}>
                 {/* TOP GRID */}
                 <div className={styles.topGrid}>
-                    {/* BRAND + CONTACT */}
+                    {/* BRAND */}
                     <div className={styles.col}>
                         <NavLink to="/" aria-label="ICare home" className={styles.brandLink}>
                             <img src={LOGO_SRC} alt="ICare" className={styles.logo} />
@@ -41,11 +67,11 @@ export default function ICareFooter() {
                         </NavLink>
 
                         <p className={styles.tagline}>
-                            A transparent marketplace connecting families with independent caregivers <br />without
-                            agency markups.
+                            A transparent marketplace connecting families with independent caregivers <br />
+                            without agency markups.
                         </p>
 
-                        {/* ✅ SOCIAL ICONS */}
+                        {/* SOCIAL ICONS + SHARE */}
                         <div className={styles.socials}>
                             <a
                                 href={COMPANY.socials.instagram}
@@ -76,6 +102,28 @@ export default function ICareFooter() {
                             >
                                 <FontAwesomeIcon icon={faFacebook} />
                             </a>
+
+                            {/* TWITTER / X */}
+                            <a
+                                href={COMPANY.socials.twitter}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="ICare on X (Twitter)"
+                                className={styles.socialLink}
+                            >
+                                <FontAwesomeIcon icon={faXTwitter} />
+                            </a>
+
+                            {/* SHARE */}
+                            <button
+                                type="button"
+                                onClick={handleShare}
+                                aria-label="Share ICare"
+                                className={styles.socialLink}
+                                style={{ background: "none", border: "none", padding: 0 }}
+                            >
+                                <FontAwesomeIcon icon={faShareNodes} />
+                            </button>
                         </div>
                     </div>
 
@@ -93,13 +141,6 @@ export default function ICareFooter() {
                                 <div className={styles.label}>Location</div>
                                 <div className={styles.value}>{COMPANY.location}</div>
                             </div>
-
-                            {COMPANY.vat ? (
-                                <div>
-                                    <div className={styles.label}>VAT number</div>
-                                    <div className={styles.value}>{COMPANY.vat}</div>
-                                </div>
-                            ) : null}
 
                             <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
                         </div>
@@ -134,7 +175,8 @@ export default function ICareFooter() {
 
                     <div className={styles.disclaimer}>
                         ICare is a marketplace that helps families and caregivers connect directly.<br />
-                        Caregivers work independently, and care arrangements are agreed<br /> directly between families and caregivers (see <strong>Terms</strong>).
+                        Caregivers work independently, and care arrangements are agreed<br />
+                        directly between families and caregivers (see <strong>Terms</strong>).
                     </div>
                 </div>
             </div>

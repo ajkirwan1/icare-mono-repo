@@ -67,6 +67,7 @@ export default function SavingsEstimatorCurrency() {
     .icare-left-boxes ul li{
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(15,23,42,0.10);
+      
     }
     .icare-left-boxes ul li:last-child{
       border-bottom: 0;
@@ -215,8 +216,8 @@ export default function SavingsEstimatorCurrency() {
     const sourceNote = {
         marginTop: 14,
         paddingTop: 14,
-        fontSize: ".92rem",
-        opacity: 0.78,
+        fontSize: "0.98rem",
+
         fontWeight: 650,
         lineHeight: 1.6,
         color: TEXT,

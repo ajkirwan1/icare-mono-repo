@@ -52,7 +52,7 @@ export default function RegisterInterestHome() {
                         style={{
                             margin: 0,
                             fontSize: "2rem",
-                            fontWeight: 800,
+                            fontWeight: 500,
                             color: "#1A1A1A",
                             lineHeight: 1.2,
                             maxWidth: "26ch"
@@ -65,7 +65,7 @@ export default function RegisterInterestHome() {
                     <p
                         style={{
                             marginTop: "1rem",
-                            fontSize: "1.05rem",
+                            fontSize: "1.25rem",
                             color: "#1a1a1a",
                             lineHeight: 1.6,
                             maxWidth: "48ch"
@@ -82,7 +82,7 @@ export default function RegisterInterestHome() {
                             paddingLeft: "1.1rem",
                             display: "grid",
                             gap: "0.7rem",
-                            fontSize: "1rem",
+                            fontSize: "1.2rem",
                             color: "#1a1a1a",
                             lineHeight: 1.5,
                             maxWidth: "52ch",
