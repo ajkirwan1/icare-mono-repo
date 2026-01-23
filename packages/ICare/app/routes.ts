@@ -14,6 +14,7 @@ export default [
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
   route("news-and-articles", "routes/website/news-and-articles.jsx"),
   route("news-and-articles/:slug", "routes/website/news-item.jsx"),
+  route("news-and-articles/tags/:tag", "routes/website/news-tag.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
   route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
   route("login", "routes/auth/login.jsx"),
