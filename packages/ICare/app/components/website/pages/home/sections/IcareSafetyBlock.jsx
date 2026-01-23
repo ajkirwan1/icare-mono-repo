@@ -65,7 +65,7 @@ export default function SafetyComesFirstThreeBoxes() {
             "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(4.3rem, 6.0vw, 5.6rem) 0",
-        background: `linear-gradient(180deg, ${COLORS.sectionBgTop} 0%, ${COLORS.sectionBgBottom} 100%)`,
+        background: "rgba(236, 221, 209, 0.55)",
     };
 
     const dividerTop = {
@@ -136,13 +136,9 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const cardBase = {
-        background: COLORS.boxBg,
-        border: `1px solid ${COLORS.border}`,
-        borderRadius: 20,
-        padding: "clamp(16px, 2.1vw, 22px)",
-        boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
+        padding: "clamp(24px, 2.5vw, 28px)",
         display: "grid",
-        gap: 10,
+        gap: 6,
         minHeight: 280,
     };
 

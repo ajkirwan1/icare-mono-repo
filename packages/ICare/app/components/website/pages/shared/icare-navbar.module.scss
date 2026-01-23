@@ -1,157 +1,162 @@
 .header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.8rem clamp(20px, 4vw, 48px);
-  height: var(--navbar-height);
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem clamp(20px, 4vw, 48px);
+    height: var(--navbar-height);
 
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  isolation: isolate;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    isolation: isolate;
+}
+
+.slogan {
+    font-weight: 600;
 }
 
 .brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
 
-  img {
-    height: 45px;
-  }
+    img {
+        height: 45px;
+    }
 
-  span {
-    font-size: 12px;
-    color: white;
-  }
+    span {
+        font-size: 12px;
+        color: white;
+    }
 }
 
 .desktopNav {
-  display: flex;
-  gap: 3rem;
+    display: flex;
+    gap: 3rem;
 
-  @media (max-width: 900px) {
-    display: none;
-  }
+    @media (max-width: 900px) {
+        display: none;
+    }
 }
 
 .link {
-  color: white;
-  font-size: 1.26rem;
-  font-weight: 500;
-  text-decoration: none;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-decoration: none;
 
-  &:hover {
-    text-decoration: underline;
-  }
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .dropdownBtn {
-  @extend .link;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+    @extend .link;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .dropdown {
-  position: fixed;
-  min-width: 220px;
-  padding: 0.6rem;
-  display: grid;
-  gap: 0.3rem;
+    position: fixed;
+    min-width: 220px;
+    padding: 0.6rem;
+    display: grid;
+    gap: 0.3rem;
 
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  // border: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom-right-radius: 16px;
-  border-bottom-left-radius: 16px;
-  z-index: 9999;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    // border: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    z-index: 9999;
 
-  opacity: 0;
-  transform: translateX(-50%) translateY(8px) scale(0.98);
-  transform-origin: top center;
-  transition: opacity 160ms ease, transform 200ms ease;
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px) scale(0.98);
+    transform-origin: top center;
+    transition: opacity 160ms ease, transform 200ms ease;
 }
 
 .dropdownOpen {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
 }
 
 .dropdownLink {
-  color: white;
-  text-decoration: none;
-  padding: 0.55rem 0.7rem;
-  border-radius: 10px;
-  text-align: center;
+    color: white;
+    text-decoration: none;
+    padding: 0.55rem 0.7rem;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
 
-  /* start hidden */
-  opacity: 0;
-  transform: translateY(8px);
+    /* start hidden */
+    opacity: 0;
+    transform: translateY(8px);
 
-  /* cascade: each link delays based on --i */
-  transition:
-    opacity 220ms ease,
-    transform 260ms ease;
-  transition-delay: calc(var(--i, 0) * 70ms);
+    /* cascade: each link delays based on --i */
+    transition:
+        opacity 220ms ease,
+        transform 260ms ease;
+    transition-delay: calc(var(--i, 0) * 70ms);
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.12);
-  }
+    &:hover {
+        background: rgba(255, 255, 255, 0.12);
+    }
 }
 
 /* when dropdown is open, items animate in */
 .dropdownOpen .dropdownLink {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .mobileToggle {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 54px;
-  color: white;
-  cursor: pointer;
+    display: none;
+    background: none;
+    border: none;
+    font-size: 54px;
+    color: white;
+    cursor: pointer;
 
-  @media (max-width: 900px) {
-    display: block;
-  }
+    @media (max-width: 900px) {
+        display: block;
+    }
 }
 
 .mobileMenu {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: min(92vw, 360px);
-  padding: 1.2rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: min(92vw, 360px);
+    padding: 1.2rem;
 
-  display: grid;
-  gap: 0.9rem;
+    display: grid;
+    gap: 0.9rem;
 
-  background: rgba(0, 0, 0, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .mobileGroup {
-  display: grid;
-  gap: 10px;
+    display: grid;
+    gap: 10px;
 }
 
 .mobileSub {
-  display: grid;
-  gap: 8px;
-  padding-left: 10px;
+    display: grid;
+    gap: 8px;
+    padding-left: 10px;
 }

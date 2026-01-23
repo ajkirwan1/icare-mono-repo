@@ -65,7 +65,7 @@ export default function ICareWaitlistFinal() {
         margin: 0,
         fontWeight: 500,
         letterSpacing: "-0.5px",
-        lineHeight: 1.18,
+        lineHeight: 1.20,
         fontSize: "clamp(1.56rem, 2.08vw, 1.80rem)", // ✅ +10%
         color: TEXT,
     };
@@ -87,7 +87,7 @@ export default function ICareWaitlistFinal() {
         color: TEXT,
         fontWeight: 500,
         lineHeight: 1.65,
-        fontSize: "1.01rem",
+        fontSize: "1.1rem",
         maxWidth: "72ch",
     };
 
@@ -118,7 +118,7 @@ export default function ICareWaitlistFinal() {
         borderRadius: 14,
         padding: "11px 12px",
         background: "#fff",
-        fontSize: "0.98rem",
+        fontSize: "1rem",
         color: TEXT,
         outline: "none",
     };

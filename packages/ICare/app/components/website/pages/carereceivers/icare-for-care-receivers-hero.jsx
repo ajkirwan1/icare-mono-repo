@@ -3,31 +3,51 @@ import ICareNavbar from "../shared/icare-navbar";
 import styles from "./icare-for-care-receivers-hero.module.scss";
 
 export default function ICareForCareReceiversHero() {
-  return (
-    <>
-      <ICareNavbar />
-      <section aria-label="Page hero" className={styles.hero}>
-        <img
-          src={heroImage}
-          alt=""
-          className={styles.image}
-        />
-        <div className={styles.overlay} />
-        <div className={styles.content}>
-          <h1 className={styles.title}>Find trusted caregivers</h1>
-          <p className={styles.description}>
-            <span className={styles.lead}>
-              Get personalised help for your family.
-            </span>
-            Verified caregivers, clear terms, no agency markups.
-          </p>
-        </div>
-      </section>
-      {/* <div style={{ display: "flex", gap: "2vw", height: "20vh", background: "#fff9ef", alignItems: "center" }} className={styles.section}>
-        <h2 className={styles.title}>
-          ICare provides a unified platform to find your next care-giving role, and arrange and manage your contracts.
-        </h2>
-      </div> */}
-    </>
-  );
+    return (
+        <>
+            <ICareNavbar />
+
+            <section aria-label="ICare for Care Receivers hero" className={styles.hero}>
+                <img
+                    src={heroImage}
+                    alt="Home care support background"
+                    className={styles.image}
+                />
+                <div className={styles.overlay} />
+
+                <div className={styles.content}>
+                    <div>
+                        {/* H1 — WHITE */}
+                        <h1 className={styles.title}>
+                            Icare for care receivers
+                        </h1>
+
+                        {/* H2 — smaller, calm */}
+                        <h2 className={styles.subtitle}>
+                            Get personalised help for your family.
+                        </h2>
+
+                        {/* LIST — same as caregivers */}
+                        <div className={styles.copy}>
+                            <p className={styles.copyList}>
+                                <span className={styles.check} aria-hidden="true" />
+                                Verified caregiver profiles
+                            </p>
+
+
+                            <p className={styles.copyList}>
+                                <span className={styles.check}>✓</span>
+                                Clear terms agreed upfront
+                            </p>
+
+                            <p className={styles.copyList}>
+                                <span className={styles.check}>✓</span>
+                                No agency markups or pressure
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </>
+    );
 }

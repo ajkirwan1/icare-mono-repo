@@ -4,6 +4,7 @@
 
 .title {
     @include motifs.title;
+    font-weight: 500;
 }
 
 .subtitle {
@@ -22,7 +23,7 @@
     /* was: clamp(4.8rem, 6.2vw, 6.4rem) 0 */
     padding: clamp(4.32rem, 5.58vw, 5.76rem) 0;
 
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    font-family: Nunito, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
         sans-serif;
     color: $txt;
 }
@@ -37,11 +38,12 @@
 .grid {
     @include motifs.grid-two; // gap: clamp(26px, 3.4vw, 52px);
     // align-items: start;
+    margin-top: 1rem;
 }
 
 .h2Clamp {
     font-size: clamp(1.85rem, 2.8vw, 2.25rem);
-    font-weight: 950;
+    font-weight: 500;
     color: $txt;
     margin: 0 0 $space-11;
     letter-spacing: -0.45px;
@@ -49,8 +51,8 @@
 }
 
 .h2 {
-    font-size: clamp(1.85rem, 2.8vw, 2.25rem);
-    font-weight: 950;
+    font-size: 2.2rem;
+    font-weight: 500;
     color: $txt;
     margin: 0 0 $space-11;
     letter-spacing: -0.45px;
@@ -85,11 +87,9 @@
 
 .card {
     height: 100%;
-    padding: $space-18 $space-18;
+    padding: $space-18 $space-2;
     border-radius: $radius-lg;
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid $card-border;
-    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+
     display: grid;
     gap: $space-10;
     color: $txt;
@@ -108,17 +108,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(97, 103, 77, 0.12);
-    border: 1px solid rgba(97, 103, 77, 0.24);
+
     color: $primary-colour;
     flex: 0 0 auto;
 }
 
 .proofTitle {
     margin: 0;
-    font-weight: 950;
+    font-weight: 500;
     color: $txt;
-    font-size: 1.04rem;
+    font-size: 1.4rem;
     letter-spacing: -0.15px;
 }
 
@@ -126,8 +125,8 @@
     margin: 8px 0 0;
     color: $txt;
     line-height: $lh-loose;
-    font-size: 0.99rem;
-    font-weight: $fw-semibold;
+    font-size: 1.16rem;
+    font-weight: 400;
 }
 
 .seoBlock {
@@ -170,6 +169,7 @@
     border: 1px solid $card-border;
     background: rgba(255, 255, 255, 0.65);
     aspect-ratio: 4 / 5;
+    margin-top: 2rem;
 }
 
 .photo {

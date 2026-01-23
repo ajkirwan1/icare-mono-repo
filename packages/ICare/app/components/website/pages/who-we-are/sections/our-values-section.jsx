@@ -23,8 +23,7 @@ export function OurValuesSection() {
                 alignItems: "flex-start",
                 gap: "1.4rem",
                 padding: "1.8rem 1.6rem",
-                borderRadius: "20px",
-                background: bg,
+
             }}
         >
             <div style={{ display: "flex", alignItems: "flex-start", paddingTop: 2 }}>
@@ -138,10 +137,10 @@ export function OurValuesSection() {
 
                     <p
                         style={{
-                            fontSize: "1.55rem",
+                            fontSize: "1.4rem",
                             marginTop: "1rem",
                             color: "#0f172a",
-                            fontWeight: 600,
+                            fontWeight: 500,
                         }}
                     >
                         “Care isn’t a service. It’s a shared human value.”
@@ -159,7 +158,7 @@ export function OurValuesSection() {
                         We build trust through fairness, clarity, and respect
                         <br />
                         every step of the way.
-                        <br />
+                        <br /><br />
                         Together, we are shaping a care system built on trust —
                         empowering families and caregivers to work as equals.
                     </p>

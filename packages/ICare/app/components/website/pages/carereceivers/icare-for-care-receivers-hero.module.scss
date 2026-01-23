@@ -1,56 +1,60 @@
 @use "@styles/tokens" as *;
-@use "@styles/abstracts/mixins" as m;
 @use "@styles/abstracts/motifs" as motifs;
 
 .hero {
-  @include motifs.hero;
-}
-
-.section {
-  width: 100vw;
-  padding: 2rem 8rem 2rem 8rem;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-}
-
-.title {
-  @include motifs.title;
-  letter-spacing: normal;
-  font-weight: 300;
+    @include motifs.hero;
 }
 
 .image {
-  @include motifs.hero-image;
+    @include motifs.hero-image;
 }
 
 .overlay {
-  @include motifs.hero-overlay;
+    @include motifs.hero-overlay;
 }
 
 .content {
-  @include motifs.hero-content;
+    @include motifs.hero-content;
 }
 
-// .title {
-//   font-size: $fs-h2-fluid;
-//   margin: 0;
-//   font-weight: $fw-ultra;
-//   line-height: $lh-compact;
-//   color: $on-dark;
-//   max-width: 25ch;
-//   letter-spacing: $tracking-h2;
-// }
-
-.description {
-  margin-top: $space-21;
-  font-size: clamp(#{$fs-base}, 1.3vw, #{$fs-md});
-  max-width: 60ch;
-  line-height: $lh-body;
-  color: rgba($on-dark, 0.92);
+/* H1 — white */
+.title {
+    @include motifs.title;
+    color: $on-dark; // ✅ white
+    font-weight: 500; // jak w caregivers
 }
 
-.lead {
-  font-size: $fs-2xl;
-  font-weight: $fw-bold;
-  margin-bottom: $space-16;
+/* H2 — smaller, calm */
+.subtitle {
+    margin-top: $space-14;
+    font-size: 1.4rem; // ✅ exact
+    font-weight: 400; // ✅ exact
+    line-height: 1.45;
+    color: rgba($on-dark, 0.92);
+    max-width: 48ch;
+}
+
+/* LIST */
+.copy {
+    margin-top: $space-22;
+    display: grid;
+    gap: $space-11;
+}
+
+.copyList {
+    display: flex;
+    align-items: center; // ✅ kluczowe — NIE flex-start
+    gap: $space-055;
+    font-size: clamp(#{$fs-base}, 1.1vw, #{$fs-md});
+    line-height: $lh-body;
+    color: rgba($on-dark, 0.92);
+}
+
+.check {
+    display: inline-block;
+    width: 1.1em; // ✅ stała szerokość jak w caregivers
+    text-align: center; // ✅ optyczne wyrównanie
+    color: $on-dark;
+    font-weight: $fw-semibold;
+    line-height: 1; // ✅ nie dziedziczy line-height tekstu
 }

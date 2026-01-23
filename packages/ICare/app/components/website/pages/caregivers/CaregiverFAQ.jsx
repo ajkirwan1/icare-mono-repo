@@ -49,7 +49,7 @@ export default function CaregiverFAQ() {
                 margin: "6rem auto 4rem",
                 width: "min(980px, 92vw)",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* HEADER */}
@@ -104,7 +104,7 @@ export default function CaregiverFAQ() {
                             style={{
                                 listStyle: "none",
                                 cursor: "pointer",
-                                padding: "1.05rem 1.1rem",
+                                padding: "1.5rem 1.5rem",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "space-between",
@@ -158,7 +158,7 @@ export default function CaregiverFAQ() {
 
                         <div
                             style={{
-                                padding: "0 1.1rem 1.15rem",
+                                padding: "0 1.5rem 1.5rem",
                                 color: "#0f172a",
                                 fontSize: "1.1rem",
                                 lineHeight: 1.66,

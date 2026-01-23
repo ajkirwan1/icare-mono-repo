@@ -83,7 +83,7 @@ export default function WhatMakesAGreatProfile() {
     const wrap = {
         width: "100%",
         padding: "clamp(4.6rem, 6.8vw, 6.0rem) 0",
-        background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
+        background: "#fff9ef",
         color: COLORS.text,
         fontFamily:
             "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -135,11 +135,8 @@ export default function WhatMakesAGreatProfile() {
     };
 
     const card = {
-        background: "rgba(255, 255, 255, 0.3)",
-        border: `1px solid ${COLORS.border}`,
-        borderRadius: 22,
         padding: "20px 25px 18px",
-        boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
+        borderRight: "1px solid",
         display: "grid",
         gap: 10,
     };

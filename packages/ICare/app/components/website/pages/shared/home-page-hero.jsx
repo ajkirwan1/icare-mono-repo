@@ -22,15 +22,19 @@ export default function HomePageHero({ imgSrc }) {
                     <div className={styles.textWrapper}>
                         <div className={styles.copyBlock}>
                             <h1 className={styles.heading}>
-                                Find trusted <span>home care</span><br />without agency stress.
+                                Direct home care <span>between</span><br />families and caregivers
                             </h1>
 
                             <ul className={styles.features}>
                                 {[
-                                    "Clear caregiver profiles",
-                                    "Structured matching — agree tasks & schedule upfront",
-                                    "Safety details shown on profiles",
-                                    "No agency markups — simple and transparent"
+                                    "Clear caregiver profiles — skills, availability, safety details upfront",
+
+                                    "Structured matching — agree tasks & schedule before care starts",
+
+                                    "Direct communication — message and clarify everything in one place",
+
+                                    "No agency markups — one clear model, real savings for families and caregivers",
+
                                 ].map((text) => (
                                     <li key={text} className={styles.featureItem}>
                                         <svg
@@ -52,14 +56,11 @@ export default function HomePageHero({ imgSrc }) {
                                 <a href="#waitlist" style={{ textDecoration: "none" }}>
                                     <SubmitButton>Join waiting list</SubmitButton>
                                 </a>
-                                <NavigationButton to="/icare-for-caregivers">I’m a caregiver</NavigationButton>
                             </div>
                         </div>
                     </div>
                 </div>
-                <p className={styles.subheading}>
-                    <span>Transparent pricing.</span> <span>Direct communication.</span> <span>A calmer, guided process for families.</span>
-                </p>
+
             </section>
         </>
     );

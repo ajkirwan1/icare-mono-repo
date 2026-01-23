@@ -150,9 +150,9 @@ export default function ICareCostEstimator({
     };
 
     const label = {
-        fontWeight: 900,
+        fontWeight: 700,
         color: TEXT,
-        fontSize: ".88rem",
+        fontSize: "1rem",
         letterSpacing: "-0.1px",
     };
 
@@ -168,11 +168,10 @@ export default function ICareCostEstimator({
     };
 
     const small = {
-        marginTop: 6,
+        marginTop: 20,
         color: TEXT,
-        opacity: 0.65,
         fontWeight: 650,
-        fontSize: ".86rem",
+        fontSize: "1rem",
         lineHeight: 1.45,
     };
 
@@ -191,17 +190,16 @@ export default function ICareCostEstimator({
     });
 
     const k = {
-        fontSize: ".84rem",
-        fontWeight: 850,
+        fontSize: "1rem",
+        fontWeight: 700,
         color: TEXT,
-        opacity: 0.7,
         marginBottom: 4,
     };
 
     const v = (highlight) => ({
         fontWeight: 950,
         fontSize: "1.12rem",
-        color: highlight ? BRAND : TEXT,
+        color: highlight ? "rgb(119, 141, 67)" : TEXT,
         letterSpacing: "-0.2px",
     });
 
@@ -217,7 +215,7 @@ export default function ICareCostEstimator({
     const barFill = {
         height: "100%",
         width: `${Math.max(0, Math.min(100, savePct)).toFixed(0)}%`,
-        background: BRAND,
+        background: "rgb(119, 141, 67)",
         transition: "width .45s ease",
     };
 
@@ -228,7 +226,7 @@ export default function ICareCostEstimator({
         gap: 8,
         textDecoration: "none",
         color: OLIVE,
-        fontWeight: 900,
+        fontWeight: 700,
         borderBottom: "1px solid rgba(97,103,77,0.35)",
         paddingBottom: 2,
         width: "fit-content",
@@ -274,9 +272,9 @@ export default function ICareCostEstimator({
                         A simple estimate to support <br />
                         your care decisions
                     </h1>
-                    <h2 style={h2Mini}>Budget clarity — in under a minute</h2>
+                    <h2 style={h2Mini}>Budget clarity in under a minute</h2>
                     <p style={lead}>
-                        Caring is emotional — money shouldn’t add extra stress. <br />
+                        Caring is emotional - money shouldn’t add extra stress. <br />
                         Adjust rate and hours/week for a monthly estimate.
                     </p>
                 </div>
@@ -318,7 +316,7 @@ export default function ICareCostEstimator({
                                     step={range.step}
                                     value={hourly}
                                     onChange={(e) => setHourly(Number(e.target.value))}
-                                    style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
+                                    style={{ width: "100%", accentColor: "rgb(119, 141, 67)", cursor: "pointer" }}
                                 />
                                 <div style={{ display: "flex", justifyContent: "space-between", ...small, marginTop: 0 }}>
                                     <span>{range.min}</span>
@@ -377,12 +375,9 @@ export default function ICareCostEstimator({
 
                         <div style={{ marginTop: 10, color: TEXT, fontWeight: 800, opacity: 0.85 }}>
                             You may save around{" "}
-                            <span style={{ color: BRAND, fontWeight: 950 }}>{Math.round(savePct)}%</span> compared with a typical agency.
+                            <span style={{ color: "rgb(119, 141, 67)", fontWeight: 950 }}>{Math.round(savePct)}%</span> compared with a typical agency.
                         </div>
 
-                        <a href={waitlistHref} style={softLink}>
-                            Get early access in your area <span aria-hidden="true">→</span>
-                        </a>
 
                         <div style={{ marginTop: 10, ...small }}>
                             This is an estimate — needs, cities and experience can change rates.
