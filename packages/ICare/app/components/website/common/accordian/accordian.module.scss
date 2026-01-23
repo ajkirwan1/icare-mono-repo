@@ -1,69 +1,68 @@
 @use "@styles/tokens" as *;
 
 .list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: $space-16;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: $space-16;
 }
 
 .listItem {
-  margin: 0;
+    margin: 0;
 }
 
 .item {
-  background: #ffffff;
-  border-radius: $radius-lg;
-  border: 1px solid rgba(76, 120, 101, 0.2);
-  padding: $space-18 $space-18;
-  cursor: pointer;
-  transition: $transition-ui;
-  box-shadow: $shadow-elev;
+    background: #ffffff;
+    border-radius: $radius-lg;
+    border: 1px solid rgba(76, 120, 101, 0.2);
+    padding: $space-18 $space-18;
+    cursor: pointer;
+    transition: $transition-ui;
+    box-shadow: $shadow-elev;
 }
 
 .item:hover {
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 }
 
 .summary {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: $space-12;
-  padding: $space-4 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-12;
+    padding: $space-4 0;
 }
 
 .summary::-webkit-details-marker {
-  display: none;
+    display: none;
 }
 
 .question {
-  font-size: $fs-base;
-  font-weight: $fw-bold;
-  color: #1f2a37;
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    color: #1f2a37;
 }
 
 .arrow {
-  flex: 0 0 auto;
-  margin-left: $space-12;
-  transition: transform 0.25s ease;
+    flex: 0 0 auto;
+    margin-left: $space-12;
+    transition: transform 0.25s ease;
 }
 
 .item[open] .arrow {
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 .panel {
-  margin-top: $space-12;
-  padding-right: $space-8;
+    margin-top: $space-12;
+    padding-right: $space-8;
 }
 
 .answer {
-  margin: 0;
-  color: #475569;
-  line-height: $lh-copy;
-  font-size: $fs-1;
+    margin: 0;
+    line-height: $lh-copy;
+    font-weight: 400;
+    font-size: $fs-md;
 }

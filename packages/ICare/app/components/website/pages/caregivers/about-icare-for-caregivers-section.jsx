@@ -161,7 +161,7 @@ export default function HowICareWorksForCaregiversSystem() {
                             style={{
 
                                 borderRadius: 22,
-                                padding: "20px",
+                                padding: "20px 10px",
 
                                 display: "flex",
                                 flexDirection: "column",
@@ -195,8 +195,10 @@ export default function HowICareWorksForCaregiversSystem() {
                                     <FontAwesomeIcon
                                         icon={s.icon}
                                         style={{
-                                            fontSize: 28,
-                                            color: COLORS.olive,
+                                            position: "relative",
+                                            top: "10px",
+                                            fontSize: 24,
+                                            color: COLORS.text,
                                         }}
                                     />
                                 </div>

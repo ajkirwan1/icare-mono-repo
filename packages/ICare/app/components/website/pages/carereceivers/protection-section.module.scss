@@ -4,6 +4,7 @@
 
 .title {
     @include motifs.title;
+    font-weight: 500;
 }
 
 .subtitle {
@@ -37,6 +38,7 @@
 .grid {
     @include motifs.grid-two; // gap: clamp(26px, 3.4vw, 52px);
     // align-items: start;
+    margin-top: 1rem;
 }
 
 .h2Clamp {
@@ -49,7 +51,7 @@
 }
 
 .h2 {
-    font-size: clamp(1.85rem, 2.8vw, 2.25rem);
+    font-size: 2.2rem;
     font-weight: 500;
     color: $txt;
     margin: 0 0 $space-11;
@@ -85,7 +87,7 @@
 
 .card {
     height: 100%;
-    padding: $space-18 $space-18;
+    padding: $space-18 $space-2;
     border-radius: $radius-lg;
 
     display: grid;
@@ -115,7 +117,7 @@
     margin: 0;
     font-weight: 500;
     color: $txt;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     letter-spacing: -0.15px;
 }
 
@@ -123,7 +125,7 @@
     margin: 8px 0 0;
     color: $txt;
     line-height: $lh-loose;
-    font-size: 1.1rem;
+    font-size: 1.16rem;
     font-weight: 400;
 }
 
@@ -167,6 +169,7 @@
     border: 1px solid $card-border;
     background: rgba(255, 255, 255, 0.65);
     aspect-ratio: 4 / 5;
+    margin-top: 2rem;
 }
 
 .photo {

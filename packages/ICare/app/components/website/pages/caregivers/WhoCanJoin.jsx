@@ -37,6 +37,7 @@ export default function WhoCanJoin() {
                 >
                     {/* LEFT — TEXT */}
                     <div>
+
                         <h2
                             style={{
                                 margin: 0,
@@ -49,8 +50,27 @@ export default function WhoCanJoin() {
                         >
                             A platform designed<br />around caregivers
                         </h2>
+                        <img
+                            src="images/web/icare-for-caregivers/blackcarer.jpg"
+                            alt="Caregiver providing home care support"
+                            style={{
+                                width: "100%",
+                                height: "380px",
+                                objectFit: "cover",
+                                borderRadius: "22px",
+                                boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
+                                display: "block",
+                                marginTop: "2rem"
+                            }}
+                        />
+
 
                         <div style={{ height: "1.6rem" }} />
+
+                    </div>
+
+                    {/* RIGHT — IMAGE */}
+                    <div style={{ marginTop: "8rem" }}>
 
                         {/* === SECTION 1 === */}
                         <div>
@@ -71,7 +91,7 @@ export default function WhoCanJoin() {
                             <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Your schedule stays yours
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 Set your availability, hours, and care types. You choose what you
                                 take on and what you decline — always on your terms.
                             </p>
@@ -84,7 +104,7 @@ export default function WhoCanJoin() {
                             <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Your rates stay yours
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 You set your pricing based on experience and the support required,
                                 then agree details directly with families — clear, respectful, and
                                 pressure-free.
@@ -98,7 +118,7 @@ export default function WhoCanJoin() {
                             <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 Flexible arrangements (no tie-ins)
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 There are no rigid agency-style commitments. As your work evolves,
                                 you can adjust your availability and the type of support you offer.
                             </p>
@@ -109,9 +129,9 @@ export default function WhoCanJoin() {
                         {/* === SECTION 5 === */}
                         <div>
                             <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
-                                Independent — with professional protection
+                                Independent with professional protection
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 ICare provides tools that help protect you in your work — clear
                                 agreements, care expectations, secure messaging, and guidance on
                                 boundaries, safeguarding, and best practice.
@@ -125,28 +145,12 @@ export default function WhoCanJoin() {
                             <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 700, color: "#0F172A" }}>
                                 You stay independent. We provide structure and safeguards.
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 From first contact to ongoing work, ICare supports you with the
                                 tools, clarity, and protections needed to work safely, confidently,
                                 and professionally with families.
                             </p>
                         </div>
-                    </div>
-
-                    {/* RIGHT — IMAGE */}
-                    <div>
-                        <img
-                            src="images/web/icare-for-caregivers/blackcarer.jpg"
-                            alt="Caregiver providing home care support"
-                            style={{
-                                width: "100%",
-                                height: "380px",
-                                objectFit: "cover",
-                                borderRadius: "22px",
-                                boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
-                                display: "block",
-                            }}
-                        />
                     </div>
                 </div>
             </div>

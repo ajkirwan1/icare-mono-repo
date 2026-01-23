@@ -130,7 +130,6 @@ export default function CaregiverStepsWithProfileGuide() {
                             fontSize: "1.22rem",
                             lineHeight: 1.55,
                             maxWidth: "70ch",
-                            fontWeight: 600
                         }}
                     >
                         A simple way to take control of your care work and earnings.
@@ -154,8 +153,8 @@ export default function CaregiverStepsWithProfileGuide() {
                         <h3
                             style={{
                                 margin: 0,
-                                fontSize: "1.6rem",
-                                fontWeight: 600,
+                                fontSize: "1.5rem",
+                                fontWeight: 500,
                                 color: "#0F172A",
                                 letterSpacing: "-0.2px",
                                 lineHeight: 1.2
@@ -237,7 +236,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                 <div>
                                     <div
                                         style={{
-                                            fontWeight: 600,
+                                            fontWeight: 500,
                                             color: "#0F172A",
                                             fontSize: "1.35rem",
                                             letterSpacing: "-0.12px",
@@ -370,14 +369,6 @@ export default function CaregiverStepsWithProfileGuide() {
                     >
                         Join as a caregiver
                     </a>
-                </div>
-
-                {/* SCROLL BUTTON (replaces expand) */}
-                <div style={toggleWrap}>
-                    <button type="button" onClick={scrollToGreatProfile} style={toggleBtn}>
-                        <span>What makes a great profile</span>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                    </button>
                 </div>
             </div>
         </section>

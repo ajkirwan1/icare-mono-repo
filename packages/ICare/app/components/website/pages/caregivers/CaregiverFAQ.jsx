@@ -49,7 +49,7 @@ export default function CaregiverFAQ() {
                 margin: "6rem auto 4rem",
                 width: "min(980px, 92vw)",
                 fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* HEADER */}

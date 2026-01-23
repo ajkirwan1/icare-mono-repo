@@ -8,7 +8,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             title: "Choose your route: browse or request matches",
             description:
                 "Browse caregiver profiles yourself, or share your needs so suitable caregivers can come to you — whichever feels easier.",
-            img: "https://source.unsplash.com/rDEOVtE7vOs/1200x900",
+            img: "images/web/icare-for-carereceivers/browsing.png",
             alt: "Browsing caregiver profiles",
         },
         {
@@ -48,12 +48,12 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 }}
             >
                 {/* HEADING BLOCK — Curam-like: “two ways” */}
-                <div style={{ maxWidth: "720px", marginBottom: "3.6rem" }}>
+                <div style={{ maxWidth: "900px", marginBottom: "3.6rem" }}>
                     <h2
                         style={{
                             margin: 0,
                             fontWeight: 500,
-                            fontSize: "2.4rem",
+                            fontSize: "2.6rem",
                             color: "#0F172A",
                             letterSpacing: "-0.5px",
                             lineHeight: 1.15,

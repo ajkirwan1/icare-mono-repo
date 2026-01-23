@@ -9,7 +9,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             title: "Browse or get matched to vetted caregivers",
             description:
                 "Review profiles with key details upfront — experience, availability, documents and checks shown clearly.",
-            img: "https://source.unsplash.com/rDEOVtE7vOs/1200x900",
+            img: "images/web/icare-for-carereceivers/browsing.png",
             alt: "Browsing caregiver profiles",
         },
         {
@@ -17,7 +17,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             title: "Message privately in one place",
             description:
                 "Ask questions, request references, and understand fit before you commit — without intermediaries.",
-            img: "https://source.unsplash.com/VVEwJJRRHgk/1200x900",
+            img: "images/web/icare-for-carereceivers/privately.png",
             alt: "Messaging and discussing care",
         },
         {
@@ -25,7 +25,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             title: "Agree the plan upfront",
             description:
                 "Confirm tasks, schedule and rate before care starts — with clear terms and transparent pricing (no hidden fees).",
-            img: "https://source.unsplash.com/tV-RX0beDpY/1200x900",
+            img: "images/web/icare-for-carereceivers/agreed.png",
             alt: "Agreeing a plan and schedule",
         },
     ];
@@ -54,7 +54,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                     <p className={styles.subtitle}>
                         <span style={{ display: "block", marginBottom: "0.4rem" }}>
                             <strong style={{ fontWeight: 600, fontSize: "1.5rem" }}>
-                                A calm, structured way to arrange home care.
+                                Browse yourself or get matched.
                             </strong>
                         </span>
 
@@ -101,7 +101,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                             <div style={{ marginTop: "1.6rem", width: "100%", display: "flex", justifyContent: "center" }}>
                                 <div
                                     style={{
-                                        width: "92%",
+                                        width: "100%",
                                         height: "240px",
                                         borderRadius: "16px",
                                         overflow: "hidden",

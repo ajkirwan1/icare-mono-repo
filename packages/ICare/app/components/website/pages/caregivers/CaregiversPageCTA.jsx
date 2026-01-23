@@ -135,10 +135,8 @@ export default function WhatMakesAGreatProfile() {
     };
 
     const card = {
-
-        borderRadius: 22,
         padding: "20px 25px 18px",
-
+        borderRight: "1px solid",
         display: "grid",
         gap: 10,
     };
