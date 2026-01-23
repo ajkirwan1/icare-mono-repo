@@ -5,3 +5,10 @@
 :root {
   --navbar-height: #{tokens.$nav-bar-height};
 }
+
+#icare-main {
+  max-width: 75vw;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  padding-top: calc(var(--navbar-height) + 5vh);
+}

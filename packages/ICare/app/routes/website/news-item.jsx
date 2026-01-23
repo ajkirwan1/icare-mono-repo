@@ -58,10 +58,9 @@ const portableTextComponents = {
   block: {
     h2: ({ children }) => <h2 className={classes.ptH2}>{children}</h2>,
     h3: ({ children }) => <h3 className={classes.ptH3}>{children}</h3>,
-    normal: ({ children }) => (
-      <p className={classes.ptParagraph}>{children}</p>
-    )
+    normal: ({ children }) => <p className={classes.ptParagraph}>{children}</p>
   },
+
   types: {
     image: ({ value }) => (
       <img
@@ -69,9 +68,58 @@ const portableTextComponents = {
         alt={value?.alt || ""}
         className={classes.ptImage}
       />
-    )
+    ),
+
+    cta: ({ value }) => {
+      const { text, href, variant = "primary", newTab } = value || {};
+      if (!text || !href) { return null; }
+
+      return (
+        <div className={classes.ptCtaWrap}>
+          <a
+            href={href}
+            className={`${classes.ptCta} ${variant === "secondary" ? classes.ptCtaSecondary : classes.ptCtaPrimary
+              }`}
+            target={newTab ? "_blank" : undefined}
+            rel={newTab ? "noopener noreferrer" : undefined}
+          >
+            {text}
+          </a>
+        </div>
+      );
+    },
+
+    inlineImage: ({ value }) => {
+      const img = value?.image;
+      if (!img) { return null; }
+
+      const align = value?.align || "wide";
+      const wrapClass =
+        align === "full" ? classes.ptInlineImageFull :
+          align === "center" ? classes.ptInlineImageCenter :
+            align === "left" ? classes.ptInlineImageLeft :
+              align === "right" ? classes.ptInlineImageRight :
+                classes.ptInlineImageWide;
+
+
+      return (
+        <figure className={`${classes.ptInlineImage} ${wrapClass}`}>
+          <img
+            src={urlFor(img).width(1400).fit("max").url()}
+            alt={img?.alt || value?.caption || ""}
+            className={classes.ptInlineImageImg}
+          />
+          {value?.caption && (
+            <figcaption className={classes.ptInlineImageCaption}>
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    }
   }
 };
+
 
 export default function NewsPostPage() {
   const { post, related } = useLoaderData();
@@ -113,7 +161,7 @@ export default function NewsPostPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      <main className={classes.main}>
+      <main id="icare-main">
         <article className={classes.article}>
           <h1 className={classes.title}>{post.title}</h1>
           {post.subtitle && (
@@ -153,45 +201,71 @@ export default function NewsPostPage() {
             </div>
           )}
           {related?.length > 0 && (
-            <section className={classes.related}>
-              <h2 className={classes.relatedTitle}>Related articles</h2>
-              <ul className={classes.relatedGrid}>
+            <section className={classes.related} aria-label="Related articles">
+              <div className={classes.relatedHeader}>
+                <h2 className={classes.relatedTitle}>Related articles</h2>
+
+                <div className={classes.carouselControls}>
+                  <button
+                    type="button"
+                    className={classes.carouselButton}
+                    onClick={() => {
+                      const el = document.getElementById("related-carousel");
+                      if (!el) { return; }
+                      el.scrollBy({ left: -(el.clientWidth * 0.9), behavior: "smooth" });
+                    }}
+                    aria-label="Scroll left"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    className={classes.carouselButton}
+                    onClick={() => {
+                      const el = document.getElementById("related-carousel");
+                      if (!el) { return; }
+                      el.scrollBy({ left: el.clientWidth * 0.9, behavior: "smooth" });
+                    }}
+                    aria-label="Scroll right"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+
+              <ul id="related-carousel" className={classes.relatedCarousel}>
                 {related.map((r) => (
-                  <li key={r._id} className={classes.relatedItem}>
-                    <NavLink
-                      to={`/news-and-articles/${r.slug}`}
-                      className={classes.relatedLink}
-                    >
-                      <div className={classes.relatedCard}>
+                  <li key={r._id} className={classes.relatedSlide}>
+                    <NavLink to={`/news-and-articles/${r.slug}`} className={classes.relatedLink}>
+                      <article className={classes.relatedCard}>
                         {r.heroImage && (
                           <img
-                            src={urlFor(r.heroImage)
-                              .width(800)
-                              .height(420)
-                              .fit("crop")
-                              .url()}
+                            src={urlFor(r.heroImage).width(800).height(450).fit("crop").url()}
                             alt={r.heroImage?.alt || r.title}
                             className={classes.relatedImage}
+                            loading="lazy"
                           />
                         )}
-                        <div className={classes.relatedTitleRow}>
-                          <strong>{r.title}</strong>
-                          <small className={classes.relatedDate}>
-                            {new Date(r.publishedAt).toLocaleDateString()}
-                          </small>
+
+                        <div className={classes.relatedBody}>
+                          <div className={classes.relatedTitleRow}>
+                            <strong className={classes.relatedCardTitle}>{r.title}</strong>
+                            <small className={classes.relatedDate}>
+                              {new Date(r.publishedAt).toLocaleDateString()}
+                            </small>
+                          </div>
+
+                          {r.excerpt && <p className={classes.relatedExcerpt}>{r.excerpt}</p>}
                         </div>
-                        {r.excerpt && (
-                          <p className={classes.relatedExcerpt}>
-                            {r.excerpt}
-                          </p>
-                        )}
-                      </div>
+                      </article>
                     </NavLink>
                   </li>
                 ))}
               </ul>
             </section>
           )}
+
+
         </article>
       </main>
       <ICareFooter />

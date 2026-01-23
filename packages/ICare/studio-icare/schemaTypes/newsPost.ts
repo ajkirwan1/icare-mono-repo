@@ -34,7 +34,12 @@ export const newsPost = defineType({
       name: "body",
       title: "Body",
       type: "array",
-      of: [{ type: "block" }],
+      of: [
+        { type: 'block' },
+        { type: 'image', options: { hotspot: true } }, // keep your normal images
+        { type: 'cta' },         // ✅ new
+        { type: 'inlineImage' }, // ✅ optional
+      ],
     }),
     defineField({
       name: "heroImage",

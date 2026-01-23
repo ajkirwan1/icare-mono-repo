@@ -1,45 +1,30 @@
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
-import { Link, useLoaderData } from "react-router";
+import { Link, NavLink, useLoaderData } from "react-router";
 // import { getNewsList } from "../../lib/news.server";
 import { urlFor } from "../../lib/sanityImage";
 import classes from "./news-and-articles.module.scss";
 
 
-const styles = {
-  page: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "4rem 1rem",
-    paddingTop: "calc(var(--navbar-height) + 5vh)",
-    display: "grid",
-    gap: "3rem"
-  },
-  section: {
-    display: "grid",
-    gap: "1rem"
-  },
-  intro: {
-    lineHeight: 1.6
-  },
-  introImage: {
-    width: "420px",
-    maxWidth: "45%",
-    height: "auto",
-    float: "right",
-    margin: "0 0 1.5rem 2rem",
-    borderRadius: "12px"
-  }
-};
+export async function loader({ request }) {
+  const url = new URL(request.url);
+  const page = Math.max(1, Number(url.searchParams.get("page") || 1));
 
-export async function loader() {
-  const { getNewsList } = await import("../../lib/news.server");
-  const posts = await getNewsList();
-  return { posts };
+  const limit = 2;
+  const offset = (page - 1) * limit;
+
+
+  const { getNewsListPaged, getTagCounts, getNewsCount } = await import("../../lib/news.server");
+  const [posts, tagCounts, total] = await Promise.all([getNewsListPaged({ offset, limit }), getTagCounts(), getNewsCount()]);
+
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+
+  return { posts, tagCounts, page, totalPages, total };
 }
 
+
 export default function NewsAndArticlesPage() {
-  const { posts } = useLoaderData();
+  const { posts, tagCounts, totalPages, total, page } = useLoaderData();
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -53,6 +38,60 @@ export default function NewsAndArticlesPage() {
           challenges, and the growing impact of care costs on families across
           the UK and Europe.
         </p>
+        {tagCounts?.length > 0 && (
+          <section>
+            <h2>Search by tags</h2>
+            <div className={classes.tagsBar}>
+              {tagCounts.slice(0, 20).map(({ tag, count }) => (
+                <Link key={tag} to={`/news-and-articles/tags/${tag}`} className={classes.tagChip}>
+                  {tag} <span className={classes.tagCount}>({count})</span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+        <p className={classes.totalCount}>
+          Showing {(page - 1) * 2 + 1}–
+          {Math.min(page * 2, total)} of {total} articles
+        </p>
+        <section className={classes.newsletter}>
+          <div className={classes.newsletterInner}>
+            <h2 className={classes.newsletterTitle}>Get monthly care insights</h2>
+            <p className={classes.newsletterText}>
+              Evidence-led updates on aging, in-home care, workforce pressures, and care
+              costs across the UK and Europe. No spam — unsubscribe anytime.
+            </p>
+
+            <form
+              className={classes.newsletterForm}
+              method="post"
+              action="/newsletter/subscribe"
+            >
+              <label className={classes.srOnly} htmlFor="email">
+                Email address
+              </label>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="you@example.com"
+                className={classes.newsletterInput}
+                autoComplete="email"
+              />
+
+              <button type="submit" className={classes.newsletterButton}>
+                Subscribe
+              </button>
+            </form>
+
+            <p className={classes.newsletterFinePrint}>
+              By subscribing you agree to receive emails from ICare. Unsubscribe at any
+              time.
+            </p>
+          </div>
+        </section>
 
         <ul className={classes.grid}>
           {posts.map((p) => (
@@ -89,20 +128,61 @@ export default function NewsAndArticlesPage() {
                     <p className={classes.excerpt}>{p.excerpt}</p>
                   )}
 
-                  {Array.isArray(p.tags) && p.tags.length > 0 && (
-                    <div className={classes.tags}>
-                      {p.tags.map((tag) => (
-                        <span key={tag} className={classes.tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <div className={classes.tags}>
+                    {p.tags.map((tag) => (
+                      <Link
+                        key={tag}
+                        to={`/news-and-articles/tags/${tag}`}
+                        className={classes.tag}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                  </div>
+
                 </div>
               </Link>
             </li>
           ))}
         </ul>
+        <section className={classes.contribute}>
+          <div className={classes.contributeInner}>
+            <h2>Have something to contribute?</h2>
+            <p>
+              We welcome insights from carers, healthcare professionals, researchers,
+              and people with lived experience of in-home care. If you have data,
+              case studies, or stories that could help families, we’d love to hear from you.
+            </p>
+            <Link to="/contribute" className={classes.contributeButton}>
+              Submit an article
+            </Link>
+          </div>
+        </section>
+        <div className={classes.pagination}>
+          <Link
+            to={`/news-and-articles?page=${page - 1}`}
+            className={`${classes.pageBtn} ${page <= 1 ? classes.disabled : ""}`}
+            aria-disabled={page <= 1}
+            tabIndex={page <= 1 ? -1 : 0}
+          >
+            ← Previous
+          </Link>
+
+          <span className={classes.pageInfo}>
+            Page {page} of {totalPages}
+          </span>
+
+          <Link
+            to={`/news-and-articles?page=${page + 1}`}
+            className={`${classes.pageBtn} ${page >= totalPages ? classes.disabled : ""}`}
+            aria-disabled={page >= totalPages}
+            tabIndex={page >= totalPages ? -1 : 0}
+          >
+            Next →
+          </Link>
+        </div>
+
       </main>
 
       <ICareFooter />
