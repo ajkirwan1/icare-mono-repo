@@ -5,17 +5,17 @@ export default function ThreeStepGuide() {
         {
             title: "Create your profile",
             desc: "Introduce yourself, choose your role, and tell us what support you need or offer.",
-            img: "images/web/how-it-works/signup.jpg",
+            img: "images/web/how-it-works/first.png",
         },
         {
             title: "Get matched instantly",
             desc: "Browse verified caregivers or care receivers that match your needs and preferences.",
-            img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1000&q=80",
+            img: "images/web/how-it-works/digital.png",
         },
         {
             title: "Start working together",
             desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "images/web/how-it-works/handshake2.png",
+            img: "images/web/how-it-works/typing.png",
         },
     ];
 
@@ -191,14 +191,7 @@ export default function ThreeStepGuide() {
                             border: "1px solid rgba(0,0,0,0.08)",
                             transition: "transform .18s ease, filter .18s ease",
                         }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = "translateY(-1px)";
-                            e.currentTarget.style.filter = "brightness(1.02)";
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = "translateY(0)";
-                            e.currentTarget.style.filter = "none";
-                        }}
+
                     >
                         Create your free account
                     </a>
