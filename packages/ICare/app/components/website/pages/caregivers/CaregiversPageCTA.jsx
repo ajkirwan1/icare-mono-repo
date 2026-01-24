@@ -132,11 +132,13 @@ export default function WhatMakesAGreatProfile() {
         gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
         gap: "clamp(14px, 1.9vw, 18px)",
         alignItems: "stretch",
+        margin: "0 -25px"
     };
 
     const card = {
-        padding: "20px 25px 18px",
-        borderRight: "1px solid",
+        padding: "0px 30px 0 20px",
+        marginTop: "20px",
+        marginBottom: "20px",
         display: "grid",
         gap: 10,
     };
@@ -242,10 +244,25 @@ export default function WhatMakesAGreatProfile() {
             </div>
 
             <style>{`
-        @media (max-width: 900px){
-          .icare-profile-grid{ grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+  .icare-profile-grid > article {
+    border-right: 1px solid rgba(15,23,42,0.4);
+  }
+
+  .icare-profile-grid > article:nth-child(4n) {
+    border-right: none;
+  }
+
+  @media (max-width: 900px){
+    .icare-profile-grid{
+      grid-template-columns: 1fr !important;
+    }
+
+    .icare-profile-grid > article {
+      border-right: none;
+    }
+  }
+`}</style>
+
         </section>
     );
 }

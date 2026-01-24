@@ -40,8 +40,8 @@
 }
 
 .question {
-    font-size: $fs-lg;
-    font-weight: $fw-semibold;
+    font-size: $fs-11;
+    font-weight: $fw-bold;
     color: #1f2a37;
 }
 
@@ -63,6 +63,7 @@
 .answer {
     margin: 0;
     line-height: $lh-copy;
-    font-weight: 400;
-    font-size: $fs-md;
+    font-weight: 450;
+    font-size: $fs-11;
+    line-height: $lh-copy;
 }
