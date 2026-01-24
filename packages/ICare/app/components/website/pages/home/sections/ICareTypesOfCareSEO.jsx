@@ -191,8 +191,8 @@ export default function ICareTypesOfCareSEO() {
                     <h2 style={h2}>Care matched to real life</h2>
                     <p style={lead}>
                         Families use ICare to find reliable carers for{" "}
-                        <strong>home care</strong>, including <strong>hourly</strong> and{" "}
-                        <strong>live in care</strong> with <strong>flexible support</strong>  that fits the person
+                        <strong style={{ fontWeight: 700 }}>home care</strong>, including <strong style={{ fontWeight: 700 }}>hourly</strong> and{" "}
+                        <strong style={{ fontWeight: 700 }}>live in care</strong> with <strong style={{ fontWeight: 700 }}>flexible support</strong>  that fits the person
                         and the routine.
                     </p>
                 </div>
