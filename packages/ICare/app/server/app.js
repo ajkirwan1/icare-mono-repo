@@ -14,5 +14,6 @@ app.use(express.json());
 app.use("/api/todos", todosRouter);
 app.use("/api/available-care-roles", careRolesRouter);
 app.use("/api/documents", documentsRouter);
+// app.use("/api/newsletter/subscribe", documentsRouter);
 
 export default app;

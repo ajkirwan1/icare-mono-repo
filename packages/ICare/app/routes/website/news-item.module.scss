@@ -33,7 +33,7 @@
 }
 
 .heroImage {
-  width: 100%;
+  width: 500px;
   height: auto;
   border-radius: 12px;
   margin: 2rem 0;
@@ -247,15 +247,16 @@
   height: 40px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  background: #fff;
+  background: rgb(119, 141, 67);
+  color: white;
   font-size: 1.4rem;
   line-height: 1;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
+
 
   &:hover {
-    transform: translateY(-1px);
-    background: rgba(0, 0, 0, 0.04);
+    background-color: rgb(150, 176, 84);
+    color: black;
   }
 }
 
@@ -309,12 +310,13 @@
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  // transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .relatedLink:hover .relatedCard {
-  transform: translateY(-2px);
+  // transform: translateY(-2px);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.09);
+  border-color: rgb(141, 96, 64);
 }
 
 .relatedImage {
@@ -336,6 +338,7 @@
 }
 
 .relatedCardTitle {
+  color: rgb(141, 96, 64);
   font-size: 1.05rem;
   line-height: 1.25;
 }
@@ -354,6 +357,44 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.breadcrumbList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgb(141, 96, 64);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &:not(:last-child)::after {
+    content: "›";
+    opacity: 0.6;
+  }
+}
+
 
 /* On touch devices: hide arrows (swipe is better) */
 @media (hover: none) and (pointer: coarse) {

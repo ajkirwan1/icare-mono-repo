@@ -4,6 +4,7 @@ import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import { urlFor } from "../../lib/sanityImage";
 import classes from "./news-item.module.scss";
+import Tag from "~/components/website/common/tags/tag";
 
 // Loader
 export async function loader({ params }) {
@@ -149,6 +150,31 @@ export default function NewsPostPage() {
       : undefined
   };
 
+  const breadcrumbJsonLd = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "News and articles",
+        item: `${siteUrl}/news-and-articles`
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: post.title,
+        item: canonicalUrl
+      }
+    ]
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [breadcrumbJsonLd, articleJsonLd]
+  };
+
+
+
   // Remove undefined keys (nice-to-have)
   Object.keys(articleJsonLd).forEach(
     (k) => articleJsonLd[k] === undefined && delete articleJsonLd[k]
@@ -161,28 +187,54 @@ export default function NewsPostPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <main id="icare-main">
+        <nav aria-label="Breadcrumb" className={classes.breadcrumbs}>
+          <ol className={classes.breadcrumbList}>
+            <li className={classes.crumb}><NavLink to="/news-and-articles">News and articles</NavLink></li>
+            <li className={classes.crumb} aria-current="page">{post.title}</li>
+          </ol>
+        </nav>
         <article className={classes.article}>
-          <h1 className={classes.title}>{post.title}</h1>
-          {post.subtitle && (
-            <p className={classes.subtitle}>{post.subtitle}</p>
-          )}
-          <p className={classes.date}>
-            {new Date(post.publishedAt).toLocaleDateString()}
-          </p>
-          {post.heroImage && (
-            <img
-              src={urlFor(post.heroImage)
-                .width(1400)
-                .height(700)
-                .fit("crop")
-                .url()}
-              alt={post.heroImage?.alt || post.title}
-              className={classes.heroImage}
-            />
-          )}
+          <header style={{ display: "flex", paddingTop: "2vh", paddingBottom: "2vh", gap: "2vw" }}>
+            {post.heroImage && (
+              <img
+                src={urlFor(post.heroImage)
+                  .width(1400)
+                  .height(700)
+                  .fit("crop")
+                  .url()}
+                alt={post.heroImage?.alt || post.title}
+                className={classes.heroImage}
+              />
+            )}
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <h1 className={classes.title}>{post.title}</h1>
+              {post.subtitle && (
+                <p className={classes.subtitle}>{post.subtitle}</p>
+              )}
+              <p className={classes.date}>
+                {new Date(post.publishedAt).toLocaleDateString()}
+              </p>
+            </div>
+
+          </header>
+
           {post.excerpt && (
             <p className={classes.excerpt}>{post.excerpt}</p>
+          )}
+          {Array.isArray(post.tags) && post.tags.length > 0 && (
+            <div className={classes.tags}>
+              {post.tags.map((t) => (
+                <Tag key={t} label={t}>
+                  {t}
+                </Tag>
+              ))}
+            </div>
           )}
           <hr className={classes.divider} />
           {post.body && (
@@ -191,15 +243,7 @@ export default function NewsPostPage() {
               components={portableTextComponents}
             />
           )}
-          {Array.isArray(post.tags) && post.tags.length > 0 && (
-            <div className={classes.tags}>
-              {post.tags.map((t) => (
-                <span key={t} className={classes.tag}>
-                  {t}
-                </span>
-              ))}
-            </div>
-          )}
+
           {related?.length > 0 && (
             <section className={classes.related} aria-label="Related articles">
               <div className={classes.relatedHeader}>
@@ -264,8 +308,6 @@ export default function NewsPostPage() {
               </ul>
             </section>
           )}
-
-
         </article>
       </main>
       <ICareFooter />
