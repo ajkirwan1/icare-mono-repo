@@ -42,6 +42,12 @@ export default function NewsTagPage() {
       <ICareNavbar />
 
       <main className={classes.page}>
+        <nav aria-label="Breadcrumb" className={classes.breadcrumbs}>
+          <ol className={classes.breadcrumbList}>
+            <li className={classes.crumb}><Link to="/news-and-articles">News and articles</Link></li>
+            <li className={classes.crumb} aria-current="page">{prettyTag}</li>
+          </ol>
+        </nav>
         <h1>Topic: {prettyTag}</h1>
 
         <p className={classes.intro}>

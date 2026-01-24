@@ -1,0 +1,21 @@
+@use "@styles/tokens" as t;
+
+.tag {
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background-color: t.$link-bg;
+  color: t.$txt-white;
+}
+
+/* Only links get hover styles */
+.link {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(150, 176, 84);
+    color: black;
+    cursor: pointer;
+  }
+}
