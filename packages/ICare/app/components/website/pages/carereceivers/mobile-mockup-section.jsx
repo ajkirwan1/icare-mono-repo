@@ -35,7 +35,7 @@ export default function MobileMockupSection() {
                             <span aria-hidden="true" className={styles.check}>
 
                             </span>
-                            <svg style={{ position: "relative", top: "4px" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <svg style={{ position: "relative", top: "4px" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" strokeWidth="3" strokeLinecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             <span>{t}</span>
                         </li>
                     ))}
