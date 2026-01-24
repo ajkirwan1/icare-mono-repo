@@ -9,6 +9,7 @@
 
 import type { EventName, StencilReactComponent } from '@stencil/react-output-target/runtime';
 import { createComponent } from '@stencil/react-output-target/runtime';
+import { type IcareButtonCustomEvent, type IcareCaregiverMiniProfileCardCustomEvent, type IcareMessagesCardCustomEvent, type IcareModalCustomEvent, type IcareRecommendedCaregiversCardCustomEvent } from "icare-components";
 import { IcareAvatar as IcareAvatarElement, defineCustomElement as defineIcareAvatar } from "icare-components/dist/components/icare-avatar.js";
 import { IcareBanner as IcareBannerElement, defineCustomElement as defineIcareBanner } from "icare-components/dist/components/icare-banner.js";
 import { IcareButton as IcareButtonElement, defineCustomElement as defineIcareButton } from "icare-components/dist/components/icare-button.js";
@@ -54,7 +55,7 @@ export const IcareBanner: StencilReactComponent<IcareBannerElement, IcareBannerE
     defineCustomElement: defineIcareBanner
 });
 
-export type IcareButtonEvents = { onButtonClick: EventName<CustomEvent<void>> };
+export type IcareButtonEvents = { onButtonClick: EventName<IcareButtonCustomEvent<void>> };
 
 export const IcareButton: StencilReactComponent<IcareButtonElement, IcareButtonEvents> = /*@__PURE__*/ createComponent<IcareButtonElement, IcareButtonEvents>({
     tagName: 'icare-button',
@@ -76,7 +77,7 @@ export const IcareCard: StencilReactComponent<IcareCardElement, IcareCardEvents>
     defineCustomElement: defineIcareCard
 });
 
-export type IcareCaregiverMiniProfileCardEvents = { onNavigate: EventName<CustomEvent<string>> };
+export type IcareCaregiverMiniProfileCardEvents = { onNavigate: EventName<IcareCaregiverMiniProfileCardCustomEvent<string>> };
 
 export const IcareCaregiverMiniProfileCard: StencilReactComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents> = /*@__PURE__*/ createComponent<IcareCaregiverMiniProfileCardElement, IcareCaregiverMiniProfileCardEvents>({
     tagName: 'icare-caregiver-mini-profile-card',
@@ -153,7 +154,7 @@ export const IcareLogo: StencilReactComponent<IcareLogoElement, IcareLogoEvents>
     defineCustomElement: defineIcareLogo
 });
 
-export type IcareMessagesCardEvents = { onNavigate: EventName<CustomEvent<string>> };
+export type IcareMessagesCardEvents = { onNavigate: EventName<IcareMessagesCardCustomEvent<string>> };
 
 export const IcareMessagesCard: StencilReactComponent<IcareMessagesCardElement, IcareMessagesCardEvents> = /*@__PURE__*/ createComponent<IcareMessagesCardElement, IcareMessagesCardEvents>({
     tagName: 'icare-messages-card',
@@ -164,7 +165,7 @@ export const IcareMessagesCard: StencilReactComponent<IcareMessagesCardElement, 
     defineCustomElement: defineIcareMessagesCard
 });
 
-export type IcareModalEvents = { onRequestClose: EventName<CustomEvent<void>> };
+export type IcareModalEvents = { onRequestClose: EventName<IcareModalCustomEvent<void>> };
 
 export const IcareModal: StencilReactComponent<IcareModalElement, IcareModalEvents> = /*@__PURE__*/ createComponent<IcareModalElement, IcareModalEvents>({
     tagName: 'icare-modal',
@@ -186,7 +187,7 @@ export const IcarePage: StencilReactComponent<IcarePageElement, IcarePageEvents>
     defineCustomElement: defineIcarePage
 });
 
-export type IcareRecommendedCaregiversCardEvents = { onNavigate: EventName<CustomEvent<string>> };
+export type IcareRecommendedCaregiversCardEvents = { onNavigate: EventName<IcareRecommendedCaregiversCardCustomEvent<string>> };
 
 export const IcareRecommendedCaregiversCard: StencilReactComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents> = /*@__PURE__*/ createComponent<IcareRecommendedCaregiversCardElement, IcareRecommendedCaregiversCardEvents>({
     tagName: 'icare-recommended-caregivers-card',
