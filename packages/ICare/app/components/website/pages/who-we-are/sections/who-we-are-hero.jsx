@@ -26,12 +26,12 @@ export function WhoWeAreHero() {
                         </span>
                         <span className={`${styles.block} ${styles.copyBlock}`}>
                             <span className={styles.leadWrap}>
-                                <strong className={styles.leadStrong}>
+                                <span className={styles.leadStrong}>
                                     Fair pay for caregivers — fair prices for families.
-                                </strong>
+                                </span>
                             </span>
                             <p className={styles.copy}>
-                                We connect people directly and remove middlemen — with clarity,
+                                We connect people directly and remove middlemen<br />with clarity,
                                 dignity and privacy by design.
                             </p>
 

@@ -160,9 +160,7 @@
 
     transition: $transition-ui;
 
-    &:hover {
-        background: var(--hover-bg);
-    }
+
 
     &:focus-visible {
         background: var(--hover-bg);

@@ -79,7 +79,7 @@ export default function WhoCanJoin() {
                             </h3>
                             <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 ICare connects you directly with families looking for care.<br />
-                                We don’t allocate shifts or control your schedule — you stay fully independent,
+                                We don’t allocate shifts or control your schedule - you stay fully independent,
                                 with your work organised in one place.
                             </p>
                         </div>
@@ -92,7 +92,7 @@ export default function WhoCanJoin() {
                                 Your schedule and rates stay yours
                             </h3>
                             <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
-                                Set your availability, hours and pricing based on your experience and the support you offer. You choose what to accept and agree details directly with families — clearly and without pressure.
+                                Set your availability, hours and pricing based on your experience and the support you offer. You choose what to accept and agree details directly with families - clearly and without pressure.
                             </p>
                         </div>
 
@@ -117,7 +117,7 @@ export default function WhoCanJoin() {
                                 You stay independent. We provide structure and safeguards.
                             </h3>
                             <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
-                                ICare provides tools that support safe, professional care — clear agreements,
+                                ICare provides tools that support safe, professional care - clear agreements,
                                 secure messaging, shared expectations, and guidance on boundaries and safeguarding.
                             </p>
                         </div>

@@ -5,35 +5,35 @@
 --------------------------------- */
 
 .section {
-  width: 100%;
-  padding: $space-section-y 0;
-  border-top: 1px solid $border-soft;
-  border-bottom: 1px solid $border-soft;
-  background: #fff9ef; // not tokenised yet
+    width: 100%;
+    padding: $space-section-y 0;
+    border-top: 1px solid $border-soft;
+    border-bottom: 1px solid $border-soft;
+    background: #fff9ef; // not tokenised yet
 }
 
 .inner {
-  max-width: 1100px; // layout-specific, not a token yet
-  margin: 0 auto;
-  padding: 0 clamp(18px, 4vw, 44px);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  color: $txt;
+    max-width: 1100px; // layout-specific, not a token yet
+    margin: 0 auto;
+    padding: 0 clamp(18px, 4vw, 44px);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+        Arial, sans-serif;
+    color: $txt;
 }
 
 .anchor {
-  scroll-margin-top: 110px;
+    scroll-margin-top: 110px;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: $gap-grid-fluid;
-  align-items: start;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: $gap-grid-fluid;
+    align-items: start;
 }
 
 .left {
-  padding-top: $space-7;
+    padding-top: $space-7;
 }
 
 /* --------------------------------
@@ -41,28 +41,28 @@
 --------------------------------- */
 
 .topMini {
-  font-size: $fs-l;
-  font-weight: $fw-extrabold;
-  color: $secondary-colour;
-  letter-spacing: $tracking-xxs;
+    font-size: $fs-l;
+    font-weight: $fw-extrabold;
+    color: $secondary-colour;
+    letter-spacing: $tracking-xxs;
 }
 
 .title {
-  margin: $space-14px 0 $space-10;
-  font-size: clamp(1.6rem, 2.55vw, 2.05rem);
-  line-height: $lh-compact;
-  letter-spacing: -0.9px; // design-specific
-  font-weight: $fw-ultra;
-  color: $txt;
+    margin: $space-14px 0 $space-10;
+    font-size: clamp(1.6rem, 2.55vw, 2.05rem);
+    line-height: $lh-compact;
+    letter-spacing: -0.9px; // design-specific
+    font-weight: $fw-ultra;
+    color: $txt;
 }
 
 .sub {
-  margin: 0;
-  font-size: $fs-m;
-  line-height: $lh-copy-lg;
-  color: $txt;
-  max-width: 62ch;
-  font-weight: $fw-semibold;
+    margin: 0;
+    font-size: $fs-m;
+    line-height: $lh-copy-lg;
+    color: $txt;
+    max-width: 62ch;
+    font-weight: $fw-semibold;
 }
 
 /* --------------------------------
@@ -70,41 +70,41 @@
 --------------------------------- */
 
 .bullets {
-  list-style: none;
-  padding: 0;
-  margin: $space-18 0 0;
-  display: grid;
-  gap: $space-12;
-  max-width: 60ch;
+    list-style: none;
+    padding: 0;
+    margin: $space-18 0 0;
+    display: grid;
+    gap: $space-12;
+    max-width: 60ch;
 }
 
 .bullet {
-  display: flex;
-  gap: $space-12;
-  align-items: flex-start;
-  padding: $space-11px $space-12;
-  border-radius: $radius-lg;
-  background: $card-glass-strong;
-  border: 1px solid rgba(15, 23, 42, 0.08); // unique to this UI
-  color: $txt;
-  font-size: 0.98rem; // design-specific
-  line-height: $lh-list;
-  box-shadow: $shadow-card-soft;
+    display: flex;
+    gap: $space-12;
+    align-items: flex-start;
+    padding: $space-11px $space-12;
+    border-radius: $radius-lg;
+    background: $card-glass-strong;
+    border: 1px solid rgba(15, 23, 42, 0.08); // unique to this UI
+    color: $txt;
+    font-size: 0.98rem; // design-specific
+    line-height: $lh-list;
+    box-shadow: $shadow-card-soft;
 }
 
 .tick {
-  width: 22px;
-  height: 22px;
-  border-radius: $radius-pill;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: $fw-bold;
-  color: $txt;
-  background: transparent;
-  flex: 0 0 auto;
-  margin-top: $space-2;
-  font-size: $fs-sm;
+    width: 22px;
+    height: 22px;
+    border-radius: $radius-pill;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: $fw-bold;
+    color: $txt;
+    background: transparent;
+    flex: 0 0 auto;
+    margin-top: $space-2;
+    font-size: $fs-sm;
 }
 
 /* --------------------------------
@@ -112,41 +112,41 @@
 --------------------------------- */
 
 .card {
-  width: min(520px, 92vw);
-  margin-left: auto;
-  padding: $space-18;
-  border-radius: $radius-lg;
-  background: $card-glass-strong;
-  border: 1px solid $card-border;
-  box-shadow: $shadow-card;
+    width: min(520px, 92vw);
+    margin-left: auto;
+    padding: $space-18;
+    border-radius: $radius-lg;
+    background: $card-glass-strong;
+    border: 1px solid $card-border;
+    box-shadow: $shadow-card;
 }
 
 .cardHeader {
-  display: grid;
-  gap: $space-7;
+    display: grid;
+    gap: $space-7;
 }
 
 .formTitle {
-  margin: 0;
-  font-weight: $fw-ultra;
-  color: $txt;
-  font-size: 1.15rem; // design-specific
-  letter-spacing: $tracking-s;
+    margin: 0;
+    font-weight: $fw-ultra;
+    color: $txt;
+    font-size: 1.15rem; // design-specific
+    letter-spacing: $tracking-s;
 }
 
 .formSub {
-  margin: $space-7 0 0;
-  color: $txt;
-  line-height: $lh-outro;
-  font-size: 0.98rem; // design-specific
-  font-weight: $fw-semibold;
+    margin: $space-7 0 0;
+    color: $txt;
+    line-height: $lh-outro;
+    font-size: 0.98rem; // design-specific
+    font-weight: $fw-semibold;
 }
 
 .hr {
-  height: 1px;
-  width: 100%;
-  margin: $space-14px 0 $space-12;
-  background: $form-border;
+    height: 1px;
+    width: 100%;
+    margin: $space-14px 0 $space-12;
+    background: $form-border;
 }
 
 /* --------------------------------
@@ -154,11 +154,11 @@
 --------------------------------- */
 
 @media (max-width: 880px) {
-  .grid {
-    grid-template-columns: 1fr !important;
-  }
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
 
-  .card {
-    margin-left: 0 !important;
-  }
+    .card {
+        margin-left: 0 !important;
+    }
 }
