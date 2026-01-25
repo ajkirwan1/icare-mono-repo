@@ -8,17 +8,36 @@ export default [
   route("icare-for-carereceivers", "routes/website/icare-for-carereceivers.jsx"),
   route("privacy", "routes/website/privacy.jsx"),
   route("carerecipient", "routes/carerecipient.jsx"),
-  route("register", "routes/register.jsx"),
-  route("register-interest", "routes/website/register-interest.jsx"),
   route("terms-of-service", "routes/website/terms-of-service.jsx"),
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
-  route("news-and-articles", "routes/website/news-and-articles.jsx"),
-  route("news-and-articles/:slug", "routes/website/news-item.jsx"),
-  route("news-and-articles/tags/:tag", "routes/website/news-tag.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
-  route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
+
+  // News and articles
+  route("news-and-articles", "routes/website/news-and-articles/news-and-articles.jsx"),
+  route("news-and-articles/:slug", "routes/website/news-and-articles/news-item.jsx"),
+  route("news-and-articles/tags/:tag", "routes/website/news-and-articles/news-tag.jsx"),
+  route("newsletter/confirmed", "routes/website/news-and-articles/newsletter-confirmed.jsx"),
+  route("newsletter/invalid", "routes/website/news-and-articles/newsletter-invalid.jsx"),
+  route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
+  route("newsletter/resend", "routes/website/news-and-articles/newsletter-resend.jsx"),
+
+  // Submit an article
+  // Here
+
+  // Auth
   route("login", "routes/auth/login.jsx"),
 
+  route("register", "routes/register.jsx"),
+
+  // SEC
+  route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
+
+  // Action routes
+  route("register-interest", "routes/website/register-interest.jsx"),
+  route("newsletter/subscribe", "routes/website/actions/newsletter.subscribe.jsx"),
+
+
+  // ICare App routes
   ...prefix("carerecipient", [
     layout("routes/app/carerecipient/layout.jsx", [
       index("routes/app/carerecipient/care-receiver-home.jsx"),

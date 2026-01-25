@@ -4,7 +4,7 @@
   padding: 4rem 1rem;
   padding-top: calc(var(--navbar-height) + 5vh);
   display: grid;
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .intro {
@@ -197,12 +197,13 @@
 .newsletterBlock {
   display: grid;
   gap: 0.75rem;
+  justify-items: center
 }
 
 .contributeBlock {
   display: grid;
   gap: 0.75rem;
-  align-content: start;
+  justify-items: center
 }
 
 /* Newsletter styles */
@@ -219,9 +220,9 @@
 .newsletterForm {
   margin-top: 0.75rem;
   display: grid;
-  grid-template-columns: 1fr auto;
   gap: 10px;
   align-items: center;
+
 }
 
 .newsletterInput {
@@ -364,7 +365,7 @@
 
 .pageHeader {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  // grid-template-columns: 3fr 1fr;
   gap: 3rem;
   align-items: start;
 }
@@ -378,9 +379,13 @@
 /* Right side (tags) */
 .pageHeaderAside {
   display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
   gap: 1rem;
   padding-left: 1.5rem;
+  padding-right: 1.5rem;
   border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 
 .asideTitle {
@@ -390,6 +395,12 @@
 }
 
 /* ===== Tag navigation ===== */
+
+.tagFlexContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
 
 .tagsBar {
   display: flex;
@@ -430,7 +441,7 @@
 
 .tagsCarouselWrap {
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   gap: 0.5rem;
 }
 
@@ -461,12 +472,30 @@
   gap: 1rem;
 }
 
+// .carouselBtn {
+//   border: 0;
+//   background: transparent;
+//   cursor: pointer;
+//   font-size: 1.25rem;
+//   line-height: 1;
+// }
+
 .carouselBtn {
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  font-size: 1.25rem;
+  width: 25px;
+  height: 25px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgb(119, 141, 67);
+  color: white;
+  font-size: 1.4rem;
   line-height: 1;
+  cursor: pointer;
+
+
+  &:hover {
+    background-color: rgb(150, 176, 84);
+    color: black;
+  }
 }
 
 .breadcrumbs {
