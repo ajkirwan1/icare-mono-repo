@@ -23,7 +23,7 @@ export default function AboutICareSection() {
             </div>
             <div className={styles.gridThreeQuarter}>
                 <img
-                    src="images/web/icare-for-carereceivers/browse2.png"
+                    src="images/web/homepage/elderly1.png"
                     alt="Image"
                     className={styles.image}
                 />

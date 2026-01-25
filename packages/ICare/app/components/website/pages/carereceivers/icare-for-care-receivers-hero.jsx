@@ -19,7 +19,7 @@ export default function ICareForCareReceiversHero() {
                     <div>
                         {/* H1 — WHITE */}
                         <h1 className={styles.title}>
-                            Icare for care receivers
+                            ICare for care receivers
                         </h1>
 
                         {/* H2 — smaller, calm */}
@@ -30,18 +30,18 @@ export default function ICareForCareReceiversHero() {
                         {/* LIST — same as caregivers */}
                         <div className={styles.copy}>
                             <p className={styles.copyList}>
-                                <span className={styles.check} aria-hidden="true" />
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 Verified caregiver profiles
                             </p>
 
 
                             <p className={styles.copyList}>
-                                <span className={styles.check}>✓</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 Clear terms agreed upfront
                             </p>
 
                             <p className={styles.copyList}>
-                                <span className={styles.check}>✓</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 No agency markups or pressure
                             </p>
                         </div>

@@ -9,7 +9,7 @@ import React from "react";
  */
 
 export default function SavingsEstimatorCurrency() {
-    const BRAND = "#1FAB1F";
+    const BRAND = "rgb(123, 171, 12)";
     const TEXT = "#0F172A";
 
     const ranges = React.useMemo(
@@ -58,7 +58,7 @@ export default function SavingsEstimatorCurrency() {
     }
 
     .icare-est-input:focus{
-      border-color: rgba(31,171,31,0.45) !important;
+      border-color: rgb(123, 171, 12) !important;
       box-shadow: 0 0 0 4px rgba(31,171,31,0.12) !important;
       outline: none !important;
     }
@@ -99,7 +99,7 @@ export default function SavingsEstimatorCurrency() {
         color: TEXT,
         fontWeight: 400,
         lineHeight: 1.72,
-        fontSize: "1.22rem",
+        fontSize: "1.4rem",
         maxWidth: "58ch",
     };
 
@@ -109,13 +109,13 @@ export default function SavingsEstimatorCurrency() {
         color: TEXT,
         fontWeight: 400,
         lineHeight: 1.65,
-        fontSize: "1.1rem",
+        fontSize: "1.15rem",
         textAlign: "left",
     };
 
     const labelStyle = {
-        fontWeight: 900,
-        fontSize: ".88rem",
+        fontWeight: 600,
+        fontSize: "1.1rem",
         color: TEXT,
         letterSpacing: "-0.1px",
     };
@@ -130,9 +130,8 @@ export default function SavingsEstimatorCurrency() {
     };
 
     const hintStyle = {
-        fontSize: ".86rem",
-        opacity: 0.74,
-        fontWeight: 650,
+        fontSize: "1rem",
+        fontWeight: 600,
         lineHeight: 1.55,
         color: TEXT,
     };
@@ -156,8 +155,8 @@ export default function SavingsEstimatorCurrency() {
 
     const infoTitle = {
         margin: 0,
-        fontWeight: 900,
-        fontSize: "1.12rem",
+        fontWeight: 600,
+        fontSize: "1.4rem",
         letterSpacing: "-0.15px",
         color: TEXT,
         lineHeight: 1.25,
@@ -173,8 +172,7 @@ export default function SavingsEstimatorCurrency() {
 
     const infoText = {
         margin: 0,
-        fontSize: "1.05rem",
-        opacity: 0.92,
+        fontSize: "1.15rem",
         fontWeight: 400,
         lineHeight: 1.72,
         color: TEXT,
@@ -203,14 +201,12 @@ export default function SavingsEstimatorCurrency() {
 
     const bullets = {
         margin: 0,
-        paddingLeft: 18,
         display: "grid",
         gap: 12,
         color: TEXT,
-        opacity: 0.92,
         fontWeight: 400,
         lineHeight: 1.7,
-        fontSize: "1.03rem",
+        fontSize: "1.15rem",
     };
 
     const sourceNote = {
@@ -229,8 +225,8 @@ export default function SavingsEstimatorCurrency() {
             id="estimator"
             aria-label="Care cost estimator"
             style={{
-                padding: "clamp(72px, 8.6vw, 104px) 0",
-                background: "#e8e7d7",
+                padding: "4rem",
+                background: "rgba(236, 221, 209, 0.55)",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 color: TEXT,
@@ -250,8 +246,7 @@ export default function SavingsEstimatorCurrency() {
                 {/* HEADER ABOVE GRID */}
                 <div style={{ color: TEXT }}>
                     <h1 style={homeH1}>Quick Cost Estimator</h1>
-                    <h2 style={homeH2}>Clear numbers. Calm decisions.</h2>
-                    <p style={homeLead}>UK pricing context (live-in & hourly)</p>
+                    <p style={homeLead}>Clear numbers. Calm decisions.<br />UK pricing context (live-in & hourly)</p>
                 </div>
 
                 <div style={{ height: "1.55rem" }} />
@@ -454,7 +449,6 @@ export default function SavingsEstimatorCurrency() {
                                 background: "#fff",
                                 borderRadius: 20,
                                 boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                                border: "1px solid rgba(15,23,42,0.08)",
                                 color: TEXT,
                             }}
                         >
@@ -462,18 +456,12 @@ export default function SavingsEstimatorCurrency() {
                                 {label} estimate
                             </h3>
 
-                            <div
-                                style={{
-                                    borderRadius: 18,
-                                    padding: "16px",
-                                    background: "rgba(31,171,31,0.10)",
-                                    border: "1px solid rgba(31,171,31,0.18)",
-                                }}
-                            >
-                                <div style={{ fontSize: ".9rem", opacity: 0.82, marginBottom: 6, fontWeight: 900 }}>
+                            <div>
+
+                                <div style={{ fontSize: "1.1rem", marginBottom: 6, fontWeight: 600 }}>
                                     Estimated total
                                 </div>
-                                <div style={{ fontWeight: 980, fontSize: "1.28rem" }}>{nf.format(careCost)}</div>
+                                <div style={{ fontWeight: 700, fontSize: "1.6rem", color: "rgb(123, 171, 12)" }}>{nf.format(careCost)}</div>
                             </div>
 
                             <div style={{ fontSize: ".92rem", opacity: 0.76, fontWeight: 650, lineHeight: 1.6 }}>

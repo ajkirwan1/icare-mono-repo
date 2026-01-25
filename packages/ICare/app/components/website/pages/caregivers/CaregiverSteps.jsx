@@ -127,7 +127,7 @@ export default function CaregiverStepsWithProfileGuide() {
                             marginTop: ".75rem",
                             marginBottom: 0,
                             color: "#0f172a",
-                            fontSize: "1.22rem",
+                            fontSize: "1.4rem",
                             lineHeight: 1.55,
                             maxWidth: "70ch",
                         }}
@@ -153,8 +153,8 @@ export default function CaregiverStepsWithProfileGuide() {
                         <h3
                             style={{
                                 margin: 0,
-                                fontSize: "1.5rem",
-                                fontWeight: 500,
+                                fontSize: "1.8rem",
+                                fontWeight: 600,
                                 color: "#0F172A",
                                 letterSpacing: "-0.2px",
                                 lineHeight: 1.2
@@ -214,7 +214,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                     display: "grid",
                                     gridTemplateColumns: "34px 1fr",
                                     gap: ".75rem",
-                                    alignItems: "start"
+                                    alignItems: "start",
                                 }}
                             >
                                 <div
@@ -238,7 +238,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                         style={{
                                             fontWeight: 500,
                                             color: "#0F172A",
-                                            fontSize: "1.35rem",
+                                            fontSize: "1.4rem",
                                             letterSpacing: "-0.12px",
                                             lineHeight: 1.2
                                         }}
@@ -289,8 +289,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                         marginTop: "-3px",
                                         fontSize: "1.5rem",
                                         fontWeight: 700,
-                                        color: "#0F3D20",
-                                        opacity: 0.75,
+                                        color: "#4b7637",
                                         paddingRight: "20px",
                                         lineHeight: "1.6",
                                         borderRight: "1px solid rgba(0,0,0,0.5)"
@@ -303,7 +302,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                     <h3
                                         style={{
                                             margin: "0 0 .25rem",
-                                            fontSize: "1.22rem",
+                                            fontSize: "1.4rem",
                                             fontWeight: 600,
                                             color: "#0F172A"
                                         }}
@@ -314,7 +313,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                     <p
                                         style={{
                                             margin: 0,
-                                            fontSize: "1.1rem",
+                                            fontSize: "1.2rem",
                                             color: "#0f172a",
                                             lineHeight: 1.45
                                         }}
