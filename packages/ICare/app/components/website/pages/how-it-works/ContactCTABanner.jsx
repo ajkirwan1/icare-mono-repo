@@ -12,7 +12,7 @@ export default function ContactCTABanner() {
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
 
-                background: "#f5f5f53b", // ✅ changed to #ffff (white)
+                background: "#fff", // ✅ changed to #ffff (white)
                 borderTop: "1px solid rgba(0,0,0,0.04)",
                 padding: "clamp(2.8rem,4.4vw,3.8rem) 0" // ✅ smaller section
             }}

@@ -120,7 +120,7 @@ export default function WhatMakesAGreatProfile() {
     const lead = {
         marginTop: "0.9rem",
         marginBottom: 0,
-        fontSize: "1.22rem",
+        fontSize: "1.4rem",
         lineHeight: 1.65,
         fontWeight: 400,
         color: COLORS.text,
@@ -152,7 +152,7 @@ export default function WhatMakesAGreatProfile() {
 
     const title = {
         margin: 0,
-        fontSize: "1.3rem",
+        fontSize: "1.35rem",
         fontWeight: 600,
         lineHeight: 1.25,
         letterSpacing: "-0.15px",
@@ -176,7 +176,7 @@ export default function WhatMakesAGreatProfile() {
 
     const desc = {
         margin: 0,
-        fontSize: "1.1rem",
+        fontSize: "1.2rem",
         lineHeight: 1.5,
         fontWeight: 400,
         color: "rgba(15,23,42,0.92)",
@@ -191,8 +191,8 @@ export default function WhatMakesAGreatProfile() {
 
     const noteTitle = {
         margin: 0,
-        fontSize: "1.25rem",
-        fontWeight: 700,
+        fontSize: "1.4rem",
+        fontWeight: 600,
         letterSpacing: "-0.1px",
     };
 

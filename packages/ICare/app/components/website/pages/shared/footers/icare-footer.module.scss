@@ -160,6 +160,9 @@
 
     transition: $transition-ui;
 
+    &:hover {
+        color: rgb(90, 123, 14);
+    }
 
 
     &:focus-visible {

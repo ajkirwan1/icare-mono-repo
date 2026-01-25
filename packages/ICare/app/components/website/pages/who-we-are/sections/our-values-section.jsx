@@ -114,7 +114,7 @@ export function OurValuesSection() {
         >
             <div
                 style={{
-                    maxWidth: "1160px",
+                    maxWidth: "1200px",
                     margin: "0 auto",
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
@@ -126,7 +126,7 @@ export function OurValuesSection() {
                 <header>
                     <h2
                         style={{
-                            fontSize: "2.4rem",
+                            fontSize: "2.8rem",
                             margin: 0,
                             fontWeight: 500,
                             color: "#0f172a",

@@ -72,10 +72,10 @@ export default function ICareWaitlistFinal() {
 
     const h2 = {
         margin: "22px 0 0",
-        fontWeight: 600,
+        fontWeight: 700,
         letterSpacing: "-0.15px",
         lineHeight: 1.28,
-        fontSize: "1.38rem",
+        fontSize: "1.5rem",
         color: OLIVE,
         textDecoration: "underline",
         textDecorationThickness: "2px",
@@ -87,7 +87,7 @@ export default function ICareWaitlistFinal() {
         color: TEXT,
         fontWeight: 500,
         lineHeight: 1.65,
-        fontSize: "1.1rem",
+        fontSize: "1.2rem",
         maxWidth: "72ch",
     };
 
@@ -104,9 +104,9 @@ export default function ICareWaitlistFinal() {
     };
 
     const label = {
-        fontWeight: 900,
+        fontWeight: 700,
         color: TEXT,
-        fontSize: ".88rem",
+        fontSize: "1rem",
         letterSpacing: "-0.1px",
         marginBottom: 6,
         display: "block",
@@ -147,9 +147,8 @@ export default function ICareWaitlistFinal() {
 
     const note = {
         margin: 0,
-        fontSize: ".88rem",
+        fontSize: "1rem",
         color: TEXT,
-        opacity: 0.65,
         lineHeight: 1.55,
         fontWeight: 650,
         textAlign: "center",
@@ -256,7 +255,7 @@ export default function ICareWaitlistFinal() {
                 {/* RIGHT */}
                 <div style={imageWrap}>
                     <img
-                        src="/images/web/icare-for-carereceivers/browse2.png"
+                        src="/images/web/homepage/elderly2.png"
                         alt="Browse caregivers"
                         style={image}
                     />

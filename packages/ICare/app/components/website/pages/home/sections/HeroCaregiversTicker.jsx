@@ -40,8 +40,8 @@ export default function ICareNewCaregiversTickerSection() {
 
     const lead = {
         margin: 0,
-        fontWeight: 600,
-        fontSize: "1.18rem",
+        fontWeight: 400,
+        fontSize: "1.4rem",
         lineHeight: 1.6
     };
 

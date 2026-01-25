@@ -22,12 +22,12 @@ export function WhoWeAreHero() {
                 <div className={styles.content}>
                     <div className={styles.inner}>
                         <span className={`${styles.block} ${styles.headingBlock}`}>
-                            <h1 className={styles.title}>Who we are</h1>
+                            <h1 style={{ fontSize: "2.8rem" }} className={styles.title}>Who we are</h1>
                         </span>
                         <span className={`${styles.block} ${styles.copyBlock}`}>
                             <span className={styles.leadWrap}>
                                 <span className={styles.leadStrong}>
-                                    Fair pay for caregivers — fair prices for families.
+                                    Fair pay for caregivers - fair prices for families.
                                 </span>
                             </span>
                             <p className={styles.copy}>
@@ -41,7 +41,7 @@ export function WhoWeAreHero() {
                         </span>
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     );
 }

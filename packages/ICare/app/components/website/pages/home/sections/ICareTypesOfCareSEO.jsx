@@ -28,7 +28,7 @@ export default function ICareTypesOfCareSEO() {
         width: "100%",
         background: "rgba(255, 249, 239, 0.85)",
         color: TEXT,
-        padding: "clamp(4.8rem, 6.6vw, 6.2rem) 0",
+        padding: "clamp(3rem, 5vw, 4rem) 0",
         fontFamily:
             "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
@@ -60,10 +60,10 @@ export default function ICareTypesOfCareSEO() {
     const h2 = {
         margin: 0,
         paddingTop: "14px",
-        fontWeight: 600,
+        fontWeight: 500,
         letterSpacing: "-0.2px",
         lineHeight: 1.25,
-        fontSize: "1.25rem",
+        fontSize: "1.4rem",
         color: TEXT,
     };
 
@@ -71,9 +71,9 @@ export default function ICareTypesOfCareSEO() {
         margin: "12px 0 0",
         padding: 0,
         color: TEXT,
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.65,
-        fontSize: "1.22rem",
+        fontSize: "1.3rem",
         maxWidth: "78ch",
     };
 
@@ -107,7 +107,7 @@ export default function ICareTypesOfCareSEO() {
     };
 
     const icon = {
-        fontSize: "20px",
+        fontSize: "24px",
         lineHeight: 1,
     };
 
@@ -121,11 +121,11 @@ export default function ICareTypesOfCareSEO() {
     const title = {
         margin: 0,
         padding: 0,
-        fontWeight: 900,
+        fontWeight: 700,
         letterSpacing: "-0.15px",
         color: TEXT,
-        fontSize: "1.05rem",
-        lineHeight: 1.2,
+        fontSize: "1.2rem",
+        lineHeight: 1.4,
         whiteSpace: "normal",
         overflow: "visible",
     };
@@ -133,9 +133,9 @@ export default function ICareTypesOfCareSEO() {
     const desc = {
         margin: 0,
         color: TEXT,
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.65,
-        fontSize: "1.0rem",
+        fontSize: "1.1rem",
         whiteSpace: "normal",
         overflow: "visible",
     };
@@ -191,8 +191,8 @@ export default function ICareTypesOfCareSEO() {
                     <h2 style={h2}>Care matched to real life</h2>
                     <p style={lead}>
                         Families use ICare to find reliable carers for{" "}
-                        <strong style={{ fontWeight: 700 }}>home care</strong>, including <strong style={{ fontWeight: 700 }}>hourly</strong> and{" "}
-                        <strong style={{ fontWeight: 700 }}>live in care</strong> with <strong style={{ fontWeight: 700 }}>flexible support</strong>  that fits the person
+                        <strong style={{ fontWeight: 600 }}>home care</strong>, including <strong style={{ fontWeight: 600 }}>hourly</strong> and{" "}
+                        <strong style={{ fontWeight: 600 }}>live in care</strong> with <strong style={{ fontWeight: 600 }}>flexible support</strong>  that fits the person
                         and the routine.
                     </p>
                 </div>

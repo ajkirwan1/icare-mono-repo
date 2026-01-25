@@ -76,9 +76,9 @@ export default function ICareTwoPathsSection({
     const lead = {
         margin: "2rem 0 3rem",
         color: COLORS.textWhite,
-        fontSize: "1.25rem",
+        fontSize: "1.4rem",
         lineHeight: 1.6,
-        fontWeight: 600,
+        fontWeight: 400,
         textAlign: "center"
     };
 
@@ -125,8 +125,8 @@ export default function ICareTwoPathsSection({
 
     const title = {
         margin: 0,
-        fontWeight: 700,
-        fontSize: "1.6rem",
+        fontWeight: 600,
+        fontSize: "1.8rem",
         color: COLORS.text,
         lineHeight: 1.2
     };
@@ -134,9 +134,9 @@ export default function ICareTwoPathsSection({
     const sub = {
         margin: 0,
         color: COLORS.textBlack,
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.65,
-        fontSize: "1.1rem",
+        fontSize: "1.2rem",
         maxWidth: "56ch"
     };
 
@@ -153,9 +153,9 @@ export default function ICareTwoPathsSection({
         alignItems: "flex-start",
         gap: 10,
         color: COLORS.textBlack,
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.6,
-        fontSize: "1.1rem"
+        fontSize: "1.2rem"
     };
 
     const dot = {
@@ -163,8 +163,8 @@ export default function ICareTwoPathsSection({
         height: 10,
         borderRadius: 999,
         background: COLORS.accent,
-        opacity: 0.55,
-        marginTop: 7,
+        opacity: 0.9,
+        marginTop: 10,
         flex: "0 0 auto"
     };
 
@@ -182,12 +182,12 @@ export default function ICareTwoPathsSection({
         borderRadius: 36,
         background: COLORS.btnFamily,
         color: "#fff",
-        fontWeight: 900,
-        fontSize: "0.98rem",
-        padding: "16px 2.2rem",
+        fontWeight: 600,
+        fontSize: "1.1rem",
+        padding: "14px 14px",
         cursor: "pointer",
         transition: "filter .14s ease",
-        width: "min(260px, 88vw)"
+        width: "min(240px, 80vw)"
     };
 
     const secondaryBtn = {
@@ -195,12 +195,12 @@ export default function ICareTwoPathsSection({
         background: COLORS.btnCaregiver,
         border: "1px solid rgba(97,103,77,0.24)",
         color: COLORS.textWhite,
-        fontWeight: 900,
-        fontSize: "0.98rem",
-        padding: "16px 2.2rem",
+        fontWeight: 600,
+        fontSize: "1.1rem",
+        padding: "15px 1.6rem",
         cursor: "pointer",
         transition: "filter .14s ease",
-        width: "min(260px, 88vw)"
+        width: "min(220px, 88vw)"
     };
 
     const onEnter = (e) => (e.currentTarget.style.filter = "brightness(1.06)");
@@ -218,7 +218,7 @@ export default function ICareTwoPathsSection({
                     </h2>
                     <p style={lead}>
                         ICare connects families with independent carers through clear profiles,
-                        direct messaging and a guided process — so both sides can agree support with confidence.
+                        direct messaging and a guided process - so both sides can agree support with confidence.
                     </p>
                 </div>
 
@@ -233,7 +233,7 @@ export default function ICareTwoPathsSection({
                         </div>
 
                         <p style={sub}>
-                            Find support that fits your home — without agency pressure and without guessing what happens next.
+                            Find support that fits your home - without agency pressure and without guessing what happens next.
                         </p>
 
                         <ul style={list}>
@@ -247,7 +247,7 @@ export default function ICareTwoPathsSection({
                             </li>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                Transparent costs — more of your budget goes to real care.
+                                Transparent costs - more of your budget goes to real care.
                             </li>
                         </ul>
 
@@ -263,7 +263,7 @@ export default function ICareTwoPathsSection({
                                 </button>
                             </a>
 
-                            <span style={{ color: COLORS.text, fontWeight: 650, fontSize: "1rem", paddingTop: "10px" }}>
+                            <span style={{ color: COLORS.text, fontWeight: 500, fontSize: "1.1rem", paddingTop: "10px" }}>
                                 We’ll notify you when we open in your area.
                             </span>
                         </div>
@@ -279,7 +279,7 @@ export default function ICareTwoPathsSection({
                         </div>
 
                         <p style={sub}>
-                            Build trust faster and spend less time on back-and-forth — with a profile designed for clarity.
+                            Build trust faster and spend less time on back-and-forth - with a profile designed for clarity.
                         </p>
 
                         <ul style={list}>
@@ -309,7 +309,7 @@ export default function ICareTwoPathsSection({
                                 </button>
                             </a>
 
-                            <span style={{ color: COLORS.text, fontWeight: 650, fontSize: "1rem", paddingTop: "10px" }}>
+                            <span style={{ color: COLORS.text, fontWeight: 500, fontSize: "1.1rem", paddingTop: "10px" }}>
                                 Learn how ICare supports carers.
                             </span>
                         </div>

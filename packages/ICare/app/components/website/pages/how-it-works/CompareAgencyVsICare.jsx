@@ -26,9 +26,9 @@ export default function CompareAgencyVsICare() {
     const LEAD = {
         margin: "0.9rem 0 4rem",
         color: TEXT,
-        maxWidth: "65ch",
+        maxWidth: "50ch",
         lineHeight: 1.65,
-        fontSize: "1.35rem",
+        fontSize: "1.4rem",
         fontWeight: 400, // ✅ was 600
     };
 
@@ -53,7 +53,7 @@ export default function CompareAgencyVsICare() {
 
     const LI_SVG = {
         position: "relative",
-        top: "5px"
+        top: "7px"
     }
 
     return (
@@ -64,7 +64,7 @@ export default function CompareAgencyVsICare() {
                 background: "#fff9ef",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "clamp(6rem,9vw,8rem) clamp(24px,6vw,60px) clamp(4rem,6vw,6rem)"
+                padding: "4rem"
             }}
         >
             <div
@@ -76,10 +76,9 @@ export default function CompareAgencyVsICare() {
             >
                 {/* Home-like header typography */}
                 <h1 style={H1}>Why families choose ICare</h1>
-                <h2 style={H2}>A clearer alternative to agencies</h2>
 
                 <p style={LEAD}>
-                    A modern, transparent alternative to traditional agencies where families retain
+                    A clearer alternative to agencies.<br />A modern, transparent alternative to traditional agencies where families retain
                     choice, clarity, and fair pricing.
                 </p>
 
