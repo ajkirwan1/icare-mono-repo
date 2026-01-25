@@ -91,7 +91,6 @@
     border-radius: $radius-lg;
 
     display: grid;
-    gap: $space-10;
     color: $txt;
 }
 
@@ -103,7 +102,7 @@
 
 .iconWrap {
     width: $space-40;
-    height: $space-40;
+    height: $space-20;
     border-radius: $space-16;
     display: inline-flex;
     align-items: center;
