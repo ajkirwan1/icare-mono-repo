@@ -1,58 +1,62 @@
 @use "@styles/tokens" as *;
 
 .button {
-  padding: $space-12 $space-18;
-  border-radius: $radius-pill;
+    padding: $space-12 $space-22;
+    border-radius: $radius-pill;
 
 
-  border: none;
+    border: none;
 
-  font-weight: $fw-bold;
-  font-size: 0.95rem;
-  cursor: pointer;
+    font-weight: $fw-semibold;
+    font-size: 1.2rem;
+    cursor: pointer;
 
-  flex: 1 1 160px;
-  white-space: nowrap;
+    flex: 1 1 200px;
+    white-space: nowrap;
 
-  display: flex;
+    display: flex;
 
-  justify-content: center;
+    justify-content: center;
 
-  align-items: center;
+    align-items: center;
 
-  transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
-  /*
+    /*
     &:hover {
         background: darken($primary-colour, 5%);
     }
     */
 
-  &:active {
-    transform: translateY(1px);
-  }
+    &:active {
+        transform: translateY(1px);
+    }
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
 .button svg {
-  margin-left: 6px;
+    position: relative;
+    margin-left: 6px;
+    width: 18px;
+    height: 18px;
+    top: 1px;
 }
 
 .primary {
-  background: $primary-colour;
-  color: #111;
+    background: $primary-colour;
+    color: #111;
 }
 
 .secondary {
-  background: $secondary-colour;
-  color: #111;
+    background: $secondary-colour;
+    color: #111;
 }
 
 .tertiary {
-  background: $tertiary-colour;
-  color: $txt-white;
+    background: $tertiary-colour;
+    color: $txt-white;
 }

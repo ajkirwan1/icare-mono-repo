@@ -45,7 +45,6 @@ export function OurImpactSection() {
                         display: "grid",
                         gridTemplateColumns: "1fr 1.1fr",
                         gap: "clamp(2.6rem, 5vw, 4.2rem)",
-                        // ✅ IMPORTANT: don't stretch columns to same height
                         alignItems: "start",
                     }}
                 >
@@ -71,31 +70,29 @@ export function OurImpactSection() {
                                 How ICare changes home care
                             </h2>
 
+                            {/* ⬇️ PODMIENIONY TEKST */}
                             <div
                                 style={{
                                     marginTop: "1.1rem",
                                     display: "grid",
-                                    gap: ".85rem",
-                                    fontSize: "1.22rem",
+                                    gap: ".9rem",
+                                    fontSize: "1.18rem",
                                     lineHeight: 1.65,
                                     color: "rgba(0,0,0,0.9)",
                                     fontWeight: 400,
                                 }}
                             >
-                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
-                                    Home care is often shaped by complex structures that limit choice and create unnecessary pressure.
+                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
+                                    Home care is often organised through complex systems that reduce clarity and real choice.
                                 </p>
-                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
-                                    Families struggle to understand costs, processes, and who is really making decisions.
+                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
+                                    Families face uncertainty around costs, processes and decision-making while caregivers work within structures that don’t reflect how care actually happens.
                                 </p>
-                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
-                                    ICare simplifies this system by removing barriers between families and caregivers.
+                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
+                                    ICare removes unnecessary barriers between families and caregivers and replaces fragmented steps with a clear, guided way to organise care.
                                 </p>
-                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
-                                    We replace fragmented steps with a clear, guided process built on transparency and fairness.
-                                </p>
-                                <p style={{ margin: 0, fontSize: "1.15rem" }}>
-                                    This shift allows care to be organised with more confidence, dignity, and mutual respect.
+                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
+                                    Care becomes easier to understand, calmer to arrange, and fairer on both sides.
                                 </p>
                             </div>
                         </header>
@@ -141,9 +138,8 @@ export function OurImpactSection() {
                                             <span
                                                 style={{
                                                     transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-                                                    transition: "transform .2.5s ease",
+                                                    transition: "transform .25s ease",
                                                     fontSize: "1.4rem",
-
                                                 }}
                                             >
                                                 →
@@ -169,7 +165,7 @@ export function OurImpactSection() {
                         </div>
                     </div>
 
-                    {/* ================= RIGHT — IMAGE (fixed height) ================= */}
+                    {/* ================= RIGHT — IMAGE ================= */}
                     <div>
                         <div
                             style={{
@@ -177,7 +173,6 @@ export function OurImpactSection() {
                                 overflow: "hidden",
                                 borderRadius: "28px",
                                 boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
-                                // ✅ lock image block height so it doesn't change with accordion
                                 height: "clamp(420px, 52vw, 620px)",
                             }}
                         >

@@ -23,7 +23,7 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Identity & eligibility",
             desc: (
                 <>
-                    <strong>Photo ID</strong> and <strong>Right to Work</strong> required
+                    <strong style={{ fontWeight: 600 }}>Photo ID</strong> and <strong style={{ fontWeight: 600 }}>Right to Work</strong> required
                 </>
             ),
             image:
@@ -35,8 +35,8 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Relevant experience",
             desc: (
                 <>
-                    Carers with <strong>references</strong> and appropriate{" "}
-                    <strong>experience</strong>
+                    Carers with <strong style={{ fontWeight: 600 }}>references</strong> and appropriate{" "}
+                    <strong style={{ fontWeight: 600 }}>experience</strong>
                 </>
             ),
             image:
@@ -48,7 +48,7 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Checks where applicable",
             desc: (
                 <>
-                    <strong>DBS</strong> and <strong>insurance</strong> shown when available
+                    <strong style={{ fontWeight: 600 }}>DBS</strong> and <strong style={{ fontWeight: 600 }}>insurance</strong> shown when available
                     (depends on location and documents).
                 </>
             ),
@@ -64,7 +64,7 @@ export default function SafetyComesFirstThreeBoxes() {
         fontFamily:
             "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
-        padding: "clamp(4.3rem, 6.0vw, 5.6rem) 0",
+        padding: "clamp(3.1rem, 5vw, 4rem) 0",
         background: "rgba(236, 221, 209, 0.55)",
     };
 
@@ -112,7 +112,7 @@ export default function SafetyComesFirstThreeBoxes() {
     const h2 = {
         margin: 0,
         marginTop: "8px",
-        fontWeight: 800,
+        fontWeight: 600,
         letterSpacing: "-0.35px",
         lineHeight: 1.25,
         fontSize: "clamp(1.25rem, 1.8vw, 1.45rem)",
@@ -136,7 +136,7 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const cardBase = {
-        padding: "clamp(24px, 2.5vw, 28px)",
+        padding: "18px",
         display: "grid",
         gap: 6,
         minHeight: 280,
@@ -178,7 +178,7 @@ export default function SafetyComesFirstThreeBoxes() {
         color: "rgba(0, 0, 0, 0.86)",
         fontWeight: 400,
         lineHeight: 1.55,
-        fontSize: "1.15rem",
+        fontSize: "1.25rem",
         paddingTop: "1rem"
     };
 

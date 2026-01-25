@@ -30,7 +30,7 @@
 
 .container {
     /* was: min(92vw, 1100px) */
-    width: min(82.8vw, 990px);
+    width: min(82.8vw, 1100px);
     margin: 0 auto;
     color: $txt;
 }
@@ -91,7 +91,6 @@
     border-radius: $radius-lg;
 
     display: grid;
-    gap: $space-10;
     color: $txt;
 }
 
@@ -103,7 +102,7 @@
 
 .iconWrap {
     width: $space-40;
-    height: $space-40;
+    height: $space-20;
     border-radius: $space-16;
     display: inline-flex;
     align-items: center;
@@ -122,10 +121,10 @@
 }
 
 .proofDesc {
-    margin: 8px 0 0;
+    margin: 4px 0 0;
     color: $txt;
     line-height: $lh-loose;
-    font-size: 1.16rem;
+    font-size: 1.25rem;
     font-weight: 400;
 }
 

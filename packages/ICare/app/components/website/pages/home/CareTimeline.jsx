@@ -14,7 +14,7 @@ export default function HowItWorksThreeSteps() {
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
         border: "rgba(15,23,42,0.30)",
-        accent: "rgb(231 153 97)",
+        accent: "rgb(221, 139, 79)",
         accent2: "rgb(119, 141, 67)",
     };
 
@@ -84,8 +84,8 @@ export default function HowItWorksThreeSteps() {
         display: "inline-flex",
         alignItems: "center",
         fontSize: "1.6rem", // ✅ was 0.98rem (+20%)
-        fontWeight: 800,
-        color: "#d26618",
+        fontWeight: 700,
+        color: "rgb(221, 139, 79)",
 
 
         paddingBottom: "0.45rem",
@@ -107,8 +107,8 @@ export default function HowItWorksThreeSteps() {
 
     const h3 = {
         margin: 0,
-        fontWeight: 700,
-        fontSize: "1.25rem",
+        fontWeight: 600,
+        fontSize: "1.35rem",
         letterSpacing: "-0.15px",
         lineHeight: 1.25,
         color: COLORS.text,
@@ -118,7 +118,7 @@ export default function HowItWorksThreeSteps() {
         margin: 0,
         color: COLORS.text,
         lineHeight: 1.65,
-        fontSize: "1.08rem",
+        fontSize: "1.2rem",
         fontWeight: 500,
     };
 
@@ -142,18 +142,20 @@ export default function HowItWorksThreeSteps() {
     };
 
     const btn = {
-        border: "none",
         borderRadius: 36,
-        background: COLORS.accent,
-        color: "#fff",
+        color: "white",
+        borderWidth: "3px",
+        borderStyle: "solid",
+        borderColor: COLORS.accent,
+        backgroundColor: "rgb(221, 139, 79)",
         fontWeight: 700,
         fontSize: "1.2rem",
-        padding: "18px 16px",
+        padding: "14px 14px",
         cursor: "pointer",
         width: "min(260px, 88vw)",
         alignSelf: "center",
         transition: "filter .14s ease, background .14s ease",
-        marginTop: "0.4rem",
+        marginTop: "1rem",
     };
 
     const onEnter = (e) => {
@@ -212,7 +214,7 @@ export default function HowItWorksThreeSteps() {
 
                 <div style={ctaWrap}>
                     <p style={ctaText}>
-                        Want early access in your area? Join the waiting list — we’ll notify you when ICare opens near you.
+                        Want early access in your area? Join the waiting list - we’ll notify you when ICare opens near you.
                     </p>
 
                     <a href="#waitlist" style={{ textDecoration: "none" }}>

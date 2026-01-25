@@ -76,12 +76,12 @@ export default function ICareCostEstimator({
     const wrap = {
         width: "100vw",
         marginLeft: "calc(50% - 50vw)",
-        padding: "clamp(4.2rem, 5.6vw, 5.4rem) 0",
+        padding: "clamp(3.2rem, 5vw, 4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
         fontFamily: "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         backgroundImage:
-            "linear-gradient(160deg, rgba(0,0,0,0.50), rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.50)), url('/images/banners/banner-image-1.jpg')",
+            "linear-gradient(160deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.7)), url('/images/banners/banner-image-1.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -102,7 +102,7 @@ export default function ICareCostEstimator({
 
     // ✅ requested H1
     const h1 = {
-        margin: 0,
+        margin: "0 0 1.5rem",
         fontWeight: 500,
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
@@ -113,9 +113,9 @@ export default function ICareCostEstimator({
     // ✅ requested H2
     const h2Mini = {
         margin: "10px 0 0",
-        fontWeight: 600,
+        fontWeight: 400,
         letterSpacing: "-0.2px",
-        fontSize: "1.25rem",
+        fontSize: "1.4rem",
         color: "#fff",
         opacity: 0.95,
     };
@@ -124,9 +124,9 @@ export default function ICareCostEstimator({
     const lead = {
         margin: "0.9rem 0 0",
         color: "rgba(255,255,255,0.92)",
-        fontWeight: 600,
+        fontWeight: 400,
         lineHeight: 1.65,
-        fontSize: "1.22rem",
+        fontSize: "1.4rem",
     };
 
     const cardsRow = {
@@ -170,8 +170,8 @@ export default function ICareCostEstimator({
     const small = {
         marginTop: 20,
         color: TEXT,
-        fontWeight: 650,
-        fontSize: "1rem",
+        fontWeight: 500,
+        fontSize: "1.1rem",
         lineHeight: 1.45,
     };
 
@@ -185,8 +185,7 @@ export default function ICareCostEstimator({
     const pill = (highlight) => ({
         borderRadius: 18,
         padding: "12px 12px",
-        background: highlight ? "rgba(185,122,87,0.10)" : "rgba(15,23,42,0.04)",
-        border: `1px solid ${highlight ? "rgba(185,122,87,0.18)" : "rgba(15,23,42,0.08)"}`,
+        border: `1px solid ${highlight ? "rgba(185,122,87,0.3)" : "rgba(15,23,42,0.2)"}`,
     });
 
     const k = {
@@ -197,14 +196,14 @@ export default function ICareCostEstimator({
     };
 
     const v = (highlight) => ({
-        fontWeight: 950,
-        fontSize: "1.12rem",
+        fontWeight: 700,
+        fontSize: "1.2rem",
         color: highlight ? "rgb(119, 141, 67)" : TEXT,
         letterSpacing: "-0.2px",
     });
 
     const bar = {
-        marginTop: 14,
+        marginTop: "2rem",
         height: 9,
         width: "100%",
         background: "rgba(15,23,42,0.10)",
@@ -242,7 +241,7 @@ export default function ICareCostEstimator({
         color: TEXT,
         fontWeight: 500,
         lineHeight: 1.7,
-        fontSize: ".98rem",
+        fontSize: "1.1rem",
     };
 
     const sourceLink = {
@@ -283,7 +282,7 @@ export default function ICareCostEstimator({
                 <div className="icare-est-cards" style={cardsRow}>
                     {/* LEFT = controls */}
                     <div style={card}>
-                        <div style={{ fontWeight: 900, fontSize: "1.06rem", letterSpacing: "-0.2px" }}>
+                        <div style={{ fontWeight: 700, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>
                             Your inputs
                         </div>
 
@@ -343,7 +342,7 @@ export default function ICareCostEstimator({
 
                     {/* RIGHT = results */}
                     <div style={card}>
-                        <div style={{ fontWeight: 900, fontSize: "1.06rem", letterSpacing: "-0.2px" }}>
+                        <div style={{ fontWeight: 600, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>
                             Monthly estimate
                         </div>
 
@@ -373,14 +372,14 @@ export default function ICareCostEstimator({
                             <div style={barFill} />
                         </div>
 
-                        <div style={{ marginTop: 10, color: TEXT, fontWeight: 800, opacity: 0.85 }}>
+                        <div style={{ marginTop: 30, color: TEXT, fontWeight: 600, fontSize: "1.1rem" }}>
                             You may save around{" "}
                             <span style={{ color: "rgb(119, 141, 67)", fontWeight: 950 }}>{Math.round(savePct)}%</span> compared with a typical agency.
                         </div>
 
 
                         <div style={{ marginTop: 10, ...small }}>
-                            This is an estimate — needs, cities and experience can change rates.
+                            This is an estimate - needs, cities and experience can change rates.
                         </div>
 
                         <div style={{ marginTop: "auto" }} />

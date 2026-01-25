@@ -16,25 +16,34 @@ export default function HomePageHero({ imgSrc }) {
     return (
         <>
             <ICareNavbar />
-            <section aria-label="ICare homepage hero" className={styles.hero} onMouseEnter={() => emit(true)}>
-                <img src={imgSrc} alt="Care support background" className={styles.backgroundImage} />
+
+            <section
+                aria-label="ICare homepage hero"
+                className={styles.hero}
+                onMouseEnter={() => emit(true)}
+            >
+                <img
+                    src={imgSrc}
+                    alt="Care support background"
+                    className={styles.backgroundImage}
+                />
+
                 <div className={styles.content}>
                     <div className={styles.textWrapper}>
                         <div className={styles.copyBlock}>
+
+                            {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Direct home care <span>between</span><br />families and caregivers
+                                Direct home care <span>between</span><br />
+                                families and caregivers
                             </h1>
 
+                            {/* HERO BULLETS — SHORT & CLEAR */}
                             <ul className={styles.features}>
                                 {[
-                                    "Clear caregiver profiles — skills, availability, safety details upfront",
-
-                                    "Structured matching — agree tasks & schedule before care starts",
-
-                                    "Direct communication — message and clarify everything in one place",
-
-                                    "No agency markups — one clear model, real savings for families and caregivers",
-
+                                    "Browse clear caregiver profiles",
+                                    "Talk directly and agree care calmly",
+                                    "No agencies. One clear model.",
                                 ].map((text) => (
                                     <li key={text} className={styles.featureItem}>
                                         <svg
@@ -52,15 +61,17 @@ export default function HomePageHero({ imgSrc }) {
                                     </li>
                                 ))}
                             </ul>
+
+                            {/* CTA */}
                             <div className={styles.form}>
                                 <a href="#waitlist" style={{ textDecoration: "none" }}>
                                     <SubmitButton>Join waiting list</SubmitButton>
                                 </a>
                             </div>
+
                         </div>
                     </div>
                 </div>
-
             </section>
         </>
     );

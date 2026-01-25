@@ -23,16 +23,16 @@ export function OurFoundationSection() {
             <div
                 style={{
                     background: "#f1e2c9",
-                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)",
+                    padding: "4rem",
                     display: "flex",
                     justifyContent: "flex-end",
                     color: TEXT, // ✅
                 }}
             >
-                <div style={{ maxWidth: "600px", color: TEXT }}>
+                <div style={{ maxWidth: "500px", color: TEXT }}>
                     <h2
                         style={{
-                            fontSize: "2.6rem",
+                            fontSize: "2.8rem",
                             fontWeight: 500,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
@@ -130,16 +130,16 @@ export function OurFoundationSection() {
             <div
                 style={{
                     background: "#fff9ef",
-                    padding: "clamp(5.4rem, 7vw, 7.2rem) clamp(4vw, 6vw, 6rem)",
+                    padding: "4rem",
                     display: "flex",
                     justifyContent: "flex-start",
                     color: TEXT, // ✅
                 }}
             >
-                <div style={{ maxWidth: "600px", color: TEXT }}>
+                <div style={{ maxWidth: "500px", color: TEXT }}>
                     <h2
                         style={{
-                            fontSize: "2.6rem",
+                            fontSize: "2.8rem",
                             fontWeight: 500,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",

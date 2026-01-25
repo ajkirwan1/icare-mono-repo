@@ -4,7 +4,7 @@ export default function WhoCanJoin() {
     const separator = {
         height: "1px",
         background: "rgba(15,23,42,0.12)",
-        margin: "1rem 0",
+        margin: "1.5rem 0",
         width: "100%",
     };
 
@@ -74,12 +74,12 @@ export default function WhoCanJoin() {
 
                         {/* === SECTION 1 === */}
                         <div>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 600, color: "#0F172A" }}>
+                            <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 600, color: "#0F172A" }}>
                                 ICare is not an agency
                             </h3>
-                            <p style={{ marginTop: ".5rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".5rem", fontSize: "1.2rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 ICare connects you directly with families looking for care.<br />
-                                We don’t allocate shifts or control your schedule — you stay fully independent,
+                                We don’t allocate shifts or control your schedule - you stay fully independent,
                                 with your work organised in one place.
                             </p>
                         </div>
@@ -88,11 +88,11 @@ export default function WhoCanJoin() {
 
                         {/* === SECTION 2 === */}
                         <div>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 600, color: "#0F172A" }}>
+                            <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 600, color: "#0F172A" }}>
                                 Your schedule and rates stay yours
                             </h3>
-                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
-                                Set your availability, hours and pricing based on your experience and the support you offer. You choose what to accept and agree details directly with families — clearly and without pressure.
+                            <p style={{ marginTop: ".25rem", fontSize: "1.2rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                Set your availability, hours and pricing based on your experience and the support you offer. You choose what to accept and agree details directly with families - clearly and without pressure.
                             </p>
                         </div>
 
@@ -100,10 +100,10 @@ export default function WhoCanJoin() {
 
                         {/* === SECTION 3 === */}
                         <div>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 600, color: "#0F172A" }}>
+                            <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 600, color: "#0F172A" }}>
                                 Flexible, independent work
                             </h3>
-                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
+                            <p style={{ marginTop: ".25rem", fontSize: "1.2rem", lineHeight: 1.55, color: "#0f172a" }}>
                                 There are no agency-style tie-ins or rigid commitments.<br />
                                 You can adjust your availability and care types as your work evolves.
                             </p>
@@ -113,11 +113,11 @@ export default function WhoCanJoin() {
 
                         {/* === SECTION 4 === */}
                         <div>
-                            <h3 style={{ margin: 0, fontSize: "1.3rem", fontWeight: 600, color: "#0F172A" }}>
+                            <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 600, color: "#0F172A" }}>
                                 You stay independent. We provide structure and safeguards.
                             </h3>
-                            <p style={{ marginTop: ".25rem", fontSize: "1.1rem", lineHeight: 1.55, color: "#0f172a" }}>
-                                ICare provides tools that support safe, professional care — clear agreements,
+                            <p style={{ marginTop: ".25rem", fontSize: "1.2rem", lineHeight: 1.55, color: "#0f172a" }}>
+                                ICare provides tools that support safe, professional care - clear agreements,
                                 secure messaging, shared expectations, and guidance on boundaries and safeguarding.
                             </p>
                         </div>

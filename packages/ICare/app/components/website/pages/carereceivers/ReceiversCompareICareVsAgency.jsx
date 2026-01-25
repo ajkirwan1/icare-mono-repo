@@ -37,7 +37,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             style={{
                 width: "100%",
                 background: "#fff9ef",
-                padding: "8rem 0",
+                padding: "4rem 0",
                 fontFamily:
                     "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -53,15 +53,15 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                     {/* ✅ SCSS controls spacing, font-size, font-weight */}
                     <p className={styles.subtitle}>
                         <span style={{ display: "block", marginBottom: "0.4rem" }}>
-                            <strong style={{ fontWeight: 600, fontSize: "1.5rem" }}>
+                            <strong style={{ fontWeight: 500, fontSize: "1.6rem" }}>
                                 Browse yourself or get matched.
                             </strong>
                         </span>
 
-                        <span style={{ display: "block" }}>
+                        <span style={{ display: "block", fontSize: "1.4rem" }}>
                             Choose to browse yourself or get matched - then arrange care directly with{" "}
-                            <strong>clear information</strong>, <strong>structured agreements</strong> and{" "}
-                            <strong>support built around safety.</strong>
+                            <strong style={{ fontWeight: 600 }}>clear information</strong>, <strong style={{ fontWeight: 600 }}>structured agreements</strong> and{" "}
+                            <strong style={{ fontWeight: 600 }}>support built around safety.</strong>
                         </span>
                     </p>
                 </div>
@@ -150,16 +150,15 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 {/* reassurance */}
                 <p
                     style={{
-                        marginTop: "1.2rem",
-                        color: "rgba(15,23,42,0.75)",
-                        fontSize: "1.05rem",
+                        marginTop: "2rem",
+                        fontSize: "1.2rem",
                         lineHeight: 1.55,
                         maxWidth: "70ch",
                     }}
                 >
                     Need support?
                     <br />
-                    ICare can guide the process and help you adjust or change a match — without agency pressure.
+                    ICare can guide the process and help you adjust or change a match - without agency pressure.
                 </p>
             </div>
         </section>

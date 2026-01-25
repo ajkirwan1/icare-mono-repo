@@ -10,12 +10,12 @@ export default function ProtectionSection() {
         {
             icon: faFileLines,
             t: "Keep everything organised in one place",
-            d: "Store the essentials clearly — care notes, agreed routines, start date and practical details — so the whole family stays aligned.",
+            d: "Store the essentials clearly - care notes, agreed routines, start date and practical details — so the whole family stays aligned.",
         },
         {
             icon: faComments,
             t: "Clear communication that reduces misunderstandings",
-            d: "Use one private thread to confirm changes, ask follow-ups and keep a record of what was agreed — calmer than scattered calls and texts.",
+            d: "Use one private thread to confirm changes, ask follow-ups and keep a record of what was agreed calmer than scattered calls and texts.",
         },
         {
             icon: faRotate,
@@ -26,7 +26,7 @@ export default function ProtectionSection() {
 
     // ✅ ICON STYLE — black + 15% bigger
     const iconStyle = {
-        fontSize: "23px",
+        fontSize: "20px",
         color: "#000",
         lineHeight: 1,
     };
@@ -38,7 +38,7 @@ export default function ProtectionSection() {
 
                 <div className={styles.seoText}>
                     <p className={styles.subtitle}>
-                        Home care works best when information stays clear and everyone stays aligned — even when
+                        Home care works best when information stays clear and everyone stays aligned even when
                         plans change. ICare helps you keep key details in one place, communicate privately, and adjust smoothly
                         if you need to.
                     </p>

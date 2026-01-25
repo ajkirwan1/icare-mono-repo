@@ -57,30 +57,17 @@ export default function ThreeStepGuide() {
                     Get started in 3 simple steps
                 </h1>
 
-                <h2
-                    style={{
-                        margin: "18px 0 0",
-                        fontWeight: 600,
-                        letterSpacing: "-0.2px",
-                        lineHeight: 1.25,
-                        fontSize: "1.25rem",
-                        color: "#0F172A",
-                    }}
-                >
-                    A calmer, guided process
-                </h2>
-
                 <p
                     style={{
                         margin: "18px 0 0",
                         color: "#0F172A",
                         fontWeight: 400,
                         lineHeight: 1.65,
-                        fontSize: "1.22rem",
+                        fontSize: "1.4rem",
                         maxWidth: "78ch",
                     }}
                 >
-                    A simple way to search, speak and agree care directly.
+                    A calmer, guided process.<br />A simpler way to search, speak and agree care directly.
                 </p>
 
                 <div style={{ height: "clamp(2.6rem, 4.2vw, 3.4rem)" }} />

@@ -34,10 +34,10 @@
 /* Title */
 .title {
     margin: 0 0 1.2rem;
-    font-weight: 850;
+    font-weight: 500;
     line-height: 1.04;
     letter-spacing: -0.55px;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #fff;
     text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
@@ -46,7 +46,7 @@
 .lead {
     margin: 0;
     line-height: 1.72;
-    font-size: clamp(1.08rem, 1.8vw, 1.25rem);
+    font-size: 1.4rem;
     max-width: 62ch;
     color: rgba(255, 255, 255, 0.95);
     font-weight: 400;
@@ -55,8 +55,8 @@
 
 .leadStrong {
     display: inline-block;
-    font-weight: 700;
-    font-size: 1.7rem;
+    font-weight: 400;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
 }
 

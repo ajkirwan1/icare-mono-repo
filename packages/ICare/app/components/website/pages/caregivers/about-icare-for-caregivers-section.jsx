@@ -81,7 +81,7 @@ export default function HowICareWorksForCaregiversSystem() {
             aria-label="How ICare works for caregivers"
             style={{
                 width: "100%",
-                padding: "clamp(5rem, 7vw, 6.8rem) 0",
+                padding: "clamp(4rem, 7vw, 5rem) 0",
                 background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
                 fontFamily:
                     "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -129,7 +129,7 @@ export default function HowICareWorksForCaregiversSystem() {
                     <p
                         style={{
                             marginTop: "0.9rem",
-                            fontSize: "1.18rem",
+                            fontSize: "1.4rem",
                             lineHeight: 1.65,
                             fontWeight: 400,
                         }}
@@ -143,7 +143,7 @@ export default function HowICareWorksForCaregiversSystem() {
                     <p
                         style={{
                             marginTop: "0.8rem",
-                            fontSize: "1.22rem",
+                            fontSize: "1.4rem",
                             lineHeight: 1.65,
                             fontWeight: 400,
                         }}
@@ -182,9 +182,9 @@ export default function HowICareWorksForCaregiversSystem() {
                                         <h3
                                             style={{
                                                 margin: "0.4rem 0 0",
-                                                fontSize: "1.38rem",
+                                                fontSize: "1.5rem",
                                                 fontWeight: 600,
-                                                paddingRight: "30px",
+                                                paddingRight: "20px",
                                                 lineHeight: 1.3,
                                             }}
                                         >
@@ -197,7 +197,7 @@ export default function HowICareWorksForCaregiversSystem() {
                                         style={{
                                             position: "relative",
                                             top: "10px",
-                                            fontSize: 24,
+                                            fontSize: 20,
                                             color: COLORS.text,
                                         }}
                                     />
@@ -206,7 +206,7 @@ export default function HowICareWorksForCaregiversSystem() {
                                 <p
                                     style={{
                                         margin: 0,
-                                        fontSize: "1.1rem",
+                                        fontSize: "1.2rem",
                                         lineHeight: 1.6,
                                         fontWeight: 400,
                                     }}
@@ -238,6 +238,7 @@ export default function HowICareWorksForCaregiversSystem() {
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 20px;
           align-items: stretch;
+          margin:0 -8px;
         }
 
         @media (max-width: 860px){

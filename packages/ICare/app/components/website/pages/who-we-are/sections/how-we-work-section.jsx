@@ -34,7 +34,7 @@ export function HowWeWorkSection() {
             style={{
                 width: "100%",
                 background: "#e8e7d7",
-                padding: "8rem 0",
+                padding: "4rem 0",
                 fontFamily:
                     "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
@@ -52,7 +52,7 @@ export function HowWeWorkSection() {
                         style={{
                             margin: 0,
                             fontWeight: 500,
-                            fontSize: "2.4rem",
+                            fontSize: "2.8rem",
                             color: "#0F172A",
                             letterSpacing: "-0.5px",
                             lineHeight: 1.15,
@@ -148,7 +148,7 @@ export function HowWeWorkSection() {
                             >
                                 <div
                                     style={{
-                                        width: "92%",
+                                        width: "96%",
                                         height: "240px",
                                         borderRadius: "16px",
                                         overflow: "hidden",
