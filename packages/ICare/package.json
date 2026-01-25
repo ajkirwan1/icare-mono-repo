@@ -10,6 +10,7 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "seed:care-roles": "node app/server/scripts/seed-care-giving-roles.js",
+    "db:newsletter:init": "node app/server/scripts/run-sql.js",
     "start-node-server": "node app/server/index.js"
   },
   "dependencies": {

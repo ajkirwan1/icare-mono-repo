@@ -1,10 +1,11 @@
 import { useLoaderData, NavLink } from "react-router";
 import { PortableText } from "@portabletext/react";
-import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
-import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
-import { urlFor } from "../../lib/sanityImage";
+import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
+import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
+import { urlFor } from "../../../lib/sanityImage";
 import classes from "./news-item.module.scss";
 import Tag from "~/components/website/common/tags/tag";
+import EngagementSection from "~/components/website/common/sections/engagement-section";
 
 // Loader
 export async function loader({ params }) {
@@ -12,7 +13,7 @@ export async function loader({ params }) {
 
   if (!slug) { throw new Response("Not Found", { status: 404 }); }
 
-  const { getNewsBySlug, getRelatedNews } = await import("../../lib/news.server");
+  const { getNewsBySlug, getRelatedNews } = await import("../../../lib/news.server");
   const post = await getNewsBySlug(slug);
 
   if (!post) { throw new Response("Not Found", { status: 404 }); }
@@ -309,6 +310,7 @@ export default function NewsPostPage() {
             </section>
           )}
         </article>
+        <EngagementSection />
       </main>
       <ICareFooter />
     </div>

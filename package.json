@@ -42,6 +42,8 @@
     "@sanity/image-url": "^2.0.3",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
-    "pg": "^8.17.1"
+    "express-rate-limit": "^8.2.1",
+    "pg": "^8.17.1",
+    "resend": "^6.8.0"
   }
 }

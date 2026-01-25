@@ -1,7 +1,8 @@
-import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
-import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
+import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
+import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
 import { Link, useLoaderData } from "react-router";
-import { urlFor } from "../../lib/sanityImage";
+import { urlFor } from "../../../lib/sanityImage";
+import EngagementSection from "~/components/website/common/sections/engagement-section";
 import classes from "./news-and-articles.module.scss"; // reuse your existing grid styles
 
 function prettifyTag(tag) {
@@ -14,7 +15,7 @@ export async function loader({ params }) {
   const tag = params.tag;
   if (!tag) { throw new Response("Not Found", { status: 404 }); }
 
-  const { getNewsByTag } = await import("../../lib/news.server");
+  const { getNewsByTag } = await import("../../../lib/news.server");
   const posts = await getNewsByTag(tag);
 
   return { tag, posts };
@@ -108,6 +109,7 @@ export default function NewsTagPage() {
         <div style={{ marginTop: "3rem" }}>
           <Link to="/news-and-articles">← Back to all news</Link>
         </div>
+        <EngagementSection />
       </main>
 
       <ICareFooter />
