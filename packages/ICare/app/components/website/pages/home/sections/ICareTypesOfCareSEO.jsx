@@ -187,7 +187,7 @@ export default function ICareTypesOfCareSEO() {
         <section aria-label="Types of care we support" style={wrap}>
             <div style={container}>
                 <div style={header}>
-                    <h1 style={h1}>Care services we support</h1>
+                    <h1 style={h1}>Types of care we support</h1>
                     <h2 style={h2}>Care matched to real life</h2>
                     <p style={lead}>
                         Families use ICare to find reliable carers for{" "}

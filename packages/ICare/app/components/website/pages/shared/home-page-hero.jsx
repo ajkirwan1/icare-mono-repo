@@ -34,45 +34,28 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Direct home care <span>between</span><br />
-                                families and caregivers
+                                We connect independent carers<br /> with families across the UK<br />
+
                             </h1>
 
-                            {/* HERO BULLETS — SHORT & CLEAR */}
-                            <ul className={styles.features}>
-                                {[
-                                    "Browse clear caregiver profiles",
-                                    "Talk directly and agree care calmly",
-                                    "No agencies. One clear model.",
-                                ].map((text) => (
-                                    <li key={text} className={styles.featureItem}>
-                                        <svg
-                                            width="18"
-                                            height="18"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="#fff"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12" />
-                                        </svg>
-                                        {text}
-                                    </li>
-                                ))}
-                            </ul>
+
+
+
+                            <p className={styles.homeLead}>Interested in working as an independent carer?<br />Discover how iCare helps you connect directly with families transparently and on your terms</p>
+
+
 
                             {/* CTA */}
                             <div className={styles.form}>
                                 <a href="#waitlist" style={{ textDecoration: "none" }}>
-                                    <SubmitButton>Join waiting list</SubmitButton>
+                                    <SubmitButton>Join our waiting list</SubmitButton>
                                 </a>
                             </div>
 
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     );
 }

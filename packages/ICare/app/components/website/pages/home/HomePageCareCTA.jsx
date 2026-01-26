@@ -90,7 +90,7 @@ export default function ICareTwoPathsSection({
     };
 
     const card = {
-        background: "white",
+        background: "rgba(255,255,255,0.9)",
         border: `1px solid ${COLORS.border}`,
         borderRadius: 22,
         padding: "clamp(18px, 2.2vw, 22px)",
@@ -239,7 +239,7 @@ export default function ICareTwoPathsSection({
                         <ul style={list}>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                Clear caregiver profiles and availability.
+                                Clear caregiver profiles with experience, availability and documents shown clearly.
                             </li>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
@@ -247,7 +247,7 @@ export default function ICareTwoPathsSection({
                             </li>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                Transparent costs - more of your budget goes to real care.
+                                Transparent costs, without agency mark-ups or hidden fees
                             </li>
                         </ul>
 
@@ -285,15 +285,15 @@ export default function ICareTwoPathsSection({
                         <ul style={list}>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                A profile that highlights experience, references and what you offer.
-                            </li>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
                                 Secure messaging to agree expectations before you start.
                             </li>
                             <li style={li}>
                                 <span style={dot} aria-hidden="true" />
-                                Clear process that reduces misunderstandings and wasted time.
+                                ICare lets you present yourself with an optional short video introduction and a profile that highlights your experience and availability.
+                            </li>
+                            <li style={li}>
+                                <span style={dot} aria-hidden="true" />
+                                You agree the details directly with families, so more of the care budget goes to you - not to agency overheads.
                             </li>
                         </ul>
 

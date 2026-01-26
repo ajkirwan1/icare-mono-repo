@@ -23,7 +23,7 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Identity & eligibility",
             desc: (
                 <>
-                    <strong style={{ fontWeight: 600 }}>Photo ID</strong> and <strong style={{ fontWeight: 600 }}>Right to Work</strong> required
+                    <strong style={{ fontWeight: 600 }}>Photo ID</strong> and <strong style={{ fontWeight: 600 }}>Right to Work</strong> required before a profile becomes visible.
                 </>
             ),
             image:
@@ -36,7 +36,7 @@ export default function SafetyComesFirstThreeBoxes() {
             desc: (
                 <>
                     Carers with <strong style={{ fontWeight: 600 }}>references</strong> and appropriate{" "}
-                    <strong style={{ fontWeight: 600 }}>experience</strong>
+                    <strong style={{ fontWeight: 600 }}>experience</strong>, with references shown where available.
                 </>
             ),
             image:
@@ -48,8 +48,8 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Checks where applicable",
             desc: (
                 <>
-                    <strong style={{ fontWeight: 600 }}>DBS</strong> and <strong style={{ fontWeight: 600 }}>insurance</strong> shown when available
-                    (depends on location and documents).
+                    <strong style={{ fontWeight: 600 }}>DBS</strong> and <strong style={{ fontWeight: 600 }}>insurance</strong> displayed when provided and relevant
+                    - depending on location and the nature of care.
                 </>
             ),
             image:
@@ -145,6 +145,7 @@ export default function SafetyComesFirstThreeBoxes() {
     const topRow = {
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         gap: 12,
     };
 
@@ -174,7 +175,7 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const desc = {
-        margin: 0,
+        margin: "0 0 1rem",
         color: "rgba(0, 0, 0, 0.86)",
         fontWeight: 400,
         lineHeight: 1.55,
@@ -219,10 +220,10 @@ export default function SafetyComesFirstThreeBoxes() {
                     {boxes.map((b) => (
                         <div key={b.title} style={cardBase}>
                             <div style={topRow}>
+                                <h3 style={title}>{b.title}</h3>
                                 <span style={iconWrap} aria-hidden="true">
                                     <FontAwesomeIcon style={icon} icon={b.icon} />
                                 </span>
-                                <h3 style={title}>{b.title}</h3>
                             </div>
 
                             <p style={desc}>{b.desc}</p>
