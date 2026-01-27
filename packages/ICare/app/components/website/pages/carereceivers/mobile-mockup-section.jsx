@@ -12,10 +12,11 @@ export default function MobileMockupSection() {
                 imageSide="right"
                 unstyledImage
             >
-                <h2 className={styles.title}>
-                    Care that feels simple,
-                    <br /> clear and human
+
+                <h2 className={styles.myicare}><span>My</span> <img src="/images/logo/icare-hub-black.svg" alt="ICare" />
                 </h2>
+
+
                 <p className={styles.intro}>
                     ICare is built for people receiving care and for families organising it.
                     Everything is designed to feel familiar, calm and easy to navigate, without
