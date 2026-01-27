@@ -1,28 +1,51 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHandHoldingHeart,
     faClock,
     faBed,
     faMoon,
-    faPersonWalking,
     faPills,
     faBrain,
-    faBroom,
 } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ICare — Types of care (SEO, short, calm)
- * ✅ NO bottom separators (removed borders)
- * ✅ more space between H1 and H2
- * ✅ lead text black (not grey)
- * ✅ icons: no background, slightly larger
- * ✅ equal heights per row (no "stair" effect)
- * ✅ no text cutting
+ * ✅ Types grid
+ * ✅ Soft disclaimer
+ * ✅ Care-at-home section (small Unsplash image left)
+ * ✅ Live-in carer duties (Elder-like bullets)
+ * ✅ Fade-in on scroll for the two sections (IntersectionObserver)
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
     const ICON = "#61674d";
+
+    // ✅ fade-in on scroll refs
+    const careAtHomeRef = useRef(null);
+    const liveInRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("icare-fade--in");
+                    }
+                });
+            },
+            {
+                threshold: 0.18,
+                rootMargin: "0px 0px -80px 0px",
+            }
+        );
+
+        if (careAtHomeRef.current) observer.observe(careAtHomeRef.current);
+        if (liveInRef.current) observer.observe(liveInRef.current);
+
+        return () => observer.disconnect();
+    }, []);
 
     const wrap = {
         width: "100%",
@@ -85,7 +108,6 @@ export default function ICareTypesOfCareSEO() {
         alignItems: "stretch",
     };
 
-    // ✅ no borderBottom
     const item = {
         display: "flex",
         gap: 14,
@@ -140,6 +162,111 @@ export default function ICareTypesOfCareSEO() {
         overflow: "visible",
     };
 
+    const disclaimer = {
+        marginTop: "clamp(18px, 2.4vw, 26px)",
+        maxWidth: "78ch",
+        color: "rgba(15, 23, 42, 0.86)",
+        fontWeight: 500,
+        lineHeight: 1.65,
+        fontSize: "1.05rem",
+    };
+
+    const section = {
+        marginTop: "clamp(26px, 3.6vw, 44px)",
+        paddingTop: "clamp(18px, 2.6vw, 28px)",
+        borderTop: "1px solid rgba(15, 23, 42, 0.10)",
+        maxWidth: "78ch",
+        scrollMarginTop: 18,
+    };
+
+    const sectionTitle = {
+        margin: 0,
+        fontWeight: 800,
+        letterSpacing: "-0.2px",
+        fontSize: "1.35rem",
+        lineHeight: 1.35,
+        color: TEXT,
+    };
+
+    const sectionText = {
+        margin: "12px 0 0",
+        color: TEXT,
+        fontWeight: 500,
+        lineHeight: 1.75,
+        fontSize: "1.12rem",
+    };
+
+    // Care-at-home block with image left
+    const careHomeRow = {
+        display: "grid",
+        gridTemplateColumns: "360px 1fr",
+        gap: "clamp(16px, 2.5vw, 28px)",
+        alignItems: "start",
+    };
+
+    const imgWrap = {
+        width: 360,
+        height: 500,
+        borderRadius: 18,
+        overflow: "hidden",
+        border: "1px solid rgba(15,23,42,0.12)",
+        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
+        background: "#fff",
+    };
+
+    const img = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
+    };
+
+    // Bullets (Elder-like)
+    const bulletsGrid = {
+        margin: "30px -10px",
+        display: "grid",
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        gap: "35px 20px",
+    };
+
+    const bulletCard = {
+        padding: "12px 10px 10px 15px",
+        borderRight: "1px solid",
+    };
+
+    const bulletTitle = {
+        margin: 0,
+        fontWeight: 800,
+        letterSpacing: "-0.15px",
+        fontSize: "1.05rem",
+        lineHeight: 1.35,
+        color: TEXT,
+    };
+
+    const bulletDesc = {
+        margin: "6px 0 0",
+        color: "rgba(15,23,42,0.86)",
+        fontWeight: 500,
+        lineHeight: 1.6,
+        fontSize: "1.02rem",
+    };
+
+    const subhead = {
+        margin: "18px 0 0",
+        fontWeight: 900,
+        letterSpacing: "-0.15px",
+        fontSize: "1.08rem",
+        color: TEXT,
+    };
+
+    const note = {
+        margin: "10px 0 0",
+        color: "rgba(15,23,42,0.86)",
+        fontWeight: 500,
+        lineHeight: 1.65,
+        fontSize: "1.02rem",
+    };
+
     const types = [
         {
             icon: faHandHoldingHeart,
@@ -159,17 +286,12 @@ export default function ICareTypesOfCareSEO() {
         {
             icon: faMoon,
             t: "Night care & overnight support",
-            d: "Overnight peace of mind, safety and reassurance.",
-        },
-        {
-            icon: faPersonWalking,
-            t: "Mobility support",
-            d: "Walking, transfers and practical help around the home.",
+            d: "Overnight peace of mind, safety and reassurance through the night.",
         },
         {
             icon: faPills,
-            t: "Medication reminders",
-            d: "Support with routines and prompts (as agreed with the family).",
+            t: "Medication prompts & routine support",
+            d: "Gentle reminders and support with agreed routines. Carers do not administer medication unless explicitly agreed and within their role.",
         },
         {
             icon: faBrain,
@@ -177,10 +299,70 @@ export default function ICareTypesOfCareSEO() {
             d: "Consistent, familiar care matched to the person’s needs.",
         },
         {
-            icon: faBroom,
-            t: "Light household help",
-            d: "Meals, tidying and household routines that make daily life easier.",
+            icon: faBed,
+            t: "Respite (short-term) care",
+            d: "Temporary support to give family carers time to rest or step away, or when a regular carer needs cover.",
         },
+    ];
+
+    // ✅ UPDATED TEXT ONLY (layout untouched)
+    const liveInEveryday = [
+        {
+            t: "Personal support",
+            d: "Help with daily routines such as washing, toileting and dressing, with dignity and respect.",
+        },
+        {
+            t: "Meals and nutrition",
+            d: "Preparing meals that match dietary needs, preferences and familiar habits.",
+        },
+        {
+            t: "Home upkeep",
+            d: "Light housekeeping to keep the home comfortable, safe and organised.",
+        },
+        {
+            t: "Companionship and wellbeing",
+            d: "Providing company, conversation and encouragement with hobbies, walks or gentle activities.",
+        },
+        {
+            t: "Mobility and daily movement",
+            d: "Supporting safe movement around the home and encouraging suitable activity.",
+        },
+        {
+            t: "Errands and practical help",
+            d: "Assisting with shopping, prescriptions and everyday tasks.",
+        },
+        {
+            t: "Pets and household routines",
+            d: "Helping with feeding, walking pets and maintaining familiar routines.",
+        },
+        {
+            t: "Paperwork and organisation",
+            d: "Support with post, reminders and appointments where helpful.",
+        },
+        {
+            t: "Medication prompting",
+            d: "Gentle reminders to take medication as prescribed (not administering medication unless agreed and appropriate).",
+        },
+        {
+            t: "Home safety checks",
+            d: "Helping reduce everyday risks by keeping walkways clear and routines consistent.",
+        },
+        {
+            t: "Family updates (as agreed)",
+            d: "Sharing simple updates where helpful and agreed, so everyone stays aligned.",
+        },
+    ];
+
+    // ✅ UPDATED TEXT ONLY (layout untouched)
+    const liveInSpecialist = [
+        { t: "Oxygen or ventilation support", d: "e.g. CPAP or BiPAP support" },
+        {
+            t: "Complex medication routines",
+            d: "Only where suitable, agreed in advance and within the carer’s competence.",
+        },
+        { t: "PEG care", d: "" },
+        { t: "Stoma care", d: "" },
+        { t: "Wound care", d: "" },
     ];
 
     return (
@@ -188,22 +370,24 @@ export default function ICareTypesOfCareSEO() {
             <div style={container}>
                 <div style={header}>
                     <h1 style={h1}>Types of care we support</h1>
-                    <h2 style={h2}>Care matched to real life</h2>
+                    <h2 style={h2}>Care that fits real life at home</h2>
                     <p style={lead}>
                         Families use ICare to find reliable carers for{" "}
-                        <strong style={{ fontWeight: 600 }}>home care</strong>, including <strong style={{ fontWeight: 600 }}>hourly</strong> and{" "}
-                        <strong style={{ fontWeight: 600 }}>live in care</strong> with <strong style={{ fontWeight: 600 }}>flexible support</strong>  that fits the person
-                        and the routine.
+                        <strong style={{ fontWeight: 600 }}>home care</strong>, including{" "}
+                        <strong style={{ fontWeight: 600 }}>hourly</strong> and{" "}
+                        <strong style={{ fontWeight: 600 }}>live in care</strong> with{" "}
+                        <strong style={{ fontWeight: 600 }}>flexible support</strong> shaped
+                        around real people, routines and needs.
                     </p>
                 </div>
 
+                {/* TYPES GRID */}
                 <div className="icare-types-grid" style={list}>
                     {types.map((x) => (
                         <div key={x.t} className="icare-types-item" style={item}>
                             <span style={iconWrap} aria-hidden="true">
                                 <FontAwesomeIcon style={icon} icon={x.icon} />
                             </span>
-
                             <div style={content}>
                                 <h3 style={title}>{x.t}</h3>
                                 <p style={desc}>{x.d}</p>
@@ -211,16 +395,127 @@ export default function ICareTypesOfCareSEO() {
                         </div>
                     ))}
                 </div>
+
+                {/* SOFT DISCLAIMER */}
+                <p style={disclaimer}>
+                    Support is shaped around agreed needs and does not replace regulated
+                    medical or nursing care.
+                </p>
+
+                {/* NEXT SCROLL SECTION: CARE AT HOME (fade-in) */}
+                <div
+                    id="care-at-home"
+                    ref={careAtHomeRef}
+                    className="icare-fade"
+                    style={section}
+                >
+                    <div className="icare-carehome-row" style={careHomeRow}>
+                        <div style={imgWrap}>
+                            <img
+                                style={img}
+                                alt="Older person comfortable at home"
+                                src="images/web/homepage/garden.png"
+                                loading="lazy"
+                            />
+                        </div>
+
+                        <div>
+                            <h3 style={sectionTitle}>Why choose care at home?</h3>
+
+                            <p style={sectionText}>
+                                Care at home allows older people to stay in familiar surroundings,
+                                with routines, comfort and independence preserved. Instead of
+                                adjusting to new environments, care fits around everyday life -
+                                at home, on their terms.
+                            </p>
+
+                            <p style={sectionText}>
+                                For many families, home care offers greater peace of mind than
+                                residential care. Being in a known place can reduce stress and
+                                confusion, especially when routines, memories and personal space
+                                matter.
+                            </p>
+
+                            <p style={sectionText}>
+                                Care at home is flexible by nature. Support can be adjusted over
+                                time from occasional visits to live-in care or short-term respite
+                                -without forcing difficult moves or long-term commitments.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* NEXT SCROLL SECTION: LIVE-IN CARER DUTIES (fade-in) */}
+                <div
+                    id="live-in-carer"
+                    ref={liveInRef}
+                    className="icare-fade"
+                    style={section}
+                >
+                    <h3 style={sectionTitle}>What does a live-in carer do?</h3>
+                    <p style={sectionText}>
+                        A live-in carer supports everyday life at home with consistent,
+                        agreed help tailored to the person and their routines. The exact
+                        support depends on needs, preferences and what’s agreed with the
+                        family.
+                    </p>
+
+                    <div className="icare-bullets-grid" style={bulletsGrid}>
+                        {liveInEveryday.map((b) => (
+                            <div key={b.t} style={bulletCard}>
+                                <p style={bulletTitle}>{b.t}</p>
+                                {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
+                            </div>
+                        ))}
+                    </div>
+
+                    <p style={subhead}>Specialist support (where agreed and appropriate)</p>
+                    <p style={note}>
+                        Some specialist tasks may only be suitable where the carer is trained/experienced
+                        and the arrangement is clearly agreed. Availability can vary by location and needs.
+                    </p>
+
+                    <div className="icare-bullets-grid" style={bulletsGrid}>
+                        {liveInSpecialist.map((b) => (
+                            <div key={b.t} style={bulletCard}>
+                                <p style={bulletTitle}>{b.t}</p>
+                                {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            {/* responsive columns only (no border rules anymore) */}
             <style>{`
+        /* responsive columns */
         @media (max-width: 1020px){
           .icare-types-grid{ grid-template-columns: repeat(2, 1fr) !important; }
         }
-
+        @media (max-width: 720px){
+          .icare-carehome-row{ grid-template-columns: 1fr !important; }
+        }
         @media (max-width: 640px){
           .icare-types-grid{ grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 860px){
+          .icare-bullets-grid{ grid-template-columns: 1fr !important; }
+        }
+
+        /* remove right border on every 3rd bullet card */
+        .icare-bullets-grid > div:nth-child(3n) {
+          border-right: none !important;
+        }
+
+        /* fade-in on scroll */
+        .icare-fade{
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+          will-change: opacity, transform;
+        }
+        .icare-fade--in{
+          opacity: 1;
+          transform: translateY(0);
         }
       `}</style>
         </section>

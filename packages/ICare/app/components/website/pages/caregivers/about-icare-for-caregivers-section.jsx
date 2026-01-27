@@ -22,8 +22,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "01",
             icon: faIdCard,
             title: "Create a clear caregiver profile",
-            desc:
-                "Show your experience, availability and care preferences so families understand you from the start.",
+            desc: "Introduce who you are, the type of care you provide and your availability. This helps families understand fit early.",
             image:
                 "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&q=80",
             alt: "Photo ID and profile details for verification",
@@ -32,8 +31,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "02",
             icon: faComments,
             title: "Speak directly with families",
-            desc:
-                "Message privately, ask questions and discuss care details without agency pressure or intermediaries.",
+            desc: "Message families directly to ask questions and discuss care needs — without agencies or intermediaries.",
             image:
                 "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
             alt: "Caregiver and family talking at home",
@@ -42,8 +40,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "03",
             icon: faCalendarCheck,
             title: "Agree schedules and expectations",
-            desc:
-                "Confirm hours, tasks and start dates openly — everything is clear before care begins.",
+            desc: "Agree hours, tasks and start dates upfront so expectations are clear before care begins.",
             image:
                 "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1200&q=80",
             alt: "Planning schedules and expectations",
@@ -52,8 +49,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "04",
             icon: faScaleBalanced,
             title: "Work within a fairer system",
-            desc:
-                "ICare removes hidden margins and supports a more transparent, balanced way of organising care.",
+            desc: "Care is organised transparently, with clear fees and greater control for caregivers.",
             image:
                 "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
             alt: "Fair and balanced care system",
@@ -78,6 +74,7 @@ export default function HowICareWorksForCaregiversSystem() {
 
     return (
         <section
+            id="how-it-works"
             aria-label="How ICare works for caregivers"
             style={{
                 width: "100%",
@@ -89,7 +86,7 @@ export default function HowICareWorksForCaregiversSystem() {
                 position: "relative",
             }}
         >
-            {/* subtle separators */}
+            {/* separators */}
             <div
                 style={{
                     position: "absolute",
@@ -134,41 +131,25 @@ export default function HowICareWorksForCaregiversSystem() {
                             fontWeight: 400,
                         }}
                     >
-                        A clear profile works like a short introduction. <br />
-                        Explain who you are, what care you provide, your availability and
-                        boundaries — this helps families decide quickly and contact you
-                        directly without agencies.
-                    </p>
-
-                    <p
-                        style={{
-                            marginTop: "0.8rem",
-                            fontSize: "1.4rem",
-                            lineHeight: 1.65,
-                            fontWeight: 400,
-                        }}
-                    >
-                        A clearer, more balanced way to organise care — built around
-                        transparency, autonomy and mutual respect.
+                        A clearer way to organise care — built around transparency,
+                        autonomy and mutual respect.
                     </p>
                 </header>
 
-                {/* ✅ 2 columns / 2 rows (each card ~50% width) */}
+                {/* STEPS GRID */}
                 <div className="icare-caregivers-steps-grid">
                     {steps.map((s) => (
                         <div
                             key={s.step}
                             style={{
-
                                 borderRadius: 22,
                                 padding: "20px 10px",
-
                                 display: "flex",
                                 flexDirection: "column",
-                                justifyContent: "space-between"
+                                justifyContent: "space-between",
                             }}
                         >
-                            <div className="icare-caregivers-text">
+                            <div>
                                 <div
                                     style={{
                                         display: "flex",
@@ -177,20 +158,17 @@ export default function HowICareWorksForCaregiversSystem() {
                                         marginBottom: "0.6rem",
                                     }}
                                 >
-                                    <div>
-
-                                        <h3
-                                            style={{
-                                                margin: "0.4rem 0 0",
-                                                fontSize: "1.5rem",
-                                                fontWeight: 600,
-                                                paddingRight: "20px",
-                                                lineHeight: 1.3,
-                                            }}
-                                        >
-                                            {s.title}
-                                        </h3>
-                                    </div>
+                                    <h3
+                                        style={{
+                                            margin: "0.4rem 0 0",
+                                            fontSize: "1.5rem",
+                                            fontWeight: 600,
+                                            paddingRight: "20px",
+                                            lineHeight: 1.3,
+                                        }}
+                                    >
+                                        {s.title}
+                                    </h3>
 
                                     <FontAwesomeIcon
                                         icon={s.icon}
@@ -213,8 +191,6 @@ export default function HowICareWorksForCaregiversSystem() {
                                 >
                                     {s.desc}
                                 </p>
-
-
                             </div>
 
                             <div style={stepCardImageWrap}>
@@ -226,27 +202,26 @@ export default function HowICareWorksForCaregiversSystem() {
                                     referrerPolicy="no-referrer"
                                 />
                             </div>
-
                         </div>
                     ))}
                 </div>
             </div>
 
             <style>{`
-        .icare-caregivers-steps-grid{
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 20px;
-          align-items: stretch;
-          margin:0 -8px;
-        }
+              .icare-caregivers-steps-grid{
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px;
+                align-items: stretch;
+                margin: 0 -8px;
+              }
 
-        @media (max-width: 860px){
-          .icare-caregivers-steps-grid{
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+              @media (max-width: 860px){
+                .icare-caregivers-steps-grid{
+                  grid-template-columns: 1fr !important;
+                }
+              }
+            `}</style>
         </section>
     );
 }
