@@ -131,7 +131,7 @@ export default function ICareAppNavbar() {
     return (
         <header className={styles.header} ref={(el) => (navDropdownAnchor.current = el)}>
             <NavLink to="/" className={styles.brand} onClick={closeAll}>
-                <img src="/images/logo/icare27.svg" alt="ICare" />
+                <img src="/images/logo/icarehub-w.svg" alt="ICare" />
                 <span style={{ fontWeight: 600 }}>Care made human</span>
             </NavLink>
 

@@ -13,7 +13,7 @@ export default function MobileMockupSection() {
                 unstyledImage
             >
 
-                <h2 className={styles.myicare}><span>My</span> <img src="/images/logo/icare-hub-black.svg" alt="ICare" />
+                <h2 className={styles.myicare}><span>My</span> <img src="/images/logo/icarehub-black.svg" alt="ICare" />
                 </h2>
 
 
