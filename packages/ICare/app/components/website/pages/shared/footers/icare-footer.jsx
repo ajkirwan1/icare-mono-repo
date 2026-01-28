@@ -29,7 +29,7 @@ export default function ICareFooter() {
         },
     };
 
-    const LOGO_SRC = "/images/logo/icarehub-black.svg";
+    const LOGO_SRC = "/images/logo/icareblack.svg";
 
     // ✅ −10% icon size (global for footer)
     const iconStyle = {

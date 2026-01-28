@@ -15,19 +15,23 @@
 }
 
 .myicare {
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     font-weight: 400;
     display: flex;
 }
 
 .myicare span {
     position: relative;
-    top: 3px;
-    margin-right: 10px;
+    top: 5px;
+}
+
+.myicare span:last-child {
+    top: 6px;
 }
 
 .myicare img {
-    width: 130px;
+    width: 114px;
+    margin: 0 10px;
 }
 
 .list {
