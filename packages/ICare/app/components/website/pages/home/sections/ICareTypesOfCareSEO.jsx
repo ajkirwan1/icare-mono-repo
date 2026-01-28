@@ -175,7 +175,7 @@ export default function ICareTypesOfCareSEO() {
         marginTop: "clamp(26px, 3.6vw, 44px)",
         paddingTop: "clamp(18px, 2.6vw, 28px)",
         borderTop: "1px solid rgba(15, 23, 42, 0.10)",
-        maxWidth: "78ch",
+        maxWidth: "94ch",
         scrollMarginTop: 18,
     };
 
@@ -294,15 +294,16 @@ export default function ICareTypesOfCareSEO() {
             d: "Gentle reminders and support with agreed routines. Carers do not administer medication unless explicitly agreed and within their role.",
         },
         {
-            icon: faBrain,
-            t: "Dementia support",
-            d: "Consistent, familiar care matched to the person’s needs.",
-        },
-        {
             icon: faBed,
             t: "Respite (short-term) care",
             d: "Temporary support to give family carers time to rest or step away, or when a regular carer needs cover.",
         },
+        {
+            icon: faBrain,
+            t: "Dementia support",
+            d: "Consistent, familiar care matched to the person’s needs.",
+        },
+
     ];
 
     // ✅ UPDATED TEXT ONLY (layout untouched)

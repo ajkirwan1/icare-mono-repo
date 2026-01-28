@@ -162,7 +162,7 @@ export default function HowICareWorksForCaregiversSystem() {
                                         style={{
                                             margin: "0.4rem 0 0",
                                             fontSize: "1.5rem",
-                                            fontWeight: 600,
+                                            fontWeight: 500,
                                             paddingRight: "20px",
                                             lineHeight: 1.3,
                                         }}
@@ -170,15 +170,6 @@ export default function HowICareWorksForCaregiversSystem() {
                                         {s.title}
                                     </h3>
 
-                                    <FontAwesomeIcon
-                                        icon={s.icon}
-                                        style={{
-                                            position: "relative",
-                                            top: "10px",
-                                            fontSize: 20,
-                                            color: COLORS.text,
-                                        }}
-                                    />
                                 </div>
 
                                 <p

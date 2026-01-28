@@ -34,14 +34,14 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                We connect independent carers<br /> with families across the UK<br />
+                                Direct home care between <br /> families and caregivers
 
                             </h1>
 
 
 
 
-                            <p className={styles.homeLead}>Interested in working as an independent carer?<br />Discover how iCare helps you connect directly with families transparently and on your terms</p>
+                            <p className={styles.homeLead}><b style={{ fontWeight: 500, fontSize: "1.6rem", display: "inline-block", marginBottom: "0.6rem" }}>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly <br />with families transparently and on your terms</p>
 
 
 

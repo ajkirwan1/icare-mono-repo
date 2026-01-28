@@ -23,7 +23,7 @@ export function OurFoundationSection() {
             <div
                 style={{
                     background: "#f1e2c9",
-                    padding: "4rem",
+                    padding: "3rem",
                     display: "flex",
                     justifyContent: "flex-end",
                     color: TEXT, // ✅
@@ -106,7 +106,7 @@ export function OurFoundationSection() {
             < div
                 style={{
                     background: "#fff9ef",
-                    padding: "4rem",
+                    padding: "3rem",
                     display: "flex",
                     justifyContent: "flex-start",
                     color: TEXT, // ✅

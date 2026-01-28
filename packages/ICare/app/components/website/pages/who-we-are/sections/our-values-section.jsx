@@ -104,11 +104,11 @@ export function OurValuesSection() {
 
     return (
         <section
-            id="values"
+            id="standards"
             aria-label="ICare values"
             style={{
                 width: "100%",
-                padding: "5rem 0",
+                padding: "4rem 0",
                 background: "#FFFFFF",
             }}
         >

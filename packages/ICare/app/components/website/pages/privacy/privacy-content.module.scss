@@ -1,81 +1,164 @@
-/* PrivacyContent.module.scss */
 @use "@styles/tokens" as *;
 
 .page {
-  // max-width: 1200px;
-  // margin: 0 auto;
-  padding: $space-16 $space-16;
-  display: grid;
-  gap: $space-16;
-  line-height: $lh-body;
-  background: linear-gradient(0deg,
-      rgba(167, 182, 129, 0.049) 0%,
-      rgba(255, 249, 239, 0.331) 100%);
-
-  p {
-    margin: 0;
-  }
-
-  /* give paragraphs consistent spacing everywhere */
-  p+p {
-    margin-top: $space-12;
-  }
-
-  h1 {
-    margin: 0;
-    letter-spacing: $tracking-hero-title;
-    line-height: $lh-title;
-  }
-
-  h2 {
-    margin: 0;
-    letter-spacing: $tracking-h2;
-    line-height: $lh-title;
-  }
+    background: #fff;
 }
 
-.section {
-  display: grid;
-  gap: $space-16;
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+
+    /* DUŻO ODDECHU: góra i dół */
+    padding: clamp(56px, 6vw, 92px) $gap-grid-fluid clamp(80px, 8vw, 140px);
 }
 
-/* used for the “Who we are” intro text block */
-.intro {
-  line-height: $lh-body;
-
-  p {
-    margin: 0 0 $space-16 0;
-  }
-
-  p:last-child {
-    margin-bottom: 0;
-  }
+/* HEADER */
+.header {
+    display: grid;
+    gap: $space-14;
 }
 
-/* shared list styling */
-.ul {
-  margin: 0;
-  padding-left: $space-24;
-  display: grid;
-  gap: $space-10;
+.h1 {
+    margin: 0;
+    color: $ink-strong;
+    font-weight: 500;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    letter-spacing: $tracking-xs;
+}
 
-  li {
+.h2 {
+    margin: 0;
+    color: $ink-strong;
+    font-weight: $fw-bold;
+    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+    letter-spacing: $tracking-xxs;
+}
+
+.metaRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-10;
+    color: $txt;
+    opacity: 0.85;
+    font-size: $fs-sm;
+}
+
+.lead {
+    margin: 0;
+    color: $txt;
     line-height: $lh-body;
-  }
+    font-size: $fs-lg-2;
 }
 
-.cookiesLink {
-  color: $txt;
-  text-decoration: underline;
+.note,
+.paragraph {
+    margin: 0;
+    color: $txt;
+    line-height: $lh-body;
+    font-size: $fs-md;
+}
 
-  &:hover {
-    color: $ink;
-  }
+/* CALLOUT */
+.callout {
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: $radius-lg; // ✅ FIX
+    padding: $space-14 $space-16;
+    line-height: $lh-body;
+}
 
-  &:focus-visible {
-    outline: $space-2 solid $focus-border;
-    outline-offset: $space-2;
-    box-shadow: 0 0 0 $space-4 $focus-ring;
-    border-radius: $radius-sm;
-  }
+/* SEPARATORS */
+.separator {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.10);
+    margin: clamp(28px, 3.5vw, 44px) 0;
+}
+
+/* SECTION */
+.section {
+    display: grid;
+    gap: $space-12;
+}
+
+/* LISTS */
+.ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: $space-10;
+
+    color: $txt;
+    line-height: $lh-body;
+    font-size: $fs-md;
+}
+
+/* LINKS */
+.inlineLink {
+    color: $txt;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+    transition: $transition-ui;
+
+    &:hover {
+        opacity: 0.85;
+    }
+
+    &:focus-visible {
+        outline: $space-2 solid $focus-border;
+        outline-offset: $space-2;
+        box-shadow: 0 0 0 $space-4 $focus-ring;
+        border-bottom-color: transparent;
+    }
+}
+
+/* TABLES */
+.tableWrap {
+    overflow-x: auto;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    border-radius: $radius-lg; // ✅ FIX
+    background: #fff;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: $fs-sm;
+    line-height: $lh-body;
+}
+
+.table thead th {
+    text-align: left;
+    color: $ink-strong;
+    font-weight: $fw-bold;
+    padding: $space-12 $space-14;
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+    vertical-align: top;
+}
+
+.table tbody th {
+    text-align: left;
+    color: $ink-strong;
+    font-weight: $fw-bold;
+    padding: $space-12 $space-14;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    vertical-align: top;
+    width: 220px;
+}
+
+.table td {
+    color: $txt;
+    padding: $space-12 $space-14;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    vertical-align: top;
+}
+
+.table tbody tr:last-child th,
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* BOTTOM SPACE ABOVE FOOTER */
+.pageBottomSpace {
+    height: clamp(44px, 6vw, 96px);
 }
