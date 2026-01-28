@@ -2,7 +2,7 @@
 
 
 .link {
-    padding: $space-12 $space-18;
+    padding: $space-12 $space-20;
     border-radius: $radius-pill;
 
     /* border: 2px solid $secondary-colour; */
@@ -11,7 +11,7 @@
 
     font-weight: $fw-semibold;
     letter-spacing: -0.2px;
-    font-size: clamp(1rem, 1.3vw, 1rem);
+    font-size: clamp(1.2rem, 1.5vw, 1.2rem);
     text-decoration: none;
 
     display: inline-flex;

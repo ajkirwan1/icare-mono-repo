@@ -72,7 +72,7 @@ export function OurValuesSection() {
             key: "dignity",
             title: "Dignity & Respect",
             description:
-                "We put people first — families and caregivers — in every decision we make.",
+                "Care is organised around people, not transactions.",
             bg: "#fff9ef",
             icon: <FontAwesomeIcon icon={faHandsHolding} style={faIconStyle} />,
         },
@@ -80,7 +80,7 @@ export function OurValuesSection() {
             key: "privacy",
             title: "Privacy by Design",
             description:
-                "Built-in data protection and security. Your privacy is never an afterthought.",
+                "Data protection and security are built into the platform from the start.",
             bg: "#fff9ef",
             icon: <FontAwesomeIcon icon={faUserShield} style={faIconStyle} />,
         },
@@ -88,7 +88,7 @@ export function OurValuesSection() {
             key: "fair",
             title: "Fair & Transparent",
             description:
-                "No hidden fees, no surprises. All agreements are clear, honest, and accessible.",
+                "No hidden fees. Clear agreements and upfront expectations.",
             bg: "#fff9ef",
             icon: <FontAwesomeIcon icon={faScaleBalanced} style={faIconStyle} />,
         },
@@ -96,7 +96,7 @@ export function OurValuesSection() {
             key: "trust",
             title: "Trust & Safety",
             description:
-                "Verified caregivers, secure payments, and encrypted communication - always.",
+                "Identity verification, secure messaging and clear documentation where required.",
             bg: "#fff9ef",
             icon: <FontAwesomeIcon icon={faShieldHeart} style={faIconStyle} />,
         },
@@ -132,7 +132,7 @@ export function OurValuesSection() {
                             color: "#0f172a",
                         }}
                     >
-                        Our Values
+                        Our standards
                     </h2>
 
                     <p
@@ -143,25 +143,11 @@ export function OurValuesSection() {
                             fontWeight: 500,
                         }}
                     >
-                        “Care isn’t a service. It’s a shared human value.”
+                        Care is built on trust, responsibility and mutual respect.
+                        ICare supports arrangements that treat families and caregivers as equals.
+
                     </p>
 
-                    <p
-                        style={{
-                            marginTop: "1rem",
-                            lineHeight: 1.6,
-                            fontSize: "1.22rem",
-                            fontWeight: 400,
-                            color: "#0f172a",
-                        }}
-                    >
-                        We build trust through fairness, clarity, and respect
-                        <br />
-                        every step of the way.
-                        <br /><br />
-                        Together, we are shaping a care system built on trust —
-                        empowering families and caregivers to work as equals.
-                    </p>
 
                     <div
                         style={{

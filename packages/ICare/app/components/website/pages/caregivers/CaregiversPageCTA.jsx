@@ -13,10 +13,9 @@ import {
 
 /**
  * ICare — What makes a great profile (mini-guide)
- * ✅ 5–7+ bullets (practical, scan-friendly)
- * ✅ Calm + informative
- * ✅ Strong titles, body 1.22rem
- * ✅ Works right under "How ICare works for caregivers"
+ * ✅ 8 bullets (scan-friendly)
+ * ✅ Elder-like: short, factual, no coaching tone
+ * ✅ Layout untouched (only copy)
  */
 export default function WhatMakesAGreatProfile() {
     const COLORS = {
@@ -29,54 +28,47 @@ export default function WhatMakesAGreatProfile() {
         olive: "#61674d",
     };
 
+    // ✅ Elder-like: short titles + 1 sentence each
     const items = [
         {
             icon: faPenNib,
-            title: "A clear opening sentence",
-            desc:
-                "Start with who you are and the type of care you provide. One sentence is enough to set context.",
+            title: "Opening line",
+            desc: "Who you are and the type of care you offer.",
         },
         {
             icon: faBriefcase,
-            title: "Relevant experience",
-            desc:
-                "Briefly describe your background: years of experience, conditions, etc.",
+            title: "Experience",
+            desc: "Your background, years in care and relevant conditions.",
         },
         {
             icon: faClock,
-            title: "Availability & schedule",
-            desc:
-                "Be specific about days, hours, live-in or hourly options, and any flexibility you offer.",
+            title: "Availability",
+            desc: "Days, hours, live-in or hourly, and any flexibility.",
         },
         {
             icon: faHandHoldingHeart,
-            title: "Type of care you provide",
-            desc:
-                "Explain what support you offer: personal care, companionship, mobility support, household help, overnight presence, or specialist care.",
+            title: "Care you provide",
+            desc: "Personal care, companionship, mobility, household help and nights.",
         },
         {
             icon: faBan,
-            title: "Boundaries & preferences",
-            desc:
-                "Clear boundaries prevent misunderstandings. Mention tasks you do not provide or situations you prefer to avoid.",
+            title: "Boundaries",
+            desc: "Tasks you don’t do and situations you avoid.",
         },
         {
             icon: faLocationDot,
-            title: "Location & travel radius",
-            desc:
-                "State where you are based and how far you’re willing to travel or relocate.",
+            title: "Location",
+            desc: "Where you’re based and how far you can travel or relocate.",
         },
         {
             icon: faLanguage,
-            title: "Language & communication",
-            desc:
-                "List the languages you speak and your level of fluency — this matters for comfort and trust.",
+            title: "Languages",
+            desc: "Languages spoken and level of fluency.",
         },
         {
             icon: faFileCircleCheck,
-            title: "References & verification",
-            desc:
-                "If you have references, certifications or checks available, mention them clearly so families can assess trust at a glance.",
+            title: "References & checks",
+            desc: "References, checks and insurance shown where available.",
         },
     ];
 
@@ -117,6 +109,7 @@ export default function WhatMakesAGreatProfile() {
         fontSize: "clamp(2.1rem, 2.9vw, 2.5rem)",
     };
 
+    // ✅ Shorter + less bloggy
     const lead = {
         marginTop: "0.9rem",
         marginBottom: 0,
@@ -132,7 +125,7 @@ export default function WhatMakesAGreatProfile() {
         gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
         gap: "clamp(14px, 1.9vw, 18px)",
         alignItems: "stretch",
-        margin: "0 -25px"
+        margin: "0 -25px",
     };
 
     const card = {
@@ -169,7 +162,7 @@ export default function WhatMakesAGreatProfile() {
         opacity: 0.92,
         flex: "0 0 auto",
         marginTop: -3,
-        marginRight: -8
+        marginRight: -8,
     };
 
     const iconStyle = { fontSize: 20, lineHeight: 1 };
@@ -182,11 +175,12 @@ export default function WhatMakesAGreatProfile() {
         color: "rgba(15,23,42,0.92)",
     };
 
+    // ✅ Elder-like note: 1 line, not a mini essay
     const note = {
         marginTop: "3rem",
         paddingTop: "clamp(14px, 2vw, 18px)",
         color: "rgba(15,23,42,0.9)",
-        maxWidth: "50%"
+        maxWidth: "50%",
     };
 
     const noteTitle = {
@@ -205,7 +199,11 @@ export default function WhatMakesAGreatProfile() {
     };
 
     return (
-        <section id="great-profile-section" aria-label="What makes a great caregiver profile" style={wrap}>
+        <section
+            id="great-profile-section"
+            aria-label="What makes a great caregiver profile"
+            style={wrap}
+        >
             <div style={{ ...divider, top: 0 }} />
             <div style={{ ...divider, bottom: 0 }} />
 
@@ -213,9 +211,7 @@ export default function WhatMakesAGreatProfile() {
                 <header style={header}>
                     <h2 style={h2}>What makes a great profile</h2>
                     <p style={lead}>
-                        A strong profile helps families understand you quickly and reach out
-                        with confidence.<br />Think of it as a short, structured introduction —
-                        clear, honest and easy to scan.
+                        A clear profile helps families understand fit quickly and contact you with confidence.
                     </p>
                 </header>
 
@@ -234,35 +230,32 @@ export default function WhatMakesAGreatProfile() {
                 </div>
 
                 <div style={note}>
-                    <p style={noteTitle}>Why this structure works</p>
+                    <p style={noteTitle}>Why this works?</p>
                     <p style={noteText}>
-                        Families often compare profiles quickly.<br />Clear sections reduce
-                        uncertainty, speed up decisions, and lead to better-matched
-                        conversations from the start.
+                        Clear sections make profiles faster to compare and easier to trust.
                     </p>
                 </div>
             </div>
 
             <style>{`
-  .icare-profile-grid > article {
-    border-right: 1px solid rgba(15,23,42,0.4);
-  }
+              .icare-profile-grid > article {
+                border-right: 1px solid rgba(15,23,42,0.4);
+              }
 
-  .icare-profile-grid > article:nth-child(4n) {
-    border-right: none;
-  }
+              .icare-profile-grid > article:nth-child(4n) {
+                border-right: none;
+              }
 
-  @media (max-width: 900px){
-    .icare-profile-grid{
-      grid-template-columns: 1fr !important;
-    }
+              @media (max-width: 900px){
+                .icare-profile-grid{
+                  grid-template-columns: 1fr !important;
+                }
 
-    .icare-profile-grid > article {
-      border-right: none;
-    }
-  }
-`}</style>
-
+                .icare-profile-grid > article {
+                  border-right: none;
+                }
+              }
+            `}</style>
         </section>
     );
 }

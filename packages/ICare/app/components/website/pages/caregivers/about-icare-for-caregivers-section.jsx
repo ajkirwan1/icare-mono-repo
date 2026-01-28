@@ -22,7 +22,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "01",
             icon: faIdCard,
             title: "Create a clear caregiver profile",
-            desc: "Introduce who you are, the type of care you provide and your availability. This helps families understand fit early.",
+            desc: "Introduce yourself, your care experience and availability.",
             image:
                 "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&q=80",
             alt: "Photo ID and profile details for verification",
@@ -31,7 +31,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "02",
             icon: faComments,
             title: "Speak directly with families",
-            desc: "Message families directly to ask questions and discuss care needs — without agencies or intermediaries.",
+            desc: "Message families directly to discuss care needs.",
             image:
                 "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
             alt: "Caregiver and family talking at home",
@@ -40,7 +40,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "03",
             icon: faCalendarCheck,
             title: "Agree schedules and expectations",
-            desc: "Agree hours, tasks and start dates upfront so expectations are clear before care begins.",
+            desc: "Agree hours, tasks and start dates upfront.",
             image:
                 "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1200&q=80",
             alt: "Planning schedules and expectations",
@@ -49,7 +49,7 @@ export default function HowICareWorksForCaregiversSystem() {
             step: "04",
             icon: faScaleBalanced,
             title: "Work within a fairer system",
-            desc: "Care is organised transparently, with clear fees and greater control for caregivers.",
+            desc: "Care is organised transparently, with clear fees.",
             image:
                 "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
             alt: "Fair and balanced care system",
@@ -131,7 +131,7 @@ export default function HowICareWorksForCaregiversSystem() {
                             fontWeight: 400,
                         }}
                     >
-                        A clearer way to organise care — built around transparency,
+                        A clearer way to organise care - built around transparency,
                         autonomy and mutual respect.
                     </p>
                 </header>

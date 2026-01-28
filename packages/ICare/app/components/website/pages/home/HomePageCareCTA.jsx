@@ -36,7 +36,7 @@ export default function ICareTwoPathsSection({
         padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
         backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
         backgroundSize: "cover",
-        paddingTop: "calc(var(--navbar-height) + 5vh)"
+        paddingTop: "4rem"
     };
 
     const overlay = {
@@ -180,7 +180,7 @@ export default function ICareTwoPathsSection({
     const primaryBtn = {
         border: "none",
         borderRadius: 36,
-        background: COLORS.btnFamily,
+        background: "#dd8b4f",
         color: "#fff",
         fontWeight: 600,
         fontSize: "1.1rem",

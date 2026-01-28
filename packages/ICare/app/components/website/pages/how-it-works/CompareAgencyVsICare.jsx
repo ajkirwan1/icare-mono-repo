@@ -75,11 +75,11 @@ export default function CompareAgencyVsICare() {
                 }}
             >
                 {/* Home-like header typography */}
-                <h1 style={H1}>Why families choose ICare</h1>
+                <h1 style={H1}>An alternative to traditional care agencies</h1>
 
                 <p style={LEAD}>
-                    A clearer alternative to agencies.<br />A modern, transparent alternative to traditional agencies where families retain
-                    choice, clarity, and fair pricing.
+                    ICare offers a modern way to arrange care at home - without agency lock-ins, hidden margins or unnecessary complexity.
+                    Families stay in control, with clear terms and direct contact from the start.
                 </p>
 
                 {/* GRID */}
@@ -198,7 +198,7 @@ export default function CompareAgencyVsICare() {
                                     "Choose your preferred caregiver",
                                     "Full transparency",
                                     "Direct agreements",
-                                    "Better pay for caregivers",
+                                    "Fairer pay for caregivers",
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
