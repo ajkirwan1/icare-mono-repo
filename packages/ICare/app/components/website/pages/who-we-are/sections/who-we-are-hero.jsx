@@ -31,8 +31,7 @@ export function WhoWeAreHero() {
                                 </span>
                             </span>
                             <p className={styles.copy}>
-                                We connect people directly and remove middlemen<br />with clarity,
-                                dignity and privacy by design.
+                                We connect families and caregivers directly  <br />with clarity, dignity and privacy by design.
                             </p>
 
                             <div className={styles.ctaRow}>

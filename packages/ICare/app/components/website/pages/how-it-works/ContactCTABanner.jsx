@@ -53,8 +53,7 @@ export default function ContactCTABanner() {
                             maxWidth: "60ch",
                         }}
                     >
-                        We are here to help you understand matching, <br />agreements and setup
-                        with clarity and no pressure.
+                        We can walk you through matching, agreements and getting started - step by step and with no pressure.
                     </p>
                 </div>
 

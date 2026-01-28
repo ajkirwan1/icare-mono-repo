@@ -190,7 +190,7 @@ export default function HowItWorksThreeSteps() {
         <section id="how-it-works" aria-label="How ICare works" style={wrap}>
             <div style={container}>
                 <div style={header}>
-                    <h2 style={title}>How ICare works</h2>
+                    <h2 style={title}>What makes ICare different from agencies</h2>
                     <p style={sub}>
                         A calmer path through a big decision with clear steps and no pressure.
                     </p>

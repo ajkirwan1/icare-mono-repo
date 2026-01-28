@@ -2,13 +2,10 @@ import React from "react";
 
 /**
  * ICare — Budget Estimator (caring tone)
- * ✅ Header (H1 + H2 + lead) left-aligned
- * ✅ H1 weight 500, clamp(2.25rem, 3vw, 2.6rem)
- * ✅ H2 weight 600, size 1.25rem
- * ✅ P size 1.22rem, weight 600
- * ✅ 2 boxes in one row, SAME HEIGHT
- * ✅ boxes solid white (no see-through)
- * ✅ bottom note uses multiple sources + explains why hourly can be misleading for live-in
+ * (updated)
+ * ✅ Tooltips now show on hover/focus (custom tooltip, not native title)
+ * ✅ Email opt-in no longer changes hero/background size (fixed minHeight)
+ * ✅ Removed "See carers available at this budget" button
  */
 export default function ICareCostEstimator({
     icareFeePct = 10,
@@ -40,6 +37,10 @@ export default function ICareCostEstimator({
     const [currency, setCurrency] = React.useState("GBP");
     const [hourly, setHourly] = React.useState(UK_LIVE_IN_AVG_HOURLY_GBP);
     const [hoursWeek, setHoursWeek] = React.useState(30);
+
+    // ✅ Soft lead (email me this estimate)
+    const [emailOptIn, setEmailOptIn] = React.useState(false);
+    const [email, setEmail] = React.useState("");
 
     const range = hourlyRanges[currency] ?? hourlyRanges.GBP;
 
@@ -85,6 +86,8 @@ export default function ICareCostEstimator({
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        // ✅ prevents background/hero resizing when email section expands
+        minHeight: "clamp(860px, 88vh, 980px)",
     };
 
     const container = {
@@ -100,7 +103,6 @@ export default function ICareCostEstimator({
         textAlign: "left",
     };
 
-    // ✅ requested H1
     const h1 = {
         margin: "0 0 1.5rem",
         fontWeight: 500,
@@ -110,7 +112,6 @@ export default function ICareCostEstimator({
         color: "#fff",
     };
 
-    // ✅ requested H2
     const h2Mini = {
         margin: "10px 0 0",
         fontWeight: 400,
@@ -120,7 +121,6 @@ export default function ICareCostEstimator({
         opacity: 0.95,
     };
 
-    // ✅ requested P
     const lead = {
         margin: "0.9rem 0 0",
         color: "rgba(255,255,255,0.92)",
@@ -136,7 +136,6 @@ export default function ICareCostEstimator({
         alignItems: "stretch",
     };
 
-    // ✅ boxes solid white (no see-through, no blur)
     const card = {
         height: "100%",
         background: "#ffffff",
@@ -193,6 +192,9 @@ export default function ICareCostEstimator({
         fontWeight: 700,
         color: TEXT,
         marginBottom: 4,
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
     };
 
     const v = (highlight) => ({
@@ -201,6 +203,29 @@ export default function ICareCostEstimator({
         color: highlight ? "rgb(119, 141, 67)" : TEXT,
         letterSpacing: "-0.2px",
     });
+
+    const infoIcon = {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 18,
+        height: 18,
+        borderRadius: 999,
+        border: "1px solid rgba(15,23,42,0.25)",
+        fontSize: 12,
+        fontWeight: 900,
+        lineHeight: 1,
+        color: "rgba(15,23,42,0.75)",
+        cursor: "help",
+        userSelect: "none",
+        transform: "translateY(-0.5px)",
+    };
+
+    const tooltipWrap = {
+        position: "relative",
+        display: "inline-flex",
+        alignItems: "center",
+    };
 
     const bar = {
         marginTop: "2rem",
@@ -218,23 +243,9 @@ export default function ICareCostEstimator({
         transition: "width .45s ease",
     };
 
-    const softLink = {
-        marginTop: 10,
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        textDecoration: "none",
-        color: OLIVE,
-        fontWeight: 700,
-        borderBottom: "1px solid rgba(97,103,77,0.35)",
-        paddingBottom: 2,
-        width: "fit-content",
-    };
-
-    // ✅ solid (no see-through, no blur) + clearer, legit note
     const avgPayBox = {
         marginTop: 12,
-        padding: "20px 24px", // ✅ było 18px 18px → trochę więcej po bokach
+        padding: "20px 24px",
         borderRadius: 18,
         background: "#ffffff",
         border: "1px solid rgba(15,23,42,0.10)",
@@ -258,7 +269,65 @@ export default function ICareCostEstimator({
       border-color: rgba(185,122,87,0.55) !important;
       box-shadow: 0 0 0 4px rgba(185,122,87,0.14) !important;
     }
+
+    /* ✅ Tooltip bubble (shows on hover OR keyboard focus) */
+    .icare-tip { position: relative; display: inline-flex; align-items: center; }
+    .icare-tip-bubble {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translateX(-50%);
+      width: min(280px, 68vw);
+      background: rgba(15,23,42,0.96);
+      color: rgba(255,255,255,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      line-height: 1.35;
+      box-shadow: 0 18px 44px rgba(15,23,42,0.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .14s ease, transform .14s ease;
+      transform-origin: bottom center;
+    }
+    .icare-tip-bubble::after{
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: rgba(15,23,42,0.96);
+    }
+    .icare-tip:hover .icare-tip-bubble,
+    .icare-tip:focus-within .icare-tip-bubble{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-2px);
+    }
   `;
+
+    const mailtoHref = React.useMemo(() => {
+        const subject = encodeURIComponent("ICare — Monthly care estimate");
+        const body = encodeURIComponent(
+            [
+                "Here’s your estimate:",
+                `Currency: ${currency}`,
+                `Hourly rate: ${hourly}`,
+                `Hours per week: ${hoursWeek}`,
+                "",
+                `Care cost (no fees): ${nf.format(baseCost)}`,
+                `Typical agency total: ${nf.format(agencyTotal)}`,
+                `ICare total: ${nf.format(icareTotal)}`,
+                `Estimated savings: ${nf.format(youSave)} (~${Math.round(savePct)}%)`,
+                "",
+                "Note: This is an estimate — needs, cities and experience can change rates.",
+            ].join("\n")
+        );
+        const to = (email || "").trim();
+        return `mailto:${encodeURIComponent(to)}?subject=${subject}&body=${body}`;
+    }, [currency, hourly, hoursWeek, nf, baseCost, agencyTotal, icareTotal, youSave, savePct, email]);
 
     return (
         <section aria-label="Cost estimator" style={wrap}>
@@ -282,9 +351,7 @@ export default function ICareCostEstimator({
                 <div className="icare-est-cards" style={cardsRow}>
                     {/* LEFT = controls */}
                     <div style={card}>
-                        <div style={{ fontWeight: 700, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>
-                            Your inputs
-                        </div>
+                        <div style={{ fontWeight: 700, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>Your inputs</div>
 
                         <div style={{ display: "grid", gap: 14, marginTop: 10 }}>
                             <label style={{ display: "grid", gap: 6 }}>
@@ -292,7 +359,6 @@ export default function ICareCostEstimator({
                                 <select value={currency} onChange={(e) => setCurrency(e.target.value)} style={field}>
                                     <option value="GBP">GBP — £</option>
                                     <option value="EUR">EUR — €</option>
-                                    <option value="PLN">PLN — zł</option>
                                 </select>
                             </label>
 
@@ -342,9 +408,7 @@ export default function ICareCostEstimator({
 
                     {/* RIGHT = results */}
                     <div style={card}>
-                        <div style={{ fontWeight: 600, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>
-                            Monthly estimate
-                        </div>
+                        <div style={{ fontWeight: 600, fontSize: "1.2rem", letterSpacing: "-0.2px" }}>Monthly estimate</div>
 
                         <div style={resultGrid}>
                             <div style={pill(false)}>
@@ -353,12 +417,32 @@ export default function ICareCostEstimator({
                             </div>
 
                             <div style={pill(false)}>
-                                <div style={k}>Typical agency total</div>
+                                <div style={k}>
+                                    Typical agency total
+                                    <span className="icare-tip" style={tooltipWrap}>
+                                        <span style={infoIcon} aria-label="Agency total info" tabIndex={0}>
+                                            i
+                                        </span>
+                                        <span className="icare-tip-bubble" role="tooltip">
+                                            Typical agency pricing includes overheads, admin fees and margins that don’t go to the carer.
+                                        </span>
+                                    </span>
+                                </div>
                                 <div style={v(false)}>{nf.format(agencyTotal)}</div>
                             </div>
 
                             <div style={pill(false)}>
-                                <div style={k}>ICare total</div>
+                                <div style={k}>
+                                    ICare total
+                                    <span className="icare-tip" style={tooltipWrap}>
+                                        <span style={infoIcon} aria-label="ICare total info" tabIndex={0}>
+                                            i
+                                        </span>
+                                        <span className="icare-tip-bubble" role="tooltip">
+                                            Includes estimated iCare service fee. No placement fees. No long-term contracts.
+                                        </span>
+                                    </span>
+                                </div>
                                 <div style={v(false)}>{nf.format(icareTotal)}</div>
                             </div>
 
@@ -376,6 +460,8 @@ export default function ICareCostEstimator({
                             You may save around{" "}
                             <span style={{ color: "rgb(119, 141, 67)", fontWeight: 950 }}>{Math.round(savePct)}%</span> compared with a typical agency.
                         </div>
+
+                        ate
 
 
                         <div style={{ marginTop: 10, ...small }}>

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
 export function OurImpactSection() {
     const items = [
         {
             title: "Transparent care choices",
-            desc: "Families see real caregiver profiles — experience, availability and care style — before starting a conversation.",
+            desc: "Clear caregiver profiles show experience, availability and care style before conversation begins.",
         },
         {
             title: "Direct communication",
-            desc: "Private messaging without agencies or intermediaries deciding for either side.",
+            desc: "Families and caregivers speak directly, without intermediaries shaping decisions.",
         },
         {
             title: "Fair, clear agreements",
@@ -19,8 +19,6 @@ export function OurImpactSection() {
             desc: "Caregivers choose who they work with. Families choose who supports their home.",
         },
     ];
-
-    const [open, setOpen] = useState(0);
 
     return (
         <section
@@ -48,16 +46,15 @@ export function OurImpactSection() {
                         alignItems: "start",
                     }}
                 >
-                    {/* ================= LEFT — TEXT + ACCORDION ================= */}
+                    {/* ================= LEFT — TEXT ================= */}
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "space-between",
                             maxWidth: "54ch",
                         }}
                     >
-                        <header style={{ marginBottom: "1.9rem" }}>
+                        <header style={{ marginBottom: "2.1rem" }}>
                             <h2
                                 style={{
                                     margin: 0,
@@ -67,101 +64,64 @@ export function OurImpactSection() {
                                     letterSpacing: "-0.35px",
                                 }}
                             >
-                                How ICare changes home care
+                                Our approach is built on a few simple principles
                             </h2>
 
-                            {/* ⬇️ PODMIENIONY TEKST */}
-                            <div
+                            <p
                                 style={{
                                     marginTop: "1.1rem",
-                                    display: "grid",
-                                    gap: ".9rem",
-                                    fontSize: "1.18rem",
+                                    fontSize: "1.22rem",
                                     lineHeight: 1.65,
                                     color: "rgba(0,0,0,0.9)",
                                     fontWeight: 400,
                                 }}
                             >
-                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
-                                    Home care is often organised through complex systems that reduce clarity and real choice.
-                                </p>
-                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
-                                    Families face uncertainty around costs, processes and decision-making while caregivers work within structures that don’t reflect how care actually happens.
-                                </p>
-                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
-                                    ICare removes unnecessary barriers between families and caregivers and replaces fragmented steps with a clear, guided way to organise care.
-                                </p>
-                                <p style={{ margin: 0, fontSize: "1.22rem" }}>
-                                    Care becomes easier to understand, calmer to arrange, and fairer on both sides.
-                                </p>
-                            </div>
+                                Care is personal and rarely predictable.
+                                <br />
+                                ICare provides calm structure and clear agreements,
+                                while leaving decisions where they belong — with people.
+                            </p>
                         </header>
 
-                        {/* ================= ACCORDION ================= */}
-                        <div style={{ display: "grid", gap: "1rem" }}>
-                            {items.map((item, i) => {
-                                const isOpen = open === i;
-
-                                return (
-                                    <div
-                                        key={item.title}
+                        {/* ================= PRINCIPLES LIST ================= */}
+                        <div style={{ display: "grid", gap: "1.6rem" }}>
+                            {items.map((item, i) => (
+                                <div
+                                    key={item.title}
+                                    style={{
+                                        paddingBottom: "1.2rem",
+                                        borderBottom:
+                                            i !== items.length - 1
+                                                ? "1px solid rgba(0,0,0,0.18)"
+                                                : "none",
+                                    }}
+                                >
+                                    <h3
                                         style={{
-                                            borderBottom: "1px solid rgba(0,0,0,0.35)",
-                                            paddingBottom: ".85rem",
+                                            margin: 0,
+                                            fontSize: "1.22rem",
+                                            fontWeight: 600,
+                                            letterSpacing: "-0.15px",
+                                            color: "#000",
                                         }}
                                     >
-                                        <button
-                                            onClick={() => setOpen(isOpen ? null : i)}
-                                            style={{
-                                                width: "100%",
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                alignItems: "center",
-                                                background: "transparent",
-                                                border: "none",
-                                                padding: 0,
-                                                cursor: "pointer",
-                                                textAlign: "left",
-                                                color: "#000",
-                                            }}
-                                        >
-                                            <span
-                                                style={{
-                                                    fontSize: "1.22rem",
-                                                    fontWeight: 600,
-                                                    letterSpacing: "-0.15px",
-                                                }}
-                                            >
-                                                {item.title}
-                                            </span>
+                                        {item.title}
+                                    </h3>
 
-                                            <span
-                                                style={{
-                                                    transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
-                                                    transition: "transform .25s ease",
-                                                    fontSize: "1.4rem",
-                                                }}
-                                            >
-                                                →
-                                            </span>
-                                        </button>
-
-                                        {isOpen && (
-                                            <p
-                                                style={{
-                                                    marginTop: ".45rem",
-                                                    fontSize: "1.15rem",
-                                                    lineHeight: 1.55,
-                                                    color: "rgba(0,0,0,0.9)",
-                                                    fontWeight: 400,
-                                                }}
-                                            >
-                                                {item.desc}
-                                            </p>
-                                        )}
-                                    </div>
-                                );
-                            })}
+                                    <p
+                                        style={{
+                                            marginTop: ".35rem",
+                                            marginBottom: 0,
+                                            fontSize: "1.15rem",
+                                            lineHeight: 1.55,
+                                            color: "rgba(0,0,0,0.88)",
+                                            fontWeight: 400,
+                                        }}
+                                    >
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 

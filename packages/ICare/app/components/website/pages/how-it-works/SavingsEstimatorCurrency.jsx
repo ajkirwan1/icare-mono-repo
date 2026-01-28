@@ -1,11 +1,10 @@
 import React from "react";
 
 /**
- * MVP Estimator (SIMPLE)
- * ✅ ONLY care cost = hourly × hours/week × (weekly/monthly)
- * ✅ NO info about ICare fee
- * ✅ Left: UK market context
- * ✅ Subtle separators between list items
+ * MVP Estimator (SIMPLE + Agency comparison)
+ * ✅ care cost = hourly × hours/week × (weekly/monthly)
+ * ✅ adds: Agency estimate (markup %) + Estimated savings
+ * ✅ Funding in accordion (Elder-like)
  */
 
 export default function SavingsEstimatorCurrency() {
@@ -25,6 +24,9 @@ export default function SavingsEstimatorCurrency() {
     const [period, setPeriod] = React.useState("monthly"); // weekly | monthly
     const [hourly, setHourly] = React.useState(ranges.PLN.default);
     const [hoursWeek, setHoursWeek] = React.useState(20);
+
+    // ✅ NEW: agency markup selector (typical range you used earlier)
+    const [agencyMarkupPct, setAgencyMarkupPct] = React.useState(30); // 25–40
 
     const range = ranges[currency] ?? ranges.PLN;
 
@@ -52,30 +54,92 @@ export default function SavingsEstimatorCurrency() {
         };
     }, [hourly, hoursWeek, period]);
 
+    // ✅ NEW: agency comparison
+    const { agencyCost, savings } = React.useMemo(() => {
+        const markup = Math.max(0, Number(agencyMarkupPct) || 0) / 100;
+        const agency = careCost * (1 + markup);
+        return {
+            agencyCost: agency,
+            savings: Math.max(0, agency - careCost),
+        };
+    }, [careCost, agencyMarkupPct]);
+
     const microCSS = `
     @media (max-width: 860px) {
       .icare-est-row { grid-template-columns: 1fr !important; }
     }
 
     .icare-est-input:focus{
-      border-color: rgb(123, 171, 12) !important;
+      border-color: ${BRAND} !important;
       box-shadow: 0 0 0 4px rgba(31,171,31,0.12) !important;
       outline: none !important;
     }
 
-    /* ✅ subtle separators between list items */
     .icare-left-boxes ul li{
       padding-bottom: 12px;
       border-bottom: 1px solid rgba(15,23,42,0.10);
-      
     }
     .icare-left-boxes ul li:last-child{
       border-bottom: 0;
       padding-bottom: 0;
     }
+
+    /* Funding accordion (details) */
+    .icare-funding-details{
+      border: 1px solid rgba(15,23,42,0.10);
+      background: rgba(255,255,255,0.72);
+      border-radius: 24px;
+      box-shadow: 0 10px 24px rgba(15,23,42,0.06);
+      padding: 18px 18px;
+    }
+    .icare-funding-summary{
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 650;
+      font-size: 1.25rem;
+      color: ${TEXT};
+      letter-spacing: -0.15px;
+      padding: 10px 8px;
+      border-radius: 14px;
+    }
+    .icare-funding-summary::-webkit-details-marker { display:none; }
+    .icare-funding-summary:focus-visible{
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(31,171,31,0.10);
+    }
+    .icare-funding-body{
+      padding: 6px 8px 10px;
+    }
+    .icare-funding-teaser{
+      margin: 8px 0 0;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      font-weight: 550;
+      color: rgba(15,23,42,0.86);
+    }
+    .icare-chevron{
+      width: 34px;
+      height: 34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 12px;
+      border: 1px solid rgba(15,23,42,0.10);
+      background: rgba(255,255,255,0.65);
+      font-size: 14px;
+      opacity: 0.9;
+      transform: rotate(0deg);
+      transition: transform 160ms ease;
+    }
+    details[open] .icare-chevron{
+      transform: rotate(180deg);
+    }
   `;
 
-    // Home typography (same sizes/weights) — ✅ reduced spacing
     const homeH1 = {
         margin: 0,
         fontWeight: 500,
@@ -85,17 +149,8 @@ export default function SavingsEstimatorCurrency() {
         color: TEXT,
     };
 
-    const homeH2 = {
-        margin: "14px 0 0", // ✅ less spacing
-        fontWeight: 600,
-        letterSpacing: "-0.2px",
-        lineHeight: 1.25,
-        fontSize: "1.25rem",
-        color: TEXT,
-    };
-
     const homeLead = {
-        margin: "12px 0 0", // ✅ less spacing
+        margin: "12px 0 0",
         color: TEXT,
         fontWeight: 400,
         lineHeight: 1.72,
@@ -103,7 +158,6 @@ export default function SavingsEstimatorCurrency() {
         maxWidth: "58ch",
     };
 
-    // ✅ right intro as paragraph (like P), left-aligned
     const rightIntroP = {
         margin: "0 0 20px",
         color: TEXT,
@@ -136,7 +190,6 @@ export default function SavingsEstimatorCurrency() {
         color: TEXT,
     };
 
-    // Left boxes (stacked)
     const leftBoxesGrid = {
         display: "grid",
         gridTemplateColumns: "1fr",
@@ -191,8 +244,6 @@ export default function SavingsEstimatorCurrency() {
         alignItems: "center",
         padding: "12px 0",
         borderRadius: 18,
-
-
         fontSize: "1.0rem",
         fontWeight: 750,
         color: TEXT,
@@ -213,7 +264,6 @@ export default function SavingsEstimatorCurrency() {
         marginTop: 14,
         paddingTop: 14,
         fontSize: "0.98rem",
-
         fontWeight: 650,
         lineHeight: 1.6,
         color: TEXT,
@@ -246,7 +296,11 @@ export default function SavingsEstimatorCurrency() {
                 {/* HEADER ABOVE GRID */}
                 <div style={{ color: TEXT }}>
                     <h1 style={homeH1}>Quick Cost Estimator</h1>
-                    <p style={homeLead}>Clear numbers. Calm decisions.<br />UK pricing context (live-in & hourly)</p>
+                    <p style={homeLead}>
+                        Clear numbers, at a glance.
+                        <br />
+                        UK pricing context (live-in and hourly)
+                    </p>
                 </div>
 
                 <div style={{ height: "1.55rem" }} />
@@ -263,25 +317,24 @@ export default function SavingsEstimatorCurrency() {
                     {/* LEFT BOXES */}
                     <div className="icare-left-boxes" style={leftBoxesGrid}>
                         <div style={infoCard}>
-                            <div style={infoTitle}>UK pricing context (live-in)</div>
+                            <div style={infoTitle}>Live-in care: typical weekly range (UK)</div>
                             <div style={divider} />
                             <p style={infoText}>
-                                Live-in care is often discussed as a <strong>weekly rate</strong>. <br />
-                                As a broad market guide, you’ll commonly see ranges around{" "}
-                                <strong>£950–£1,400/week</strong>, depending on needs and location.
+                                Live-in care is usually priced as a <strong>weekly rate</strong>. <br />
+                                A common UK guide range is <strong>£950–£1,400/week</strong>, depending on needs and area.
                             </p>
 
                             <div style={pillRow}>
                                 <div style={pill}>
-                                    <span>Everyday live-in support</span>
+                                    <span>Everyday support</span>
                                     <span>~£950–£1,100</span>
                                 </div>
                                 <div style={pill}>
-                                    <span>Higher needs / specialist</span>
+                                    <span>Higher needs</span>
                                     <span>~£1,100–£1,350</span>
                                 </div>
                                 <div style={pill}>
-                                    <span>Extra night input</span>
+                                    <span>Extra night support</span>
                                     <span>~£1,250–£1,400</span>
                                 </div>
                                 <div style={pill}>
@@ -292,59 +345,67 @@ export default function SavingsEstimatorCurrency() {
                         </div>
 
                         <div style={infoCard}>
-                            <div style={infoTitle}>What changes the cost most</div>
+                            <div style={infoTitle}>What affects cost most</div>
                             <div style={divider} />
                             <ul style={bullets}>
                                 <li>
-                                    <strong>Care needs:</strong> dementia, mobility, complex routines, clinical tasks
+                                    <strong>Level of support:</strong> dementia, mobility, complex routines
                                 </li>
                                 <li>
-                                    <strong>Nights:</strong> sleeping vs waking nights can shift weekly pricing
+                                    <strong>Nights:</strong> sleeping vs waking nights
                                 </li>
                                 <li>
-                                    <strong>Location:</strong> some areas (e.g. London/South East) are often higher
+                                    <strong>Location:</strong> London / South East often higher
                                 </li>
                                 <li>
-                                    <strong>Experience:</strong> specialist skills and proven experience can cost more
+                                    <strong>Experience:</strong> specialist skills and proven experience
                                 </li>
                             </ul>
                         </div>
 
-                        <div style={infoCard}>
-                            <div style={infoTitle}>Funding routes to explore (UK)</div>
-                            <div style={divider} />
-                            <ul style={bullets}>
-                                <li>Local authority assessment + personal budget (if eligible)</li>
-                                <li>NHS Continuing Healthcare for complex health needs (in some cases fully funded)</li>
-                                <li>Direct payments / personal budgets (where available)</li>
-                                <li>Benefits and allowances that can support costs (eligibility varies)</li>
-                            </ul>
+                        {/* Funding accordion */}
+                        <details className="icare-funding-details">
+                            <summary className="icare-funding-summary">
+                                <span>Funding options (UK)</span>
+                                <span className="icare-chevron" aria-hidden="true">
+                                    ⌄
+                                </span>
+                            </summary>
 
-                            <div style={{ height: 12 }} />
+                            <div className="icare-funding-body">
+                                <p className="icare-funding-teaser">
+                                    If you’re eligible, there may be funding routes worth exploring.
+                                </p>
 
-                            <p style={{ ...infoText, opacity: 0.92 }}>
+                                <div style={divider} />
 
-                            </p>
-                        </div>
+                                <ul style={bullets}>
+                                    <li>Local authority assessment and personal budget (if eligible)</li>
+                                    <li>NHS Continuing Healthcare (for complex health needs; sometimes fully funded)</li>
+                                    <li>Direct payments / personal budgets (where available)</li>
+                                    <li>Benefits and allowances that may support costs (eligibility varies)</li>
+                                </ul>
+                            </div>
+                        </details>
 
                         <div style={infoCard}>
                             <div style={infoTitle}>Note</div>
                             <div style={divider} />
                             <p style={{ ...infoText, opacity: 0.92 }}>
-                                This estimator is based on your inputs.<br /> Final pricing depends on the caregiver’s rate and your care needs.
+                                Estimates are based on your selected rate and weekly hours.<br />
+                                Final pricing depends on care needs and the caregiver’s rate.
                             </p>
 
                             <div style={sourceNote}>
-                                Pricing ranges are based on publicly available UK care cost guides and industry summaries.<br /> Figures are
-                                indicative and will vary by region and needs.
+                                Ranges are indicative and based on publicly available UK care cost guides and industry summaries.
+                                <br />
+                                Figures vary by region and needs.
                             </div>
                         </div>
                     </div>
 
                     {/* RIGHT ESTIMATOR */}
                     <div style={{ display: "grid", gap: 18 }}>
-                        {/* ✅ now as paragraph + left aligned */}
-
                         <form
                             onSubmit={(e) => e.preventDefault()}
                             style={{
@@ -357,8 +418,11 @@ export default function SavingsEstimatorCurrency() {
                                 border: "1px solid rgba(15,23,42,0.08)",
                             }}
                         >
+                            <p style={rightIntroP}>
+                                Choose an hourly rate and weekly hours.<br />
+                                We’ll show an estimated total for your selected period.
+                            </p>
 
-                            <p style={rightIntroP}>Choose a rate and weekly hours that fit your situation.<br /> We will show an estimated total for your selected period.</p>
                             <label style={{ display: "grid", gap: 6 }}>
                                 <span style={labelStyle}>Currency</span>
                                 <select
@@ -367,11 +431,11 @@ export default function SavingsEstimatorCurrency() {
                                     onChange={(e) => setCurrency(e.target.value)}
                                     style={fieldStyle}
                                 >
-                                    <option value="PLN">PLN — zł</option>
+
                                     <option value="EUR">EUR — €</option>
                                     <option value="GBP">GBP — £</option>
                                 </select>
-                                <span style={hintStyle}>Typical range suggested — you can change the rate freely.</span>
+                                <span style={hintStyle}>Suggested ranges are shown — you can set any rate.</span>
                             </label>
 
                             <label style={{ display: "grid", gap: 6 }}>
@@ -437,7 +501,24 @@ export default function SavingsEstimatorCurrency() {
                                     onChange={(e) => setHoursWeek(Number(e.target.value))}
                                     style={fieldStyle}
                                 />
-                                <span style={hintStyle}>Example: 20h/week for part-time support.</span>
+                                <span style={hintStyle}>Example: 20 hours/week for part-time support.</span>
+                            </label>
+
+                            {/* ✅ NEW: Agency markup selector */}
+                            <label style={{ display: "grid", gap: 6 }}>
+                                <span style={labelStyle}>Agency markup (typical)</span>
+                                <select
+                                    className="icare-est-input"
+                                    value={agencyMarkupPct}
+                                    onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
+                                    style={fieldStyle}
+                                >
+                                    <option value={25}>25%</option>
+                                    <option value={30}>30%</option>
+                                    <option value={35}>35%</option>
+                                    <option value={40}>40%</option>
+                                </select>
+                                <span style={hintStyle}>Used to estimate how agency pricing can differ.</span>
                             </label>
                         </form>
 
@@ -457,15 +538,31 @@ export default function SavingsEstimatorCurrency() {
                             </h3>
 
                             <div>
-
-                                <div style={{ fontSize: "1.1rem", marginBottom: 6, fontWeight: 600 }}>
-                                    Estimated total
+                                <div style={{ fontSize: "1.05rem", marginBottom: 6, fontWeight: 700 }}>
+                                    Direct estimate
                                 </div>
-                                <div style={{ fontWeight: 700, fontSize: "1.6rem", color: "rgb(123, 171, 12)" }}>{nf.format(careCost)}</div>
+                                <div style={{ fontWeight: 800, fontSize: "1.6rem", color: BRAND }}>
+                                    {nf.format(careCost)}
+                                </div>
+                            </div>
+
+                            {/* ✅ NEW: Agency + savings */}
+                            <div style={{ height: 6 }} />
+
+                            <div style={{ display: "grid", gap: 8 }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, fontSize: "1.02rem", fontWeight: 650, opacity: 0.9 }}>
+                                    <span>Agency estimate (+{agencyMarkupPct}%)</span>
+                                    <span>{nf.format(agencyCost)}</span>
+                                </div>
+
+                                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, fontSize: "1.05rem", fontWeight: 800 }}>
+                                    <span>Estimated savings</span>
+                                    <span style={{ color: BRAND }}>{nf.format(savings)}</span>
+                                </div>
                             </div>
 
                             <div style={{ fontSize: ".92rem", opacity: 0.76, fontWeight: 650, lineHeight: 1.6 }}>
-                                Updates instantly as you adjust the rate and hours.
+                                Updates instantly as you adjust rate, hours and agency markup.
                             </div>
                         </div>
                     </div>

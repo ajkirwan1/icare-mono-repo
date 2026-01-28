@@ -65,7 +65,7 @@ export default function ICareWaitlistFinal() {
         margin: 0,
         fontWeight: 500,
         letterSpacing: "-0.5px",
-        lineHeight: 1.20,
+        lineHeight: 1.2,
         fontSize: "clamp(1.56rem, 2.08vw, 1.80rem)", // ✅ +10%
         color: TEXT,
     };
@@ -184,11 +184,15 @@ export default function ICareWaitlistFinal() {
             <div className="icare-wl-layout" style={container}>
                 {/* LEFT */}
                 <div style={card}>
-                    <h1 style={h1}>Be first to know when ICare <br />opens near you</h1>
+                    <h1 style={h1}>
+                        Be among the first when ICare <br />
+                        opens near you
+                    </h1>
                     <h2 style={h2}>Get early access in your area</h2>
                     <p style={lead}>
-                        Leave a few details and we’ll notify you when ICare opens near you. Your answers help us
-                        prioritise caregiver supply in the right towns first.
+                        Leave a few details and we’ll let you know when ICare opens near you.
+                        Your answers help us understand where care is needed most, so we can
+                        open in the right places first.
                     </p>
 
                     <form onSubmit={onSubmit} style={form}>
@@ -205,21 +209,29 @@ export default function ICareWaitlistFinal() {
                             </div>
                             <div>
                                 <label style={label}>Postcode</label>
-                                <input className="icare-wl-input" required placeholder="e.g. GL50" style={field} />
+                                <input
+                                    className="icare-wl-input"
+                                    required
+                                    placeholder="e.g. GL50"
+                                    style={field}
+                                />
                             </div>
                         </div>
 
                         <div className="icare-wl-grid2" style={grid2}>
                             <div>
-                                <label style={label}>I’m here as</label>
+                                <label style={label}>Who is care for?</label>
                                 <select className="icare-wl-input" defaultValue="family" style={field}>
-                                    <option value="family">Family / client</option>
+                                    <option value="family">Family member / client</option>
                                     <option value="caregiver">Caregiver</option>
+                                    <option value="exploring">Just exploring</option>
                                 </select>
                             </div>
                             <div>
-                                <label style={label}>When do you need care?</label>
+                                {/* ✅ SHORTER LABEL so the box doesn’t “drop” */}
+                                <label style={label}>When do you want to start care?</label>
                                 <select className="icare-wl-input" defaultValue="soon" style={field}>
+                                    <option value="exploring">Exploring options</option>
                                     <option value="soon">Soon (1–4 weeks)</option>
                                     <option value="1_3m">1–3 months</option>
                                     <option value="3m_plus">3+ months</option>
@@ -242,7 +254,7 @@ export default function ICareWaitlistFinal() {
 
                         <div style={btnWrap}>
                             <button type="submit" style={btn} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-                                {status === "ok" ? "You are now on the list ✓" : "Join the waiting list"}
+                                {status === "ok" ? "You are now on the list ✓" : "Join the early access list"}
                             </button>
 
                             <p style={note}>
@@ -254,11 +266,7 @@ export default function ICareWaitlistFinal() {
 
                 {/* RIGHT */}
                 <div style={imageWrap}>
-                    <img
-                        src="/images/web/homepage/elderly2.png"
-                        alt="Browse caregivers"
-                        style={image}
-                    />
+                    <img src="/images/web/homepage/elderly2.png" alt="Browse caregivers" style={image} />
                 </div>
             </div>
         </section>

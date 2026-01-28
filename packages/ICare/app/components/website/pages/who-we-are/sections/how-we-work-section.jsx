@@ -8,21 +8,21 @@ export function HowWeWorkSection() {
             step: 1,
             title: "Brief & preferences",
             description:
-                "Tell us your needs, schedule and preferred skills. We minimise data — only what’s necessary.",
+                "Share your needs, schedule and preferred skills. We only ask for information that’s necessary.",
             variant: "green",
         },
         {
             step: 2,
             title: "Direct matching",
             description:
-                "We show verified caregiver profiles that fit your brief — you speak directly with candidates.",
+                "View caregiver profiles that match your brief and speak directly with candidates.",
             variant: "blue",
         },
         {
             step: 3,
             title: "Agree & start",
             description:
-                "You agree terms directly with the caregiver. We provide guidance and safer-practice templates.",
+                "Agree terms directly with the caregiver. We provide guidance and clear agreement templates.",
             variant: "orange",
         },
     ];
@@ -77,8 +77,9 @@ export function HowWeWorkSection() {
                         </span>
 
                         <span style={{ display: "block" }}>
-                            Browse verified caregiver profiles, speak directly, and agree the right level of support — from <strong>short visits </strong>
-                            to  <strong>overnight </strong>or <strong>live-in care.</strong>
+
+                            Browse verified caregiver profiles, speak directly, and agree care
+                            <br />from short visits to overnight or live-in support.
                         </span>
                     </p>
 

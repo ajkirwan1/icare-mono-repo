@@ -17,50 +17,50 @@ export default function ICareNewCaregiversTickerSection() {
         color: TEXT,
         padding: "clamp(3.6rem, 5.6vw, 5rem) 0",
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {
         width: "min(96vw, 1580px)",
-        margin: "0 auto"
+        margin: "0 auto",
     };
 
     const header = {
         maxWidth: "78ch",
         display: "grid",
         gap: 10,
-        marginBottom: 24
+        marginBottom: 24,
     };
 
     const h2 = {
         margin: 0,
         fontWeight: 600,
-        fontSize: "clamp(1.55rem, 2.2vw, 1.9rem)"
+        fontSize: "clamp(1.55rem, 2.2vw, 1.9rem)",
     };
 
     const lead = {
         margin: 0,
         fontWeight: 400,
         fontSize: "1.4rem",
-        lineHeight: 1.6
+        lineHeight: 1.6,
     };
 
     const rail = {
         width: "100%",
         overflow: "hidden",
-        padding: "18px 0"
+        padding: "18px 0",
     };
 
     const track = {
         display: "flex",
         width: "max-content",
-        animation: "icareMarquee 150s linear infinite"
+        animation: "icareMarquee 150s linear infinite",
     };
 
     const group = {
         display: "flex",
         gap: 14,
-        paddingRight: 14
+        paddingRight: 14,
     };
 
     const card = {
@@ -73,7 +73,7 @@ export default function ICareNewCaregiversTickerSection() {
         gridTemplateColumns: "56px 1fr",
         gap: 14,
         alignItems: "center",
-        flex: "0 0 auto"
+        flex: "0 0 auto",
     };
 
     const avatarImg = {
@@ -81,7 +81,7 @@ export default function ICareNewCaregiversTickerSection() {
         height: 52,
         borderRadius: 999,
         objectFit: "cover",
-        border: "1px solid rgba(15,23,42,0.12)"
+        border: "1px solid rgba(15,23,42,0.12)",
     };
 
     const people = [
@@ -90,7 +90,7 @@ export default function ICareNewCaregiversTickerSection() {
         { n: "Polico", age: 29, city: "Lisbon", joined: "Feb 2026", imgId: "v7Jja2ChN6s" },
         { n: "Paulina", age: 48, city: "Vienna", joined: "Feb 2026", imgId: "Xmy_E8diY4w" },
         { n: "Elena", age: 37, city: "Barcelona", joined: "Jan 2026", imgId: "c_GmwfHBDzk" },
-        { n: "Marta", age: 45, city: "Prague", joined: "Feb 2026", imgId: "iFgRcqHznqg" }
+        { n: "Marta", age: 45, city: "Prague", joined: "Feb 2026", imgId: "iFgRcqHznqg" },
     ];
 
     const base = [...people, ...people, ...people, ...people];
@@ -99,8 +99,9 @@ export default function ICareNewCaregiversTickerSection() {
         <section style={wrap}>
             <div style={container}>
                 <div style={header}>
-                    <h2 style={h2}>New people just joined ICare</h2>
-                    <p style={lead}>More people are joining ICare and completing their profiles.</p>
+                    <h2 style={h2}>New people on ICare</h2>
+                    <p style={lead}>People are joining ICare and setting up their profiles.</p>
+
                 </div>
 
                 {/* MARQUEE */}
@@ -115,7 +116,7 @@ export default function ICareNewCaregiversTickerSection() {
                                         style={avatarImg}
                                     />
                                     <div>
-                                        <strong>{x.n}</strong> · Age {x.age}
+                                        <strong>{x.n}</strong>
                                         <div>Joined {x.joined}</div>
                                     </div>
                                 </div>
@@ -127,17 +128,17 @@ export default function ICareNewCaregiversTickerSection() {
                 {/* VIEW ALL */}
                 <div style={{ marginTop: 12 }}>
                     <button
-                        onClick={() => setShowAll(v => !v)}
+                        onClick={() => setShowAll((v) => !v)}
                         style={{
                             background: "none",
                             border: "none",
                             padding: 0,
                             fontWeight: 600,
                             cursor: "pointer",
-                            color: TEXT
+                            color: TEXT,
                         }}
                     >
-                        {showAll ? "Show less people" : "View all people"}
+                        {showAll ? "Show fewer people" : "View all people"}
                     </button>
                 </div>
 
@@ -148,7 +149,7 @@ export default function ICareNewCaregiversTickerSection() {
                             marginTop: 24,
                             display: "grid",
                             gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-                            gap: 16
+                            gap: 16,
                         }}
                     >
                         {people.map((x, i) => (
@@ -159,7 +160,7 @@ export default function ICareNewCaregiversTickerSection() {
                                     style={avatarImg}
                                 />
                                 <div>
-                                    <strong>{x.n}</strong> · Age {x.age} · {x.city}
+                                    <strong>{x.n}</strong> · {x.city}
                                     <div>Joined {x.joined}</div>
                                 </div>
                             </div>
@@ -169,15 +170,15 @@ export default function ICareNewCaregiversTickerSection() {
             </div>
 
             <style>{`
-              @keyframes icareMarquee {
-                from { transform: translateX(0); }
-                to { transform: translateX(-50%); }
-              }
+        @keyframes icareMarquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
 
-              @media (prefers-reduced-motion: reduce) {
-                .icare-marquee { animation: none !important; }
-              }
-            `}</style>
+        @media (prefers-reduced-motion: reduce) {
+          .icare-marquee { animation: none !important; }
+        }
+      `}</style>
         </section>
     );
 }
