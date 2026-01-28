@@ -93,15 +93,8 @@ export default function ICareAppNavbar() {
             },
             { to: "/how-it-works", label: "How it works" },
             { to: "/who-we-are", label: "Who we are" },
-            { to: "/news-and-articles", label: "News and articles" },
-            {
-                id: "privacy",
-                label: "Privacy",
-                children: [
-                    { to: "/privacy", label: "Privacy policy" },
-                    { to: "/trust-and-safety", label: "Trust and safety" }
-                ]
-            }
+            { to: "/care-knowledge", label: "Care guidance" },
+            { to: "/trust-and-safety", label: "Trust and safety" }
         ],
         []
     );

@@ -19,13 +19,11 @@ export default function ICareFooter() {
         tradingAs: "ICare",
         location: "Cheltenham, United Kingdom",
         email: "customershelp@icare.com",
-        phone: "",
-        vat: "",
         socials: {
             instagram: "https://www.instagram.com/icare",
             linkedin: "https://www.linkedin.com/company/icare",
             facebook: "https://www.facebook.com/icare",
-            twitter: "https://twitter.com/icare", // lub https://x.com/icare
+            twitter: "https://x.com/icare",
         },
     };
 
@@ -72,7 +70,8 @@ export default function ICareFooter() {
                         </NavLink>
 
                         <p className={styles.tagline}>
-                            A transparent marketplace connecting families with independent caregivers <br />
+                            A transparent marketplace connecting families with independent caregivers
+                            <br />
                             without agency markups.
                         </p>
 
@@ -108,7 +107,6 @@ export default function ICareFooter() {
                                 <FontAwesomeIcon icon={faFacebook} style={iconStyle} />
                             </a>
 
-                            {/* X / Twitter */}
                             <a
                                 href={COMPANY.socials.twitter}
                                 target="_blank"
@@ -119,13 +117,11 @@ export default function ICareFooter() {
                                 <FontAwesomeIcon icon={faXTwitter} style={iconStyle} />
                             </a>
 
-                            {/* SHARE */}
                             <button
                                 type="button"
                                 onClick={handleShare}
                                 aria-label="Share ICare"
                                 className={styles.socialLink}
-                                style={{ background: "none", border: "none", padding: 0 }}
                             >
                                 <FontAwesomeIcon icon={faShareNodes} style={iconStyle} />
                             </button>
@@ -147,26 +143,21 @@ export default function ICareFooter() {
                                 <div className={styles.value}>{COMPANY.location}</div>
                             </div>
 
-                            <div className={styles.valueMuted}>
-                                Operated in the United Kingdom.
-                            </div>
+                            <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
                         </div>
                     </div>
 
-                    {/* LINKS */}
+                    {/* LINKS (bez legal tutaj) */}
                     <div className={styles.col}>
                         <div className={styles.heading}>Links</div>
 
                         <nav aria-label="Footer links" className={styles.links}>
                             <NavLink to="/" className={styles.navLink}>Home</NavLink>
                             <NavLink to="/how-it-works" className={styles.navLink}>How it works</NavLink>
-                            <NavLink to="/terms-of-service" className={styles.navLink}>Terms</NavLink>
-                            <NavLink to="/privacy" className={styles.navLink}>Privacy Policy</NavLink>
-                            <NavLink to="/cookies" className={styles.navLink}>Cookies</NavLink>
-                            <NavLink to="/contact-us" className={styles.navLink}>Contact Us</NavLink>
-                            <NavLink to="/trust-and-safety" className={styles.navLink}>
-                                Trust and safety
-                            </NavLink>
+                            <NavLink to="/who-we-are" className={styles.navLink}>Who we are</NavLink>
+                            <NavLink to="/care-knowledge" className={styles.navLink}>Care knowledge</NavLink>
+                            <NavLink to="/trust-and-safety" className={styles.navLink}>Trust & safety</NavLink>
+                            <NavLink to="/contact" className={styles.navLink}>Contact</NavLink>
                         </nav>
                     </div>
                 </div>
@@ -174,19 +165,22 @@ export default function ICareFooter() {
                 {/* DIVIDER */}
                 <div className={styles.divider} />
 
-                {/* BOTTOM BAR */}
+                {/* BOTTOM BAR (ELDER STYLE): legal left / copyright right */}
                 <div className={styles.bottomBar}>
-                    <div className={styles.copyright}>
-                        © {year} {COMPANY.brand}.<br />
-                        All rights reserved.
+                    <div className={styles.legalLinks} aria-label="Legal links">
+                        <NavLink to="/terms-of-service">Terms</NavLink>
+
+                        <NavLink to="/privacy">Privacy</NavLink>
+
+                        <NavLink to="/cookies">Cookies</NavLink>
                     </div>
 
-                    <div className={styles.disclaimer}>
-                        ICare is a marketplace that helps families and caregivers connect directly.<br />
-                        Caregivers work independently, and care arrangements are agreed<br />
-                        directly between families and caregivers (see <strong>Terms</strong>).
+                    <div className={styles.copyright}>
+                        © {year} {COMPANY.brand}. All rights reserved.
                     </div>
                 </div>
+
+
             </div>
         </footer>
     );

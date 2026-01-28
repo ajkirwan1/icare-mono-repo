@@ -5,7 +5,7 @@ import {
     faSliders,
     faWallet,
     faUsers,
-    faUserGroup, // optional: if not available in your version, fallback to faUsers
+    faUserGroup,
     faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,33 +18,35 @@ import {
 export default function CaregiverStepsWithProfileGuide() {
     const groupIcon = useMemo(() => faUserGroup || faUsers, []);
 
+    // ✅ Elder-like: shorter + factual + calm (no salesy lines)
     const highlights = [
-        { icon: faCircleCheck, t: "No fee", d: "Create your profile for free." },
-        { icon: faSliders, t: "Flexibility", d: "Choose hours, clients and rates." },
-        { icon: faWallet, t: "Keep more", d: "Agency-free, direct agreements." },
-        { icon: groupIcon, t: "Direct matching", d: "Families contact you directly." }
+        { icon: faCircleCheck, t: "Free to start", d: "Create a profile at no cost." },
+        { icon: faSliders, t: "Work your way", d: "Set hours, rates and preferences." },
+        { icon: faWallet, t: "Keep more", d: "No agency margins in the middle." },
+        { icon: groupIcon, t: "Direct contact", d: "Families reach out to you." }
     ];
 
+    // ✅ Elder-like steps: one short sentence each (process only)
     const steps = [
         {
-            t: "Tell us about yourself",
-            d: "Your skills, experience and availability help families understand who you are."
+            t: "Share your basics",
+            d: "Add experience, services and availability."
         },
         {
-            t: "Complete your checks",
-            d: "Upload your ID, references and documents safely. We're here to guide you."
+            t: "Add verification details",
+            d: "Upload ID and supporting documents."
         },
         {
-            t: "Start talking to families",
-            d: "Families reach out when your profile feels right. Ask questions, take your time."
+            t: "Connect with families",
+            d: "Chat privately to understand the situation."
         },
         {
-            t: "Agree the details together",
-            d: "You decide the hours, responsibilities and rate — openly and without pressure."
+            t: "Confirm the arrangement",
+            d: "Agree hours, tasks and rate in advance."
         },
         {
-            t: "Begin supporting someone",
-            d: "Your care makes a real difference. Update availability anytime."
+            t: "Start care and stay flexible",
+            d: "Begin support and update availability anytime."
         }
     ];
 
@@ -79,7 +81,6 @@ export default function CaregiverStepsWithProfileGuide() {
         boxShadow: "0 10px 26px rgba(15,23,42,0.10)"
     };
 
-
     const scrollToGreatProfile = () => {
         const el = document.getElementById("great-profile-section");
         if (!el) { return; }
@@ -90,7 +91,6 @@ export default function CaregiverStepsWithProfileGuide() {
 
         window.scrollTo({ top: y, behavior: "smooth" });
     };
-
 
     return (
         <section
@@ -119,7 +119,7 @@ export default function CaregiverStepsWithProfileGuide() {
                             lineHeight: 1.15
                         }}
                     >
-                        We guide you every step of the way
+                        A clearer way to organise care work
                     </h2>
 
                     <p
@@ -132,7 +132,7 @@ export default function CaregiverStepsWithProfileGuide() {
                             maxWidth: "70ch",
                         }}
                     >
-                        A simple way to take control of your care work and earnings.
+                        Build a profile, speak with families directly, and agree arrangements upfront.
                     </p>
                 </header>
 
@@ -174,10 +174,8 @@ export default function CaregiverStepsWithProfileGuide() {
                                 maxWidth: "66ch"
                             }}
                         >
-                            ICare is built for independent caregivers — not agencies. <br />
-                            You stay in control of your working life: speak directly with families,
-                            <br />
-                            agree the right support and work on terms that fit you.
+                            Made for independent caregivers - not agencies. <br />
+                            Manage your work directly with families, with clear terms and fewer complications.
                         </p>
 
                         <p
@@ -366,7 +364,7 @@ export default function CaregiverStepsWithProfileGuide() {
                             letterSpacing: ".01em"
                         }}
                     >
-                        Join as a caregiver
+                        Create your caregiver profile
                     </a>
                 </div>
             </div>

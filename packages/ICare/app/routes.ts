@@ -13,9 +13,9 @@ export default [
   route("contact-us", "routes/website/contact-us.jsx"),
 
   // News and articles
-  route("news-and-articles", "routes/website/news-and-articles/news-and-articles.jsx"),
-  route("news-and-articles/:slug", "routes/website/news-and-articles/news-item.jsx"),
-  route("news-and-articles/tags/:tag", "routes/website/news-and-articles/news-tag.jsx"),
+  route("care-knowledge", "routes/website/news-and-articles/news-and-articles.jsx"),
+  route("care-knowledge/:slug", "routes/website/news-and-articles/news-item.jsx"),
+  route("care-knowledge/tags/:tag", "routes/website/news-and-articles/news-tag.jsx"),
   route("newsletter/confirmed", "routes/website/news-and-articles/newsletter-confirmed.jsx"),
   route("newsletter/invalid", "routes/website/news-and-articles/newsletter-invalid.jsx"),
   route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
@@ -35,6 +35,7 @@ export default [
   // Action routes
   route("register-interest", "routes/website/register-interest.jsx"),
   route("newsletter/subscribe", "routes/website/actions/newsletter.subscribe.jsx"),
+  route("waitinglist", "routes/website/actions/waitinglist.jsx"),
 
 
   // ICare App routes

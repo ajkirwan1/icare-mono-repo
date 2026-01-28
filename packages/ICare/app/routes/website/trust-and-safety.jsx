@@ -1,3 +1,4 @@
+import React from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 
@@ -7,6 +8,7 @@ const styles = {
         margin: "0 auto",
         padding: "4rem 1rem",
         paddingTop: "calc(var(--navbar-height) + 5vh)",
+        paddingBottom: "7rem", // ✅ więcej oddechu przed footerem
         display: "grid",
         gap: "3.8rem",
         color: "#0F172A",
@@ -24,12 +26,22 @@ const styles = {
         maxWidth: "92ch",
     },
 
+    separator: {
+        height: "1px",
+        background: "rgba(15,23,42,0.10)",
+        width: "100%",
+        maxWidth: "92ch",
+        margin: "0.2rem 0 0.2rem",
+    },
+
     h1: {
         margin: 0,
         lineHeight: 1.08,
         letterSpacing: "-0.02em",
         color: "#0F172A",
         fontSize: "2.4rem",
+        fontWeight: 500,
+
     },
 
     h2: {
@@ -99,6 +111,14 @@ const styles = {
         marginTop: "0.45rem",
         boxSizing: "border-box",
     },
+
+    // ✅ subtle inline link (elder-like)
+    inlineLink: {
+        color: "#0F172A",
+        textDecoration: "none",
+        borderBottom: "1px solid rgba(15,23,42,0.22)",
+        paddingBottom: "1px",
+    },
 };
 
 function TickItem({ children }) {
@@ -133,6 +153,8 @@ export default function TrustAndSafetyPage() {
                     </p>
                 </header>
 
+                <div style={styles.separator} />
+
                 {/* OUR PROMISE */}
                 <section style={styles.section}>
                     <h2 style={styles.h2}>Our Promise to You</h2>
@@ -140,8 +162,8 @@ export default function TrustAndSafetyPage() {
                     <p style={styles.p}>
                         ICare is a marketplace, not a care provider. We do not employ caregivers,
                         arrange care on your behalf, or deliver care services directly. Instead,
-                        we focus on creating a safe, transparent environment where individuals can
-                        connect, communicate, and decide what works best for their needs.
+                        we focus on providing a clear environment where individuals can connect,
+                        communicate, and decide what works best for their needs.
                     </p>
 
                     <div style={styles.spacer} />
@@ -170,6 +192,8 @@ export default function TrustAndSafetyPage() {
                     </p>
                 </section>
 
+                <div style={styles.separator} />
+
                 {/* CAREGIVER PROFILES */}
                 <section style={styles.section}>
                     <h2 style={styles.h2}>Caregiver Profiles</h2>
@@ -197,7 +221,15 @@ export default function TrustAndSafetyPage() {
                         encouraged to request interviews, references, and relevant documentation
                         where appropriate.
                     </p>
+
+                    {/* ✅ Elder-like protection line */}
+                    <p style={styles.p}>
+                        Information shown on profiles is provided by users and should be considered
+                        informational only.
+                    </p>
                 </section>
+
+                <div style={styles.separator} />
 
                 {/* VERIFICATION */}
                 <section style={styles.section}>
@@ -206,7 +238,7 @@ export default function TrustAndSafetyPage() {
                     <p style={styles.p}>
                         ICare provides safeguards designed to encourage transparency and respectful
                         behaviour. These include secure on-platform messaging, profile prompts that
-                        support clear information, and tools to block or report users.
+                        support clearer information, and tools to block or report users.
                     </p>
 
                     <div style={styles.spacer} />
@@ -220,11 +252,14 @@ export default function TrustAndSafetyPage() {
 
                     <div style={styles.spacer} />
 
+                    {/* ✅ slightly safer wording */}
                     <p style={styles.p}>
-                        Platform safeguards help reduce risk, but they cannot guarantee outcomes or
-                        replace careful decision-making by users.
+                        Platform safeguards are designed to support safer interactions, but they
+                        cannot guarantee outcomes or replace personal judgment.
                     </p>
                 </section>
+
+                <div style={styles.separator} />
 
                 {/* STAYING SAFE */}
                 <section style={styles.section}>
@@ -233,6 +268,11 @@ export default function TrustAndSafetyPage() {
                     <p style={styles.p}>
                         Small steps can make a big difference. Below are practical recommendations
                         commonly used across trusted care marketplaces.
+                    </p>
+
+                    {/* ✅ add short “not advice” line */}
+                    <p style={styles.p}>
+                        These are general recommendations only and may not be appropriate in every situation.
                     </p>
 
                     <div style={styles.spacer} />
@@ -257,6 +297,8 @@ export default function TrustAndSafetyPage() {
                         <TickItem>Trust your instincts if something feels unclear or unsafe.</TickItem>
                     </ul>
                 </section>
+
+                <div style={styles.separator} />
 
                 {/* REPORTING */}
                 <section style={styles.section}>
@@ -284,6 +326,8 @@ export default function TrustAndSafetyPage() {
                     </p>
                 </section>
 
+                <div style={styles.separator} />
+
                 {/* PRIVACY */}
                 <section style={styles.section}>
                     <h2 style={styles.h2}>Privacy and Data Protection</h2>
@@ -302,7 +346,18 @@ export default function TrustAndSafetyPage() {
                         what is necessary, use it to operate the platform and support safety, and
                         restrict access to authorised systems and staff.
                     </p>
+
+                    {/* ✅ link to Privacy */}
+                    <p style={styles.p}>
+                        For more details, please see our{" "}
+                        <a href="/privacy" style={styles.inlineLink}>
+                            Privacy Policy
+                        </a>
+                        .
+                    </p>
                 </section>
+
+                <div style={styles.separator} />
 
                 {/* DISCLAIMER */}
                 <section style={styles.section}>

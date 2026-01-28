@@ -23,7 +23,7 @@ export function OurFoundationSection() {
             <div
                 style={{
                     background: "#f1e2c9",
-                    padding: "4rem",
+                    padding: "3rem",
                     display: "flex",
                     justifyContent: "flex-end",
                     color: TEXT, // ✅
@@ -52,89 +52,66 @@ export function OurFoundationSection() {
                             fontWeight: 400,
                         }}
                     >
-                        Families navigate big decisions — choosing a trusted caregiver, managing costs,
-                        and organising daily life.<br /> Caregivers, in turn, deserve respect, fair pay, and tools
-                        that help them deliver safe, attentive support.
-                    </p>
+                        Care often begins with a simple intention - helping someone stay safe and comfortable at home.
 
-                    <h4
+                    </p>
+                    <p
                         style={{
                             fontSize: "1.22rem",
-                            fontWeight: 700,
-                            marginBottom: "1rem",
-                            // ❗ zostawiamy bez narzucania #0F172A (jak prosisz: oprócz tego nagłówka)
-                            // color: TEXT,
-                        }}
-                    >
-                        Families naturally ask:
-                    </h4>
-
-                    <ul
-                        style={{
-                            listStyle: "none",
-                            padding: 0,
-                            margin: 0,
-                            display: "grid",
-                            gap: "0.65rem",
+                            lineHeight: 1.65,
+                            marginBottom: "1.8rem",
                             color: TEXT, // ✅
+                            fontWeight: 400,
                         }}
                     >
-                        {[
-                            "Where do we start?",
-                            "Does this caregiver have the right experience?",
-                            "Will they be fairly paid?",
-                            "Is our information secure?",
-                        ].map((q) => (
-                            <li
-                                key={q}
-                                style={{
-                                    position: "relative",
-                                    paddingLeft: "1.1rem",
-                                    fontSize: "1.22rem",
-                                    lineHeight: 1.55,
-                                    color: TEXT, // ✅
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        position: "absolute",
-                                        left: 0,
-                                        top: ".6em",
-                                        width: "6px",
-                                        height: "6px",
-                                        borderRadius: "50%",
-                                        background: "#B97A57",
-                                    }}
-                                />
-                                {q}
-                            </li>
-                        ))}
-                    </ul>
 
+                        In practice, families quickly face uncertainty: how to find the right person, how to organise support, and how to know what’s really happening day to day.
+                    </p>
                     <p
+
                         style={{
                             marginTop: "2rem",
                             fontSize: "1.22rem",
                             lineHeight: 1.6,
                             color: TEXT, // ✅
-                        }}
-                    >
-                        <strong>At ICare, we’ve lived this journey.</strong>{" "}<br />
-                        That’s why we built a platform centred on dignity, empathy, and trust — bringing peace
-                        of mind to families and recognition to caregivers.
+                        }}>
+
+
+                        ICare was shaped by first-hand experience of live-in care.
+                        We saw how difficult it can be to balance trust, responsibility and everyday life — both for families and for caregivers.
                     </p>
+
+                    <p
+
+                        style={{
+                            marginTop: "2rem",
+                            fontSize: "1.22rem",
+                            lineHeight: 1.6,
+                            color: TEXT, // ✅
+                        }}>
+
+
+                        That experience led us to build ICare: a platform that brings structure and clarity to care arrangements, while keeping relationships direct and respectful.
+                        Caregivers remain independent. Families gain confidence. Expectations stay clear from the start
+                    </p>
+
+
+
+
+
                 </div>
-            </div>
+            </div >
 
             {/* ================= RIGHT — OUR MISSION ================= */}
-            <div
+            < div
                 style={{
                     background: "#fff9ef",
-                    padding: "4rem",
+                    padding: "3rem",
                     display: "flex",
                     justifyContent: "flex-start",
                     color: TEXT, // ✅
-                }}
+                }
+                }
             >
                 <div style={{ maxWidth: "500px", color: TEXT }}>
                     <h2
@@ -158,9 +135,8 @@ export function OurFoundationSection() {
                             color: TEXT, // ✅
                         }}
                     >
-                        ICare grew from first-hand 24/7 live-in care experience across Europe.<br /> We combine
-                        healthcare and technology expertise to create a more compassionate, transparent and
-                        secure way to match families and caregivers.
+                        ICare grew from first-hand experience of live-in care across Europe.<br /><br />
+                        That experience showed how important clarity, trust and good communication are - for both families and caregivers.
                     </p>
 
                     <p
@@ -170,12 +146,11 @@ export function OurFoundationSection() {
                             color: TEXT, // ✅
                         }}
                     >
-                        Our mission is to reduce stress, increase clarity, and make every stage of the care
-                        journey feel more human — minimising friction, prioritising privacy, and keeping costs
-                        fair so great care can start sooner.
+                        Our focus is simple: reduce unnecessary stress, make arrangements clearer, and support care that feels respectful and well-organised from the start.
+                        <br /> By keeping communication direct, information secure and costs transparent, we help care begin on steady, confident terms.
                     </p>
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 }

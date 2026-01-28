@@ -1,7 +1,7 @@
 import { Router } from "express";
 import crypto from "crypto";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-import { sendConfirmationEmail } from "../services/send-confirmation-email.js";
+import { sendConfirmationEmail, sendWelcomeEmail } from "../services/send-emails.js";
 import { pool } from "../db.js";
 
 const router = Router();
@@ -88,6 +88,7 @@ router.post("/subscribe", newsletterSubscribeLimiter, async (req, res) => {
  * Confirms subscription, then redirects to frontend success page
  */
 router.get("/confirm", async (req, res) => {
+
   const token = String(req.query.token || "");
   if (!token) { return safeRedirect(res, "/newsletter/invalid"); }
 
@@ -107,17 +108,25 @@ router.get("/confirm", async (req, res) => {
 
     const { email, source } = pending.rows[0];
 
-    // Generate unsubscribe token (needed for unsubscribe links)
-    const unsubscribeToken = crypto.randomBytes(32).toString("hex");
+    // Check if subscriber already exists and has an unsubscribe_token
+    const existing = await client.query(
+      "SELECT unsubscribe_token FROM newsletter_subscribers WHERE email=$1",
+      [email]
+    );
 
-    // Insert subscriber (or re-activate if previously unsubscribed)
+    const unsubscribeToken =
+      existing.rowCount && existing.rows[0].unsubscribe_token
+        ? existing.rows[0].unsubscribe_token
+        : crypto.randomBytes(32).toString("hex");
+
+    // Upsert subscriber, keep unsubscribe_token stable if it exists
     await client.query(
       `
       INSERT INTO newsletter_subscribers (email, source, unsubscribe_token, unsubscribed_at)
       VALUES ($1, $2, $3, NULL)
       ON CONFLICT (email) DO UPDATE
-      SET unsubscribed_at = NULL,
-          source = COALESCE(EXCLUDED.source, newsletter_subscribers.source),
+      SET source = EXCLUDED.source,
+          unsubscribed_at = NULL,
           unsubscribe_token = COALESCE(newsletter_subscribers.unsubscribe_token, EXCLUDED.unsubscribe_token)
       `,
       [email, source || null, unsubscribeToken]
@@ -126,6 +135,25 @@ router.get("/confirm", async (req, res) => {
     await client.query("DELETE FROM newsletter_pending WHERE email=$1", [email]);
 
     await client.query("COMMIT");
+
+    // Build unsubscribe URL for emails (API route)
+    const apiBase = getPublicApiBaseUrl(req);
+    const unsubscribeUrl = `${apiBase}/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
+
+    console.log("[newsletter] confirm: about to send welcome", {
+      email,
+      unsubscribeUrl,
+      pid: process.pid
+    });
+
+    try {
+      const r = await sendWelcomeEmail(email, { unsubscribeUrl });
+      console.log("[newsletter] confirm: welcome email sent", r?.data || r);
+    } catch (e) {
+      console.error("[newsletter] confirm: welcome email FAILED", e);
+      // IMPORTANT: show failure instead of redirecting silently
+      return res.status(500).send("Welcome email failed. Check server logs.");
+    }
 
     return safeRedirect(res, "/newsletter/confirmed");
   } catch (err) {

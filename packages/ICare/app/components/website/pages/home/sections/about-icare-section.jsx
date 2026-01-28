@@ -29,24 +29,16 @@ export default function AboutICareSection() {
                 />
                 <div>
                     <h2 className={styles.title}>
-                        ICare idea explained
+                        Care shaped by real needs
                     </h2>
 
-                    <p className={styles.subtitle}>
-                        Families face big decisions when arranging care — choosing a trusted caregiver,
-                        managing costs, and organising everyday life. Caregivers, in turn, deserve respect,
-                        fair pay, and tools that help them deliver safe, attentive support.
+                    <p className={styles.subtitle} style={{ maxWidth: "480px" }}>
+                        Care arrangements shape everyday life - <br />routines, comfort and peace of mind.<br />
+                        ICare brings families and caregivers together in one place, with direct communication,
+                        clear expectations and fair, transparent costs.
                     </p>
-                    <p className={styles.subtitle}>
-                        ICare grew from first-hand 24/7 live-in care experience across Europe.
-                        We built this platform around dignity, empathy, and trust — bringing peace of mind
-                        to families and recognition to caregivers.
-                    </p>
-                    <p className={styles.subtitle}>
-                        We combine healthcare insight with technology to reduce stress and increase clarity at every step.
-                        Privacy is prioritised, communication is simpler, and costs stay fair — so great care can start sooner.
-                    </p>
-                    <div style={{ marginTop: "2vh" }}>
+
+                    <div style={{ marginTop: "3vh" }}>
                         <NavigationButton to="/who-we-are">Who we are</NavigationButton>
                     </div>
                 </div>
