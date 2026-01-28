@@ -1,0 +1,141 @@
+/* waitinglist-form.module.scss */
+
+.form {
+  margin-top: clamp(16px, 2.4vw, 22px);
+  display: grid;
+  gap: 12px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 620px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.label {
+  font-weight: 700;
+  color: #0F172A;
+  font-size: 1rem;
+  letter-spacing: -0.1px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.field {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 14px;
+  padding: 11px 12px;
+  background: #fff;
+  font-size: 1rem;
+  color: #0F172A;
+  outline: none;
+}
+
+.field:focus {
+  border-color: rgba(231, 153, 97, 0.55);
+  box-shadow: 0 0 0 4px rgba(231, 153, 97, 0.16);
+}
+
+.btnWrap {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.submitBtn {
+  border: none;
+  border-radius: 36px;
+  background: rgb(231 153 97);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.02rem;
+  padding: 15px 14px;
+  cursor: pointer;
+  width: min(221px, 86vw);
+  transition: filter .14s ease, background .14s ease;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.note {
+  margin: 0;
+  font-size: 1rem;
+  color: #0F172A;
+  line-height: 1.55;
+  font-weight: 650;
+  text-align: center;
+  max-width: 66ch;
+}
+
+.errorText {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: #0F172A;
+}
+
+/* Radios */
+
+.radioRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.radioInput {
+  accent-color: rgb(231 153 97);
+}
+
+/* Checkboxes */
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.checkboxInput {
+  accent-color: rgb(231 153 97);
+}
+
+/* Honeypot */
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Screen-reader only */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
