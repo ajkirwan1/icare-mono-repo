@@ -34,7 +34,7 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Direct home care between <br /> families and caregivers
+                                Direct home care without agency barriers
 
                             </h1>
 

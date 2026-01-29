@@ -1,4 +1,4 @@
-import heroImage from "/images/heros/icare-hero-new.jpg";
+import heroImage from "/images/heros/heromen2.png";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";

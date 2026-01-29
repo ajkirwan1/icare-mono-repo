@@ -34,6 +34,8 @@
     transform: scale(1.05);
     transition: $transition-fast;
     z-index: 0;
+    filter: brightness(0.8);
+    object-position: center 40%;
 }
 
 .overlay {
