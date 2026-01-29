@@ -164,19 +164,19 @@ export default function HowItWorksThreeSteps() {
         {
             n: "1",
             icon: faMagnifyingGlass,
-            t: "Browse and compare carers",
+            t: "1.Browse and compare carers",
             d: "See clear profiles, availability and support - so you can shortlist with confidence.",
         },
         {
             n: "2",
             icon: faComments,
-            t: "Message and agree the details",
+            t: "2.Message and agree the details",
             d: "Talk directly and confirm tasks, hours, start date and expectations - in one place.",
         },
         {
             n: "3",
             icon: faCircleCheck,
-            t: "Start care with clarity",
+            t: "3.Start care with clarity",
             d: "Begin support knowing what’s agreed. No agency pressure - just a clear arrangement.",
         },
     ];

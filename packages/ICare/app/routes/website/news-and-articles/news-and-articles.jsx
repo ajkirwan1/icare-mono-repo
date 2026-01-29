@@ -22,9 +22,12 @@ export async function loader({ request }) {
     const limit = 6;
     const offset = (page - 1) * limit;
 
-
     const { getNewsListPaged, getTagCounts, getNewsCount } = await import("../../../lib/news.server");
-    const [posts, tagCounts, total] = await Promise.all([getNewsListPaged({ offset, limit }), getTagCounts(), getNewsCount()]);
+    const [posts, tagCounts, total] = await Promise.all([
+        getNewsListPaged({ offset, limit }),
+        getTagCounts(),
+        getNewsCount()
+    ]);
 
     const totalPages = Math.max(1, Math.ceil(total / limit));
 
@@ -43,54 +46,45 @@ export default function NewsAndArticlesPage() {
                     <div className={classes.pageHeaderMain}>
                         <h1>Care guidance</h1>
                         <p className={classes.intro}>
-                            Practical information, clear explanations and real-world context to help you understand care options, responsibilities and everyday decisions — from early questions to ongoing support at home.
+                            Stay informed with clear, up-to-date guidance on home care in the UK.<br />
+                            Care guidance brings together practical explanations, evolving standards and real-world context to support everyday care decisions from early questions to ongoing support at home.
+
                         </p>
                     </div>
+
                     {tagCounts?.length > 0 && (
-                        <aside className={classes.pageHeaderAside} aria-label="Search and browse by tags">
+                        <aside className={classes.pageHeaderAside}>
                             <div className={classes.tagFlexContainer}>
                                 <h2 className={classes.asideTitle}>Search by tags</h2>
-                                <nav aria-label="Search by tags">
-                                    <div className={classes.tagsCarouselWrap}>
-                                        <ul
-                                            id="tags-carousel"
-                                            className={classes.tagsBar}
-                                            role="list"
-                                        >
-                                            {tagCounts.slice(0, 20).map(({ tag, count }) => (
-                                                <li key={tag} className={classes.tagsCarouselItem}>
-                                                    <Tag
-                                                        label={`${tag} (${count})`}
-                                                        to={`/care-knowledge/tags/${tag}`}
-                                                    />
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                <nav>
+                                    <ul className={classes.tagsBar}>
+                                        {tagCounts.slice(0, 20).map(({ tag, count }) => (
+                                            <li key={tag}>
+                                                <Tag
+                                                    label={`${tag} (${count})`}
+                                                    to={`/care-knowledge/tags/${tag}`}
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </nav>
                             </div>
                         </aside>
                     )}
                 </header>
+
                 <p className={classes.totalCount}>
-                    Showing {(page - 1) * 2 + 1} –
-                    {Math.min(page * 2, total)} of {total} articles
+                    Showing {(page - 1) * 2 + 1} – {Math.min(page * 2, total)} of {total} articles
                 </p>
-                <section style={{ display: "flex", gap: "2vw" }}>
-                    <ul className={classes.grid} style={{ flex: "5" }}>
+
+                <section>
+                    <ul className={classes.grid}>
                         {posts.map((p) => (
                             <li key={p._id} className={classes.newsCard}>
-                                <NavLink
-                                    to={`/care-knowledge/${p.slug}`}
-                                    className={classes.cardLink}
-                                >
+                                <NavLink to={`/care-knowledge/${p.slug}`} className={classes.cardLink}>
                                     {p.heroImage && (
                                         <img
-                                            src={urlFor(p.heroImage)
-                                                .width(600)
-                                                .height(360)
-                                                .fit("crop")
-                                                .url()}
+                                            src={urlFor(p.heroImage).width(600).height(360).fit("crop").url()}
                                             alt={p.heroImage?.alt || p.title}
                                             className={classes.heroImage}
                                         />
@@ -98,64 +92,43 @@ export default function NewsAndArticlesPage() {
 
                                     <div className={classes.cardContent}>
                                         <div className={classes.titleRow}>
-                                            <h2 className={classes.title}>{p.title}</h2>
-                                            <small className={classes.date}>
-                                                {formatDate(p.publishedAt)}
-                                            </small>
+                                            <h2>{p.title}</h2>
+                                            <small>{formatDate(p.publishedAt)}</small>
                                         </div>
 
-                                        {p.subtitle && (
-                                            <p style={{ display: "none" }} className={classes.subtitle}>{p.subtitle}</p>
-                                        )}
-
-                                        {p.excerpt && (
-                                            <p className={classes.excerpt}>{p.excerpt}</p>
-                                        )}
-
-                                        <div style={{ display: "none" }} className={classes.tags}>
-                                            {p.tags.map((tag) => (
-                                                <>
-                                                    <Tag
-                                                        label={tag}
-                                                        to={`/care-knowledge/tags/${tag}`}
-                                                    />
-                                                </>
-
-                                            ))}
-                                        </div>
-
+                                        {p.excerpt && <p className={classes.excerpt}>{p.excerpt}</p>}
                                     </div>
                                 </NavLink>
                             </li>
                         ))}
                     </ul>
                 </section>
-                <EngagementSection />
+
+                {/* ⬇⬇⬇ COMPACT ENGAGEMENT ⬇⬇⬇ */}
+                <div className={classes.engagementCompact}>
+                    <EngagementSection />
+                </div>
+
                 <div className={classes.pagination}>
                     <NavLink
                         to={`/care-knowledge?page=${page - 1}`}
                         className={`${classes.pageBtn} ${page <= 1 ? classes.disabled : ""}`}
-                        aria-disabled={page <= 1}
-                        tabIndex={page <= 1 ? -1 : 0}
                     >
                         ← Previous
                     </NavLink>
-                    <span className={classes.pageInfo}>
-                        Page {page} of {totalPages}
-                    </span>
+
+                    <span>Page {page} of {totalPages}</span>
+
                     <NavLink
                         to={`/care-knowledge?page=${page + 1}`}
                         className={`${classes.pageBtn} ${page >= totalPages ? classes.disabled : ""}`}
-                        aria-disabled={page >= totalPages}
-                        tabIndex={page >= totalPages ? -1 : 0}
                     >
                         Next →
                     </NavLink>
                 </div>
             </main>
+
             <ICareFooter />
         </div>
     );
 }
-
-

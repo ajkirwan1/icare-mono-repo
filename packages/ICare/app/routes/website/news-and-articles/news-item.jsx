@@ -225,25 +225,27 @@ export default function NewsPostPage() {
 
                     </header>
 
-                    {post.excerpt && (
-                        <p className={classes.excerpt}>{post.excerpt}</p>
-                    )}
-                    {Array.isArray(post.tags) && post.tags.length > 0 && (
-                        <div className={classes.tags}>
-                            {post.tags.map((t) => (
-                                <Tag key={t} label={t}>
-                                    {t}
-                                </Tag>
-                            ))}
-                        </div>
-                    )}
-                    <hr className={classes.divider} />
-                    {post.body && (
-                        <PortableText
-                            value={post.body}
-                            components={portableTextComponents}
-                        />
-                    )}
+                    <div className={classes.articleContent} style={{ maxWidth: "800px", margin: "0 auto" }}>
+                        {post.excerpt && (
+                            <p className={classes.excerpt}>{post.excerpt}</p>
+                        )}
+                        {Array.isArray(post.tags) && post.tags.length > 0 && (
+                            <div className={classes.tags}>
+                                {post.tags.map((t) => (
+                                    <Tag key={t} label={t}>
+                                        {t}
+                                    </Tag>
+                                ))}
+                            </div>
+                        )}
+                        <hr className={classes.divider} />
+                        {post.body && (
+                            <PortableText
+                                value={post.body}
+                                components={portableTextComponents}
+                            />
+                        )}
+                    </div>
 
                     {related?.length > 0 && (
                         <section className={classes.related} aria-label="Related articles">

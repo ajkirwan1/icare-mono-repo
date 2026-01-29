@@ -14,10 +14,24 @@
 
 .article {
     display: block;
+    max-width: 1200px;
+}
+
+.article ul {
+    list-style: disc;
+    margin: 1rem 0;
+    padding-left: 1rem;
+}
+
+.article li {
+    line-height: 1.8;
+    font-size: 1.1rem;
 }
 
 .title {
     margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 2.2rem;
 }
 
 .subtitle {
@@ -55,7 +69,7 @@
 
 .ptParagraph {
     margin: 0 0 1.2rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: #333;
 }
