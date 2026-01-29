@@ -41,11 +41,9 @@ export default function NewsAndArticlesPage() {
             <main className={classes.page}>
                 <header className={classes.pageHeader}>
                     <div className={classes.pageHeaderMain}>
-                        <h1>News and articles</h1>
+                        <h1>Care guidance</h1>
                         <p className={classes.intro}>
-                            Updates, research and insights on aging, in-home care, workforce
-                            challenges, and the growing impact of care costs on families across
-                            the UK and Europe.
+                            Practical information, clear explanations and real-world context to help you understand care options, responsibilities and everyday decisions — from early questions to ongoing support at home.
                         </p>
                     </div>
                     {tagCounts?.length > 0 && (

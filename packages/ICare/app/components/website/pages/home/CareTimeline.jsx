@@ -20,7 +20,7 @@ export default function HowItWorksThreeSteps() {
 
     const wrap = {
         width: "100%",
-        background: "#f2eee6", // ✅ CHANGED: new background
+        background: "#f2f2f2", // ✅ CHANGED: new background
         fontFamily:
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
@@ -40,7 +40,7 @@ export default function HowItWorksThreeSteps() {
 
     const title = {
         margin: 0,
-        fontSize: "2.6rem",
+        fontSize: "2.4rem",
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
         fontWeight: 500,
@@ -64,10 +64,9 @@ export default function HowItWorksThreeSteps() {
     };
 
     const card = {
-
         borderRadius: 18,
-
         padding: "clamp(18px, 2.4vw, 26px)",
+        background: "rgba(255, 255, 255, 0.86)",
         display: "grid",
         gap: 12,
 
@@ -104,18 +103,17 @@ export default function HowItWorksThreeSteps() {
 
     const h3 = {
         margin: 0,
-        fontWeight: 600,
-        fontSize: "1.35rem",
-        letterSpacing: "-0.15px",
+        fontWeight: 700,
+        fontSize: "1.2rem",
         lineHeight: 1.25,
-        color: COLORS.text,
+        color: "rgb(167 87 27)"
     };
 
     const p = {
         margin: 0,
         color: COLORS.text,
         lineHeight: 1.65,
-        fontSize: "1.2rem",
+        fontSize: "1.1rem",
         fontWeight: 400,
     };
 
@@ -131,10 +129,10 @@ export default function HowItWorksThreeSteps() {
     const ctaText = {
         margin: 0,
         color: "#000",
-        fontWeight: 600,
+        fontWeight: 500,
         lineHeight: 1.6,
         fontSize: "1.4rem",
-        maxWidth: "68ch",
+        maxWidth: "80ch",
         textAlign: "center",
     };
 
@@ -145,11 +143,11 @@ export default function HowItWorksThreeSteps() {
         borderStyle: "solid",
         borderColor: COLORS.accent,
         backgroundColor: "rgb(221, 139, 79)",
-        fontWeight: 500,
+        fontWeight: 400,
         fontSize: "1.2rem",
-        padding: "14px 14px",
+        padding: "10px 12px",
         cursor: "pointer",
-        width: "min(260px, 88vw)",
+        width: "min(240px, 88vw)",
         alignSelf: "center",
         transition: "filter .14s ease, background .14s ease",
         marginTop: "1rem",
@@ -196,7 +194,7 @@ export default function HowItWorksThreeSteps() {
                 <div className="hiwGrid" style={grid}>
                     {steps.map((x) => (
                         <div key={x.t} className="hiwCard" style={card}>
-                            <h3 style={h3}>{x.n}. {x.t}</h3>
+                            <h3 style={h3}>{x.t}</h3>
                             <p style={p}>{x.d}</p>
                         </div>
                     ))}
@@ -204,7 +202,7 @@ export default function HowItWorksThreeSteps() {
 
                 <div style={ctaWrap}>
                     <p style={ctaText}>
-                        Want early access in your area? Join the waiting list - we’ll notify you when ICare opens near you.
+                        Want early access in your area?<br />Join the waiting list - we’ll notify you when ICare opens near you.
                     </p>
 
                     <a href="#waitlist" style={{ textDecoration: "none" }}>
