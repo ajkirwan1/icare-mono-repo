@@ -10,13 +10,13 @@ import navLinks from "./nav-links";
 
 // ---------- JSON Schema ----------
 export const schema = {
-  type: "object",
-  title: "Register",
-  properties: {
-    username: { type: "string", title: "Username", minLength: 4 },
-    password: { type: "string", title: "Password", minLength: 4 }
-  },
-  required: ["username", "password"]
+    type: "object",
+    title: "Register",
+    properties: {
+        username: { type: "string", title: "Username", minLength: 4 },
+        password: { type: "string", title: "Password", minLength: 4 }
+    },
+    required: ["username", "password"]
 };
 
 // ---------- UI Schema ----------
@@ -63,96 +63,96 @@ export const schema = {
 
 // ---------- Main Component ----------
 export default function HeroRegisterComponent({ imgSrc }) {
-  const [data, setData] = useState({ username: "", password: "" });
-  const [showErrors, setShowErrors] = useState(false);
+    const [data, setData] = useState({ username: "", password: "" });
+    const [showErrors, setShowErrors] = useState(false);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const valid = ajv.validate(schema, data);
-  //   if (!valid) {
-  //     setShowErrors(true);
-  //     console.warn("Validation errors:", ajv.errors);
-  //   } else {
-  //     console.log("Submitting:", data);
-  //     e.target.submit();
-  //   }
-  // };
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   const valid = ajv.validate(schema, data);
+    //   if (!valid) {
+    //     setShowErrors(true);
+    //     console.warn("Validation errors:", ajv.errors);
+    //   } else {
+    //     console.log("Submitting:", data);
+    //     e.target.submit();
+    //   }
+    // };
 
-  // ---------- Inline Styles ----------
-  const styles = {
+    // ---------- Inline Styles ----------
+    const styles = {
 
-    registerCard: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "1.75rem 1.5rem",
-      width: "100%",
-      maxWidth: "400px",
-      background: "rgba(255, 255, 255, 0.55)",
-      borderRadius: "22px",
-      boxShadow: "0 6px 20px rgba(0, 0, 0, 0.08)",
-      border: "1px solid rgba(255, 255, 255, 0.25)",
-      backdropFilter: "blur(10px)",
-      transition: "all 0.3s ease"
-    },
-    title: {
-      fontFamily: "Nunito, sans-serif",
-      fontWeight: 700,
-      color: "#375d4f",
-      fontSize: "1.7rem",
-      marginBottom: "1.1rem",
-      textAlign: "center"
-    },
-    form: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      gap: "0.8rem"
-    },
-    actions: {
-      display: "flex",
-      justifyContent: "center",
-      marginTop: "0.8rem"
-    },
-    button: {
-      backgroundColor: "rgba(123, 184, 159, 0.9)",
-      color: "white",
-      fontWeight: 600,
-      padding: "0.8rem 1.6rem",
-      borderRadius: "26px",
-      border: "none",
-      cursor: "pointer",
-      fontSize: "1rem",
+        registerCard: {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "1.75rem 1.5rem",
+            width: "100%",
+            maxWidth: "400px",
+            background: "rgba(255, 255, 255, 0.55)",
+            borderRadius: "22px",
+            boxShadow: "0 6px 20px rgba(0, 0, 0, 0.08)",
+            border: "1px solid rgba(255, 255, 255, 0.25)",
+            backdropFilter: "blur(10px)",
+            transition: "all 0.3s ease"
+        },
+        title: {
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 700,
+            color: "#375d4f",
+            fontSize: "1.7rem",
+            marginBottom: "1.1rem",
+            textAlign: "center"
+        },
+        form: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.8rem"
+        },
+        actions: {
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "0.8rem"
+        },
+        button: {
+            backgroundColor: "rgba(123, 184, 159, 0.9)",
+            color: "white",
+            fontWeight: 600,
+            padding: "0.8rem 1.6rem",
+            borderRadius: "26px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1rem",
 
-      transition: "all 0.25s ease"
-    },
-    helper: {
-      textAlign: "center",
-      color: "#4c7865",
-      fontSize: "0.9rem",
-      marginTop: "1rem",
-      lineHeight: 1.4,
-      maxWidth: "320px"
-    }
-  };
+            transition: "all 0.25s ease"
+        },
+        helper: {
+            textAlign: "center",
+            color: "#4c7865",
+            fontSize: "0.9rem",
+            marginTop: "1rem",
+            lineHeight: 1.4,
+            maxWidth: "320px"
+        }
+    };
 
-  return (
-    <IcareHeroNew imageSrc={imgSrc} slot="hero-content">
-      {/* Navigation links */}
-      {/* {navLinks.map((link) => (
+    return (
+        <IcareHeroNew imageSrc={imgSrc} slot="hero-content">
+            {/* Navigation links */}
+            {/* {navLinks.map((link) => (
         <li slot="nav-links" key={link.to}>
           <Link to={link.to}>{link.text}</Link>
         </li>
       ))} */}
 
-      {/* Main content */}
-      <span slot="header-content">
-        <div style={styles.root}>
-          <IcareCard variant="elevated">
-            <div slot="contents" style={styles.registerCard}>
-              <h1 style={styles.title}>Register</h1>
+            {/* Main content */}
+            <span slot="header-content">
+                <div style={styles.root}>
+                    <IcareCard variant="elevated">
+                        <div slot="contents" style={styles.registerCard}>
+                            <h1 style={styles.title}>Register</h1>
 
-              {/* <Form
+                            {/* <Form
                 id="registerForm"
                 method="post"
                 action="/register"
@@ -187,13 +187,13 @@ export default function HeroRegisterComponent({ imgSrc }) {
                 </div>
               </Form> */}
 
-              <p style={styles.helper}>
-                Sign up now to access our comprehensive care management tools and resources.
-              </p>
-            </div>
-          </IcareCard>
-        </div>
-      </span>
-    </IcareHeroNew>
-  );
+                            <p style={styles.helper}>
+                                Sign up now to access our comprehensive care management tools and resources.
+                            </p>
+                        </div>
+                    </IcareCard>
+                </div>
+            </span>
+        </IcareHeroNew>
+    );
 }

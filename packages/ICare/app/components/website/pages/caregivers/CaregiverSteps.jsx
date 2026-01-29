@@ -103,7 +103,7 @@ export default function CaregiverStepsWithProfileGuide() {
                 background: "#ecddd18c",
                 padding: "4.6rem 0 5.6rem",
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
             }}
         >
             <div style={{ width: "min(1200px, 92vw)", margin: "0 auto" }}>

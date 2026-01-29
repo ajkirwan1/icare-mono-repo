@@ -15,7 +15,7 @@ export function OurFoundationSection() {
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 color: TEXT, // ✅ default for whole section
             }}
         >

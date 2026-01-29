@@ -20,7 +20,7 @@ export function ContactCard() {
                     gap: "1.6rem",
                     textAlign: "left", // ← TEXT LEFT
                     fontFamily:
-                        "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                        "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 }}
             >
                 {/* HEADING */}

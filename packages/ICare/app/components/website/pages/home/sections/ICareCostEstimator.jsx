@@ -80,7 +80,7 @@ export default function ICareCostEstimator({
         padding: "clamp(3.2rem, 5vw, 4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
-        fontFamily: "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        fontFamily: "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         backgroundImage:
             "linear-gradient(160deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.7)), url('/images/banners/banner-image-1.jpg')",
         backgroundSize: "cover",

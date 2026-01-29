@@ -78,7 +78,7 @@ export default function WhatMakesAGreatProfile() {
         background: "#fff9ef",
         color: COLORS.text,
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         position: "relative",
     };
 

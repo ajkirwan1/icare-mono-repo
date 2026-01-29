@@ -17,7 +17,7 @@ export default function ICareNewCaregiversTickerSection() {
         color: TEXT,
         padding: "clamp(3.6rem, 5.6vw, 5rem) 0",
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {

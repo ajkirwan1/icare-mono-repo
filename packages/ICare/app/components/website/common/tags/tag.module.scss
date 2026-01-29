@@ -1,21 +1,22 @@
 @use "@styles/tokens" as t;
 
 .tag {
-  font-size: 14px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background-color: t.$link-bg;
-  color: t.$txt-white;
+    font-size: 14px;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background-color: t.$link-bg;
+    color: t.$txt-white;
+    font-weight: 500;
+    transition: 0.25s;
 }
 
 /* Only links get hover styles */
 .link {
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgb(150, 176, 84);
-    color: black;
+    text-decoration: none;
     cursor: pointer;
-  }
+
+    &:hover {
+        background-color: rgb(153, 182, 78);
+        cursor: pointer;
+    }
 }

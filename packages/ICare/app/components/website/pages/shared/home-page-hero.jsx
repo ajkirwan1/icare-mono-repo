@@ -41,8 +41,7 @@ export default function HomePageHero({ imgSrc }) {
 
 
 
-                            <p className={styles.homeLead}><b style={{ fontWeight: 500, fontSize: "1.6rem", display: "inline-block", marginBottom: "0.6rem" }}>A transparent way to arrange home <br />care directly and on your terms.</b><br />ICare helps families and independent caregivers <br />connect directly,
-                                with clear expectations,<br />open communication and transparent costs.</p>
+                            <p className={styles.homeLead}><b style={{ fontWeight: 500, fontSize: "1.4rem", display: "inline-block", marginBottom: "0.6rem" }}>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly <br />with families transparently and on your terms</p>
 
 
 

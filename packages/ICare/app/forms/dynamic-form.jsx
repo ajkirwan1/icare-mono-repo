@@ -158,7 +158,7 @@
 //         boxShadow: TOKENS.shadowMd,
 //         padding: "20px 24px",
 //         color: TOKENS.text,
-//         fontFamily: "Nunito, sans-serif",
+//         fontFamily: "Poppins, sans-serif",
 //         maxWidth: 600,
 //         margin: "0 auto"
 //       }}
