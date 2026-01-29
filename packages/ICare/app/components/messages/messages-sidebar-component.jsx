@@ -35,7 +35,7 @@ export default function MessagesSidebar({ threads }) {
             backdropFilter: "blur(10px)",
             overflowY: "auto",
             transition: "all 0.3s ease",
-            fontFamily: "Nunito, sans-serif",
+            fontFamily: "Poppins, sans-serif",
         },
         header: {
             fontWeight: 800,
@@ -92,7 +92,7 @@ export default function MessagesSidebar({ threads }) {
             background: "transparent",
             color: "#375d4f",
             paddingLeft: "1.8rem",
-            fontFamily: "Nunito, sans-serif",
+            fontFamily: "Poppins, sans-serif",
         },
         searchIcon: {
             position: "absolute",

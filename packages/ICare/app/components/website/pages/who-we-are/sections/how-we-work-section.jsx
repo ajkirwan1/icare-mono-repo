@@ -36,7 +36,7 @@ export function HowWeWorkSection() {
                 background: "#e8e7d7",
                 padding: "4rem 0",
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             {/* CONTENT WRAPPER */}

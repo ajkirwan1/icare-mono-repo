@@ -81,7 +81,7 @@ export default function HowICareWorksForCaregiversSystem() {
                 padding: "clamp(4rem, 7vw, 5rem) 0",
                 background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 color: COLORS.text,
                 position: "relative",
             }}

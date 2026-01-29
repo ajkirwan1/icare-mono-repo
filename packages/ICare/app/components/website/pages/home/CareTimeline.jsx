@@ -22,7 +22,7 @@ export default function HowItWorksThreeSteps() {
         width: "100%",
         background: "#f2eee6", // ✅ CHANGED: new background
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.2rem, 4.6vw, 4.2rem) 0",
     };
@@ -33,7 +33,7 @@ export default function HowItWorksThreeSteps() {
     };
 
     const header = {
-        maxWidth: "78ch",
+        maxWidth: "1000px",
         margin: "0 auto",
         textAlign: "center",
     };
@@ -53,7 +53,7 @@ export default function HowItWorksThreeSteps() {
         color: "#0f172a",
         fontSize: "1.4rem",
         lineHeight: 1.66,
-        fontWeight: 500,
+        fontWeight: 400,
     };
 
     const grid = {
@@ -83,11 +83,8 @@ export default function HowItWorksThreeSteps() {
     const stepPill = {
         display: "inline-flex",
         alignItems: "center",
-        fontSize: "1.6rem", // ✅ was 0.98rem (+20%)
-        fontWeight: 700,
-        color: "rgb(221, 139, 79)",
-
-
+        fontSize: "1.4rem", // ✅ was 0.98rem (+20%)
+        fontWeight: 400,
         paddingBottom: "0.45rem",
         whiteSpace: "nowrap",
     };
@@ -119,7 +116,7 @@ export default function HowItWorksThreeSteps() {
         color: COLORS.text,
         lineHeight: 1.65,
         fontSize: "1.2rem",
-        fontWeight: 500,
+        fontWeight: 400,
     };
 
     const ctaWrap = {
@@ -148,7 +145,7 @@ export default function HowItWorksThreeSteps() {
         borderStyle: "solid",
         borderColor: COLORS.accent,
         backgroundColor: "rgb(221, 139, 79)",
-        fontWeight: 700,
+        fontWeight: 500,
         fontSize: "1.2rem",
         padding: "14px 14px",
         cursor: "pointer",
@@ -167,19 +164,19 @@ export default function HowItWorksThreeSteps() {
 
     const steps = [
         {
-            n: "Step 1",
+            n: "1",
             icon: faMagnifyingGlass,
             t: "Browse and compare carers",
             d: "See clear profiles, availability and support - so you can shortlist with confidence.",
         },
         {
-            n: "Step 2",
+            n: "2",
             icon: faComments,
             t: "Message and agree the details",
             d: "Talk directly and confirm tasks, hours, start date and expectations - in one place.",
         },
         {
-            n: "Step 3",
+            n: "3",
             icon: faCircleCheck,
             t: "Start care with clarity",
             d: "Begin support knowing what’s agreed. No agency pressure - just a clear arrangement.",
@@ -199,14 +196,7 @@ export default function HowItWorksThreeSteps() {
                 <div className="hiwGrid" style={grid}>
                     {steps.map((x) => (
                         <div key={x.t} className="hiwCard" style={card}>
-                            <div style={top}>
-                                <span style={stepPill}>{x.n}</span>
-                                <span style={iconWrap} aria-hidden="true">
-                                    <FontAwesomeIcon style={icon} icon={x.icon} />
-                                </span>
-                            </div>
-
-                            <h3 style={h3}>{x.t}</h3>
+                            <h3 style={h3}>{x.n}. {x.t}</h3>
                             <p style={p}>{x.d}</p>
                         </div>
                     ))}

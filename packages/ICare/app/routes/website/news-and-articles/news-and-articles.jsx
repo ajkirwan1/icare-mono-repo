@@ -107,14 +107,14 @@ export default function NewsAndArticlesPage() {
                                         </div>
 
                                         {p.subtitle && (
-                                            <p className={classes.subtitle}>{p.subtitle}</p>
+                                            <p style={{ display: "none" }} className={classes.subtitle}>{p.subtitle}</p>
                                         )}
 
                                         {p.excerpt && (
                                             <p className={classes.excerpt}>{p.excerpt}</p>
                                         )}
 
-                                        <div className={classes.tags}>
+                                        <div style={{ display: "none" }} className={classes.tags}>
                                             {p.tags.map((tag) => (
                                                 <>
                                                     <Tag
