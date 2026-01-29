@@ -1,5 +1,5 @@
 import LayoutSection from "../../common/layout/layout-section";
-import SplitMediaSection from "../../common/sections/split-image-section";
+import SplitMediaSection from "../../common/sections/SplitMediaSection";
 import styles from "./mobile-mockup-section.module.scss";
 
 const ITEMS = [
@@ -15,13 +15,23 @@ const ITEMS = [
 export default function MobileMockupSection() {
     return (
         <LayoutSection>
+
             <SplitMediaSection
-                ariaLabel="ICare app preview on iPhone"
-                imageSrc="images/web/icare-for-carereceivers/mockup-icare3.png"
-                imageAlt="ICare app preview on iPhone"
                 imageSide="right"
                 unstyledImage
+                media={[
+                    {
+                        type: "image",
+                        src: "images/web/icare-for-carereceivers/mockup-icare3.png",
+                        alt: "ICare app preview on iPhone",
+                    },
+                    {
+                        type: "video",
+                        src: "images/web/icare-for-carereceivers/split-screen-call.mp4",
+                    },
+                ]}
             >
+
                 {/* TITLE */}
                 <h2 className={styles.myicare}>
                     <span>My</span>
