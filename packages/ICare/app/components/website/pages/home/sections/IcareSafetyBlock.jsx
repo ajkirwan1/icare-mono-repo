@@ -62,7 +62,7 @@ export default function SafetyComesFirstThreeBoxes() {
         position: "relative",
         width: "100%",
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.1rem, 5vw, 4rem) 0",
         background: "rgba(236, 221, 209, 0.55)",

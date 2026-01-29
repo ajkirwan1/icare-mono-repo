@@ -41,11 +41,9 @@ export default function NewsAndArticlesPage() {
             <main className={classes.page}>
                 <header className={classes.pageHeader}>
                     <div className={classes.pageHeaderMain}>
-                        <h1>News and articles</h1>
+                        <h1>Care guidance</h1>
                         <p className={classes.intro}>
-                            Updates, research and insights on aging, in-home care, workforce
-                            challenges, and the growing impact of care costs on families across
-                            the UK and Europe.
+                            Practical information, clear explanations and real-world context to help you understand care options, responsibilities and everyday decisions — from early questions to ongoing support at home.
                         </p>
                     </div>
                     {tagCounts?.length > 0 && (
@@ -107,14 +105,14 @@ export default function NewsAndArticlesPage() {
                                         </div>
 
                                         {p.subtitle && (
-                                            <p className={classes.subtitle}>{p.subtitle}</p>
+                                            <p style={{ display: "none" }} className={classes.subtitle}>{p.subtitle}</p>
                                         )}
 
                                         {p.excerpt && (
                                             <p className={classes.excerpt}>{p.excerpt}</p>
                                         )}
 
-                                        <div className={classes.tags}>
+                                        <div style={{ display: "none" }} className={classes.tags}>
                                             {p.tags.map((tag) => (
                                                 <>
                                                     <Tag

@@ -33,7 +33,7 @@ export default function ThreeStepGuide() {
                 padding: "clamp(3.8rem, 6.2vw, 5.6rem) 0",
                 scrollMarginTop: "110px",
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div

@@ -2,51 +2,51 @@
 
 /* Layout */
 .page {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .main {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 4rem 1rem;
-  padding-top: calc(var(--navbar-height) + 5vh);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 1rem;
+    padding-top: calc(var(--navbar-height) + 5vh);
 }
 
 .article {
-  display: block;
+    display: block;
 }
 
 .title {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  margin-top: 0;
-  font-size: 1.1rem;
-  opacity: 0.85;
-  line-height: 1.6;
+    margin-top: 0;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    line-height: 1.6;
 }
 
 .date {
-  opacity: 0.7;
-  margin-top: 0.75rem;
+    opacity: 0.7;
+    margin-top: 0.75rem;
 }
 
 .heroImage {
-  width: 500px;
-  height: auto;
-  border-radius: 12px;
-  margin: 2rem 0;
-  object-fit: cover;
+    width: 500px;
+    height: auto;
+    border-radius: 12px;
+    margin: 2rem 0;
+    object-fit: cover;
 }
 
 .excerpt {
-  font-size: 1.1rem;
-  line-height: 1.7;
+    font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 .divider {
-  margin: 2rem 0;
+    margin: 2rem 0;
 }
 
 /* ===============================
@@ -54,34 +54,34 @@
 ================================ */
 
 .ptParagraph {
-  margin: 0 0 1.2rem;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #333;
+    margin: 0 0 1.2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
 }
 
 .ptH2 {
-  margin: 2.5rem 0 1rem;
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+    margin: 2.5rem 0 1rem;
+    font-size: clamp(1.6rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
 }
 
 .ptH3 {
-  margin: 2rem 0 0.75rem;
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  font-weight: 600;
-  line-height: 1.3;
+    margin: 2rem 0 0.75rem;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
 }
 
 /* Default embedded images */
 .ptImage {
-  width: 100%;
-  height: auto;
-  margin: 2rem 0;
-  border-radius: 14px;
-  object-fit: cover;
+    width: 100%;
+    height: auto;
+    margin: 2rem 0;
+    border-radius: 14px;
+    object-fit: cover;
 }
 
 /* ===============================
@@ -89,46 +89,46 @@
 ================================ */
 
 .ptCtaWrap {
-  margin: 3rem 0;
-  display: flex;
-  justify-content: center;
+    margin: 3rem 0;
+    display: flex;
+    justify-content: center;
 }
 
 .ptCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1.6rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease,
-    box-shadow 0.2s ease;
-  cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease,
+        box-shadow 0.2s ease;
+    cursor: pointer;
 }
 
 .ptCtaPrimary {
-  background: #111;
-  color: #fff;
+    background: #111;
+    color: #fff;
 
-  &:hover {
-    background: #000;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  }
+    &:hover {
+        background: #000;
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
 }
 
 .ptCtaSecondary {
-  background: transparent;
-  color: #111;
-  border: 2px solid #111;
+    background: transparent;
+    color: #111;
+    border: 2px solid #111;
 
-  &:hover {
-    background: #111;
-    color: #fff;
-    transform: translateY(-1px);
-  }
+    &:hover {
+        background: #111;
+        color: #fff;
+        transform: translateY(-1px);
+    }
 }
 
 /* ===============================
@@ -136,66 +136,66 @@
 ================================ */
 
 .ptInlineImage {
-  margin: 2rem auto;
+    margin: 2rem auto;
 }
 
 .ptInlineImageImg {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .ptInlineImageCaption {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  color: #666;
-  text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
 }
 
 /* Alignment options */
 .ptInlineImageFull {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .ptInlineImageWide {
-  max-width: 900px;
+    max-width: 900px;
 }
 
 .ptInlineImageCenter {
-  max-width: 700px;
+    max-width: 700px;
 }
 
 /* Text wrap options */
 .ptInlineImageLeft {
-  max-width: 45%;
-  float: left;
-  margin: 0.5rem 1.5rem 1rem 0;
+    max-width: 45%;
+    float: left;
+    margin: 0.5rem 1.5rem 1rem 0;
 }
 
 .ptInlineImageRight {
-  max-width: 45%;
-  float: right;
-  margin: 0.5rem 0 1rem 1.5rem;
+    max-width: 45%;
+    float: right;
+    margin: 0.5rem 0 1rem 1.5rem;
 }
 
 /* Clear float after figure so later blocks don't collide */
 .ptInlineImage::after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* Mobile: disable wrapping */
 @media (max-width: 768px) {
 
-  .ptInlineImageLeft,
-  .ptInlineImageRight {
-    float: none;
-    max-width: 100%;
-    margin: 1.5rem 0;
-  }
+    .ptInlineImageLeft,
+    .ptInlineImageRight {
+        float: none;
+        max-width: 100%;
+        margin: 1.5rem 0;
+    }
 }
 
 /* ===============================
@@ -203,18 +203,18 @@
 ================================ */
 
 .tags {
-  margin-top: 2.5rem;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .tag {
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid #eee;
-  opacity: 0.85;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #eee;
+    opacity: 0.85;
 }
 
 /* ===============================
@@ -222,183 +222,183 @@
 ================================ */
 
 .related {
-  margin-top: 3rem;
+    margin-top: 3rem;
 }
 
 .relatedHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .relatedTitle {
-  margin: 0;
+    margin: 0;
 }
 
 .carouselControls {
-  display: flex;
-  gap: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .carouselButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: rgb(119, 141, 67);
-  color: white;
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgb(119, 141, 67);
+    color: white;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
 
 
-  &:hover {
-    background-color: rgb(150, 176, 84);
-    color: black;
-  }
+    &:hover {
+        background-color: rgb(150, 176, 84);
+        color: black;
+    }
 }
 
 /* The scroller itself */
 .relatedCarousel {
-  /* “real carousel” feel: padding creates a nice peek + avoids edge clipping */
-  --gutter: 12px;
+    /* “real carousel” feel: padding creates a nice peek + avoids edge clipping */
+    --gutter: 12px;
 
-  list-style: none;
-  margin: 0;
-  padding: 0 var(--gutter) 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--gutter) 0.75rem;
 
-  display: flex;
-  /* switch to flex: more predictable than grid here */
-  gap: 1rem;
+    display: flex;
+    /* switch to flex: more predictable than grid here */
+    gap: 1rem;
 
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
 
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--gutter);
-  scroll-padding-right: var(--gutter);
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    scroll-padding-right: var(--gutter);
 
-  scrollbar-width: none;
+    scrollbar-width: none;
 
-  /* Firefox */
-  &::-webkit-scrollbar {
-    display: none;
-    /* Chrome/Safari */
-  }
+    /* Firefox */
+    &::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
 }
 
 .relatedSlide {
-  /* Stable slide width so it looks like cards in a track */
-  flex: 0 0 clamp(240px, 75vw, 320px);
-  scroll-snap-align: start;
-  min-width: 0;
+    /* Stable slide width so it looks like cards in a track */
+    flex: 0 0 clamp(240px, 75vw, 320px);
+    scroll-snap-align: start;
+    min-width: 0;
 }
 
 .relatedLink {
-  display: block;
-  text-decoration: none;
-  color: inherit;
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .relatedCard {
-  height: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
-  // transition: transform 0.18s ease, box-shadow 0.18s ease;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    // transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .relatedLink:hover .relatedCard {
-  // transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.09);
-  border-color: rgb(141, 96, 64);
+    // transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.09);
+    border-color: rgb(141, 96, 64);
 }
 
 .relatedImage {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
 
 .relatedBody {
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .relatedTitleRow {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
 }
 
 .relatedCardTitle {
-  color: rgb(141, 96, 64);
-  font-size: 1.05rem;
-  line-height: 1.25;
+    color: rgb(141, 96, 64);
+    font-size: 1.05rem;
+    line-height: 1.25;
 }
 
 .relatedDate {
-  opacity: 0.75;
+    opacity: 0.75;
 }
 
 .relatedExcerpt {
-  margin: 0;
-  opacity: 0.85;
-  line-height: 1.5;
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.5;
 
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .breadcrumbs {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .breadcrumbList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  font-size: 14px;
-  opacity: 0.8;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 14px;
+    opacity: 0.8;
 }
 
 .crumb {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgb(141, 96, 64);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgb(141, 96, 64);
 
-  a {
-    text-decoration: none;
-    color: inherit;
+    a {
+        text-decoration: none;
+        color: inherit;
 
-    &:hover {
-      text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
+        }
     }
-  }
 
-  &:not(:last-child)::after {
-    content: "›";
-    opacity: 0.6;
-  }
+    &:not(:last-child)::after {
+        content: "›";
+        opacity: 0.6;
+    }
 }
 
 
 /* On touch devices: hide arrows (swipe is better) */
 @media (hover: none) and (pointer: coarse) {
-  .carouselControls {
-    display: none;
-  }
+    .carouselControls {
+        display: none;
+    }
 }

@@ -46,41 +46,41 @@
 /* Headings */
 
 h1 {
-  font-size: t.$fs-2xl;
-  font-weight: t.$fw-extrabold;
-  line-height: t.$lh-tight;
-  letter-spacing: t.$tracking-tight;
-  color: t.$txt;
-  margin: 0 0 t.$space-24 0;
+    font-size: t.$fs-2xl;
+    font-weight: t.$fw-semibold;
+    line-height: t.$lh-tight;
+    letter-spacing: t.$tracking-tight;
+    color: t.$txt;
+    margin: 0 0 t.$space-24 0;
 }
 
 h2 {
-  font-size: t.$fs-lg; // ← this is where $fs-xl belongs
-  font-weight: t.$fw-semibold;
-  line-height: t.$lh-tight;
-  letter-spacing: t.$tracking-tight;
-  color: t.$txt;
-  margin: 0 0 t.$space-18 0;
+    font-size: t.$fs-lg; // ← this is where $fs-xl belongs
+    font-weight: t.$fw-semibold;
+    line-height: t.$lh-tight;
+    letter-spacing: t.$tracking-tight;
+    color: t.$txt;
+    margin: 0 0 t.$space-18 0;
 }
 
 h3 {
-  font-size: t.$fs-lg;
-  font-weight: t.$fw-bold;
-  line-height: t.$lh-tight;
-  letter-spacing: t.$tracking-tight-2;
-  margin: 0 0 t.$space-14 0;
+    font-size: t.$fs-lg;
+    font-weight: t.$fw-bold;
+    line-height: t.$lh-tight;
+    letter-spacing: t.$tracking-tight-2;
+    margin: 0 0 t.$space-14 0;
 }
 
 /* Body text */
 
 p {
-  font-size: t.$fs-base;
-  line-height: t.$lh-relaxed;
-  margin: 0 0 t.$space-14 0;
-  color: t.$txt;
+    font-size: t.$fs-11;
+    line-height: t.$lh-relaxed;
+    margin: 0 0 t.$space-14 0;
+    color: t.$txt;
 }
 
 small {
-  font-size: t.$fs-sm;
-  color: t.$muted;
+    font-size: t.$fs-sm;
+    color: t.$muted;
 }

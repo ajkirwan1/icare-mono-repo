@@ -9,9 +9,9 @@
     background: $link-bg;
     color: $on-dark;
 
-    font-weight: $fw-semibold;
+    font-weight: $fw-normal;
     letter-spacing: -0.2px;
-    font-size: clamp(1.2rem, 1.5vw, 1.2rem);
+    font-size: 1.2rem;
     text-decoration: none;
 
     display: inline-flex;
@@ -22,9 +22,9 @@
     transition: $transition-ui;
     box-shadow: $shadow-elev;
 
-    max-width: 180px;
+    max-width: 240px;
 
-    flex: 1 1 160px;
+    flex: 1 1 200px;
     white-space: nowrap;
 
     &:hover {

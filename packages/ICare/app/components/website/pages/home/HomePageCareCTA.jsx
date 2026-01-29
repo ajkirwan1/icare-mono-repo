@@ -31,7 +31,7 @@ export default function ICareTwoPathsSection({
         position: "relative",
         width: "100%",
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
         backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",

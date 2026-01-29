@@ -224,7 +224,7 @@ const styles = {
         padding: "30px 34px",
         boxShadow: "0 8px 22px rgba(0,0,0,0.05)",
         color: "#375d4f",
-        fontFamily: "Nunito, sans-serif",
+        fontFamily: "Poppins, sans-serif",
         maxWidth: 840,
         margin: "0 auto",
     },

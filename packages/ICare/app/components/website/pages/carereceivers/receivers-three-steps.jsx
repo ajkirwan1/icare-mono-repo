@@ -38,7 +38,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 background: "#fff9ef",
                 padding: "8rem 0",
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div

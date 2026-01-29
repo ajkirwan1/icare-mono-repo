@@ -41,7 +41,7 @@ export default function HomePageHero({ imgSrc }) {
 
 
 
-                            <p className={styles.homeLead}><b style={{ fontWeight: 500, fontSize: "1.6rem", display: "inline-block", marginBottom: "0.6rem" }}>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly <br />with families transparently and on your terms</p>
+                            <p className={styles.homeLead}><b style={{ fontWeight: 500, fontSize: "1.4rem", display: "inline-block", marginBottom: "0.6rem" }}>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly <br />with families transparently and on your terms</p>
 
 
 

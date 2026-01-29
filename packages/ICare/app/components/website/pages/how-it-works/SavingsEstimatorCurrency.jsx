@@ -281,7 +281,7 @@ export default function SavingsEstimatorCurrency() {
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 color: TEXT,
                 fontFamily:
-                    "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <style>{microCSS}</style>

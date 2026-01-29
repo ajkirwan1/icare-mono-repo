@@ -20,7 +20,7 @@ import {
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
-    const ICON = "#61674d";
+    const ICON = "#dd8b4f";
 
     // ✅ fade-in on scroll refs
     const careAtHomeRef = useRef(null);
@@ -53,7 +53,7 @@ export default function ICareTypesOfCareSEO() {
         color: TEXT,
         padding: "clamp(3rem, 5vw, 4rem) 0",
         fontFamily:
-            "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = {
