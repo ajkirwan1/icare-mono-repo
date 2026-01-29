@@ -125,8 +125,8 @@ export default function ICareTwoPathsSection({
 
     const title = {
         margin: 0,
-        fontWeight: 600,
-        fontSize: "1.8rem",
+        fontWeight: 500,
+        fontSize: "1.7rem",
         color: COLORS.text,
         lineHeight: 1.2
     };
@@ -136,7 +136,7 @@ export default function ICareTwoPathsSection({
         color: COLORS.textBlack,
         fontWeight: 400,
         lineHeight: 1.65,
-        fontSize: "1.2rem",
+        fontSize: "1.1rem",
         maxWidth: "56ch"
     };
 
@@ -155,7 +155,7 @@ export default function ICareTwoPathsSection({
         color: COLORS.textBlack,
         fontWeight: 400,
         lineHeight: 1.6,
-        fontSize: "1.2rem"
+        fontSize: "1.1rem"
     };
 
     const dot = {
@@ -182,9 +182,9 @@ export default function ICareTwoPathsSection({
         borderRadius: 36,
         background: "#dd8b4f",
         color: "#fff",
-        fontWeight: 600,
+        fontWeight: 500,
         fontSize: "1.1rem",
-        padding: "14px 14px",
+        padding: "12px 12px",
         cursor: "pointer",
         transition: "filter .14s ease",
         width: "min(240px, 80vw)"
@@ -195,9 +195,9 @@ export default function ICareTwoPathsSection({
         background: COLORS.btnCaregiver,
         border: "1px solid rgba(97,103,77,0.24)",
         color: COLORS.textWhite,
-        fontWeight: 600,
+        fontWeight: 500,
         fontSize: "1.1rem",
-        padding: "15px 1.6rem",
+        padding: "12px 1.2rem",
         cursor: "pointer",
         transition: "filter .14s ease",
         width: "min(220px, 88vw)"
