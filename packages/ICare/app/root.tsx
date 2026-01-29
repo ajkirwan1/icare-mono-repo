@@ -4,8 +4,9 @@ import {
     Meta,
     Outlet,
     Scripts,
-    ScrollRestoration
+    ScrollRestoration,
 } from "react-router";
+import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -29,6 +30,31 @@ export const links: Route.LinksFunction = () => [
     },
 ];
 
+// ✅ Tawk.to – PODSTAWIONY PROPERTY ID
+const TAWK_SRC = "https://embed.tawk.to/697b9440cdb3061c376b2814/1jg5bm7a3";
+
+function TawkChat() {
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        // nie ładuj drugi raz (HMR / refresh)
+        const exists = document.querySelector('script[src*="embed.tawk.to"]');
+        if (exists) return;
+
+        (window as any).Tawk_API = (window as any).Tawk_API || {};
+        (window as any).Tawk_LoadStart = new Date();
+
+        const script = document.createElement("script");
+        script.src = TAWK_SRC;
+        script.async = true;
+        script.charset = "UTF-8";
+        script.setAttribute("crossorigin", "*");
+
+        document.body.appendChild(script);
+    }, []);
+
+    return null;
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -38,16 +64,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <Meta />
                 <Links />
-                <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
-                <link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
-                <link rel="shortcut icon" href="/public/favicon.ico" />
-                <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
+
+                {/* public assets (bez /public w URL) */}
+                <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <link rel="shortcut icon" href="/favicon.ico" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
                 <meta name="apple-mobile-web-app-title" content="ICare" />
-                <link rel="manifest" href="/public/site.webmanifest" />
+                <link rel="manifest" href="/site.webmanifest" />
             </head>
+
             <body>
                 {children}
+
                 <ScrollRestoration />
+
+                {/* ✅ TAWK CHAT */}
+                <TawkChat />
+
                 <Scripts />
             </body>
         </html>
