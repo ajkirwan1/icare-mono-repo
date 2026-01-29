@@ -46,7 +46,9 @@ export default function NewsAndArticlesPage() {
                     <div className={classes.pageHeaderMain}>
                         <h1>Care guidance</h1>
                         <p className={classes.intro}>
-                            Practical information, clear explanations and real-world context to help you understand care options, responsibilities and everyday decisions — from early questions to ongoing support at home.
+                            Stay informed with clear, up-to-date guidance on home care in the UK.<br />
+                            Care guidance brings together practical explanations, evolving standards and real-world context to support everyday care decisions from early questions to ongoing support at home.
+
                         </p>
                     </div>
 
