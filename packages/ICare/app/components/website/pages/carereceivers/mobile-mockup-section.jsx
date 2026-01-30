@@ -27,7 +27,7 @@ export default function MobileMockupSection() {
                     },
                     {
                         type: "video",
-                        src: "images/web/icare-for-carereceivers/split-screen-call.mp4",
+                        src: "images/web/icare-for-carereceivers/video-call.mp4",
                     },
                 ]}
             >

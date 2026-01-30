@@ -61,7 +61,7 @@ export default function CompareAgencyVsICare() {
             id="compare"
             aria-label="Compare agency vs ICare"
             style={{
-                background: "#fff9ef",
+                background: "white",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 padding: "4rem"

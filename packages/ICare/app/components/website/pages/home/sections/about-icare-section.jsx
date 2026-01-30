@@ -45,7 +45,6 @@ export default function AboutICareSection() {
                         <Link
                             to="/care-knowledge"
                             style={{
-                                color: "#5a5656",
                                 textDecoration: "underline",
                                 textUnderlineOffset: "2px",
                                 fontWeight: 400,

@@ -28,7 +28,7 @@ export default function SplitMediaSection({
 
         timerRef.current = setTimeout(() => {
             setIndex((i) => (i + 1) % media.length);
-        }, 7000);
+        }, 8000);
     }, [clearTimer, media.length]);
 
     const goTo = (i) => {
