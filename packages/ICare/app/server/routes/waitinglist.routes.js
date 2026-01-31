@@ -1,84 +1,131 @@
 import { Router } from "express";
-import crypto from "crypto";
+// import crypto from "crypto";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-import { sendConfirmationEmail } from "../services/send-emails.js";
+// import { sendConfirmationEmail } from "../services/send-emails.js";
 import { pool } from "../db.js";
+import { WaitinglistSchema } from "../../utils/validation/schemas/waitinglist.schema.js";
 
 const router = Router();
-
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 
 /**
  * Helpers
  */
 function getPublicApiBaseUrl(req) {
-  // Prefer explicit env for production (recommended).
-  // Example: https://api.icare.com
   const envBase = process.env.PUBLIC_API_URL;
   if (envBase) { return envBase.replace(/\/$/, ""); }
-
-  // Fallback: derive from request (ok for dev)
   return `${req.protocol}://${req.get("host")}`;
 }
 
-// function safeRedirect(res, path) {
-//   // Redirect to your FRONTEND pages (Pattern A: API does work, frontend shows UX).
-//   // If frontend is on a different domain, set PUBLIC_SITE_URL.
-//   const site = (process.env.PUBLIC_SITE_URL || "").replace(/\/$/, "");
-//   if (site) { return res.redirect(`${site}${path}`); }
-//   return res.redirect(path);
-// }
+function zodErrorsToFieldErrors(zodError) {
+  const errors = {};
+  for (const issue of zodError.issues || []) {
+    const key = issue.path?.[0];
+    if (!key) { continue; }
+    if (!errors[key]) { errors[key] = issue.message; }
+  }
+  return errors;
+}
 
 /**
  * POST /api/waitinglist
- * Body: { email, source }
  */
 router.post("/", newsletterSubscribeLimiter, async (req, res) => {
-
   try {
-    const { email, source } = req.body || {};
-    const cleanEmail = String(email || "").trim().toLowerCase();
-    const cleanSource = String(source || "unknown").trim();
+    const raw = req.body || {};
 
-    if (!cleanEmail || !isValidEmail(cleanEmail)) {
-      return res
-        .status(400)
-        .json({ ok: false, error: "Please enter a valid email address." });
+    // Honeypot
+    if (raw.company) {
+      return res.json({ ok: true });
     }
 
-    // Already subscribed (and not unsubscribed)
-    const exists = await pool.query(
-      "SELECT 1 FROM newsletter_subscribers WHERE email=$1 AND unsubscribed_at IS NULL",
-      [cleanEmail]
-    );
-    if (exists.rowCount > 0) {
-      return res.json({ ok: true }); // don't leak
+    const parsed = WaitinglistSchema.safeParse(raw);
+    if (!parsed.success) {
+      return res.status(400).json({
+        ok: false,
+        error: "Please check the highlighted fields.",
+        errors: zodErrorsToFieldErrors(parsed.error)
+      });
     }
 
-    // Create/refresh pending token
-    const token = crypto.randomBytes(32).toString("hex");
+    const data = parsed.data;
 
     await pool.query(
       `
-      INSERT INTO newsletter_pending (email, token, source)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (email) DO UPDATE
-      SET token=$2, source=$3, created_at=now()
+      INSERT INTO waitinglist (
+        user_type,
+        first_name,
+        last_name,
+        email,
+        postcode,
+        care_for,
+        need_when,
+        type_of_care,
+        years_of_experience,
+        caregiver_role,
+        hours_per_week,
+        subscribe_newsletter
+      )
+      VALUES (
+        $1,$2,$3,$4,$5,
+        $6,$7,$8,
+        $9,$10,$11,
+        $12
+      )
+      ON CONFLICT (email_ci, user_type) DO UPDATE
+      SET
+        first_name = EXCLUDED.first_name,
+        last_name = EXCLUDED.last_name,
+        postcode = EXCLUDED.postcode,
+        care_for = EXCLUDED.care_for,
+        need_when = EXCLUDED.need_when,
+        type_of_care = EXCLUDED.type_of_care,
+        years_of_experience = EXCLUDED.years_of_experience,
+        caregiver_role = EXCLUDED.caregiver_role,
+        hours_per_week = EXCLUDED.hours_per_week,
+        subscribe_newsletter = EXCLUDED.subscribe_newsletter,
+        updated_at = now()
       `,
-      [cleanEmail, token, cleanSource]
+      [
+        data.userType,
+        data.firstName,
+        data.lastName,
+        data.email,
+        data.postcode,
+
+        data.userType === "receiver" ? data.careFor : null,
+        data.userType === "receiver" ? data.needWhen : null,
+        data.userType === "receiver" ? data.typeOfCare : null,
+
+        data.userType === "caregiver" ? data.yearsOfExperience : null,
+        data.userType === "caregiver" ? data.caregiverRole : null,
+        data.userType === "caregiver" ? data.hoursPerWeek : null,
+
+        data.subscribeNewsletter === "on"
+      ]
     );
 
-    // Pattern A: confirmation link hits the API
-    const apiBase = getPublicApiBaseUrl(req);
-    const confirmUrl = `${apiBase}/api/newsletter/confirm?token=${token}`;
+    // Newsletter opt-in (reuse existing flow)
+    // if (data.subscribeNewsletter === "on") {
+    //   const token = crypto.randomBytes(32).toString("hex");
 
-    await sendConfirmationEmail(cleanEmail, confirmUrl);
+    //   await pool.query(
+    //     `
+    //     INSERT INTO newsletter_pending (email, token, source)
+    //     VALUES ($1, $2, $3)
+    //     ON CONFLICT (email) DO UPDATE
+    //     SET token=$2, source=$3, created_at=now()
+    //     `,
+    //     [data.email, token, "waitinglist"]
+    //   );
+
+    //   const apiBase = getPublicApiBaseUrl(req);
+    //   const confirmUrl = `${apiBase}/api/newsletter/confirm?token=${token}`;
+    //   await sendConfirmationEmail(data.email, confirmUrl);
+    // }
 
     return res.json({ ok: true });
   } catch (err) {
-    console.error("Newsletter subscribe error:", err);
+    console.error("Waitinglist signup error:", err);
     return res.status(500).json({ ok: false, error: "Server error." });
   }
 });

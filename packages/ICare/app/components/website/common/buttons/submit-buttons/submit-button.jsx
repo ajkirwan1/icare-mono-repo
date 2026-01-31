@@ -16,10 +16,10 @@ import clsx from "clsx";
  * @param {SubmitButtonProps} props
  */
 export default function SubmitButton({ children, disabled, variant = "primary" }) {
-    return (
-        <button type='submit' className={clsx(styles.button, styles[variant])} disabled={disabled}>
-            {children}
+  return (
+    <button type='submit' className={clsx(styles.button, styles[variant])} disabled={disabled}>
+      {children}
 
-        </button>
-    );
+    </button>
+  );
 }

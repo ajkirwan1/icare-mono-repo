@@ -14,24 +14,34 @@ export async function action({ request }) {
 
   const raw = formDataToObject(formData);
 
-  // Optional: normalize before validation if you want consistent storage
+  // Honeypot: if filled, pretend success (or silently reject)
+  if (raw.company) {
+    return new Response(JSON.stringify({ ok: true }), {
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+
+  // Normalize email
   if (typeof raw.email === "string") { raw.email = raw.email.trim().toLowerCase(); }
 
   const { values, response } = parseWithZod(WaitinglistSchema, raw);
   if (response) { return response; }
 
-  // Convert for API / DB (since DB column is INTEGER)
-  const payload = {
-    ...values,
-    yearsOfExperience: Number(values.yearsOfExperience)
-  };
+  // Remove non-business fields before sending
+  const { _delay, company, ...payload } = values;
+
+  // OPTIONAL: if your API/DB wants numeric years, map enum -> number/range
+  // (Only for caregivers)
+  // if (payload.userType === "caregiver") {
+  //   payload.yearsOfExperience = mapYearsEnum(payload.yearsOfExperience);
+  // }
 
   const apiUrl = import.meta.env.VITE_API_URL;
   if (!apiUrl) {
-    return new Response(
-      JSON.stringify({ ok: false, error: "Server misconfigured." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ ok: false, error: "Server misconfigured." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
   }
 
   let resp;
@@ -42,10 +52,10 @@ export async function action({ request }) {
       body: JSON.stringify(payload)
     });
   } catch {
-    return new Response(
-      JSON.stringify({ ok: false, error: "Cannot reach server." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ ok: false, error: "Cannot reach server." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
   }
 
   if (!resp.ok) {
