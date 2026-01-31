@@ -29,9 +29,6 @@ CREATE TABLE IF NOT EXISTS waitinglist (
   )),
   hours_per_week TEXT NULL CHECK (hours_per_week IS NULL OR hours_per_week IN ('lt_10', '10_20', '20_35', '35_plus')),
 
-  -- Consent / preferences
-  subscribe_newsletter BOOLEAN NOT NULL DEFAULT FALSE,
-
   -- Timestamps
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),

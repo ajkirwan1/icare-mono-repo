@@ -14,14 +14,14 @@ export async function action({ request }) {
 
   const raw = formDataToObject(formData);
 
-  // Honeypot: if filled, pretend success (or silently reject)
+  // Honeypot: if filled, pretend success (don’t leak)
   if (raw.company) {
     return new Response(JSON.stringify({ ok: true }), {
       headers: { "Content-Type": "application/json" }
     });
   }
 
-  // Normalize email
+  // Normalize email before validation + sending
   if (typeof raw.email === "string") { raw.email = raw.email.trim().toLowerCase(); }
 
   const { values, response } = parseWithZod(WaitinglistSchema, raw);
@@ -29,12 +29,6 @@ export async function action({ request }) {
 
   // Remove non-business fields before sending
   const { _delay, company, ...payload } = values;
-
-  // OPTIONAL: if your API/DB wants numeric years, map enum -> number/range
-  // (Only for caregivers)
-  // if (payload.userType === "caregiver") {
-  //   payload.yearsOfExperience = mapYearsEnum(payload.yearsOfExperience);
-  // }
 
   const apiUrl = import.meta.env.VITE_API_URL;
   if (!apiUrl) {
@@ -58,19 +52,36 @@ export async function action({ request }) {
     });
   }
 
-  if (!resp.ok) {
-    let message = "Waitinglist signup failed.";
-    try {
-      const data = await resp.json();
-      message = data?.error || message;
-    } catch { }
-    return new Response(JSON.stringify({ ok: false, error: message }), {
-      status: resp.status,
-      headers: { "Content-Type": "application/json" }
-    });
+  // Try to parse JSON either way (so we can forward alreadyRegistered/message/errors)
+  let data = null;
+  try {
+    data = await resp.json();
+  } catch {
+    // ignore parse errors
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
-    headers: { "Content-Type": "application/json" }
-  });
+  if (!resp.ok) {
+    return new Response(
+      JSON.stringify({
+        ok: false,
+        error: data?.error || "Waitinglist signup failed.",
+        errors: data?.errors || undefined
+      }),
+      {
+        status: resp.status,
+        headers: { "Content-Type": "application/json" }
+      }
+    );
+  }
+
+  // ✅ Success: forward API semantics + ensure email is present for your modal/newsletter
+  return new Response(
+    JSON.stringify({
+      ok: true,
+      email: values.email, // always available client-side
+      alreadyRegistered: Boolean(data?.alreadyRegistered),
+      message: data?.message
+    }),
+    { headers: { "Content-Type": "application/json" } }
+  );
 }

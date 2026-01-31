@@ -52,7 +52,7 @@ export const WaitinglistSchema = z.discriminatedUnion("userType", [
     agreeTerms: z.literal("on", {
       errorMap: () => ({ message: "You must agree to the terms and conditions" })
     }),
-    subscribeNewsletter: z.enum(["on"]).optional(),
+    // subscribeNewsletter: z.enum(["on"]).optional(),
 
     yearsOfExperience: requiredSelect(
       z.enum(["0_1", "1_3", "3_5", "5_plus"]),

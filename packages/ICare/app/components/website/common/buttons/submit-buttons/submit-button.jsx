@@ -9,17 +9,26 @@ import clsx from "clsx";
  * @typedef {Object} SubmitButtonProps
  * @property {React.ReactNode} children
  * @property {ButtonVariant} [variant]
- * @property {boolean} [disabled]  Whether the button is disabled
+ * @property {boolean} [disabled]
+ * @property {() => void} [onClick]
+ * @property {"submit" | "button"} [type]
  */
 
-/**
- * @param {SubmitButtonProps} props
- */
-export default function SubmitButton({ children, disabled, variant = "primary" }) {
+export default function SubmitButton({
+  children,
+  disabled,
+  onClick,
+  type = "submit",
+  variant = "primary"
+}) {
   return (
-    <button type='submit' className={clsx(styles.button, styles[variant])} disabled={disabled}>
+    <button
+      type={type}
+      className={clsx(styles.button, styles[variant])}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
-
     </button>
   );
 }
