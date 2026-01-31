@@ -8,6 +8,58 @@ The platform supports both short-term and long-term care, including live-in care
 
 ---
 
+## Product Phases
+
+This product is delivered in distinct phases. Each phase has different scope, compliance requirements, and success criteria.
+
+### Phase 0: Pre-Launch Website
+
+A marketing and lead capture website that:
+
+- Validates market demand before building the full marketplace
+- Captures qualified leads from care receivers/families AND caregivers
+- Communicates the platform value proposition and safety commitments
+- Collects minimal data: contact info, care need categories, caregiver qualifications
+- Does NOT process bookings, payments, or health data
+- Does NOT display caregiver profiles or enable matching
+- Does NOT require CQC registration (no regulated activity)
+
+**Pre-Launch is NOT the MVP.** It is a validation and lead generation phase that precedes MVP development.
+
+**Compliance scope (Pre-Launch only):**
+- GDPR consent for email collection
+- PECR cookie consent
+- Basic Terms of Use and Privacy Policy
+- No special category health data processing
+
+**See:** `docs/marketing/pre-launch-website-content-architecture.md`
+
+### Phase 1: MVP Marketplace
+
+The full operational marketplace as defined in this document. MVP launch requires:
+
+- All Fixed Scope / Core Assumptions implemented
+- All Trust, Safety & Regulation requirements in place
+- Core Economic Loop operational: Discovery → Booking → Payment → Care → Review
+- Full compliance posture: GDPR, Care Act, CQC alignment, DBS verification
+
+**MVP cannot launch until:**
+1. Pre-Launch validation complete
+2. All gating decisions resolved (see `docs/product/decisions/gating-decisions.md`)
+3. DPIA completed and approved
+4. Legal policies finalized (Terms of Service, Privacy Policy, Safeguarding Policy)
+
+### Phase 2+: Post-MVP
+
+Features classified as Post-MVP in `docs/product/planning/mvp-classification.md`. These include:
+- Advanced analytics and optimization
+- Marketing/growth features
+- Enhanced convenience features
+- Performance optimization
+- Live-in care specialized enhancements
+
+---
+
 ## Fixed Scope / Core Assumptions (Product Constitution)
 
 These are **non-negotiable axioms**.
