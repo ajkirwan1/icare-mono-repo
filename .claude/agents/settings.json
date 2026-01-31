@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(docs/**)",
+      "Write(docs/**)",
+      "Edit(docs/**)",
+      "Read(.claude/**)",
+      "Write(.claude/**)",
+      "Edit(.claude/**)"
+    ],
+    "deny": [
+      "Write(packages/**)",
+      "Edit(packages/**)",
+      "Read(.env)",
+      "Read(secrets/**)"
+    ]
+  }
+}

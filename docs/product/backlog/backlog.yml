@@ -1,0 +1,2848 @@
+# iCare Product Backlog
+# UK Elderly Companionship Marketplace
+# Last Updated: 2026-01-30
+# Version: 1.0
+
+meta:
+  product_name: "iCare"
+  region: "United Kingdom"
+  target_launch: "2026-Q3"
+  total_features: 66
+  feature_counts:
+    p0_critical: 32
+    p1_high: 16
+    p2_phase2: 18
+  epic_count: 6
+  current_sprint: 0
+  total_sprints_planned: 16
+
+# Priority Definitions
+priorities:
+  P0:
+    name: "Critical"
+    description: "Platform cannot operate legally or safely without this. Cannot launch without these features."
+    criteria:
+      - "Required for legal operation in UK"
+      - "Critical for user safety and vulnerable adult protection"
+      - "Essential for core value proposition"
+      - "Cannot be delayed without blocking market entry"
+
+  P1:
+    name: "High"
+    description: "Essential for minimum viable user experience. Strong MVP candidates."
+    criteria:
+      - "Significantly improves user experience"
+      - "Reduces friction in core user journeys"
+      - "Important for competitive positioning"
+      - "High user value, moderate complexity"
+
+  P2:
+    name: "Phase 2"
+    description: "Important enhancements that can wait for user feedback and MVP validation."
+    criteria:
+      - "Nice-to-have enhancement"
+      - "Requires user feedback to validate"
+      - "Adds complexity that could delay launch"
+      - "Can be simplified for MVP"
+      - "Optimization or advanced feature"
+
+# Status Definitions
+status_definitions:
+  not_started:
+    name: "Not Started"
+    description: "Feature not yet begun"
+
+  discovery:
+    name: "Discovery"
+    description: "Requirements gathering, research, design phase"
+
+  design:
+    name: "Design"
+    description: "UI/UX design, wireframes, prototypes"
+
+  in_progress:
+    name: "In Progress"
+    description: "Active development"
+
+  code_review:
+    name: "Code Review"
+    description: "Development complete, awaiting peer review"
+
+  testing:
+    name: "Testing"
+    description: "QA testing, bug fixes"
+
+  ready_to_deploy:
+    name: "Ready to Deploy"
+    description: "Tested and approved, waiting for deployment window"
+
+  deployed:
+    name: "Deployed"
+    description: "Live in production"
+
+  blocked:
+    name: "Blocked"
+    description: "Blocked by dependency or external factor"
+
+# Story Point Estimation Guide
+story_point_guide:
+  1: "Trivial - Few hours of work, no complexity"
+  2: "Simple - 1-2 days, straightforward implementation"
+  3: "Moderate - 3-4 days, some complexity or unknowns"
+  5: "Complex - 1-2 weeks, significant complexity or integration"
+  8: "Very Complex - 2-3 weeks, high complexity, multiple integrations"
+  13: "Epic - 3-4 weeks, requires breaking into smaller stories"
+
+# ============================================
+# EPICS AND FEATURES
+# ============================================
+
+epics:
+
+  # ==========================================
+  # EPIC 1: CORE USER FLOWS
+  # ==========================================
+
+  - id: EPIC-001
+    name: "Core User Flows"
+    description: "Essential user journeys for registration, discovery, booking, and communication"
+    features:
+
+      # --- Registration & Onboarding ---
+
+      - id: FEAT-001
+        name: "Care Receiver/Family Registration"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver or family member, I want to create an account with my details
+          so that I can access caregiver services and book companionship sessions.
+
+        description: |
+          Care receivers or their family members create accounts with email verification,
+          basic profile information, emergency contact, and account type selection.
+
+        acceptance_criteria:
+          - "Password meets minimum requirements (8+ chars, uppercase, lowercase, number)"
+          - "Email verification required before platform access"
+          - "Emergency contact mandatory for account activation"
+          - "GDPR consent checkboxes (processing personal data, marketing opt-in separate)"
+          - "Age verification (care receiver must be 65+ or have documented care needs)"
+          - "Clear indication if registering on behalf of someone else"
+          - "Duplicate email detection"
+          - "Mobile-responsive forms"
+
+        user_journey:
+          - "Visitor clicks 'Sign Up' on homepage"
+          - "Selects account type (I need care or I'm registering for a family member)"
+          - "Enters email and creates password (strength requirements enforced)"
+          - "Receives verification email and clicks link"
+          - "Completes profile: name, DOB, postcode, phone number"
+          - "Adds emergency contact (name, relationship, phone)"
+          - "Reviews and accepts terms of service"
+          - "Lands on dashboard with onboarding checklist"
+
+        safeguarding_impact: |
+          Verify care receiver consent when family member registers on their behalf.
+          Emergency contact enables rapid response if safeguarding concerns arise.
+          Age verification prevents platform misuse.
+
+        compliance_requirements:
+          - "GDPR: Lawful basis for processing, clear consent, privacy policy acceptance"
+          - "Age UK guidelines: Appropriate age thresholds for elderly care services"
+
+        dependencies:
+          - "Email service (SendGrid or AWS SES)"
+          - "Password hashing (bcrypt)"
+          - "Database user schema"
+
+        success_metrics:
+          - "Registration completion rate: >70%"
+          - "Email verification rate: >85%"
+          - "Time to complete registration: <5 minutes median"
+
+        open_questions:
+          - "Should we require proof of care needs for under-65 registrations?"
+          - "How do we verify family member relationship to care receiver?"
+
+      - id: FEAT-002
+        name: "Caregiver Registration"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As an individual caregiver, I want to create a profile with my services,
+          rates, and availability so that care receivers can discover and book me.
+
+        description: |
+          Individual caregivers create comprehensive profiles including personal details,
+          services offered, hourly rates, availability, bank account for payouts, and
+          right to work declaration. Profiles require admin approval before going live.
+
+        acceptance_criteria:
+          - "Profile photo required (face clearly visible)"
+          - "Bio minimum 100 characters"
+          - "At least one service must be selected"
+          - "Hourly rate within platform minimum/maximum (£12-£30)"
+          - "Bank account validation via Stripe Connect"
+          - "Right to work self-declaration checkbox"
+          - "Profile review by admin before going live"
+          - "Clear guidance on photo requirements (face visible, appropriate setting)"
+
+        user_journey:
+          - "Visitor clicks 'Become a Caregiver'"
+          - "Enters email and creates password"
+          - "Receives and confirms verification email"
+          - "Completes profile wizard: personal details, photo, bio, experience"
+          - "Selects services offered and languages spoken"
+          - "Sets hourly rate and service radius"
+          - "Configures typical availability (weekly recurring schedule)"
+          - "Adds bank account for payouts (Stripe Connect)"
+          - "Self-declares right to work in UK"
+          - "Reviews caregiver terms of service"
+          - "Profile enters Pending Review status"
+          - "Admin approves profile, caregiver receives approval email"
+
+        safeguarding_impact: |
+          Manual profile review before activation prevents obviously unsuitable caregivers.
+          Photo requirement enables care receiver recognition.
+          Right to work declaration (full verification in Phase 2).
+
+        compliance_requirements:
+          - "Right to work in UK (Immigration, Asylum and Nationality Act 2006)"
+          - "Payment Services Regulations: Proper identification for payouts"
+          - "Employment status: Clear guidance that caregivers are self-employed"
+
+        dependencies:
+          - "FEAT-028: Caregiver Payout Setup (Stripe Connect)"
+          - "FEAT-037: Caregiver Application Review"
+          - "Image upload and storage (S3)"
+          - "Calendar component"
+
+        success_metrics:
+          - "Registration completion rate: >60%"
+          - "Profile approval time: <24 hours"
+          - "Approval rate: 80%"
+
+        open_questions:
+          - "Should we require experience verification (references) in MVP?"
+          - "What services should be allowed vs restricted (e.g., personal care)?"
+
+      - id: FEAT-003
+        name: "Phone Verification"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 3
+
+        user_story: |
+          As a platform user, I want to verify my phone number via SMS
+          so that my account is secure and the platform can contact me in emergencies.
+
+        description: |
+          SMS-based phone number verification for both care receivers and caregivers
+          using OTP (one-time password) codes.
+
+        acceptance_criteria:
+          - "OTP code expires after 10 minutes"
+          - "Maximum 3 resend attempts per 10-minute window"
+          - "Phone number must be UK mobile (+44)"
+          - "Clear error messages for invalid codes"
+          - "Accessible voice call alternative for users with SMS issues"
+
+        user_journey:
+          - "User prompted to verify phone during registration"
+          - "Enters UK mobile number"
+          - "Receives 6-digit OTP via SMS"
+          - "Enters code in verification form"
+          - "System validates code"
+          - "Can resend code if not received (max 3 times)"
+          - "Phone marked as verified"
+
+        safeguarding_impact: |
+          Essential for account security. Enables emergency contact if safeguarding
+          concerns arise. Reduces fake accounts.
+
+        compliance_requirements:
+          - "Required by payment provider (Stripe) for fraud prevention"
+
+        dependencies:
+          - "SMS provider (Twilio)"
+          - "Rate limiting system"
+
+        success_metrics:
+          - "Verification success rate: >90%"
+          - "Average time to verify: <2 minutes"
+
+      # --- Discovery & Search ---
+
+      - id: FEAT-004
+        name: "Caregiver Search by Location"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As a care receiver, I want to search for caregivers near my location
+          so that I can find companions within a reasonable travel distance.
+
+        description: |
+          Location-based caregiver search with map and list views, postcode validation,
+          and distance-based sorting.
+
+        acceptance_criteria:
+          - "Postcode validation (UK format)"
+          - "Distance calculation accurate to 0.1 mile"
+          - "Map shows caregiver approximate locations (postcode centroid, not exact address)"
+          - "Results update in real-time when radius changed"
+          - "No caregivers found state with suggestion to expand radius"
+          - "Mobile-responsive list and map views"
+
+        user_journey:
+          - "Care receiver enters postcode on homepage or dashboard"
+          - "Selects search radius (5, 10, 15, 20 miles - default: 10)"
+          - "Views results in list or map view"
+          - "Sees caregiver cards with key information"
+          - "Clicks caregiver card to view full profile"
+          - "Can toggle between list and map view"
+
+        safeguarding_impact: |
+          Caregiver exact addresses never shown (only postcode area for privacy).
+          Search limited to UK postcodes (platform scope).
+
+        compliance_requirements:
+          - "GDPR: Location data processing with user consent"
+
+        dependencies:
+          - "Geolocation service (Google Maps API or Mapbox)"
+          - "Postcode database with lat/long coordinates"
+          - "Distance calculation algorithm (Haversine formula)"
+
+        success_metrics:
+          - "Search completion rate: >85%"
+          - "Average search radius used: 10-12 miles"
+          - "Searches finding 3+ caregivers: >60%"
+
+        open_questions:
+          - "Should we show caregivers outside search radius if too few results?"
+          - "How do we handle rural areas with sparse caregiver coverage?"
+
+      - id: FEAT-005
+        name: "Caregiver Filters"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want to filter caregiver search results by price,
+          services, availability, and language so that I find the best match for my needs.
+
+        description: |
+          Multi-criteria filtering for caregiver search including price range, services
+          offered, availability by day/time, languages spoken, and minimum rating.
+
+        acceptance_criteria:
+          - "Filters persist during session"
+          - "Multiple filters combine with AND logic"
+          - "Filter count shows number of matching caregivers before applying"
+          - "Mobile-friendly filter drawer"
+          - "Clear all filters button"
+          - "Filters saved in URL (shareable search results)"
+
+        user_journey:
+          - "Care receiver performs initial search"
+          - "Opens filter panel"
+          - "Selects criteria (e.g., Available Tuesdays, speaks Polish, under £18/hour)"
+          - "Clicks Apply Filters"
+          - "Results update to show only matching caregivers"
+          - "Active filters shown as removable chips"
+          - "Can clear individual filters or all filters"
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-004: Caregiver Search by Location"
+          - "Search indexing system"
+
+        success_metrics:
+          - "Filter usage rate: >50% of searches"
+          - "Most used filter: Availability (60%+), then Price (40%+), then Services (35%+)"
+
+      - id: FEAT-006
+        name: "Caregiver Profile Page"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want to view a caregiver's detailed profile
+          so that I can make an informed decision before requesting a booking.
+
+        description: |
+          Comprehensive caregiver profile displaying all relevant information including
+          bio, services, rates, availability, reviews, and booking request CTA.
+
+        acceptance_criteria:
+          - "Profile photo large and prominent"
+          - "All services clearly listed with icons"
+          - "Reviews show most recent first (max 10 visible, View All link if more)"
+          - "Average rating displayed prominently"
+          - "Availability calendar shows next 4 weeks"
+          - "Response time indicator (based on historical data)"
+          - "Last active timestamp"
+          - "Mobile-optimized layout"
+
+        user_journey:
+          - "Care receiver clicks caregiver card from search results"
+          - "Views comprehensive profile"
+          - "Reads bio and reviews"
+          - "Checks availability calendar"
+          - "Decides to proceed"
+          - "Clicks Request Booking button"
+          - "Redirected to booking request form (pre-populated with caregiver)"
+
+        safeguarding_impact: |
+          Report Profile link prominent for concerns. No direct contact information
+          displayed (platform-mediated contact only). Clear indication if caregiver
+          has completed enhanced checks (Phase 2 feature).
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-018: Post-Booking Reviews"
+          - "FEAT-012: Calendar Views"
+          - "Reporting system"
+
+        success_metrics:
+          - "Profile view to booking request conversion: >15%"
+          - "Average time on profile page: 2-3 minutes"
+
+      # --- Booking & Scheduling ---
+
+      - id: FEAT-007
+        name: "Booking Request Flow"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As a care receiver, I want to request a booking with a caregiver for
+          a specific date and time so that I can schedule companionship sessions.
+
+        description: |
+          End-to-end booking request creation including date/time selection, duration
+          setting, price calculation, payment authorization, and request submission.
+
+        acceptance_criteria:
+          - "Only available dates/times selectable (no double-booking)"
+          - "Minimum 2-hour session enforced"
+          - "Price breakdown clear (caregiver rate + platform service fee)"
+          - "Payment authorization holds funds but doesn't charge"
+          - "Booking cannot be in the past"
+          - "Minimum 24 hours advance notice required"
+          - "Clear cancellation policy displayed"
+          - "Email confirmation includes all booking details"
+
+        user_journey:
+          - "Care receiver on caregiver profile clicks Request Booking"
+          - "Selects date from calendar showing caregiver availability"
+          - "Chooses start time from available slots"
+          - "Sets duration via slider or dropdown"
+          - "Price updates in real-time"
+          - "Adds optional notes (500 char limit)"
+          - "Reviews booking summary"
+          - "Enters payment card details (or uses saved card)"
+          - "Clicks Send Request"
+          - "Card authorized (not charged yet)"
+          - "Sees confirmation: Request sent to [Caregiver Name]"
+          - "Receives email confirmation"
+          - "Waits for caregiver response"
+
+        safeguarding_impact: |
+          Special requests reviewed by admin if certain keywords flagged.
+          Booking notes retained for audit trail.
+          Emergency contact information shared with caregiver after acceptance.
+
+        compliance_requirements:
+          - "Consumer Rights Act: Clear pricing and cancellation terms"
+          - "Payment Services Regulations: Authorization before charge"
+
+        dependencies:
+          - "FEAT-024: Care Receiver Payment Setup"
+          - "Email notification system"
+          - "FEAT-012: Calendar Views"
+          - "Pricing calculation engine"
+
+        success_metrics:
+          - "Booking request completion rate: >75%"
+          - "Average time to create request: <3 minutes"
+          - "Caregiver acceptance rate: >70%"
+
+      - id: FEAT-008
+        name: "Booking Acceptance/Decline (Caregiver)"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 5
+
+        user_story: |
+          As a caregiver, I want to review and respond to booking requests
+          so that I can accept bookings that fit my schedule and preferences.
+
+        description: |
+          Caregiver interface for reviewing booking requests with all details and
+          responding with acceptance or decline within 24-hour window.
+
+        acceptance_criteria:
+          - "Email notification within 2 minutes of request"
+          - "Push notification if mobile app installed (Phase 2)"
+          - "Countdown timer showing response deadline"
+          - "Auto-decline sends polite message to care receiver"
+          - "Decline reason captured for analytics"
+          - "Accept action immediately charges care receiver's card"
+          - "Calendar automatically blocks accepted booking time"
+          - "Both parties receive confirmation emails"
+
+        user_journey:
+          - "Caregiver receives email: New booking request from [Care Receiver]"
+          - "Clicks link to view request"
+          - "Logs into platform"
+          - "Reviews booking details (date, time, duration, price, special requests)"
+          - "Clicks Accept Booking or Decline"
+          - "If accepting: Confirms acceptance, care receiver's card charged"
+          - "If declining: Selects reason, adds optional message, confirms"
+          - "System updates both users and sends notifications"
+
+        safeguarding_impact: |
+          Caregiver sees care receiver's emergency contact after acceptance.
+          Platform retains all booking communication for audit.
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-007: Booking Request Flow"
+          - "Notification system"
+          - "Payment capture (Stripe)"
+          - "Calendar blocking system"
+
+        success_metrics:
+          - "Acceptance rate: >70% target"
+          - "Average response time: <6 hours"
+          - "Auto-decline rate: <10%"
+
+      - id: FEAT-009
+        name: "Booking Lifecycle Management"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As a platform user, I want to track my bookings through their lifecycle
+          so that I understand the current status and can take appropriate actions.
+
+        description: |
+          Complete booking state management from request through completion with
+          status tracking, cancellation policies, and automatic completion logic.
+
+        acceptance_criteria:
+          - "Status updates in real-time for both parties"
+          - "Cancellation policy clearly displayed before cancellation confirmed"
+          - "Refunds processed automatically within 5 business days"
+          - "Caregiver cannot mark complete before end time"
+          - "Automatic completion after 24 hours if no dispute"
+          - "Payout to caregiver within 2 business days of completion"
+          - "Booking history retained indefinitely"
+
+        user_journey:
+          - "Booking end time passes"
+          - "Caregiver clicks Mark Complete button"
+          - "Adds optional session notes (private)"
+          - "Submits completion"
+          - "Care receiver receives notification: Please confirm session completion"
+          - "Care receiver confirms (or disputes within 24 hours)"
+          - "If confirmed, caregiver payout initiated"
+          - "Both parties prompted to leave reviews"
+
+        safeguarding_impact: |
+          Session notes retained for audit (not visible to care receiver unless dispute).
+          Dispute escalation to admin triggers safeguarding review.
+          Pattern analysis for frequent cancellations (potential red flag).
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-026: Cancellation Policy Enforcement"
+          - "Payment refund processing"
+          - "Payout system (Stripe Connect)"
+          - "Notification system"
+          - "FEAT-018: Post-Booking Reviews"
+
+        success_metrics:
+          - "Completion rate: >95%"
+          - "Completion confirmation rate: >90%"
+          - "Dispute rate: <2%"
+
+      - id: FEAT-010
+        name: "Calendar Views"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As a care receiver or caregiver, I want a visual calendar of my bookings
+          so that I can easily manage my schedule and availability.
+
+        description: |
+          Interactive calendar components for both user types with booking display,
+          availability management, and quick actions.
+
+        acceptance_criteria:
+          - "Mobile-responsive calendar component"
+          - "Timezone handling (UK time only for MVP)"
+          - "Export to Google Calendar / iCal (Phase 2)"
+          - "Caregiver availability blocks prevent double-booking"
+          - "Month/week/day view toggle"
+          - "Clear visual distinction between availability slots and confirmed bookings"
+
+        user_journey:
+          - "User navigates to Calendar page"
+          - "Views month/week/day with color-coded bookings"
+          - "Clicks booking to view details"
+          - "Caregiver: Can set/edit availability patterns"
+          - "Caregiver: Can mark specific dates unavailable"
+          - "Quick actions: Cancel, Message, View Receipt"
+
+        compliance_requirements: []
+
+        dependencies:
+          - "Calendar component library (FullCalendar or similar)"
+          - "Availability management system"
+
+        success_metrics:
+          - "Caregivers with availability set: >90%"
+          - "Average availability per caregiver: 20+ hours/week"
+          - "Booking-to-availability ratio: 30-40%"
+
+      # --- Messaging & Communication ---
+
+      - id: FEAT-011
+        name: "In-App Messaging"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 8
+
+        user_story: |
+          As a care receiver or caregiver, I want to send secure messages
+          so that I can communicate about bookings without sharing personal contact details.
+
+        description: |
+          Real-time messaging system with content filtering, audit trails, and
+          booking-specific conversation threads.
+
+        acceptance_criteria:
+          - "Messages cannot be deleted (audit trail)"
+          - "Contact information (email, phone, address) automatically filtered/redacted"
+          - "Profanity filter applied"
+          - "Keyword monitoring for safeguarding concerns"
+          - "Character count shown while typing (2000 char limit)"
+          - "Mobile-optimized chat interface"
+          - "Message sent confirmation"
+          - "Retry mechanism for failed sends"
+
+        user_journey:
+          - "Care receiver sends booking request"
+          - "Messages tab becomes available on booking detail page"
+          - "Either party types message"
+          - "Message delivers in real-time (or within 30 seconds)"
+          - "Recipient receives email notification (if enabled)"
+          - "Recipient logs in and responds"
+          - "Conversation continues until booking completes"
+
+        safeguarding_impact: |
+          Contact information filtering prevents off-platform transactions.
+          Message monitoring for exploitation keywords.
+          Retained messages support investigations.
+          Report conversation button prominent.
+
+        compliance_requirements:
+          - "GDPR: Messages are personal data, retained per retention policy"
+          - "Safeguarding: Platform duty to monitor for abuse"
+
+        dependencies:
+          - "Real-time messaging infrastructure (WebSocket or polling)"
+          - "Content filtering system"
+          - "Email notification service"
+
+        success_metrics:
+          - "Message response rate: >80%"
+          - "Average response time: <4 hours"
+          - "Messages per booking: 3-5 average"
+          - "Reported conversations: <0.5%"
+
+      - id: FEAT-012
+        name: "Message Reporting"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Core User Flows"
+        estimated_effort: 3
+
+        user_story: |
+          As a platform user, I want to report concerning messages
+          so that the platform can protect users from abuse or exploitation.
+
+        description: |
+          User-initiated reporting of message conversations with reason categorization
+          and admin review workflow.
+
+        acceptance_criteria:
+          - "Entire conversation thread visible to admin, not just reported message"
+          - "Reporter and reported user both identified"
+          - "Timestamp of report recorded"
+          - "Admin reviews within 24 hours (SLA)"
+          - "Action taken documented"
+          - "Users cannot see who reported them"
+
+        user_journey:
+          - "User reads concerning message"
+          - "Clicks Report Conversation"
+          - "Selects reason category"
+          - "Adds optional context"
+          - "Submits report"
+          - "Sees confirmation with case number"
+          - "Admin reviews full conversation thread"
+          - "Admin takes action (warning, suspension, account closure)"
+          - "Reporter notified of outcome"
+
+        safeguarding_impact: |
+          Critical safety mechanism for vulnerable adults.
+          Low barrier to reporting encourages vigilance.
+          Admin review prevents malicious false reports.
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-011: In-App Messaging"
+          - "FEAT-021: Admin Moderation Dashboard"
+          - "Case management system"
+
+        success_metrics:
+          - "Report volume: <1% of messages"
+          - "Admin review SLA: 100% reviewed within 24 hours"
+          - "Action taken rate: 40-60%"
+
+  # ==========================================
+  # EPIC 2: TRUST & SAFETY
+  # ==========================================
+
+  - id: EPIC-002
+    name: "Trust & Safety"
+    description: "Identity verification, background checks, reviews, and safeguarding mechanisms"
+    features:
+
+      # --- Identity Verification ---
+
+      - id: FEAT-013
+        name: "Care Receiver/Family Identity Verification"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Trust & Safety"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver or family member, I want to verify my identity
+          so that caregivers trust my booking requests are legitimate.
+
+        description: |
+          Automated identity verification using third-party service with government
+          ID upload and liveness check.
+
+        acceptance_criteria:
+          - "Mobile-friendly camera capture"
+          - "Desktop file upload option"
+          - "Verification results within 60 seconds (automated)"
+          - "Manual review fallback if automated fails (within 24 hours)"
+          - "Verified badge visible to caregivers in booking requests"
+          - "Verification required before any booking (enforce at checkout)"
+
+        user_journey:
+          - "Care receiver attempts to make first booking"
+          - "Prompted: Verify your identity to complete booking"
+          - "Clicks Verify Now"
+          - "Selects ID type (passport or driving license)"
+          - "Takes photo of ID using phone camera (or uploads file)"
+          - "Takes selfie for liveness check"
+          - "Submits for verification"
+          - "Automated verification completes in 30-60 seconds"
+          - "If pass: Identity verified! You can now make bookings"
+          - "If fail: Verification failed. Please try again or contact support"
+
+        safeguarding_impact: |
+          Protects caregivers from fake bookings and payment fraud.
+          Enables trust in platform.
+
+        compliance_requirements:
+          - "GDPR: ID documents are special category data, proper security required"
+          - "Data retention: ID images deleted after verification (only status retained)"
+
+        dependencies:
+          - "Third-party verification service (Stripe Identity, Onfido, Yoti)"
+          - "Secure file upload and temporary storage"
+
+        success_metrics:
+          - "Verification completion rate: >90%"
+          - "Automated verification success rate: >85%"
+          - "Time to verify: <2 minutes median"
+
+      - id: FEAT-014
+        name: "Caregiver Enhanced Identity Verification"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Trust & Safety"
+        estimated_effort: 8
+
+        user_story: |
+          As a caregiver, I want to complete rigorous identity verification
+          so that care receivers trust I am who I claim to be.
+
+        description: |
+          Enhanced identity verification for caregivers including ID, address proof,
+          liveness check, right to work verification, and manual admin review.
+
+        acceptance_criteria:
+          - "ID must be valid (not expired)"
+          - "Address proof dated within 3 months"
+          - "Selfie matches ID photo (human review)"
+          - "Right to work confirmed via UKVI online service"
+          - "All documents stored securely (encrypted at rest)"
+          - "Admin review checklist (ID valid, address matches, selfie matches)"
+          - "Rejection requires manager approval"
+
+        user_journey:
+          - "Caregiver completes profile creation"
+          - "Prompted: Verify your identity to activate profile"
+          - "Uploads ID document photo"
+          - "Takes selfie"
+          - "Uploads proof of address (dated within 3 months)"
+          - "If non-UK passport, enters share code for right to work check"
+          - "Submits for review"
+          - "Admin reviews documents manually (within 48 hours)"
+          - "If approved: Identity verified! Your profile is now live"
+          - "If rejected: Unable to verify. Please contact support"
+
+        safeguarding_impact: |
+          Caregivers have direct access to vulnerable adults - identity certainty
+          is non-negotiable. Manual review catches fraudulent documents that
+          automated systems miss.
+
+        compliance_requirements:
+          - "Immigration, Asylum and Nationality Act 2006: Right to work verification"
+          - "GDPR: Secure document storage, retention policy (7 years)"
+          - "Money Laundering Regulations: KYC for payment recipients"
+
+        dependencies:
+          - "Document storage (AWS S3 with encryption)"
+          - "UKVI right to work online service integration"
+          - "FEAT-037: Caregiver Application Review"
+
+        success_metrics:
+          - "Verification submission rate: >95%"
+          - "Approval rate: 75-85%"
+          - "Review time: <48 hours (SLA)"
+
+      # --- Background Checks ---
+
+      - id: FEAT-015
+        name: "DBS Check Integration"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Trust & Safety"
+        estimated_effort: 13
+
+        user_story: |
+          As a care receiver, I want caregivers to have DBS checks
+          so that I have maximum confidence in their trustworthiness.
+
+        description: |
+          Integration with Disclosure and Barring Service for criminal record checks,
+          with umbrella organization partnership and Update Service monitoring.
+
+        acceptance_criteria:
+          - "Partner with DBS umbrella organization established"
+          - "Basic DBS check minimum (Enhanced DBS if legally available)"
+          - "DBS certificate number verification"
+          - "DBS Update Service integration for annual re-checks"
+          - "DBS Verified badge on profiles"
+          - "Care receivers can filter for DBS-verified caregivers only"
+
+        user_journey:
+          - "Caregiver opts into DBS check (or required)"
+          - "Redirected to umbrella organization portal"
+          - "Completes DBS application and payment"
+          - "DBS certificate issued (4-8 weeks)"
+          - "Caregiver uploads certificate or provides reference number"
+          - "Admin verifies certificate"
+          - "DBS Verified badge appears on profile"
+
+        safeguarding_impact: |
+          DBS is gold standard for UK care work. Absence in MVP mitigated by
+          identity verification, profile review, ratings/reviews, rapid response
+          to reports, and insurance requirements.
+
+        compliance_requirements:
+          - "DBS Regulations: Proper handling of sensitive information"
+          - "Update Service: Consent required from caregiver"
+
+        dependencies:
+          - "Partnership with DBS umbrella organization"
+          - "Legal review of Enhanced DBS requirements"
+
+        success_metrics:
+          - "DBS check uptake: Target 60% of caregivers within 6 months"
+          - "Verification time: <48 hours after certificate provided"
+
+        open_questions:
+          - "Should DBS be mandatory or optional (with badge)?"
+          - "Should platform subsidize DBS cost?"
+          - "Can we legally offer Enhanced DBS?"
+
+      # --- Reviews & Ratings ---
+
+      - id: FEAT-016
+        name: "Post-Booking Reviews"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Trust & Safety"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want to rate and review caregivers after bookings
+          so that I can share my experience and help others make informed decisions.
+
+        description: |
+          5-star rating system with optional written reviews, rating categories,
+          and caregiver response capability.
+
+        acceptance_criteria:
+          - "Cannot review without completed booking (verified)"
+          - "One review per booking (no duplicate reviews)"
+          - "Reviews cannot be edited after submission (integrity)"
+          - "Profanity filter applied to review text"
+          - "Reviews cannot include personal contact information"
+          - "Caregiver response limited to one per review"
+          - "Anonymous reporting of inappropriate reviews"
+
+        user_journey:
+          - "Booking completes"
+          - "Care receiver receives email: How was your session with [Caregiver]?"
+          - "Clicks Leave Review"
+          - "Rates overall experience (1-5 stars, required)"
+          - "Rates sub-categories (reliability, communication, quality)"
+          - "Writes optional review text"
+          - "Submits review"
+          - "Review appears on caregiver profile immediately"
+          - "Caregiver notified and can respond"
+
+        safeguarding_impact: |
+          Low ratings trigger admin review of booking (potential issue).
+          Pattern of low ratings may suspend caregiver pending investigation.
+          Reviews mentioning safety concerns flagged for immediate admin review.
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-009: Booking Lifecycle Management"
+          - "Content moderation system"
+
+        success_metrics:
+          - "Review submission rate: >60%"
+          - "Average review time after booking: 3-5 days"
+          - "Average caregiver rating: 4.3-4.7 stars"
+          - "Reviews with text: >40%"
+
+      - id: FEAT-017
+        name: "Caregiver Reviews of Care Receivers"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Trust & Safety"
+        estimated_effort: 5
+
+        user_story: |
+          As a caregiver, I want to rate care receivers privately
+          so that the platform can improve matching and identify problematic accounts.
+
+        description: |
+          Private caregiver ratings of care receivers focused on objective factors,
+          used for platform quality control and matching algorithm.
+
+        acceptance_criteria:
+          - "Ratings private (not public)"
+          - "Focus on objective factors (environment as described, payment smooth)"
+          - "Cannot rate care receiver's personality or health conditions"
+          - "Used for matching algorithm improvement"
+          - "Admin can view ratings for investigations"
+
+        user_journey:
+          - "Booking completes"
+          - "Caregiver prompted to rate experience"
+          - "Rates objective criteria (5 stars each)"
+          - "Optional notes (private, for platform use)"
+          - "Submits rating"
+          - "Rating stored but not shown to care receiver"
+
+        safeguarding_impact: |
+          Careful design needed to avoid discrimination against care receivers
+          with difficult behaviors or conditions. Focus on environment and process,
+          not individual characteristics.
+
+        compliance_requirements:
+          - "Equality Act 2010: Prevent discrimination based on disability"
+
+        dependencies:
+          - "FEAT-016: Post-Booking Reviews"
+
+        success_metrics:
+          - "Caregiver rating submission rate: >50%"
+          - "Ratings used to identify problem accounts: Defined threshold"
+
+        open_questions:
+          - "What objective criteria are appropriate to rate?"
+          - "Should care receivers ever see these ratings?"
+          - "How do we prevent discrimination?"
+
+      # --- Reporting & Moderation ---
+
+      - id: FEAT-018
+        name: "User Reporting System"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Trust & Safety"
+        estimated_effort: 5
+
+        user_story: |
+          As a platform user, I want to report safety concerns or policy violations
+          so that the platform can protect vulnerable adults and maintain quality.
+
+        description: |
+          Comprehensive reporting system accessible from profiles, messages, and bookings
+          with urgent/standard prioritization and admin notification.
+
+        acceptance_criteria:
+          - "Safety concern reports trigger immediate notification (within 2 minutes)"
+          - "24/7 emergency contact number displayed for urgent situations"
+          - "Reporter can remain anonymous to reported user"
+          - "Evidence attached to report (screenshot, message, booking details)"
+          - "Admin can escalate to law enforcement if required"
+          - "Reporter notified when case closed (with outcome summary)"
+
+        user_journey:
+          - "User experiences concerning behavior"
+          - "Opens relevant section (profile, booking, message)"
+          - "Clicks Report [Profile/Message/Concern]"
+          - "Selects category (safety concern = urgent)"
+          - "Describes incident"
+          - "Submits report"
+          - "Sees confirmation with case number"
+          - "If urgent: Admin receives SMS alert"
+          - "Admin contacts reporter within 30 minutes (urgent) or 24 hours (standard)"
+          - "Admin investigates and takes action"
+          - "Reporter notified of outcome"
+
+        safeguarding_impact: |
+          Critical vulnerable adult protection mechanism. Low barrier to reporting
+          encourages vigilance. Rapid response to urgent reports (30-minute target).
+          Integration with safeguarding team/process.
+
+        compliance_requirements:
+          - "Care Act 2014: Duty to respond to safeguarding concerns"
+          - "Data Protection Act: Reports are special category data (secure storage)"
+
+        dependencies:
+          - "FEAT-021: Admin Moderation Dashboard"
+          - "SMS/phone notification for urgent reports"
+          - "Case management system"
+          - "Evidence storage"
+
+        success_metrics:
+          - "Report response time (urgent): <30 minutes, 100% compliance"
+          - "Report response time (standard): <24 hours, 95% compliance"
+          - "User awareness of reporting: >80% know how to report"
+          - "False report rate: <10%"
+
+      - id: FEAT-019
+        name: "Admin Moderation Dashboard"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Trust & Safety"
+        estimated_effort: 8
+
+        user_story: |
+          As an admin, I want a comprehensive moderation dashboard
+          so that I can review reports, manage users, and enforce platform policies.
+
+        description: |
+          Admin interface for report queue management, user actions, investigation
+          tools, and audit logging.
+
+        acceptance_criteria:
+          - "Reports sorted by urgency and age"
+          - "Full context visible (user profiles, bookings, messages, previous reports)"
+          - "Actions require reason selection and optional notes"
+          - "User notified of actions taken (except in fraud investigations)"
+          - "Actions reversible by senior admin (except bans)"
+          - "Audit log immutable (compliance)"
+
+        user_journey:
+          - "Admin logs into dashboard"
+          - "Sees report queue with urgent flags"
+          - "Opens report with full context"
+          - "Reviews evidence (messages, booking history, user profile)"
+          - "Decides on action (warn, suspend, ban)"
+          - "Selects reason and adds notes"
+          - "Confirms action"
+          - "User notified automatically"
+          - "Action logged in audit trail"
+
+        safeguarding_impact: |
+          Admin access restricted to trained safeguarding personnel.
+          Actions proportionate to severity (warning → suspend → ban escalation).
+          Documentation supports legal proceedings if required.
+
+        compliance_requirements:
+          - "Admin access audit trail for GDPR accountability"
+
+        dependencies:
+          - "Admin authentication (separate from user auth, 2FA required)"
+          - "FEAT-035: Admin User Dashboard"
+          - "Audit logging infrastructure"
+
+        success_metrics:
+          - "Report resolution time: <24 hours for 95%"
+          - "Action accuracy: <5% reversed decisions"
+          - "Admin satisfaction: Survey score >4.0/5.0"
+
+      # --- Insurance & Liability ---
+
+      - id: FEAT-020
+        name: "Public Liability Insurance Requirement"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Trust & Safety"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want caregivers to have public liability insurance
+          so that I'm protected if something goes wrong during a session.
+
+        description: |
+          Requirement for caregivers to maintain public liability insurance with
+          proof upload, expiry monitoring, and group scheme option.
+
+        acceptance_criteria:
+          - "Caregivers must upload proof of insurance (min £1M coverage)"
+          - "Insurance expiry date captured and monitored"
+          - "Automated reminders before expiry"
+          - "Profile hidden if insurance lapses"
+          - "Insurance badge displayed on profile"
+
+        user_journey:
+          - "Caregiver completes profile"
+          - "Prompted to upload insurance certificate"
+          - "Uploads document (PDF or image)"
+          - "Admin verifies coverage amount and expiry"
+          - "Insurance status active"
+          - "System sends reminder 30 days before expiry"
+          - "Caregiver uploads renewed certificate"
+
+        safeguarding_impact: |
+          Reduces platform and care receiver liability. Insurance requirement
+          creates onboarding barrier (cost, complexity) which is why it's Phase 2.
+
+        compliance_requirements:
+          - "Insurance regulations: Verify coverage is valid and sufficient"
+
+        dependencies:
+          - "Document upload and storage"
+          - "Expiry date monitoring system"
+
+        success_metrics:
+          - "Insurance compliance rate: >95% of active caregivers"
+          - "Lapsed insurance rate: <5%"
+
+        open_questions:
+          - "Should platform offer group insurance scheme?"
+          - "Is insurance legally required for self-employed companionship?"
+
+  # ==========================================
+  # EPIC 3: PAYMENTS & TRANSACTIONS
+  # ==========================================
+
+  - id: EPIC-003
+    name: "Payments & Transactions"
+    description: "Payment processing, refunds, cancellations, and financial reporting"
+    features:
+
+      # --- Payment Processing ---
+
+      - id: FEAT-021
+        name: "Care Receiver Payment Setup"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want to securely add my payment card
+          so that I can pay for bookings without re-entering my details each time.
+
+        description: |
+          Secure payment method management using Stripe with PCI compliance,
+          3D Secure authentication, and multiple card support.
+
+        acceptance_criteria:
+          - "Card details entered in Stripe iframe (not directly on site)"
+          - "3D Secure authentication enforced (SCA compliance)"
+          - "Card validation immediate (invalid card rejected)"
+          - "Default payment method selectable (if multiple cards)"
+          - "Card expiry date displayed (with warning if expiring soon)"
+          - "Remove card option (soft delete, retain for records)"
+
+        user_journey:
+          - "Care receiver makes first booking"
+          - "At checkout, prompted to add payment method"
+          - "Enters card details in Stripe-hosted iframe"
+          - "Completes 3D Secure authentication (if required by bank)"
+          - "Card saved for future bookings"
+          - "Booking payment authorized (not captured yet)"
+          - "When caregiver accepts, payment captured"
+
+        safeguarding_impact: |
+          Secure payment handling protects vulnerable adults from financial exploitation.
+
+        compliance_requirements:
+          - "PCI DSS: No card details stored on platform servers"
+          - "SCA (Strong Customer Authentication): 3D Secure for transactions over €30"
+          - "Payment Services Regulations 2017: Clear pricing, authorization before charge"
+
+        dependencies:
+          - "Stripe Payment Intents API"
+          - "Stripe Card Elements (UI components)"
+
+        success_metrics:
+          - "Payment method addition success rate: >95%"
+          - "3DS authentication success rate: >90%"
+          - "Payment failure rate: <3%"
+
+      - id: FEAT-022
+        name: "Booking Payment Flow"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 8
+
+        user_story: |
+          As a platform user, I want a secure and transparent payment process
+          so that money flows correctly from care receiver to caregiver.
+
+        description: |
+          End-to-end payment flow from authorization through capture to caregiver
+          payout with platform fee calculation and receipt generation.
+
+        acceptance_criteria:
+          - "Authorization holds funds for 7 days (expiry handled)"
+          - "Failed authorization declines booking request"
+          - "Charge only captured when caregiver accepts"
+          - "Payout only released after completion confirmation"
+          - "Platform fee calculation transparent on checkout"
+          - "Receipts emailed to care receiver after charge"
+          - "Payout notification emailed to caregiver"
+
+        user_journey:
+          - "Care receiver creates booking request"
+          - "Payment authorized (funds held)"
+          - "Caregiver accepts booking"
+          - "Payment captured, funds held by platform"
+          - "Booking completes"
+          - "Care receiver confirms completion"
+          - "Platform releases payout to caregiver (minus commission)"
+          - "Funds appear in caregiver bank account (2-3 business days)"
+
+        safeguarding_impact: |
+          Funds held by platform until completion prevents caregiver exploitation.
+          Card authorization (not immediate charge) protects care receivers if
+          caregiver declines.
+
+        compliance_requirements:
+          - "Payment Services Regulations: Funds held in segregated accounts"
+          - "Anti-Money Laundering: Transaction monitoring for suspicious patterns"
+
+        dependencies:
+          - "FEAT-021: Care Receiver Payment Setup"
+          - "FEAT-023: Caregiver Payout Setup"
+          - "Stripe Payment Intents"
+          - "Stripe Connect"
+          - "Receipt generation"
+
+        success_metrics:
+          - "Payment success rate: >97%"
+          - "Chargeback rate: <0.5%"
+          - "Payout accuracy: 100%"
+
+      - id: FEAT-023
+        name: "Caregiver Payout Setup"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 5
+
+        user_story: |
+          As a caregiver, I want to add my bank account
+          so that I can receive payouts for completed bookings.
+
+        description: |
+          Stripe Connect onboarding for caregivers with instant bank account
+          verification and payout scheduling.
+
+        acceptance_criteria:
+          - "Stripe Connect Standard or Express (TBD based on business model)"
+          - "Bank account verification instant (Stripe)"
+          - "Only UK bank accounts accepted"
+          - "Payout threshold: None (pay out each booking individually)"
+          - "Payout failures retried automatically (3 attempts)"
+          - "Failed payouts email caregiver with instructions"
+
+        user_journey:
+          - "Caregiver completes profile"
+          - "Prompted to Add payout method"
+          - "Redirected to Stripe Connect onboarding"
+          - "Enters bank details (sort code, account number)"
+          - "Stripe verifies account instantly"
+          - "Confirms identity documents (as part of Stripe's KYC)"
+          - "Returns to platform with payout method active"
+          - "Can now accept bookings and receive payouts"
+
+        safeguarding_impact: |
+          KYC verification prevents fraudulent caregivers from receiving payments.
+
+        compliance_requirements:
+          - "Payment Services Regulations: KYC for payment recipients"
+          - "Anti-Money Laundering: Transaction monitoring, identity verification"
+          - "Tax: Self-employment guidance provided (not tax advice)"
+
+        dependencies:
+          - "Stripe Connect"
+          - "FEAT-014: Caregiver Enhanced Identity Verification"
+
+        success_metrics:
+          - "Payout setup completion rate: >95%"
+          - "Payout success rate: >98%"
+          - "Payout disputes: <1%"
+
+      # --- Refunds & Cancellations ---
+
+      - id: FEAT-024
+        name: "Cancellation Policy Enforcement"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 5
+
+        user_story: |
+          As a platform user, I want clear cancellation policies
+          so that I understand the financial implications of cancelling a booking.
+
+        description: |
+          Automated refund processing based on cancellation timing with tiered
+          refund percentages and emergency exemption process.
+
+        acceptance_criteria:
+          - "Cancellation policy displayed before cancellation confirmed"
+          - "Refund calculation automatic and accurate"
+          - "Refunds initiated immediately (bank processing time out of control)"
+          - "Caregiver still compensated if care receiver cancels <24 hours (50%)"
+          - "Cancellation pattern monitoring (frequent cancellations flagged)"
+          - "Emergency exemptions require admin approval"
+
+        user_journey:
+          - "User goes to booking details"
+          - "Clicks Cancel Booking"
+          - "Sees refund policy with calculated amount"
+          - "Selects cancellation reason (optional for care receiver, required for caregiver)"
+          - "Confirms cancellation"
+          - "Refund processed automatically"
+          - "Both parties notified"
+          - "Calendar reopens for that time slot"
+
+        safeguarding_impact: |
+          Pattern of care receiver cancellations may indicate coercion (admin review).
+          Pattern of caregiver cancellations indicates unreliability (quality control).
+
+        compliance_requirements:
+          - "Consumer Rights Act: Clear cancellation terms"
+
+        dependencies:
+          - "FEAT-022: Booking Payment Flow"
+          - "Stripe refund API"
+          - "Time calculation engine"
+
+        success_metrics:
+          - "Cancellation rate: <10% of bookings"
+          - "Late cancellations (<24 hours): <3%"
+          - "Refund disputes: <1%"
+
+      - id: FEAT-025
+        name: "Dispute Resolution & Refunds"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 5
+
+        user_story: |
+          As a care receiver, I want to dispute a booking if service wasn't delivered
+          so that I can receive a fair refund for poor or incomplete service.
+
+        description: |
+          Dispute initiation and admin-mediated resolution process with evidence
+          collection and partial refund support.
+
+        acceptance_criteria:
+          - "Dispute deadline: 24 hours after booking end time"
+          - "Admin review SLA: 48 hours"
+          - "Evidence retained: Messages, booking details, dispute description"
+          - "Partial refunds supported (not just full/none)"
+          - "Caregiver's payout paused pending dispute resolution"
+          - "Disputes logged in user accounts (frequent disputers flagged)"
+
+        user_journey:
+          - "Booking completes but care receiver unsatisfied"
+          - "Within 24 hours, clicks Dispute Booking"
+          - "Selects reason: Service not provided as agreed"
+          - "Describes issue with evidence"
+          - "Submits dispute"
+          - "Admin reviews all evidence"
+          - "Admin contacts both parties for statements"
+          - "Admin decides: Full/partial/no refund"
+          - "Refund processed, both parties notified"
+
+        safeguarding_impact: |
+          Safety disputes escalated immediately (not 48-hour SLA).
+          Disputes may reveal safeguarding issues (e.g., caregiver not showing up,
+          vulnerable adult left alone).
+
+        compliance_requirements:
+          - "Consumer Rights Act: Fair dispute resolution process"
+
+        dependencies:
+          - "FEAT-019: Admin Moderation Dashboard"
+          - "Partial refund processing"
+          - "Evidence storage"
+
+        success_metrics:
+          - "Dispute rate: <5% of bookings"
+          - "Resolution time: <48 hours for 90%"
+          - "User satisfaction with dispute process: >3.5/5.0"
+
+      # --- Financial Reporting ---
+
+      - id: FEAT-026
+        name: "Care Receiver Transaction History"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 3
+
+        user_story: |
+          As a care receiver, I want to view all my payments and refunds
+          so that I can track my spending and download receipts for records.
+
+        description: |
+          Comprehensive transaction history with filtering, search, receipt downloads,
+          and CSV export.
+
+        acceptance_criteria:
+          - "All transactions visible (no pagination limit on history)"
+          - "Export to CSV"
+          - "PDF receipts include VAT details (if VAT-registered)"
+          - "Search by caregiver name"
+          - "Clear labeling: Payment, Refund, Service Fee"
+
+        user_journey:
+          - "Care receiver navigates to Payments page"
+          - "Sees chronological list of all transactions"
+          - "Filters by date range or caregiver"
+          - "Clicks transaction to view details"
+          - "Downloads PDF receipt"
+          - "Exports annual statement for tax/expense purposes"
+
+        compliance_requirements:
+          - "GDPR: Users entitled to access their financial data"
+
+        dependencies:
+          - "FEAT-022: Booking Payment Flow"
+          - "Receipt generation (PDF)"
+
+        success_metrics:
+          - "Receipt download rate: >40%"
+          - "Support tickets about payments: <2% of users"
+
+      - id: FEAT-027
+        name: "Caregiver Earnings Dashboard"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Payments & Transactions"
+        estimated_effort: 3
+
+        user_story: |
+          As a caregiver, I want to track my earnings and payouts
+          so that I can manage my finances and complete my tax return.
+
+        description: |
+          Earnings dashboard with breakdown of completed bookings, pending payouts,
+          platform commission, and annual tax summary.
+
+        acceptance_criteria:
+          - "Earnings updated in real-time when booking completes"
+          - "Payout status: Pending, Processing, Paid, Failed"
+          - "Platform commission clearly shown per booking"
+          - "Annual earnings report generated automatically (Jan for previous tax year)"
+          - "Export to CSV for accountant"
+
+        user_journey:
+          - "Caregiver navigates to Earnings page"
+          - "Sees total earned, pending payouts, completed payouts"
+          - "Views per-booking breakdown with commission"
+          - "Checks payout status"
+          - "In January, downloads annual statement for tax return"
+
+        safeguarding_impact: |
+          Transparent commission breakdown builds trust and prevents disputes.
+
+        compliance_requirements:
+          - "Tax: Clear guidance that caregivers are self-employed and must register with HMRC"
+          - "Platform may need to report earnings to HMRC if caregiver earns >£1,000 (TBD)"
+
+        dependencies:
+          - "FEAT-023: Caregiver Payout Setup"
+          - "Annual statement generation"
+
+        success_metrics:
+          - "Annual statement download rate: >60% (tax season)"
+          - "Payout disputes: <1%"
+
+  # ==========================================
+  # EPIC 4: ADMIN & OPERATIONS
+  # ==========================================
+
+  - id: EPIC-004
+    name: "Admin & Operations"
+    description: "Admin tools for user management, booking oversight, and platform analytics"
+    features:
+
+      # --- User Management ---
+
+      - id: FEAT-028
+        name: "Admin User Dashboard"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Admin & Operations"
+        estimated_effort: 8
+
+        user_story: |
+          As an admin, I want a comprehensive user dashboard
+          so that I can view, search, and manage all platform users efficiently.
+
+        description: |
+          Central admin interface for user search, filtering, detail viewing,
+          and quick action execution with full activity history.
+
+        acceptance_criteria:
+          - "Search by name, email, postcode"
+          - "Filter by user type, status, registration date"
+          - "View full user history without leaving page"
+          - "Actions require confirmation and reason"
+          - "Bulk exports (user lists for analysis)"
+
+        user_journey:
+          - "Admin logs into dashboard"
+          - "Searches for user by email"
+          - "Views user detail page with all data"
+          - "Reviews profile, bookings, messages, payments, reports"
+          - "Takes action (warn, suspend, ban, require re-verification)"
+          - "Adds internal notes"
+          - "Action logged in audit trail"
+
+        safeguarding_impact: |
+          Rapid access to user information enables quick response to safeguarding
+          concerns. Comprehensive view supports thorough investigations.
+
+        compliance_requirements:
+          - "GDPR: Admin access logged for accountability"
+          - "Audit trail: All admin actions recorded"
+
+        dependencies:
+          - "Admin authentication (2FA required)"
+          - "User database with indexed search"
+          - "FEAT-064: Audit Logging"
+
+        success_metrics:
+          - "Admin can find user in <10 seconds"
+          - "Action completion time: <2 minutes"
+
+      - id: FEAT-029
+        name: "Caregiver Application Review"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Admin & Operations"
+        estimated_effort: 5
+
+        user_story: |
+          As an admin, I want to review and approve caregiver profiles
+          so that only suitable caregivers can accept bookings from vulnerable adults.
+
+        description: |
+          Application review queue with comprehensive checklist, approve/reject
+          actions, and feedback mechanism for rejected applications.
+
+        acceptance_criteria:
+          - "Review SLA: 48 hours maximum (target: 24 hours)"
+          - "Approval decision logged in user account"
+          - "Rejection reasons: Poor photo, incomplete profile, identity verification failed, inappropriate content, duplicate account"
+          - "Caregivers can reapply after addressing feedback"
+
+        user_journey:
+          - "Admin logs into dashboard"
+          - "Sees '5 pending caregiver applications'"
+          - "Opens first application"
+          - "Reviews profile, photos, documents, identity verification status"
+          - "Works through checklist"
+          - "If satisfactory, clicks Approve"
+          - "If concerns, clicks Reject and selects reason with feedback"
+          - "Caregiver notified via email"
+
+        safeguarding_impact: |
+          Manual review prevents obviously unsuitable caregivers. Red flags:
+          Criminal language in bio, aggressive tone, requests for off-platform
+          payment. Escalation to safeguarding team if serious concerns.
+
+        compliance_requirements:
+          - "Fair review process documented"
+
+        dependencies:
+          - "FEAT-002: Caregiver Registration"
+          - "FEAT-014: Caregiver Enhanced Identity Verification"
+          - "FEAT-028: Admin User Dashboard"
+
+        success_metrics:
+          - "Review time: <24 hours for 80%"
+          - "Approval rate: 70-85%"
+          - "Reapplication success rate: >60%"
+
+      # --- Booking Management ---
+
+      - id: FEAT-030
+        name: "Admin Booking Oversight"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Admin & Operations"
+        estimated_effort: 5
+
+        user_story: |
+          As an admin, I want to view and manage all platform bookings
+          so that I can resolve issues and monitor for fraud or quality problems.
+
+        description: |
+          Comprehensive booking list with filtering, search, detail views, and
+          admin intervention capabilities.
+
+        acceptance_criteria:
+          - "Real-time booking data (no delay)"
+          - "Export bookings to CSV"
+          - "Admin cancellations trigger appropriate refunds automatically"
+          - "Action log for audit trail"
+
+        user_journey:
+          - "Admin navigates to Bookings page"
+          - "Filters by status (e.g., Disputed)"
+          - "Opens booking detail view"
+          - "Reviews all information: users, messages, payment status"
+          - "Takes action (cancel, extend, mark complete override)"
+          - "Action executed with reason documented"
+
+        safeguarding_impact: |
+          Enables investigation of disputes and safety concerns. Can cancel
+          bookings if safeguarding risk identified.
+
+        compliance_requirements:
+          - "Admin actions audited"
+
+        dependencies:
+          - "FEAT-009: Booking Lifecycle Management"
+          - "FEAT-028: Admin User Dashboard"
+
+        success_metrics:
+          - "Admin interventions: <2% of bookings"
+          - "Intervention resolution time: <4 hours"
+
+      # --- Analytics & Reporting ---
+
+      - id: FEAT-031
+        name: "Platform Metrics Dashboard"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Admin & Operations"
+        estimated_effort: 8
+
+        user_story: |
+          As a platform manager, I want real-time metrics on platform health
+          so that I can make data-driven decisions and identify issues early.
+
+        description: |
+          Comprehensive analytics dashboard showing user, booking, financial, and
+          trust & safety metrics with filtering and comparison capabilities.
+
+        acceptance_criteria:
+          - "Dashboard updates daily (real-time not required for MVP)"
+          - "Exportable charts/data"
+          - "Filterable by date range"
+          - "Comparison to previous period (e.g., this month vs. last month)"
+
+        user_journey:
+          - "Admin logs into dashboard"
+          - "Views key metrics: Total users, active bookings, GMV, revenue"
+          - "Navigates to detailed sections (User Metrics, Booking Metrics, etc.)"
+          - "Filters by date range"
+          - "Exports data for presentation"
+          - "Identifies trends or issues"
+
+        compliance_requirements: []
+
+        dependencies:
+          - "Analytics data pipeline"
+          - "Chart visualization library"
+
+        success_metrics:
+          - "Admin checks dashboard daily"
+          - "Metrics inform product decisions weekly"
+
+        open_questions:
+          - "Which metrics are most critical to monitor?"
+          - "Should we integrate with BI tool (Looker, Tableau)?"
+
+  # ==========================================
+  # EPIC 5: GROWTH & RETENTION
+  # ==========================================
+
+  - id: EPIC-005
+    name: "Growth & Retention"
+    description: "Marketing, SEO, notifications, onboarding, and engagement features"
+    features:
+
+      # --- Marketing & SEO ---
+
+      - id: FEAT-032
+        name: "Public Website & Landing Pages"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Growth & Retention"
+        estimated_effort: 8
+
+        user_story: |
+          As a potential user, I want a clear, informative website
+          so that I can understand the service and decide to sign up.
+
+        description: |
+          Marketing website with homepage, feature pages, pricing, trust & safety
+          information, and SEO optimization for organic discovery.
+
+        acceptance_criteria:
+          - "Mobile-first design (60%+ of traffic expected on mobile)"
+          - "Accessibility: WCAG 2.1 AA compliance"
+          - "Clear CTAs on every page"
+          - "Trust indicators: Verified Caregivers, Secure Payments, 24/7 Support"
+          - "Local SEO optimized (UK cities/regions)"
+
+        user_journey:
+          - "Visitor searches 'elderly companionship London' on Google"
+          - "Finds iCare website in search results"
+          - "Lands on homepage"
+          - "Reads value proposition and how it works"
+          - "Clicks 'Find a Caregiver' or 'Become a Caregiver'"
+          - "Redirected to registration"
+
+        compliance_requirements:
+          - "Accessibility standards: WCAG 2.1 AA"
+          - "Cookie consent banner (PECR compliance)"
+
+        dependencies:
+          - "SEO basics: Meta tags, sitemap, schema.org markup"
+          - "Analytics tracking (Google Analytics)"
+
+        success_metrics:
+          - "Organic search traffic: 40% of total traffic within 6 months"
+          - "Homepage conversion to signup: >5%"
+          - "For Caregivers page conversion: >8%"
+
+      - id: FEAT-033
+        name: "Referral Program"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Growth & Retention"
+        estimated_effort: 8
+
+        user_story: |
+          As a satisfied user, I want to refer friends and family
+          so that we both benefit from a reward for growing the platform.
+
+        description: |
+          Incentivized referral program for both care receivers and caregivers
+          with unique codes, tracking, and reward payouts.
+
+        acceptance_criteria:
+          - "Unique referral codes/links per user"
+          - "Care receiver refers friend: Both get £20 credit after first booking"
+          - "Caregiver refers caregiver: Referrer gets £50 after referee completes 5 bookings"
+          - "Referral dashboard (track referrals and earnings)"
+          - "Fraud prevention (same household, payment method detection)"
+
+        user_journey:
+          - "User navigates to Referrals page"
+          - "Sees unique referral code/link"
+          - "Shares with friend via email, SMS, or social media"
+          - "Friend signs up using code"
+          - "Friend completes qualifying action (first booking)"
+          - "Both users receive reward (credit or cash)"
+          - "Referrer can track referral status"
+
+        compliance_requirements:
+          - "Clear terms and conditions for referral program"
+          - "Anti-fraud measures required"
+
+        dependencies:
+          - "Referral tracking system"
+          - "Credit/payment system for rewards"
+
+        success_metrics:
+          - "Referral conversion rate: >30% of referred users sign up"
+          - "Viral coefficient: Target >0.5 (each user refers 0.5 new users)"
+
+        open_questions:
+          - "What reward amounts drive adoption without hurting margins?"
+          - "Should rewards be credits or cash?"
+
+      # --- Notifications & Re-engagement ---
+
+      - id: FEAT-034
+        name: "Email Notifications"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Growth & Retention"
+        estimated_effort: 5
+
+        user_story: |
+          As a platform user, I want to receive timely email notifications
+          so that I stay informed about booking updates and important actions.
+
+        description: |
+          Comprehensive transactional and engagement email system with preference
+          management and GDPR compliance.
+
+        acceptance_criteria:
+          - "Transactional emails send within 2 minutes"
+          - "Unsubscribe link on engagement emails (legal requirement)"
+          - "Preference center (choose which engagement emails to receive)"
+          - "Mobile-responsive email templates"
+          - "Clear sender identity (iCare <no-reply@icare.com>)"
+
+        user_journey:
+          - "User triggers email event (booking request, acceptance, etc.)"
+          - "Email sent within 2 minutes"
+          - "User receives email on mobile device"
+          - "Reads notification and clicks link to platform"
+          - "Can unsubscribe from engagement emails via link"
+
+        compliance_requirements:
+          - "GDPR: Consent for marketing emails, easy unsubscribe"
+          - "PECR: Opt-in for marketing"
+
+        dependencies:
+          - "Email service provider (SendGrid, AWS SES)"
+          - "Email templates (transactional and engagement)"
+
+        success_metrics:
+          - "Email deliverability: >98%"
+          - "Transactional email open rate: >60%"
+          - "Engagement email open rate: >25%"
+          - "Unsubscribe rate: <5%"
+
+      - id: FEAT-035
+        name: "SMS Notifications"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Growth & Retention"
+        estimated_effort: 3
+
+        user_story: |
+          As a platform user, I want SMS notifications for urgent updates
+          so that I don't miss important booking information.
+
+        description: |
+          SMS notifications for high-urgency events like booking reminders,
+          caregiver running late, and emergency account alerts.
+
+        acceptance_criteria:
+          - "SMS only for critical events (booking reminder 2 hours before, safety alerts)"
+          - "User can opt out of non-emergency SMS"
+          - "Cost tracking per SMS"
+          - "UK mobile numbers only"
+
+        user_journey:
+          - "Booking starts in 2 hours"
+          - "User receives SMS: Your booking with [Caregiver] starts at [Time]"
+          - "User clicks link to view booking details"
+
+        compliance_requirements:
+          - "PECR: Consent required for marketing SMS"
+          - "Emergency SMS exempt from opt-out"
+
+        dependencies:
+          - "SMS provider (Twilio)"
+          - "SMS template management"
+
+        success_metrics:
+          - "SMS delivery rate: >95%"
+          - "SMS click-through rate: >40%"
+          - "Opt-out rate: <10%"
+
+      - id: FEAT-036
+        name: "Push Notifications (Mobile App)"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Growth & Retention"
+        estimated_effort: 13
+
+        user_story: |
+          As a mobile app user, I want push notifications
+          so that I receive instant updates about my bookings and messages.
+
+        description: |
+          Native mobile app development with push notification support for
+          iOS and Android.
+
+        acceptance_criteria:
+          - "iOS and Android native apps"
+          - "Push notifications for booking updates, new messages"
+          - "Offline capability (view bookings without internet)"
+          - "Notification permission request on first launch"
+          - "User can configure notification preferences"
+
+        user_journey:
+          - "User downloads app from App Store/Google Play"
+          - "Logs into existing account"
+          - "Prompted to enable push notifications"
+          - "Receives instant notification when booking accepted"
+          - "Taps notification to view booking details in app"
+
+        compliance_requirements:
+          - "App store guidelines compliance"
+          - "Privacy policy updated for mobile data collection"
+
+        dependencies:
+          - "Native mobile app development"
+          - "Push notification service (Firebase Cloud Messaging, Apple Push Notification)"
+
+        success_metrics:
+          - "App install rate: >40% of active users"
+          - "Push notification opt-in rate: >70%"
+          - "Push notification open rate: >30%"
+
+      # --- Engagement & Retention ---
+
+      - id: FEAT-037
+        name: "Care Receiver Onboarding Checklist"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Growth & Retention"
+        estimated_effort: 3
+
+        user_story: |
+          As a new care receiver, I want a guided onboarding process
+          so that I quickly complete setup and make my first booking.
+
+        description: |
+          Interactive onboarding checklist on dashboard guiding care receivers
+          through essential setup steps to first booking.
+
+        acceptance_criteria:
+          - "Checklist visible until all steps complete"
+          - "Dismissible but returns on next login"
+          - "Analytics track completion rate per step (identify drop-off points)"
+          - "Each step links to relevant page"
+          - "Progress bar shows completion percentage"
+
+        user_journey:
+          - "Care receiver completes registration"
+          - "Lands on dashboard with checklist"
+          - "Sees: 1 of 5 steps complete (email verified)"
+          - "Clicks next step: Add emergency contact"
+          - "Completes emergency contact form"
+          - "Returns to dashboard, sees: 2 of 5 steps complete"
+          - "Continues through verification, payment, first booking"
+          - "Completion celebration message"
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-001: Care Receiver/Family Registration"
+          - "FEAT-013: Care Receiver Identity Verification"
+          - "FEAT-021: Care Receiver Payment Setup"
+
+        success_metrics:
+          - "Checklist completion rate: >70%"
+          - "Time to first booking: <7 days median"
+          - "Drop-off analysis: Identify bottleneck steps"
+
+      - id: FEAT-038
+        name: "Caregiver Onboarding Checklist"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Growth & Retention"
+        estimated_effort: 3
+
+        user_story: |
+          As a new caregiver, I want a guided onboarding process
+          so that I complete profile setup and start receiving bookings quickly.
+
+        description: |
+          Interactive onboarding checklist guiding caregivers through profile
+          completion, verification, and approval process.
+
+        acceptance_criteria:
+          - "Checklist shows 7 steps (email verified through first booking accepted)"
+          - "Pending approval step shows estimated review time"
+          - "Notifications when admin approves profile"
+          - "Analytics track completion rate per step"
+
+        user_journey:
+          - "Caregiver completes registration"
+          - "Lands on dashboard with checklist"
+          - "Works through steps: profile, verification, bank account, availability"
+          - "Submits for admin review (step 6)"
+          - "Waits for approval (receives notification)"
+          - "Profile approved, checklist shows: 6 of 7 complete"
+          - "Accepts first booking, checklist complete"
+
+        compliance_requirements: []
+
+        dependencies:
+          - "FEAT-002: Caregiver Registration"
+          - "FEAT-014: Caregiver Enhanced Identity Verification"
+          - "FEAT-023: Caregiver Payout Setup"
+          - "FEAT-029: Caregiver Application Review"
+
+        success_metrics:
+          - "Checklist completion rate: >65%"
+          - "Time to profile approval: <48 hours"
+          - "Time to first booking accepted: <14 days median"
+
+      - id: FEAT-039
+        name: "Recurring Bookings"
+        priority: P2
+        status: not_started
+        classification: Phase 2
+        epic: "Growth & Retention"
+        estimated_effort: 8
+
+        user_story: |
+          As a care receiver, I want to schedule regular weekly bookings
+          so that I don't have to manually book my preferred caregiver each time.
+
+        description: |
+          Recurring booking functionality allowing care receivers to schedule
+          regular sessions with the same caregiver.
+
+        acceptance_criteria:
+          - "Offered after successful first booking"
+          - "Define recurring pattern (e.g., Every Tuesday 2-5pm)"
+          - "Set end date or ongoing (until cancelled)"
+          - "Both parties can cancel recurring series"
+          - "Individual instances can be cancelled per standard policy"
+          - "Optional pricing discount for recurring bookings"
+
+        user_journey:
+          - "Care receiver completes first booking with caregiver"
+          - "Sees prompt: Book weekly recurring sessions?"
+          - "Clicks Set Up Recurring"
+          - "Selects day of week and time (pre-filled from first booking)"
+          - "Sets duration (ongoing or specific end date)"
+          - "Confirms recurring booking"
+          - "Caregiver accepts recurring series"
+          - "Bookings created automatically each week"
+          - "Either party can pause or cancel series"
+
+        safeguarding_impact: |
+          Recurring bookings build trust and routine but require careful monitoring
+          for signs of exploitation or dependency.
+
+        compliance_requirements:
+          - "Consumer Rights Act: Clear terms for cancelling recurring bookings"
+
+        dependencies:
+          - "FEAT-009: Booking Lifecycle Management"
+          - "Recurring booking scheduler"
+
+        success_metrics:
+          - "Recurring booking adoption: >30% of users with 3+ completed bookings"
+          - "Recurring booking retention: >80% continue for 3+ months"
+          - "Revenue from recurring: Target 50% of total GMV"
+
+        open_questions:
+          - "Should we offer pricing discount for recurring bookings?"
+          - "How do we handle caregiver availability changes for recurring bookings?"
+
+      - id: FEAT-040
+        name: "Family Shared Accounts"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Growth & Retention"
+        estimated_effort: 13
+
+        user_story: |
+          As a family member, I want to collaborate with other family members
+          so that we can jointly manage care for our elderly relative.
+
+        description: |
+          Complex role-based access control allowing multiple family members to
+          manage a care receiver's account with different permission levels.
+
+        acceptance_criteria:
+          - "Primary account holder can invite family members via email"
+          - "Role-based permissions: Admin (full access), Booker (can book/cancel), Viewer (view only)"
+          - "Identity verification required for all family members"
+          - "Audit trail shows which family member took each action"
+          - "Family members can communicate via shared notes"
+          - "Care receiver can revoke access at any time"
+
+        user_journey:
+          - "Primary family member (daughter) creates account on behalf of mother"
+          - "Completes mother's profile"
+          - "Navigates to Family Access settings"
+          - "Invites brother via email with Admin role"
+          - "Brother receives invitation, creates account, verifies identity"
+          - "Brother can now book caregivers and manage bookings"
+          - "Both can see all bookings and audit trail"
+
+        safeguarding_impact: |
+          Multiple family members provide oversight and reduce risk of single
+          point of failure. Audit trail prevents disputes and enables investigation
+          if concerns arise about family member behavior.
+
+        compliance_requirements:
+          - "Care Act 2014: Ensure care receiver consent for family access"
+          - "Mental Capacity Act 2005: Respect care receiver's autonomy"
+          - "GDPR: Family members are data processors, clear roles defined"
+
+        dependencies:
+          - "FEAT-064: Audit Logging"
+          - "Complex RBAC implementation"
+          - "Family invitation system"
+
+        success_metrics:
+          - "Accounts with 2+ family members: Target 60% within 6 months"
+          - "Average family members per account: 2.5"
+          - "Conflict resolution required: <1% of family accounts"
+
+  # ==========================================
+  # EPIC 6: TECHNICAL FOUNDATIONS
+  # ==========================================
+
+  - id: EPIC-006
+    name: "Technical Foundations"
+    description: "Core infrastructure, authentication, database, APIs, and compliance"
+    features:
+
+      # --- Infrastructure ---
+
+      - id: FEAT-041
+        name: "User Authentication & Authorization"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Technical Foundations"
+        estimated_effort: 8
+
+        user_story: |
+          As a platform, I need secure authentication and authorization
+          so that only authorized users can access their data and features.
+
+        description: |
+          Complete authentication system with email/password, session management,
+          password reset, email verification, and role-based access control.
+
+        acceptance_criteria:
+          - "Passwords minimum 8 characters, require uppercase, lowercase, number"
+          - "Password reset link single-use, expires in 1 hour"
+          - "Sessions invalidated on password change"
+          - "RBAC enforced at API level (not just UI)"
+          - "Admin accounts require 2FA (TOTP app)"
+          - "Account lockout after 5 failed login attempts (10-minute lockout)"
+
+        user_journey:
+          - "User registers with email/password"
+          - "Receives verification email"
+          - "Clicks verification link (24-hour expiry)"
+          - "Account activated"
+          - "Logs in with credentials"
+          - "Session created (30-day expiry)"
+          - "Can access role-appropriate features"
+
+        safeguarding_impact: |
+          Strong authentication prevents unauthorized access to vulnerable
+          adult data and financial information.
+
+        compliance_requirements:
+          - "GDPR: Secure user authentication required"
+          - "Cyber Essentials: Password security standards"
+
+        dependencies:
+          - "Session storage (Redis)"
+          - "Email service (password reset, verification)"
+          - "Password hashing (bcrypt, cost factor 12)"
+
+        success_metrics:
+          - "Login success rate: >95%"
+          - "Password reset completion rate: >80%"
+          - "Account compromise rate: 0% (target)"
+
+      - id: FEAT-042
+        name: "Database Schema"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Technical Foundations"
+        estimated_effort: 5
+
+        user_story: |
+          As a platform, I need a well-designed database schema
+          so that data is stored efficiently, securely, and with referential integrity.
+
+        description: |
+          PostgreSQL database schema with all core tables, foreign key constraints,
+          indexes, and encryption for sensitive data.
+
+        acceptance_criteria:
+          - "Foreign key constraints enforced"
+          - "Indexes on frequently queried columns (email, postcode, created_at)"
+          - "Soft deletes for GDPR compliance (retain for legal reasons)"
+          - "Encrypted columns for sensitive data (payment details tokenized by Stripe)"
+          - "Migration system for schema changes"
+
+        user_journey:
+          - "N/A - Technical implementation"
+
+        safeguarding_impact: |
+          Audit trail tables enable investigation of concerns. Soft deletes
+          preserve evidence even when users delete accounts.
+
+        compliance_requirements:
+          - "GDPR: Data minimization, secure storage"
+          - "Audit requirements: Retain records per retention policy"
+
+        dependencies:
+          - "PostgreSQL database"
+          - "Database migration tool (e.g., Flyway, Liquibase)"
+
+        success_metrics:
+          - "Query performance: 95th percentile <100ms"
+          - "Database uptime: >99.9%"
+
+      - id: FEAT-043
+        name: "API Design"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Technical Foundations"
+        estimated_effort: 5
+
+        user_story: |
+          As a developer, I need a well-designed RESTful API
+          so that frontend and future integrations can reliably interact with the platform.
+
+        description: |
+          RESTful API with consistent design, authentication, rate limiting,
+          pagination, and error handling.
+
+        acceptance_criteria:
+          - "RESTful conventions (GET/POST/PATCH/DELETE)"
+          - "Authentication: Bearer token (JWT) or session cookie"
+          - "Rate limiting: 100 requests/minute per user"
+          - "Pagination: ?page=1&limit=20 (max 100)"
+          - "Consistent error responses: {error, code}"
+          - "CORS: Restrict to platform domain"
+
+        user_journey:
+          - "N/A - Technical implementation"
+
+        safeguarding_impact: |
+          Rate limiting prevents abuse and automated attacks.
+
+        compliance_requirements:
+          - "API security: OWASP API Security Top 10 compliance"
+
+        dependencies:
+          - "API framework (e.g., Express, FastAPI, Rails)"
+          - "Rate limiting middleware"
+
+        success_metrics:
+          - "API uptime: >99.9%"
+          - "Average response time: <200ms"
+          - "Error rate: <1%"
+
+      - id: FEAT-044
+        name: "Data Retention & GDPR"
+        priority: P0
+        status: not_started
+        classification: MVP
+        epic: "Technical Foundations"
+        estimated_effort: 8
+
+        user_story: |
+          As a platform user, I want control over my personal data
+          so that I can exercise my GDPR rights (access, portability, erasure).
+
+        description: |
+          GDPR compliance features including data export, account deletion,
+          consent management, and documented retention policies.
+
+        acceptance_criteria:
+          - "Privacy policy reviewed by UK GDPR lawyer"
+          - "Data export includes all personal data (complete SAR response)"
+          - "Account deletion anonymizes data per retention schedule"
+          - "Audit log tracks data access (admin views)"
+          - "Clear consent checkboxes (processing vs. marketing)"
+
+        user_journey:
+          - "User navigates to Privacy Settings"
+          - "Clicks Download My Data"
+          - "Receives JSON export within 24 hours"
+          - "Alternatively, clicks Delete My Account"
+          - "Sees warning about 30-day grace period"
+          - "Confirms deletion"
+          - "Account deactivated immediately, data anonymized after 30 days"
+
+        safeguarding_impact: |
+          Balance between GDPR rights and safeguarding requirements (retain
+          evidence of concerns even if user requests deletion).
+
+        compliance_requirements:
+          - "UK GDPR: All rights implemented (access, rectification, erasure, portability)"
+          - "Data Protection Act 2018: Lawful basis documented"
+          - "ICO guidance: Privacy policy, consent, retention"
+
+        dependencies:
+          - "Legal review of privacy policy and terms"
+          - "Data export generation"
+          - "Deletion scheduler"
+
+        success_metrics:
+          - "SAR response time: <30 days (legal requirement)"
+          - "Deletion completion: 100% within 30 days"
+          - "ICO complaints: 0 (target)"
+
+      - id: FEAT-045
+        name: "Monitoring & Logging"
+        priority: P1
+        status: not_started
+        classification: MVP
+        epic: "Technical Foundations"
+        estimated_effort: 5
+
+        user_story: |
+          As a platform engineer, I need comprehensive monitoring and logging
+          so that I can detect and resolve issues before they impact users.
+
+        description: |
+          Application monitoring, error tracking, performance monitoring, uptime
+          monitoring, and structured logging with retention policies.
+
+        acceptance_criteria:
+          - "Errors automatically reported to Sentry with user context"
+          - "Critical errors alert on-call engineer (PagerDuty)"
+          - "Logs retained 90 days (compliance)"
+          - "Logs do not contain PII (redact sensitive data)"
+          - "Uptime monitoring checks every 1 minute"
+
+        user_journey:
+          - "N/A - Technical implementation"
+
+        safeguarding_impact: |
+          Monitoring enables rapid detection of platform issues that could
+          impact vulnerable adults (e.g., payment failures, messaging outages).
+
+        compliance_requirements:
+          - "GDPR: Logs must not contain unnecessary PII"
+          - "Audit requirements: Retain security logs per policy"
+
+        dependencies:
+          - "Error tracking (Sentry or Rollbar)"
+          - "Performance monitoring (Datadog or New Relic)"
+          - "Uptime monitoring (Pingdom or UptimeRobot)"
+          - "Logging infrastructure (CloudWatch, Splunk)"
+
+        success_metrics:
+          - "Error detection time: <5 minutes"
+          - "Mean time to resolution (MTTR): <2 hours"
+          - "False positive alert rate: <10%"
+
+# ============================================
+# SPRINT PLANNING
+# ============================================
+
+sprints:
+
+  - sprint_number: 1
+    name: "Foundation & Core Infrastructure"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-041  # User Authentication & Authorization
+      - FEAT-042  # Database Schema
+      - FEAT-043  # API Design
+      - FEAT-034  # Email Notifications (basic setup)
+    story_points: 26
+    goals:
+      - "Establish secure authentication and authorization"
+      - "Complete database schema design and implementation"
+      - "Build RESTful API foundation"
+      - "Set up email notification infrastructure"
+
+  - sprint_number: 2
+    name: "User Registration & Onboarding"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-001  # Care Receiver/Family Registration
+      - FEAT-002  # Caregiver Registration
+      - FEAT-003  # Phone Verification
+      - FEAT-045  # Monitoring & Logging
+    story_points: 24
+    goals:
+      - "Enable care receiver and caregiver registration"
+      - "Implement phone verification for both user types"
+      - "Set up monitoring and logging infrastructure"
+
+  - sprint_number: 3
+    name: "Identity Verification & Admin Tools"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-013  # Care Receiver Identity Verification
+      - FEAT-014  # Caregiver Enhanced Identity Verification
+      - FEAT-028  # Admin User Dashboard
+      - FEAT-029  # Caregiver Application Review
+    story_points: 26
+    goals:
+      - "Integrate identity verification service"
+      - "Build admin dashboard for user management"
+      - "Implement caregiver application review workflow"
+
+  - sprint_number: 4
+    name: "Payment Infrastructure"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-021  # Care Receiver Payment Setup
+      - FEAT-023  # Caregiver Payout Setup
+      - FEAT-022  # Booking Payment Flow
+    story_points: 18
+    goals:
+      - "Integrate Stripe for payment processing"
+      - "Implement Stripe Connect for caregiver payouts"
+      - "Build end-to-end payment authorization and capture flow"
+
+  - sprint_number: 5
+    name: "Search & Discovery"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-004  # Caregiver Search by Location
+      - FEAT-005  # Caregiver Filters
+      - FEAT-006  # Caregiver Profile Page
+    story_points: 18
+    goals:
+      - "Implement location-based caregiver search"
+      - "Build filtering system for search refinement"
+      - "Create comprehensive caregiver profile pages"
+
+  - sprint_number: 6
+    name: "Booking Core Flow"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-007  # Booking Request Flow
+      - FEAT-008  # Booking Acceptance/Decline
+      - FEAT-010  # Calendar Views
+    story_points: 21
+    goals:
+      - "Build end-to-end booking request flow"
+      - "Implement caregiver acceptance/decline workflow"
+      - "Create calendar views for both user types"
+
+  - sprint_number: 7
+    name: "Booking Lifecycle & Management"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-009  # Booking Lifecycle Management
+      - FEAT-024  # Cancellation Policy Enforcement
+      - FEAT-025  # Dispute Resolution & Refunds
+    story_points: 18
+    goals:
+      - "Implement complete booking state management"
+      - "Build automated cancellation and refund processing"
+      - "Create dispute resolution workflow"
+
+  - sprint_number: 8
+    name: "Messaging & Communication"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-011  # In-App Messaging
+      - FEAT-012  # Message Reporting
+      - FEAT-018  # User Reporting System
+    story_points: 16
+    goals:
+      - "Build real-time messaging system"
+      - "Implement content filtering and moderation"
+      - "Create comprehensive reporting mechanism"
+
+  - sprint_number: 9
+    name: "Trust & Safety Core"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-016  # Post-Booking Reviews
+      - FEAT-019  # Admin Moderation Dashboard
+      - FEAT-044  # Data Retention & GDPR
+    story_points: 18
+    goals:
+      - "Implement review and rating system"
+      - "Build admin moderation tools"
+      - "Complete GDPR compliance features"
+
+  - sprint_number: 10
+    name: "Financial Reporting & Admin Oversight"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-026  # Care Receiver Transaction History
+      - FEAT-027  # Caregiver Earnings Dashboard
+      - FEAT-030  # Admin Booking Oversight
+      - FEAT-031  # Platform Metrics Dashboard
+    story_points: 19
+    goals:
+      - "Build transaction history for care receivers"
+      - "Create earnings dashboard for caregivers"
+      - "Implement admin booking oversight tools"
+      - "Build platform analytics dashboard"
+
+  - sprint_number: 11
+    name: "Family Shared Accounts (Part 1)"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-040  # Family Shared Accounts (backend RBAC)
+    story_points: 13
+    goals:
+      - "Implement complex role-based access control"
+      - "Build family invitation system"
+      - "Create audit trail for family actions"
+
+  - sprint_number: 12
+    name: "Family Shared Accounts (Part 2) & Onboarding"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-040  # Family Shared Accounts (frontend UI - continued)
+      - FEAT-037  # Care Receiver Onboarding Checklist
+      - FEAT-038  # Caregiver Onboarding Checklist
+    story_points: 6
+    goals:
+      - "Complete family shared accounts UI"
+      - "Build onboarding checklists"
+      - "Test complete family collaboration flows"
+
+  - sprint_number: 13
+    name: "Public Website & SEO"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - FEAT-032  # Public Website & Landing Pages
+    story_points: 8
+    goals:
+      - "Build marketing website with all key pages"
+      - "Implement SEO best practices"
+      - "Ensure accessibility compliance (WCAG 2.1 AA)"
+
+  - sprint_number: 14
+    name: "Testing & Bug Fixes"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - "Bug fixes and refinements across all features"
+      - "End-to-end user journey testing"
+      - "Performance optimization"
+    story_points: 0
+    goals:
+      - "Comprehensive QA testing of all MVP features"
+      - "Fix critical and high-priority bugs"
+      - "Optimize performance bottlenecks"
+      - "Cross-browser and device testing"
+
+  - sprint_number: 15
+    name: "Security & Compliance Review"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - "Security audit and penetration testing"
+      - "Legal review of privacy policy and terms"
+      - "GDPR compliance verification"
+    story_points: 0
+    goals:
+      - "Complete security audit"
+      - "Penetration testing by external firm"
+      - "Legal review of all compliance documents"
+      - "Address any security or legal findings"
+
+  - sprint_number: 16
+    name: "Soft Launch Preparation"
+    duration_weeks: 2
+    start_date: "TBD"
+    end_date: "TBD"
+    status: "Not Started"
+    features:
+      - "Documentation completion"
+      - "Support process setup"
+      - "Monitoring and alerting verification"
+      - "Launch communication preparation"
+    story_points: 0
+    goals:
+      - "Complete user documentation and help center"
+      - "Train support team"
+      - "Verify all monitoring and alerting"
+      - "Soft launch to limited user group (50 users)"
+      - "Gather initial feedback"
+
+# ============================================
+# PHASE 2 FEATURES (POST-MVP)
+# ============================================
+
+phase_2_features:
+  description: "Features to be implemented after MVP launch based on user feedback and validated demand"
+
+  priority_order:
+    - FEAT-015  # DBS Check Integration (within 6 months of launch)
+    - FEAT-039  # Recurring Bookings (high revenue impact)
+    - FEAT-035  # SMS Notifications (user-requested urgency)
+    - FEAT-020  # Public Liability Insurance Requirement
+    - FEAT-033  # Referral Program (growth acceleration)
+    - FEAT-017  # Caregiver Reviews of Care Receivers
+    - FEAT-036  # Push Notifications (requires native mobile app)
+
+  evaluation_criteria:
+    - "User demand (feature request volume)"
+    - "Revenue impact (will it increase GMV?)"
+    - "Retention impact (will it reduce churn?)"
+    - "Competitive necessity (are competitors offering it?)"
+    - "Implementation complexity vs. value"
+    - "Resource availability"
+
+# ============================================
+# BACKLOG METADATA
+# ============================================
+
+backlog_health:
+  total_story_points_mvp: 213
+  average_sprint_velocity: 15  # Estimated, will be measured after sprints 2-3
+  estimated_mvp_duration_weeks: 32
+  estimated_mvp_duration_months: 8
+
+  feature_distribution:
+    epic_001_core_user_flows: 12 features, 79 story points
+    epic_002_trust_safety: 8 features, 51 story points
+    epic_003_payments: 7 features, 39 story points
+    epic_004_admin_operations: 4 features, 26 story points
+    epic_005_growth_retention: 9 features, 48 story points (including Phase 2)
+    epic_006_technical_foundations: 5 features, 31 story points
+
+  risk_factors:
+    - "Family Shared Accounts (FEAT-040) is complex (13 points) and may require additional sprint"
+    - "Third-party integrations (Stripe, identity verification) may have unexpected delays"
+    - "Legal review timelines outside team control"
+    - "Caregiver supply may be slow to grow initially (cold start problem)"
+    - "Care receiver digital literacy may require additional UX iteration"
+
+  assumptions:
+    - "Team velocity stabilizes at 15 story points per sprint"
+    - "Third-party services (Stripe, Onfido) integrate smoothly"
+    - "Legal and compliance reviews complete within estimated timelines"
+    - "No major scope changes during development"
+    - "Team composition: 2 backend, 2 frontend, 1 QA, 1 designer"
+
+# ============================================
+# NEXT ACTIONS
+# ============================================
+
+next_actions:
+  immediate:
+    - action: "Stakeholder review of backlog"
+      owner: "Product Team"
+      deadline: "TBD"
+
+    - action: "Legal review of compliance requirements"
+      owner: "Legal Counsel"
+      deadline: "TBD"
+
+    - action: "Finalize third-party vendor selection"
+      owner: "Technical Lead"
+      deadline: "TBD"
+      details: "Stripe confirmed, select identity verification provider (Onfido vs. Stripe Identity vs. Yoti)"
+
+  before_sprint_1:
+    - action: "Detailed technical architecture document"
+      owner: "Technical Lead"
+
+    - action: "Design system and wireframes for core flows"
+      owner: "Designer"
+
+    - action: "Development environment setup"
+      owner: "Engineering Team"
+
+    - action: "CI/CD pipeline setup"
+      owner: "DevOps"
+
+  ongoing:
+    - action: "Weekly sprint planning"
+      owner: "Product Manager"
+
+    - action: "Daily standups"
+      owner: "Scrum Master"
+
+    - action: "Bi-weekly sprint reviews"
+      owner: "Product Team"
+
+    - action: "Monthly stakeholder updates"
+      owner: "Product Manager"
+
+# ============================================
+# CONTACT & MAINTENANCE
+# ============================================
+
+document_maintenance:
+  last_updated: "2026-01-30"
+  update_frequency: "Weekly during active development, monthly post-launch"
+  owner: "Product Team"
+
+  changelog:
+    - date: "2026-01-30"
+      version: "1.0"
+      changes: "Initial backlog creation with all 66 features from complete-feature-map.md"
+      author: "Product Team"
+
+contact:
+  product_manager: "TBD"
+  technical_lead: "TBD"
+  design_lead: "TBD"
+  scrum_master: "TBD"
+
+related_documents:
+  - path: "/docs/product/complete-feature-map.md"
+    description: "Detailed feature descriptions and requirements"
+
+  - path: "/docs/product-requirements.md"
+    description: "Individual feature specifications"
+
+  - path: "/docs/product/marketplace-spec.md"
+    description: "Original product specification"
+
+  - path: "/docs/family-shared-accounts-summary.md"
+    description: "Family accounts feature summary"

@@ -1,0 +1,44 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.trigger {
+  margin-left: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: #0F172A;
+  padding: 0;
+  line-height: 1;
+}
+
+.tooltip {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: #0F172A;
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+
+  max-width: 400px;
+  /* set what you want */
+  width: max-content;
+  /* makes it size to content up to max-width */
+  white-space: normal;
+  /* allow wrapping */
+  overflow-wrap: anywhere;
+  /* allow long strings to wrap */
+
+  z-index: 10;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tooltip a {
+  color: #fff;
+  text-decoration: underline;
+}
