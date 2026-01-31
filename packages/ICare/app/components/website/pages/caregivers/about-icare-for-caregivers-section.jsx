@@ -1,5 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import VideoSection from "../../common/sections/VideoSection";
+
 import {
     faIdCard,
     faComments,
@@ -110,7 +112,7 @@ export default function HowICareWorksForCaregiversSystem() {
 
             <div style={{ width: "min(96vw, 1240px)", margin: "0 auto" }}>
                 {/* HEADER */}
-                <header style={{ maxWidth: "78ch", marginBottom: "2.6rem" }}>
+                <header style={{ maxWidth: "78ch", marginBottom: "1.6rem" }}>
                     <h2
                         style={{
                             margin: 0,
@@ -136,7 +138,15 @@ export default function HowICareWorksForCaregiversSystem() {
                     </p>
                 </header>
 
+
+                <VideoSection
+                    videoSrc="images/web/icare-for-caregivers/voice.mp4"
+                >
+                </VideoSection>
+
+
                 {/* STEPS GRID */}
+                {/*
                 <div className="icare-caregivers-steps-grid">
                     {steps.map((s) => (
                         <div
@@ -196,6 +206,7 @@ export default function HowICareWorksForCaregiversSystem() {
                         </div>
                     ))}
                 </div>
+                */}
             </div>
 
             <style>{`

@@ -25,7 +25,7 @@
 .headerSection {
     padding-bottom: 2rem;
     margin: 0 auto;
-    max-width: 1100px;
+    max-width: 600px;
 }
 
 .header {
@@ -203,10 +203,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    padding: $space-22;
+    padding: $space-22 $space-22 $space-40;
     color: $on-dark;
     display: grid;
     gap: $space-065;
+
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.18) 55%, rgba(0, 0, 0, 0.0) 100%);
 
     p,
     span,
@@ -217,7 +219,7 @@
 
 .cardTitle {
     font-size: $fs-hero-h3;
-    font-weight: $fw-extrabold;
+    font-weight: $fw-bold;
     letter-spacing: $tracking-tight-2;
 }
 
@@ -225,14 +227,15 @@
     margin: 0;
     font-size: $fs-xl;
     line-height: $lh-loose;
-    opacity: $opacity-95;
-    font-weight: 700
+    font-weight: 500
 }
 
 .learnMore {
-    font-size: $fs-s;
-    text-decoration: underline;
-    opacity: $opacity-95;
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: 2rem;
+    left: 2.2rem;
+    border-bottom: 1px solid;
 }
 
 /* expandable content */
@@ -263,7 +266,7 @@
 .expandText {
     margin: 0;
     font-size: $fs-md;
-    font-weight: 500;
+    font-weight: 400;
     line-height: $lh-card-full;
 }
 

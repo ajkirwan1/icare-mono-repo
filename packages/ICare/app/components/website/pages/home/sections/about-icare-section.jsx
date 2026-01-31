@@ -44,16 +44,6 @@ export default function AboutICareSection() {
                     <p className={styles.subtitle} style={{ maxWidth: "520px" }}>
                         <Link
                             to="/care-knowledge"
-                            style={{
-                                color: "#5a5656",
-                                textDecoration: "underline",
-                                textUnderlineOffset: "2px",
-                                fontWeight: 400,
-                                fontSize: "1.2rem",
-                                transition: "0.3s"
-
-
-                            }}
                         >
                             Learn more in Care guidance
                         </Link>

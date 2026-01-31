@@ -276,7 +276,7 @@ export default function SavingsEstimatorCurrency() {
             aria-label="Care cost estimator"
             style={{
                 padding: "4rem",
-                background: "rgba(236, 221, 209, 0.55)",
+                backgroundColor: "rgb(242, 242, 242)",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 color: TEXT,

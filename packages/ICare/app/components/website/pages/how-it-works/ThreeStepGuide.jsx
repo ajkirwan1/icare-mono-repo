@@ -27,7 +27,7 @@ export default function ThreeStepGuide() {
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
                 width: "100vw",
-                background: "#e8e7d7",
+                background: "rgba(255, 249, 239, 0.85)",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
                 padding: "clamp(3.8rem, 6.2vw, 5.6rem) 0",

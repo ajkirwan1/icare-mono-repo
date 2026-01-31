@@ -9,17 +9,16 @@ import AboutICareSection from "../../components/website/pages/home/sections/abou
 
 export default function ICareForCareReceivers() {
 
-  return (
-    <>
-      <ICareForCareReceiversHero />
-      <AboutICareSection />
-      <ReceiversThreeSteps />
-      <MobileMockupSection />
-      <ReceiversCompareICareVsAgency />
-      <ProtectionSection />
-      <ReceiversFAQ />
+    return (
+        <>
+            <ICareForCareReceiversHero />
+            <AboutICareSection />
+            <MobileMockupSection />
+            <ReceiversCompareICareVsAgency />
+            <ProtectionSection />
+            <ReceiversFAQ />
 
-      <ICareFooter />
-    </>
-  );
+            <ICareFooter />
+        </>
+    );
 }

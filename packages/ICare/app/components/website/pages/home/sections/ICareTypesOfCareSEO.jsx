@@ -14,15 +14,18 @@ import {
  * ICare — Types of care (SEO, short, calm)
  * ✅ Types grid
  * ✅ Soft disclaimer
- * ✅ Care-at-home section (small Unsplash image left)
- * ✅ Live-in carer duties (Elder-like bullets)
- * ✅ Fade-in on scroll for the two sections (IntersectionObserver)
+ * ✅ Care-at-home section
+ * ✅ Live-in carer duties bullets
+ * ✅ Fade-in on scroll (IntersectionObserver)
+ *
+ * FIXES:
+ * ✅ bullet right borders now controlled in CSS (not inline) so :last-child works
+ * ✅ both grids use .bullet-card class consistently
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
     const ICON = "#dd8b4f";
 
-    // ✅ fade-in on scroll refs
     const careAtHomeRef = useRef(null);
     const liveInRef = useRef(null);
 
@@ -30,15 +33,10 @@ export default function ICareTypesOfCareSEO() {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("icare-fade--in");
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add("icare-fade--in");
                 });
             },
-            {
-                threshold: 0.18,
-                rootMargin: "0px 0px -80px 0px",
-            }
+            { threshold: 0.18, rootMargin: "0px 0px -80px 0px" }
         );
 
         if (careAtHomeRef.current) observer.observe(careAtHomeRef.current);
@@ -165,25 +163,24 @@ export default function ICareTypesOfCareSEO() {
     const disclaimer = {
         marginTop: "clamp(18px, 2.4vw, 26px)",
         maxWidth: "78ch",
-        color: "rgba(15, 23, 42, 0.86)",
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.65,
-        fontSize: "1.05rem",
+        fontSize: "1.1rem",
     };
 
     const section = {
         marginTop: "clamp(26px, 3.6vw, 44px)",
-        paddingTop: "clamp(18px, 2.6vw, 28px)",
+        paddingTop: "40px",
         borderTop: "1px solid rgba(15, 23, 42, 0.10)",
-        maxWidth: "94ch",
-        scrollMarginTop: 18,
+        maxWidth: "110ch",
+        scrollMarginTop: 30,
     };
 
     const sectionTitle = {
         margin: 0,
-        fontWeight: 800,
+        fontWeight: 600,
         letterSpacing: "-0.2px",
-        fontSize: "1.35rem",
+        fontSize: "1.6rem",
         lineHeight: 1.35,
         color: TEXT,
     };
@@ -191,21 +188,20 @@ export default function ICareTypesOfCareSEO() {
     const sectionText = {
         margin: "12px 0 0",
         color: TEXT,
-        fontWeight: 500,
-        lineHeight: 1.75,
-        fontSize: "1.12rem",
+        fontWeight: 400,
+        lineHeight: 1.6,
+        fontSize: "1.2rem",
     };
 
-    // Care-at-home block with image left
     const careHomeRow = {
         display: "grid",
-        gridTemplateColumns: "360px 1fr",
+        gridTemplateColumns: "440px 1fr",
         gap: "clamp(16px, 2.5vw, 28px)",
         alignItems: "start",
     };
 
     const imgWrap = {
-        width: 360,
+        width: 440,
         height: 500,
         borderRadius: 18,
         overflow: "hidden",
@@ -219,6 +215,8 @@ export default function ICareTypesOfCareSEO() {
         height: "100%",
         objectFit: "cover",
         display: "block",
+        objectPosition: "65% 50%",
+        transform: "scale(1.2)",
     };
 
     // Bullets (Elder-like)
@@ -227,18 +225,22 @@ export default function ICareTypesOfCareSEO() {
         display: "grid",
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         gap: "35px 20px",
+        padding: "0.5rem",
+        border: "1px solid rgba(221, 139, 79, 0.7)",
+        borderRadius: "2rem",
     };
 
+    // ✅ removed borderRight from inline (now handled in CSS so :last-child works)
     const bulletCard = {
-        padding: "12px 10px 10px 15px",
-        borderRight: "1px solid",
+        padding: "0px 1rem 0px 1rem",
+        margin: "1rem 0",
     };
 
     const bulletTitle = {
         margin: 0,
-        fontWeight: 800,
+        fontWeight: 600,
         letterSpacing: "-0.15px",
-        fontSize: "1.05rem",
+        fontSize: "1.3rem",
         lineHeight: 1.35,
         color: TEXT,
     };
@@ -246,9 +248,9 @@ export default function ICareTypesOfCareSEO() {
     const bulletDesc = {
         margin: "6px 0 0",
         color: "rgba(15,23,42,0.86)",
-        fontWeight: 500,
+        fontWeight: 400,
         lineHeight: 1.6,
-        fontSize: "1.02rem",
+        fontSize: "1.1rem",
     };
 
     const subhead = {
@@ -303,10 +305,8 @@ export default function ICareTypesOfCareSEO() {
             t: "Dementia support",
             d: "Consistent, familiar care matched to the person’s needs.",
         },
-
     ];
 
-    // ✅ UPDATED TEXT ONLY (layout untouched)
     const liveInEveryday = [
         {
             t: "Personal support",
@@ -354,7 +354,6 @@ export default function ICareTypesOfCareSEO() {
         },
     ];
 
-    // ✅ UPDATED TEXT ONLY (layout untouched)
     const liveInSpecialist = [
         { t: "Oxygen or ventilation support", d: "e.g. CPAP or BiPAP support" },
         {
@@ -403,7 +402,7 @@ export default function ICareTypesOfCareSEO() {
                     medical or nursing care.
                 </p>
 
-                {/* NEXT SCROLL SECTION: CARE AT HOME (fade-in) */}
+                {/* CARE AT HOME (fade-in) */}
                 <div
                     id="care-at-home"
                     ref={careAtHomeRef}
@@ -446,7 +445,7 @@ export default function ICareTypesOfCareSEO() {
                     </div>
                 </div>
 
-                {/* NEXT SCROLL SECTION: LIVE-IN CARER DUTIES (fade-in) */}
+                {/* LIVE-IN CARER DUTIES (fade-in) */}
                 <div
                     id="live-in-carer"
                     ref={liveInRef}
@@ -463,7 +462,7 @@ export default function ICareTypesOfCareSEO() {
 
                     <div className="icare-bullets-grid" style={bulletsGrid}>
                         {liveInEveryday.map((b) => (
-                            <div key={b.t} style={bulletCard}>
+                            <div key={b.t} style={bulletCard} className="bullet-card">
                                 <p style={bulletTitle}>{b.t}</p>
                                 {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
                             </div>
@@ -478,7 +477,7 @@ export default function ICareTypesOfCareSEO() {
 
                     <div className="icare-bullets-grid" style={bulletsGrid}>
                         {liveInSpecialist.map((b) => (
-                            <div key={b.t} style={bulletCard}>
+                            <div key={b.t} style={bulletCard} className="bullet-card">
                                 <p style={bulletTitle}>{b.t}</p>
                                 {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
                             </div>
@@ -502,9 +501,15 @@ export default function ICareTypesOfCareSEO() {
           .icare-bullets-grid{ grid-template-columns: 1fr !important; }
         }
 
-        /* remove right border on every 3rd bullet card */
-        .icare-bullets-grid > div:nth-child(3n) {
-          border-right: none !important;
+        /* ✅ bullet borders (CSS, not inline) */
+        .icare-bullets-grid > .bullet-card{
+          border-right: 1px solid rgba(221, 139, 79, 0.7);
+        }
+        .icare-bullets-grid > .bullet-card:nth-child(3n){
+          border-right: none;
+        }
+        .icare-bullets-grid > .bullet-card:last-child{
+          border-right: none;
         }
 
         /* fade-in on scroll */

@@ -3,7 +3,8 @@
 
 .section {
     @include motifs.section;
-    padding-top: 4rem
+    padding-top: 4rem;
+    background: rgba(255, 249, 239, 0.85);
 }
 
 .tagline {
@@ -35,6 +36,15 @@
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
 }
 
+.subtitle a {
+    color: #000;
+    font-weight: 400;
+    font-size: 1.3rem;
+    transition: 0.3s;
+    color: rgb(221, 139, 79);
+    border-bottom: 1px solid
+}
+
 .subtitle a:hover {
-    opacity: 0.6;
+    color: #ffa967;
 }

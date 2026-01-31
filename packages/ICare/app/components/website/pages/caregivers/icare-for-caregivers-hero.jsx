@@ -78,7 +78,7 @@ export default function ICareForCaregiversHero() {
                                             ?.scrollIntoView({ behavior: "smooth" });
                                     }}
                                 >
-                                    how it works for caregivers
+                                    How it works for caregivers
                                 </button>
                             </a>
 
