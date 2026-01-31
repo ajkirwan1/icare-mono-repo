@@ -65,7 +65,7 @@ export default function SafetyComesFirstThreeBoxes() {
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.1rem, 5vw, 4rem) 0",
-        background: "rgba(236, 221, 209, 0.55)",
+        background: "rgba(255, 249, 239, 0.85)",
     };
 
     const dividerTop = {
@@ -122,10 +122,10 @@ export default function SafetyComesFirstThreeBoxes() {
     const leadStyle = {
         margin: "0.35rem 0 1.5rem",
         color: "rgba(15,23,42,1)",
-        fontSize: "1.35rem",
+        fontSize: "1.3rem",
         lineHeight: 1.65,
         fontWeight: 400,
-        maxWidth: "50ch",
+        maxWidth: "55ch",
     };
 
     const grid = {
@@ -133,6 +133,7 @@ export default function SafetyComesFirstThreeBoxes() {
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: "clamp(14px, 1.9vw, 18px)",
         alignItems: "stretch",
+        margin: "0 -18px"
     };
 
     const cardBase = {
@@ -175,11 +176,11 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const desc = {
-        margin: "0 0 1rem",
+        margin: "0 0 0.5rem",
         color: "rgba(0, 0, 0, 0.86)",
         fontWeight: 400,
         lineHeight: 1.55,
-        fontSize: "1.25rem",
+        fontSize: "1.15rem",
         paddingTop: "1rem"
     };
 

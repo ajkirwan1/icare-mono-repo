@@ -150,7 +150,7 @@ export default function HowItWorksThreeSteps() {
         border: "3px solid rgb(221,139,79)",
         backgroundColor: "rgb(221,139,79)",
         fontWeight: 400,
-        fontSize: "1.2rem",
+        fontSize: "1.1rem",
         padding: "10px 12px",
         cursor: "pointer",
         width: "min(240px, 88vw)",

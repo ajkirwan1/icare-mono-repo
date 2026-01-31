@@ -37,7 +37,12 @@
 }
 
 .subtitle a {
-    color: #000,
+    color: #000;
+    font-weight: 400;
+    font-size: 1.3rem;
+    transition: 0.3s;
+    color: rgb(221, 139, 79);
+    border-bottom: 1px solid
 }
 
 .subtitle a:hover {

@@ -52,10 +52,12 @@
     text-decoration: none;
     transition: 0.2s;
 
-    &:hover {
+    &:hover,
+    &[aria-current="page"] {
         color: #ffa967;
     }
 }
+
 
 .dropdownBtn {
     @extend .link;
@@ -111,7 +113,8 @@
         transform 260ms ease;
     transition-delay: calc(var(--i, 0) * 70ms);
 
-    &:hover {
+    &:hover,
+    &[aria-current="page"] {
         background: rgba(255, 255, 255, 0.12);
         color: #ffa967;
     }

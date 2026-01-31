@@ -15,6 +15,12 @@ export default function SplitMediaSection({
     // autoplay timer (resettable)
     const timerRef = useRef(null);
 
+    // autoplay enabled/disabled (disabled after clicking Play on video)
+    const [autoEnabled, setAutoEnabled] = useState(true);
+
+    // whether current video slide has started (to show/hide overlay + enable controls)
+    const [videoStarted, setVideoStarted] = useState(false);
+
     const clearTimer = useCallback(() => {
         if (timerRef.current) {
             clearTimeout(timerRef.current);
@@ -24,42 +30,68 @@ export default function SplitMediaSection({
 
     const scheduleNext = useCallback(() => {
         clearTimer();
+        if (!autoEnabled) return;
         if (media.length <= 1) return;
 
         timerRef.current = setTimeout(() => {
             setIndex((i) => (i + 1) % media.length);
         }, 8000);
-    }, [clearTimer, media.length]);
+    }, [clearTimer, media.length, autoEnabled]);
 
     const goTo = (i) => {
         setIndex(i);
-        scheduleNext(); // reset autoplay after manual change
+        // reset autoplay timer (only if enabled)
+        scheduleNext();
     };
 
-    // run autoplay; reset after every index change
+    // run autoplay; reset after every index change (respects autoEnabled)
     useEffect(() => {
         scheduleNext();
         return () => clearTimer();
     }, [index, scheduleNext, clearTimer]);
 
-    // video: restart from beginning when video slide becomes active
+    // when slide changes: stop/reset video + reset overlay state
+    // AND: if we moved to a non-video slide, allow autoplay again
     useEffect(() => {
+        setVideoStarted(false);
+
+        const v = videoRef.current;
+        if (v) {
+            try {
+                v.pause();
+                v.currentTime = 0;
+            } catch { }
+        }
+
+        const active = media[index];
+        if (active?.type !== "video") {
+            setAutoEnabled(true); // autoplay may return on non-video slides
+        }
+    }, [index, media]);
+
+    const playWithSound = async () => {
         const active = media[index];
         if (active?.type !== "video") return;
+
+        // user clicked play => disable autoplay completely and stop timer
+        setAutoEnabled(false);
+        clearTimer();
 
         const v = videoRef.current;
         if (!v) return;
 
-        v.muted = true;
+        v.muted = false;
         v.playsInline = true;
 
         try {
-            v.pause();
-            v.currentTime = 0;
-        } catch { }
+            await v.play();
+            setVideoStarted(true);
+        } catch {
+            setVideoStarted(false);
+        }
+    };
 
-        v.play().catch(() => { });
-    }, [index, media]);
+    const isActiveVideo = media[index]?.type === "video";
 
     return (
         <div className={styles.container}>
@@ -79,16 +111,39 @@ export default function SplitMediaSection({
                                             className={unstyledImage ? undefined : styles.image}
                                         />
                                     ) : (
-                                        <video
-                                            ref={i === index ? videoRef : null}
-                                            src={item.src}
-                                            autoPlay
-                                            loop
-                                            muted
-                                            playsInline
-                                            preload="auto"
-                                            className={slider.video}
-                                        />
+                                        <div className={slider.videoWrap}>
+                                            <video
+                                                ref={i === index ? videoRef : null}
+                                                src={item.src}
+                                                poster="/images/web/icare-for-carereceivers/video-placeholder.webp"
+                                                playsInline
+                                                preload="metadata"
+                                                controls={i === index && videoStarted}
+                                                className={slider.video}
+                                                onEnded={() => {
+                                                    const v = videoRef.current;
+                                                    if (!v) return;
+                                                    try {
+                                                        v.pause();
+                                                        v.currentTime = 0;
+                                                    } catch { }
+                                                    setVideoStarted(false);
+                                                }}
+                                            />
+
+
+                                            {/* Big play overlay (only when active video slide and not started) */}
+                                            {i === index && isActiveVideo && !videoStarted && (
+                                                <button
+                                                    type="button"
+                                                    className={slider.playOverlay}
+                                                    onClick={playWithSound}
+                                                    aria-label="Play video"
+                                                >
+                                                    <span className={slider.playTriangle} aria-hidden />
+                                                </button>
+                                            )}
+                                        </div>
                                     )}
                                 </div>
                             ))}
@@ -101,8 +156,7 @@ export default function SplitMediaSection({
                                 <button
                                     key={i}
                                     type="button"
-                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""
-                                        }`}
+                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""}`}
                                     onClick={() => goTo(i)}
                                     aria-label={`Go to slide ${i + 1}`}
                                 />

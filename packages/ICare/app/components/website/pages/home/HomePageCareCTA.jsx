@@ -34,8 +34,9 @@ export default function ICareTwoPathsSection({
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
         padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
-        backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
+        backgroundColor: "rgba(236, 221, 209, 0.55)",
         backgroundSize: "cover",
+        backgroundPosition: "50% 34%",
         paddingTop: "4rem"
     };
 
@@ -43,9 +44,7 @@ export default function ICareTwoPathsSection({
         pointerEvents: "none",
         position: "absolute",
         height: "100%",
-        inset: 0,
-        background:
-            "linear-gradient(160deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 55%, rgba(0,0,0,0.55))"
+        inset: 0
     };
 
     const container = {
@@ -68,15 +67,15 @@ export default function ICareTwoPathsSection({
         fontWeight: 500,
         lineHeight: 1.14,
         fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
-        color: COLORS.textWhite,
+        color: "#111",
         textAlign: "center",
         letterSpacing: "-0.6px"
     };
 
     const lead = {
-        margin: "2rem 0 3rem",
-        color: COLORS.textWhite,
-        fontSize: "1.4rem",
+        margin: "1rem 0 2rem",
+        color: "#444",
+        fontSize: "1.3rem",
         lineHeight: 1.6,
         fontWeight: 400,
         textAlign: "center"
@@ -86,17 +85,17 @@ export default function ICareTwoPathsSection({
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
         gap: "clamp(14px, 2.2vw, 22px)",
-        alignItems: "stretch"
+        alignItems: "stretch",
+        background: "white",
+        border: "1px solid #ccc",
+        borderRadius: 22,
+        overflow: "hidden"
     };
 
     const card = {
-        background: "rgba(255,255,255,0.9)",
-        border: `1px solid ${COLORS.border}`,
-        borderRadius: 22,
-        padding: "clamp(18px, 2.2vw, 22px)",
-        boxShadow: "0 16px 40px rgba(15,23,42,0.06)",
+        padding: "clamp(22px, 2vw, 28px)",
         display: "grid",
-        gap: 14,
+        gap: 6,
         minHeight: 260
     };
 
@@ -108,13 +107,13 @@ export default function ICareTwoPathsSection({
 
     // icons: calm + a bit smaller
     const icon = {
-        width: 50,
+        width: 32,
         height: 50,
         borderRadius: 18,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        color: COLORS.olive,
+        color: "rgb(221, 139, 79)",
         flex: "0 0 auto"
     };
 
@@ -127,7 +126,6 @@ export default function ICareTwoPathsSection({
         margin: 0,
         fontWeight: 500,
         fontSize: "1.7rem",
-        color: COLORS.text,
         lineHeight: 1.2
     };
 
@@ -162,8 +160,7 @@ export default function ICareTwoPathsSection({
         width: 10,
         height: 10,
         borderRadius: 999,
-        background: COLORS.accent,
-        opacity: 0.9,
+        background: "rgb(221, 139, 79)",
         marginTop: 10,
         flex: "0 0 auto"
     };
@@ -171,6 +168,7 @@ export default function ICareTwoPathsSection({
     const ctaRow = {
         marginTop: "clamp(14px, 2.2vw, 18px)",
         display: "flex",
+        flexDirection: "column",
         gap: 12,
         flexWrap: "wrap",
         alignItems: "center"
@@ -178,11 +176,10 @@ export default function ICareTwoPathsSection({
 
     // buttons: radius 36px
     const primaryBtn = {
-        border: "none",
+        border: "1px solid",
         borderRadius: 36,
-        background: "#dd8b4f",
-        color: "#fff",
-        fontWeight: 500,
+        color: "#000",
+        fontWeight: 400,
         fontSize: "1.1rem",
         padding: "12px 12px",
         cursor: "pointer",
@@ -195,7 +192,7 @@ export default function ICareTwoPathsSection({
         background: COLORS.btnCaregiver,
         border: "1px solid rgba(97,103,77,0.24)",
         color: COLORS.textWhite,
-        fontWeight: 500,
+        fontWeight: 400,
         fontSize: "1.1rem",
         padding: "12px 1.2rem",
         cursor: "pointer",
@@ -263,7 +260,7 @@ export default function ICareTwoPathsSection({
                                 </button>
                             </a>
 
-                            <span style={{ color: COLORS.text, fontWeight: 500, fontSize: "1.1rem", paddingTop: "10px" }}>
+                            <span style={{ color: COLORS.text, fontWeight: 400, fontSize: "1rem", paddingTop: "10px" }}>
                                 We’ll notify you when we open in your area.
                             </span>
                         </div>
@@ -309,7 +306,7 @@ export default function ICareTwoPathsSection({
                                 </button>
                             </a>
 
-                            <span style={{ color: COLORS.text, fontWeight: 500, fontSize: "1.1rem", paddingTop: "10px" }}>
+                            <span style={{ color: COLORS.text, fontWeight: 400, fontSize: "1rem", paddingTop: "10px" }}>
                                 Learn how ICare supports carers.
                             </span>
                         </div>
