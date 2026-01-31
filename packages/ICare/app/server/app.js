@@ -6,6 +6,7 @@ import cors from "cors";
 // import documentsRouter from "./routes/documents.routes.js";
 import newsletterRouter from "./routes/newsletter.routes.js";
 import waitinglistRouter from "./routes/waitinglist.routes.js";
+import contactUsRouter from "./routes/contact.routes.js";
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use((req, res, next) => {
 
 app.use("/api/newsletter", newsletterRouter);
 app.use("/api/waitinglist", waitinglistRouter);
+app.use("/api/contact", contactUsRouter);
 
 export default app;

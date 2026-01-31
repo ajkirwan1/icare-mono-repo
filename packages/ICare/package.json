@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "start:frontend": "react-router dev",
-    "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
-    "seed:care-roles": "node app/server/scripts/seed-care-giving-roles.js",
-    "db:newsletter:init": "node app/server/scripts/run-sql.js",
-    "start-node-server": "node app/server/index.js"
+    "dev": "react-router dev",
+    "dev:backend": "nodemon app/server/index.js",
+    "docker:db": "docker compose up -d db",
+    "db:wait": "wait-on tcp:localhost:5432",
+    "db:init": "node app/server/scripts/run-sql.js",
+    "dev:seed": "run-s docker:db db:wait db:init",
+    "dev:all": "run-s dev:seed && run-p dev:backend dev"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

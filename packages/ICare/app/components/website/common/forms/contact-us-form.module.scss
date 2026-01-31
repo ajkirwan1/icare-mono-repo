@@ -1,0 +1,151 @@
+/* contact-us-form.module.scss */
+
+.card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 22px;
+  padding: clamp(18px, 2.2vw, 22px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  display: grid;
+  gap: 14px;
+  min-height: 260px;
+}
+
+.sub {
+  margin: 0;
+  color: #000;
+  font-weight: 700;
+  line-height: 1.65;
+  font-size: 1.1rem;
+}
+
+.form {
+  margin-top: 6px;
+  display: grid;
+  gap: 12px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.label {
+  font-weight: 900;
+  color: #0f172a;
+  font-size: 0.88rem;
+  letter-spacing: -0.1px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.field {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 14px;
+  padding: 11px 12px;
+  background: #fff;
+  font-size: 0.98rem;
+  color: #0f172a;
+  outline: none;
+}
+
+.textarea {
+  composes: field;
+  resize: vertical;
+  min-height: 140px;
+}
+
+.btnWrap {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.primaryBtn {
+  border: none;
+  border-radius: 36px;
+  background: #e79961;
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.98rem;
+  padding: 16px 2.2rem;
+  cursor: pointer;
+  transition: filter 0.14s ease;
+  width: min(260px, 88vw);
+}
+
+.primaryBtn:hover {
+  filter: brightness(1.06);
+}
+
+.primaryBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.note {
+  margin: 0;
+  color: rgba(15, 23, 42, 0.72);
+  font-weight: 650;
+  font-size: 0.95rem;
+  text-align: center;
+  line-height: 1.55;
+  max-width: 66ch;
+}
+
+.errorNote {
+  color: #b91c1c;
+}
+
+.fieldError {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: rgb(119, 141, 67);
+}
+
+/* Keep your old global “icare-contact-input:focus” behaviour,
+   but scoped to this component via the class on inputs/selects/textarea. */
+.contactInput:focus {
+  border-color: rgba(231, 153, 97, 0.55);
+  box-shadow: 0 0 0 4px rgba(231, 153, 97, 0.16);
+}
+
+/* ===== Loading spinner ===== */
+
+.btnSpinnerWrap {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive: stack the two columns on small screens */
+@media (max-width: 620px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}

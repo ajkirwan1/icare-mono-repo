@@ -168,6 +168,7 @@ Maintain a living backlog mentality: features evolve, priorities shift, and lear
 - docs/product/backlog/backlog.yml
 - docs/product/features/*.md
 - docs/product/complete-feature-map/md
+- docs/*.md
 
 ## Rules:
 - You MUST read these files before doing anything.

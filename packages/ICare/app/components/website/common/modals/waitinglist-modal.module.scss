@@ -1,0 +1,114 @@
+.modalInner {
+  position: relative;
+  padding: 22px 22px 18px;
+}
+
+.modalCloseIcon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  color: #0f172a;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.modalCloseIcon:hover {
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.modalHeader {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 10px 6px 14px;
+}
+
+.modalBadge {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #fff;
+  background: rgb(231 153 97);
+  box-shadow: 0 10px 22px rgba(231, 153, 97, 0.28);
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.2px;
+  color: #0f172a;
+}
+
+.modalText {
+  margin: 0;
+  line-height: 1.55;
+  opacity: 0.9;
+  max-width: 44ch;
+  color: #0f172a;
+}
+
+.modalPanel {
+  margin-top: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(15, 23, 42, 0.03);
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+}
+
+.modalCheckboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.modalCheckboxText {
+  font-weight: 700;
+  line-height: 1.35;
+  color: #0f172a;
+}
+
+.modalFinePrint {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0.85;
+  color: #0f172a;
+}
+
+.modalActions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.modalPrimaryBtn {
+  border: none;
+  border-radius: 999px;
+  background: rgb(231 153 97);
+  color: #fff;
+  font-weight: 800;
+  padding: 12px 18px;
+  cursor: pointer;
+}
+
+.modalPrimaryBtn:hover {
+  filter: brightness(1.05);
+}
+
+/* reuse your checkbox styling if you want it identical */
+.checkboxInput {
+  margin-top: 2px;
+}

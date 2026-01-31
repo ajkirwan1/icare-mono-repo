@@ -14,6 +14,21 @@ async function loadLogoPngBase64() {
   return buf.toString("base64");
 }
 
+/**
+ * Topic label for nicer display
+ */
+function topicLabel(topic) {
+  const map = {
+    general: "General question",
+    care: "Care needs",
+    caregiver: "Caregiver onboarding",
+    safety: "Trust & safety",
+    billing: "Billing / payments",
+    other: "Other"
+  };
+  return map[topic] || topic || "General";
+}
+
 async function loadLogoPngBase64White() {
   const filePath = path.join(
     process.cwd(),
@@ -51,7 +66,17 @@ function getSiteUrl() {
   return site.replace(/\/$/, "");
 }
 
-function emailFooterHtml({ unsubscribeUrl } = {}) {
+// Tiny HTML escaper for user-provided fields (firstName/postcode)
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function newsletterFooterHtml({ unsubscribeUrl } = {}) {
   const siteUrl = getSiteUrl();
 
   return `
@@ -69,10 +94,27 @@ function emailFooterHtml({ unsubscribeUrl } = {}) {
   `;
 }
 
-function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids } = {}) {
+function waitinglistFooterHtml() {
   const siteUrl = getSiteUrl();
 
-  // logoCids: { light: "icare-logo-light", dark: "icare-logo-dark" }
+  return `
+    <hr style="margin:24px 0;border:none;border-top:1px solid #eee;" />
+    <p style="margin:0;font-size:12px;line-height:1.5;color:#666;">
+      You’re receiving this email because you joined the ICare waiting list.
+    </p>
+    <p style="margin:8px 0 0;font-size:12px;line-height:1.5;color:#666;">
+      <a href="${siteUrl}/privacy">Privacy</a> · <a href="${siteUrl}/terms">Terms</a> · <a href="${siteUrl}/contact-us">Contact</a>
+    </p>
+    <p style="margin:8px 0 0;font-size:12px;line-height:1.5;color:#666;">
+      ICare · London, UK
+    </p>
+  `;
+}
+
+
+function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids, footer = "newsletter" } = {}) {
+  const siteUrl = getSiteUrl();
+
   const hasLogos = logoCids?.light && logoCids?.dark;
 
   const logoHtml = hasLogos
@@ -98,6 +140,11 @@ function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids } = {}) {
     `
     : "";
 
+  const footerHtml =
+    footer === "waitinglist"
+      ? waitinglistFooterHtml()
+      : newsletterFooterHtml({ unsubscribeUrl });
+
   return `
     <html>
       <head>
@@ -117,12 +164,13 @@ function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids } = {}) {
         <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;max-width:640px;margin:0 auto;padding:24px;">
           ${logoHtml}
           ${bodyHtml}
-          ${emailFooterHtml({ unsubscribeUrl })}
+          ${footerHtml}
         </div>
       </body>
     </html>
   `;
 }
+
 
 export async function sendConfirmationEmail(email, confirmUrl) {
   const resend = getResend();
@@ -154,7 +202,8 @@ export async function sendConfirmationEmail(email, confirmUrl) {
     `,
     {
       unsubscribeUrl: null,
-      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" },
+      footer: "newsletter"
     }
   );
 
@@ -208,7 +257,8 @@ export async function sendWelcomeEmail(email, { unsubscribeUrl }) {
     `,
     {
       unsubscribeUrl,
-      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" },
+      footer: "newsletter"
     }
   );
 
@@ -216,6 +266,270 @@ export async function sendWelcomeEmail(email, { unsubscribeUrl }) {
     from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
     to: email,
     subject: "Welcome to ICare — subscription confirmed",
+    html,
+    attachments: [
+      {
+        filename: "icareblack.png",
+        content: blackBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-dark"
+      },
+      {
+        filename: "icarelogo-white.png",
+        content: whiteBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-light"
+      }
+    ]
+  });
+
+  if (result?.error) {
+    throw new Error(result.error.message || "Email failed");
+  }
+  return result;
+}
+
+/**
+ * Sends "You're on the waiting list" email (not a confirmation flow).
+ *
+ * @param {string} email
+ * @param {{
+*   firstName?: string,
+*   userType?: "receiver" | "caregiver",
+*   postcode?: string,
+*   manageUrl?: string | null
+* }} meta
+*/
+export async function sendWaitinglistConfirmationEmail(email, meta = {}) {
+  const resend = getResend();
+  const siteUrl = getSiteUrl();
+
+  const [blackBase64, whiteBase64] = await Promise.all([
+    loadLogoPngBase64(),
+    loadLogoPngBase64White()
+  ]);
+
+  const firstName = (meta.firstName || "").trim();
+  const greeting = firstName ? `Hi ${escapeHtml(firstName)},` : "Hi,";
+
+  const userTypeLine =
+    meta.userType === "caregiver"
+      ? "Thanks for raising your hand to support families as a caregiver."
+      : meta.userType === "receiver"
+        ? "Thanks for joining — we’ll let you know when ICare is available in your area."
+        : "Thanks for joining — we’ll notify you when ICare launches near you.";
+
+  const manageUrl = meta.manageUrl || null;
+
+  const html = wrapEmailHtml(
+    `
+     <p style="margin:0 0 12px;line-height:1.6;">${greeting}</p>
+
+     <h2 style="margin:0 0 12px;">You’re on the ICare waiting list</h2>
+
+     <p style="margin:0 0 12px;line-height:1.6;">
+       ${userTypeLine}
+     </p>
+
+     ${meta.postcode
+      ? `
+           <p style="margin:0 0 16px;line-height:1.6;color:#555;">
+             Area: <strong>${escapeHtml(meta.postcode)}</strong>
+           </p>
+         `
+      : ""
+    }
+
+     <div style="margin:18px 0 0;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+       <p style="margin:0;line-height:1.6;">
+         We’ll email you when we’re ready to launch in your area.
+       </p>
+       <p style="margin:10px 0 0;line-height:1.6;">
+         In the meantime, you can learn more about ICare here:
+         <a href="${siteUrl}" style="font-weight:600;">${siteUrl}</a>
+       </p>
+     </div>
+
+     ${manageUrl
+      ? `
+           <p style="margin:16px 0 0;line-height:1.6;">
+             Want to update your details? <a href="${manageUrl}">Manage your waiting list preferences</a>.
+           </p>
+         `
+      : ""
+    }
+   `,
+    {
+      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" },
+      footer: "waitinglist"
+    }
+  );
+
+  const result = await resend.emails.send({
+    from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
+    to: email,
+    subject: "You’re on the ICare waiting list",
+    html,
+    attachments: [
+      {
+        filename: "icareblack.png",
+        content: blackBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-dark"
+      },
+      {
+        filename: "icarelogo-white.png",
+        content: whiteBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-light"
+      }
+    ]
+  });
+
+  if (result?.error) {
+    throw new Error(result.error.message || "Email failed");
+  }
+  return result;
+}
+
+/**
+ * Sends a "we received your message" receipt email to the user.
+ *
+ * @param {string} toEmail
+ * @param {{
+*   subject?: string,
+*   topic?: string,
+*   ticketId?: string | null
+* }} meta
+*/
+export async function sendContactReceiptEmail(toEmail, meta = {}) {
+  const resend = getResend();
+  const siteUrl = getSiteUrl();
+
+  const [blackBase64, whiteBase64] = await Promise.all([
+    loadLogoPngBase64(),
+    loadLogoPngBase64White()
+  ]);
+
+  const safeSubject = escapeHtml((meta.subject || "").trim());
+  const safeTopic = escapeHtml(topicLabel((meta.topic || "").trim()));
+  const ticketId = meta.ticketId ? escapeHtml(String(meta.ticketId)) : null;
+
+  const html = wrapEmailHtml(
+    `
+     <h2 style="margin:0 0 12px;">We received your message</h2>
+
+     <p style="margin:0 0 12px;line-height:1.6;">
+       Thanks for contacting ICare — we’ll reply as soon as we can.
+     </p>
+
+     <div style="margin:16px 0 0;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+       <p style="margin:0;line-height:1.6;">
+         <strong>Topic:</strong> ${safeTopic}<br/>
+         <strong>Subject:</strong> ${safeSubject || "—"}
+         ${ticketId ? `<br/><strong>Reference:</strong> ${ticketId}` : ""}
+       </p>
+     </div>
+
+     <p style="margin:16px 0 0;line-height:1.6;color:#555;">
+       In the meantime, you can find more information here:
+       <a href="${siteUrl}" style="font-weight:600;">${siteUrl}</a>
+     </p>
+   `,
+    {
+      // Contact receipts are transactional — no unsubscribe link needed
+      unsubscribeUrl: null,
+      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+    }
+  );
+
+  const result = await resend.emails.send({
+    from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
+    to: toEmail,
+    subject: "We received your message — ICare",
+    html,
+    attachments: [
+      {
+        filename: "icareblack.png",
+        content: blackBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-dark"
+      },
+      {
+        filename: "icarelogo-white.png",
+        content: whiteBase64,
+        contentType: "image/png",
+        contentId: "icare-logo-light"
+      }
+    ]
+  });
+
+  if (result?.error) {
+    throw new Error(result.error.message || "Email failed");
+  }
+  return result;
+}
+
+/**
+* Sends an internal notification email to your team inbox.
+*
+* @param {{
+*  email: string,
+*  subject: string,
+*  topic: string,
+*  message: string
+* }} payload
+*/
+export async function sendContactInternalEmail(payload) {
+  const resend = getResend();
+
+  const inbox = process.env.CONTACT_INBOX_EMAIL;
+  if (!inbox) {
+    throw new Error("Missing CONTACT_INBOX_EMAIL env var");
+  }
+
+  const [blackBase64, whiteBase64] = await Promise.all([
+    loadLogoPngBase64(),
+    loadLogoPngBase64White()
+  ]);
+
+  const safeFromEmail = escapeHtml((payload.email || "").trim());
+  const safeSubject = escapeHtml((payload.subject || "").trim());
+  const safeTopic = escapeHtml(topicLabel((payload.topic || "").trim()));
+
+  // Preserve new lines (basic) for HTML email display
+  const safeMessage = escapeHtml((payload.message || "").trim()).replaceAll("\n", "<br/>");
+
+  const html = wrapEmailHtml(
+    `
+     <h2 style="margin:0 0 12px;">New Contact Us message</h2>
+
+     <div style="margin:0 0 16px;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+       <p style="margin:0;line-height:1.6;">
+         <strong>From:</strong> ${safeFromEmail}<br/>
+         <strong>Topic:</strong> ${safeTopic}<br/>
+         <strong>Subject:</strong> ${safeSubject || "—"}
+       </p>
+     </div>
+
+     <h3 style="margin:0 0 8px;font-size:14px;color:#111;">Message</h3>
+     <p style="margin:0;line-height:1.7;color:#222;">
+       ${safeMessage || "—"}
+     </p>
+   `,
+    {
+      // Internal emails: no unsubscribe link
+      unsubscribeUrl: null,
+      logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+    }
+  );
+
+  const result = await resend.emails.send({
+    from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
+    to: inbox,
+    // Nice for triage + email threading
+    reply_to: payload.email,
+    subject: `Contact Us: ${topicLabel(payload.topic)} — ${payload.subject || "No subject"}`,
     html,
     attachments: [
       {

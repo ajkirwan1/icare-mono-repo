@@ -1,126 +1,70 @@
 import { NavLink, useFetcher } from "react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import classes from "./waitinglist-form.module.scss";
+import { useEffect, useMemo, useState } from "react";
+import classes from "./forms.module.scss";
 import SubmitButton from "../buttons/submit-buttons/submit-button";
 import Tooltip from "../tooltip/tooltip";
+import WaitinglistSuccessModal from "../modals/waitinglist-modal";
 
 export default function WaitinglistForm({
   action = "/waitinglist",
   method = "post",
-  delayMs = 3000
+  delayMs = 3000,
+  defaultUserType = "receiver", // "receiver" | "caregiver"
+  hideUserTypeSelector = false
 }) {
   const fetcher = useFetcher();
   const isSubmitting = fetcher.state === "submitting";
   const result = fetcher.data;
 
-  const [tab, setTab] = useState("receiver");
+  // tab state (receiver/caregiver)
+  const [tab, setTab] = useState(defaultUserType);
+
+  // keep tab in sync if parent changes defaultUserType (rare, but safe)
+  useEffect(() => {
+    setTab(defaultUserType);
+  }, [defaultUserType]);
+
   const [agreeTerms, setAgreeTerms] = useState(false);
 
-  const dialogRef = useRef(null);
+  // modal state
+  const [successOpen, setSuccessOpen] = useState(false);
 
-  const fieldErrors =
-    result?.ok === false && result?.errors ? result.errors : {};
+  // field errors
+  const fieldErrors = result?.ok === false && result?.errors ? result.errors : {};
 
   const isReceiver = tab === "receiver";
   const isCaregiver = tab === "caregiver";
 
-  const hasErrors = useMemo(
-    () => Object.keys(fieldErrors || {}).length > 0,
-    [fieldErrors]
-  );
+  const hasErrors = useMemo(() => Object.keys(fieldErrors || {}).length > 0, [fieldErrors]);
 
   const canSubmit = agreeTerms && !isSubmitting && !result?.ok;
 
-  const describedBy = (name) =>
-    fieldErrors?.[name] ? `${name}-error` : undefined;
+  const describedBy = (name) => (fieldErrors?.[name] ? `${name}-error` : undefined);
 
   const FieldError = ({ name }) =>
     fieldErrors?.[name] ? (
-      <div id={`${name}-error`} className={classes.errorText} role="alert">
+      <div id={`${name}-error`} className={classes.error} role="alert">
         {fieldErrors[name]}
       </div>
     ) : null;
 
-  const [subscribeNewsletter, setSubscribeNewsletter] = useState(false);
-
-  const handleModalDone = async () => {
-    if (subscribeNewsletter) {
-      await fetch("/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: result?.email })
-      });
-    }
-
-    closeModal();
-  };
-
-
-  // Open modal on success
+  // Open modal on success; reset modal state when starting a new submit
   useEffect(() => {
-    if (result?.ok && dialogRef.current && !dialogRef.current.open) {
-      dialogRef.current.showModal();
-    }
-  }, [result?.ok]);
+    if (fetcher.state === "submitting") { setSuccessOpen(false); }
+    if (result?.ok && !result?.alreadyRegistered) { setSuccessOpen(true); }
+  }, [fetcher.state, result?.ok, result?.alreadyRegistered]);
 
-  const closeModal = () => {
-    if (dialogRef.current?.open) { dialogRef.current.close(); }
-  };
+  const closeSuccess = () => setSuccessOpen(false);
 
   return (
     <>
-      {/* Success modal */}
-      <dialog ref={dialogRef} className={classes.modal}>
-        <div className={classes.modalInner}>
-          <button
-            type="button"
-            className={classes.modalCloseIcon}
-            aria-label="Close"
-            onClick={closeModal}
-          >
-            ×
-          </button>
-
-          <div className={classes.modalHeader}>
-            <div className={classes.modalBadge} aria-hidden="true">✓</div>
-            <h2 className={classes.modalTitle}>You're on the waiting list!</h2>
-            <p className={classes.modalText}>
-              Thanks for joining ICare. We’ll notify you when we launch in your area.
-            </p>
-          </div>
-
-          <div className={classes.modalPanel}>
-            <label className={classes.modalCheckboxLabel}>
-              <input
-                type="checkbox"
-                checked={subscribeNewsletter}
-                onChange={(e) => setSubscribeNewsletter(e.target.checked)}
-                className={classes.checkboxInput}
-              />
-              <span className={classes.modalCheckboxText}>
-                Also subscribe me to the ICare newsletter
-              </span>
-            </label>
-
-            <p className={classes.modalFinePrint}>
-              Monthly updates on care, research, and platform progress. Unsubscribe anytime.
-            </p>
-          </div>
-
-          <div className={classes.modalActions}>
-            <button
-              type="button"
-              className={classes.modalPrimaryBtn}
-              onClick={handleModalDone}
-            >
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </dialog>
-
-
-
+      <WaitinglistSuccessModal
+        open={successOpen}
+        onClose={closeSuccess}
+        email={result?.email}
+        alreadyRegistered={result?.alreadyRegistered}
+        message={result?.message}
+      />
 
       <fetcher.Form method={method} action={action} className={classes.form} noValidate>
         {/* Honeypot */}
@@ -131,15 +75,18 @@ export default function WaitinglistForm({
 
         <input type="hidden" name="_delay" value={String(delayMs)} />
 
+        {/* IMPORTANT: always submit userType even if selector hidden */}
+        <input type="hidden" name="userType" value={tab} />
+
         {/* Common fields */}
-        <div className={classes.grid2}>
-          <div>
+        <div className={classes.row2}>
+          <div className={classes.field}>
             <label className={classes.label} htmlFor="firstName">First name</label>
             <input
               id="firstName"
               name="firstName"
               required
-              className={classes.field}
+              className={classes.control}
               aria-invalid={fieldErrors.firstName ? "true" : "false"}
               aria-describedby={describedBy("firstName")}
               disabled={isSubmitting}
@@ -147,13 +94,14 @@ export default function WaitinglistForm({
             />
             <FieldError name="firstName" />
           </div>
-          <div>
+
+          <div className={classes.field}>
             <label className={classes.label} htmlFor="lastName">Last name</label>
             <input
               id="lastName"
               name="lastName"
               required
-              className={classes.field}
+              className={classes.control}
               aria-invalid={fieldErrors.lastName ? "true" : "false"}
               aria-describedby={describedBy("lastName")}
               disabled={isSubmitting}
@@ -163,15 +111,15 @@ export default function WaitinglistForm({
           </div>
         </div>
 
-        <div className={classes.grid2}>
-          <div>
+        <div className={classes.row2}>
+          <div className={classes.field}>
             <label className={classes.label} htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
               name="email"
               required
-              className={classes.field}
+              className={classes.control}
               aria-invalid={fieldErrors.email ? "true" : "false"}
               aria-describedby={describedBy("email")}
               disabled={isSubmitting}
@@ -179,13 +127,14 @@ export default function WaitinglistForm({
             />
             <FieldError name="email" />
           </div>
-          <div>
+
+          <div className={classes.field}>
             <label className={classes.label} htmlFor="postcode">Postcode</label>
             <input
               id="postcode"
               name="postcode"
               required
-              className={classes.field}
+              className={classes.control}
               aria-invalid={fieldErrors.postcode ? "true" : "false"}
               aria-describedby={describedBy("postcode")}
               disabled={isSubmitting}
@@ -195,54 +144,57 @@ export default function WaitinglistForm({
           </div>
         </div>
 
-        {/* Radio tabs */}
-        <fieldset aria-describedby={describedBy("userType")}>
-          <legend className={classes.srOnly}>I am a</legend>
-          <div className={classes.radioRow}>
-            <span className={classes.label}>I am a</span>
+        {/* User type selector (only on generic page) */}
+        {!hideUserTypeSelector ? (
+          <fieldset aria-describedby={describedBy("userType")}>
+            <legend className={classes.srOnly}>I am a</legend>
 
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                name="userType"
-                value="receiver"
-                checked={isReceiver}
-                onChange={() => setTab("receiver")}
-                className={classes.radioInput}
-                disabled={isSubmitting}
-                aria-invalid={fieldErrors.userType ? "true" : "false"}
-              />
-              Care receiver / family
-            </label>
+            <div className={classes.radioRow}>
+              <span className={classes.label}>I am a</span>
 
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                name="userType"
-                value="caregiver"
-                checked={isCaregiver}
-                onChange={() => setTab("caregiver")}
-                className={classes.radioInput}
-                disabled={isSubmitting}
-                aria-invalid={fieldErrors.userType ? "true" : "false"}
-              />
-              Caregiver
-            </label>
-          </div>
+              <label className={classes.radioLabel}>
+                <input
+                  type="radio"
+                  name="userTypePicker" // NOTE: different name so hidden userType is authoritative
+                  value="receiver"
+                  checked={isReceiver}
+                  onChange={() => setTab("receiver")}
+                  className={classes.radioInput}
+                  disabled={isSubmitting}
+                  aria-invalid={fieldErrors.userType ? "true" : "false"}
+                />
+                Care receiver / family
+              </label>
 
-          <FieldError name="userType" />
-        </fieldset>
+              <label className={classes.radioLabel}>
+                <input
+                  type="radio"
+                  name="userTypePicker"
+                  value="caregiver"
+                  checked={isCaregiver}
+                  onChange={() => setTab("caregiver")}
+                  className={classes.radioInput}
+                  disabled={isSubmitting}
+                  aria-invalid={fieldErrors.userType ? "true" : "false"}
+                />
+                Caregiver
+              </label>
+            </div>
+
+            <FieldError name="userType" />
+          </fieldset>
+        ) : null}
 
         {/* Receiver */}
         {isReceiver && (
-          <div className={classes.grid3}>
-            <div>
+          <div className={classes.row3}>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="careFor">Who is the care for?</label>
               <select
                 id="careFor"
                 name="careFor"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.careFor ? "true" : "false"}
                 aria-describedby={describedBy("careFor")}
                 disabled={isSubmitting}
@@ -255,13 +207,13 @@ export default function WaitinglistForm({
               <FieldError name="careFor" />
             </div>
 
-            <div>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="needWhen">When do you need care?</label>
               <select
                 id="needWhen"
                 name="needWhen"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.needWhen ? "true" : "false"}
                 aria-describedby={describedBy("needWhen")}
                 disabled={isSubmitting}
@@ -275,13 +227,13 @@ export default function WaitinglistForm({
               <FieldError name="needWhen" />
             </div>
 
-            <div>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="typeOfCare">Type of care</label>
               <select
                 id="typeOfCare"
                 name="typeOfCare"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.typeOfCare ? "true" : "false"}
                 aria-describedby={describedBy("typeOfCare")}
                 disabled={isSubmitting}
@@ -300,14 +252,14 @@ export default function WaitinglistForm({
 
         {/* Caregiver */}
         {isCaregiver && (
-          <div className={classes.grid3}>
-            <div>
+          <div className={classes.row3}>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="yearsOfExperience">Years of experience</label>
               <select
                 id="yearsOfExperience"
                 name="yearsOfExperience"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.yearsOfExperience ? "true" : "false"}
                 aria-describedby={describedBy("yearsOfExperience")}
                 disabled={isSubmitting}
@@ -321,13 +273,13 @@ export default function WaitinglistForm({
               <FieldError name="yearsOfExperience" />
             </div>
 
-            <div>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="caregiverRole">Caregiving role</label>
               <select
                 id="caregiverRole"
                 name="caregiverRole"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.caregiverRole ? "true" : "false"}
                 aria-describedby={describedBy("caregiverRole")}
                 disabled={isSubmitting}
@@ -344,13 +296,13 @@ export default function WaitinglistForm({
               <FieldError name="caregiverRole" />
             </div>
 
-            <div>
+            <div className={classes.field}>
               <label className={classes.label} htmlFor="hoursPerWeek">Hours per week available</label>
               <select
                 id="hoursPerWeek"
                 name="hoursPerWeek"
                 required
-                className={classes.field}
+                className={classes.control}
                 aria-invalid={fieldErrors.hoursPerWeek ? "true" : "false"}
                 aria-describedby={describedBy("hoursPerWeek")}
                 disabled={isSubmitting}
@@ -367,8 +319,8 @@ export default function WaitinglistForm({
         )}
 
         {/* Consents */}
-        <div>
-          <label className={classes.checkboxLabel} htmlFor="agreeTerms">
+        <div className={classes.field}>
+          <label className={classes.checkboxRow} htmlFor="agreeTerms">
             <input
               id="agreeTerms"
               type="checkbox"
@@ -402,34 +354,27 @@ export default function WaitinglistForm({
             </Tooltip>
           </label>
           <FieldError name="agreeTerms" />
-
-          <label className={classes.checkboxLabel} htmlFor="subscribeNewsletter">
-            <input
-              id="subscribeNewsletter"
-              type="checkbox"
-              name="subscribeNewsletter"
-              className={classes.checkboxInput}
-              disabled={isSubmitting}
-            />
-            Subscribe to newsletter
-          </label>
-          <FieldError name="subscribeNewsletter" />
         </div>
 
-        <div className={classes.btnWrap}>
-          <SubmitButton disabled={!canSubmit}>
+        <div className={classes.actions}>
+          <SubmitButton disabled={!canSubmit} className={classes.button}>
             {isSubmitting ? (
-              <span className={classes.btnSpinnerWrap}>
+              <span className={classes.spinnerWrap}>
                 <span className={classes.spinner} aria-hidden="true" />
                 Submitting…
               </span>
+            ) : result?.ok ? (
+              result?.alreadyRegistered ? "Already registered ✓" : "You are now on the list ✓"
             ) : (
-              result?.ok ? "You are now on the list ✓" : "Join the waiting list"
+              "Join the waiting list"
             )}
           </SubmitButton>
 
+          {result?.ok && result?.alreadyRegistered && (
+            <p className={classes.note}>You're already on the waiting list.</p>
+          )}
           {hasErrors && <p className={classes.note}>Please check the highlighted fields.</p>}
-          {result?.ok === false && <p className={classes.note}>{result.error}</p>}
+          {result?.ok === false && <p className={`${classes.note} ${classes.noteError}`}>{result.error}</p>}
         </div>
       </fetcher.Form>
     </>

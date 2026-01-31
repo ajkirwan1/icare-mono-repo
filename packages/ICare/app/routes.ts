@@ -36,6 +36,7 @@ export default [
   route("register-interest", "routes/website/register-interest.jsx"),
   route("newsletter/subscribe", "routes/website/actions/newsletter.subscribe.jsx"),
   route("waitinglist", "routes/website/actions/waitinglist.jsx"),
+  route("contact", "routes/website/actions/contact.jsx"),
 
 
   // ICare App routes

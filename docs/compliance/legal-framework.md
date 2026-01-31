@@ -10,7 +10,7 @@
 
 ## CRITICAL PRE-LAUNCH LEGAL DECISIONS
 
-### 1. CQC (Care Quality Commission) Registration Requirement (URGENT)
+### 1. CQC (Care Quality Commission) Registration Requirement (RESOLVED)
 
 **Issue**: Does the platform require CQC registration?
 
@@ -39,15 +39,28 @@ Does "arranging" personal care through a digital marketplace constitute a regula
 
 **Platform Reality**: Platform has ongoing involvement, quality oversight, safeguarding duties, payment control.
 
-**Conclusion**: **HIGH PROBABILITY CQC registration required**
+**DECISION (2026-01-31)**: Platform does NOT require CQC registration at launch based on "Introduction Agency Model"
 
-**Action Required**:
-- [ ] Obtain legal opinion from healthcare law specialist (URGENT)
-- [ ] If YES: Begin CQC registration process (3-6 months lead time)
-- [ ] If NO: Document legal rationale for non-registration
-- [ ] Contact CQC directly for informal guidance
+**Rationale**:
+- Caregivers are self-employed professionals (NOT employees or agency workers)
+- Platform does NOT control how care is delivered (caregiver decides methods, timing, approach)
+- Platform does NOT provide clinical care plans (GP or family provides)
+- Platform provides marketplace infrastructure (discovery, booking, payment, quality monitoring)
+- Safeguarding oversight under Care Act 2014 does NOT automatically trigger CQC registration
 
-**Timeline**: Must resolve BEFORE MVP launch
+**Legal Basis**: Introduction Agency Model (analogous to Uber, Airbnb marketplace platforms)
+
+**Risk Mitigation**:
+- [x] Decision documented in docs/product/decisions.md (DEC-002)
+- [ ] Obtain formal legal opinion from regulatory solicitor (Week 1)
+- [ ] Contact CQC for informal guidance (Week 2-3)
+- [ ] Implement CQC-aligned policies (safeguarding, incident management, quality assurance)
+- [ ] Identify Registered Manager candidate (if CQC registration required later)
+- [ ] Monitor CQC guidance on digital care platforms
+
+**If CQC Requires Registration**: Begin registration application immediately (3-6 months process)
+
+**Timeline**: Legal opinion required Week 1, CQC informal guidance Week 2-3
 
 **CQC Registration Implications**:
 - Designated Registered Manager required (named individual, qualifications)

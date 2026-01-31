@@ -1,7 +1,6 @@
 import { Router } from "express";
-// import crypto from "crypto";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-// import { sendConfirmationEmail } from "../services/send-emails.js";
+import { sendWaitinglistConfirmationEmail } from "../services/send-emails.js";
 import { pool } from "../db.js";
 import { WaitinglistSchema } from "../../utils/validation/schemas/waitinglist.schema.js";
 
@@ -10,11 +9,11 @@ const router = Router();
 /**
  * Helpers
  */
-function getPublicApiBaseUrl(req) {
-  const envBase = process.env.PUBLIC_API_URL;
-  if (envBase) { return envBase.replace(/\/$/, ""); }
-  return `${req.protocol}://${req.get("host")}`;
-}
+// function getPublicApiBaseUrl(req) {
+//   const envBase = process.env.PUBLIC_API_URL;
+//   if (envBase) { return envBase.replace(/\/$/, ""); }
+//   return `${req.protocol}://${req.get("host")}`;
+// }
 
 function zodErrorsToFieldErrors(zodError) {
   const errors = {};
@@ -49,6 +48,20 @@ router.post("/", newsletterSubscribeLimiter, async (req, res) => {
 
     const data = parsed.data;
 
+    const exists = await pool.query(
+      "SELECT 1 FROM waitinglist WHERE lower(email)=lower($1) AND user_type=$2",
+      [data.email, data.userType]
+    );
+
+    if (exists.rowCount > 0) {
+      return res.json({
+        ok: true,
+        alreadyRegistered: true,
+        message: "You're already on the waiting list."
+      });
+    }
+
+
     await pool.query(
       `
       INSERT INTO waitinglist (
@@ -62,14 +75,12 @@ router.post("/", newsletterSubscribeLimiter, async (req, res) => {
         type_of_care,
         years_of_experience,
         caregiver_role,
-        hours_per_week,
-        subscribe_newsletter
+        hours_per_week
       )
       VALUES (
         $1,$2,$3,$4,$5,
         $6,$7,$8,
-        $9,$10,$11,
-        $12
+        $9,$10,$11
       )
       ON CONFLICT (email_ci, user_type) DO UPDATE
       SET
@@ -82,7 +93,6 @@ router.post("/", newsletterSubscribeLimiter, async (req, res) => {
         years_of_experience = EXCLUDED.years_of_experience,
         caregiver_role = EXCLUDED.caregiver_role,
         hours_per_week = EXCLUDED.hours_per_week,
-        subscribe_newsletter = EXCLUDED.subscribe_newsletter,
         updated_at = now()
       `,
       [
@@ -98,32 +108,25 @@ router.post("/", newsletterSubscribeLimiter, async (req, res) => {
 
         data.userType === "caregiver" ? data.yearsOfExperience : null,
         data.userType === "caregiver" ? data.caregiverRole : null,
-        data.userType === "caregiver" ? data.hoursPerWeek : null,
-
-        data.subscribeNewsletter === "on"
+        data.userType === "caregiver" ? data.hoursPerWeek : null
       ]
     );
 
-    // Newsletter opt-in (reuse existing flow)
-    // if (data.subscribeNewsletter === "on") {
-    //   const token = crypto.randomBytes(32).toString("hex");
-
-    //   await pool.query(
-    //     `
-    //     INSERT INTO newsletter_pending (email, token, source)
-    //     VALUES ($1, $2, $3)
-    //     ON CONFLICT (email) DO UPDATE
-    //     SET token=$2, source=$3, created_at=now()
-    //     `,
-    //     [data.email, token, "waitinglist"]
-    //   );
-
-    //   const apiBase = getPublicApiBaseUrl(req);
-    //   const confirmUrl = `${apiBase}/api/newsletter/confirm?token=${token}`;
-    //   await sendConfirmationEmail(data.email, confirmUrl);
-    // }
-
-    return res.json({ ok: true });
+    try {
+      await sendWaitinglistConfirmationEmail(data.email, {
+        firstName: data.firstName,
+        userType: data.userType,
+        postcode: data.postcode
+      });
+    } catch (e) {
+      // Don’t fail the signup if email sending fails
+      console.error("Waitinglist confirmation email failed:", e);
+    }
+    return res.json({
+      ok: true,
+      alreadyRegistered: false,
+      message: "You're now on the waiting list."
+    });
   } catch (err) {
     console.error("Waitinglist signup error:", err);
     return res.status(500).json({ ok: false, error: "Server error." });
