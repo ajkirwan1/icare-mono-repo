@@ -28,8 +28,8 @@ export default function ICareNewCaregiversTickerSection() {
     const header = {
         maxWidth: "78ch",
         display: "grid",
-        gap: 10,
-        marginBottom: 24,
+        gap: 12,
+        marginBottom: 28,
     };
 
     const h2 = {
@@ -42,13 +42,13 @@ export default function ICareNewCaregiversTickerSection() {
         margin: 0,
         fontWeight: 400,
         fontSize: "1.4rem",
-        lineHeight: 1.6,
+        lineHeight: 1.65,
     };
 
     const rail = {
         width: "100%",
         overflow: "hidden",
-        padding: "18px 0",
+        padding: "22px 0",
     };
 
     const track = {
@@ -59,35 +59,36 @@ export default function ICareNewCaregiversTickerSection() {
 
     const group = {
         display: "flex",
-        gap: 14,
-        paddingRight: 14,
+        gap: 18,
+        paddingRight: 18,
     };
 
+    // ⬇️ WIĘKSZE, WYŻSZE, MNIEJ SZEROKIE BOXY
     const card = {
-        minWidth: 340,
-        borderRadius: 22,
+        minWidth: 290, // było 340 (-15%)
+        borderRadius: 26,
         border: `1px solid ${BORDER}`,
         background: PANEL,
-        padding: "16px 18px",
+        padding: "22px 22px", // więcej pionu
         display: "grid",
-        gridTemplateColumns: "56px 1fr",
-        gap: 14,
+        gridTemplateColumns: "72px 1fr", // większy avatar
+        gap: 18,
         alignItems: "center",
         flex: "0 0 auto",
     };
 
     const avatarImg = {
-        width: 52,
-        height: 52,
+        width: 64,
+        height: 64,
         borderRadius: 999,
         objectFit: "cover",
         border: "1px solid rgba(15,23,42,0.12)",
     };
 
     const people = [
-        { n: "Zita", age: 34, city: "Amsterdam", joined: "Jan 2026", imgId: "d2KfqHOZsCE" },
+        { n: "Ann", age: 34, city: "Amsterdam", joined: "Jan 2026", imgId: "d2KfqHOZsCE" },
         { n: "Valerie", age: 41, city: "Berlin", joined: "Jan 2026", imgId: "eXYuC9k6P_c" },
-        { n: "Polico", age: 29, city: "Lisbon", joined: "Feb 2026", imgId: "v7Jja2ChN6s" },
+        { n: "Margaret", age: 29, city: "Lisbon", joined: "Feb 2026", imgId: "v7Jja2ChN6s" },
         { n: "Paulina", age: 48, city: "Vienna", joined: "Feb 2026", imgId: "Xmy_E8diY4w" },
         { n: "Elena", age: 37, city: "Barcelona", joined: "Jan 2026", imgId: "c_GmwfHBDzk" },
         { n: "Marta", age: 45, city: "Prague", joined: "Feb 2026", imgId: "iFgRcqHznqg" },
@@ -101,7 +102,6 @@ export default function ICareNewCaregiversTickerSection() {
                 <div style={header}>
                     <h2 style={h2}>New people on ICare</h2>
                     <p style={lead}>People are joining ICare and setting up their profiles.</p>
-
                 </div>
 
                 {/* MARQUEE */}
@@ -115,9 +115,11 @@ export default function ICareNewCaregiversTickerSection() {
                                         alt=""
                                         style={avatarImg}
                                     />
-                                    <div>
-                                        <strong>{x.n}</strong>
-                                        <div>Joined {x.joined}</div>
+                                    <div style={{ lineHeight: 1.55 }}>
+                                        <strong style={{ fontSize: "1.05rem" }}>{x.n}</strong>
+                                        <div style={{ opacity: 0.75, marginTop: 4 }}>
+                                            Joined {x.joined}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -126,7 +128,7 @@ export default function ICareNewCaregiversTickerSection() {
                 </div>
 
                 {/* VIEW ALL */}
-                <div style={{ marginTop: 12 }}>
+                <div style={{ marginTop: 14 }}>
                     <button
                         onClick={() => setShowAll((v) => !v)}
                         style={{
@@ -146,10 +148,10 @@ export default function ICareNewCaregiversTickerSection() {
                 {showAll && (
                     <div
                         style={{
-                            marginTop: 24,
+                            marginTop: 28,
                             display: "grid",
-                            gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-                            gap: 16,
+                            gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
+                            gap: 20,
                         }}
                     >
                         {people.map((x, i) => (
@@ -159,9 +161,14 @@ export default function ICareNewCaregiversTickerSection() {
                                     alt=""
                                     style={avatarImg}
                                 />
-                                <div>
-                                    <strong>{x.n}</strong> · {x.city}
-                                    <div>Joined {x.joined}</div>
+                                <div style={{ lineHeight: 1.55 }}>
+                                    <strong style={{ fontSize: "1.05rem" }}>
+                                        {x.n}
+                                    </strong>{" "}
+                                    · {x.city}
+                                    <div style={{ opacity: 0.75, marginTop: 4 }}>
+                                        Joined {x.joined}
+                                    </div>
                                 </div>
                             </div>
                         ))}
