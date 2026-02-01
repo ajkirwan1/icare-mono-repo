@@ -69,7 +69,7 @@ export default function ICareNewCaregiversTickerSection() {
         borderRadius: 26,
         border: `1px solid ${BORDER}`,
         background: PANEL,
-        padding: "22px 22px", // więcej pionu
+        padding: "40px 22px", // więcej pionu
         display: "grid",
         gridTemplateColumns: "72px 1fr", // większy avatar
         gap: 18,

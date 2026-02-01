@@ -12,13 +12,8 @@ export default function SplitMediaSection({
     const [index, setIndex] = useState(0);
     const videoRef = useRef(null);
 
-    // autoplay timer (resettable)
     const timerRef = useRef(null);
-
-    // autoplay enabled/disabled (disabled after clicking Play on video)
     const [autoEnabled, setAutoEnabled] = useState(true);
-
-    // whether current video slide has started (to show/hide overlay + enable controls)
     const [videoStarted, setVideoStarted] = useState(false);
 
     const clearTimer = useCallback(() => {
@@ -38,20 +33,33 @@ export default function SplitMediaSection({
         }, 8000);
     }, [clearTimer, media.length, autoEnabled]);
 
-    const goTo = (i) => {
-        setIndex(i);
-        // reset autoplay timer (only if enabled)
-        scheduleNext();
-    };
+    const goTo = useCallback(
+        (i) => {
+            setIndex(i);
+            scheduleNext();
+        },
+        [scheduleNext]
+    );
 
-    // run autoplay; reset after every index change (respects autoEnabled)
+    const goPrev = useCallback(() => {
+        if (media.length <= 1) return;
+        setIndex((i) => (i - 1 + media.length) % media.length);
+        scheduleNext();
+    }, [media.length, scheduleNext]);
+
+    const goNext = useCallback(() => {
+        if (media.length <= 1) return;
+        setIndex((i) => (i + 1) % media.length);
+        scheduleNext();
+    }, [media.length, scheduleNext]);
+
+    // autoplay
     useEffect(() => {
         scheduleNext();
         return () => clearTimer();
     }, [index, scheduleNext, clearTimer]);
 
-    // when slide changes: stop/reset video + reset overlay state
-    // AND: if we moved to a non-video slide, allow autoplay again
+    // on slide change: reset video + overlay
     useEffect(() => {
         setVideoStarted(false);
 
@@ -65,7 +73,7 @@ export default function SplitMediaSection({
 
         const active = media[index];
         if (active?.type !== "video") {
-            setAutoEnabled(true); // autoplay may return on non-video slides
+            setAutoEnabled(true);
         }
     }, [index, media]);
 
@@ -73,7 +81,6 @@ export default function SplitMediaSection({
         const active = media[index];
         if (active?.type !== "video") return;
 
-        // user clicked play => disable autoplay completely and stop timer
         setAutoEnabled(false);
         clearTimer();
 
@@ -96,8 +103,40 @@ export default function SplitMediaSection({
     return (
         <div className={styles.container}>
             <div className={`${styles.grid} ${isRight ? styles.reverse : ""}`}>
-                <div className={slider.mediaWrap}>
-                    <div className={slider.ratioBox}>
+                <div className={slider.mediaWrap} aria-label="Media slider">
+                    {/* ✅ ARROWS MUST LIVE OUTSIDE ratioBox (ratioBox has overflow:hidden) */}
+                    {media.length > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                className={`${slider.arrow} ${slider.arrowLeft}`}
+                                onClick={goPrev}
+                                aria-label="Previous slide"
+                            />
+                            <button
+                                type="button"
+                                className={`${slider.arrow} ${slider.arrowRight}`}
+                                onClick={goNext}
+                                aria-label="Next slide"
+                            />
+                        </>
+                    )}
+
+                    <div
+                        className={slider.ratioBox}
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (media.length <= 1) return;
+                            if (e.key === "ArrowLeft") {
+                                e.preventDefault();
+                                goPrev();
+                            }
+                            if (e.key === "ArrowRight") {
+                                e.preventDefault();
+                                goNext();
+                            }
+                        }}
+                    >
                         <div
                             className={slider.track}
                             style={{ transform: `translateX(-${index * 100}%)` }}
@@ -131,7 +170,6 @@ export default function SplitMediaSection({
                                                 }}
                                             />
 
-
                                             {/* Big play overlay (only when active video slide and not started) */}
                                             {i === index && isActiveVideo && !videoStarted && (
                                                 <button
@@ -156,7 +194,8 @@ export default function SplitMediaSection({
                                 <button
                                     key={i}
                                     type="button"
-                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""}`}
+                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""
+                                        }`}
                                     onClick={() => goTo(i)}
                                     aria-label={`Go to slide ${i + 1}`}
                                 />
