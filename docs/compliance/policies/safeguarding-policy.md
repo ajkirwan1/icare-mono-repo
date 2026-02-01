@@ -39,5 +39,5 @@ Defines the platform's approach to safeguarding vulnerable adults in accordance 
 
 ## Related Documents
 
-- [State Maps - Safeguarding Flow](../../product/spec/state-maps.md)
+- [State Maps - Safeguarding Flow](../../tiers/common/spec/state-maps.md)
 - [Legal Framework](../legal-framework.md)

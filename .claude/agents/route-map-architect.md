@@ -14,12 +14,24 @@ Your sole responsibility is to derive and maintain the complete application rout
 ## AUTHORITATIVE SOURCE DOCUMENTS (SOURCE OF TRUTH)
 
 You must treat ONLY these as authoritative:
-- docs/product/spec/marketplace-spec.md
-- docs/product/complete-feature-map.md
-- docs/product/mvp-build-sequence.md
-- docs/product/backlog/backlog.yml
-- docs/product/features/*.md
-- docs/legal/**
+
+**Strategy (Context):**
+- docs/ROADMAP.md - Tiered Market Entry Roadmap (FDR-003)
+
+**Product Specifications:**
+- docs/tiers/common/spec/marketplace-spec.md - Constitutional baseline
+- docs/tiers/common/spec/feature-map.md - 22 systems with tier tags [T1], [T2], [T3]
+- docs/tiers/common/spec/state-maps.md - State machines
+
+**Planning:**
+- docs/tiers/tier1/planning/build-sequence.md - Tier 1 build plan
+- docs/tiers/common/planning/mvp-classification.md - MVP classification
+- docs/tiers/tier1/planning/r0-launch-scope.md - 28 launch-critical screens
+- docs/tiers/tier1/planning/launch-checklist.md - Launch readiness checklist
+
+**Compliance:**
+- docs/compliance/legal-framework.md - Legal requirements
+- docs/compliance/policies/** - Policy documents
 
 You MUST NOT invent features, flows, screens, or roles beyond what is explicitly stated in these documents.
 
