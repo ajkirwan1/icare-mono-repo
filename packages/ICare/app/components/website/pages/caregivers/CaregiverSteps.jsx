@@ -6,90 +6,28 @@ import {
     faWallet,
     faUsers,
     faUserGroup,
-    faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * ICare — Combined section:
  * 1) We guide you every step of the way
- * ✅ Button scrolls to next section: #great-profile-section
  * ✅ No expand/collapse logic
  */
 export default function CaregiverStepsWithProfileGuide() {
     const groupIcon = useMemo(() => faUserGroup || faUsers, []);
 
-    // ✅ Elder-like: shorter + factual + calm (no salesy lines)
+    // Elder-like: shorter + factual + calm
     const highlights = [
         { icon: faCircleCheck, t: "Free to start", d: "Create a profile at no cost." },
         { icon: faSliders, t: "Work your way", d: "Set hours, rates and preferences." },
         { icon: faWallet, t: "Keep more", d: "No agency margins in the middle." },
-        { icon: groupIcon, t: "Direct contact", d: "Families reach out to you." }
-    ];
-
-    // ✅ Elder-like steps: one short sentence each (process only)
-    const steps = [
-        {
-            t: "Share your basics",
-            d: "Add experience, services and availability."
-        },
-        {
-            t: "Add verification details",
-            d: "Upload ID and supporting documents."
-        },
-        {
-            t: "Connect with families",
-            d: "Chat privately to understand the situation."
-        },
-        {
-            t: "Confirm the arrangement",
-            d: "Agree hours, tasks and rate in advance."
-        },
-        {
-            t: "Start care and stay flexible",
-            d: "Begin support and update availability anytime."
-        }
+        { icon: groupIcon, t: "Direct contact", d: "Families reach out to you." },
     ];
 
     const P = {
         text: "#0F172A",
-        olive: "#61674d"
-    };
-
-    const toggleWrap = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: "2.4rem",
-        marginBottom: "0"
-    };
-
-    const toggleBtn = {
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 10,
-        padding: "0.9rem 1.2rem",
-        borderRadius: 999,
-        border: "1px solid rgba(15,23,42,0.18)",
-        background: "rgba(255,255,255,0.70)",
-        color: P.text,
-        fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        fontSize: "0.98rem",
-        fontWeight: 700,
-        textDecoration: "none",
-        cursor: "pointer",
-        boxShadow: "0 10px 26px rgba(15,23,42,0.10)"
-    };
-
-    const scrollToGreatProfile = () => {
-        const el = document.getElementById("great-profile-section");
-        if (!el) { return; }
-
-        const yOffset = -30; // space above the title
-        const y =
-            el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
-        window.scrollTo({ top: y, behavior: "smooth" });
+        icon: "rgb(221, 139, 79)",
+        iconGrey: "rgba(0,0,0,0.7)"
     };
 
     return (
@@ -103,12 +41,12 @@ export default function CaregiverStepsWithProfileGuide() {
                 background: "#ecddd18c",
                 padding: "4.6rem 0 5.6rem",
                 fontFamily:
-                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
             }}
         >
             <div style={{ width: "min(1200px, 92vw)", margin: "0 auto" }}>
                 {/* HEADER */}
-                <header style={{ marginBottom: "2.1rem", maxWidth: "820px" }}>
+                <header style={{ marginBottom: "2.1rem", maxWidth: "1100px" }}>
                     <h2
                         style={{
                             margin: 0,
@@ -116,7 +54,7 @@ export default function CaregiverStepsWithProfileGuide() {
                             fontSize: "2.6rem",
                             letterSpacing: "-0.35px",
                             color: "#0F172A",
-                            lineHeight: 1.15
+                            lineHeight: 1.15,
                         }}
                     >
                         A clearer way to organise care work
@@ -143,9 +81,10 @@ export default function CaregiverStepsWithProfileGuide() {
                         display: "grid",
                         gap: "1.75rem",
                         alignItems: "start",
-                        marginBottom: "3.1rem",
+                        marginTop: "3rem",
+                        marginBottom: "2.5rem",
                         borderRadius: "40px",
-                        maxWidth: "800px"
+                        maxWidth: "1000px",
                     }}
                 >
                     {/* LEFT */}
@@ -157,7 +96,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                 fontWeight: 600,
                                 color: "#0F172A",
                                 letterSpacing: "-0.2px",
-                                lineHeight: 1.2
+                                lineHeight: 1.2,
                             }}
                         >
                             Why ICare?
@@ -171,7 +110,7 @@ export default function CaregiverStepsWithProfileGuide() {
                                 lineHeight: 1.5,
                                 color: "#0f172a",
                                 fontWeight: 400,
-                                maxWidth: "66ch"
+                                maxWidth: "66ch",
                             }}
                         >
                             Made for independent caregivers - not agencies. <br />
@@ -187,72 +126,84 @@ export default function CaregiverStepsWithProfileGuide() {
                                 color: "#0f172a",
                                 fontWeight: 600,
                                 opacity: 0.9,
-                                maxWidth: "72ch"
+                                maxWidth: "72ch",
                             }}
                         />
                     </div>
 
-                    {/* RIGHT */}
+                    {/* RIGHT — highlights in icare-types-item style */}
                     <div
                         aria-label="Caregiver benefits highlights"
+                        className="icare-why-highlights"
                         style={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-                            gap: "2rem",
+                            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+                            gap: "clamp(18px, 2.2vw, 26px)",
+                            alignItems: "stretch",
                             padding: 0,
                             background: "transparent",
                             border: "none",
-                            boxShadow: "none"
+                            boxShadow: "none",
                         }}
                     >
                         {highlights.map((h) => (
                             <div
                                 key={h.t}
+                                className="icare-types-item"
                                 style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "34px 1fr",
-                                    gap: ".75rem",
-                                    alignItems: "start",
+                                    display: "flex",
+                                    gap: 14,
+                                    alignItems: "flex-start",
+                                    padding: "18px 0px",
+                                    height: "100%",
+                                    alignSelf: "stretch",
                                 }}
                             >
-                                <div
+                                <span
                                     aria-hidden="true"
                                     style={{
-                                        width: 34,
-                                        height: 34,
-                                        borderRadius: 12,
-                                        display: "flex",
-                                        alignItems: "center",
+                                        width: 30,
+                                        height: 38,
+                                        display: "inline-flex",
+                                        alignItems: "start",
                                         justifyContent: "center",
-                                        color: "#0F3D20",
-                                        transform: "translateY(-4px)"
+                                        color: P.icon,
+                                        flex: "0 0 auto",
+                                        marginTop: 2,
                                     }}
                                 >
-                                    <FontAwesomeIcon icon={h.icon} style={{ fontSize: 16 }} />
-                                </div>
+                                    <FontAwesomeIcon icon={h.icon} style={{ fontSize: 24, lineHeight: 1 }} />
+                                </span>
 
-                                <div>
-                                    <div
+                                <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
+                                    <h3
                                         style={{
-                                            fontWeight: 500,
-                                            color: "#0F172A",
-                                            fontSize: "1.4rem",
-                                            letterSpacing: "-0.12px",
-                                            lineHeight: 1.2
+                                            margin: 0,
+                                            padding: 0,
+                                            fontWeight: 700,
+                                            letterSpacing: "-0.15px",
+                                            color: P.text,
+                                            fontSize: "1.2rem",
+                                            lineHeight: 1.4,
+                                            whiteSpace: "normal",
+                                            overflow: "visible",
                                         }}
                                     >
                                         {h.t}
-                                    </div>
-                                    <div
+                                    </h3>
+                                    <p
                                         style={{
-                                            marginTop: ".25rem",
-                                            color: "#0f172a",
-                                            fontSize: "1.2rem",
-                                            lineHeight: 1.35
+                                            margin: 0,
+                                            color: P.text,
+                                            fontWeight: 500,
+                                            lineHeight: 1.65,
+                                            fontSize: "1.1rem",
+                                            whiteSpace: "normal",
+                                            overflow: "visible",
                                         }}
                                     >
                                         {h.d}
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
                         ))}
@@ -264,75 +215,24 @@ export default function CaregiverStepsWithProfileGuide() {
                     className="icare-main-grid"
                     style={{
                         display: "grid",
-                        gridTemplateColumns: "1.2fr .8fr",
-                        gap: "3rem",
-                        marginTop: "6rem",
-                        alignItems: "flex-start"
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "2rem",
+                        marginTop: "2.4rem",
+                        alignItems: "flex-start",
                     }}
                 >
-                    {/* LEFT — STEPS */}
-                    <div style={{ display: "grid", gap: "1.35rem" }}>
-                        {steps.map((s, i) => (
-                            <div
-                                key={i}
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "60px 1fr",
-                                    gap: "2rem",
-                                    paddingBottom: "1.15rem"
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        marginTop: "-3px",
-                                        fontSize: "1.5rem",
-                                        fontWeight: 700,
-                                        color: "#4b7637",
-                                        paddingRight: "20px",
-                                        lineHeight: "1.6",
-                                        borderRight: "1px solid rgba(0,0,0,0.5)"
-                                    }}
-                                >
-                                    {String(i + 1).padStart(2, "0")}
-                                </div>
 
-                                <div>
-                                    <h3
-                                        style={{
-                                            margin: "0 0 .25rem",
-                                            fontSize: "1.4rem",
-                                            fontWeight: 600,
-                                            color: "#0F172A"
-                                        }}
-                                    >
-                                        {s.t}
-                                    </h3>
 
-                                    <p
-                                        style={{
-                                            margin: 0,
-                                            fontSize: "1.2rem",
-                                            color: "#0f172a",
-                                            lineHeight: 1.45
-                                        }}
-                                    >
-                                        {s.d}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* RIGHT — IMAGE */}
+                    {/* LEFT — IMAGE */}
                     <figure
                         style={{
                             margin: 0,
                             width: "100%",
-                            height: "380px",
+                            height: "460px",
                             borderRadius: "22px",
                             overflow: "hidden",
                             border: "1px solid rgba(0,0,0,0.06)",
-                            boxShadow: "0 18px 48px rgba(0,0,0,0.16)"
+                            boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
                         }}
                     >
                         <img
@@ -342,10 +242,83 @@ export default function CaregiverStepsWithProfileGuide() {
                                 width: "100%",
                                 height: "100%",
                                 objectFit: "cover",
-                                objectPosition: "center"
+                                objectPosition: "center",
                             }}
                         />
                     </figure>
+
+                    {/* RIGHT — MODULES (no numbers) */}
+                    <div style={{ display: "grid", gap: ".75rem" }}>
+                        {[
+                            { t: "Your profile setup", d: "Add experience, services and availability." },
+                            { t: "Verification", d: "Upload ID and supporting documents." },
+                            { t: "Direct conversations", d: "Chat privately with families." },
+                            { t: "Clear agreements", d: "Agree hours, tasks and rates upfront." },
+                            { t: "Ongoing flexibility", d: "Update availability anytime." },
+                        ].map((s) => (
+                            <div
+                                key={s.t}
+                                className="icare-types-item"
+                                style={{
+                                    display: "flex",
+                                    gap: 14,
+                                    alignItems: "flex-start",
+                                    padding: ".75rem 0",
+                                    height: "100%",
+                                    alignSelf: "stretch",
+                                    borderBottom: "1px solid rgba(0,0,0,0.14)",
+                                }}
+                            >
+                                <span
+                                    aria-hidden="true"
+                                    style={{
+                                        width: 30,
+                                        height: 38,
+                                        display: "inline-flex",
+                                        alignItems: "start",
+                                        justifyContent: "center",
+                                        color: P.iconGrey,
+                                        flex: "0 0 auto",
+                                        marginTop: 4,
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faCircleCheck} style={{ fontSize: 20, lineHeight: 1 }} />
+                                </span>
+
+                                <div style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 0 }}>
+                                    <h3
+                                        style={{
+                                            margin: 0,
+                                            padding: 0,
+                                            fontWeight: 600,
+                                            letterSpacing: "-0.15px",
+                                            color: P.text,
+                                            fontSize: "1.1rem",
+                                            lineHeight: 1.4,
+                                            whiteSpace: "normal",
+                                            overflow: "visible",
+                                        }}
+                                    >
+                                        {s.t}
+                                    </h3>
+
+                                    <p
+                                        style={{
+                                            margin: 0,
+                                            color: P.text,
+                                            fontWeight: 400,
+                                            lineHeight: 1.65,
+                                            fontSize: "1.1rem",
+                                            whiteSpace: "normal",
+                                            overflow: "visible",
+                                        }}
+                                    >
+                                        {s.d}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* CTA */}
@@ -361,13 +334,34 @@ export default function CaregiverStepsWithProfileGuide() {
                             fontSize: ".95rem",
                             fontWeight: 700,
                             textDecoration: "none",
-                            letterSpacing: ".01em"
+                            letterSpacing: ".01em",
                         }}
                     >
                         Create your caregiver profile
                     </a>
                 </div>
             </div>
+
+            {/* ✅ responsive only (rest untouched) */}
+            <style>{`
+            .icare-types-item:last-child{border:0 !important;}
+        @media (max-width: 900px){
+          .icare-whygrid{
+            grid-template-columns: 1fr !important;
+          }
+          .icare-why-highlights{
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+          }
+          .icare-main-grid{
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 640px){
+          .icare-why-highlights{
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
         </section>
     );
 }

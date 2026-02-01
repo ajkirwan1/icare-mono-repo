@@ -17,7 +17,7 @@
     max-width: 1200px;
 }
 
-.article ul {
+.article ul:not(.relatedCarousel) {
     list-style: disc;
     margin: 1rem 0;
     padding-left: 1rem;
@@ -352,7 +352,7 @@
 }
 
 .relatedCardTitle {
-    color: rgb(141, 96, 64);
+    color: #000;
     font-size: 1.05rem;
     line-height: 1.25;
 }

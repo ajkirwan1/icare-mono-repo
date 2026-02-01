@@ -157,7 +157,7 @@ export default function ICareFooter() {
                             <NavLink to="/who-we-are" className={styles.navLink}>Who we are</NavLink>
                             <NavLink to="/care-knowledge" className={styles.navLink}>Care knowledge</NavLink>
                             <NavLink to="/trust-and-safety" className={styles.navLink}>Trust & safety</NavLink>
-                            <NavLink to="/contact" className={styles.navLink}>Contact</NavLink>
+                            <NavLink to="/contact-us" className={styles.navLink}>Contact us</NavLink>
                         </nav>
                     </div>
                 </div>

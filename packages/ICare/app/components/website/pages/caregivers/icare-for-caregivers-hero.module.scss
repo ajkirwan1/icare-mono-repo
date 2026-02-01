@@ -74,15 +74,15 @@
 .copyPrimary {
     font-size: $fs-hero-lead-p;
     font-weight: $fw-normal;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.3rem;
     color: #fff;
 }
 
 .copyList {
     display: flex;
     font-size: $fs-hero-list;
-    font-weight: $fw-normal;
-    margin-bottom: 0.75rem;
+    font-weight: $fw-light;
+    margin-bottom: 0.5rem;
     color: #fff;
     align-items: center;
 }

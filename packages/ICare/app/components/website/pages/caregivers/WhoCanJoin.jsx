@@ -21,8 +21,8 @@ export default function WhoCanJoin() {
 
     const pStyle = {
         marginTop: ".5rem",
-        fontSize: "1.2rem",
-        lineHeight: 1.55,
+        fontSize: "1.1rem",
+        lineHeight: 1.5,
         color: "#0f172a",
     };
 
@@ -85,28 +85,28 @@ export default function WhoCanJoin() {
                 marginLeft: "calc(50% - 50vw)",
                 marginRight: "calc(50% - 50vw)",
                 background: "#f2eee6",
-                padding: "6rem 0",
+                padding: "4rem 0",
                 fontFamily:
                     "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
             }}
         >
             <div style={{ width: "min(1200px,92vw)", margin: "0 auto" }}>
+
+                <h2 style={h2Style}>
+                    How ICare supports caregivers
+                </h2>
+
                 <div
                     style={{
                         display: "grid",
                         gridTemplateColumns: "1fr 1fr",
                         gap: "2.6rem",
-                        alignItems: "start",
+                        alignItems: "stretch",
+                        marginTop: "2rem",
                     }}
                 >
                     {/* LEFT — TITLE + IMAGE */}
                     <div>
-                        <h2 style={h2Style}>
-                            How ICare supports
-
-                            caregivers
-                        </h2>
-
                         <img
                             src="images/web/icare-for-caregivers/blackcarer.jpg"
                             alt="Caregiver providing home care support"
@@ -116,14 +116,13 @@ export default function WhoCanJoin() {
                                 objectFit: "cover",
                                 borderRadius: "22px",
                                 boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
-                                display: "block",
-                                marginTop: "2rem",
+                                display: "block"
                             }}
                         />
                     </div>
 
                     {/* RIGHT — ACCORDION */}
-                    <div style={{ marginTop: "7.5rem" }}>
+                    <div style={{ background: "rgba(255, 255, 255, 0.7)", padding: "2rem 2.5rem", borderRadius: "22px" }}>
                         {/* SECTION 1 (open by default) */}
                         <div>
                             <AccordionHeader
