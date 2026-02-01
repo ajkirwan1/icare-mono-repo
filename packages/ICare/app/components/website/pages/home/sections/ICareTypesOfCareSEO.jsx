@@ -226,8 +226,9 @@ export default function ICareTypesOfCareSEO() {
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         gap: "35px 20px",
         padding: "0.5rem",
-        border: "1px solid rgba(221, 139, 79, 0.7)",
+        border: "2px solid rgba(221, 139, 79, 0.3)",
         borderRadius: "2rem",
+        background: "white"
     };
 
     // ✅ removed borderRight from inline (now handled in CSS so :last-child works)
@@ -503,7 +504,7 @@ export default function ICareTypesOfCareSEO() {
 
         /* ✅ bullet borders (CSS, not inline) */
         .icare-bullets-grid > .bullet-card{
-          border-right: 1px solid rgba(221, 139, 79, 0.7);
+          border-right: 2px solid rgba(221, 139, 79, 0.3);
         }
         .icare-bullets-grid > .bullet-card:nth-child(3n){
           border-right: none;

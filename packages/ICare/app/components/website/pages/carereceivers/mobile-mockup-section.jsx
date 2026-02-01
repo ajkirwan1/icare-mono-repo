@@ -15,7 +15,6 @@ const ITEMS = [
 export default function MobileMockupSection() {
     return (
         <LayoutSection>
-
             <SplitMediaSection
                 imageSide="right"
                 unstyledImage
@@ -29,21 +28,21 @@ export default function MobileMockupSection() {
                         type: "video",
                         src: "images/web/icare-for-carereceivers/voice-call.mp4",
                     },
+                    {
+                        type: "video",
+                        src: "images/web/icare-for-carereceivers/senior1.mp4",
+                    },
                 ]}
             >
-
                 {/* TITLE */}
                 <h2 className={styles.myicare}>
                     <span>My</span>
                     <img src="/images/logo/icareblack.svg" alt="ICare" />
                     <span>app.</span>
-
                 </h2>
 
                 {/* INTRO */}
-                <p className={styles.intro}>
-                    All essentials within one tap.
-                </p>
+                <p className={styles.intro}>All essentials within one tap.</p>
 
                 {/* LIST */}
                 <ul className={`${styles.list} ${styles.fadeIn}`}>
@@ -58,8 +57,6 @@ export default function MobileMockupSection() {
                         </li>
                     ))}
                 </ul>
-
-
             </SplitMediaSection>
         </LayoutSection>
     );
