@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,6 +8,8 @@ import {
     faMoon,
     faPills,
     faBrain,
+    faCircleInfo,
+    faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 /**
@@ -18,9 +20,13 @@ import {
  * ✅ Live-in carer duties bullets
  * ✅ Fade-in on scroll (IntersectionObserver)
  *
- * FIXES:
- * ✅ bullet right borders now controlled in CSS (not inline) so :last-child works
- * ✅ both grids use .bullet-card class consistently
+ * Legal/Platform safeguards:
+ * ✅ Accordion disclaimer (default: short intro + info icon)
+ * ✅ Matching platform statement
+ * ✅ ToS-style summary: agreement between users, not employer/agency/provider
+ * ✅ Verification docs retention principles (minimise, admin-only, delete)
+ * ✅ No medical data by default + functional needs language
+ * ✅ Brand language guardrails (support / routines / agreed tasks) — rewritten for customers
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
@@ -28,6 +34,9 @@ export default function ICareTypesOfCareSEO() {
 
     const careAtHomeRef = useRef(null);
     const liveInRef = useRef(null);
+
+    // ✅ NEW: accordion state (default open: intro visible, details collapsed)
+    const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -54,10 +63,7 @@ export default function ICareTypesOfCareSEO() {
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
-    const container = {
-        width: "min(92vw, 1100px)",
-        margin: "0 auto",
-    };
+    const container = { width: "min(92vw, 1100px)", margin: "0 auto" };
 
     const header = {
         maxWidth: "78ch",
@@ -126,17 +132,9 @@ export default function ICareTypesOfCareSEO() {
         marginTop: 2,
     };
 
-    const icon = {
-        fontSize: "24px",
-        lineHeight: 1,
-    };
+    const icon = { fontSize: "24px", lineHeight: 1 };
 
-    const content = {
-        display: "flex",
-        flexDirection: "column",
-        gap: 6,
-        minWidth: 0,
-    };
+    const content = { display: "flex", flexDirection: "column", gap: 6, minWidth: 0 };
 
     const title = {
         margin: 0,
@@ -206,8 +204,8 @@ export default function ICareTypesOfCareSEO() {
         borderRadius: 18,
         overflow: "hidden",
         border: "1px solid rgba(15,23,42,0.12)",
-        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
-        background: "#fff",
+        boxShadow: "0 18px 44px rgb(0, 0, 0)",
+        background: "#ffffffd7",
     };
 
     const img = {
@@ -226,16 +224,12 @@ export default function ICareTypesOfCareSEO() {
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
         gap: "35px 20px",
         padding: "0.5rem",
-        border: "2px solid rgba(221, 139, 79, 0.3)",
+        border: "1px solid rgba(221, 139, 79, 0.3)",
         borderRadius: "2rem",
-        background: "white"
+        background: "white",
     };
 
-    // ✅ removed borderRight from inline (now handled in CSS so :last-child works)
-    const bulletCard = {
-        padding: "0px 1rem 0px 1rem",
-        margin: "1rem 0",
-    };
+    const bulletCard = { padding: "0px 1rem 0px 1rem", margin: "1rem 0" };
 
     const bulletTitle = {
         margin: 0,
@@ -270,6 +264,94 @@ export default function ICareTypesOfCareSEO() {
         fontSize: "1.02rem",
     };
 
+    // ✅ NEW: Accordion styles
+    const infoBox = {
+        marginTop: "18px",
+        border: "1px solid rgba(15,23,42,0.10)",
+        borderRadius: "18px",
+        background: "rgba(255, 255, 255, 0.71)",
+        padding: "14px 16px",
+        maxWidth: "95ch",
+    };
+
+    const infoBtn = {
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 14,
+        border: "none",
+        background: "transparent",
+        padding: "6px 4px",
+        cursor: "pointer",
+        textAlign: "left",
+        color: TEXT,
+    };
+
+    const infoLeft = {
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 12,
+        minWidth: 0,
+    };
+
+    const infoIconWrap = {
+        width: 26,
+        height: 26,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "rgb(0, 0, 0)",
+        flex: "0 0 auto",
+        marginTop: 1,
+    };
+
+    const infoTitle = {
+        margin: 0,
+        fontWeight: 700,
+        letterSpacing: "-0.15px",
+        fontSize: "1.05rem",
+        lineHeight: 1.4,
+    };
+
+    const infoIntro = {
+        margin: "6px 0 0",
+        color: "rgb(0, 0, 0)",
+        fontWeight: 400,
+        lineHeight: 1.55,
+        fontSize: "1.02rem",
+    };
+
+    const infoChevron = {
+        color: "rgb(0, 0, 0)",
+        flex: "0 0 auto",
+        marginLeft: 10,
+    };
+
+    const infoPanel = {
+        marginTop: 10,
+        paddingTop: 12,
+        borderTop: "1px solid rgba(15,23,42,0.10)",
+    };
+
+    const infoSectionTitle = {
+        margin: "12px 0 0",
+        fontWeight: 700,
+        fontSize: "1.0rem",
+        letterSpacing: "-0.1px",
+        color: TEXT,
+    };
+
+    const infoList = {
+        margin: "10px 0 0",
+        paddingLeft: "18px",
+        color: "rgb(0, 0, 0)",
+        lineHeight: 1.6,
+        fontSize: "1.02rem",
+    };
+
+    const infoItem = { margin: "6px 0" };
+
     const types = [
         {
             icon: faHandHoldingHeart,
@@ -294,7 +376,7 @@ export default function ICareTypesOfCareSEO() {
         {
             icon: faPills,
             t: "Medication prompts & routine support",
-            d: "Gentle reminders and support with agreed routines. Carers do not administer medication unless explicitly agreed and within their role.",
+            d: "Gentle reminders and support with agreed routines. No prescribing or clinical decision-making.",
         },
         {
             icon: faBed,
@@ -303,8 +385,8 @@ export default function ICareTypesOfCareSEO() {
         },
         {
             icon: faBrain,
-            t: "Dementia support",
-            d: "Consistent, familiar care matched to the person’s needs.",
+            t: "Memory and routine support",
+            d: "Consistent, familiar support matched to the person’s routines and preferences.",
         },
     ];
 
@@ -331,7 +413,7 @@ export default function ICareTypesOfCareSEO() {
         },
         {
             t: "Errands and practical help",
-            d: "Assisting with shopping, prescriptions and everyday tasks.",
+            d: "Assisting with shopping, collecting prescriptions and everyday tasks.",
         },
         {
             t: "Pets and household routines",
@@ -343,7 +425,7 @@ export default function ICareTypesOfCareSEO() {
         },
         {
             t: "Medication prompting",
-            d: "Gentle reminders to take medication as prescribed (not administering medication unless agreed and appropriate).",
+            d: "Gentle reminders to take medication as prescribed (no prescribing, medical assessment or clinical decision-making).",
         },
         {
             t: "Home safety checks",
@@ -356,14 +438,26 @@ export default function ICareTypesOfCareSEO() {
     ];
 
     const liveInSpecialist = [
-        { t: "Oxygen or ventilation support", d: "e.g. CPAP or BiPAP support" },
         {
-            t: "Complex medication routines",
-            d: "Only where suitable, agreed in advance and within the carer’s competence.",
+            t: "Oxygen or ventilation support",
+            d: "e.g. CPAP or BiPAP — only where the carer is experienced and tasks are clearly agreed in advance.",
         },
-        { t: "PEG care", d: "" },
-        { t: "Stoma care", d: "" },
-        { t: "Wound care", d: "" },
+        {
+            t: "Support with agreed medication routines",
+            d: "Support is limited to agreed routines and does not include prescribing, medical assessment or clinical decision-making.",
+        },
+        {
+            t: "PEG support",
+            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
+        },
+        {
+            t: "Stoma support",
+            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
+        },
+        {
+            t: "Wound support",
+            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
+        },
     ];
 
     return (
@@ -397,19 +491,95 @@ export default function ICareTypesOfCareSEO() {
                     ))}
                 </div>
 
-                {/* SOFT DISCLAIMER */}
-                <p style={disclaimer}>
-                    Support is shaped around agreed needs and does not replace regulated
-                    medical or nursing care.
-                </p>
+
+
+                {/* ✅ NEW: Collapsible Disclaimer / Important information */}
+                <div style={infoBox}>
+                    <button
+                        type="button"
+                        style={infoBtn}
+                        onClick={() => setIsDisclaimerOpen((v) => !v)}
+                        aria-expanded={isDisclaimerOpen}
+                        aria-controls="icare-disclaimer-panel"
+                    >
+                        <span style={infoLeft}>
+                            <span style={infoIconWrap} aria-hidden="true">
+                                <FontAwesomeIcon icon={faCircleInfo} />
+                            </span>
+                            <span style={{ minWidth: 0 }}>
+                                <p style={infoTitle}>Disclaimer</p>
+                                <p style={infoIntro}>
+                                    ICare is a matching platform and does not provide regulated care services.
+                                    {isDisclaimerOpen ? "" : "  Read more."}
+                                </p>
+                            </span>
+                        </span>
+
+                        <span style={infoChevron} aria-hidden="true">
+                            <FontAwesomeIcon
+                                icon={faChevronDown}
+                                style={{
+                                    transform: isDisclaimerOpen ? "rotate(180deg)" : "rotate(0deg)",
+                                    transition: "transform 180ms ease",
+                                }}
+                            />
+                        </span>
+                    </button>
+
+                    {isDisclaimerOpen ? (
+                        <div id="icare-disclaimer-panel" style={infoPanel}>
+                            <p style={infoSectionTitle}>Key terms (summary)</p>
+                            <ul style={infoList}>
+                                <li style={infoItem}>
+                                    Any agreement for support is made <strong>directly between users</strong>{" "}
+                                    (family/care receiver and caregiver).
+                                </li>
+                                <li style={infoItem}>
+                                    ICare is <strong>not</strong> the employer of caregivers and is{" "}
+                                    <strong>not</strong> a care agency or “agency provider”.
+                                </li>
+                            </ul>
+
+                            <p style={infoSectionTitle}>Verification documents (ID/DBS)</p>
+                            <ul style={infoList}>
+                                <li style={infoItem}>
+                                    We collect and store only the minimum needed to complete verification.
+                                </li>
+                                <li style={infoItem}>
+                                    Access to verification documents is restricted to authorised administrators only.
+                                </li>
+                                <li style={infoItem}>
+                                    Where possible, documents are removed after verification is completed in line with our retention policy.
+                                </li>
+                            </ul>
+
+                            <p style={infoSectionTitle}>Health information</p>
+                            <ul style={infoList}>
+                                <li style={infoItem}>
+                                    ICare does not request medical diagnoses in forms by default.
+                                </li>
+                                <li style={infoItem}>
+                                    Families should describe support needs in <strong>functional language</strong>{" "}
+                                    (e.g. “needs help with meals and routines”), not clinical details.
+                                </li>
+                            </ul>
+
+                            {/* ✅ REWRITTEN: last two lines — customer-friendly and still protective */}
+                            <p style={infoSectionTitle}>How we describe support</p>
+                            <ul style={infoList}>
+                                <li style={infoItem}>
+                                    We focus on everyday support — routines, practical help and agreed tasks.
+                                </li>
+                                <li style={infoItem}>
+                                    If you need clinical or nursing care (for example, treatment or medical procedures), please speak to an appropriately qualified healthcare professional.
+                                </li>
+                            </ul>
+                        </div>
+                    ) : null}
+                </div>
 
                 {/* CARE AT HOME (fade-in) */}
-                <div
-                    id="care-at-home"
-                    ref={careAtHomeRef}
-                    className="icare-fade"
-                    style={section}
-                >
+                <div id="care-at-home" ref={careAtHomeRef} className="icare-fade" style={section}>
                     <div className="icare-carehome-row" style={careHomeRow}>
                         <div style={imgWrap}>
                             <img
@@ -447,12 +617,7 @@ export default function ICareTypesOfCareSEO() {
                 </div>
 
                 {/* LIVE-IN CARER DUTIES (fade-in) */}
-                <div
-                    id="live-in-carer"
-                    ref={liveInRef}
-                    className="icare-fade"
-                    style={section}
-                >
+                <div id="live-in-carer" ref={liveInRef} className="icare-fade" style={section}>
                     <h3 style={sectionTitle}>What does a live-in carer do?</h3>
                     <p style={sectionText}>
                         A live-in carer supports everyday life at home with consistent,
@@ -502,7 +667,7 @@ export default function ICareTypesOfCareSEO() {
           .icare-bullets-grid{ grid-template-columns: 1fr !important; }
         }
 
-        /* ✅ bullet borders (CSS, not inline) */
+        /* bullet borders */
         .icare-bullets-grid > .bullet-card{
           border-right: 2px solid rgba(221, 139, 79, 0.3);
         }
