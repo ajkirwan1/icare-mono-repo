@@ -1,4 +1,5 @@
 import React from "react";
+import VideoSection from "../../../common/sections/VideoSection";
 
 export function OurImpactSection() {
     const items = [
@@ -20,135 +21,126 @@ export function OurImpactSection() {
         },
     ];
 
+    const BG = "#ecddd18c";
+    const TEXT = "#000";
+
+    const section = {
+        width: "100%",
+        background: BG,
+        padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
+        fontFamily:
+            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    };
+
+    const wrap = {
+        width: "min(1180px, 92vw)",
+        margin: "0 auto",
+    };
+
+    const header = {
+        maxWidth: "1100px",
+        marginBottom: "clamp(2.2rem, 4vw, 3rem)",
+    };
+
+    const h2 = {
+        margin: 0,
+        fontWeight: 500,
+        fontSize: "clamp(2rem, 3vw, 2.4rem)",
+        color: TEXT,
+        letterSpacing: "-0.35px",
+        lineHeight: 1.12,
+    };
+
+    const lead = {
+        marginTop: "1.1rem",
+        marginBottom: 0,
+        fontSize: "clamp(1.08rem, 1.4vw, 1.22rem)",
+        lineHeight: 1.65,
+        color: "rgba(0,0,0,0.9)",
+        fontWeight: 400,
+    };
+
+    const grid = {
+        display: "grid",
+        gridTemplateColumns: "1fr 1.1fr",
+        gap: "clamp(2.2rem, 4.5vw, 4rem)",
+        alignItems: "start",
+    };
+
+    const listWrap = {
+        maxWidth: "58ch",
+    };
+
+    const itemWrap = (isLast) => ({
+        paddingBottom: "1.2rem",
+        borderBottom: isLast ? "none" : "1px solid rgba(0,0,0,0.18)",
+    });
+
+    const itemTitle = {
+        margin: 0,
+        fontSize: "1.18rem",
+        fontWeight: 600,
+        letterSpacing: "-0.15px",
+        color: TEXT,
+    };
+
+    const itemDesc = {
+        marginTop: ".35rem",
+        marginBottom: 0,
+        fontSize: "1.08rem",
+        lineHeight: 1.55,
+        color: "rgba(0,0,0,0.88)",
+        fontWeight: 400,
+    };
+
+    const mediaCard = {
+        borderRadius: 28,
+        overflow: "hidden",
+        background: "rgba(255,255,255,0.55)",
+    };
+
     return (
-        <section
-            id="impact"
-            aria-label="Our impact"
-            style={{
-                width: "100%",
-                background: "#ecddd18c",
-                padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
-                fontFamily:
-                    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
-        >
-            <div
-                style={{
-                    width: "min(1180px, 92vw)",
-                    margin: "0 auto",
-                }}
-            >
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1.1fr",
-                        gap: "clamp(2.6rem, 5vw, 4.2rem)",
-                        alignItems: "start",
-                    }}
-                >
-                    {/* ================= LEFT — TEXT ================= */}
-                    <div
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            maxWidth: "54ch",
-                        }}
-                    >
-                        <header style={{ marginBottom: "2.1rem" }}>
-                            <h2
-                                style={{
-                                    margin: 0,
-                                    fontWeight: 500,
-                                    fontSize: "2.4rem",
-                                    color: "#000",
-                                    letterSpacing: "-0.35px",
-                                }}
-                            >
-                                Our approach is built on a few simple principles
-                            </h2>
+        <section id="impact" aria-label="Our impact" style={section}>
+            <div style={wrap}>
+                {/* HEADER (FULL WIDTH) */}
+                <header style={header}>
+                    <h2 style={h2}>Our approach is built on a few simple principles</h2>
+                    <p style={lead}>
+                        Care is personal and rarely predictable.
+                        <br />
+                        ICare provides calm structure and clear agreements, while leaving
+                        decisions where they belong — with people.
+                    </p>
+                </header>
 
-                            <p
-                                style={{
-                                    marginTop: "1.1rem",
-                                    fontSize: "1.22rem",
-                                    lineHeight: 1.65,
-                                    color: "rgba(0,0,0,0.9)",
-                                    fontWeight: 400,
-                                }}
-                            >
-                                Care is personal and rarely predictable.
-                                <br />
-                                ICare provides calm structure and clear agreements,
-                                while leaving decisions where they belong — with people.
-                            </p>
-                        </header>
-
-                        {/* ================= PRINCIPLES LIST ================= */}
+                {/* CONTENT (LEFT LIST / RIGHT VIDEO) */}
+                <div className="impact-grid" style={grid}>
+                    <div style={listWrap}>
                         <div style={{ display: "grid", gap: "1.6rem" }}>
                             {items.map((item, i) => (
-                                <div
-                                    key={item.title}
-                                    style={{
-                                        paddingBottom: "1.2rem",
-                                        borderBottom:
-                                            i !== items.length - 1
-                                                ? "1px solid rgba(0,0,0,0.18)"
-                                                : "none",
-                                    }}
-                                >
-                                    <h3
-                                        style={{
-                                            margin: 0,
-                                            fontSize: "1.22rem",
-                                            fontWeight: 600,
-                                            letterSpacing: "-0.15px",
-                                            color: "#000",
-                                        }}
-                                    >
-                                        {item.title}
-                                    </h3>
-
-                                    <p
-                                        style={{
-                                            marginTop: ".35rem",
-                                            marginBottom: 0,
-                                            fontSize: "1.15rem",
-                                            lineHeight: 1.55,
-                                            color: "rgba(0,0,0,0.88)",
-                                            fontWeight: 400,
-                                        }}
-                                    >
-                                        {item.desc}
-                                    </p>
+                                <div key={item.title} style={itemWrap(i === items.length - 1)}>
+                                    <h3 style={itemTitle}>{item.title}</h3>
+                                    <p style={itemDesc}>{item.desc}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* ================= RIGHT — IMAGE ================= */}
                     <div>
-                        <div
-                            style={{
-                                position: "relative",
-                                overflow: "hidden",
-                                borderRadius: "28px",
-                                boxShadow: "0 12px 32px rgba(0,0,0,0.18)",
-                                height: "clamp(420px, 52vw, 620px)",
-                            }}
-                        >
-                            <img
-                                src="images/web/who-we-are/homecare.jpg"
-                                alt="Caregiver talking with senior man at home in the UK"
-                                style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                }}
-                            />
+                        <div style={mediaCard}>
+                            <VideoSection videoSrc="images/web/who-we-are/who-we-are.mp4" />
                         </div>
                     </div>
                 </div>
+
+                {/* RESPONSIVE */}
+                <style>{`
+          @media (max-width: 960px){
+            #impact .impact-grid{
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
             </div>
         </section>
     );

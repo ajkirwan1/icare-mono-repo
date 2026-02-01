@@ -1,78 +1,33 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import VideoSection from "../../common/sections/VideoSection";
-
-import {
-    faIdCard,
-    faComments,
-    faCalendarCheck,
-    faScaleBalanced,
-} from "@fortawesome/free-solid-svg-icons";
 
 export default function HowICareWorksForCaregiversSystem() {
     const COLORS = {
         bgTop: "rgba(167,182,129,0.20)",
         bgBottom: "rgba(255,249,239,0.92)",
         text: "#0F172A",
-        muted: "rgba(15,23,42,0.55)",
+        muted: "rgba(15,23,42,0.60)",
         border: "rgba(15,23,42,0.10)",
-        olive: "#61674d",
+        accent: "#61674d", // olive accent
     };
 
     const steps = [
         {
-            step: "01",
-            icon: faIdCard,
-            title: "Create a clear caregiver profile",
-            desc: "Introduce yourself, your care experience and availability.",
-            image:
-                "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=1200&q=80",
-            alt: "Photo ID and profile details for verification",
+            no: "01",
+            title: "Create your profile",
+            desc: "Tell us about your experience and availability.",
         },
         {
-            step: "02",
-            icon: faComments,
-            title: "Speak directly with families",
-            desc: "Message families directly to discuss care needs.",
-            image:
-                "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80",
-            alt: "Caregiver and family talking at home",
+            no: "02",
+            title: "Get matched",
+            desc: "Families contact you directly.",
         },
         {
-            step: "03",
-            icon: faCalendarCheck,
-            title: "Agree schedules and expectations",
-            desc: "Agree hours, tasks and start dates upfront.",
-            image:
-                "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=1200&q=80",
-            alt: "Planning schedules and expectations",
-        },
-        {
-            step: "04",
-            icon: faScaleBalanced,
-            title: "Work within a fairer system",
-            desc: "Care is organised transparently, with clear fees.",
-            image:
-                "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80",
-            alt: "Fair and balanced care system",
+            no: "03",
+            title: "Start working together",
+            desc: "Agree details and begin.",
         },
     ];
-
-    const stepCardImageWrap = {
-        marginTop: "1rem",
-        borderRadius: 18,
-        overflow: "hidden",
-        background: "rgba(15,23,42,0.03)",
-        border: `1px solid ${COLORS.border}`,
-        aspectRatio: "16 / 10",
-    };
-
-    const stepCardImage = {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block",
-    };
 
     return (
         <section
@@ -80,7 +35,7 @@ export default function HowICareWorksForCaregiversSystem() {
             aria-label="How ICare works for caregivers"
             style={{
                 width: "100%",
-                padding: "clamp(4rem, 7vw, 5rem) 0",
+                padding: "clamp(4rem, 7vw, 5.4rem) 0",
                 background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
                 fontFamily:
                     "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -112,7 +67,7 @@ export default function HowICareWorksForCaregiversSystem() {
 
             <div style={{ width: "min(96vw, 1240px)", margin: "0 auto" }}>
                 {/* HEADER */}
-                <header style={{ maxWidth: "78ch", marginBottom: "1.6rem" }}>
+                <header style={{ maxWidth: "78ch", marginBottom: "2.6rem" }}>
                     <h2
                         style={{
                             margin: 0,
@@ -128,102 +83,116 @@ export default function HowICareWorksForCaregiversSystem() {
                     <p
                         style={{
                             marginTop: "0.9rem",
-                            fontSize: "1.4rem",
+                            fontSize: "1.35rem",
                             lineHeight: 1.65,
                             fontWeight: 400,
+                            color: COLORS.TEXT,
                         }}
                     >
-                        A clearer way to organise care - built around transparency,
+                        A clearer way to organise care — built around transparency,
                         autonomy and mutual respect.
                     </p>
                 </header>
 
-
-                <VideoSection
-                    videoSrc="images/web/icare-for-caregivers/voice.mp4"
+                {/* VIDEO + STEPS */}
+                <div
+                    className="icare-caregivers-video-steps"
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "1.1fr 1fr",
+                        gap: "clamp(2.6rem, 5vw, 4.2rem)",
+                        alignItems: "center",
+                    }}
                 >
-                </VideoSection>
+                    {/* LEFT — VIDEO */}
+                    <div
+                        style={{
+                            borderRadius: 26,
+                            overflow: "hidden",
+                            boxShadow: "0 14px 34px rgba(15,23,42,0.18)",
+                            background: "rgba(255,255,255,0.6)",
+                        }}
+                    >
+                        <VideoSection videoSrc="images/web/icare-for-caregivers/voice.mp4" />
+                    </div>
 
-
-                {/* STEPS GRID */}
-                {/*
-                <div className="icare-caregivers-steps-grid">
-                    {steps.map((s) => (
-                        <div
-                            key={s.step}
+                    {/* RIGHT — STEPS */}
+                    <div style={{ maxWidth: "46ch" }}>
+                        <ol
                             style={{
-                                borderRadius: 22,
-                                padding: "20px 10px",
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between",
+                                listStyle: "none",
+                                padding: 0,
+                                margin: 0,
+                                display: "grid",
+                                gap: "1.9rem",
                             }}
                         >
-                            <div>
-                                <div
+                            {steps.map((s) => (
+                                <li
+                                    key={s.no}
                                     style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
+                                        display: "grid",
+                                        gridTemplateColumns: "auto 1fr",
+                                        gap: "1.2rem",
                                         alignItems: "flex-start",
-                                        marginBottom: "0.6rem",
                                     }}
                                 >
-                                    <h3
+                                    {/* NUMBER */}
+                                    <div
                                         style={{
-                                            margin: "0.4rem 0 0",
-                                            fontSize: "1.5rem",
-                                            fontWeight: 500,
-                                            paddingRight: "20px",
-                                            lineHeight: 1.3,
+                                            fontSize: "1.1rem",
+                                            fontWeight: 700,
+                                            color: COLORS.accent,
+                                            letterSpacing: "0.04em",
+                                            lineHeight: 1,
+                                            marginTop: "0.35rem",
                                         }}
                                     >
-                                        {s.title}
-                                    </h3>
+                                        {s.no}
+                                    </div>
 
-                                </div>
+                                    {/* TEXT */}
+                                    <div>
+                                        <h3
+                                            style={{
+                                                margin: 0,
+                                                fontSize: "1.45rem",
+                                                fontWeight: 500,
+                                                letterSpacing: "-0.2px",
+                                                lineHeight: 1.3,
+                                            }}
+                                        >
+                                            {s.title}
+                                        </h3>
 
-                                <p
-                                    style={{
-                                        margin: 0,
-                                        fontSize: "1.2rem",
-                                        lineHeight: 1.6,
-                                        fontWeight: 400,
-                                    }}
-                                >
-                                    {s.desc}
-                                </p>
-                            </div>
-
-                            <div style={stepCardImageWrap}>
-                                <img
-                                    src={s.image}
-                                    alt={s.alt}
-                                    style={stepCardImage}
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer"
-                                />
-                            </div>
-                        </div>
-                    ))}
+                                        <p
+                                            style={{
+                                                marginTop: ".35rem",
+                                                marginBottom: 0,
+                                                fontSize: "1.15rem",
+                                                lineHeight: 1.6,
+                                                fontWeight: 400,
+                                                color: COLORS.TEXT,
+                                            }}
+                                        >
+                                            {s.desc}
+                                        </p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
                 </div>
-                */}
             </div>
 
+            {/* RESPONSIVE */}
             <style>{`
-              .icare-caregivers-steps-grid{
-                display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                gap: 20px;
-                align-items: stretch;
-                margin: 0 -8px;
-              }
-
-              @media (max-width: 860px){
-                .icare-caregivers-steps-grid{
-                  grid-template-columns: 1fr !important;
-                }
-              }
-            `}</style>
+        @media (max-width: 960px){
+          .icare-caregivers-video-steps{
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
         </section>
     );
 }
