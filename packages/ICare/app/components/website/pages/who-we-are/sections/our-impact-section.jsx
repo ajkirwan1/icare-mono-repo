@@ -5,19 +5,19 @@ export function OurImpactSection() {
     const items = [
         {
             title: "Transparent care choices",
-            desc: "Clear caregiver profiles show experience, availability and care style before conversation begins.",
+            desc: "Clear caregiver profiles show experience, availability and care style before any conversation begins.",
         },
         {
             title: "Direct communication",
             desc: "Families and caregivers speak directly, without intermediaries shaping decisions.",
         },
         {
-            title: "Fair, clear agreements",
+            title: "Fair, clear expectations",
             desc: "Care details, schedules and rates are agreed openly between families and caregivers.",
         },
         {
             title: "Freedom on both sides",
-            desc: "Caregivers choose who they work with. Families choose who supports their home.",
+            desc: "Caregivers choose who they work with. Families choose who they welcome into their home.",
         },
     ];
 
@@ -106,10 +106,10 @@ export function OurImpactSection() {
                 <header style={header}>
                     <h2 style={h2}>Our approach is built on a few simple principles</h2>
                     <p style={lead}>
-                        Care is personal and rarely predictable.
+                        Care is personal and changes over time.
+
                         <br />
-                        ICare provides calm structure and clear agreements, while leaving
-                        decisions where they belong — with people.
+                        ICare helps families and caregivers connect with clarity and calm while keeping decisions where they belong: with people.
                     </p>
                 </header>
 

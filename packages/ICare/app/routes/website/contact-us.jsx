@@ -169,7 +169,7 @@ export default function ContactUPage() {
                     <header style={whiteHeader}>
                         <h1 style={whiteH1}>Contact us</h1>
                         <p style={whiteLead}>
-                            Whether you’re a family, a caregiver, or a potential partner — we’d love to hear from you.
+                            Whether you’re a family, a caregiver, or a potential partner - we’d love to hear from you.
                         </p>
                     </header>
 
@@ -190,18 +190,7 @@ export default function ContactUPage() {
                             </p>
                         </div>
 
-                        <div style={whiteCard}>
-                            <h3 style={h3}>Press & partnerships</h3>
-                            <p style={p}>
-                                For media enquiries or collaboration proposals, please include “Press” or “Partnership” in the subject.
-                            </p>
-                            <p style={small}>
-                                <strong>Email:</strong>{" "}
-                                <a href="mailto:hello@icare.co.uk" style={link}>
-                                    hello@icare.co.uk
-                                </a>
-                            </p>
-                        </div>
+
 
                         <div style={whiteCard}>
                             <h3 style={h3}>For families</h3>
@@ -209,7 +198,7 @@ export default function ContactUPage() {
                                 If you’re exploring companionship care for a parent or loved one, tell us what you need.
                             </p>
                             <p style={small}>
-                                We’re not yet fully operational — your message helps us build something genuinely useful.
+                                We’re not yet fully operational - your message helps us build something genuinely useful.
                             </p>
                         </div>
 

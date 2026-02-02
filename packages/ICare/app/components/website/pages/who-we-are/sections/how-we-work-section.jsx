@@ -8,21 +8,21 @@ export function HowWeWorkSection() {
             step: 1,
             title: "Brief & preferences",
             description:
-                "Share your needs, schedule and preferred skills. We only ask for information that’s necessary.",
+                "Share your needs, schedule and preferred skills. We only ask for information that helps you find the right match.",
             variant: "green",
         },
         {
             step: 2,
-            title: "Direct matching",
+            title: "Browse & message",
             description:
-                "View caregiver profiles that match your brief and speak directly with candidates.",
+                "View caregiver profiles and message people directly when you feel ready.",
             variant: "blue",
         },
         {
             step: 3,
             title: "Agree & start",
             description:
-                "Agree terms directly with the caregiver. We provide guidance and clear agreement templates.",
+                "Discuss tasks, hours and start date directly with the caregiver. We share simple guidance to help you set clear expectations.",
             variant: "orange",
         },
     ];
@@ -72,14 +72,14 @@ export function HowWeWorkSection() {
                     >
                         <span style={{ display: "block", marginBottom: "0.4rem" }}>
                             <strong style={{ fontWeight: 600, fontSize: "1.5rem" }}>
-                                A simple, transparent way to arrange care at home.
+                                A simple, transparent way to arrange companionship at home.
                             </strong>
                         </span>
 
                         <span style={{ display: "block" }}>
 
-                            Browse verified caregiver profiles, speak directly, and agree care
-                            <br />from short visits to overnight or live-in support.
+                            A calmer, transparent way to arrange companionship at home.<br />
+                            Browse verified caregiver profiles, message directly, and agree support that fits your routine.
                         </span>
                     </p>
 
