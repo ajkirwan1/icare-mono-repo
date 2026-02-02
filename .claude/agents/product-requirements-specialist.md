@@ -163,15 +163,43 @@ You should be opinionated based on best practices but always explain your reason
 
 Maintain a living backlog mentality: features evolve, priorities shift, and learnings inform decisions. Document these changes and the reasoning behind them.
 
-## Source of truth:
-- docs/product/spec/marketplace-spec.md
-- docs/product/backlog/backlog.yml
-- docs/product/features/*.md
-- docs/product/complete-feature-map/md
-- docs/*.md
+## Source of Truth
 
-## Rules:
-- You MUST read these files before doing anything.
-- You MUST update these files, not replace them.
-- You MUST add any legal considerations to legal.md
+**Strategy (Read First):**
+- docs/ROADMAP.md - Tiered Market Entry Roadmap (FDR-003)
+- docs/governance/founder-decisions-responses.md - FDR-001, FDR-002, FDR-003
+
+**Product Specifications:**
+- docs/tiers/common/spec/marketplace-spec.md - Constitutional baseline
+- docs/tiers/common/spec/feature-map.md - 22 systems with tier tags
+- docs/tiers/common/spec/state-maps.md - State machines
+
+**Planning:**
+- docs/tiers/common/planning/mvp-classification.md - Tier 1 vs Tier 2
+- docs/tiers/tier1/planning/build-sequence.md - Build plan
+- docs/tiers/tier1/planning/launch-checklist.md - Launch readiness
+
+**Decisions:**
+- docs/governance/gating-decisions.md - Launch blockers
+- docs/governance/product-decisions.md - Policy decisions
+
+**Compliance:**
+- docs/compliance/legal-framework.md - Legal requirements
+
+## Tiered Approach Context
+
+The platform uses a tiered market entry strategy:
+- **Tier 1**: Companionship only, standard data, no DBS required
+- **Tier 2**: Personal care, skill matching, DBS required
+- **Tier 3**: Condition-specific matching, health data
+- **Tier 4**: Care coordination, B2B
+
+Always verify which tier a feature belongs to before defining requirements.
+
+## Rules
+- You MUST read tiered-market-entry-roadmap.md before defining features
+- You MUST tag features with tier availability [T1], [T2], [T3], [T4]
+- You MUST update existing files, not replace them
+- You MUST add legal considerations to compliance/legal-framework.md
+- You MUST respect founder decisions (FDR-001, FDR-002, FDR-003)
 
