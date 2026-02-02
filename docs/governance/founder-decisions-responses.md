@@ -29,7 +29,9 @@
 | 5 | DBS Provider Selection | PENDING | - | Technical |
 | 6 | Identity Verification Provider | PENDING | - | Technical |
 | 7 | Mental Capacity Act Compliance | PENDING | - | Legal/Operational |
-| 8 | Pricing & Commission Structure | PENDING (Deferred) | 2026-02-01 | Commercial |
+| 8 | Pricing & Commission Structure | PLACEHOLDER IN USE | 2026-02-02 | Commercial |
+| 9 | Dashboard R0 Inclusion | ANSWERED | 2026-02-02 | Product Scope |
+| 10 | Insurance Requirements (R0) | PROVISIONALLY APPROVED | 2026-02-02 | Operational |
 
 ---
 
@@ -2907,6 +2909,183 @@ UI Patterns     Screen Inv.     Terms of Service
 **Document Status**: Complete
 **Next Review**: After IMMEDIATE actions completed
 **Owner**: Product Director
+
+---
+
+## FDR-009: Dashboard R0 Inclusion
+
+### Question
+
+> "Should Care Receiver Dashboard (SCR-CR-001) and Caregiver Dashboard (SCR-CG-001) be included in R0 launch?"
+
+**Source**: `/docs/tiers/tier1/draft-design-specs/phase1-analysis-and-blockers.md` (CB-001)
+
+**Question Context**: The dashboards were marked with [DECISION NEEDED] in screen-inventory.md. All user flows assume dashboards exist as navigation hubs. Without dashboards, the hub-and-spoke navigation pattern breaks down.
+
+---
+
+### Founder Response
+
+**Response Date**: 2026-02-02
+
+**Response Statement**:
+
+> "APPROVED - Include SCR-CR-001 (Care Receiver Dashboard) in R0. Include SCR-CG-001 (Caregiver Dashboard) in R0. This increases R0 screen count from 26 to 28."
+
+**Response Category**: Scope Expansion - Dashboard Inclusion
+
+---
+
+### Strategic Implications
+
+#### Product Architecture Impact
+
+| Aspect | Implication |
+|--------|-------------|
+| R0 Screen Count | Increased from 26 to 30 (28 + messaging + review) |
+| Post-Login Landing | Care receivers land on `/dashboard`, caregivers land on `/caregiver/dashboard` |
+| Navigation Hub | Hub-and-spoke pattern enabled for repeat users |
+| Development Effort | +2 screens to build (moderate complexity) |
+
+#### Documents Updated
+
+| Document | Change |
+|----------|--------|
+| `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` | [DECISION NEEDED] markers removed, screen count updated |
+| `/docs/tiers/tier1/draft-design-specs/route-map.md` | GAP 1 and GAP 2 marked as RESOLVED |
+| `/docs/tiers/tier1/draft-design-specs/user-flows/care-receiver-first-booking.md` | GAP 1 marked as RESOLVED |
+| `/docs/tiers/tier1/draft-design-specs/phase1-analysis-and-blockers.md` | CB-001 marked as RESOLVED |
+
+---
+
+### Decision Audit Trail
+
+| Date | Action | Actor | Notes |
+|------|--------|-------|-------|
+| 2026-02-02 | Question raised | Product Director | Identified in phase1-analysis-and-blockers.md |
+| 2026-02-02 | Response received | Founder | APPROVED - Dashboards included in R0 |
+| 2026-02-02 | Documents updated | Product Director | All relevant documents updated |
+
+---
+
+---
+
+## FDR-010: Insurance Requirements for R0
+
+### Question
+
+> "What insurance requirements should apply to caregivers on the platform?"
+
+**Source**: `/docs/tiers/tier1/draft-design-specs/phase1-analysis-and-blockers.md` (CB-004)
+
+**Question Context**: Insurance requirements for caregivers were not defined, including required insurance types, minimum coverage amounts, and verification process.
+
+---
+
+### Founder Response
+
+**Response Date**: 2026-02-02
+
+**Response Statement**:
+
+> "PROVISIONALLY APPROVED - Accept the recommendation:
+> - Public Liability: 1M GBP minimum
+> - Professional Indemnity: 1M GBP minimum
+> - Certificate upload required
+> - Admin verification
+> - Expiry tracking
+>
+> Subject to business cost review to ensure these requirements do not create excessive barriers for caregiver supply."
+
+**Response Category**: Provisional Approval - Insurance Requirements
+
+---
+
+### Strategic Implications
+
+#### Product Architecture Impact
+
+| Aspect | Implication |
+|--------|-------------|
+| Caregiver Onboarding | Insurance verification step to be added |
+| Admin Verification | Insurance certificate review workflow required |
+| Profile Display | "Insurance Verified" badge for caregiver profiles |
+| Expiry Tracking | System to track insurance expiry dates and notify caregivers |
+
+#### Requirements Summary
+
+| Insurance Type | Minimum Coverage | Verification |
+|---------------|------------------|--------------|
+| Public Liability | 1,000,000 GBP | Certificate upload + Admin review |
+| Professional Indemnity | 1,000,000 GBP | Certificate upload + Admin review |
+
+#### Provisional Status
+
+This decision is marked as **PROVISIONAL** pending business cost review:
+- [PROVISIONAL: Insurance requirements subject to business cost review]
+- Review should assess impact on caregiver supply
+- Consider early adopter exemption period or support program
+
+#### Documents Updated
+
+| Document | Change |
+|----------|--------|
+| `/docs/tiers/tier1/draft-design-specs/phase1-analysis-and-blockers.md` | CB-004 marked as PROVISIONALLY RESOLVED |
+
+---
+
+### Decision Audit Trail
+
+| Date | Action | Actor | Notes |
+|------|--------|-------|-------|
+| 2026-02-02 | Question raised | Product Director | Identified in phase1-analysis-and-blockers.md |
+| 2026-02-02 | Response received | Founder | PROVISIONALLY APPROVED - Subject to cost review |
+| 2026-02-02 | Documents updated | Product Director | Relevant documents updated |
+
+---
+
+---
+
+## FDR-008 Status Update: Pricing Placeholder
+
+### Original Question
+
+> "What should the platform's pricing and commission structure be?"
+
+**Original Status**: PENDING (Deferred 2026-02-01)
+
+---
+
+### Status Update
+
+**Update Date**: 2026-02-02
+
+**Update Statement**:
+
+> "While the final pricing decision (FDR-008) remains pending, a 15% commission placeholder is APPROVED for use in all specifications. All pricing references should be marked with: [PLACEHOLDER: 15% commission - subject to FDR-008 final decision]"
+
+**Placeholder Details**:
+- Commission rate: 15%
+- Who pays: Deferred
+- Minimum booking: Deferred
+- Early adopter program: Deferred
+
+**Blocking Status**: No longer blocking JOBs 4-7 (feature specs can proceed with placeholder)
+
+**Still Required For**:
+- Terms of Service legal review
+- Stripe live configuration
+- Caregiver earnings calculations (final)
+
+---
+
+### Documents Updated
+
+| Document | Change |
+|----------|--------|
+| `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` | Pricing displays marked with placeholder notation |
+| `/docs/tiers/tier1/draft-design-specs/user-flows/care-receiver-first-booking.md` | GAP 4 updated with placeholder status |
+| `/docs/tiers/tier1/draft-design-specs/phase1-analysis-and-blockers.md` | CB-003 marked with placeholder status |
 
 ---
 
