@@ -37,6 +37,11 @@ export default function VideoSection({
                     className={styles.mediaWrap}
                     style={{
                         overflow: "hidden",
+                        borderRadius: 20,
+                        padding: 16,
+                        background: "rgba(100,100,100,0.2)",
+                        display: "inline-block",
+                        verticalAlign: "top"
                     }}
                 >
                     <video

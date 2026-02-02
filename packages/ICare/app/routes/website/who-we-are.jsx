@@ -11,48 +11,48 @@ import ICareFooter from "../../components/website/pages/shared/footers/icare-foo
 
 
 export function meta() {
-  const seo = buildSeo({
-    title: "Who We are",
-    description:
-      "Who we are.",
-    imagePath: "/images/og/who-we-are.jpg"
-  });
+    const seo = buildSeo({
+        title: "Who We are",
+        description:
+            "Who we are.",
+        imagePath: "/images/og/who-we-are.jpg"
+    });
 
-  return [
-    { title: seo.title },
-    { name: "description", content: seo.description },
+    return [
+        { title: seo.title },
+        { name: "description", content: seo.description },
 
-    { property: "og:title", content: seo.title },
-    { property: "og:description", content: seo.description },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: seo.url },
-    { property: "og:image", content: seo.image }
+        { property: "og:title", content: seo.title },
+        { property: "og:description", content: seo.description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: seo.url },
+        { property: "og:image", content: seo.image }
 
-    // { name: "twitter:card", content: "summary_large_image" },
-    // { name: "twitter:title", content: seo.title },
-    // { name: "twitter:description", content: seo.description },
-    // { name: "twitter:image", content: seo.image },
-  ];
+        // { name: "twitter:card", content: "summary_large_image" },
+        // { name: "twitter:title", content: seo.title },
+        // { name: "twitter:description", content: seo.description },
+        // { name: "twitter:image", content: seo.image },
+    ];
 }
 
 export default function WhoWeAre() {
 
-  return (
-    <div
-      className={styles.page}
-      style={{
-        fontFamily:
-          "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        color: "#0F172A"
-      }}
-    >
-      <WhoWeAreHero />
-      <OurFoundationSection />
-      <OurValuesSection />
-      <HowWeWorkSection />
-      <OurImpactSection />
-      {/* <CtaSection /> */}
-      <ICareFooter />
-    </div>
-  );
+    return (
+        <div
+            className={styles.page}
+            style={{
+                fontFamily:
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                color: "#0F172A"
+            }}
+        >
+            <WhoWeAreHero />
+            <OurFoundationSection />
+            <OurValuesSection />
+            <HowWeWorkSection />
+            <OurImpactSection />
+            {/* <CtaSection /> */}
+            <ICareFooter />
+        </div>
+    );
 }

@@ -107,18 +107,18 @@ export default function ICareTwoPathsSection({
 
     // icons: calm + a bit smaller
     const icon = {
-        width: 32,
-        height: 50,
+        width: 28,
+        height: 40,
         borderRadius: 18,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "rgb(221, 139, 79)",
+        color: "rgb(255, 169, 103)",
         flex: "0 0 auto"
     };
 
     const iconSvg = {
-        fontSize: "27px",
+        fontSize: "22px",
         lineHeight: 1
     };
 
@@ -160,7 +160,7 @@ export default function ICareTwoPathsSection({
         width: 10,
         height: 10,
         borderRadius: 999,
-        background: "rgb(221, 139, 79)",
+        background: COLORS.textBlack,
         marginTop: 10,
         flex: "0 0 auto"
     };

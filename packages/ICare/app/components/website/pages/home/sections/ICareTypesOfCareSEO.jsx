@@ -122,10 +122,10 @@ export default function ICareTypesOfCareSEO() {
     };
 
     const iconWrap = {
-        width: 38,
+        width: 30,
         height: 38,
         display: "inline-flex",
-        alignItems: "center",
+        alignItems: "start",
         justifyContent: "center",
         color: ICON,
         flex: "0 0 auto",
@@ -204,7 +204,6 @@ export default function ICareTypesOfCareSEO() {
         borderRadius: 18,
         overflow: "hidden",
         border: "1px solid rgba(15,23,42,0.12)",
-        boxShadow: "0 18px 44px rgb(0, 0, 0)",
         background: "#ffffffd7",
     };
 
@@ -221,31 +220,31 @@ export default function ICareTypesOfCareSEO() {
     const bulletsGrid = {
         margin: "30px -10px",
         display: "grid",
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: "35px 20px",
-        padding: "0.5rem",
-        border: "1px solid rgba(221, 139, 79, 0.3)",
+        gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+        gap: "25px 10px",
+        padding: "1rem",
+        border: "1px solid rgba(221, 139, 79, 0.5)",
         borderRadius: "2rem",
         background: "white",
     };
 
-    const bulletCard = { padding: "0px 1rem 0px 1rem", margin: "1rem 0" };
+    const bulletCard = { padding: "0px 0.6rem 0px .6rem", margin: "0.6rem 0" };
 
     const bulletTitle = {
         margin: 0,
         fontWeight: 600,
         letterSpacing: "-0.15px",
-        fontSize: "1.3rem",
+        fontSize: "1.1rem",
         lineHeight: 1.35,
         color: TEXT,
+        minHeight: "48px"
     };
 
     const bulletDesc = {
         margin: "6px 0 0",
-        color: "rgba(15,23,42,0.86)",
         fontWeight: 400,
         lineHeight: 1.6,
-        fontSize: "1.1rem",
+        fontSize: ".9rem",
     };
 
     const subhead = {
@@ -258,7 +257,6 @@ export default function ICareTypesOfCareSEO() {
 
     const note = {
         margin: "10px 0 0",
-        color: "rgba(15,23,42,0.86)",
         fontWeight: 500,
         lineHeight: 1.65,
         fontSize: "1.02rem",
@@ -669,9 +667,9 @@ export default function ICareTypesOfCareSEO() {
 
         /* bullet borders */
         .icare-bullets-grid > .bullet-card{
-          border-right: 2px solid rgba(221, 139, 79, 0.3);
+          border-right: 1px solid rgba(221, 139, 79, 0.5);
         }
-        .icare-bullets-grid > .bullet-card:nth-child(3n){
+        .icare-bullets-grid > .bullet-card:nth-child(4n){
           border-right: none;
         }
         .icare-bullets-grid > .bullet-card:last-child{
