@@ -11,7 +11,7 @@ function formatDate(dateString) {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
-        timeZone: "Europe/London"
+        timeZone: "Europe/London",
     }).format(new Date(dateString));
 }
 
@@ -26,16 +26,64 @@ export async function loader({ request }) {
     const [posts, tagCounts, total] = await Promise.all([
         getNewsListPaged({ offset, limit }),
         getTagCounts(),
-        getNewsCount()
+        getNewsCount(),
     ]);
 
     const totalPages = Math.max(1, Math.ceil(total / limit));
 
-    return { posts, tagCounts, page, totalPages, total };
+    return { posts, tagCounts, page, totalPages, total, limit };
 }
 
 export default function NewsAndArticlesPage() {
-    const { posts, tagCounts, totalPages, total, page } = useLoaderData();
+    const { posts, tagCounts, totalPages, total, page, limit } = useLoaderData();
+
+    const start = total === 0 ? 0 : (page - 1) * limit + 1;
+    const end = Math.min(page * limit, total);
+
+    const sectionTitleStyle = {
+        margin: 0,
+        fontSize: "1.55rem",
+        lineHeight: 1.25,
+        letterSpacing: "-0.2px",
+        fontWeight: 700,
+        color: "rgba(15, 23, 42, 0.95)",
+    };
+
+    const paragraphStyle = {
+        margin: "0.8rem 0 0",
+        fontSize: "1.15rem",
+        lineHeight: 1.7,
+        color: "rgba(15, 23, 42, 0.88)",
+        fontWeight: 420,
+        maxWidth: "70ch",
+    };
+
+    const topicsLabelStyle = {
+        margin: "1.1rem 0 0",
+        fontSize: "1.08rem",
+        fontWeight: 700,
+        color: "rgba(15, 23, 42, 0.92)",
+    };
+
+    const topicsListStyle = {
+        margin: "0.7rem 0 0",
+        paddingLeft: "1.1rem",
+        display: "grid",
+        gap: "0.55rem",
+        fontSize: "1.08rem",
+        lineHeight: 1.6,
+        color: "rgba(15, 23, 42, 0.86)",
+        maxWidth: "72ch",
+    };
+
+    const closingStyle = {
+        margin: "1rem 0 0",
+        fontSize: "1.12rem",
+        lineHeight: 1.7,
+        color: "rgba(15, 23, 42, 0.86)",
+        fontWeight: 450,
+        maxWidth: "70ch",
+    };
 
     return (
         <div style={{ minHeight: "100vh" }}>
@@ -45,11 +93,143 @@ export default function NewsAndArticlesPage() {
                 <header className={classes.pageHeader}>
                     <div className={classes.pageHeaderMain}>
                         <h1>Care guidance</h1>
-                        <p className={classes.intro}>
-                            Stay informed with clear, up-to-date guidance on home care in the UK.<br />
-                            Care guidance brings together practical explanations, evolving standards and real-world context to support everyday care decisions from early questions to ongoing support at home.
 
+                        <p className={classes.intro}>
+                            Stay informed with clear, up-to-date guidance on home care in the UK.
+                            <br />
+                            Care guidance brings together practical explanations, evolving standards and real-world context
+                            to support everyday care decisions — from early questions to ongoing support at home.
                         </p>
+
+                        {/* ✅ CTA row */}
+                        <div
+                            style={{
+                                marginTop: "1.2rem",
+                                display: "flex",
+                                gap: "12px",
+                                flexWrap: "wrap",
+                                alignItems: "center",
+                            }}
+                        >
+                            <NavLink
+                                to="/newsletter"
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0.85rem 1.25rem",
+                                    borderRadius: 999,
+                                    textDecoration: "none",
+                                    fontWeight: 800,
+                                    fontSize: "1rem",
+                                    background: "#778d43",
+                                    color: "#fff",
+                                    letterSpacing: ".01em",
+                                }}
+                            >
+                                Subscribe to updates
+                            </NavLink>
+
+                            <NavLink
+                                to="/waitlist"
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0.85rem 1.25rem",
+                                    borderRadius: 999,
+                                    textDecoration: "none",
+                                    fontWeight: 800,
+                                    fontSize: "1rem",
+                                    background: "transparent",
+                                    color: "rgba(15, 23, 42, 0.92)",
+                                    border: "1px solid rgba(15, 23, 42, 0.18)",
+                                }}
+                            >
+                                Join waitlist
+                            </NavLink>
+
+                            <span
+                                style={{
+                                    fontSize: "0.98rem",
+                                    color: "rgba(15, 23, 42, 0.70)",
+                                    fontWeight: 650,
+                                }}
+                            >
+                                Guidance is general information — not medical advice.
+                            </span>
+                        </div>
+
+                        {/* ✅ FOR FAMILIES */}
+                        <section
+                            aria-label="For families"
+                            style={{
+                                marginTop: "2.2rem",
+                                paddingTop: "1.6rem",
+                                borderTop: "1px solid rgba(15, 23, 42, 0.10)",
+                                maxWidth: 860,
+                            }}
+                        >
+                            <h2 style={sectionTitleStyle}>For families</h2>
+
+                            <p style={paragraphStyle}>
+                                If you're caring for an elderly parent or relative, you'll find guidance on the questions that
+                                often feel hardest to answer — from early concerns to ongoing support at home.
+                            </p>
+
+                            <p style={{ ...paragraphStyle, marginTop: "0.75rem", fontSize: "1.12rem", color: "rgba(15, 23, 42, 0.84)" }}>
+                                We cover practical topics to help you understand options, prepare for conversations, and feel
+                                more confident in your decisions — without pressure or assumptions.
+                            </p>
+
+                            <p style={topicsLabelStyle}>Topics we cover:</p>
+
+                            <ul style={topicsListStyle}>
+                                <li>Recognising when your loved one may need more support</li>
+                                <li>Understanding different types of care and companionship</li>
+                                <li>Having difficult conversations with family members</li>
+                                <li>Navigating guilt, worry, and emotional overwhelm</li>
+                                <li>Finding trusted help that respects dignity and independence</li>
+                                <li>Research and statistics to support informed decisions</li>
+                            </ul>
+
+                            <p style={closingStyle}>
+                                Our goal is to help you feel more informed, supported, and less alone.
+                            </p>
+                        </section>
+
+                        {/* ✅ FOR CAREGIVERS (added under Families, same style) */}
+                        <section
+                            aria-label="For caregivers"
+                            style={{
+                                marginTop: "1.8rem",
+                                paddingTop: "1.6rem",
+                                borderTop: "1px solid rgba(15, 23, 42, 0.10)",
+                                maxWidth: 860,
+                            }}
+                        >
+                            <h2 style={sectionTitleStyle}>For caregivers</h2>
+
+                            <p style={paragraphStyle}>
+                                Whether you're new to care work or an experienced professional, we share insights to support
+                                your journey — with practical guidance and real-world context from the UK care sector.
+                            </p>
+
+                            <p style={topicsLabelStyle}>Topics we cover:</p>
+
+                            <ul style={topicsListStyle}>
+                                <li>Understanding the emotional aspects of care work</li>
+                                <li>Building meaningful relationships with those you support</li>
+                                <li>Navigating the care sector and finding fulfilling work</li>
+                                <li>Self-care and avoiding burnout</li>
+                                <li>Professional development and growth</li>
+                                <li>Stories and perspectives from other caregivers</li>
+                            </ul>
+
+                            <p style={closingStyle}>
+                                Caregiving is skilled, meaningful work. We’re here to support you in doing it well — while looking after yourself.
+                            </p>
+                        </section>
                     </div>
 
                     {tagCounts?.length > 0 && (
@@ -60,10 +240,7 @@ export default function NewsAndArticlesPage() {
                                     <ul className={classes.tagsBar}>
                                         {tagCounts.slice(0, 20).map(({ tag, count }) => (
                                             <li key={tag}>
-                                                <Tag
-                                                    label={`${tag} (${count})`}
-                                                    to={`/care-knowledge/tags/${tag}`}
-                                                />
+                                                <Tag label={`${tag} (${count})`} to={`/care-knowledge/tags/${tag}`} />
                                             </li>
                                         ))}
                                     </ul>
@@ -74,7 +251,7 @@ export default function NewsAndArticlesPage() {
                 </header>
 
                 <p className={classes.totalCount}>
-                    Showing {(page - 1) * 2 + 1} – {Math.min(page * 2, total)} of {total} articles
+                    Showing {start} – {end} of {total} articles
                 </p>
 
                 <section>
@@ -117,7 +294,9 @@ export default function NewsAndArticlesPage() {
                         ← Previous
                     </NavLink>
 
-                    <span>Page {page} of {totalPages}</span>
+                    <span>
+                        Page {page} of {totalPages}
+                    </span>
 
                     <NavLink
                         to={`/care-knowledge?page=${page + 1}`}
