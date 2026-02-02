@@ -3,8 +3,8 @@ import React from "react";
 /**
  * MVP Estimator (SIMPLE + Agency comparison)
  * ✅ care cost = hourly × hours/week × (weekly/monthly)
- * ✅ adds: Agency estimate (markup %) + Estimated savings
- * ✅ Funding in accordion (Elder-like)
+ * ✅ adds: Agency estimate (markup %) + Potential difference (illustrative)
+ * ✅ Funding accordion (informational only)
  */
 
 export default function SavingsEstimatorCurrency() {
@@ -20,19 +20,21 @@ export default function SavingsEstimatorCurrency() {
         []
     );
 
+    // ✅ Keep PLN if you want it visible (and you used it in screenshots)
     const [currency, setCurrency] = React.useState("PLN");
     const [period, setPeriod] = React.useState("monthly"); // weekly | monthly
     const [hourly, setHourly] = React.useState(ranges.PLN.default);
     const [hoursWeek, setHoursWeek] = React.useState(20);
 
-    // ✅ NEW: agency markup selector (typical range you used earlier)
+    // Agency markup selector (illustrative)
     const [agencyMarkupPct, setAgencyMarkupPct] = React.useState(30); // 25–40
 
     const range = ranges[currency] ?? ranges.PLN;
 
     React.useEffect(() => {
         setHourly(range.default);
-    }, [currency, range.default]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currency]);
 
     const nf = React.useMemo(
         () =>
@@ -54,13 +56,12 @@ export default function SavingsEstimatorCurrency() {
         };
     }, [hourly, hoursWeek, period]);
 
-    // ✅ NEW: agency comparison
-    const { agencyCost, savings } = React.useMemo(() => {
+    const { agencyCost, difference } = React.useMemo(() => {
         const markup = Math.max(0, Number(agencyMarkupPct) || 0) / 100;
         const agency = careCost * (1 + markup);
         return {
             agencyCost: agency,
-            savings: Math.max(0, agency - careCost),
+            difference: Math.max(0, agency - careCost),
         };
     }, [careCost, agencyMarkupPct]);
 
@@ -270,6 +271,17 @@ export default function SavingsEstimatorCurrency() {
         borderTop: "1px dashed rgba(15,23,42,0.14)",
     };
 
+    const disclaimerBox = {
+        marginTop: 12,
+        paddingTop: 12,
+        borderTop: "1px solid rgba(15,23,42,0.10)",
+        fontSize: ".92rem",
+        opacity: 0.76,
+        fontWeight: 650,
+        lineHeight: 1.6,
+        color: TEXT,
+    };
+
     return (
         <section
             id="estimator"
@@ -363,10 +375,10 @@ export default function SavingsEstimatorCurrency() {
                             </ul>
                         </div>
 
-                        {/* Funding accordion */}
+                        {/* ✅ Funding accordion — FIXED copy (legal/neutral) */}
                         <details className="icare-funding-details">
                             <summary className="icare-funding-summary">
-                                <span>Funding options (UK)</span>
+                                <span>Funding options (UK) — general guidance</span>
                                 <span className="icare-chevron" aria-hidden="true">
                                     ⌄
                                 </span>
@@ -374,7 +386,7 @@ export default function SavingsEstimatorCurrency() {
 
                             <div className="icare-funding-body">
                                 <p className="icare-funding-teaser">
-                                    If you’re eligible, there may be funding routes worth exploring.
+                                    Depending on your circumstances, you may be able to access support through the routes below.
                                 </p>
 
                                 <div style={divider} />
@@ -385,6 +397,11 @@ export default function SavingsEstimatorCurrency() {
                                     <li>Direct payments / personal budgets (where available)</li>
                                     <li>Benefits and allowances that may support costs (eligibility varies)</li>
                                 </ul>
+
+                                <p style={{ ...infoText, marginTop: 14, fontSize: "0.98rem", fontWeight: 650, opacity: 0.85 }}>
+                                    We can’t assess eligibility or provide financial advice. Funding information is general guidance only.
+                                    Eligibility and availability depend on individual circumstances and local authority decisions.
+                                </p>
                             </div>
                         </details>
 
@@ -431,7 +448,8 @@ export default function SavingsEstimatorCurrency() {
                                     onChange={(e) => setCurrency(e.target.value)}
                                     style={fieldStyle}
                                 >
-
+                                    {/* ✅ PLN back */}
+                                    <option value="PLN">PLN — zł</option>
                                     <option value="EUR">EUR — €</option>
                                     <option value="GBP">GBP — £</option>
                                 </select>
@@ -504,7 +522,6 @@ export default function SavingsEstimatorCurrency() {
                                 <span style={hintStyle}>Example: 20 hours/week for part-time support.</span>
                             </label>
 
-                            {/* ✅ NEW: Agency markup selector */}
                             <label style={{ display: "grid", gap: 6 }}>
                                 <span style={labelStyle}>Agency markup (typical)</span>
                                 <select
@@ -518,7 +535,7 @@ export default function SavingsEstimatorCurrency() {
                                     <option value={35}>35%</option>
                                     <option value={40}>40%</option>
                                 </select>
-                                <span style={hintStyle}>Used to estimate how agency pricing can differ.</span>
+                                <span style={hintStyle}>Used to estimate how agency pricing can differ (illustrative).</span>
                             </label>
                         </form>
 
@@ -539,30 +556,47 @@ export default function SavingsEstimatorCurrency() {
 
                             <div>
                                 <div style={{ fontSize: "1.05rem", marginBottom: 6, fontWeight: 700 }}>
-                                    Direct estimate
+                                    Indicative direct total (no platform fees)
                                 </div>
                                 <div style={{ fontWeight: 800, fontSize: "1.6rem", color: BRAND }}>
                                     {nf.format(careCost)}
                                 </div>
                             </div>
 
-                            {/* ✅ NEW: Agency + savings */}
                             <div style={{ height: 6 }} />
 
                             <div style={{ display: "grid", gap: 8 }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, fontSize: "1.02rem", fontWeight: 650, opacity: 0.9 }}>
-                                    <span>Agency estimate (+{agencyMarkupPct}%)</span>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        gap: 12,
+                                        fontSize: "1.02rem",
+                                        fontWeight: 650,
+                                        opacity: 0.9,
+                                    }}
+                                >
+                                    <span>Typical agency total (illustrative)</span>
                                     <span>{nf.format(agencyCost)}</span>
                                 </div>
 
-                                <div style={{ display: "flex", justifyContent: "space-between", gap: 12, fontSize: "1.05rem", fontWeight: 800 }}>
-                                    <span>Estimated savings</span>
-                                    <span style={{ color: BRAND }}>{nf.format(savings)}</span>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        gap: 12,
+                                        fontSize: "1.05rem",
+                                        fontWeight: 800,
+                                    }}
+                                >
+                                    <span>Potential difference</span>
+                                    <span style={{ color: BRAND }}>{nf.format(difference)}</span>
                                 </div>
                             </div>
 
-                            <div style={{ fontSize: ".92rem", opacity: 0.76, fontWeight: 650, lineHeight: 1.6 }}>
-                                Updates instantly as you adjust rate, hours and agency markup.
+                            <div style={disclaimerBox}>
+                                This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
+                                Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
                             </div>
                         </div>
                     </div>

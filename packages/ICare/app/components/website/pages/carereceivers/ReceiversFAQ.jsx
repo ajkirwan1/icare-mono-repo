@@ -4,32 +4,38 @@ import Accordion from "../../../../components/website/common/accordian/accordian
 export default function ReceiversFAQ() {
     const faqs = [
         {
-            q: "Do I pay anything to register?",
-            a: "No. Creating an account and browsing caregiver profiles is free. You only pay a clear service fee if you decide to go ahead with care.",
+            q: "What services will be available?",
+            a: "We’re launching with companionship services. Companionship is about spending quality time together - going for walks, sharing conversation over tea, helping with hobbies or puzzles, watching favourite programmes, accompanying someone to the shops, or simply offering warm, reassuring company. It’s the human presence that turns lonely moments into meaningful ones.",
         },
         {
-            q: "How much does care cost?",
-            a: "Caregivers set their own rates based on experience and the support required. You see the rate clearly on the profile and confirm the total before starting care.",
+            q: "How will I know caregivers are trustworthy?",
+            a: "Safety is a foundation of ICare. All caregivers complete our verification process before connecting with families, including identity and eligibility checks where appropriate. Profiles also show experience and supporting details, so you can make informed decisions. We’re building this with your peace of mind at the centre, and will share more details at launch.",
         },
         {
-            q: "Are caregivers verified?",
-            a: "Before profiles are visible, ICare checks key information such as identity and eligibility where applicable. Profiles also show experience and supporting details so you can make an informed choice.",
+            q: "Can I choose my own caregiver?",
+            a: "Yes. You’re always in control. You’ll be able to browse profiles of verified companions in your area, learn about their background and interests, and decide who feels like the right match for your loved one. Care is never assigned - it’s chosen.",
         },
         {
-            q: "How do I know if a caregiver is the right fit?",
-            a: "You can message caregivers privately, ask about routines and expectations, and arrange a call before agreeing anything. Many families speak to more than one caregiver before deciding.",
+            q: "What if I need personal care, not just companionship?",
+            a: "We’re starting with companionship services because connection is at the heart of good care. Personal care support is part of our future roadmap. If you join the waitlist, we’ll keep you informed as additional services become available. For many families, companionship alone already makes a meaningful difference.",
         },
         {
-            q: "What happens if it’s not working out?",
-            a: "Care arrangements are agreed directly with the caregiver. If it’s not the right fit, you can give notice under your agreed terms and look for a different caregiver on ICare.",
+            q: "How much will it cost?",
+            a: "We’re working to make quality companionship accessible for families while ensuring caregivers are paid fairly. Pricing details are being finalised and will be shared transparently closer to launch. Families on our waitlist will be among the first to receive updates.",
+        },
+
+        // ✅ Additional MVP questions
+        {
+            q: "Is ICare a care agency?",
+            a: "No. ICare is a matching platform, not a care agency. Caregivers work independently, and families and caregivers agree arrangements directly, without agency pressure or long-term contracts.",
         },
         {
-            q: "Does ICare manage the care or employ caregivers?",
-            a: "No. ICare is a marketplace, not a care agency. Caregivers work independently, and families and caregivers agree care arrangements directly.",
+            q: "How do arrangements get agreed?",
+            a: "Families and caregivers communicate directly to discuss needs, schedules and expectations. This allows both sides to feel comfortable and aligned before care begins.",
         },
         {
-            q: "Is support available if I need help?",
-            a: "Yes. ICare provides guidance throughout the process and can help you understand next steps if you need to change or adjust a care arrangement.",
+            q: "Can support change over time?",
+            a: "Yes. Needs evolve, and arrangements can be adjusted. You can revisit schedules or look for a different caregiver if circumstances change.",
         },
     ];
 
@@ -46,44 +52,42 @@ export default function ReceiversFAQ() {
                 style={{
                     fontSize: "clamp(1.9rem, 2.4vw, 2.3rem)",
                     lineHeight: 1.2,
-                    fontWeight: 500, // ✅ wymagane
+                    fontWeight: 500,
                     letterSpacing: "-0.02em",
-                    paddingBottom: "clamp(1.6rem, 2.6vw, 2.2rem)", // ✅ powietrze
+                    paddingBottom: "clamp(1.6rem, 2.6vw, 2.2rem)",
                     margin: 0,
                 }}
             >
                 Frequently asked questions
             </h2>
 
-            {/* GLOBAL OVERRIDES — działają nawet bez SCSS */}
+            {/* GLOBAL OVERRIDES — consistent with Caregivers FAQ */}
             <style>{`
-        /* FAQ accordion boxes */
-        .accordion-item,
-        [class*="accordion"] {
-          box-shadow: none !important;
-          transform: none !important;
-          transition: none !important;
-        }
+                .accordion-item,
+                [class*="accordion"] {
+                  box-shadow: none !important;
+                  transform: none !important;
+                  transition: none !important;
+                }
 
-        .accordion-item:hover,
-        [class*="accordion"]:hover {
-          box-shadow: none !important;
-          transform: none !important;
-        }
+                .accordion-item:hover,
+                [class*="accordion"]:hover {
+                  box-shadow: none !important;
+                  transform: none !important;
+                }
 
-        /* Padding inside FAQ boxes */
-        .accordion-header,
-        .accordion-title {
-          padding: 1.4rem 1.5rem !important;
-          font-weight: 500;
-        }
+                .accordion-header,
+                .accordion-title {
+                  padding: 1.4rem 1.5rem !important;
+                  font-weight: 500;
+                }
 
-        .accordion-content,
-        .accordion-body {
-          padding: 0.8rem 1.5rem 1.4rem !important;
-          line-height: 1.6;
-        }
-      `}</style>
+                .accordion-content,
+                .accordion-body {
+                  padding: 0.8rem 1.5rem 1.4rem !important;
+                  line-height: 1.6;
+                }
+            `}</style>
 
             <Accordion items={faqs} />
         </section>

@@ -91,10 +91,7 @@ export default function WhoCanJoin() {
             }}
         >
             <div style={{ width: "min(1200px,92vw)", margin: "0 auto" }}>
-
-                <h2 style={h2Style}>
-                    How ICare supports caregivers
-                </h2>
+                <h2 style={h2Style}>How ICare supports caregivers</h2>
 
                 <div
                     style={{
@@ -116,13 +113,19 @@ export default function WhoCanJoin() {
                                 objectFit: "cover",
                                 borderRadius: "22px",
                                 boxShadow: "0 18px 48px rgba(0,0,0,0.16)",
-                                display: "block"
+                                display: "block",
                             }}
                         />
                     </div>
 
                     {/* RIGHT — ACCORDION */}
-                    <div style={{ background: "rgba(255, 255, 255, 0.7)", padding: "2rem 2.5rem", borderRadius: "22px" }}>
+                    <div
+                        style={{
+                            background: "rgba(255, 255, 255, 0.7)",
+                            padding: "2rem 2.5rem",
+                            borderRadius: "22px",
+                        }}
+                    >
                         {/* SECTION 1 (open by default) */}
                         <div>
                             <AccordionHeader
@@ -134,13 +137,12 @@ export default function WhoCanJoin() {
                             {openIndex === 0 && (
                                 <>
                                     <p style={pStyle}>
-                                        ICare is not an agency.
-                                        We don’t assign shifts, manage rotas or decide who you work with.
+                                        ICare is not an agency. We don’t assign shifts, manage rotas or
+                                        tell you where to work.
                                     </p>
                                     <p style={pStyle}>
-                                        Instead, ICare gives you a clear, organised way to connect directly
-                                        with families who are looking for care — and to decide together if the
-                                        arrangement is right.
+                                        You decide your availability, who you work with, and whether an
+                                        arrangement feels right.
                                     </p>
                                 </>
                             )}
@@ -158,15 +160,10 @@ export default function WhoCanJoin() {
 
                             {openIndex === 1 && (
                                 <>
-                                    <p style={pStyle}>As a caregiver on ICare, you decide:</p>
-                                    <p style={{ ...pStyle, marginTop: ".35rem" }}>
-                                        • when you’re available,
-                                        <br />• what type of care you offer (hourly, overnight, live-in),
-                                        <br />• and the rate that reflects your experience.
-                                    </p>
                                     <p style={pStyle}>
-                                        Families contact you based on your profile.
-                                        You choose who you respond to and what you accept.
+                                        This is your practice. You choose the type of companionship you
+                                        want to provide and the pace you work at — without pressure to
+                                        rush or take unsuitable roles.
                                     </p>
                                 </>
                             )}
@@ -185,12 +182,11 @@ export default function WhoCanJoin() {
                             {openIndex === 2 && (
                                 <>
                                     <p style={pStyle}>
-                                        All conversations happen privately and directly.
-                                        You can ask questions, clarify expectations and understand the
-                                        situation before agreeing to anything  without pressure from intermediaries.
+                                        You speak directly with families and build real relationships.
                                     </p>
                                     <p style={pStyle}>
-                                        This leads to clearer starts and fewer misunderstandings later.
+                                        No intermediaries. No 15-minute visits. Care is about people,
+                                        not ticking boxes.
                                     </p>
                                 </>
                             )}
@@ -208,15 +204,10 @@ export default function WhoCanJoin() {
 
                             {openIndex === 3 && (
                                 <>
-                                    <p style={pStyle}>Before care begins, key details are agreed together:</p>
-                                    <p style={{ ...pStyle, marginTop: ".35rem" }}>
-                                        • hours and schedule,
-                                        <br />• responsibilities and boundaries,
-                                        <br />• start date and rate.
-                                    </p>
                                     <p style={pStyle}>
-                                        ICare provides structure and guidance so agreements are clear,
-                                        documented and easy to refer back to.
+                                        Care details, schedules and expectations are discussed openly
+                                        from the start, so everyone knows where they stand before work
+                                        begins.
                                     </p>
                                 </>
                             )}
@@ -233,11 +224,15 @@ export default function WhoCanJoin() {
                             />
 
                             {openIndex === 4 && (
-                                <p style={pStyle}>
-                                    Care needs change and so does your availability.
-                                    You can update your profile, adjust your schedule or pause work whenever
-                                    needed, without fixed contracts or long-term tie-ins.
-                                </p>
+                                <>
+                                    <p style={pStyle}>
+                                        Needs change - and so can arrangements.
+                                    </p>
+                                    <p style={pStyle}>
+                                        ICare is designed to support flexibility without disruption or
+                                        unnecessary stress.
+                                    </p>
+                                </>
                             )}
                         </div>
 
@@ -253,15 +248,12 @@ export default function WhoCanJoin() {
 
                             {openIndex === 5 && (
                                 <>
-                                    <p style={pStyle}>ICare includes tools that help you work confidently:</p>
-                                    <p style={{ ...pStyle, marginTop: ".35rem" }}>
-                                        • clear agreements and expectations,
-                                        <br />• secure messaging,
-                                        <br />• guidance on boundaries, safeguarding and good practice,
-                                        <br />• verification where required (ID, documents, references).
+                                    <p style={pStyle}>
+                                        Caregiving is skilled, meaningful work.
                                     </p>
                                     <p style={pStyle}>
-                                        You remain independent with structure where it genuinely helps.
+                                        ICare is built on respect for caregivers as professionals, with
+                                        clear standards and fair expectations.
                                     </p>
                                 </>
                             )}
