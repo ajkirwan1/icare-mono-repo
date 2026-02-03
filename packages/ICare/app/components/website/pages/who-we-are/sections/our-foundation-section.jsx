@@ -164,7 +164,7 @@ export function OurFoundationSection() {
                     justifyContent: "center",
                 }}
             >
-                <div style={{ width: "100%", maxWidth: "500px", color: TEXT }}>
+                <div style={{ width: "100%", maxWidth: "800px", color: TEXT, textAlign: "justify" }}>
                     <h2
                         style={{
                             fontSize: "2.4rem",

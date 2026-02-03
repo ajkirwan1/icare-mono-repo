@@ -1,607 +1,769 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 /**
- * MVP Estimator (SIMPLE + Agency comparison)
- * ✅ care cost = hourly × hours/week × (weekly/monthly)
- * ✅ adds: Agency estimate (markup %) + Potential difference (illustrative)
- * ✅ Funding accordion (informational only)
+ * ICare — Expanded cost estimator (2 columns)
+ * LEFT: info cards + funding accordion
+ * RIGHT: 2 cards (inputs + monthly estimate) — styled close to your reference
  */
+export default function ICareCostEstimatorExpanded() {
+    const BRAND = "rgb(119, 141, 67)"; // template green
+    const ACCENT = "rgb(221, 139, 79)"; // orange
+    const TEXT = "rgb(15, 23, 42)";
 
-export default function SavingsEstimatorCurrency() {
-    const BRAND = "rgb(123, 171, 12)";
-    const TEXT = "#0F172A";
+    const [currency, setCurrency] = useState("GBP"); // GBP | EUR | PLN
+    const [hourly, setHourly] = useState(13);
+    const [hoursWeek, setHoursWeek] = useState(30);
+    const [icareFeePct, setIcareFeePct] = useState(10); // example fee for "Estimated with ICare"
+    const [agencyMarkupPct, setAgencyMarkupPct] = useState(35);
 
-    const ranges = React.useMemo(
-        () => ({
-            PLN: { min: 30, max: 65, step: 1, default: 40 },
-            EUR: { min: 12, max: 35, step: 0.5, default: 18 },
-            GBP: { min: 12, max: 40, step: 0.5, default: 16 },
-        }),
-        []
-    );
-
-    // ✅ Keep PLN if you want it visible (and you used it in screenshots)
-    const [currency, setCurrency] = React.useState("PLN");
-    const [period, setPeriod] = React.useState("monthly"); // weekly | monthly
-    const [hourly, setHourly] = React.useState(ranges.PLN.default);
-    const [hoursWeek, setHoursWeek] = React.useState(20);
-
-    // Agency markup selector (illustrative)
-    const [agencyMarkupPct, setAgencyMarkupPct] = React.useState(30); // 25–40
-
-    const range = ranges[currency] ?? ranges.PLN;
-
-    React.useEffect(() => {
-        setHourly(range.default);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    const range = useMemo(() => {
+        if (currency === "PLN") return { min: 35, max: 120, step: 1, default: 55 };
+        if (currency === "EUR") return { min: 10, max: 40, step: 0.5, default: 16 };
+        return { min: 12.21, max: 35, step: 0.1, default: 13 }; // GBP
     }, [currency]);
 
-    const nf = React.useMemo(
-        () =>
-            new Intl.NumberFormat(undefined, {
-                style: "currency",
-                currency,
-            }),
-        [currency]
-    );
+    // keep hourly within range on currency change
+    useEffect(() => {
+        setHourly((v) => {
+            const next = Number.isFinite(v) ? v : range.default;
+            return Math.min(range.max, Math.max(range.min, next));
+        });
+    }, [range.min, range.max, range.default]);
 
-    const { careCost, label } = React.useMemo(() => {
-        const weeksPerMonth = 4.33;
-        const multiplier = period === "monthly" ? weeksPerMonth : 1;
-        const base = hourly * hoursWeek * multiplier;
+    const weeksPerMonth = 52 / 12;
+    const baseCost = hourly * hoursWeek * weeksPerMonth;
+    const agencyTotal = baseCost * (1 + agencyMarkupPct / 100);
+    const icareTotal = baseCost * (1 + icareFeePct / 100);
+    const youSave = agencyTotal - icareTotal;
 
-        return {
-            careCost: base,
-            label: period === "monthly" ? "Monthly" : "Weekly",
-        };
-    }, [hourly, hoursWeek, period]);
+    const savePct = agencyTotal > 0 ? (youSave / agencyTotal) * 100 : 0;
 
-    const { agencyCost, difference } = React.useMemo(() => {
-        const markup = Math.max(0, Number(agencyMarkupPct) || 0) / 100;
-        const agency = careCost * (1 + markup);
-        return {
-            agencyCost: agency,
-            difference: Math.max(0, agency - careCost),
-        };
-    }, [careCost, agencyMarkupPct]);
+    const nf = useMemo(() => {
+        return new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency,
+            maximumFractionDigits: 2,
+        });
+    }, [currency]);
 
-    const microCSS = `
-    @media (max-width: 860px) {
-      .icare-est-row { grid-template-columns: 1fr !important; }
-    }
-
-    .icare-est-input:focus{
-      border-color: ${BRAND} !important;
-      box-shadow: 0 0 0 4px rgba(31,171,31,0.12) !important;
-      outline: none !important;
-    }
-
-    .icare-left-boxes ul li{
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(15,23,42,0.10);
-    }
-    .icare-left-boxes ul li:last-child{
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    /* Funding accordion (details) */
-    .icare-funding-details{
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.72);
-      border-radius: 24px;
-      box-shadow: 0 10px 24px rgba(15,23,42,0.06);
-      padding: 18px 18px;
-    }
-    .icare-funding-summary{
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      font-weight: 650;
-      font-size: 1.25rem;
-      color: ${TEXT};
-      letter-spacing: -0.15px;
-      padding: 10px 8px;
-      border-radius: 14px;
-    }
-    .icare-funding-summary::-webkit-details-marker { display:none; }
-    .icare-funding-summary:focus-visible{
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(31,171,31,0.10);
-    }
-    .icare-funding-body{
-      padding: 6px 8px 10px;
-    }
-    .icare-funding-teaser{
-      margin: 8px 0 0;
-      font-size: 1.05rem;
-      line-height: 1.55;
-      font-weight: 550;
-      color: rgba(15,23,42,0.86);
-    }
-    .icare-chevron{
-      width: 34px;
-      height: 34px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius: 12px;
-      border: 1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,0.65);
-      font-size: 14px;
-      opacity: 0.9;
-      transform: rotate(0deg);
-      transition: transform 160ms ease;
-    }
-    details[open] .icare-chevron{
-      transform: rotate(180deg);
-    }
-  `;
-
-    const homeH1 = {
-        margin: 0,
-        fontWeight: 500,
-        letterSpacing: "-0.6px",
-        lineHeight: 1.14,
-        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
+    // ====== STYLES (aligned to your reference) ======
+    const page = {
+        width: "100%",
+        padding: "4rem 0",
         color: TEXT,
+        background: "rgb(242, 242, 242)",
+        fontFamily:
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
-    const homeLead = {
-        margin: "12px 0 0",
-        color: TEXT,
-        fontWeight: 400,
-        lineHeight: 1.72,
-        fontSize: "1.4rem",
-        maxWidth: "58ch",
-    };
-
-    const rightIntroP = {
-        margin: "0 0 20px",
-        color: TEXT,
-        fontWeight: 400,
-        lineHeight: 1.65,
-        fontSize: "1.15rem",
-        textAlign: "left",
-    };
-
-    const labelStyle = {
-        fontWeight: 600,
-        fontSize: "1.1rem",
-        color: TEXT,
-        letterSpacing: "-0.1px",
-    };
-
-    const fieldStyle = {
-        border: "1px solid rgba(15,23,42,0.12)",
-        borderRadius: 12,
-        padding: "10px 12px",
-        fontSize: "0.98rem",
-        background: "#fff",
-        color: TEXT,
-    };
-
-    const hintStyle = {
-        fontSize: "1rem",
-        fontWeight: 600,
-        lineHeight: 1.55,
-        color: TEXT,
-    };
-
-    const leftBoxesGrid = {
+    // 2 columns max
+    const row = {
         display: "grid",
-        gridTemplateColumns: "1fr",
-        gap: 18,
-        alignItems: "stretch",
-        maxWidth: "62ch",
+        gridTemplateColumns: "1fr 1.05fr",
+        gap: "clamp(22px, 3vw, 40px)",
+        alignItems: "start",
+        maxWidth: "1000px",
+        margin: "0 auto"
+
     };
+
+    // shared card look (same vibe as your 2 boxes)
+    const card = {
+        height: "100%",
+        borderRadius: 24,
+        border: "1px solid rgba(15, 23, 42, 0.10)",
+        boxShadow: "0 18px 44px rgba(15, 23, 42, 0.08)",
+        background: "rgba(255, 255, 255, 0.75)",
+        backdropFilter: "blur(10px)",
+        padding: "clamp(18px, 2.4vw, 26px)",
+        display: "flex",
+        flexDirection: "column",
+    };
+
+    const cardTitle = {
+        margin: 0,
+        fontWeight: 700,
+        letterSpacing: "-0.15px",
+        color: "rgba(15, 23, 42, 0.92)",
+        fontSize: "1.05rem",
+    };
+
+    // left side info cards
+    const infoGrid = { display: "grid", gap: 12 };
 
     const infoCard = {
-        padding: "26px 26px",
-        borderRadius: 24,
-        background: "rgba(255, 255, 255, 0.72)",
-        border: "1px solid rgba(15,23,42,0.10)",
-        boxShadow: "0 10px 24px rgba(15,23,42,0.06)",
+        borderRadius: 22,
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        background: "rgba(255, 255, 255, 0.70)",
+        boxShadow: "0 16px 36px rgba(15, 23, 42, 0.06)",
+        padding: "clamp(16px, 2vw, 22px)",
     };
 
-    const infoTitle = {
+    const infoHead = {
+        fontWeight: 320,
+        fontSize: "1.22rem",
+        letterSpacing: "-0.2px",
+        borderBottom: "1px solid rgba(15, 23, 42, 0.1)",
+        paddingBottom: "0.55rem",
+        textAlign: "center",
+        margin: "0px 0px 1.1rem",
+        color: "rgba(15, 23, 42, 0.92)",
+    };
+
+    const subHead = {
         margin: 0,
-        fontWeight: 600,
-        fontSize: "1.4rem",
-        letterSpacing: "-0.15px",
-        color: TEXT,
-        lineHeight: 1.25,
+        fontWeight: 520,
+        color: "rgba(15, 23, 42, 0.90)",
+        fontSize: "1rem",
+        letterSpacing: "-0.05px",
     };
 
-    const divider = {
-        height: 1,
-        background: "rgba(15,23,42,0.08)",
+    const infoP = {
+        margin: 0,
+        color: "rgba(15, 23, 42, 0.92)",
+        fontWeight: 420,
+        fontSize: "0.98rem",
+        lineHeight: 1.55,
+    };
+
+    const pills = {
+        display: "grid",
+        gap: 10,
         marginTop: 14,
-        marginBottom: 14,
-        width: "100%",
-    };
-
-    const infoText = {
-        margin: 0,
-        fontSize: "1.15rem",
-        fontWeight: 400,
-        lineHeight: 1.72,
-        color: TEXT,
     };
 
     const pillRow = {
-        marginTop: 14,
-        display: "grid",
-        gap: 10,
-    };
-
-    const pill = {
-        display: "grid",
-        gridTemplateColumns: "1fr auto",
-        gap: 10,
-        alignItems: "center",
-        padding: "12px 0",
-        borderRadius: 18,
-        fontSize: "1.0rem",
-        fontWeight: 750,
-        color: TEXT,
-        lineHeight: 1.4,
+        display: "flex",
+        justifyContent: "space-between",
+        gap: 12,
+        padding: "10px 12px",
+        borderRadius: 16,
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        background: "rgba(255, 255, 255, 0.5)",
+        color: "rgba(15, 23, 42, 0.92)",
+        fontWeight: 520,
+        fontSize: "0.98rem",
+        letterSpacing: "-0.05px",
     };
 
     const bullets = {
         margin: 0,
+        paddingLeft: "1.05rem",
         display: "grid",
-        gap: 12,
-        color: TEXT,
-        fontWeight: 400,
-        lineHeight: 1.7,
-        fontSize: "1.15rem",
-    };
-
-    const sourceNote = {
-        marginTop: 14,
-        paddingTop: 14,
+        gap: 10,
+        color: "rgba(15, 23, 42, 0.92)",
+        lineHeight: 1.55,
         fontSize: "0.98rem",
-        fontWeight: 650,
-        lineHeight: 1.6,
-        color: TEXT,
-        borderTop: "1px dashed rgba(15,23,42,0.14)",
+        fontWeight: 420,
+        listStyle: "decimal"
     };
 
-    const disclaimerBox = {
-        marginTop: 12,
-        paddingTop: 12,
-        borderTop: "1px solid rgba(15,23,42,0.10)",
-        fontSize: ".92rem",
-        opacity: 0.76,
-        fontWeight: 650,
-        lineHeight: 1.6,
+    const cardsRow = {
+        display: "grid",
+        gridTemplateColumns: "1fr", // ✅ stack
+        gap: "clamp(14px, 2.2vw, 22px)",
+        alignItems: "stretch",
+    };
+
+    // labels like your reference
+    const label = {
+        fontWeight: 520,
+        color: "rgba(15, 23, 42, 0.9)",
+        fontSize: "1rem",
+        letterSpacing: "-0.05px",
+    };
+
+    const helper = {
+        marginTop: 8,
+        color: "rgba(15, 23, 42, 0.92)",
+        fontWeight: 420,
+        fontSize: "0.98rem",
+        lineHeight: 1.55,
+    };
+
+    // small pill input like your reference
+    const fieldMini = {
+        width: "fit-content",
+        minWidth: 92,
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        borderRadius: 999,
+        padding: "8px 10px",
+        background: "rgba(255, 255, 255, 0.5)",
+        fontSize: "0.98rem",
         color: TEXT,
+        outline: "none",
+        textAlign: "center",
+    };
+
+    const selectLike = {
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        borderRadius: 999,
+        padding: "9px 12px",
+        background: "rgba(255, 255, 255, 0.5)",
+        fontSize: "0.98rem",
+        color: TEXT,
+        outline: "none",
+        fontWeight: 520,
+    };
+
+    // Currency Toggle (button group)
+    const currWrap = {
+        display: "inline-flex",
+        gap: 8,
+        padding: 4,
+        borderRadius: 999,
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        background: "rgba(255,255,255,0.40)",
+    };
+
+    const currBtn = (active) => ({
+        border: "none",
+        cursor: "pointer",
+        padding: "8px 12px",
+        borderRadius: 999,
+        fontSize: "0.96rem",
+        fontWeight: 650,
+        letterSpacing: "-0.05px",
+        color: active ? "rgba(255,255,255,0.96)" : "rgba(15,23,42,0.82)",
+        background: active ? BRAND : "transparent",
+        boxShadow: active ? "0 10px 24px rgba(15,23,42,0.12)" : "none",
+    });
+
+    // Results grid 2x2 (like your reference)
+    const resultGrid = {
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 12,
+        marginTop: 10,
+    };
+
+    const resultBox = (accent) => ({
+        borderRadius: 16,
+        padding: 12,
+        border: accent
+            ? "1px solid rgba(221, 139, 79, 0.28)"
+            : "1px solid rgba(15, 23, 42, 0.16)",
+        background: accent ? "rgba(221, 139, 79, 0.06)" : "rgba(255, 255, 255, 0.5)",
+    });
+
+    const resultK = {
+        fontSize: "0.97rem",
+        fontWeight: 420,
+        color: "rgba(15, 23, 42, 0.88)",
+        marginBottom: 4,
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+    };
+
+    const resultV = (accent) => ({
+        fontWeight: 620,
+        fontSize: "1.1rem",
+        color: accent ? BRAND : TEXT,
+        letterSpacing: "-0.2px",
+    });
+
+    const tooltipWrap = {
+        position: "relative",
+        display: "inline-flex",
+        alignItems: "center",
+    };
+
+    const infoIcon = {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 18,
+        height: 18,
+        borderRadius: 999,
+        border: "1px solid rgba(15, 23, 42, 0.22)",
+        fontSize: 12,
+        fontWeight: 900,
+        lineHeight: 1,
+        color: "rgba(15, 23, 42, 0.7)",
+        cursor: "help",
+        userSelect: "none",
+        transform: "translateY(-0.5px)",
+        background: "rgba(255, 255, 255, 0.85)",
+    };
+
+    const disclaimer = {
+        marginTop: 14,
+        borderRadius: 16,
+        padding: 12,
+        border: "1px solid rgba(15, 23, 42, 0.12)",
+        background: "rgba(255, 255, 255, 0.5)",
+        color: "rgba(15, 23, 42, 0.86)",
+        fontWeight: 420,
+        fontSize: "0.95rem",
+        lineHeight: 1.55,
+    };
+
+    // bar
+    const bar = {
+        marginTop: 14,
+        height: 8,
+        borderRadius: 999,
+        background: "rgba(15,23,42,0.10)",
+        overflow: "hidden",
+    };
+
+    const barFill = {
+        width: `${Math.max(0, Math.min(100, savePct))}%`,
+        height: "100%",
+        background: BRAND,
+    };
+
+    // Accordion chevron button (big, green, white arrow, max 2px lines)
+    const chevronBtn = {
+        width: 34,
+        height: 34,
+        borderRadius: 999,
+        background: BRAND,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flex: "0 0 auto",
     };
 
     return (
-        <section
-            id="estimator"
-            aria-label="Care cost estimator"
-            style={{
-                padding: "4rem",
-                backgroundColor: "rgb(242, 242, 242)",
-                borderTop: "1px solid rgba(15,23,42,0.06)",
-                borderBottom: "1px solid rgba(15,23,42,0.06)",
-                color: TEXT,
-                fontFamily:
-                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
-        >
-            <style>{microCSS}</style>
+        <section style={page} aria-label="ICare cost estimator expanded">
+            <div className="icare-est-row" style={row}>
+                {/* LEFT */}
+                <div style={infoGrid}>
+                    <div style={infoCard}>
+                        <div style={infoHead}>Live-in care: typical weekly range (UK)</div>
 
-            <div
-                style={{
-                    maxWidth: 1180,
-                    margin: "0 auto",
-                    padding: "0 clamp(18px, 3.2vw, 34px)",
-                }}
-            >
-                {/* HEADER ABOVE GRID */}
-                <div style={{ color: TEXT }}>
-                    <h1 style={homeH1}>Quick Cost Estimator</h1>
-                    <p style={homeLead}>
-                        Clear numbers, at a glance.
-                        <br />
-                        UK pricing context (live-in and hourly)
-                    </p>
-                </div>
+                        <p style={infoP}>
+                            Live-in care is usually priced as a <strong>weekly rate</strong>.{" "}
+                            A common UK guide range is <strong>£950–£1,400/week</strong>, depending on needs and area.
+                        </p>
 
-                <div style={{ height: "1.55rem" }} />
-
-                <div
-                    className="icare-est-row"
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1.15fr",
-                        gap: "clamp(28px, 4.2vw, 56px)",
-                        alignItems: "start",
-                    }}
-                >
-                    {/* LEFT BOXES */}
-                    <div className="icare-left-boxes" style={leftBoxesGrid}>
-                        <div style={infoCard}>
-                            <div style={infoTitle}>Live-in care: typical weekly range (UK)</div>
-                            <div style={divider} />
-                            <p style={infoText}>
-                                Live-in care is usually priced as a <strong>weekly rate</strong>. <br />
-                                A common UK guide range is <strong>£950–£1,400/week</strong>, depending on needs and area.
-                            </p>
-
+                        <div style={pills}>
                             <div style={pillRow}>
-                                <div style={pill}>
-                                    <span>Everyday support</span>
-                                    <span>~£950–£1,100</span>
-                                </div>
-                                <div style={pill}>
-                                    <span>Higher needs</span>
-                                    <span>~£1,100–£1,350</span>
-                                </div>
-                                <div style={pill}>
-                                    <span>Extra night support</span>
-                                    <span>~£1,250–£1,400</span>
-                                </div>
-                                <div style={pill}>
-                                    <span>Couples (one carer)</span>
-                                    <span>~£1,350–£1,600</span>
-                                </div>
+                                <span style={{ fontWeight: 400 }}>Everyday support</span>
+                                <span>~£950–£1,100</span>
                             </div>
-                        </div>
-
-                        <div style={infoCard}>
-                            <div style={infoTitle}>What affects cost most</div>
-                            <div style={divider} />
-                            <ul style={bullets}>
-                                <li>
-                                    <strong>Level of support:</strong> dementia, mobility, complex routines
-                                </li>
-                                <li>
-                                    <strong>Nights:</strong> sleeping vs waking nights
-                                </li>
-                                <li>
-                                    <strong>Location:</strong> London / South East often higher
-                                </li>
-                                <li>
-                                    <strong>Experience:</strong> specialist skills and proven experience
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* ✅ Funding accordion — FIXED copy (legal/neutral) */}
-                        <details className="icare-funding-details">
-                            <summary className="icare-funding-summary">
-                                <span>Funding options (UK) — general guidance</span>
-                                <span className="icare-chevron" aria-hidden="true">
-                                    ⌄
-                                </span>
-                            </summary>
-
-                            <div className="icare-funding-body">
-                                <p className="icare-funding-teaser">
-                                    Depending on your circumstances, you may be able to access support through the routes below.
-                                </p>
-
-                                <div style={divider} />
-
-                                <ul style={bullets}>
-                                    <li>Local authority assessment and personal budget (if eligible)</li>
-                                    <li>NHS Continuing Healthcare (for complex health needs; sometimes fully funded)</li>
-                                    <li>Direct payments / personal budgets (where available)</li>
-                                    <li>Benefits and allowances that may support costs (eligibility varies)</li>
-                                </ul>
-
-                                <p style={{ ...infoText, marginTop: 14, fontSize: "0.98rem", fontWeight: 650, opacity: 0.85 }}>
-                                    We can’t assess eligibility or provide financial advice. Funding information is general guidance only.
-                                    Eligibility and availability depend on individual circumstances and local authority decisions.
-                                </p>
+                            <div style={pillRow}>
+                                <span style={{ fontWeight: 400 }}>Higher needs</span>
+                                <span>~£1,100–£1,350</span>
                             </div>
-                        </details>
-
-                        <div style={infoCard}>
-                            <div style={infoTitle}>Note</div>
-                            <div style={divider} />
-                            <p style={{ ...infoText, opacity: 0.92 }}>
-                                Estimates are based on your selected rate and weekly hours.<br />
-                                Final pricing depends on care needs and the caregiver’s rate.
-                            </p>
-
-                            <div style={sourceNote}>
-                                Ranges are indicative and based on publicly available UK care cost guides and industry summaries.
-                                <br />
-                                Figures vary by region and needs.
+                            <div style={pillRow}>
+                                <span style={{ fontWeight: 400 }}>Extra night support</span>
+                                <span>~£1,250–£1,400</span>
+                            </div>
+                            <div style={pillRow}>
+                                <span style={{ fontWeight: 400 }}>Couples (one carer)</span>
+                                <span>~£1,350–£1,600</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* RIGHT ESTIMATOR */}
-                    <div style={{ display: "grid", gap: 18 }}>
-                        <form
-                            onSubmit={(e) => e.preventDefault()}
-                            style={{
-                                padding: "clamp(18px, 2vw, 24px)",
-                                display: "grid",
-                                gap: 14,
-                                background: "#fff",
-                                borderRadius: 20,
-                                boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                                border: "1px solid rgba(15,23,42,0.08)",
-                            }}
-                        >
-                            <p style={rightIntroP}>
-                                Choose an hourly rate and weekly hours.<br />
-                                We’ll show an estimated total for your selected period.
+                    <div style={infoCard}>
+                        <div style={infoHead}>What affects cost most</div>
+
+                        <ul style={bullets}>
+                            <li>
+                                <strong>Level of support:</strong> dementia, mobility, complex routines
+                            </li>
+                            <li>
+                                <strong>Nights:</strong> sleeping vs waking nights
+                            </li>
+                            <li>
+                                <strong>Location:</strong> London / South East often higher
+                            </li>
+                            <li>
+                                <strong>Experience:</strong> specialist skills and proven experience
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Funding accordion */}
+                    <details className="icare-funding-details" style={infoCard}>
+                        <summary className="icare-funding-summary">
+                            <span style={subHead}>Funding options (UK) — general guidance</span>
+
+                            <span className="icare-chevronBtn" aria-hidden="true" style={chevronBtn}>
+                                <span className="icare-chevronArrow" />
+                            </span>
+                        </summary>
+
+                        <div style={{ marginTop: 14 }}>
+                            <p style={infoP}>
+                                Depending on your circumstances, you may be able to access support through the routes below.
                             </p>
 
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={labelStyle}>Currency</span>
-                                <select
-                                    className="icare-est-input"
-                                    value={currency}
-                                    onChange={(e) => setCurrency(e.target.value)}
-                                    style={fieldStyle}
-                                >
-                                    {/* ✅ PLN back */}
-                                    <option value="PLN">PLN — zł</option>
-                                    <option value="EUR">EUR — €</option>
-                                    <option value="GBP">GBP — £</option>
-                                </select>
-                                <span style={hintStyle}>Suggested ranges are shown — you can set any rate.</span>
-                            </label>
+                            <div
+                                style={{
+                                    height: 1,
+                                    background: "rgba(15, 23, 42, 0.10)",
+                                    margin: "14px 0",
+                                }}
+                            />
 
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={labelStyle}>Show totals as</span>
-                                <select
-                                    className="icare-est-input"
-                                    value={period}
-                                    onChange={(e) => setPeriod(e.target.value)}
-                                    style={fieldStyle}
-                                >
-                                    <option value="monthly">Monthly</option>
-                                    <option value="weekly">Weekly</option>
-                                </select>
-                            </label>
+                            <ul style={bullets}>
+                                <li>Local authority assessment and personal budget (if eligible)</li>
+                                <li>NHS Continuing Healthcare (for complex health needs; sometimes fully funded)</li>
+                                <li>Direct payments / personal budgets (where available)</li>
+                                <li>Benefits and allowances that may support costs (eligibility varies)</li>
+                            </ul>
 
-                            <label style={{ display: "grid", gap: 8 }}>
-                                <span style={labelStyle}>Hourly rate</span>
+                            <p style={{ ...infoP, marginTop: 14, opacity: 0.88 }}>
+                                We can’t assess eligibility or provide financial advice. Funding information is general guidance only.
+                                Eligibility and availability depend on individual circumstances and local authority decisions.
+                            </p>
+                        </div>
+                    </details>
+
+                    <div style={infoCard}>
+                        <div style={infoHead}>Note</div>
+
+                        <p style={infoP}>
+                            Estimates are based on your selected rate and weekly hours.
+                            Final pricing depends on care needs and the caregiver’s rate.
+                        </p>
+
+                        <p style={{ ...infoP, marginTop: 10, opacity: 0.78 }}>
+                            Ranges are indicative and based on publicly available UK care cost guides and industry summaries.
+                            Figures vary by region and needs.
+                        </p>
+                    </div>
+                </div>
+
+                {/* RIGHT */}
+                <div className="icare-est-cards" style={cardsRow}>
+                    {/* INPUTS */}
+                    <div style={card}>
+                        <div style={infoHead}>Your inputs</div>
+
+                        <div style={{ display: "grid", gap: 12, marginTop: 10 }}>
+                            {/* Currency row — EXACT layout you asked */}
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr auto",
+                                    alignItems: "center",
+                                    gap: 12,
+                                }}
+                            >
+                                <span style={label}>Currency</span>
+
+                                <div className="icare-curr" aria-label="Currency selector" style={currWrap}>
+                                    <button
+                                        type="button"
+                                        className={`icare-curr-btn ${currency === "GBP" ? "is-active" : ""}`}
+                                        style={currBtn(currency === "GBP")}
+                                        onClick={() => setCurrency("GBP")}
+                                    >
+                                        GBP £
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className={`icare-curr-btn ${currency === "EUR" ? "is-active" : ""}`}
+                                        style={currBtn(currency === "EUR")}
+                                        onClick={() => setCurrency("EUR")}
+                                    >
+                                        EUR €
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Hourly rate — EXACT vibe you pasted */}
+                            <div style={{ display: "grid", gap: 7 }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        gap: 12,
+                                    }}
+                                >
+                                    <span style={label}>Hourly rate</span>
+
+                                    <input
+                                        className="icare-est-input"
+                                        min={range.min}
+                                        max={range.max}
+                                        step={range.step}
+                                        aria-label="Hourly rate"
+                                        type="number"
+                                        value={hourly}
+                                        onChange={(e) => setHourly(Number(e.target.value))}
+                                        style={fieldMini}
+                                    />
+                                </div>
 
                                 <input
-                                    className="icare-est-input"
-                                    type="number"
-                                    value={hourly}
                                     min={range.min}
                                     max={range.max}
                                     step={range.step}
-                                    onChange={(e) => setHourly(Number(e.target.value))}
-                                    style={fieldStyle}
-                                />
-
-                                <input
                                     type="range"
-                                    min={range.min}
-                                    max={range.max}
-                                    step={range.step}
                                     value={hourly}
                                     onChange={(e) => setHourly(Number(e.target.value))}
-                                    style={{ width: "100%", accentColor: BRAND, cursor: "pointer" }}
+                                    style={{
+                                        width: "100%",
+                                        accentColor: BRAND,
+                                        cursor: "pointer",
+                                    }}
                                 />
 
                                 <div
                                     style={{
                                         display: "flex",
                                         justifyContent: "space-between",
-                                        fontSize: ".82rem",
-                                        color: TEXT,
-                                        opacity: 0.72,
-                                        fontWeight: 800,
+                                        marginTop: 2,
+                                        color: "rgba(15, 23, 42, 0.62)",
+                                        fontWeight: 450,
+                                        fontSize: "0.94rem",
                                     }}
                                 >
                                     <span>{range.min}</span>
                                     <span>{range.max}</span>
                                 </div>
-                            </label>
 
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={labelStyle}>Hours per week</span>
-                                <input
-                                    className="icare-est-input"
-                                    type="number"
-                                    value={hoursWeek}
-                                    min={1}
-                                    max={168}
-                                    onChange={(e) => setHoursWeek(Number(e.target.value))}
-                                    style={fieldStyle}
-                                />
-                                <span style={hintStyle}>Example: 20 hours/week for part-time support.</span>
-                            </label>
-
-                            <label style={{ display: "grid", gap: 6 }}>
-                                <span style={labelStyle}>Agency markup (typical)</span>
-                                <select
-                                    className="icare-est-input"
-                                    value={agencyMarkupPct}
-                                    onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
-                                    style={fieldStyle}
-                                >
-                                    <option value={25}>25%</option>
-                                    <option value={30}>30%</option>
-                                    <option value={35}>35%</option>
-                                    <option value={40}>40%</option>
-                                </select>
-                                <span style={hintStyle}>Used to estimate how agency pricing can differ (illustrative).</span>
-                            </label>
-                        </form>
-
-                        <div
-                            style={{
-                                padding: "clamp(18px, 2vw, 24px)",
-                                display: "grid",
-                                gap: 12,
-                                background: "#fff",
-                                borderRadius: 20,
-                                boxShadow: "0 16px 36px rgba(15,23,42,0.08)",
-                                color: TEXT,
-                            }}
-                        >
-                            <h3 style={{ margin: 0, fontWeight: 950, fontSize: "clamp(1.08rem, 1.5vw, 1.22rem)" }}>
-                                {label} estimate
-                            </h3>
-
-                            <div>
-                                <div style={{ fontSize: "1.05rem", marginBottom: 6, fontWeight: 700 }}>
-                                    Indicative direct total (no platform fees)
-                                </div>
-                                <div style={{ fontWeight: 800, fontSize: "1.6rem", color: BRAND }}>
-                                    {nf.format(careCost)}
+                                <div style={helper}>
+                                    Tip: choose a rate that’s fair and sustainable for the carer.
                                 </div>
                             </div>
 
-                            <div style={{ height: 6 }} />
+                            {/* Hours per week */}
+                            <div style={{ display: "grid", gap: 7 }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "space-between",
+                                        gap: 12,
+                                    }}
+                                >
+                                    <span style={label}>Hours per week</span>
 
+                                    <input
+                                        className="icare-est-input"
+                                        type="number"
+                                        value={hoursWeek}
+                                        min={1}
+                                        max={168}
+                                        onChange={(e) => setHoursWeek(Number(e.target.value))}
+                                        style={fieldMini}
+                                        aria-label="Hours per week"
+                                    />
+                                </div>
+
+                                <div style={{ ...helper, marginTop: 1 }}>
+                                    A helpful starting point is 20–40 hours/week.
+                                </div>
+                            </div>
+
+                            {/* Agency markup */}
                             <div style={{ display: "grid", gap: 8 }}>
                                 <div
                                     style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
+                                        display: "grid",
+                                        gridTemplateColumns: "1fr auto",
+                                        alignItems: "center",
                                         gap: 12,
-                                        fontSize: "1.02rem",
-                                        fontWeight: 650,
-                                        opacity: 0.9,
                                     }}
                                 >
-                                    <span>Typical agency total (illustrative)</span>
-                                    <span>{nf.format(agencyCost)}</span>
+                                    <span style={label}>Agency markup</span>
+
+                                    <select
+                                        className="icare-est-input"
+                                        value={agencyMarkupPct}
+                                        onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
+                                        style={selectLike}
+                                        aria-label="Agency markup percent"
+                                    >
+                                        <option value={25}>25%</option>
+                                        <option value={30}>30%</option>
+                                        <option value={35}>35%</option>
+                                        <option value={40}>40%</option>
+                                    </select>
                                 </div>
 
+                                <div style={{ ...helper, marginTop: 2 }}>
+                                    Used for an illustrative “typical agency total”.
+                                </div>
+                            </div>
+
+                            {/* ICare fee (optional, but matches your 2x2 reference) */}
+                            <div style={{ display: "grid", gap: 8 }}>
                                 <div
                                     style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
+                                        display: "grid",
+                                        gridTemplateColumns: "1fr auto",
+                                        alignItems: "center",
                                         gap: 12,
-                                        fontSize: "1.05rem",
-                                        fontWeight: 800,
                                     }}
                                 >
-                                    <span>Potential difference</span>
-                                    <span style={{ color: BRAND }}>{nf.format(difference)}</span>
+                                    <span style={label}>ICare service fee</span>
+
+                                    <select
+                                        className="icare-est-input"
+                                        value={icareFeePct}
+                                        onChange={(e) => setIcareFeePct(Number(e.target.value))}
+                                        style={selectLike}
+                                        aria-label="ICare service fee percent"
+                                    >
+                                        <option value={5}>5%</option>
+                                        <option value={10}>10%</option>
+                                        <option value={12}>12%</option>
+                                        <option value={15}>15%</option>
+                                    </select>
+                                </div>
+
+                                <div style={{ ...helper, marginTop: 2 }}>
+                                    Used only to show “Estimated with ICare” (illustrative).
                                 </div>
                             </div>
+                        </div>
 
-                            <div style={disclaimerBox}>
-                                This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
-                                Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
+                        <div style={{ marginTop: "auto" }} />
+                    </div>
+
+                    {/* RESULTS */}
+                    <div style={card}>
+                        <div style={infoHead}>Monthly estimate</div>
+
+                        <div style={resultGrid}>
+                            <div style={resultBox(false)}>
+                                <div style={resultK}>Care cost (no fees)</div>
+                                <div style={resultV(false)}>{nf.format(baseCost)}</div>
+                            </div>
+
+                            <div style={resultBox(false)}>
+                                <div style={resultK}>
+                                    Typical agency total
+                                    <span className="icare-tip" style={tooltipWrap}>
+                                        <span style={infoIcon} aria-label="Agency total info" tabIndex={0}>
+                                            i
+                                        </span>
+                                        <span className="icare-tip-bubble" role="tooltip">
+                                            A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs.
+                                        </span>
+                                    </span>
+                                </div>
+                                <div style={resultV(false)}>{nf.format(agencyTotal)}</div>
+                            </div>
+
+                            <div style={resultBox(false)}>
+                                <div style={resultK}>
+                                    Estimated with ICare
+                                    <span className="icare-tip" style={tooltipWrap}>
+                                        <span style={infoIcon} aria-label="ICare estimate info" tabIndex={0}>
+                                            i
+                                        </span>
+                                        <span className="icare-tip-bubble" role="tooltip">
+                                            Includes an estimated ICare service fee based on your inputs. This is not a quote and does not include any optional extras you may agree separately.
+                                        </span>
+                                    </span>
+                                </div>
+                                <div style={resultV(false)}>{nf.format(icareTotal)}</div>
+                            </div>
+
+                            <div style={resultBox(true)}>
+                                <div style={resultK}>Estimated savings</div>
+                                <div style={resultV(true)}>{nf.format(youSave)}</div>
                             </div>
                         </div>
+
+                        <div style={bar}>
+                            <div style={barFill} />
+                        </div>
+
+                        <div style={{ ...helper, marginTop: 12 }}>
+                            You may save around{" "}
+                            <span style={{ color: BRAND, fontWeight: 650 }}>
+                                {Math.round(savePct)}%
+                            </span>{" "}
+                            compared with a typical agency.
+                        </div>
+
+                        <div style={disclaimer}>
+                            This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
+                            Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
+                        </div>
+
+                        <div style={{ marginTop: "auto" }} />
                     </div>
                 </div>
             </div>
+
+            {/* minimal CSS: tooltip bubble + details summary + chevron arrow */}
+            <style>{`
+        /* Details summary reset */
+        .icare-funding-summary{
+          list-style:none;
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:14px;
+          cursor:pointer;
+          user-select:none;
+          padding:0;
+          margin:0;
+        }
+        .icare-funding-summary::-webkit-details-marker{ display:none; }
+
+        /* Chevron arrow (max 2px) */
+        .icare-chevronArrow{
+          width: 10px;
+          height: 10px;
+          border-right: 2px solid rgba(255,255,255,0.95);
+          border-bottom: 2px solid rgba(255,255,255,0.95);
+          transform: rotate(45deg);
+          transition: transform 160ms ease;
+          margin-top: -2px;
+        }
+        details[open] .icare-chevronArrow{
+          transform: rotate(-135deg);
+          margin-top: 2px;
+        }
+
+        /* Tooltip bubble (same as your earlier pattern) */
+        .icare-tip { position: relative; display: inline-flex; align-items: center; }
+        .icare-tip-bubble {
+          position: absolute;
+          left: 50%;
+          bottom: calc(100% + 10px);
+          transform: translateX(-50%);
+          width: min(320px, 72vw);
+          background: rgba(15,23,42,0.96);
+          color: rgba(255,255,255,0.96);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 12px;
+          padding: 10px 12px;
+          font-size: 0.92rem;
+          line-height: 1.35;
+          box-shadow: 0 18px 44px rgba(15,23,42,0.22);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity .14s ease, transform .14s ease;
+        }
+        .icare-tip-bubble::after{
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 100%;
+          transform: translateX(-50%);
+          border: 7px solid transparent;
+          border-top-color: rgba(15,23,42,0.96);
+        }
+        .icare-tip:hover .icare-tip-bubble,
+        .icare-tip:focus-within .icare-tip-bubble{
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateX(-50%) translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 980px){
+          .icare-est-row{ grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 860px){
+          .icare-est-cards{ grid-template-columns: 1fr !important; }
+        }
+      `}</style>
         </section>
     );
 }

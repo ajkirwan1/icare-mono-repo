@@ -1,10 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faIdBadge,
-    faUserCheck,
-    faShieldHalved, // ✅ zamiast faShieldCheck
-} from "@fortawesome/free-solid-svg-icons";
+import { faIdBadge, faUserCheck, faShieldHalved } from "@fortawesome/free-solid-svg-icons";
 
 export default function SafetyComesFirstThreeBoxes() {
     const COLORS = {
@@ -23,11 +19,11 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Identity & eligibility",
             desc: (
                 <>
-                    <strong style={{ fontWeight: 600 }}>Photo ID</strong> and <strong style={{ fontWeight: 600 }}>Right to Work</strong> required before a profile becomes visible.
+                    <strong style={{ fontWeight: 500 }}>Photo ID</strong> and{" "}
+                    <strong style={{ fontWeight: 500 }}>Right to Work</strong> are required before a profile becomes visible.
                 </>
             ),
-            image:
-                "/images/web/homepage/id.png",
+            image: "/images/web/homepage/id.png",
             alt: "Identity verification documents",
         },
         {
@@ -35,25 +31,24 @@ export default function SafetyComesFirstThreeBoxes() {
             title: "Relevant experience",
             desc: (
                 <>
-                    Carers with <strong style={{ fontWeight: 600 }}>references</strong> and appropriate{" "}
-                    <strong style={{ fontWeight: 600 }}>experience</strong>, with references shown where available.
+                    Carers with <strong style={{ fontWeight: 500 }}>references</strong> and appropriate{" "}
+                    <strong style={{ fontWeight: 500 }}>experience</strong>, with references shown where available.
                 </>
             ),
-            image:
-                "/images/web/homepage/interview.png",
+            image: "/images/web/homepage/interview.png",
             alt: "Caregiver helping at home",
         },
         {
             icon: faShieldHalved,
-            title: "Checks where applicable",
+            title: "Checks shown where applicable",
             desc: (
                 <>
-                    <strong style={{ fontWeight: 600 }}>DBS</strong> and <strong style={{ fontWeight: 600 }}>insurance</strong> displayed when provided and relevant
-                    - depending on location and the nature of care.
+                    <strong style={{ fontWeight: 500 }}>DBS</strong> and{" "}
+                    <strong style={{ fontWeight: 500 }}>insurance</strong> are displayed when provided and relevant —
+                    depending on location and the nature of support.
                 </>
             ),
-            image:
-                "/images/web/homepage/confirmeddocs.png",
+            image: "/images/web/homepage/confirmeddocs.png",
             alt: "Safety checks and protection",
         },
     ];
@@ -112,7 +107,7 @@ export default function SafetyComesFirstThreeBoxes() {
     const h2 = {
         margin: 0,
         marginTop: "8px",
-        fontWeight: 600,
+        fontWeight: 500,
         letterSpacing: "-0.35px",
         lineHeight: 1.25,
         fontSize: "clamp(1.25rem, 1.8vw, 1.45rem)",
@@ -120,9 +115,9 @@ export default function SafetyComesFirstThreeBoxes() {
     };
 
     const leadStyle = {
-        margin: "0.35rem 0 1.5rem",
+        margin: "0.35rem 0 0.5rem",
         color: "rgba(15,23,42,1)",
-        fontSize: "1.3rem",
+        fontSize: "1.05rem",
         lineHeight: 1.65,
         fontWeight: 400,
         maxWidth: "55ch",
@@ -133,64 +128,46 @@ export default function SafetyComesFirstThreeBoxes() {
         gridTemplateColumns: "repeat(3, 1fr)",
         gap: "clamp(14px, 1.9vw, 18px)",
         alignItems: "stretch",
-        margin: "0 -18px"
+        margin: "0 -18px",
     };
 
     const cardBase = {
-        padding: "18px",
+        padding: "16px",
         display: "grid",
-        gap: 6,
-        minHeight: 280,
+        gap: 10,
+        minHeight: 300,
+        alignContent: "flex-start",
     };
 
-    const topRow = {
+    const cardText = {
         display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 12,
-    };
-
-    // ✅ icons: no background, no border
-    const iconWrap = {
-        width: 30,
-        height: 30,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: COLORS.olive,
-        flex: "0 0 auto",
-    };
-
-    const icon = {
-        fontSize: "20px",
-        lineHeight: 1,
+        flexDirection: "column",
     };
 
     const title = {
         margin: 0,
-        fontWeight: 600,
-        fontSize: "1.4rem",
+        fontWeight: 500,
+        fontSize: "1.15rem",
         color: COLORS.text,
-        lineHeight: 1.2,
-        letterSpacing: "-0.15px",
+        lineHeight: 1.25,
+        letterSpacing: "-0.1px",
     };
 
     const desc = {
-        margin: "0 0 0.5rem",
-        color: "rgba(0, 0, 0, 0.86)",
+        margin: "0 0 0.25rem",
+        color: "rgba(0, 0, 0, 0.85)",
         fontWeight: 400,
         lineHeight: 1.55,
-        fontSize: "1.15rem",
-        paddingTop: "1rem"
+        fontSize: "1.05rem",
+        paddingTop: "0.75rem",
     };
 
-    // ✅ taller ratio so image isn't a wide banner
     const thumbWrap = {
-        marginTop: 10,
+        marginBottom: 6,
         borderRadius: 16,
         overflow: "hidden",
         background: "rgba(15,23,42,0.03)",
-        aspectRatio: "4 / 3",
+        aspectRatio: "16 / 9",
     };
 
     const thumb = {
@@ -208,27 +185,21 @@ export default function SafetyComesFirstThreeBoxes() {
             <div style={container}>
                 <div style={header}>
                     <h1 style={h1}>Safety comes first</h1>
-                    <h2 style={h2}>A safer way to start home care</h2>
+                    <h2 style={h2}>A safer way to start companionship at home</h2>
+
                     <p style={leadStyle}>
-                        Trust in home care depends on clear standards, not assumptions.<br />
-                        ICare operates with defined verification requirements covering identity, right to work and relevant background information.
-                        <br /><br />Profiles are made visible only once these foundations are met, ensuring consistency and accountability across the platform.
-                        This approach helps families make informed choices while giving caregivers a fair, accurate way to present their experience.
+                        Trust in home care depends on clear standards, not assumptions.
+                        <br />
+                        ICare uses defined verification steps covering identity, right to work and relevant background
+                        information.
                     </p>
                 </div>
 
                 <div className="icare-safety-3boxes" style={grid}>
                     {boxes.map((b) => (
                         <div key={b.title} style={cardBase}>
-                            <div style={topRow}>
-                                <h3 style={title}>{b.title}</h3>
-                                <span style={iconWrap} aria-hidden="true">
-                                    <FontAwesomeIcon style={icon} icon={b.icon} />
-                                </span>
-                            </div>
 
-                            <p style={desc}>{b.desc}</p>
-
+                            {/* IMAGE FIRST */}
                             <div style={thumbWrap}>
                                 <img
                                     src={b.image}
@@ -238,19 +209,31 @@ export default function SafetyComesFirstThreeBoxes() {
                                     referrerPolicy="no-referrer"
                                 />
                             </div>
+
+                            {/* TEXT */}
+                            <div style={cardText}>
+                                <h3 style={title}>{b.title}</h3>
+                                <p style={desc}>{b.desc}</p>
+                            </div>
+
                         </div>
                     ))}
                 </div>
             </div>
 
             <style>{`
-        @media (max-width: 980px){
-          .icare-safety-3boxes{ grid-template-columns: 1fr 1fr !important; }
-        }
-        @media (max-width: 640px){
-          .icare-safety-3boxes{ grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+                @media (max-width: 980px){
+                    .icare-safety-3boxes{
+                        grid-template-columns: 1fr 1fr !important;
+                        margin: 0 !important;
+                    }
+                }
+                @media (max-width: 640px){
+                    .icare-safety-3boxes{
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

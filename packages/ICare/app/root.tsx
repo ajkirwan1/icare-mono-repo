@@ -30,32 +30,6 @@ export const links: Route.LinksFunction = () => [
     },
 ];
 
-// ✅ Tawk.to – PODSTAWIONY PROPERTY ID
-const TAWK_SRC = "https://embed.tawk.to/697b9440cdb3061c376b2814/1jg5bm7a3";
-
-function TawkChat() {
-    useEffect(() => {
-        if (typeof window === "undefined") return;
-
-        // nie ładuj drugi raz (HMR / refresh)
-        const exists = document.querySelector('script[src*="embed.tawk.to"]');
-        if (exists) return;
-
-        (window as any).Tawk_API = (window as any).Tawk_API || {};
-        (window as any).Tawk_LoadStart = new Date();
-
-        const script = document.createElement("script");
-        script.src = TAWK_SRC;
-        script.async = true;
-        script.charset = "UTF-8";
-        script.setAttribute("crossorigin", "*");
-
-        document.body.appendChild(script);
-    }, []);
-
-    return null;
-}
-
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
@@ -78,9 +52,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 {children}
 
                 <ScrollRestoration />
-
-                {/* ✅ TAWK CHAT */}
-                <TawkChat />
 
                 <Scripts />
             </body>
