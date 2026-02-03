@@ -4,9 +4,9 @@ import cors from "cors";
 // import todosRouter from "./routes/todos.routes.js";
 // import careRolesRouter from "./routes/care-roles.routes.js";
 // import documentsRouter from "./routes/documents.routes.js";
-import newsletterRouter from "./routes/newsletter.routes.js";
-import waitinglistRouter from "./routes/waitinglist.routes.js";
-import contactUsRouter from "./routes/contact.routes.js";
+import newsletterRouter from "../routes/newsletter.routes.js";
+import waitinglistRouter from "../routes/waitinglist.routes.js";
+import contactUsRouter from "../routes/contact.routes.js";
 
 const app = express();
 

@@ -1,0 +1,26 @@
+{
+  "name": "icare-api",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "start:full": "npm run db:seed && npm run start",
+    "dev": "nodemon src/index.js",
+    "dev:full": "npm run db:seed && npm run dev",
+    "db:wait": "wait-on tcp:localhost:5432",
+    "db:init": "node db/scripts/run-sql.js",
+    "db:seed": "npm run db:wait && npm run db:init"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express-rate-limit": "^8.2.1",
+    "pg": "^8.11.5",
+    "resend": "^6.8.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3",
+    "wait-on": "^8.0.0"
+  }
+}

@@ -2,15 +2,26 @@ import fs from "fs";
 import path from "path";
 import pg from "pg";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-dotenv.config({ path: ".env.development" });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Only load env file if DATABASE_URL isn't already set (e.g., by Docker)
+if (!process.env.DATABASE_URL) {
+  // Use docker/.env.local as single source of truth for local dev
+  dotenv.config({ path: path.resolve(__dirname, "../../../../../docker/.env.local") });
+}
 
 const { Pool } = pg;
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
-const MIGRATIONS_DIR = "app/server/migrations/tables";
+// ✅ Adjust this relative path to wherever migrations live now.
+// If you moved the script into packages/ICare/express-api/db/scripts/run-sql.js
+// and migrations are in packages/ICare/express-api/db/migrations/tables:
+const MIGRATIONS_DIR = path.resolve(__dirname, "..", "migrations", "tables");
 
 async function run() {
   const client = await pool.connect();
