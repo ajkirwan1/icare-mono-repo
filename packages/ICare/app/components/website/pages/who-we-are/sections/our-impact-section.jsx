@@ -29,7 +29,7 @@ export function OurImpactSection() {
         background: BG,
         padding: "clamp(4.4rem, 7vw, 6.2rem) 0",
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const wrap = {
@@ -45,7 +45,7 @@ export function OurImpactSection() {
     const h2 = {
         margin: 0,
         fontWeight: 500,
-        fontSize: "clamp(2rem, 3vw, 2.4rem)",
+        fontSize: "2.2rem",
         color: TEXT,
         letterSpacing: "-0.35px",
         lineHeight: 1.12,
@@ -58,6 +58,7 @@ export function OurImpactSection() {
         lineHeight: 1.65,
         color: "rgba(0,0,0,0.9)",
         fontWeight: 400,
+        maxWidth: "550px"
     };
 
     const grid = {
@@ -107,7 +108,6 @@ export function OurImpactSection() {
                     <h2 style={h2}>Our approach is built on a few simple principles</h2>
                     <p style={lead}>
                         Care is personal and changes over time.
-
                         <br />
                         ICare helps families and caregivers connect with clarity and calm while keeping decisions where they belong: with people.
                     </p>

@@ -12,50 +12,52 @@ import HeroCaregiversTicker from "../components/website/pages/home/sections/Hero
 import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
+import AiChat from "../components/website/common/modals/AiChat";
 
 
 export function meta() {
-  const seo = buildSeo({
-    title: "Home",
-    description:
-      "ICare – Supporting better care through intuitive tools.",
-    imagePath: "/images/og/home.png"
-  });
+    const seo = buildSeo({
+        title: "Home",
+        description:
+            "ICare – Supporting better care through intuitive tools.",
+        imagePath: "/images/og/home.png"
+    });
 
-  return [
-    { title: seo.title },
-    { name: "description", content: seo.description },
+    return [
+        { title: seo.title },
+        { name: "description", content: seo.description },
 
-    { property: "og:title", content: seo.title },
-    { property: "og:description", content: seo.description },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: seo.url },
-    { property: "og:image", content: seo.image }
+        { property: "og:title", content: seo.title },
+        { property: "og:description", content: seo.description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: seo.url },
+        { property: "og:image", content: seo.image }
 
-    // { name: "twitter:card", content: "summary_large_image" },
-    // { name: "twitter:title", content: seo.title },
-    // { name: "twitter:description", content: seo.description },
-    // { name: "twitter:image", content: seo.image },
-  ];
+        // { name: "twitter:card", content: "summary_large_image" },
+        // { name: "twitter:title", content: seo.title },
+        // { name: "twitter:description", content: seo.description },
+        // { name: "twitter:image", content: seo.image },
+    ];
 }
 
 export default function Home() {
 
-  return (
-    <>
-      <HomePageHero imgSrc={heroImage} />
-      <AboutICareSection />
-      <CareTimeline />
-      {/* <TrustIntroSection /> */}
-      <TrustValuesSection />
-      <HomePageCareCTA />
-      <IcareSafetyBlock />
-      <ICareCostEstimator />
-      <ICareTypesOfCareSEO />
-      <HeroCaregiversTicker />
-      {/* <ICareWaitlistFinal /> */}
-      <ICareEarlyAccessHomeSection />
-      <ICareFooter />
-    </>
-  );
+    return (
+        <>
+            <HomePageHero imgSrc={heroImage} />
+            <AboutICareSection />
+            <CareTimeline />
+            {/* <TrustIntroSection /> */}
+            <TrustValuesSection />
+            <HomePageCareCTA />
+            <IcareSafetyBlock />
+            <ICareCostEstimator />
+            <ICareTypesOfCareSEO />
+            <HeroCaregiversTicker />
+            {/* <ICareWaitlistFinal /> */}
+            <ICareEarlyAccessHomeSection />
+            <ICareFooter />
+            <AiChat />
+        </>
+    );
 }

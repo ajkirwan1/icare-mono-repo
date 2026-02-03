@@ -1,322 +1,235 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouseUser, faHandHoldingMedical } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router";
 
-/**
- * ICare — Two paths (Families + Caregivers)
- * ✅ replaces banner with a “join” focused section
- * ✅ 2 CTAs max (premium, calm)
- * ✅ full width background, centered content
- * ✅ works for both sides of marketplace
- */
-export default function ICareTwoPathsSection({
-    familyCtaHref = "#waitlist",
-    caregiverCtaHref = "/icare-for-caregivers"
-}) {
-    const COLORS = {
-        border: "rgba(15,23,42,0.10)",
-        text: "#0F172A",
-        textWhite: "#FFF",
-        textBlack: "#000",
-        muted: "rgba(15,23,42,0.72)",
-        accent: "#b97a57",
-        olive: "#61674d",
-
-        // buttons
-        btnFamily: "#e79961",
-        btnCaregiver: "#778d43"
-    };
-
-    const wrap = {
-        position: "relative",
-        width: "100%",
-        fontFamily:
-            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        color: COLORS.text,
-        padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
-        backgroundColor: "rgba(236, 221, 209, 0.55)",
-        backgroundSize: "cover",
-        backgroundPosition: "50% 34%",
-        paddingTop: "4rem"
-    };
-
-    const overlay = {
-        pointerEvents: "none",
-        position: "absolute",
-        height: "100%",
-        inset: 0
-    };
-
-    const container = {
-        position: "relative",
-        zIndex: "2",
-        width: "min(92vw, 1100px)",
-        margin: "0 auto"
-    };
-
-    const header = {
-        display: "grid",
-        gap: 10,
-        margin: "0 auto",
-        marginBottom: "clamp(18px, 2.6vw, 26px)",
-        maxWidth: "78ch"
-    };
-
-    const h2 = {
-        margin: 0,
-        fontWeight: 500,
-        lineHeight: 1.14,
-        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
-        color: "#111",
-        textAlign: "center",
-        letterSpacing: "-0.6px"
-    };
-
-    const lead = {
-        margin: "1rem 0 2rem",
-        color: "#444",
-        fontSize: "1.3rem",
-        lineHeight: 1.6,
-        fontWeight: 400,
-        textAlign: "center"
-    };
-
-    const grid = {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "clamp(14px, 2.2vw, 22px)",
-        alignItems: "stretch",
-        background: "white",
-        border: "1px solid #ccc",
-        borderRadius: 22,
-        overflow: "hidden"
-    };
-
-    const card = {
-        padding: "clamp(22px, 2vw, 28px)",
-        display: "grid",
-        gap: 6,
-        minHeight: 260
-    };
-
-    const topRow = {
-        display: "flex",
-        alignItems: "center",
-        gap: 12
-    };
-
-    // icons: calm + a bit smaller
-    const icon = {
-        width: 28,
-        height: 40,
-        borderRadius: 18,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "rgb(255, 169, 103)",
-        flex: "0 0 auto"
-    };
-
-    const iconSvg = {
-        fontSize: "22px",
-        lineHeight: 1
-    };
-
-    const title = {
-        margin: 0,
-        fontWeight: 500,
-        fontSize: "1.7rem",
-        lineHeight: 1.2
-    };
-
-    const sub = {
-        margin: 0,
-        color: COLORS.textBlack,
-        fontWeight: 400,
-        lineHeight: 1.65,
-        fontSize: "1.1rem",
-        maxWidth: "56ch"
-    };
-
-    const list = {
-        listStyle: "none",
-        padding: 0,
-        margin: "6px 0 0",
-        display: "grid",
-        gap: 10
-    };
-
-    const li = {
-        display: "flex",
-        alignItems: "flex-start",
-        gap: 10,
-        color: COLORS.textBlack,
-        fontWeight: 400,
-        lineHeight: 1.6,
-        fontSize: "1.1rem"
-    };
-
-    const dot = {
-        width: 10,
-        height: 10,
-        borderRadius: 999,
-        background: COLORS.textBlack,
-        marginTop: 10,
-        flex: "0 0 auto"
-    };
-
-    const ctaRow = {
-        marginTop: "clamp(14px, 2.2vw, 18px)",
-        display: "flex",
-        flexDirection: "column",
-        gap: 12,
-        flexWrap: "wrap",
-        alignItems: "center"
-    };
-
-    // buttons: radius 36px
-    const primaryBtn = {
-        border: "1px solid",
-        borderRadius: 36,
-        color: "#000",
-        fontWeight: 400,
-        fontSize: "1.1rem",
-        padding: "12px 12px",
-        cursor: "pointer",
-        transition: "filter .14s ease",
-        width: "min(240px, 80vw)"
-    };
-
-    const secondaryBtn = {
-        borderRadius: 36,
-        background: COLORS.btnCaregiver,
-        border: "1px solid rgba(97,103,77,0.24)",
-        color: COLORS.textWhite,
-        fontWeight: 400,
-        fontSize: "1.1rem",
-        padding: "12px 1.2rem",
-        cursor: "pointer",
-        transition: "filter .14s ease",
-        width: "min(220px, 88vw)"
-    };
-
-    const onEnter = (e) => (e.currentTarget.style.filter = "brightness(1.06)");
-    const onLeave = (e) => (e.currentTarget.style.filter = "brightness(1)");
+export default function WhoIsICareForSection() {
+    const TEXT = "#0F172A";
+    const MUTED = "rgba(15,23,42,0.72)";
+    const BRAND = "#778d43";
 
     return (
-        <section aria-label="ICare for families and caregivers" style={wrap}>
-            <div style={overlay} />
-            <div style={container}>
-                <div style={header}>
-                    <h2 style={h2}>
+        <section
+            aria-label="Who ICare is for"
+            style={{
+                width: "100%",
+                padding: "clamp(3.5rem, 6vw, 5rem) 0",
+                background: "#fff9ef",
+                fontFamily:
+                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+                color: TEXT,
+            }}
+        >
+            <div style={{ width: "min(1100px, 92vw)", margin: "0 auto" }}>
+                {/* HEADER */}
+                <header style={{ textAlign: "center", marginBottom: "3.2rem" }}>
+                    <h2
+                        style={{
+                            margin: 0,
+                            fontWeight: 500,
+                            fontSize: "clamp(2.2rem, 3.2vw, 2.8rem)",
+                            letterSpacing: "-0.6px",
+                            lineHeight: 1.15,
+                        }}
+                    >
                         A calmer home care marketplace
-                        <br />
-                        for families and caregivers
+                        <br />for families and caregivers
                     </h2>
-                    <p style={lead}>
-                        ICare connects families with independent carers through clear profiles,
-                        direct messaging and a guided process - so both sides can agree support with confidence.
+
+                    <p
+                        style={{
+                            margin: "1.2rem auto 0",
+                            maxWidth: "65ch",
+                            fontSize: "1.35rem",
+                            lineHeight: 1.65,
+                            color: MUTED,
+                        }}
+                    >
+                        ICare connects families with independent caregivers through clear
+                        profiles, direct messaging and a guided process — so both sides can
+                        agree support with confidence.
                     </p>
-                </div>
+                </header>
 
-                <div className="icare-2paths" style={grid}>
-                    {/* Families */}
-                    <div style={card}>
-                        <div style={topRow}>
-                            <span style={icon} aria-hidden="true">
-                                <FontAwesomeIcon style={iconSvg} icon={faHouseUser} />
-                            </span>
-                            <h3 style={title}>For families & care receivers</h3>
-                        </div>
+                {/* TWO COLUMNS */}
+                <div
+                    style={{
+                        background: "#fff",
+                        borderRadius: 24,
+                        padding: "clamp(2rem, 3vw, 3rem)",
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "clamp(2rem, 4vw, 3.5rem)",
+                        border: "1px solid rgba(15,23,42,0.08)",
+                    }}
+                >
+                    {/* FOR FAMILIES */}
+                    <div>
+                        <h3
+                            style={{
+                                margin: 0,
+                                fontSize: "1.6rem",
+                                fontWeight: 600,
+                                letterSpacing: "-0.3px",
+                            }}
+                        >
+                            For families & care receivers
+                        </h3>
 
-                        <p style={sub}>
-                            Find support that fits your home - without agency pressure and without guessing what happens next.
+                        <p
+                            style={{
+                                margin: "0.8rem 0 1.4rem",
+                                fontSize: "1.2rem",
+                                lineHeight: 1.6,
+                                color: MUTED,
+                            }}
+                        >
+                            Find companionship that fits your home — without agency pressure
+                            and without guessing what happens next.
                         </p>
 
-                        <ul style={list}>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                Clear caregiver profiles with experience, availability and documents shown clearly.
+                        <ul
+                            style={{
+                                margin: 0,
+                                paddingLeft: "1.1rem",
+                                display: "grid",
+                                gap: "0.8rem",
+                                fontSize: "1.15rem",
+                                lineHeight: 1.55,
+                            }}
+                        >
+                            <li>
+                                Clear caregiver profiles with experience, availability and key
+                                information shown upfront.
                             </li>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                Direct, secure messaging to align tasks, hours and start date.
-                            </li>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                Transparent costs, without agency mark-ups or hidden fees
+                            <li>
+                                Direct, secure messaging to agree routines, schedules and start
+                                dates.
                             </li>
                         </ul>
 
-                        <div style={ctaRow}>
-                            <a href={familyCtaHref} style={{ textDecoration: "none" }}>
-                                <button
-                                    type="button"
-                                    style={primaryBtn}
-                                    onMouseEnter={onEnter}
-                                    onMouseLeave={onLeave}
-                                >
-                                    Join the waiting list
-                                </button>
-                            </a>
+                        <div style={{ marginTop: "2rem" }}>
+                            <Link
+                                to="/waiting-list"
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0.9rem 1.9rem",
+                                    borderRadius: 999,
+                                    border: "1.5px solid #0F172A",
+                                    textDecoration: "none",
+                                    fontWeight: 700,
+                                    color: "#0F172A",
+                                }}
+                            >
+                                Join the waiting list
+                            </Link>
 
-                            <span style={{ color: COLORS.text, fontWeight: 400, fontSize: "1rem", paddingTop: "10px" }}>
-                                We’ll notify you when we open in your area.
-                            </span>
+                            <p
+                                style={{
+                                    marginTop: "0.8rem",
+                                    fontSize: "0.95rem",
+                                    color: MUTED,
+                                }}
+                            >
+                                We’ll notify you when ICare opens in your area.
+                            </p>
                         </div>
                     </div>
 
-                    {/* Caregivers */}
-                    <div style={card}>
-                        <div style={topRow}>
-                            <span style={icon} aria-hidden="true">
-                                <FontAwesomeIcon style={iconSvg} icon={faHandHoldingMedical} />
-                            </span>
-                            <h3 style={title}>For caregivers</h3>
-                        </div>
+                    {/* FOR CAREGIVERS */}
+                    <div>
+                        <h3
+                            style={{
+                                margin: 0,
+                                fontSize: "1.6rem",
+                                fontWeight: 600,
+                                letterSpacing: "-0.3px",
+                            }}
+                        >
+                            For caregivers
+                        </h3>
 
-                        <p style={sub}>
-                            Build trust faster and spend less time on back-and-forth - with a profile designed for clarity.
+                        <p
+                            style={{
+                                margin: "0.8rem 0 1.4rem",
+                                fontSize: "1.2rem",
+                                lineHeight: 1.6,
+                                color: MUTED,
+                            }}
+                        >
+                            Build trust faster and spend less time on back-and-forth — with a
+                            profile designed for clarity.
                         </p>
 
-                        <ul style={list}>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                Secure messaging to agree expectations before you start.
+                        <ul
+                            style={{
+                                margin: 0,
+                                paddingLeft: "1.1rem",
+                                display: "grid",
+                                gap: "0.8rem",
+                                fontSize: "1.15rem",
+                                lineHeight: 1.55,
+                            }}
+                        >
+                            <li>
+                                Secure messaging to align expectations before you start.
                             </li>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                ICare lets you present yourself with an optional short video introduction and a profile that highlights your experience and availability.
-                            </li>
-                            <li style={li}>
-                                <span style={dot} aria-hidden="true" />
-                                You agree the details directly with families, so more of the care budget goes to you - not to agency overheads.
+                            <li>
+                                A clear profile highlighting your experience, availability and
+                                optional video introduction.
                             </li>
                         </ul>
 
-                        <div style={ctaRow}>
-                            <a href={caregiverCtaHref} style={{ textDecoration: "none" }}>
-                                <button
-                                    type="button"
-                                    style={secondaryBtn}
-                                    onMouseEnter={onEnter}
-                                    onMouseLeave={onLeave}
-                                >
-                                    I’m a caregiver
-                                </button>
-                            </a>
+                        <div style={{ marginTop: "2rem" }}>
+                            <Link
+                                to="/caregivers"
+                                style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "0.9rem 2.1rem",
+                                    borderRadius: 999,
+                                    background: BRAND,
+                                    color: "#fff",
+                                    textDecoration: "none",
+                                    fontWeight: 700,
+                                }}
+                            >
+                                I’m a caregiver
+                            </Link>
 
-                            <span style={{ color: COLORS.text, fontWeight: 400, fontSize: "1rem", paddingTop: "10px" }}>
-                                Learn how ICare supports carers.
-                            </span>
+                            <p
+                                style={{
+                                    marginTop: "0.8rem",
+                                    fontSize: "0.95rem",
+                                    color: MUTED,
+                                }}
+                            >
+                                Learn how ICare supports independent caregivers.
+                            </p>
                         </div>
                     </div>
                 </div>
+
+                {/* LEGAL NOTE */}
+                <p
+                    style={{
+                        marginTop: "1.8rem",
+                        fontSize: "0.95rem",
+                        color: MUTED,
+                        maxWidth: "75ch",
+                    }}
+                >
+                    ICare is a matching platform. We don’t provide care services or manage
+                    care delivery.
+                </p>
             </div>
 
             <style>{`
-        @media (max-width: 900px){
-          .icare-2paths{ grid-template-columns: 1fr !important; }
+        @media (max-width: 900px) {
+          section [aria-label="Who ICare is for"] > div > div {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
         </section>
