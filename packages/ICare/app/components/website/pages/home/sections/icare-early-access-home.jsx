@@ -10,9 +10,7 @@ export default function ICareEarlyAccessHomeSection() {
         padding: "clamp(3.2rem, 5vw, 4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",
-        fontFamily: "Nunito, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        backgroundImage:
-            "linear-gradient(160deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4) 55%, rgba(0,0,0,0.7)), url('/images/web/homepage/elderly2.png')",
+        fontFamily: "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -47,13 +45,32 @@ export default function ICareEarlyAccessHomeSection() {
         textUnderlineOffset: "6px"
     };
 
+    const estimatorHeader = {
+        width: "min(92vw,1100px)",
+        margin: "0 auto",
+        display: "grid",
+        alignItems: "start",
+        marginBottom: "2rem"
+    }
+
+    const estimatorImg = {
+        borderRadius: 24
+    }
+
     const container = {
-        width: "min(92vw, 800px)",
+        width: "min(92vw,1100px)",
         margin: "0 auto",
         display: "grid",
         gap: "clamp(16px, 2.4vw, 24px)",
-        alignItems: "start"
+        alignItems: "start",
     };
+
+    const icareLayout = {
+        display: "grid",
+        gap: "clamp(16px, 2.4vw, 24px)",
+        alignItems: "start",
+        gridTemplateColumns: "1fr 1fr"
+    }
 
     const header = {
         maxWidth: "72ch",
@@ -131,21 +148,26 @@ export default function ICareEarlyAccessHomeSection() {
         <section aria-label="Cost estimator" style={wrap}>
             <style>{microCSS}</style>
 
-            <div style={container}>
+            <div style={estimatorHeader}>
 
-                <div className="icare-wl-layout" style={container}>
+                <h1 style={h1}>
+                    Be among the first when ICare opens near you
+                </h1>
+                <p style={lead}>
+                    Leave a few details and we’ll let you know when ICare opens near you.<br />Your answers help us understand where care is needed most, so we can
+                    open in&nbsp;the right places first.
+                </p>
+
+            </div>
+
+            <div style={container}>
+                <div className="icare-wl-layout" style={icareLayout}>
                     {/* LEFT */}
                     <div style={card}>
-                        <h1 style={h1}>
-                            Be among the first when ICare opens near you
-                        </h1>
-                        <p style={lead}>
-                            Leave a few details and we’ll let you know when ICare opens near you.<br />Your answers help us understand where care is needed most, so we can
-                            open in&nbsp;the right places first.
-                        </p>
-
                         <WaitinglistForm />
                     </div>
+
+                    <img style={estimatorImg} src="/images/web/homepage/elderly2.png" alt="Elderly" />
 
                 </div>
 

@@ -79,10 +79,9 @@ export default function WhoIsICareForSection() {
                                 margin: "0.8rem 0 1.4rem",
                                 fontSize: "1.2rem",
                                 lineHeight: 1.6,
-                                color: MUTED,
                             }}
                         >
-                            Find companionship that fits your home — without agency pressure
+                            Find companionship that fits your home without agency pressure
                             and without guessing what happens next.
                         </p>
 
@@ -94,6 +93,7 @@ export default function WhoIsICareForSection() {
                                 gap: "0.8rem",
                                 fontSize: "1.15rem",
                                 lineHeight: 1.55,
+                                listStyle: "disc"
                             }}
                         >
                             <li>
@@ -128,7 +128,6 @@ export default function WhoIsICareForSection() {
                                 style={{
                                     marginTop: "0.8rem",
                                     fontSize: "0.95rem",
-                                    color: MUTED,
                                 }}
                             >
                                 We’ll notify you when ICare opens in your area.
@@ -154,10 +153,9 @@ export default function WhoIsICareForSection() {
                                 margin: "0.8rem 0 1.4rem",
                                 fontSize: "1.2rem",
                                 lineHeight: 1.6,
-                                color: MUTED,
                             }}
                         >
-                            Build trust faster and spend less time on back-and-forth — with a
+                            Build trust faster and spend less time on back-and-forth with a
                             profile designed for clarity.
                         </p>
 
@@ -169,6 +167,7 @@ export default function WhoIsICareForSection() {
                                 gap: "0.8rem",
                                 fontSize: "1.15rem",
                                 lineHeight: 1.55,
+                                listStyle: "disc"
                             }}
                         >
                             <li>
@@ -202,7 +201,6 @@ export default function WhoIsICareForSection() {
                                 style={{
                                     marginTop: "0.8rem",
                                     fontSize: "0.95rem",
-                                    color: MUTED,
                                 }}
                             >
                                 Learn how ICare supports independent caregivers.
@@ -216,7 +214,6 @@ export default function WhoIsICareForSection() {
                     style={{
                         marginTop: "1.8rem",
                         fontSize: "0.95rem",
-                        color: MUTED,
                         maxWidth: "75ch",
                     }}
                 >

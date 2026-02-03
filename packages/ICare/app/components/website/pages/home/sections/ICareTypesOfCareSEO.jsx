@@ -218,14 +218,13 @@ export default function ICareTypesOfCareSEO() {
 
     // Bullets (Elder-like)
     const bulletsGrid = {
-        margin: "30px -10px",
+        margin: "30px 0px",
         display: "grid",
-        gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-        gap: "25px 10px",
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        gap: "25px 40px",
         padding: "1rem",
-        border: "1px solid rgba(221, 139, 79, 0.5)",
-        borderRadius: "2rem",
-        background: "white",
+        border: "1px solid rgba(221,139,79,0.6)",
+        borderRadius: "24px"
     };
 
     const bulletCard = { padding: "0px 0.6rem 0px .6rem", margin: "0.6rem 0" };
@@ -236,15 +235,14 @@ export default function ICareTypesOfCareSEO() {
         letterSpacing: "-0.15px",
         fontSize: "1.1rem",
         lineHeight: 1.35,
-        color: TEXT,
-        minHeight: "48px"
+        color: TEXT
     };
 
     const bulletDesc = {
         margin: "6px 0 0",
         fontWeight: 400,
         lineHeight: 1.6,
-        fontSize: ".9rem",
+        fontSize: "1rem",
     };
 
     const subhead = {
@@ -663,17 +661,6 @@ export default function ICareTypesOfCareSEO() {
         }
         @media (max-width: 860px){
           .icare-bullets-grid{ grid-template-columns: 1fr !important; }
-        }
-
-        /* bullet borders */
-        .icare-bullets-grid > .bullet-card{
-          border-right: 1px solid rgba(221, 139, 79, 0.5);
-        }
-        .icare-bullets-grid > .bullet-card:nth-child(4n){
-          border-right: none;
-        }
-        .icare-bullets-grid > .bullet-card:last-child{
-          border-right: none;
         }
 
         /* fade-in on scroll */
