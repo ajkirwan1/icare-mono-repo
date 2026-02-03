@@ -1,0 +1,11 @@
+icare-app.co.uk {
+    # API routes
+    handle /api/* {
+        reverse_proxy api:4001
+    }
+
+    # Everything else goes to web app
+    handle {
+        reverse_proxy web:3000
+    }
+}

@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { pool } from "../db.js";
+import { pool } from "../db/db.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { rows } = await pool.query(`
+    const { rows } = await pool.query(`
     SELECT
       id,
       title,
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     FROM care_giving_roles
     ORDER BY created_at DESC
   `);
-  res.json(rows);
+    res.json(rows);
 });
 
 export default router;

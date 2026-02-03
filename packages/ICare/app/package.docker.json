@@ -1,13 +1,10 @@
 {
-  "name": "icare-app",
+  "name": "icare-app-docker",
   "version": "0.4.2-dev.28",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
-    "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc",
-    "dev": "react-router dev"
+    "start": "react-router-serve ./build/server/index.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -21,11 +18,16 @@
     "@fullcalendar/daygrid": "^6.1.19",
     "@fullcalendar/list": "^6.1.19",
     "@fullcalendar/react": "^6.1.19",
+    "@iconify/react": "^6.0.2",
     "@mui/material": "^6.5.0",
+    "@portabletext/react": "^6.0.2",
     "@react-router/node": "^7.7.1",
     "@react-router/serve": "^7.7.1",
     "@remix-run/node": "^2.17.1",
+    "@sanity/client": "^7.14.0",
+    "@sanity/image-url": "^2.0.3",
     "@stencil/react-output-target": "^1.2.0",
+    "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.22.1",
@@ -35,27 +37,8 @@
     "react-circular-progressbar": "^2.2.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-    "react-library": "^0.2.0",
     "react-pdf": "^10.1.0",
     "react-router": "^7.7.1",
     "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@react-router/dev": "^7.7.1",
-    "@tailwindcss/vite": "^4.1.4",
-    "@types/node": "^20",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "json-server": "^1.0.0-beta.3",
-    "sass": "^1.97.1",
-    "sass-embedded": "^1.97.1",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5.8.3",
-    "vite": "^6.3.3",
-    "vite-tsconfig-paths": "^5.1.4"
-  },
-  "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "bundler"
   }
 }
