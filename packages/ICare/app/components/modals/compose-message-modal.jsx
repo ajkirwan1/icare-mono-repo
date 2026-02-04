@@ -1,5 +1,26 @@
 import React from "react";
-import { IcareButton } from "react-library";
+// import { IcareButton } from "react-library";
+
+const buttonStyles = {
+  primary: {
+    padding: "10px 20px",
+    borderRadius: 8,
+    background: "#4c7865",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+    fontWeight: 600
+  },
+  secondary: {
+    padding: "10px 20px",
+    borderRadius: 8,
+    background: "#f4f8f6",
+    color: "#375d4f",
+    border: "1px solid #dce7e2",
+    cursor: "pointer",
+    fontWeight: 600
+  }
+};
 
 export default function ComposeMessageModal({
   isOpen,
@@ -56,7 +77,7 @@ export default function ComposeMessageModal({
             disabled={isSending}
           />
           <div style={{ marginTop: "1rem", textAlign: "right" }}>
-            <IcareButton
+            {/* <IcareButton
               variant="secondary"
               onClick={onClose}
               style={{ marginRight: "1rem" }}
@@ -66,7 +87,18 @@ export default function ComposeMessageModal({
             </IcareButton>
             <IcareButton variant="primary" type="submit" disabled={isSending}>
               {isSending ? "Sending..." : "Send"}
-            </IcareButton>
+            </IcareButton> */}
+            <button
+              type="button"
+              onClick={onClose}
+              style={{ ...buttonStyles.secondary, marginRight: "1rem" }}
+              disabled={isSending}
+            >
+              Cancel
+            </button>
+            <button type="submit" style={buttonStyles.primary} disabled={isSending}>
+              {isSending ? "Sending..." : "Send"}
+            </button>
           </div>
         </form>
       </div>

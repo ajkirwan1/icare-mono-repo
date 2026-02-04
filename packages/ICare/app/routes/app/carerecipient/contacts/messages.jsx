@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { json } from "@remix-run/node";
 import { useLoaderData, useFetcher, NavLink, useParams } from "react-router";
 import MessageListComponent from "../../../../components/messages/message-list-component";
-import { IcareButton } from "react-library";
+// import { IcareButton } from "react-library";
 import { getCaregiverMessageThread } from "../../../../utils/db/get-caregiver-message-thread";
 import { appendCaregiverMessage } from "../../../../utils/db/addCaregiverMessage";
 import ComposeMessageModal from "../../../../components/modals/compose-message-modal";
@@ -80,17 +80,23 @@ export default function MessagesPage() {
         visibleMessages={visibleMessages}
       />
       <div style={{ marginTop: "1rem" }}>
-        <IcareButton variant="primary" onClick={openModal}>
+        {/* <IcareButton variant="primary" onClick={openModal}>
           Send Message
-        </IcareButton>
+        </IcareButton> */}
+        <button onClick={openModal} style={{ padding: "10px 20px", borderRadius: 8, background: "#4c7865", color: "#fff", border: "none", cursor: "pointer" }}>
+          Send Message
+        </button>
         {messages.length > visibleMessages && (
-          <IcareButton
-            variant="secondary"
-            style={{ marginLeft: "2vw" }}
-            onClick={handleLoadMore}
-          >
+          // <IcareButton
+          //   variant="secondary"
+          //   style={{ marginLeft: "2vw" }}
+          //   onClick={handleLoadMore}
+          // >
+          //   Load more
+          // </IcareButton>
+          <button onClick={handleLoadMore} style={{ marginLeft: "2vw", padding: "10px 20px", borderRadius: 8, background: "#f4f8f6", color: "#375d4f", border: "1px solid #dce7e2", cursor: "pointer" }}>
             Load more
-          </IcareButton>
+          </button>
         )}
       </div>
       <ComposeMessageModal

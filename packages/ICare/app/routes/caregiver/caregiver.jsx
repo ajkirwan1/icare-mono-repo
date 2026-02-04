@@ -1,4 +1,4 @@
-import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
+// import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
 import { useMatches } from "react-router";
 
 export function meta() {
@@ -17,12 +17,18 @@ export default function CaregiverRecipientHome() {
   console.log(matches);
   return (
     <>
-      <IcareSection>
+      {/* <IcareSection>
         <IcareMessagesCard />
       </IcareSection>
       <IcareSection>
         <IcareRecommendedCaregiversCard />
-      </IcareSection>
+      </IcareSection> */}
+      <div>
+        <div style={{ padding: 16, background: "#f9fafb", borderRadius: 8, marginBottom: 16 }}>Messages placeholder</div>
+      </div>
+      <div>
+        <div style={{ padding: 16, background: "#f9fafb", borderRadius: 8 }}>Recommended caregivers placeholder</div>
+      </div>
     </>
   );
 }

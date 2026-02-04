@@ -1,4 +1,4 @@
-import { IcareSection } from "react-library";
+// import { IcareSection } from "react-library";
 
 export function meta() {
   return [
@@ -11,9 +11,11 @@ export default function CaregiverRecipientHome() {
 
   return (
     <>
-      <IcareSection>
+      {/* <IcareSection> */}
+      <div>
         <h1>Security settings</h1>
-      </IcareSection>
+      </div>
+      {/* </IcareSection> */}
     </>
   );
 }

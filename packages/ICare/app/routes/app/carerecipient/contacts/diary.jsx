@@ -3,7 +3,7 @@ import React from "react";
 import { json } from "@remix-run/node";
 import { getAllMessages } from "../../../utils/db/get-all-messages";
 import { useLoaderData, NavLink } from "react-router";
-import { IcareAvatar } from "react-library";
+// import { IcareAvatar } from "react-library";
 import styles from "../../../styles/pages/messages-home.module.scss";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";

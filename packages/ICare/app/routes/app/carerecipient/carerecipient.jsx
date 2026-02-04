@@ -1,4 +1,4 @@
-import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
+// import { IcareMessagesCard, IcareSection, IcareRecommendedCaregiversCard } from "react-library";
 import { useNavigate } from "react-router";
 import { useEffect, useState, lazy, Suspense } from "react";
 import ProfileCard from "../../../features/profile/profile-card.jsx";
@@ -174,7 +174,8 @@ export default function CaregiverRecipientHome() {
 
   return (
     <>
-      <IcareSection>
+      {/* <IcareSection> */}
+      <div>
         <div
           style={{
             display: "grid",
@@ -198,7 +199,8 @@ export default function CaregiverRecipientHome() {
                 subtitle="Based on your preferences"
                 cta={{ label: "See all", onClick: () => navigate("/caregivers") }}
               />
-              <IcareRecommendedCaregiversCard />
+              {/* <IcareRecommendedCaregiversCard /> */}
+              <div style={{ padding: 16, background: "#f9fafb", borderRadius: 8 }}>Recommended caregivers placeholder</div>
             </section>
 
             {/* Diary */}
@@ -356,13 +358,15 @@ export default function CaregiverRecipientHome() {
               </header>
 
               <div style={{ marginTop: 10 }}>
-                <IcareMessagesCard />
+                {/* <IcareMessagesCard /> */}
+                <div style={{ padding: 16, background: "#f9fafb", borderRadius: 8 }}>Messages placeholder</div>
               </div>
             </section>
 
           </aside>
         </div>
-      </IcareSection>
+      </div>
+      {/* </IcareSection> */}
       <section
         aria-label="Notifications"
       >

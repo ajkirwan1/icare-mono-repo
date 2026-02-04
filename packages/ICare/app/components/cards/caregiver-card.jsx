@@ -1,4 +1,4 @@
-import { IcareCard } from "react-library";
+// import { IcareCard } from "react-library";
 import FavouriteComponent from "../favourite/favourite-component";
 import { NavLink } from "react-router";
 
@@ -6,8 +6,9 @@ import { NavLink } from "react-router";
 export default function CaregiverCard({ data }) {
   console.log("CaregiverCard data:", data);
   return (
-    <IcareCard variant="elevated">
-      <span slot="contents">
+    // <IcareCard variant="elevated">
+    //   <span slot="contents">
+    <div style={{ background: "#fff", borderRadius: 12, padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
         <div style={{ display: "flex", marginBottom: "1rem" }}>
           <div>
             <img
@@ -74,7 +75,8 @@ export default function CaregiverCard({ data }) {
           <NavLink to={`/carerecipient/caregivers/${data.id}`}>
             View caregiver</NavLink>
         </div>
-      </span>
-    </IcareCard>
+    </div>
+    //   </span>
+    // </IcareCard>
   );
 }

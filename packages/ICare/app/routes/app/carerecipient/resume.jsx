@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useMemo } from "react";
-import { IcareCard, IcareShimmer } from "react-library";
+// import { IcareCard, IcareShimmer } from "react-library";
 import { useLoaderData } from "react-router";
 import { json } from "@remix-run/node";
 
@@ -33,22 +33,24 @@ export default function ResumePage() {
   return (
     <>
       <h1>Resume</h1>
-      <IcareCard variant="elevated">
-        <span slot="contents">
+      {/* <IcareCard variant="elevated">
+        <span slot="contents"> */}
+      <div style={{ background: "#fff", borderRadius: 12, padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
           <Suspense fallback={
             <>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
-              <div style={{ marginBottom: "1rem" }}><IcareShimmer /></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
+              <div style={{ marginBottom: "1rem", background: "#e5e7eb", height: 20, borderRadius: 4 }}></div>
             </>
           }>
             <ViewResumeClient caregiverId={id} />
           </Suspense>
-        </span>
-      </IcareCard>
+      </div>
+        {/* </span>
+      </IcareCard> */}
     </>
   );
 }
