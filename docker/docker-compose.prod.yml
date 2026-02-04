@@ -32,7 +32,7 @@ services:
         condition: service_healthy
 
   migrate:
-    image: ${DOCKERHUB_USERNAME}/icare-api:${IMAGE_TAG:-latest}
+    image: registry.digitalocean.com/${DO_REGISTRY_NAME}/icare-api:${IMAGE_TAG:-latest}
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
@@ -42,7 +42,7 @@ services:
     restart: "no"
 
   api:
-    image: ${DOCKERHUB_USERNAME}/icare-api:${IMAGE_TAG:-latest}
+    image: registry.digitalocean.com/${DO_REGISTRY_NAME}/icare-api:${IMAGE_TAG:-latest}
     restart: unless-stopped
     environment:
       NODE_ENV: production

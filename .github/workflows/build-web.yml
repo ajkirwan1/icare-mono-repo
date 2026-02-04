@@ -1,4 +1,4 @@
-name: Build and Push to Docker Hub
+name: Build Web → Docker Hub
 
 on:
   workflow_dispatch:
@@ -17,6 +17,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    if: github.actor == github.repository_owner
 
     steps:
       - name: Checkout code
@@ -47,17 +48,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push API image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./packages/ICare/express-api
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/icare-api:${{ steps.tag.outputs.tag }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/icare-api:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
       - name: Build and push Web image
         uses: docker/build-push-action@v5
         with:
@@ -72,9 +62,8 @@ jobs:
 
       - name: Summary
         run: |
-          echo "### Images pushed to Docker Hub 🐳" >> $GITHUB_STEP_SUMMARY
+          echo "### Web image pushed to Docker Hub 🐳" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- \`${{ secrets.DOCKERHUB_USERNAME }}/icare-api:${{ steps.tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- \`${{ secrets.DOCKERHUB_USERNAME }}/icare-web:${{ steps.tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Use this tag to deploy: \`${{ steps.tag.outputs.tag }}\`" >> $GITHUB_STEP_SUMMARY
