@@ -77,10 +77,10 @@ export default function ICareTypesOfCareSEO() {
     const h1 = {
         margin: 0,
         padding: 0,
-        fontWeight: 500,
+        fontWeight: 600,
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
-        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
+        fontSize: "2.4rem",
         color: TEXT,
     };
 

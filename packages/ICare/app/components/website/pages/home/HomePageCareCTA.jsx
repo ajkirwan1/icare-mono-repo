@@ -24,8 +24,8 @@ export default function WhoIsICareForSection() {
           <h2
             style={{
               margin: 0,
-              fontWeight: 500,
-              fontSize: "clamp(2.2rem, 3.2vw, 2.8rem)",
+              fontWeight: 600,
+              fontSize: "2.4rem",
               letterSpacing: "-0.6px",
               lineHeight: 1.15,
             }}

@@ -47,38 +47,39 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: $space-16;
+    gap: $space-8;
     text-decoration: none;
     line-height: $lh-compact;
     padding-bottom: $space-10;
 }
 
 .logo {
-    height: $space-40; // was 40px
+    height: $space-35;
     width: auto;
     display: block;
     transform-origin: left center;
 }
 
 .slogan {
-    font-size: $fs-1; // ~16px
+    font-size: 0.88rem;
     color: $ink-strong;
     font-weight: 500;
+    margin-left: 5px;
 }
 
 .tagline {
     margin: $space-12 0 0;
     line-height: $lh-body;
     max-width: $maxw-copy-lg;
-    font-size: $fs-lg-2;
-    font-weight: 500;
+    font-size: $fs-11;
+    font-weight: 400;
 }
 
 /* TYPOGRAPHY */
 .heading {
     color: $ink-strong;
     font-weight: $fw-bold;
-    font-size: $fs-md;
+    font-size: $fs-m;
     margin-bottom: $space-12;
     letter-spacing: $tracking-xs;
 }
@@ -93,7 +94,7 @@
 
 .value {
     color: $ink-strong;
-    font-size: $fs-lg-2;
+    font-size: $fs-m;
     line-height: $lh-list;
 }
 
@@ -145,7 +146,7 @@
     color: $txt;
     text-decoration: none;
     font-weight: $fw-semibold;
-    font-size: $fs-lg-2;
+    font-size: $fs-m;
     border-radius: $radius-pill;
 
     display: inline-flex;

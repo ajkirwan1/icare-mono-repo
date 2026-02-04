@@ -54,7 +54,7 @@ export default function NewsAndArticlesPage() {
         fontSize: "1.55rem",
         lineHeight: 1.25,
         letterSpacing: "-0.2px",
-        fontWeight: 500,
+        fontWeight: 600,
         color: TEXT,
     };
 
@@ -76,7 +76,14 @@ export default function NewsAndArticlesPage() {
         maxWidth: "70ch",
     };
 
-    // ✅ two columns wrapper (same max width)
+    /**
+     * ✅ KEY FIX:
+     * ONE GRID with 4 items:
+     * Row 1: intros (2 cols)
+     * Row 2: accordions (2 cols)
+     * -> "Topics we cover" always starts at same Y
+     * -> expanding left doesn't push down right (only row2 grows)
+     */
     const twoColsWrapStyle = {
         marginTop: "2.2rem",
         paddingTop: "1.6rem",
@@ -84,13 +91,26 @@ export default function NewsAndArticlesPage() {
         maxWidth: "100%",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        gap: "3.2rem",
+        gap: "1rem 3.2rem",
+        alignItems: "start",
+        gridTemplateAreas: `
+            "familiesIntro caregiversIntro"
+            "familiesBody caregiversBody"
+        `,
     };
 
-    const colStyle = {
+    const blockStyle = {
+        minWidth: 0,
         display: "flex",
         flexDirection: "column",
-        minWidth: 0,
+        alignItems: "flex-start",
+    };
+
+    const blockBottomStyle = {
+        border: "1px solid #bbb",
+        borderRadius: "22px",
+        padding: "0rem 2rem 1rem",
+        overflow: "hidden"
     };
 
     // ✅ Accordion button (Topics we cover)
@@ -105,9 +125,10 @@ export default function NewsAndArticlesPage() {
         padding: 0,
         cursor: "pointer",
         color: TEXT,
-        fontSize: "1.05rem",
-        fontWeight: 700,
+        fontSize: "1.2rem",
+        fontWeight: 600,
         textAlign: "left",
+        width: "100%",
     };
 
     // ✅ green circle + css arrow (white, big)
@@ -127,8 +148,8 @@ export default function NewsAndArticlesPage() {
         position: "absolute",
         top: "50%",
         left: "50%",
-        width: 10,
-        height: 10,
+        width: 9,
+        height: 9,
         borderRight: "2px solid #fff",
         borderBottom: "2px solid #fff",
         transform: "translate(-50%, -55%) rotate(45deg)",
@@ -143,14 +164,20 @@ export default function NewsAndArticlesPage() {
         lineHeight: 1.6,
         color: TEXT,
         maxWidth: "72ch",
-        listStyle: "disc"
+        listStyle: "disc",
     };
 
+    // ✅ responsive: stack in a natural order
     const responsiveTwoColsStyle = `
         @media (max-width: 768px) {
             .icareTwoCols {
                 grid-template-columns: 1fr !important;
                 gap: 2.4rem !important;
+                grid-template-areas:
+                    "familiesIntro"
+                    "familiesBody"
+                    "caregiversIntro"
+                    "caregiversBody" !important;
             }
         }
     `;
@@ -169,8 +196,6 @@ export default function NewsAndArticlesPage() {
                         Care guidance brings together practical explanations, evolving standards and real-world context
                         to support everyday care decisions — from early questions to ongoing support at home.
                     </p>
-
-
                 </div>
 
                 <header className={classes.pageHeader}>
@@ -227,10 +252,10 @@ export default function NewsAndArticlesPage() {
                 <style>{responsiveTwoColsStyle}</style>
 
                 <div className={classes.pageContent}>
-                    {/* ✅ TWO COLUMNS: Families + Caregivers */}
+                    {/* ✅ TWO COLUMNS: Families + Caregivers (4-grid-item layout) */}
                     <section className="icareTwoCols" aria-label="For families and caregivers" style={twoColsWrapStyle}>
-                        {/* === FOR FAMILIES === */}
-                        <div style={colStyle}>
+                        {/* === FAMILIES: INTRO (row 1 col 1) === */}
+                        <div style={{ ...blockStyle, gridArea: "familiesIntro" }}>
                             <h2 style={sectionTitleStyle}>For families</h2>
 
                             <p style={paragraphStyle}>
@@ -242,7 +267,20 @@ export default function NewsAndArticlesPage() {
                                 We cover practical topics to help you understand options, prepare for conversations, and feel
                                 more confident in your decisions without pressure or assumptions.
                             </p>
+                        </div>
 
+                        {/* === CAREGIVERS: INTRO (row 1 col 2) === */}
+                        <div style={{ ...blockStyle, gridArea: "caregiversIntro" }}>
+                            <h2 style={sectionTitleStyle}>For caregivers</h2>
+
+                            <p style={paragraphStyle}>
+                                Whether you're new to care work or an experienced professional, we share insights to support
+                                your journey with practical guidance and real-world context from the UK care sector.
+                            </p>
+                        </div>
+
+                        {/* === FAMILIES: BODY (row 2 col 1) === */}
+                        <div style={{ ...blockStyle, ...blockBottomStyle, gridArea: "familiesBody" }}>
                             <button
                                 type="button"
                                 onClick={() => setOpenFamilies((v) => !v)}
@@ -256,31 +294,28 @@ export default function NewsAndArticlesPage() {
                                 </span>
                             </button>
 
+
                             {openFamilies && (
-                                <ul style={topicsListStyle}>
-                                    <li>Recognising when your loved one may need more support</li>
-                                    <li>Understanding different types of care and companionship</li>
-                                    <li>Having difficult conversations with family members</li>
-                                    <li>Navigating guilt, worry, and emotional overwhelm</li>
-                                    <li>Finding trusted help that respects dignity and independence</li>
-                                    <li>Research and statistics to support informed decisions</li>
-                                </ul>
+                                <div>
+                                    <ul style={topicsListStyle}>
+                                        <li>Recognising when your loved one may need more support</li>
+                                        <li>Understanding different types of care and companionship</li>
+                                        <li>Having difficult conversations with family members</li>
+                                        <li>Navigating guilt, worry, and emotional overwhelm</li>
+                                        <li>Finding trusted help that respects dignity and independence</li>
+                                        <li>Research and statistics to support informed decisions</li>
+                                    </ul>
+
+                                    <p style={closingStyle}>
+                                        Our goal is to help you feel more informed, supported, and less alone.
+                                    </p>
+                                </div>
                             )}
 
-                            <p style={closingStyle}>
-                                Our goal is to help you feel more informed, supported, and less alone.
-                            </p>
                         </div>
 
-                        {/* === FOR CAREGIVERS === */}
-                        <div style={colStyle}>
-                            <h2 style={sectionTitleStyle}>For caregivers</h2>
-
-                            <p style={paragraphStyle}>
-                                Whether you're new to care work or an experienced professional, we share insights to support
-                                your journey with practical guidance and real-world context from the UK care sector.
-                            </p>
-
+                        {/* === CAREGIVERS: BODY (row 2 col 2) === */}
+                        <div style={{ ...blockStyle, ...blockBottomStyle, gridArea: "caregiversBody" }}>
                             <button
                                 type="button"
                                 onClick={() => setOpenCaregivers((v) => !v)}
@@ -295,19 +330,23 @@ export default function NewsAndArticlesPage() {
                             </button>
 
                             {openCaregivers && (
-                                <ul style={topicsListStyle}>
-                                    <li>Understanding the emotional aspects of care work</li>
-                                    <li>Building meaningful relationships with those you support</li>
-                                    <li>Navigating the care sector and finding fulfilling work</li>
-                                    <li>Self-care and avoiding burnout</li>
-                                    <li>Professional development and growth</li>
-                                    <li>Stories and perspectives from other caregivers</li>
-                                </ul>
+                                <div>
+                                    <ul style={topicsListStyle}>
+                                        <li>Understanding the emotional aspects of care work</li>
+                                        <li>Building meaningful relationships with those you support</li>
+                                        <li>Navigating the care sector and finding fulfilling work</li>
+                                        <li>Self-care and avoiding burnout</li>
+                                        <li>Professional development and growth</li>
+                                        <li>Stories and perspectives from other caregivers</li>
+                                    </ul>
+                                    <p style={closingStyle}>
+                                        Caregiving is skilled, meaningful work. We’re here to support you in doing it well while looking after yourself.
+                                    </p>
+                                </div>
+
                             )}
 
-                            <p style={closingStyle}>
-                                Caregiving is skilled, meaningful work. We’re here to support you in doing it well while looking after yourself.
-                            </p>
+
                         </div>
                     </section>
                 </div>

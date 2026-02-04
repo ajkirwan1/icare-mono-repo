@@ -49,6 +49,8 @@
     flex: 0 0 auto;
     margin-left: $space-12;
     transition: transform 0.25s ease;
+    width: 24px;
+    height: 24px;
 }
 
 .item[open] .arrow {
@@ -63,7 +65,7 @@
 .answer {
     margin: 0;
     line-height: $lh-copy;
-    font-weight: 450;
+    font-weight: 400;
     font-size: $fs-lg-2;
     line-height: $lh-copy;
 }

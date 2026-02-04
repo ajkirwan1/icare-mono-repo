@@ -1,63 +1,36 @@
 import WaitinglistForm from "~/components/website/common/forms/waitinglist-form";
 
 
-export default function ICareWaitlistFinal() {
-    const TEXT = "#0F172A";
+export default function ICareEarlyAccessHomeSection() {
+
     const OLIVE = "#778d43";
-
     const wrap = {
-        width: "100%",
-        background: "#ffffff",
-        color: TEXT,
-        padding: "clamp(3.8rem, 5.6vw, 5.2rem) 0",
-        fontFamily:
-            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    };
-
-    const container = {
-        width: "min(92vw, 1100px)",
-        margin: "0 auto",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "clamp(18px, 3vw, 40px)",
-        alignItems: "stretch"
+        width: "100vw",
+        marginLeft: "calc(50% - 50vw)",
+        padding: "clamp(3.2rem, 5vw, 4rem) 0",
+        borderTop: "1px solid rgba(15,23,42,0.06)",
+        borderBottom: "1px solid rgba(15,23,42,0.06)",
+        fontFamily: "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        // ✅ prevents background/hero resizing when email section expands
+        minHeight: "clamp(860px, 88vh, 980px)"
     };
 
     const card = {
         height: "100%",
         borderRadius: 24,
-        background: "rgba(255,255,255,0.92)",
+
         border: "1px solid rgba(15,23,42,0.10)",
         boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
+
+        background: "rgba(255, 255, 255, 0.9)",
+        backdropFilter: "blur(10px)",
+
         padding: "clamp(18px, 2.4vw, 26px)",
         display: "flex",
         flexDirection: "column"
-    };
-
-    const imageWrap = {
-        height: "100%",
-        borderRadius: 24,
-        overflow: "hidden",
-        border: "1px solid rgba(15,23,42,0.10)",
-        boxShadow: "0 18px 44px rgba(15,23,42,0.08)",
-        background: "rgba(15,23,42,0.03)"
-    };
-
-    const image = {
-        width: "100%",
-        height: "100%",
-        display: "block",
-        objectFit: "cover"
-    };
-
-    // ✅ H1 10% bigger (was clamp(1.42–1.64))
-    const h1 = {
-        margin: 0,
-        fontWeight: 500,
-        letterSpacing: "-0.5px",
-        lineHeight: 1.2,
-        fontSize: "clamp(1.56rem, 2.08vw, 1.80rem)", // ✅ +10%
-        color: TEXT
     };
 
     const h2 = {
@@ -72,54 +45,132 @@ export default function ICareWaitlistFinal() {
         textUnderlineOffset: "6px"
     };
 
+    const estimatorHeader = {
+        width: "min(92vw,1100px)",
+        margin: "0 auto",
+        display: "grid",
+        alignItems: "start",
+        marginBottom: "2rem"
+    }
+
+    const estimatorImg = {
+        borderRadius: 24
+    }
+
+    const container = {
+        width: "min(92vw,1100px)",
+        margin: "0 auto",
+        display: "grid",
+        gap: "clamp(16px, 2.4vw, 24px)",
+        alignItems: "start",
+    };
+
+    const icareLayout = {
+        display: "grid",
+        gap: "clamp(16px, 2.4vw, 24px)",
+        alignItems: "start",
+        gridTemplateColumns: "1fr 1fr"
+    }
+
+    const header = {
+        maxWidth: "72ch",
+        textAlign: "left"
+    };
+
+    const h1 = {
+        margin: "0 0 1.5rem",
+        fontWeight: 600,
+        letterSpacing: "-0.6px",
+        lineHeight: 1.14,
+        fontSize: "2.4rem",
+        textAlign: "center",
+        // color: "#fff"
+    };
+
     const lead = {
-        margin: "18px 0 0",
-        color: TEXT,
-        fontWeight: 500,
-        lineHeight: 1.65,
-        fontSize: "1.2rem",
-        maxWidth: "72ch"
+        margin: "0 0 1rem",
+        // color: "rgba(255,255,255,0.92)",
+        fontWeight: 400,
+        lineHeight: 1.5,
+        fontSize: "1.3rem",
+        textAlign: "center"
     };
 
     const microCSS = `
-    @media (max-width: 980px){
-      .icare-wl-layout{ grid-template-columns: 1fr !important; }
-      .icare-wl-image{ aspect-ratio: 4 / 3; }
+    @media (max-width: 920px){
+      .icare-est-cards{ grid-template-columns: 1fr !important; }
     }
-    @media (max-width: 620px){
-      .icare-wl-grid2{ grid-template-columns: 1fr !important; }
+    .icare-est-input:focus{
+      border-color: rgba(185,122,87,0.55) !important;
+      box-shadow: 0 0 0 4px rgba(185,122,87,0.14) !important;
     }
-    .icare-wl-input:focus{
-      border-color: rgba(231,153,97,0.55) !important;
-      box-shadow: 0 0 0 4px rgba(231,153,97,0.16) !important;
+
+    /* ✅ Tooltip bubble (shows on hover OR keyboard focus) */
+    .icare-tip { position: relative; display: inline-flex; align-items: center; }
+    .icare-tip-bubble {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translateX(-50%);
+      width: min(280px, 68vw);
+      background: rgba(15,23,42,0.96);
+      color: rgba(255,255,255,0.96);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+      line-height: 1.35;
+      box-shadow: 0 18px 44px rgba(15,23,42,0.22);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .14s ease, transform .14s ease;
+      transform-origin: bottom center;
+    }
+    .icare-tip-bubble::after{
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: rgba(15,23,42,0.96);
+    }
+    .icare-tip:hover .icare-tip-bubble,
+    .icare-tip:focus-within .icare-tip-bubble{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-2px);
     }
   `;
 
+
     return (
-        <section id="waitlist" aria-label="Join the ICare waiting list" style={wrap}>
+        <section aria-label="Cost estimator" style={wrap}>
             <style>{microCSS}</style>
 
-            <div className="icare-wl-layout" style={container}>
-                {/* LEFT */}
-                <div style={card}>
-                    <h1 style={h1}>
-                        Be among the first when ICare <br />
-                        opens near you
-                    </h1>
-                    <h2 style={h2}>Get early access in your area</h2>
-                    <p style={lead}>
-                        Leave a few details and we’ll let you know when ICare opens near you.
-                        Your answers help us understand where care is needed most, so we can
-                        open in the right places first.
-                    </p>
+            <div style={estimatorHeader}>
 
-                    <WaitinglistForm />
+                <h1 style={h1}>
+                    Be among the first when ICare opens near you
+                </h1>
+                <p style={lead}>
+                    Leave a few details and we’ll let you know when ICare opens near you.<br />Your answers help us understand where care is needed most, so we can
+                    open in&nbsp;the right places first.
+                </p>
+
+            </div>
+
+            <div style={container}>
+                <div className="icare-wl-layout" style={icareLayout}>
+                    {/* LEFT */}
+                    <div style={card}>
+                        <WaitinglistForm />
+                    </div>
+
+                    <img style={estimatorImg} src="/images/web/homepage/elderly2.png" alt="Elderly" />
+
                 </div>
 
-                {/* RIGHT */}
-                <div style={imageWrap}>
-                    <img src="/images/web/homepage/elderly2.png" alt="Browse caregivers" style={image} />
-                </div>
             </div>
         </section>
     );

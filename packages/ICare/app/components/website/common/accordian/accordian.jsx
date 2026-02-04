@@ -16,7 +16,7 @@ export default function Accordion({ items, className = "", itemClassName = "" })
                                 height="20"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                stroke="rgba(76,120,101,0.9)"
+                                stroke="rgba(100,100,100,0.9)"
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
