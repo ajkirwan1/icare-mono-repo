@@ -14,7 +14,7 @@ services:
     volumes:
       - icare_pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -38,7 +38,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: ["node", "db/scripts/run-sql.js"]
+    command: [ "node", "db/scripts/run-sql.js" ]
     restart: "no"
 
   api:

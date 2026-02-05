@@ -1,4 +1,4 @@
-import { IcareSection } from "react-library";
+// import { IcareSection } from "react-library";
 import { NavLink } from "react-router";
 
 
@@ -13,7 +13,8 @@ export default function CaregiverAccountHome() {
 
   return (
     <>
-      <IcareSection>
+      {/* <IcareSection> */}
+      <div>
         <h1>My account details</h1>
         <nav>
           <ul style={{ display: "flex", gap: "1rem", listStyle: "none", padding: 0, marginBottom: "1rem" }}>
@@ -31,7 +32,8 @@ export default function CaregiverAccountHome() {
             </li>
           </ul>
         </nav>
-      </IcareSection>
+      </div>
+      {/* </IcareSection> */}
     </>
   );
 }

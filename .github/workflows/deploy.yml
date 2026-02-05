@@ -14,6 +14,28 @@ jobs:
     if: github.actor == github.repository_owner
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create deployment directory on droplet
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/icare/docker
+
+      - name: Copy deployment files to droplet
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DROPLET_HOST }}
+          username: ${{ secrets.DROPLET_USER }}
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          source: "docker/docker-compose.prod.yml,docker/Caddyfile"
+          target: /var/www/icare
+          strip_components: 0
+
       - name: Deploy to DigitalOcean
         uses: appleboy/ssh-action@v1.0.3
         env:

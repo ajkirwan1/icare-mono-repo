@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IcareSection } from "react-library";
+// import { IcareSection } from "react-library";
 
 export function meta() {
     return [
@@ -32,7 +32,8 @@ export default function SecuritySettings() {
 
     return (
         <>
-            <IcareSection>
+            {/* <IcareSection> */}
+            <div>
                 <div style={styles.wrapper}>
                     {/* === HEADER === */}
                     <h1 style={styles.title}>Security Settings</h1>
@@ -185,7 +186,8 @@ export default function SecuritySettings() {
                         <p style={styles.metaText}>Last security review: 9 Nov 2025</p>
                     </section>
                 </div>
-            </IcareSection>
+            </div>
+            {/* </IcareSection> */}
 
             {/* === MODAL CONFIRM DELETE === */}
             {showDeleteModal && (

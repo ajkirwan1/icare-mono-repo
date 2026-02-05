@@ -1,4 +1,4 @@
-import { IcareCard } from "react-library";
+// import { IcareCard } from "react-library";
 import FullCalendar from "@fullcalendar/react";
 import listPlugin from "@fullcalendar/list";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -123,8 +123,9 @@ const events = [
 
 export default function MyDiaryCard() {
   return (
-    <IcareCard variant="elevated">
-      <span slot="contents">
+    // <IcareCard variant="elevated">
+    //   <span slot="contents">
+    <div style={{ background: "#fff", borderRadius: 12, padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>
         <NavLink to="/carerecipient/diary" style={{ color: "inherit" }}>
           <h2>My Diary</h2>
         </NavLink>
@@ -142,7 +143,8 @@ export default function MyDiaryCard() {
             marginTop: "16px"
           }} to="/carerecipient/diary">View Diary</NavLink>
         </div>
-      </span>
-    </IcareCard>
+    </div>
+    //   </span>
+    // </IcareCard>
   );
 }
