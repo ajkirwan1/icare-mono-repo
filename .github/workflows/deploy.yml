@@ -19,74 +19,48 @@ jobs:
 
       - name: Setup SSH key
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.DROPLET_SSH_KEY_B64 }}" | base64 -d > $HOME/.ssh/deploy_key
-          chmod 600 $HOME/.ssh/deploy_key
-          echo "SSH_KEY_PATH=$HOME/.ssh/deploy_key" >> $GITHUB_ENV
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
 
       - name: Create deployment directory on droplet
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.DROPLET_HOST }}
-          username: ${{ secrets.DROPLET_USER }}
-          key_path: ${{ env.SSH_KEY_PATH }}
-          port: 22
-          script: |
-            mkdir -p /var/www/icare/docker
+        run: ssh -i ~/.ssh/deploy_key ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} "mkdir -p /var/www/icare/docker"
 
       - name: Copy deployment files to droplet
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.DROPLET_HOST }}
-          username: ${{ secrets.DROPLET_USER }}
-          key_path: ${{ env.SSH_KEY_PATH }}
-          port: 22
-          source: "docker/docker-compose.prod.yml,docker/Caddyfile"
-          target: /var/www/icare
-          strip_components: 0
+        run: scp -i ~/.ssh/deploy_key docker/docker-compose.prod.yml docker/Caddyfile ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:/var/www/icare/docker/
 
       - name: Deploy to DigitalOcean
-        uses: appleboy/ssh-action@v1.2.0
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-          DO_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-          DO_REGISTRY_NAME: ${{ secrets.DO_REGISTRY_NAME }}
-          TAG: ${{ inputs.tag }}
-        with:
-          host: ${{ secrets.DROPLET_HOST }}
-          username: ${{ secrets.DROPLET_USER }}
-          key_path: ${{ env.SSH_KEY_PATH }}
-          port: 22
-          envs: DOCKERHUB_USERNAME,DOCKERHUB_TOKEN,DO_ACCESS_TOKEN,DO_REGISTRY_NAME,TAG
-          script: |
-            set -e
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} << 'ENDSSH'
+          set -e
 
-            # Login to Docker Hub (for web image)
-            echo "${DOCKERHUB_TOKEN}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
+          # Login to Docker Hub (for web image)
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-            # Login to DigitalOcean Container Registry (for API image)
-            echo "${DO_ACCESS_TOKEN}" | docker login registry.digitalocean.com -u "${DO_ACCESS_TOKEN}" --password-stdin
+          # Login to DigitalOcean Container Registry (for API image)
+          echo "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" | docker login registry.digitalocean.com -u "${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}" --password-stdin
 
-            # Pull images with specified tag
-            docker pull registry.digitalocean.com/${DO_REGISTRY_NAME}/icare-api:${TAG}
-            docker pull ${DOCKERHUB_USERNAME}/icare-web:${TAG}
+          # Pull images with specified tag
+          docker pull registry.digitalocean.com/${{ secrets.DO_REGISTRY_NAME }}/icare-api:${{ inputs.tag }}
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/icare-web:${{ inputs.tag }}
 
-            # Update and restart containers
-            cd /var/www/icare/docker
-            export IMAGE_TAG=${TAG}
-            export DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}
-            export DO_REGISTRY_NAME=${DO_REGISTRY_NAME}
-            docker compose --env-file .env.production -f docker-compose.prod.yml up -d
+          # Update and restart containers
+          cd /var/www/icare/docker
+          export IMAGE_TAG=${{ inputs.tag }}
+          export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          export DO_REGISTRY_NAME=${{ secrets.DO_REGISTRY_NAME }}
+          docker compose --env-file .env.production -f docker-compose.prod.yml up -d
 
-            # Clean up old images
-            docker image prune -f
+          # Clean up old images
+          docker image prune -f
 
-            echo "Deployed version: ${TAG}"
+          echo "Deployed version: ${{ inputs.tag }}"
+          ENDSSH
 
       - name: Cleanup SSH key
         if: always()
-        run: rm -f $HOME/.ssh/deploy_key
+        run: rm -f ~/.ssh/deploy_key
 
       - name: Summary
         run: |
