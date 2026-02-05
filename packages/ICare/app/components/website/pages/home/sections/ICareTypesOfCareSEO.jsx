@@ -4,38 +4,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHandHoldingHeart,
     faClock,
-    faBed,
     faMoon,
-    faPills,
     faBrain,
     faCircleInfo,
     faChevronDown,
+    faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 
 /**
- * ICare — Types of care (SEO, short, calm)
- * ✅ Types grid
- * ✅ Soft disclaimer
+ * ICare — Types of support (Companionship-first, SEO, calm)
+ * ✅ Types grid (companionship-only wording)
+ * ✅ Soft disclaimer (callout + key cards + accordion)
  * ✅ Care-at-home section
- * ✅ Live-in carer duties bullets
+ * ✅ Live-in / specialist sections REMOVED for companionship-only MVP
  * ✅ Fade-in on scroll (IntersectionObserver)
  *
  * Legal/Platform safeguards:
- * ✅ Accordion disclaimer (default: short intro + info icon)
  * ✅ Matching platform statement
- * ✅ ToS-style summary: agreement between users, not employer/agency/provider
- * ✅ Verification docs retention principles (minimise, admin-only, delete)
+ * ✅ Direct agreement between users, not employer/agency/provider
+ * ✅ Verification docs retention principles
  * ✅ No medical data by default + functional needs language
- * ✅ Brand language guardrails (support / routines / agreed tasks) — rewritten for customers
+ * ✅ Support language = everyday support / companionship / agreed tasks
  */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
     const ICON = "#dd8b4f";
+    const BRAND = "#778d43";
+    const MUTED = "rgba(15,23,42,0.72)";
 
     const careAtHomeRef = useRef(null);
-    const liveInRef = useRef(null);
 
-    // ✅ NEW: accordion state (default open: intro visible, details collapsed)
+    // Accordion state
     const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
 
     useEffect(() => {
@@ -49,7 +48,6 @@ export default function ICareTypesOfCareSEO() {
         );
 
         if (careAtHomeRef.current) observer.observe(careAtHomeRef.current);
-        if (liveInRef.current) observer.observe(liveInRef.current);
 
         return () => observer.disconnect();
     }, []);
@@ -158,14 +156,6 @@ export default function ICareTypesOfCareSEO() {
         overflow: "visible",
     };
 
-    const disclaimer = {
-        marginTop: "clamp(18px, 2.4vw, 26px)",
-        maxWidth: "78ch",
-        fontWeight: 400,
-        lineHeight: 1.65,
-        fontSize: "1.1rem",
-    };
-
     const section = {
         marginTop: "clamp(26px, 3.6vw, 44px)",
         paddingTop: "40px",
@@ -216,58 +206,107 @@ export default function ICareTypesOfCareSEO() {
         transform: "scale(1.2)",
     };
 
-    // Bullets (Elder-like)
-    const bulletsGrid = {
-        margin: "30px 0px",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: "25px 40px",
-        padding: "1rem",
-        border: "1px solid rgba(221,139,79,0.6)",
-        borderRadius: "24px"
-    };
-
-    const bulletCard = { padding: "0px 0.6rem 0px .6rem", margin: "0.6rem 0" };
-
-    const bulletTitle = {
-        margin: 0,
-        fontWeight: 600,
-        letterSpacing: "-0.15px",
-        fontSize: "1.1rem",
-        lineHeight: 1.35,
-        color: TEXT
-    };
-
-    const bulletDesc = {
-        margin: "6px 0 0",
-        fontWeight: 400,
-        lineHeight: 1.6,
-        fontSize: "1rem",
-    };
-
-    const subhead = {
-        margin: "18px 0 0",
-        fontWeight: 900,
-        letterSpacing: "-0.15px",
-        fontSize: "1.08rem",
-        color: TEXT,
-    };
-
-    const note = {
-        margin: "10px 0 0",
-        fontWeight: 500,
-        lineHeight: 1.65,
-        fontSize: "1.02rem",
-    };
-
-    // ✅ NEW: Accordion styles
+    // ✅ Disclaimer redesign (calm + scannable)
     const infoBox = {
         marginTop: "18px",
         border: "1px solid rgba(15,23,42,0.10)",
+        borderRadius: "24px",
+        background: "rgba(255, 255, 255, 0.78)",
+        padding: "18px",
+        maxWidth: "110ch",
+        boxShadow: "0 1px 0 rgba(15,23,42,0.02)",
+    };
+
+    const callout = {
+        display: "flex",
+        alignItems: "flex-start",
+        justifyContent: "space-between",
+        gap: 14,
+        padding: "14px 14px",
         borderRadius: "18px",
-        background: "rgba(255, 255, 255, 0.71)",
-        padding: "14px 16px",
-        maxWidth: "95ch",
+        background: "rgba(119, 141, 67, 0.10)",
+        border: "1px solid rgba(119, 141, 67, 0.22)",
+    };
+
+    const calloutLeft = {
+        display: "flex",
+        alignItems: "flex-start",
+        gap: 12,
+        minWidth: 0,
+    };
+
+    const calloutIcon = {
+        width: 28,
+        height: 28,
+        borderRadius: 10,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: TEXT,
+        background: "rgba(255,255,255,0.9)",
+        border: "1px solid rgba(15,23,42,0.10)",
+        flex: "0 0 auto",
+        marginTop: 2,
+    };
+
+    const calloutTitle = {
+        margin: 0,
+        fontWeight: 800,
+        letterSpacing: "-0.2px",
+        fontSize: "1.05rem",
+        lineHeight: 1.35,
+        color: TEXT,
+    };
+
+    const calloutText = {
+        margin: "6px 0 0",
+        color: MUTED,
+        fontWeight: 400,
+        lineHeight: 1.6,
+        fontSize: "1.02rem",
+    };
+
+    const keyGrid = {
+        marginTop: 14,
+        display: "grid",
+        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+        gap: 12,
+    };
+
+    const keyCard = {
+        borderRadius: 18,
+        border: "1px solid rgba(15,23,42,0.10)",
+        background: "rgba(255,249,239,0.55)",
+        padding: "12px 12px",
+    };
+
+    const keyLabelRow = {
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+    };
+
+    const keyDot = {
+        width: 8,
+        height: 8,
+        borderRadius: 99,
+        background: BRAND,
+        flex: "0 0 auto",
+    };
+
+    const keyTitle = {
+        margin: 0,
+        fontWeight: 800,
+        letterSpacing: "-0.1px",
+        fontSize: "0.95rem",
+        color: TEXT,
+    };
+
+    const keyBody = {
+        margin: "6px 0 0",
+        fontSize: "0.98rem",
+        lineHeight: 1.6,
+        color: MUTED,
     };
 
     const infoBtn = {
@@ -278,7 +317,7 @@ export default function ICareTypesOfCareSEO() {
         gap: 14,
         border: "none",
         background: "transparent",
-        padding: "6px 4px",
+        padding: "14px 6px 6px",
         cursor: "pointer",
         textAlign: "left",
         color: TEXT,
@@ -287,7 +326,7 @@ export default function ICareTypesOfCareSEO() {
     const infoLeft = {
         display: "flex",
         alignItems: "flex-start",
-        gap: 12,
+        gap: 10,
         minWidth: 0,
     };
 
@@ -297,29 +336,30 @@ export default function ICareTypesOfCareSEO() {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "rgb(0, 0, 0)",
+        color: TEXT,
         flex: "0 0 auto",
         marginTop: 1,
     };
 
     const infoTitle = {
         margin: 0,
-        fontWeight: 700,
+        fontWeight: 800,
         letterSpacing: "-0.15px",
-        fontSize: "1.05rem",
-        lineHeight: 1.4,
+        fontSize: "1.0rem",
+        lineHeight: 1.35,
+        color: TEXT,
     };
 
     const infoIntro = {
         margin: "6px 0 0",
-        color: "rgb(0, 0, 0)",
+        color: MUTED,
         fontWeight: 400,
         lineHeight: 1.55,
-        fontSize: "1.02rem",
+        fontSize: "0.98rem",
     };
 
     const infoChevron = {
-        color: "rgb(0, 0, 0)",
+        color: TEXT,
         flex: "0 0 auto",
         marginLeft: 10,
     };
@@ -331,9 +371,9 @@ export default function ICareTypesOfCareSEO() {
     };
 
     const infoSectionTitle = {
-        margin: "12px 0 0",
-        fontWeight: 700,
-        fontSize: "1.0rem",
+        margin: "14px 0 0",
+        fontWeight: 800,
+        fontSize: "0.98rem",
         letterSpacing: "-0.1px",
         color: TEXT,
     };
@@ -341,138 +381,61 @@ export default function ICareTypesOfCareSEO() {
     const infoList = {
         margin: "10px 0 0",
         paddingLeft: "18px",
-        color: "rgb(0, 0, 0)",
-        lineHeight: 1.6,
-        fontSize: "1.02rem",
+        color: MUTED,
+        lineHeight: 1.65,
+        fontSize: "0.98rem",
     };
 
     const infoItem = { margin: "6px 0" };
 
+    // ✅ Companionship-first types (legal-safe wording)
     const types = [
         {
             icon: faHandHoldingHeart,
-            t: "Elderly care & companionship",
-            d: "Day-to-day support at home with routines and human presence.",
+            t: "Companionship & everyday support",
+            d: "Friendly company at home, conversation, walks and everyday routines.",
         },
         {
             icon: faClock,
-            t: "Hourly home care",
-            d: "Flexible visits — from short check-ins to regular daily support.",
-        },
-        {
-            icon: faBed,
-            t: "Live-in care",
-            d: "Consistent help at home for families who need ongoing support.",
+            t: "Hourly companionship visits",
+            d: "Flexible check-ins — from short visits to regular daily companionship.",
         },
         {
             icon: faMoon,
-            t: "Night care & overnight support",
-            d: "Overnight peace of mind, safety and reassurance through the night.",
+            t: "Overnight companionship (as agreed)",
+            d: "Reassurance and presence through the night. Non-clinical support only.",
         },
         {
-            icon: faPills,
-            t: "Medication prompts & routine support",
-            d: "Gentle reminders and support with agreed routines. No prescribing or clinical decision-making.",
-        },
-        {
-            icon: faBed,
-            t: "Respite (short-term) care",
-            d: "Temporary support to give family carers time to rest or step away, or when a regular carer needs cover.",
+            icon: faClock,
+            t: "Respite companionship (short-term)",
+            d: "Short-term cover so family carers can rest or step away for a little while.",
         },
         {
             icon: faBrain,
-            t: "Memory and routine support",
+            t: "Memory & routine support",
             d: "Consistent, familiar support matched to the person’s routines and preferences.",
         },
-    ];
-
-    const liveInEveryday = [
         {
-            t: "Personal support",
-            d: "Help with daily routines such as washing, toileting and dressing, with dignity and respect.",
-        },
-        {
-            t: "Meals and nutrition",
-            d: "Preparing meals that match dietary needs, preferences and familiar habits.",
-        },
-        {
-            t: "Home upkeep",
-            d: "Light housekeeping to keep the home comfortable, safe and organised.",
-        },
-        {
-            t: "Companionship and wellbeing",
-            d: "Providing company, conversation and encouragement with hobbies, walks or gentle activities.",
-        },
-        {
-            t: "Mobility and daily movement",
-            d: "Supporting safe movement around the home and encouraging suitable activity.",
-        },
-        {
-            t: "Errands and practical help",
-            d: "Assisting with shopping, collecting prescriptions and everyday tasks.",
-        },
-        {
-            t: "Pets and household routines",
-            d: "Helping with feeding, walking pets and maintaining familiar routines.",
-        },
-        {
-            t: "Paperwork and organisation",
-            d: "Support with post, reminders and appointments where helpful.",
-        },
-        {
-            t: "Medication prompting",
-            d: "Gentle reminders to take medication as prescribed (no prescribing, medical assessment or clinical decision-making).",
-        },
-        {
-            t: "Home safety checks",
-            d: "Helping reduce everyday risks by keeping walkways clear and routines consistent.",
-        },
-        {
-            t: "Family updates (as agreed)",
-            d: "Sharing simple updates where helpful and agreed, so everyone stays aligned.",
-        },
-    ];
-
-    const liveInSpecialist = [
-        {
-            t: "Oxygen or ventilation support",
-            d: "e.g. CPAP or BiPAP — only where the carer is experienced and tasks are clearly agreed in advance.",
-        },
-        {
-            t: "Support with agreed medication routines",
-            d: "Support is limited to agreed routines and does not include prescribing, medical assessment or clinical decision-making.",
-        },
-        {
-            t: "PEG support",
-            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
-        },
-        {
-            t: "Stoma support",
-            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
-        },
-        {
-            t: "Wound support",
-            d: "Only where suitable, clearly agreed and within the carer’s competence. Clinical procedures should be handled by appropriately qualified professionals.",
+            icon: faClock,
+            t: "Routine reminders (non-clinical)",
+            d: "Gentle prompts for agreed routines. No prescribing, administering or clinical decisions.",
         },
     ];
 
     return (
-        <section aria-label="Types of care we support" style={wrap}>
+        <section aria-label="Types of support we help you arrange" style={wrap}>
             <div style={container}>
                 <div style={header}>
-                    <h1 style={h1}>Types of care we support</h1>
-                    <h2 style={h2}>Care that fits real life at home</h2>
+                    <h1 style={h1}>Companionship and everyday support</h1>
+                    <h2 style={h2}>A calm, practical way to find the right match</h2>
                     <p style={lead}>
-                        Families use ICare to find reliable carers for{" "}
-                        <strong style={{ fontWeight: 600 }}>home care</strong>, including{" "}
-                        <strong style={{ fontWeight: 600 }}>hourly</strong> and{" "}
-                        <strong style={{ fontWeight: 600 }}>live in care</strong> with{" "}
-                        <strong style={{ fontWeight: 600 }}>flexible support</strong> shaped
-                        around real people, routines and needs.
+                        ICare helps families connect with independent companions for{" "}
+                        <strong style={{ fontWeight: 600 }}>everyday support</strong> — friendly
+                        presence, routines and practical help agreed directly between you.
                     </p>
                 </div>
 
-                {/* TYPES GRID */}
+                {/* TYPES GRID (layout stays the same) */}
                 <div className="icare-types-grid" style={list}>
                     {types.map((x) => (
                         <div key={x.t} className="icare-types-item" style={item}>
@@ -487,10 +450,60 @@ export default function ICareTypesOfCareSEO() {
                     ))}
                 </div>
 
-
-
-                {/* ✅ NEW: Collapsible Disclaimer / Important information */}
+                {/* Disclaimer (callout + key cards + accordion details) */}
                 <div style={infoBox}>
+                    {/* Top callout */}
+                    <div style={callout}>
+                        <div style={calloutLeft}>
+                            <span style={calloutIcon} aria-hidden="true">
+                                <FontAwesomeIcon icon={faShieldHalved} />
+                            </span>
+                            <div style={{ minWidth: 0 }}>
+                                <p style={calloutTitle}>Important information</p>
+                                <p style={calloutText}>
+                                    ICare is a matching platform. We do not provide regulated care services,
+                                    and any support is agreed directly between users.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Key terms cards */}
+                    <div style={keyGrid} aria-label="Key terms summary">
+                        <div style={keyCard}>
+                            <div style={keyLabelRow}>
+                                <span style={keyDot} aria-hidden="true" />
+                                <p style={keyTitle}>Direct agreement</p>
+                            </div>
+                            <p style={keyBody}>
+                                Families/care receivers and companions agree details directly between
+                                themselves.
+                            </p>
+                        </div>
+
+                        <div style={keyCard}>
+                            <div style={keyLabelRow}>
+                                <span style={keyDot} aria-hidden="true" />
+                                <p style={keyTitle}>Not an employer</p>
+                            </div>
+                            <p style={keyBody}>
+                                ICare is not the employer of companions and does not supervise their work.
+                            </p>
+                        </div>
+
+                        <div style={keyCard}>
+                            <div style={keyLabelRow}>
+                                <span style={keyDot} aria-hidden="true" />
+                                <p style={keyTitle}>Non-clinical focus</p>
+                            </div>
+                            <p style={keyBody}>
+                                We focus on companionship and everyday support — not clinical or nursing
+                                care.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Details accordion */}
                     <button
                         type="button"
                         style={infoBtn}
@@ -503,10 +516,10 @@ export default function ICareTypesOfCareSEO() {
                                 <FontAwesomeIcon icon={faCircleInfo} />
                             </span>
                             <span style={{ minWidth: 0 }}>
-                                <p style={infoTitle}>Disclaimer</p>
+                                <p style={infoTitle}>Disclaimer details</p>
                                 <p style={infoIntro}>
-                                    ICare is a matching platform and does not provide regulated care services.
-                                    {isDisclaimerOpen ? "" : "  Read more."}
+                                    Verification, privacy and how we describe support.
+                                    {isDisclaimerOpen ? "" : " Read more."}
                                 </p>
                             </span>
                         </span>
@@ -524,28 +537,18 @@ export default function ICareTypesOfCareSEO() {
 
                     {isDisclaimerOpen ? (
                         <div id="icare-disclaimer-panel" style={infoPanel}>
-                            <p style={infoSectionTitle}>Key terms (summary)</p>
-                            <ul style={infoList}>
-                                <li style={infoItem}>
-                                    Any agreement for support is made <strong>directly between users</strong>{" "}
-                                    (family/care receiver and caregiver).
-                                </li>
-                                <li style={infoItem}>
-                                    ICare is <strong>not</strong> the employer of caregivers and is{" "}
-                                    <strong>not</strong> a care agency or “agency provider”.
-                                </li>
-                            </ul>
-
                             <p style={infoSectionTitle}>Verification documents (ID/DBS)</p>
                             <ul style={infoList}>
                                 <li style={infoItem}>
                                     We collect and store only the minimum needed to complete verification.
                                 </li>
                                 <li style={infoItem}>
-                                    Access to verification documents is restricted to authorised administrators only.
+                                    Verification documents are <strong>not displayed publicly</strong> and
+                                    access is restricted to authorised administrators only.
                                 </li>
                                 <li style={infoItem}>
-                                    Where possible, documents are removed after verification is completed in line with our retention policy.
+                                    Where possible, documents are removed after verification is completed in
+                                    line with our retention policy.
                                 </li>
                             </ul>
 
@@ -555,19 +558,21 @@ export default function ICareTypesOfCareSEO() {
                                     ICare does not request medical diagnoses in forms by default.
                                 </li>
                                 <li style={infoItem}>
-                                    Families should describe support needs in <strong>functional language</strong>{" "}
+                                    Families should describe needs in <strong>functional language</strong>{" "}
                                     (e.g. “needs help with meals and routines”), not clinical details.
                                 </li>
                             </ul>
 
-                            {/* ✅ REWRITTEN: last two lines — customer-friendly and still protective */}
                             <p style={infoSectionTitle}>How we describe support</p>
                             <ul style={infoList}>
                                 <li style={infoItem}>
-                                    We focus on everyday support — routines, practical help and agreed tasks.
+                                    We focus on everyday support — routines, practical help and agreed
+                                    tasks.
                                 </li>
                                 <li style={infoItem}>
-                                    If you need clinical or nursing care (for example, treatment or medical procedures), please speak to an appropriately qualified healthcare professional.
+                                    If you need clinical or nursing care (for example, treatment or medical
+                                    procedures), please speak to an appropriately qualified healthcare
+                                    professional.
                                 </li>
                             </ul>
                         </div>
@@ -587,69 +592,32 @@ export default function ICareTypesOfCareSEO() {
                         </div>
 
                         <div>
-                            <h3 style={sectionTitle}>Why choose care at home?</h3>
+                            <h3 style={sectionTitle}>Why choose support at home?</h3>
 
                             <p style={sectionText}>
-                                Care at home allows older people to stay in familiar surroundings,
-                                with routines, comfort and independence preserved. Instead of
-                                adjusting to new environments, care fits around everyday life -
-                                at home, on their terms.
+                                Staying at home can help people keep familiar routines, comfort and
+                                independence. Instead of adjusting to a new environment, support fits
+                                around everyday life — at home, on their terms.
                             </p>
 
                             <p style={sectionText}>
-                                For many families, home care offers greater peace of mind than
-                                residential care. Being in a known place can reduce stress and
-                                confusion, especially when routines, memories and personal space
-                                matter.
+                                For many families, having a trusted companion brings peace of mind.
+                                Familiar surroundings can reduce stress and confusion, especially when
+                                routines and personal space matter.
                             </p>
 
                             <p style={sectionText}>
-                                Care at home is flexible by nature. Support can be adjusted over
-                                time from occasional visits to live-in care or short-term respite
-                                -without forcing difficult moves or long-term commitments.
+                                Support at home is flexible by nature. You can start small with occasional
+                                visits and adjust over time — without forcing difficult moves or long-term
+                                commitments.
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                {/* LIVE-IN CARER DUTIES (fade-in) */}
-                <div id="live-in-carer" ref={liveInRef} className="icare-fade" style={section}>
-                    <h3 style={sectionTitle}>What does a live-in carer do?</h3>
-                    <p style={sectionText}>
-                        A live-in carer supports everyday life at home with consistent,
-                        agreed help tailored to the person and their routines. The exact
-                        support depends on needs, preferences and what’s agreed with the
-                        family.
-                    </p>
-
-                    <div className="icare-bullets-grid" style={bulletsGrid}>
-                        {liveInEveryday.map((b) => (
-                            <div key={b.t} style={bulletCard} className="bullet-card">
-                                <p style={bulletTitle}>{b.t}</p>
-                                {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
-                            </div>
-                        ))}
-                    </div>
-
-                    <p style={subhead}>Specialist support (where agreed and appropriate)</p>
-                    <p style={note}>
-                        Some specialist tasks may only be suitable where the carer is trained/experienced
-                        and the arrangement is clearly agreed. Availability can vary by location and needs.
-                    </p>
-
-                    <div className="icare-bullets-grid" style={bulletsGrid}>
-                        {liveInSpecialist.map((b) => (
-                            <div key={b.t} style={bulletCard} className="bullet-card">
-                                <p style={bulletTitle}>{b.t}</p>
-                                {b.d ? <p style={bulletDesc}>{b.d}</p> : null}
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
 
             <style>{`
-        /* responsive columns */
+        /* responsive columns (layout unchanged) */
         @media (max-width: 1020px){
           .icare-types-grid{ grid-template-columns: repeat(2, 1fr) !important; }
         }
@@ -659,8 +627,8 @@ export default function ICareTypesOfCareSEO() {
         @media (max-width: 640px){
           .icare-types-grid{ grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 860px){
-          .icare-bullets-grid{ grid-template-columns: 1fr !important; }
+        @media (max-width: 900px){
+          .icare-key-grid{ grid-template-columns: 1fr !important; }
         }
 
         /* fade-in on scroll */

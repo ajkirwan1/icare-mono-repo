@@ -207,7 +207,7 @@ export default function HowItWorksThreeSteps() {
                     <p style={ctaText}>
                         Want early access in your area?
                         <br />
-                        Join the waiting list — we’ll notify you when ICare opens near you.
+                        Join the waiting list - we will notify you when ICare opens near you.
                     </p>
 
                     <a href="#waitlist" style={{ textDecoration: "none" }}>
