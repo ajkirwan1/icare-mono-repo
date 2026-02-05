@@ -17,14 +17,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
       - name: Create deployment directory on droplet
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.DROPLET_SSH_KEY }}
+          key_path: ~/.ssh/deploy_key
           port: 22
-          debug: true
           script: |
             mkdir -p /var/www/icare/docker
 
@@ -33,9 +38,8 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.DROPLET_SSH_KEY }}
+          key_path: ~/.ssh/deploy_key
           port: 22
-          debug: true
           source: "docker/docker-compose.prod.yml,docker/Caddyfile"
           target: /var/www/icare
           strip_components: 0
@@ -51,9 +55,8 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.DROPLET_SSH_KEY }}
+          key_path: ~/.ssh/deploy_key
           port: 22
-          debug: true
           envs: DOCKERHUB_USERNAME,DOCKERHUB_TOKEN,DO_ACCESS_TOKEN,DO_REGISTRY_NAME,TAG
           script: |
             set -e
@@ -79,6 +82,10 @@ jobs:
             docker image prune -f
 
             echo "Deployed version: ${TAG}"
+
+      - name: Cleanup SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
 
       - name: Summary
         run: |
