@@ -19,16 +19,17 @@ jobs:
 
       - name: Setup SSH key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DROPLET_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY_B64 }}" | base64 -d > $HOME/.ssh/deploy_key
+          chmod 600 $HOME/.ssh/deploy_key
+          echo "SSH_KEY_PATH=$HOME/.ssh/deploy_key" >> $GITHUB_ENV
 
       - name: Create deployment directory on droplet
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key_path: ~/.ssh/deploy_key
+          key_path: ${{ env.SSH_KEY_PATH }}
           port: 22
           script: |
             mkdir -p /var/www/icare/docker
@@ -38,7 +39,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key_path: ~/.ssh/deploy_key
+          key_path: ${{ env.SSH_KEY_PATH }}
           port: 22
           source: "docker/docker-compose.prod.yml,docker/Caddyfile"
           target: /var/www/icare
@@ -55,7 +56,7 @@ jobs:
         with:
           host: ${{ secrets.DROPLET_HOST }}
           username: ${{ secrets.DROPLET_USER }}
-          key_path: ~/.ssh/deploy_key
+          key_path: ${{ env.SSH_KEY_PATH }}
           port: 22
           envs: DOCKERHUB_USERNAME,DOCKERHUB_TOKEN,DO_ACCESS_TOKEN,DO_REGISTRY_NAME,TAG
           script: |
@@ -85,7 +86,7 @@ jobs:
 
       - name: Cleanup SSH key
         if: always()
-        run: rm -f ~/.ssh/deploy_key
+        run: rm -f $HOME/.ssh/deploy_key
 
       - name: Summary
         run: |
