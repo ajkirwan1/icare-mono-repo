@@ -149,13 +149,12 @@ export default function ICareFooter() {
 
                     {/* LINKS (bez legal tutaj) */}
                     <div className={styles.col}>
-                        <div className={styles.heading}>Links</div>
 
                         <nav aria-label="Footer links" className={styles.links}>
                             <NavLink to="/" className={styles.navLink}>Home</NavLink>
                             <NavLink to="/how-it-works" className={styles.navLink}>How it works</NavLink>
                             <NavLink to="/who-we-are" className={styles.navLink}>Who we are</NavLink>
-                            <NavLink to="/care-knowledge" className={styles.navLink}>Care knowledge</NavLink>
+                            <NavLink to="/care-knowledge" className={styles.navLink}>Care guidance</NavLink>
                             <NavLink to="/trust-and-safety" className={styles.navLink}>Trust & safety</NavLink>
                             <NavLink to="/contact-us" className={styles.navLink}>Contact us</NavLink>
                         </nav>

@@ -36,7 +36,7 @@ export default function HowICareWorksForCaregiversSystem() {
             style={{
                 width: "100%",
                 padding: "clamp(4rem, 7vw, 5.4rem) 0",
-                background: `linear-gradient(180deg, ${COLORS.bgTop} 0%, ${COLORS.bgBottom} 100%)`,
+                background: `rgb(242, 242, 242)`,
                 fontFamily:
                     "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
                 color: COLORS.text,

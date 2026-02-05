@@ -25,6 +25,8 @@
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+
 }
 
 .slide img,
@@ -37,10 +39,18 @@
     display: block;
 }
 
+.slide video {
+    border-radius: 20px;
+    border: 16px solid rgba(100, 100, 100, 0.2);
+}
+
 .videoWrap {
     position: relative;
     width: 100%;
     height: 100%;
+    border-radius: 20px;
+    padding: 16px;
+    background: rgba(100, 100, 100, 0.2);
 }
 
 .playOverlay {
@@ -97,6 +107,7 @@
     transform: translateY(-50%);
     width: 72px; // ⬅️ większy click area
     height: 72px;
+    margin-top: -24px;
     border: 0;
     background: transparent;
     padding: 0;

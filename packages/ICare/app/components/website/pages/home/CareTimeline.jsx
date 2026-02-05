@@ -69,7 +69,7 @@ export default function HowItWorksThreeSteps() {
         fontSize: "2.4rem",
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
-        fontWeight: 500,
+        fontWeight: 600,
     };
 
     const sub = {

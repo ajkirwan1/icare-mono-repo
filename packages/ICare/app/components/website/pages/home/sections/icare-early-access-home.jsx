@@ -79,10 +79,10 @@ export default function ICareEarlyAccessHomeSection() {
 
     const h1 = {
         margin: "0 0 1.5rem",
-        fontWeight: 500,
+        fontWeight: 600,
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
-        fontSize: "2.2rem",
+        fontSize: "2.4rem",
         textAlign: "center",
         // color: "#fff"
     };
