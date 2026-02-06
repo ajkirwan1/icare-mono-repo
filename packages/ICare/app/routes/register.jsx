@@ -47,7 +47,7 @@ export default function Register() {
     /* ===== STYLES ===== */
     const commonWrap = {
         fontFamily:
-            "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: BRAND.dark,
     };
 
@@ -495,7 +495,7 @@ export default function Register() {
                     padding: "clamp(4.5rem, 8vw, 6rem) 0",
                     background: "#F8FAF9",
                     borderBottom: "1px solid rgba(15,23,42,0.06)",
-                    fontFamily: "Inter, system-ui",
+                    fontFamily: "Poppins, system-ui",
                     textAlign: "center",
                 }}
             >
@@ -693,7 +693,7 @@ export default function Register() {
                 style={{
                     padding: "3.6rem 0 4rem",
                     background: "#FFFFFF",
-                    fontFamily: "Inter, system-ui",
+                    fontFamily: "Poppins, system-ui",
                 }}
             >
                 <form

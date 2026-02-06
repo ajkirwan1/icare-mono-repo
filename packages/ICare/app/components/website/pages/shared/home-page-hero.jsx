@@ -34,7 +34,7 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Connect with independent carers directly
+                                Connect with independent<br />carers directly
 
                             </h1>
 
@@ -47,9 +47,20 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* CTA */}
                             <div className={styles.form}>
-                                <a href="#waitlist" style={{ textDecoration: "none" }}>
-                                    <SubmitButton>Join our waiting list</SubmitButton>
-                                </a>
+                                <SubmitButton
+                                    type="button"
+                                    onClick={() => {
+                                        const el = document.getElementById("waitlist");
+                                        if (!el) return;
+
+                                        const y =
+                                            el.getBoundingClientRect().top + window.pageYOffset - 60;
+
+                                        window.scrollTo({ top: y, behavior: "smooth" });
+                                    }}
+                                >
+                                    Join our waiting list
+                                </SubmitButton>
                             </div>
 
                         </div>

@@ -11,30 +11,13 @@ import {
     faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 
-/**
- * ICare — Types of support (Companionship-first, SEO, calm)
- * ✅ Types grid (companionship-only wording)
- * ✅ Soft disclaimer (callout + key cards + accordion)
- * ✅ Care-at-home section
- * ✅ Live-in / specialist sections REMOVED for companionship-only MVP
- * ✅ Fade-in on scroll (IntersectionObserver)
- *
- * Legal/Platform safeguards:
- * ✅ Matching platform statement
- * ✅ Direct agreement between users, not employer/agency/provider
- * ✅ Verification docs retention principles
- * ✅ No medical data by default + functional needs language
- * ✅ Support language = everyday support / companionship / agreed tasks
- */
 export default function ICareTypesOfCareSEO() {
     const TEXT = "#0F172A";
-    const ICON = "#dd8b4f";
-    const BRAND = "#778d43";
-    const MUTED = "rgba(15,23,42,0.72)";
+    const MUTED = "rgba(15,23,42,0.68)";
+    const LINE = "rgba(15,23,42,0.08)";
+    const ACCENT = "#778d43"; // brand green (only accent)
 
     const careAtHomeRef = useRef(null);
-
-    // Accordion state
     const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
 
     useEffect(() => {
@@ -48,211 +31,132 @@ export default function ICareTypesOfCareSEO() {
         );
 
         if (careAtHomeRef.current) observer.observe(careAtHomeRef.current);
-
         return () => observer.disconnect();
     }, []);
 
+    // page
     const wrap = {
         width: "100%",
-        background: "rgba(255, 249, 239, 0.85)",
+        background: "#ffffff",
         color: TEXT,
-        padding: "clamp(3rem, 5vw, 4rem) 0",
+        padding: "clamp(3rem, 5vw, 4.5rem) 0",
         fontFamily:
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
 
     const container = { width: "min(92vw, 1100px)", margin: "0 auto" };
 
+    // header
     const header = {
         maxWidth: "78ch",
-        display: "grid",
-        gap: 0,
-        margin: "0 0 clamp(26px, 3.8vw, 42px)",
-        padding: 0,
-        textAlign: "left",
+        margin: "0 0 clamp(26px, 3.8vw, 46px)",
     };
 
     const h1 = {
         margin: 0,
-        padding: 0,
-        fontWeight: 600,
+        fontWeight: 620,
         letterSpacing: "-0.6px",
-        lineHeight: 1.14,
-        fontSize: "2.4rem",
+        lineHeight: 1.12,
+        fontSize: "2.45rem",
         color: TEXT,
     };
 
     const h2 = {
-        margin: 0,
-        paddingTop: "14px",
-        fontWeight: 500,
+        margin: "12px 0 0",
+        fontWeight: 480,
         letterSpacing: "-0.2px",
-        lineHeight: 1.25,
-        fontSize: "1.4rem",
-        color: TEXT,
+        lineHeight: 1.3,
+        fontSize: "1.35rem",
+        color: "rgba(15,23,42,0.92)",
     };
 
     const lead = {
-        margin: "12px 0 0",
-        padding: 0,
-        color: TEXT,
-        fontWeight: 500,
-        lineHeight: 1.65,
-        fontSize: "1.3rem",
+        margin: "14px 0 0",
+        color: "rgba(15,23,42,0.88)",
+        fontWeight: 420,
+        lineHeight: 1.7,
+        fontSize: "1.18rem",
         maxWidth: "78ch",
     };
 
+    // types grid
     const list = {
-        marginTop: "clamp(22px, 3.2vw, 34px)",
+        marginTop: "clamp(18px, 3vw, 28px)",
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: "clamp(18px, 2.2vw, 26px)",
-        alignItems: "stretch",
+        alignItems: "start",
     };
 
     const item = {
         display: "flex",
-        gap: 14,
+        gap: 12,
         alignItems: "flex-start",
-        padding: "18px 0",
-        height: "100%",
-        alignSelf: "stretch",
+        padding: "10px 0",
     };
 
     const iconWrap = {
-        width: 30,
-        height: 38,
-        display: "inline-flex",
-        alignItems: "start",
-        justifyContent: "center",
-        color: ICON,
-        flex: "0 0 auto",
-        marginTop: 2,
-    };
-
-    const icon = { fontSize: "24px", lineHeight: 1 };
-
-    const content = { display: "flex", flexDirection: "column", gap: 6, minWidth: 0 };
-
-    const title = {
-        margin: 0,
-        padding: 0,
-        fontWeight: 700,
-        letterSpacing: "-0.15px",
-        color: TEXT,
-        fontSize: "1.2rem",
-        lineHeight: 1.4,
-        whiteSpace: "normal",
-        overflow: "visible",
-    };
-
-    const desc = {
-        margin: 0,
-        color: TEXT,
-        fontWeight: 500,
-        lineHeight: 1.65,
-        fontSize: "1.1rem",
-        whiteSpace: "normal",
-        overflow: "visible",
-    };
-
-    const section = {
-        marginTop: "clamp(26px, 3.6vw, 44px)",
-        paddingTop: "40px",
-        borderTop: "1px solid rgba(15, 23, 42, 0.10)",
-        maxWidth: "110ch",
-        scrollMarginTop: 30,
-    };
-
-    const sectionTitle = {
-        margin: 0,
-        fontWeight: 600,
-        letterSpacing: "-0.2px",
-        fontSize: "1.6rem",
-        lineHeight: 1.35,
-        color: TEXT,
-    };
-
-    const sectionText = {
-        margin: "12px 0 0",
-        color: TEXT,
-        fontWeight: 400,
-        lineHeight: 1.6,
-        fontSize: "1.2rem",
-    };
-
-    const careHomeRow = {
-        display: "grid",
-        gridTemplateColumns: "440px 1fr",
-        gap: "clamp(16px, 2.5vw, 28px)",
-        alignItems: "start",
-    };
-
-    const imgWrap = {
-        width: 440,
-        height: 500,
-        borderRadius: 18,
-        overflow: "hidden",
-        border: "1px solid rgba(15,23,42,0.12)",
-        background: "#ffffffd7",
-    };
-
-    const img = {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block",
-        objectPosition: "65% 50%",
-        transform: "scale(1.2)",
-    };
-
-    // ✅ Disclaimer redesign (calm + scannable)
-    const infoBox = {
-        marginTop: "18px",
-        border: "1px solid rgba(15,23,42,0.10)",
-        borderRadius: "24px",
-        background: "rgba(255, 255, 255, 0.78)",
-        padding: "18px",
-        maxWidth: "110ch",
-        boxShadow: "0 1px 0 rgba(15,23,42,0.02)",
-    };
-
-    const callout = {
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        gap: 14,
-        padding: "14px 14px",
-        borderRadius: "18px",
-        background: "rgba(119, 141, 67, 0.10)",
-        border: "1px solid rgba(119, 141, 67, 0.22)",
-    };
-
-    const calloutLeft = {
-        display: "flex",
-        alignItems: "flex-start",
-        gap: 12,
-        minWidth: 0,
-    };
-
-    const calloutIcon = {
         width: 28,
         height: 28,
-        borderRadius: 10,
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        color: TEXT,
-        background: "rgba(255,255,255,0.9)",
-        border: "1px solid rgba(15,23,42,0.10)",
+        color: ACCENT,
         flex: "0 0 auto",
         marginTop: 2,
+    };
+
+    const icon = { fontSize: "18px", lineHeight: 1 };
+
+    const title = {
+        margin: 0,
+        fontWeight: 600,
+        letterSpacing: "-0.15px",
+        color: TEXT,
+        fontSize: "1.1rem",
+        lineHeight: 1.4,
+    };
+
+    const desc = {
+        margin: "6px 0 0",
+        color: MUTED,
+        fontWeight: 420,
+        lineHeight: 1.65,
+        fontSize: "1.02rem",
+    };
+
+    // disclaimer (flat)
+    const infoBox = {
+        marginTop: "34px",
+        paddingTop: "26px",
+        maxWidth: "110ch",
+    };
+
+    const callout = {
+        display: "grid",
+        gridTemplateColumns: "auto 1fr",
+        gap: 12,
+        alignItems: "start",
+        padding: "0 0 10px",
+    };
+
+    const calloutIcon = {
+        width: 32,
+        height: 32,
+        borderRadius: 999,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: ACCENT,
+        background: "rgba(119,141,67,0.10)",
+        flex: "0 0 auto",
+        marginTop: 1,
     };
 
     const calloutTitle = {
         margin: 0,
-        fontWeight: 800,
-        letterSpacing: "-0.2px",
+        fontWeight: 650,
+        letterSpacing: "-0.15px",
         fontSize: "1.05rem",
         lineHeight: 1.35,
         color: TEXT,
@@ -261,54 +165,42 @@ export default function ICareTypesOfCareSEO() {
     const calloutText = {
         margin: "6px 0 0",
         color: MUTED,
-        fontWeight: 400,
-        lineHeight: 1.6,
+        fontWeight: 420,
+        lineHeight: 1.65,
         fontSize: "1.02rem",
+        maxWidth: "90ch",
     };
 
+    // key terms -> plain list (no cards)
     const keyGrid = {
-        marginTop: 14,
+        margin: "2rem 0",
         display: "grid",
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-        gap: 12,
+        gap: 16,
+        padding: "0 3rem"
     };
 
-    const keyCard = {
-        borderRadius: 18,
-        border: "1px solid rgba(15,23,42,0.10)",
-        background: "rgba(255,249,239,0.55)",
-        padding: "12px 12px",
-    };
-
-    const keyLabelRow = {
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-    };
-
-    const keyDot = {
-        width: 8,
-        height: 8,
-        borderRadius: 99,
-        background: BRAND,
-        flex: "0 0 auto",
+    const keyItem = {
+        paddingLeft: 14,
+        borderLeft: `3px solid rgba(119, 141, 67,0.7)`,
     };
 
     const keyTitle = {
         margin: 0,
-        fontWeight: 800,
+        fontWeight: 620,
+        fontSize: "1.02rem",
         letterSpacing: "-0.1px",
-        fontSize: "0.95rem",
         color: TEXT,
     };
 
     const keyBody = {
-        margin: "6px 0 0",
-        fontSize: "0.98rem",
-        lineHeight: 1.6,
+        margin: "8px 0 0",
+        fontSize: "1.0rem",
+        lineHeight: 1.65,
         color: MUTED,
     };
 
+    // accordion button
     const infoBtn = {
         width: "100%",
         display: "flex",
@@ -317,16 +209,18 @@ export default function ICareTypesOfCareSEO() {
         gap: 14,
         border: "none",
         background: "transparent",
-        padding: "14px 6px 6px",
+        padding: "18px 0 0",
         cursor: "pointer",
         textAlign: "left",
         color: TEXT,
+        marginTop: "1rem"
     };
 
     const infoLeft = {
-        display: "flex",
-        alignItems: "flex-start",
+        display: "grid",
+        gridTemplateColumns: "auto 1fr",
         gap: 10,
+        alignItems: "start",
         minWidth: 0,
     };
 
@@ -336,43 +230,37 @@ export default function ICareTypesOfCareSEO() {
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        color: TEXT,
-        flex: "0 0 auto",
-        marginTop: 1,
+        color: "rgba(15,23,42,0.72)",
+        marginTop: 2,
     };
 
     const infoTitle = {
         margin: 0,
-        fontWeight: 800,
-        letterSpacing: "-0.15px",
-        fontSize: "1.0rem",
-        lineHeight: 1.35,
+        fontWeight: 620,
+        letterSpacing: "-0.12px",
+        fontSize: "1.02rem",
         color: TEXT,
     };
 
     const infoIntro = {
         margin: "6px 0 0",
         color: MUTED,
-        fontWeight: 400,
-        lineHeight: 1.55,
+        fontWeight: 420,
+        lineHeight: 1.6,
         fontSize: "0.98rem",
     };
 
-    const infoChevron = {
-        color: TEXT,
-        flex: "0 0 auto",
-        marginLeft: 10,
-    };
+    const infoChevron = { color: "rgba(15,23,42,0.7)", flex: "0 0 auto" };
 
     const infoPanel = {
         marginTop: 10,
         paddingTop: 12,
-        borderTop: "1px solid rgba(15,23,42,0.10)",
+        paddingLeft: "3rem"
     };
 
     const infoSectionTitle = {
         margin: "14px 0 0",
-        fontWeight: 800,
+        fontWeight: 620,
         fontSize: "0.98rem",
         letterSpacing: "-0.1px",
         color: TEXT,
@@ -382,13 +270,64 @@ export default function ICareTypesOfCareSEO() {
         margin: "10px 0 0",
         paddingLeft: "18px",
         color: MUTED,
-        lineHeight: 1.65,
+        lineHeight: 1.75,
         fontSize: "0.98rem",
+        listStyle: "disc"
     };
 
-    const infoItem = { margin: "6px 0" };
+    const infoItem = { margin: "7px 0" };
 
-    // ✅ Companionship-first types (legal-safe wording)
+    // care at home
+    const section = {
+        marginTop: "clamp(30px, 4vw, 54px)",
+        paddingTop: "42px",
+        borderTop: `1px solid ${LINE}`,
+        maxWidth: "110ch",
+        scrollMarginTop: 30,
+    };
+
+    const sectionTitle = {
+        margin: 0,
+        fontWeight: 620,
+        letterSpacing: "-0.2px",
+        fontSize: "1.6rem",
+        lineHeight: 1.35,
+        color: TEXT,
+    };
+
+    const sectionText = {
+        margin: "12px 0 0",
+        color: "rgba(15,23,42,0.86)",
+        fontWeight: 400,
+        lineHeight: 1.7,
+        fontSize: "1.18rem",
+    };
+
+    const careHomeRow = {
+        display: "grid",
+        gridTemplateColumns: "440px 1fr",
+        gap: "clamp(18px, 2.8vw, 34px)",
+        alignItems: "start",
+    };
+
+    const imgWrap = {
+        width: 440,
+        height: 500,
+        borderRadius: 18,
+        overflow: "hidden",
+        background: "rgba(15,23,42,0.03)",
+        border: "none",
+    };
+
+    const img = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
+        objectPosition: "65% 50%",
+        transform: "scale(1.16)",
+    };
+
     const types = [
         {
             icon: faHandHoldingHeart,
@@ -430,19 +369,18 @@ export default function ICareTypesOfCareSEO() {
                     <h2 style={h2}>A calm, practical way to find the right match</h2>
                     <p style={lead}>
                         ICare helps families connect with independent companions for{" "}
-                        <strong style={{ fontWeight: 600 }}>everyday support</strong> — friendly
-                        presence, routines and practical help agreed directly between you.
+                        <strong style={{ fontWeight: 600 }}>everyday support</strong> — friendly presence,
+                        routines and practical help agreed directly between you.
                     </p>
                 </div>
 
-                {/* TYPES GRID (layout stays the same) */}
                 <div className="icare-types-grid" style={list}>
                     {types.map((x) => (
                         <div key={x.t} className="icare-types-item" style={item}>
                             <span style={iconWrap} aria-hidden="true">
                                 <FontAwesomeIcon style={icon} icon={x.icon} />
                             </span>
-                            <div style={content}>
+                            <div style={{ minWidth: 0 }}>
                                 <h3 style={title}>{x.t}</h3>
                                 <p style={desc}>{x.d}</p>
                             </div>
@@ -450,52 +388,39 @@ export default function ICareTypesOfCareSEO() {
                     ))}
                 </div>
 
-                {/* Disclaimer (callout + key cards + accordion details) */}
+                {/* Disclaimer — flat, no cards */}
                 <div style={infoBox}>
-                    {/* Top callout */}
                     <div style={callout}>
-                        <div style={calloutLeft}>
-                            <span style={calloutIcon} aria-hidden="true">
-                                <FontAwesomeIcon icon={faShieldHalved} />
-                            </span>
-                            <div style={{ minWidth: 0 }}>
-                                <p style={calloutTitle}>Important information</p>
-                                <p style={calloutText}>
-                                    ICare is a matching platform. We do not provide regulated care services,
-                                    and any support is agreed directly between users.
-                                </p>
-                            </div>
+                        <span style={calloutIcon} aria-hidden="true">
+                            <FontAwesomeIcon icon={faShieldHalved} />
+                        </span>
+                        <div style={{ minWidth: 0 }}>
+                            <p style={calloutTitle}>Important information</p>
+                            <p style={calloutText}>
+                                ICare is a matching platform. We do not provide regulated care services,
+                                and any support is agreed directly between users.
+                            </p>
                         </div>
                     </div>
 
-                    {/* Key terms cards */}
                     <div style={keyGrid} aria-label="Key terms summary">
-                        <div style={keyCard}>
-                            <div style={keyLabelRow}>
-                                <span style={keyDot} aria-hidden="true" />
-                                <p style={keyTitle}>Direct agreement</p>
-                            </div>
+                        <div style={keyItem}>
+                            <p style={keyTitle}>Direct agreement</p>
                             <p style={keyBody}>
                                 Families/care receivers and companions agree details directly between
                                 themselves.
                             </p>
                         </div>
 
-                        <div style={keyCard}>
-                            <div style={keyLabelRow}>
-                                <span style={keyDot} aria-hidden="true" />
-                                <p style={keyTitle}>Not an employer</p>
-                            </div>
+                        <div style={keyItem}>
+                            <p style={keyTitle}>Not an employer</p>
                             <p style={keyBody}>
                                 ICare is not the employer of companions and does not supervise their work.
                             </p>
                         </div>
 
-                        <div style={keyCard}>
-                            <div style={keyLabelRow}>
-                                <span style={keyDot} aria-hidden="true" />
-                                <p style={keyTitle}>Non-clinical focus</p>
-                            </div>
+                        <div style={keyItem}>
+                            <p style={keyTitle}>Non-clinical focus</p>
                             <p style={keyBody}>
                                 We focus on companionship and everyday support — not clinical or nursing
                                 care.
@@ -503,10 +428,10 @@ export default function ICareTypesOfCareSEO() {
                         </div>
                     </div>
 
-                    {/* Details accordion */}
                     <button
                         type="button"
                         style={infoBtn}
+                        className="icare-disclaimer-btn"
                         onClick={() => setIsDisclaimerOpen((v) => !v)}
                         aria-expanded={isDisclaimerOpen}
                         aria-controls="icare-disclaimer-panel"
@@ -579,7 +504,6 @@ export default function ICareTypesOfCareSEO() {
                     ) : null}
                 </div>
 
-                {/* CARE AT HOME (fade-in) */}
                 <div id="care-at-home" ref={careAtHomeRef} className="icare-fade" style={section}>
                     <div className="icare-carehome-row" style={careHomeRow}>
                         <div style={imgWrap}>
@@ -627,9 +551,6 @@ export default function ICareTypesOfCareSEO() {
         @media (max-width: 640px){
           .icare-types-grid{ grid-template-columns: 1fr !important; }
         }
-        @media (max-width: 900px){
-          .icare-key-grid{ grid-template-columns: 1fr !important; }
-        }
 
         /* fade-in on scroll */
         .icare-fade{
@@ -641,6 +562,13 @@ export default function ICareTypesOfCareSEO() {
         .icare-fade--in{
           opacity: 1;
           transform: translateY(0);
+        }
+
+        /* clean focus for accordion */
+        .icare-disclaimer-btn:focus-visible{
+          outline: none;
+          box-shadow: 0 0 0 4px rgba(119,141,67,0.18);
+          border-radius: 10px;
         }
       `}</style>
         </section>

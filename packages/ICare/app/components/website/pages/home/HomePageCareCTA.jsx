@@ -123,7 +123,22 @@ export default function WhoIsICareForSection() {
 
                         <div style={ctaWrap}>
                             <Link
-                                to="/waiting-list"
+                                to="#waitlist"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const el = document.getElementById("waitlist");
+                                    if (!el) return;
+
+                                    const y =
+                                        el.getBoundingClientRect().top +
+                                        window.pageYOffset -
+                                        60;
+
+                                    window.scrollTo({ top: y, behavior: "smooth" });
+
+                                    // optional: keep hash in URL (won't jump)
+                                    window.history.pushState(null, "", "#waitlist");
+                                }}
                                 style={{
                                     display: "inline-flex",
                                     alignItems: "center",

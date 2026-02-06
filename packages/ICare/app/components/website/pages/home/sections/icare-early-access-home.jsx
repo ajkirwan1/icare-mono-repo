@@ -145,7 +145,7 @@ export default function ICareEarlyAccessHomeSection() {
 
 
     return (
-        <section aria-label="Cost estimator" style={wrap}>
+        <section id="waitlist" aria-label="Cost estimator" style={wrap}>
             <style>{microCSS}</style>
 
             <div style={estimatorHeader}>
