@@ -6,7 +6,7 @@ export default function WhoCanJoin() {
     const separator = {
         height: "1px",
         background: "rgba(15,23,42,0.12)",
-        margin: "1.5rem 0",
+        margin: "1.2rem 0",
         width: "100%",
     };
 
@@ -32,48 +32,56 @@ export default function WhoCanJoin() {
                 type="button"
                 onClick={onClick}
                 aria-expanded={isOpen}
-                style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    background: "transparent",
-                    border: "none",
-                    padding: 0,
-                    cursor: "pointer",
-                    textAlign: "left",
-                    color: "#0F172A",
-                }}
+                className="icare-accHeader"
             >
-                <h3
-                    style={{
-                        margin: 0,
-                        fontSize: "1.3rem",
-                        fontWeight: 500,
-                        color: "#0F172A",
-                        paddingRight: "1rem",
-                        lineHeight: 1.25,
-                    }}
-                >
-                    {title}
-                </h3>
-
-                {/* plus turns into x when open */}
+                <h3 className="icare-accTitle">{title}</h3>
                 <span
                     aria-hidden="true"
+                    className={`icare-plus ${isOpen ? "is-open" : ""}`}
+                />
+            </button>
+        );
+    }
+
+    function AccordionItem({ index, title, children }) {
+        const isOpen = openIndex === index;
+        const innerRef = React.useRef(null);
+        const [h, setH] = React.useState(0);
+
+        // Mierz wysokość contentu zawsze (działa też gdy content się zawija przy resize)
+        React.useEffect(() => {
+            const el = innerRef.current;
+            if (!el) return;
+
+            const ro = new ResizeObserver(() => {
+                setH(el.scrollHeight || 0);
+            });
+
+            ro.observe(el);
+            setH(el.scrollHeight || 0);
+
+            return () => ro.disconnect();
+        }, []);
+
+        return (
+            <div>
+                <AccordionHeader
+                    title={title}
+                    isOpen={isOpen}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                />
+
+                <div
+                    className={`icare-accContent ${isOpen ? "is-open" : ""}`}
                     style={{
-                        fontSize: "1.8rem",
-                        fontWeight: 300,
-                        lineHeight: 1,
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                        transition: "transform 0.2s ease",
-                        color: "rgba(15,23,42,1)",
-                        flex: "0 0 auto",
+                        maxHeight: isOpen ? `${h}px` : "0px",
                     }}
                 >
-                    +
-                </span>
-            </button>
+                    <div ref={innerRef} className="icare-accContentInner">
+                        {children}
+                    </div>
+                </div>
+            </div>
         );
     }
 
@@ -87,9 +95,81 @@ export default function WhoCanJoin() {
                 background: "#f2eee6",
                 padding: "4rem 0",
                 fontFamily:
-                    "Inter, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
+                    "Poppins, system-ui, -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif",
             }}
         >
+            <style>{`
+                .icare-accHeader{
+                    width:100%;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    background:transparent;
+                    border:none;
+                    padding:0;
+                    cursor:pointer;
+                    text-align:left;
+                    color:#0F172A;
+                }
+
+                .icare-accTitle{
+                    margin:0;
+                    font-size:1.2rem;
+                    font-weight:500;
+                    color:#0F172A;
+                    padding-right:1rem;
+                    line-height:1.25;
+                }
+
+                /* PLUS — smaller, thin 1px */
+                .icare-plus{
+                    width:24px;
+                    height:24px;
+                    position:relative;
+                    flex:0 0 auto;
+                    transform:rotate(0deg);
+                    transition:transform 260ms cubic-bezier(.2,.8,.2,1);
+                    will-change:transform;
+                }
+                .icare-plus::before,
+                .icare-plus::after{
+                    content:"";
+                    position:absolute;
+                    left:50%;
+                    top:50%;
+                    background:#000;
+                    transform:translate(-50%,-50%);
+                }
+                .icare-plus::before{ width:18px; height:1px; }
+                .icare-plus::after{ width:1px; height:18px; }
+                .icare-plus.is-open{ transform:rotate(45deg); }
+
+                /* CONTENT — reliable animation */
+                .icare-accContent{
+                    overflow:hidden;
+                    opacity:0;
+                    transform:translateY(-4px);
+                    transition:
+                        max-height 360ms cubic-bezier(.2,.8,.2,1),
+                        opacity 220ms ease,
+                        transform 220ms ease;
+                    will-change:max-height, opacity, transform;
+                }
+                .icare-accContent.is-open{
+                    opacity:1;
+                    transform:translateY(0px);
+                }
+
+                .icare-accContentInner{
+                    padding-top:.35rem;
+                }
+
+                /* UWAGA: usuń to, jeśli masz włączone Reduce Motion i chcesz animacje */
+                /* @media (prefers-reduced-motion: reduce){
+                    .icare-plus, .icare-accContent{ transition:none !important; }
+                } */
+            `}</style>
+
             <div style={{ width: "min(1200px,92vw)", margin: "0 auto" }}>
                 <h2 style={h2Style}>How ICare supports caregivers</h2>
 
@@ -102,7 +182,6 @@ export default function WhoCanJoin() {
                         marginTop: "2rem",
                     }}
                 >
-                    {/* LEFT — TITLE + IMAGE */}
                     <div>
                         <img
                             src="images/web/icare-for-caregivers/blackcarer.jpg"
@@ -118,7 +197,6 @@ export default function WhoCanJoin() {
                         />
                     </div>
 
-                    {/* RIGHT — ACCORDION */}
                     <div
                         style={{
                             background: "rgba(255, 255, 255, 0.7)",
@@ -126,138 +204,67 @@ export default function WhoCanJoin() {
                             borderRadius: "22px",
                         }}
                     >
-                        {/* SECTION 1 (open by default) */}
-                        <div>
-                            <AccordionHeader
-                                title="Find care work without agency control"
-                                isOpen={openIndex === 0}
-                                onClick={() => setOpenIndex(openIndex === 0 ? null : 0)}
-                            />
-
-                            {openIndex === 0 && (
-                                <>
-                                    <p style={pStyle}>
-                                        ICare is not an agency. We don’t assign shifts, manage rotas or
-                                        tell you where to work.
-                                    </p>
-                                    <p style={pStyle}>
-                                        You decide your availability, who you work with, and whether an
-                                        arrangement feels right.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={0} title="Find care work without agency control">
+                            <p style={pStyle}>
+                                ICare is not an agency. We don’t assign shifts, manage rotas or tell
+                                you where to work.
+                            </p>
+                            <p style={pStyle}>
+                                You decide your availability, who you work with, and whether an
+                                arrangement feels right.
+                            </p>
+                        </AccordionItem>
 
                         <div style={separator} />
 
-                        {/* SECTION 2 */}
-                        <div>
-                            <AccordionHeader
-                                title="Choose the work that fits you"
-                                isOpen={openIndex === 1}
-                                onClick={() => setOpenIndex(openIndex === 1 ? null : 1)}
-                            />
-
-                            {openIndex === 1 && (
-                                <>
-                                    <p style={pStyle}>
-                                        This is your practice. You choose the type of companionship you
-                                        want to provide and the pace you work at — without pressure to
-                                        rush or take unsuitable roles.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={1} title="Choose the work that fits you">
+                            <p style={pStyle}>
+                                This is your practice. You choose the type of companionship you want
+                                to provide and the pace you work at — without pressure to rush or take
+                                unsuitable roles.
+                            </p>
+                        </AccordionItem>
 
                         <div style={separator} />
 
-                        {/* SECTION 3 */}
-                        <div>
-                            <AccordionHeader
-                                title="Work directly with families"
-                                isOpen={openIndex === 2}
-                                onClick={() => setOpenIndex(openIndex === 2 ? null : 2)}
-                            />
-
-                            {openIndex === 2 && (
-                                <>
-                                    <p style={pStyle}>
-                                        You speak directly with families and build real relationships.
-                                    </p>
-                                    <p style={pStyle}>
-                                        No intermediaries. No 15-minute visits. Care is about people,
-                                        not ticking boxes.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={2} title="Work directly with families">
+                            <p style={pStyle}>
+                                You speak directly with families and build real relationships.
+                            </p>
+                            <p style={pStyle}>
+                                No intermediaries. No 15-minute visits. Care is about people, not
+                                ticking boxes.
+                            </p>
+                        </AccordionItem>
 
                         <div style={separator} />
 
-                        {/* SECTION 4 */}
-                        <div>
-                            <AccordionHeader
-                                title="Agree details upfront"
-                                isOpen={openIndex === 3}
-                                onClick={() => setOpenIndex(openIndex === 3 ? null : 3)}
-                            />
-
-                            {openIndex === 3 && (
-                                <>
-                                    <p style={pStyle}>
-                                        Care details, schedules and expectations are discussed openly
-                                        from the start, so everyone knows where they stand before work
-                                        begins.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={3} title="Agree details upfront">
+                            <p style={pStyle}>
+                                Care details, schedules and expectations are discussed openly from the
+                                start, so everyone knows where they stand before work begins.
+                            </p>
+                        </AccordionItem>
 
                         <div style={separator} />
 
-                        {/* SECTION 5 */}
-                        <div>
-                            <AccordionHeader
-                                title="Stay flexible over time"
-                                isOpen={openIndex === 4}
-                                onClick={() => setOpenIndex(openIndex === 4 ? null : 4)}
-                            />
-
-                            {openIndex === 4 && (
-                                <>
-                                    <p style={pStyle}>
-                                        Needs change - and so can arrangements.
-                                    </p>
-                                    <p style={pStyle}>
-                                        ICare is designed to support flexibility without disruption or
-                                        unnecessary stress.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={4} title="Stay flexible over time">
+                            <p style={pStyle}>Needs change - and so can arrangements.</p>
+                            <p style={pStyle}>
+                                ICare is designed to support flexibility without disruption or
+                                unnecessary stress.
+                            </p>
+                        </AccordionItem>
 
                         <div style={separator} />
 
-                        {/* SECTION 6 */}
-                        <div>
-                            <AccordionHeader
-                                title="Support for safe, professional care"
-                                isOpen={openIndex === 5}
-                                onClick={() => setOpenIndex(openIndex === 5 ? null : 5)}
-                            />
-
-                            {openIndex === 5 && (
-                                <>
-                                    <p style={pStyle}>
-                                        Caregiving is skilled, meaningful work.
-                                    </p>
-                                    <p style={pStyle}>
-                                        ICare is built on respect for caregivers as professionals, with
-                                        clear standards and fair expectations.
-                                    </p>
-                                </>
-                            )}
-                        </div>
+                        <AccordionItem index={5} title="Support for safe, professional care">
+                            <p style={pStyle}>Caregiving is skilled, meaningful work.</p>
+                            <p style={pStyle}>
+                                ICare is built on respect for caregivers as professionals, with clear
+                                standards and fair expectations.
+                            </p>
+                        </AccordionItem>
                     </div>
                 </div>
             </div>

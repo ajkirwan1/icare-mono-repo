@@ -210,9 +210,24 @@ export default function HowItWorksThreeSteps() {
                         Join the waiting list - we will notify you when ICare opens near you.
                     </p>
 
-                    <a href="#waitlist" style={{ textDecoration: "none" }}>
-                        <button style={btn}>Join the waiting list</button>
-                    </a>
+                    <button
+                        type="button"
+                        style={btn}
+                        onClick={() => {
+                            const el = document.getElementById("waitlist");
+                            if (!el) return;
+
+                            const y =
+                                el.getBoundingClientRect().top + window.pageYOffset - 60;
+
+                            window.scrollTo({ top: y, behavior: "smooth" });
+
+                            window.history.pushState(null, "", "#waitlist");
+                        }}
+                    >
+                        Join the waiting list
+                    </button>
+
                 </div>
             </div>
 

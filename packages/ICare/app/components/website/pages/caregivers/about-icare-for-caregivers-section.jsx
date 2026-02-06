@@ -25,7 +25,7 @@ export default function HowICareWorksForCaregiversSystem() {
         {
             no: "03",
             title: "Start working together",
-            desc: "Agree details and begin.",
+            desc: "Agree details and begin quality care work.",
         },
     ];
 

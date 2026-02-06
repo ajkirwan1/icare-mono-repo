@@ -20,10 +20,8 @@ export default function ICareFooter() {
         location: "Cheltenham, United Kingdom",
         email: "customershelp@icare.com",
         socials: {
-            instagram: "https://www.instagram.com/icare",
             linkedin: "https://www.linkedin.com/company/icare",
             facebook: "https://www.facebook.com/icare",
-            twitter: "https://x.com/icare",
         },
     };
 
@@ -77,15 +75,6 @@ export default function ICareFooter() {
 
                         {/* SOCIAL ICONS + SHARE */}
                         <div className={styles.socials}>
-                            <a
-                                href={COMPANY.socials.instagram}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="ICare on Instagram"
-                                className={styles.socialLink}
-                            >
-                                <FontAwesomeIcon icon={faInstagram} style={iconStyle} />
-                            </a>
 
                             <a
                                 href={COMPANY.socials.linkedin}
@@ -105,16 +94,6 @@ export default function ICareFooter() {
                                 className={styles.socialLink}
                             >
                                 <FontAwesomeIcon icon={faFacebook} style={iconStyle} />
-                            </a>
-
-                            <a
-                                href={COMPANY.socials.twitter}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="ICare on X (Twitter)"
-                                className={styles.socialLink}
-                            >
-                                <FontAwesomeIcon icon={faXTwitter} style={iconStyle} />
                             </a>
 
                             <button

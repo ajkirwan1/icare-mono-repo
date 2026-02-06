@@ -4,3 +4,7 @@
 # React Router
 /.react-router/
 /build/
+
+# local env files
+.env.development
+express-api/.env.development
