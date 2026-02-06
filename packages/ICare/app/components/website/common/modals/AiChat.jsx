@@ -7,7 +7,7 @@ export default function AiChat() {
         {
             role: "assistant",
             content:
-                "I’m ICare’s AI help assistant. I can help explain how ICare works and how to get started.",
+                "Hi.Welcome to ICare. I can help you understand how it works and guide you step by step. Just ask anything.",
         },
     ]);
     const [loading, setLoading] = useState(false);
@@ -131,7 +131,7 @@ export default function AiChat() {
                             fontWeight: 500,
                             color: "#fff",
                             background: "rgb(119, 141, 67)",
-                            fontSize: 20,
+                            fontSize: 16,
                         }}
                     >
                         How can we help you today?

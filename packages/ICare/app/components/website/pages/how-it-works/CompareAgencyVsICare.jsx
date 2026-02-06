@@ -4,7 +4,6 @@ export default function CompareAgencyVsICare() {
     const BRAND = "#1FAB1F";
     const TEXT = "#0F172A";
 
-    // Home-page typography (same feel)
     const H1 = {
         margin: 0,
         fontWeight: 500,
@@ -24,12 +23,20 @@ export default function CompareAgencyVsICare() {
     };
 
     const LEAD = {
-        margin: "0.9rem 0 4rem",
+        margin: "0.9rem 0 3rem",
         color: TEXT,
         maxWidth: "50ch",
         lineHeight: 1.65,
         fontSize: "1.4rem",
-        fontWeight: 400, // ✅ was 600
+        fontWeight: 400,
+    };
+
+    const DISCLAIMER = {
+        marginTop: "1.2rem",
+        fontSize: "0.85rem",
+        lineHeight: 1.5,
+        color: "rgba(15,23,42,0.65)",
+        maxWidth: "65ch",
     };
 
     const CARD_TITLE = {
@@ -50,11 +57,10 @@ export default function CompareAgencyVsICare() {
         fontWeight: 400,
     };
 
-
     const LI_SVG = {
         position: "relative",
-        top: "7px"
-    }
+        top: "7px",
+    };
 
     return (
         <section
@@ -64,7 +70,7 @@ export default function CompareAgencyVsICare() {
                 background: "white",
                 borderTop: "1px solid rgba(15,23,42,0.06)",
                 borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "4rem"
+                padding: "4rem",
             }}
         >
             <div
@@ -74,13 +80,15 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                {/* Home-like header typography */}
                 <h1 style={H1}>An alternative to traditional care agencies</h1>
 
                 <p style={LEAD}>
-                    ICare offers a modern way to arrange care at home - without agency lock-ins, hidden margins or unnecessary complexity.
-                    Families stay in control, with clear terms and direct contact from the start.
+                    ICare offers a modern way to arrange care at home - without agency lock-ins,
+                    unclear pricing or unnecessary complexity. Families stay in control,
+                    with clear terms and direct contact from the start.
                 </p>
+
+
 
                 {/* GRID */}
                 <div
@@ -89,6 +97,7 @@ export default function CompareAgencyVsICare() {
                         gridTemplateColumns: "1fr 1fr",
                         gap: "clamp(50px,6vw,70px)",
                         alignItems: "start",
+                        marginTop: "3rem",
                     }}
                 >
                     {/* PHOTO — Traditional Agency */}
@@ -106,14 +115,9 @@ export default function CompareAgencyVsICare() {
                     />
 
                     {/* AGENCY CARD */}
-                    <article
-                        style={{
-
-                            transition: "background .25s ease, border .25s ease",
-                        }}
-                    >
+                    <article>
                         <div>
-                            <h3 style={CARD_TITLE}>Traditional Agency</h3>
+                            <h3 style={CARD_TITLE}>Traditional agency model</h3>
 
                             <ul
                                 style={{
@@ -125,11 +129,11 @@ export default function CompareAgencyVsICare() {
                                 }}
                             >
                                 {[
-                                    "High margins (25–40%)",
-                                    "Limited choice of caregiver",
-                                    "Locked contracts",
-                                    "Extra fees for changes",
-                                    "Limited transparency",
+                                    "Often higher agency fees",
+                                    "More limited caregiver choice",
+                                    "Contracts may be restrictive",
+                                    "Changes can involve extra fees",
+                                    "Less pricing transparency",
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
@@ -141,7 +145,10 @@ export default function CompareAgencyVsICare() {
                                             strokeWidth="1.6"
                                             fill="none"
                                         >
-                                            <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
+                                            <path
+                                                d="M18 6L6 18M6 6l12 12"
+                                                strokeLinecap="round"
+                                            />
                                         </svg>
                                         {item}
                                     </li>
@@ -165,11 +172,7 @@ export default function CompareAgencyVsICare() {
                     />
 
                     {/* ICARE CARD */}
-                    <article
-                        style={{
-                            transition: "background .25s ease, border .25s ease",
-                        }}
-                    >
+                    <article>
                         <div>
                             <h3
                                 style={{
@@ -180,7 +183,11 @@ export default function CompareAgencyVsICare() {
                                 <img
                                     src="/images/logo/icareblack.svg"
                                     alt="ICare"
-                                    style={{ height: 35, width: "auto", display: "block" }}
+                                    style={{
+                                        height: 35,
+                                        width: "auto",
+                                        display: "block",
+                                    }}
                                 />
                             </h3>
 
@@ -194,10 +201,10 @@ export default function CompareAgencyVsICare() {
                                 }}
                             >
                                 {[
-                                    "Flat 10% fee per agreement",
+                                    "Clear flat platform fee",
                                     "Choose your preferred caregiver",
-                                    "Full transparency",
-                                    "Direct agreements",
+                                    "Transparent terms",
+                                    "Direct family-caregiver agreements",
                                     "Fairer pay for caregivers",
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
@@ -210,7 +217,11 @@ export default function CompareAgencyVsICare() {
                                             strokeWidth="1.7"
                                             fill="none"
                                         >
-                                            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path
+                                                d="M5 13l4 4L19 7"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
                                         </svg>
                                         {item}
                                     </li>
