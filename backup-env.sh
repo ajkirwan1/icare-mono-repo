@@ -19,9 +19,13 @@ echo "📝 Backing up API .env..."
 cp packages/ICare/express-api/.env.development "$BACKUP_DIR/api.env.development"
 echo "  ✅ Saved: api.env.development"
 
-echo "📝 Backing up Docker .env..."
+echo "📝 Backing up Docker production .env..."
 cp docker/.env.production "$BACKUP_DIR/docker.env.production"
 echo "  ✅ Saved: docker.env.production"
+
+echo "📝 Backing up Docker local .env..."
+cp docker/.env.local "$BACKUP_DIR/docker.env.local"
+echo "  ✅ Saved: docker.env.local"
 
 # Create timestamped archive
 echo ""
@@ -32,7 +36,8 @@ tar -czf "$ARCHIVE_DIR/env-backup-$TIMESTAMP.tar.gz" \
   -C "$BACKUP_DIR" \
   frontend.env.development \
   api.env.development \
-  docker.env.production
+  docker.env.production \
+  docker.env.local
 
 echo "  ✅ Archive: env-backup-$TIMESTAMP.tar.gz"
 

@@ -4,5 +4,9 @@ node_modules/
 #   - packages/ICare/.env.development
 #   - packages/ICare/express-api/.env.development
 #   - docker/.env.production
+#   - docker/.env.local
+
+# Allow tracked .env files, ignore other .env.local files
+!docker/.env.local
 **/.env.local
 **/.env*.local

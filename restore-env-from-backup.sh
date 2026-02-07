@@ -39,9 +39,13 @@ echo "📝 Restoring API .env..."
 cp "$BACKUP_DIR/api.env.development" packages/ICare/express-api/.env.development
 echo "  ✅ Restored: packages/ICare/express-api/.env.development"
 
-echo "📝 Restoring Docker .env..."
+echo "📝 Restoring Docker production .env..."
 cp "$BACKUP_DIR/docker.env.production" docker/.env.production
 echo "  ✅ Restored: docker/.env.production"
+
+echo "📝 Restoring Docker local .env..."
+cp "$BACKUP_DIR/docker.env.local" docker/.env.local
+echo "  ✅ Restored: docker/.env.local"
 
 echo ""
 echo "✨ Restore complete!"

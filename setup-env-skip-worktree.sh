@@ -12,6 +12,7 @@ ENV_FILES=(
   "packages/ICare/.env.development"
   "packages/ICare/express-api/.env.development"
   "docker/.env.production"
+  "docker/.env.local"
 )
 
 # Add each file to git and apply skip-worktree
@@ -34,7 +35,8 @@ git commit -m "chore: add .env files with skip-worktree protection
 
 - Frontend: packages/ICare/.env.development
 - Backend: packages/ICare/express-api/.env.development
-- Docker: docker/.env.production
+- Docker Production: docker/.env.production
+- Docker Local: docker/.env.local
 
 These files are tracked but local changes will be ignored via skip-worktree."
 
