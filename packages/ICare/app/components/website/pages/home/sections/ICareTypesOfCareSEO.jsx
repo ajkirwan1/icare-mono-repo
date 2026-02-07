@@ -119,8 +119,7 @@ export default function ICareTypesOfCareSEO() {
 
     const desc = {
         margin: "6px 0 0",
-        color: MUTED,
-        fontWeight: 420,
+        fontWeight: 400,
         lineHeight: 1.65,
         fontSize: "1.02rem",
     };
@@ -365,8 +364,8 @@ export default function ICareTypesOfCareSEO() {
         <section aria-label="Types of support we help you arrange" style={wrap}>
             <div style={container}>
                 <div style={header}>
-                    <h1 style={h1}>Companionship and everyday support</h1>
-                    <h2 style={h2}>A calm, practical way to find the right match</h2>
+                    <h2 style={h1}>Companionship and everyday support</h2>
+                    <h3 style={h2}>A calm, practical way to find the right match</h3>
                     <p style={lead}>
                         ICare helps families connect with independent companions for{" "}
                         <strong style={{ fontWeight: 600 }}>everyday support</strong> — friendly presence,
@@ -510,7 +509,7 @@ export default function ICareTypesOfCareSEO() {
                             <img
                                 style={img}
                                 alt="Older person comfortable at home"
-                                src="images/web/homepage/garden.png"
+                                src="images/web/homepage/icare-support-at-home.webp"
                                 loading="lazy"
                             />
                         </div>
@@ -519,9 +518,7 @@ export default function ICareTypesOfCareSEO() {
                             <h3 style={sectionTitle}>Why choose support at home?</h3>
 
                             <p style={sectionText}>
-                                Staying at home can help people keep familiar routines, comfort and
-                                independence. Instead of adjusting to a new environment, support fits
-                                around everyday life — at home, on their terms.
+                                Staying at home can help people keep familiar routines, comfort and independence, with the right everyday support in place. Instead of adjusting to a new environment, support fits around everyday life — at home, on their terms.
                             </p>
 
                             <p style={sectionText}>

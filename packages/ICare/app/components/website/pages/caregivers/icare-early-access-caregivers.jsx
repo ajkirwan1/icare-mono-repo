@@ -150,9 +150,9 @@ export default function ICareEarlyAccessHomeSection() {
 
             <div style={estimatorHeader}>
 
-                <h1 style={h1}>
+                <h2 style={h1}>
                     Be among the first when ICare opens near you
-                </h1>
+                </h2>
                 <p style={lead}>
                     Leave a few details and we’ll let you know when ICare opens near you.<br />Your answers help us understand where care is needed most, so we can
                     open in&nbsp;the right places first.
@@ -167,7 +167,7 @@ export default function ICareEarlyAccessHomeSection() {
                         <WaitinglistForm />
                     </div>
 
-                    <img style={estimatorImg} src="/images/web/homepage/elderly2.png" alt="Elderly" />
+                    <img style={estimatorImg} src="/images/web/homepage/icare-join-the-waiting-list.webp" alt="Join the waiting list" />
 
                 </div>
 

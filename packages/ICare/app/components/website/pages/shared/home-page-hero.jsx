@@ -34,8 +34,7 @@ export default function HomePageHero({ imgSrc }) {
 
                             {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Connect with independent<br />carers directly
-
+                                Find companionship and everyday support at home
                             </h1>
 
 

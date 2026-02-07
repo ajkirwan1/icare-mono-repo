@@ -236,7 +236,7 @@ export default function CaregiverStepsWithProfileGuide() {
                         }}
                     >
                         <img
-                            src="images/web/icare-for-caregivers/registering.jpg"
+                            src="images/web/icare-for-caregivers/icare-register.webp"
                             alt="Caregiver registering on a mobile phone"
                             style={{
                                 width: "100%",

@@ -16,7 +16,7 @@ export default function TrustValuesSection() {
             descShort: "Clear profiles, clear agreements.",
             descFull:
                 "See who you’re speaking with, what support is offered, and what it costs - without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
-            img: "/images/web/homepage/trust.jpg",
+            img: "/images/web/homepage/icare-trust.webp",
         },
         {
             k: "Care",
@@ -46,16 +46,12 @@ export default function TrustValuesSection() {
                     ICare was created in response to what many families find overwhelming about traditional care agencies: pressure to decide quickly, unclear costs and limited visibility of who is providing care.
                 </p>
 
-                {/* ✅ simplified, more “sales” */}
                 <p className={styles.subinfo}>
                     We are a transparent marketplace not a care agency.<br />
-                    Families connect directly with independent caregivers, talk openly, agree support and costs upfront, and stay in control of the care relationship at every stage.
+                    Families connect directly with independent caregivers, talk openly, agree companionship, everyday support and costs upfront, and stay in control of the care relationship at every stage.
                     <br /><br />
                     ICare supports the process with structure, tools and&nbsp;guidance - but the care arrangement is always between the family and the caregiver.
                 </p>
-
-
-
             </div>
 
             <div className={styles.fullBleed}>
@@ -76,7 +72,7 @@ export default function TrustValuesSection() {
                                 <div className={styles.gradient} />
 
                                 <div className={styles.cardContent}>
-                                    <strong className={styles.cardTitle}>{item.k}</strong>
+                                    <h3 className={styles.cardTitle}>{item.k}</h3>
 
                                     <p className={styles.cardShort}>{item.descShort}</p>
 

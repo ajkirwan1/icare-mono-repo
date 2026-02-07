@@ -80,7 +80,7 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                <h1 style={H1}>An alternative to traditional care agencies</h1>
+                <h2 style={H1}>An alternative to traditional care agencies</h2>
 
                 <p style={LEAD}>
                     ICare offers a modern way to arrange care at home - without agency lock-ins,
@@ -159,7 +159,7 @@ export default function CompareAgencyVsICare() {
 
                     {/* PHOTO — ICare */}
                     <img
-                        src="/images/web/how-it-works/icare.jpg"
+                        src="/images/web/how-it-works/icare-how-it-works.webp"
                         alt="Caregiver supportive environment"
                         style={{
                             width: "100%",
