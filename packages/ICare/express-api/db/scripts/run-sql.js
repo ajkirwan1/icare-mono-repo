@@ -9,8 +9,8 @@ const __dirname = path.dirname(__filename);
 
 // Only load env file if DATABASE_URL isn't already set (e.g., by Docker)
 if (!process.env.DATABASE_URL) {
-  // Use docker/.env.local as single source of truth for local dev
-  dotenv.config({ path: path.resolve(__dirname, "../../../../../docker/.env.local") });
+  // Load .env.development for local dev
+  dotenv.config({ path: path.resolve(__dirname, "../../.env.development") });
 }
 
 const { Pool } = pg;

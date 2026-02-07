@@ -1,3 +1,12 @@
+# ⚠️ DEPRECATED - Tier 1 Navigation Route Map
+
+> **DEPRECATED**: 2026-02-07
+> **Reason**: This draft route map has been superseded by the canonical route map at `/docs/product/tier1-route-map.md`, which covers all 47 Tier 1 screens (R0 + R1) with full navigation hierarchy, role-based access matrix, and state definitions.
+> **Superseded By**: `/docs/product/tier1-route-map.md` (marked CANONICAL)
+> **Status**: ARCHIVED - Use canonical route map instead
+
+---
+
 # Tier 1 Navigation Route Map: Application Route Tree & Navigation Structure
 
 **Document Purpose**: Define the complete navigation hierarchy, route structure, and user flow architecture for Tier 1 (Companionship MVP) application.

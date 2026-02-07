@@ -22,16 +22,47 @@ Tier 1 represents the minimum viable product for market entry, focusing on compa
 ## Tier 1 Documentation
 
 ### Planning
+
 - [Build Sequence](planning/build-sequence.md) - 12-phase development roadmap
 - [Launch Checklist](planning/launch-checklist.md) - Launch readiness requirements
 - [R0 Launch Scope](planning/r0-launch-scope.md) - Initial release scope
+- [R1 Launch Scope](planning/r1-launch-scope.md) - Post-R0 release scope
 
-### Status
-- [Implementation Status](status/implementation-status.md) - Current progress tracking
+### Status and Tracking
+
+- [Tier 1 Status Log](TIER1_STATUS_LOG.md) - **PRIMARY** - Ongoing status updates and task tracking
+- [Consistency Audit](CONSISTENCY_AUDIT.md) - Documentation consistency review
+- [Documentation Guide](DOCUMENTATION_GUIDE.md) - Navigation guide to all 57+ documents
+- [Figma Production Plan](FIGMA_PRODUCTION_PLAN.md) - Design production roadmap
 
 ### Specifications
+
 - [Tier 1 Features](features.md) - All [T1] tagged features
 - [Tier 1 Compliance](compliance.md) - Tier 1 regulatory requirements
+- [Canonical Route Map](/docs/product/tier1-route-map.md) - **CANONICAL** - All 47 screens, role-based access, navigation hierarchy
+
+### Draft Design Specs
+
+- [Screen Inventory](draft-design-specs/screen-inventory.md) - R0 screen definitions (30 screens)
+- [R0 Financial Analysis](draft-design-specs/r0-financial-analysis.md) - Financial projections
+
+#### User Flows
+
+- [Care Receiver First Booking](draft-design-specs/user-flows/care-receiver-first-booking.md)
+- [Caregiver Onboarding](draft-design-specs/user-flows/caregiver-onboarding.md)
+- [Family Proxy Booking](draft-design-specs/user-flows/family-proxy-booking.md)
+- [Admin Verification](draft-design-specs/user-flows/admin-verification.md)
+- [Safeguarding Response](draft-design-specs/user-flows/safeguarding-response.md)
+
+### Website Content
+
+See [Website Content Index](website-content/_index.md) for full documentation including:
+
+- Homepage, About Us, Contact, FAQ
+- How It Works (Families and Caregivers)
+- Pricing, Trust and Safety
+- [Legal Documents](website-content/legal/_index.md) - Privacy Policy, Terms, Cookie Policy, Safeguarding Policy
+- [Pre-Launch Content](website-content/pre-launch/) - Articles, compliance requirements, developer handoff
 
 ---
 
@@ -51,6 +82,7 @@ Tier 1 represents the minimum viable product for market entry, focusing on compa
 ## Tier 1 Feature Summary
 
 ### Care Receiver Features
+
 - Account registration (basic profile)
 - Caregiver search by location/availability
 - Filter by service type (companionship only)
@@ -61,6 +93,7 @@ Tier 1 represents the minimum viable product for market entry, focusing on compa
 - Reviews and ratings
 
 ### Caregiver Features
+
 - Professional profile creation
 - Service type selection
 - Availability calendar
@@ -69,6 +102,7 @@ Tier 1 represents the minimum viable product for market entry, focusing on compa
 - Basic verification (ID, right to work)
 
 ### Admin Features
+
 - User management
 - Basic caregiver verification
 - Booking oversight
@@ -85,4 +119,19 @@ Tier 1 represents the minimum viable product for market entry, focusing on compa
 
 ---
 
-**Last Updated**: 2026-02-01
+## Archived Documents
+
+The following documents have been deprecated and moved to the [archive/](archive/) directory:
+
+- `TIER1_COMPREHENSIVE_ANALYSIS.md` - Superseded by TIER1_STATUS_LOG.md
+- `PRIORITY_ACTIONS.md` - All tasks complete, tracked in TIER1_STATUS_LOG.md
+- `design-readiness-roadmap.md` - Superseded by FIGMA_PRODUCTION_PLAN.md
+- `status/implementation-status.md` - Superseded by TIER1_STATUS_LOG.md
+- `draft-design-specs/route-map.md` - Superseded by `/docs/product/tier1-route-map.md`
+- `draft-design-specs/phase1-analysis-and-blockers.md` - All blockers resolved
+
+All archived files contain DEPRECATED headers pointing to their replacements.
+
+---
+
+**Last Updated**: 2026-02-07

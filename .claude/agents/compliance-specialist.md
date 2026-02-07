@@ -66,6 +66,31 @@ The platform operates under a tiered market entry strategy (FDR-003). Compliance
 **Tier-specific compliance:**
 - docs/tiers/tier1/compliance.md - Tier 1 compliance requirements
 
+**Feature specifications (for compliance requirements):**
+- docs/product/features/tier1-booking-specification.md
+- docs/product/features/tier1-admin-specification.md
+- docs/product/features/tier1-verification-specification.md
+- docs/product/features/tier1-search-specification.md
+- docs/product/features/tier1-messaging-specification.md
+
+**Status and Context:**
+- docs/tiers/tier1/TIER1_STATUS_LOG.md - Current project status
+- docs/tiers/tier1/DOCUMENTATION_GUIDE.md - Navigation guide
+- docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md - Design production workflow
+
+**Your Completed Outputs:**
+- docs/product/features/tier1-safeguarding-specification.md - APP-010 COMPLETE
+- docs/tiers/tier1/website-content/legal/privacy-policy.md - WEB-010 COMPLETE (awaiting legal review)
+- docs/tiers/tier1/website-content/legal/terms-care-receivers.md - WEB-008 COMPLETE (awaiting legal review)
+- docs/tiers/tier1/website-content/legal/terms-caregivers.md - WEB-009 COMPLETE (awaiting legal review)
+- docs/tiers/tier1/website-content/legal/cookie-policy.md - WEB-011 COMPLETE (awaiting legal review)
+- docs/tiers/tier1/website-content/legal/safeguarding-policy.md - WEB-012 COMPLETE (awaiting legal review)
+
+**Current Status (as of 2026-02-07)**:
+- All compliance specifications and legal documents drafted (**100% complete**)
+- Awaiting legal counsel review before finalization
+- Role is now **advisory/maintenance** - update policies when requirements change
+
 ## Your Responsibilities
 
 ### 1. DPIA Completion

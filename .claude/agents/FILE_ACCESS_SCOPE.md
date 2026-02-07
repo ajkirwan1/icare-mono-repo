@@ -1,6 +1,6 @@
 # Agent File Access Scope Matrix
 
-**Last Updated:** 2026-02-01
+**Last Updated:** 2026-02-07
 **Purpose:** Define which agents should access which documentation folders
 
 ---
@@ -9,13 +9,13 @@
 
 | Agent | Primary Access | Secondary Access | Read-Only |
 |-------|---------------|------------------|-----------|
-| **product-director** | docs/**, docs/tiers/** | .claude/agents/** | - |
-| **product-requirements-specialist** | docs/tiers/common/spec/, docs/tiers/tier1-3/ | docs/compliance/, docs/tiers/common/planning/ | docs/governance/ |
-| **route-map-architect** | docs/tiers/common/spec/, docs/tiers/tier1/planning/ | docs/tiers/common/website/ | docs/governance/ |
-| **elderly-care-ui-designer** | docs/tiers/common/spec/ | docs/tiers/tier1/, docs/tiers/common/ | docs/governance/ |
-| **content-architect** | docs/tiers/common/website/ | docs/tiers/common/spec/, docs/tiers/ | docs/compliance/, docs/governance/ |
-| **compliance-specialist** | docs/compliance/ | docs/governance/, docs/tiers/*/compliance.md | docs/tiers/common/spec/ |
-| **technical-architect** | docs/tiers/common/spec/ | docs/tiers/tier1/planning/ | docs/governance/ |
+| **product-director** | docs/**, docs/tiers/**, .claude/agents/** | - | - |
+| **product-requirements-specialist** | docs/tiers/common/spec/, docs/product/features/ | docs/tiers/tier1-3/, docs/compliance/, docs/tiers/common/planning/ | docs/governance/ |
+| **route-map-architect** | docs/product/, docs/tiers/tier1/draft-design-specs/ | docs/tiers/common/spec/, docs/tiers/tier1/planning/ | docs/governance/ |
+| **elderly-care-ux-ui-designer** | docs/tiers/tier1/spec/, docs/tiers/tier1/figma/ | docs/tiers/tier1/, docs/product/, packages/ICare/app/styles/ | docs/governance/ |
+| **content-architect** | docs/tiers/tier1/website-content/ | docs/tiers/common/spec/, docs/tiers/tier1/ | docs/compliance/, docs/governance/ |
+| **compliance-specialist** | docs/compliance/ | docs/governance/, docs/tiers/*/compliance.md, docs/product/features/ | docs/tiers/common/spec/ |
+| **technical-architect** | docs/technical/ | docs/tiers/common/spec/, docs/tiers/tier1/planning/, docs/product/features/ | docs/governance/ |
 
 ---
 
@@ -51,23 +51,35 @@
 **Who Reads:** All agents
 **Who Writes:** Product Requirements Specialist
 
-### docs/tiers/tier1/status/
-**Owner:** Product Director
-**Contains:** implementation-status.md
-**Who Reads:** All agents
-**Who Writes:** Product Director
-
 ### docs/compliance/
 **Owner:** Compliance Specialist
 **Contains:** legal-framework.md, dpia.md, gap-registry.md, policies/
 **Who Reads:** All agents
 **Who Writes:** Compliance Specialist
 
-### docs/_to_delete/
-**Owner:** Product Director
-**Contains:** Files marked for deletion after reorganization
-**Who Reads:** Anyone needing historical context
-**Who Writes:** Product Director only (for cleanup)
+### docs/product/
+**Owner:** Route Map Architect (route map), Product Requirements Specialist (feature specs)
+**Contains:** tier1-route-map.md (47 screens), features/tier1-*.md (6 feature specifications)
+**Who Reads:** All agents
+**Who Writes:** route-map-architect (route map), product-requirements-specialist (feature specs)
+
+### docs/technical/
+**Owner:** Technical Architect
+**Contains:** database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md
+**Who Reads:** All agents
+**Who Writes:** Technical Architect
+
+### docs/tiers/tier1/ (Current Status - 2026-02-07)
+**Owner:** Product Director (status files), Various specialists (content)
+**Contains:**
+- TIER1_STATUS_LOG.md (PRIMARY status tracker)
+- FIGMA_PRODUCTION_PLAN.md (Design production roadmap)
+- DOCUMENTATION_GUIDE.md (Navigation guide)
+- CONSISTENCY_AUDIT.md (Consistency tracking)
+- planning/ (r0-launch-scope.md, r1-launch-scope.md, build-sequence.md)
+- draft-design-specs/ (screen-inventory.md, user-flows/)
+- website-content/ (13 pages, 92% complete)
+- archive/ (6 deprecated documents)
 
 ### docs/tiers/ (Reorganized Structure - 2026-02-01)
 **Owner:** Product Director (structure), Specialist Agents (content)
@@ -125,13 +137,13 @@ docs/tiers/
 
 | Agent | Owns These Artifacts |
 |-------|---------------------|
-| **product-director** | _index.md, governance/*, planning/*, decisions/*, _archive/*, tiers/_index.md, tiers/common/governance/*, agent-tasks/* |
-| **product-requirements-specialist** | tiers/common/spec/*, tiers/common/backlog/*, tiers/tier1/**, tiers/tier2/**, tiers/tier3/** (except governance folders) |
-| **route-map-architect** | tiers/common/ui/screen-inventory.md, tiers/common/ui/route-map.md |
-| **elderly-care-ui-designer** | Wireframes (not in docs) |
-| **content-architect** | marketing/* |
-| **compliance-specialist** | compliance/*, tiers/*/compliance.md (advisory) |
-| **technical-architect** | technical/* |
+| **product-director** | tiers/_index.md, governance/*, TIER1_STATUS_LOG.md, FIGMA_PRODUCTION_PLAN.md, DOCUMENTATION_GUIDE.md, CONSISTENCY_AUDIT.md, tiers/tier1/archive/*, .claude/agents/* (coordination) |
+| **product-requirements-specialist** | docs/product/features/tier1-*.md (5 specifications), tiers/common/spec/*, tiers/tier1/features.md |
+| **route-map-architect** | docs/product/tier1-route-map.md (47 screens), docs/tiers/tier1/draft-design-specs/screen-inventory.md |
+| **elderly-care-ux-ui-designer** | docs/tiers/tier1/spec/screens/, docs/tiers/tier1/spec/wireframes/, docs/tiers/tier1/spec/components/, docs/tiers/tier1/figma/ |
+| **content-architect** | docs/tiers/tier1/website-content/* (13 pages including legal/) |
+| **compliance-specialist** | compliance/*, docs/product/features/tier1-safeguarding-specification.md, tiers/*/compliance.md (advisory) |
+| **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md) |
 
 ---
 

@@ -5,6 +5,7 @@ import path from "path";
 async function loadLogoPngBase64() {
   const filePath = path.join(
     process.cwd(),
+    "..",
     "public",
     "images",
     "logo",
@@ -32,6 +33,7 @@ function topicLabel(topic) {
 async function loadLogoPngBase64White() {
   const filePath = path.join(
     process.cwd(),
+    "..",
     "public",
     "images",
     "logo",
@@ -366,7 +368,7 @@ export async function sendWaitinglistConfirmationEmail(email, meta = {}) {
   );
 
   const result = await resend.emails.send({
-    from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
+    from: process.env.EMAIL_FROM,
     to: email,
     subject: "You’re on the ICare waiting list",
     html,
@@ -444,7 +446,7 @@ export async function sendContactReceiptEmail(toEmail, meta = {}) {
   );
 
   const result = await resend.emails.send({
-    from: process.env.EMAIL_FROM || "ICare <onboarding@resend.dev>",
+    from: process.env.EMAIL_FROM,
     to: toEmail,
     subject: "We received your message — ICare",
     html,

@@ -4,7 +4,7 @@
 
 **Document Owner**: Product Team
 **Document Status**: CANONICAL - All design and development references this document
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-06
 **Version**: 1.0
 
 **Tier Scope**: This inventory covers **Tier 1 (Minimal)** launch features only. Screens requiring Tier 2+ (personal care, care skills, mandatory DBS) or Tier 3+ (medical conditions, risk assessment) are explicitly excluded.
@@ -27,8 +27,8 @@
 - Verification: ID + Right to Work + Voluntary DBS (NO mandatory DBS, NO qualifications)
 
 **Source Documents**:
-- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 26 R0 launch-critical screens
-- `/docs/tiers/tier1/features.md` - 73 Tier 1 features across 11 systems
+- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 30 R0 launch-critical screens (updated 2026-02-06)
+- `/docs/tiers/tier1/features.md` - 77 Tier 1 features across 11 systems
 - `/docs/tiers/common/spec/feature-map.md` - Complete feature definitions with tier tags
 - `/docs/tiers/common/spec/state-maps.md` - 7 critical state machine flows
 
@@ -38,8 +38,8 @@
 
 1. [Authentication & Registration](#category-1-authentication--registration) (6 screens)
 2. [Public & Compliance](#category-2-public--compliance) (4 screens)
-3. [Care Receiver Flows](#category-3-care-receiver-flows) (6 screens)
-4. [Caregiver Flows](#category-4-caregiver-flows) (6 screens)
+3. [Care Receiver Flows](#category-3-care-receiver-flows) (8 screens)
+4. [Caregiver Flows](#category-4-caregiver-flows) (8 screens)
 5. [Admin Operations](#category-5-admin-operations) (4 screens)
 6. [Route Index](#route-index)
 7. [Cross-Reference Matrix](#cross-reference-matrix)
@@ -886,8 +886,12 @@ Payment will be authorized now and charged when caregiver accepts.
 
 **R0 Status**: INCLUDED (Decision CB-005 - 2026-02-02)
 
-**Route**: `/bookings/:bookingId/messages`
+**Route**: `/messages/:conversationId`
 **Purpose**: Enable care receivers and caregivers to communicate within a booking context.
+
+> **Route Architecture Note**: Uses conversation-scoped routes (`/messages/:conversationId`) as canonical
+> per tier1-route-map.md. Each booking creates a conversation; the conversationId links to the booking.
+> This architecture supports future R1 expansion to a centralized Message Inbox (`/messages`).
 **User Roles**: Care Receiver, Family Member, Caregiver
 **Access Control**: Requires authentication + booking ownership (either party)
 

@@ -66,12 +66,37 @@ The platform operates under a tiered market entry strategy (FDR-003). Technical 
 
 **Planning:**
 - docs/tiers/tier1/planning/build-sequence.md - Tier 1 build plan
-- docs/tiers/tier1/planning/r0-launch-scope.md - R0 screens
+- docs/tiers/tier1/planning/r0-launch-scope.md - R0 screens (30)
+- docs/tiers/tier1/planning/r1-launch-scope.md - R1 screens (47 total)
 - docs/tiers/tier1/planning/launch-checklist.md - Launch readiness
 
 **Compliance:**
 - docs/compliance/legal-framework.md - Legal requirements
 - docs/compliance/dpia.md - Data protection requirements
+
+**Product Specifications:**
+- docs/product/tier1-route-map.md - CANONICAL 47-screen route map
+- docs/product/features/tier1-booking-specification.md - Booking flow (14 states)
+- docs/product/features/tier1-admin-specification.md - Admin dashboard
+- docs/product/features/tier1-verification-specification.md - Verification levels
+- docs/product/features/tier1-search-specification.md - Search requirements
+- docs/product/features/tier1-messaging-specification.md - Messaging system
+- docs/product/features/tier1-safeguarding-specification.md - Safeguarding
+
+**Status and Context:**
+- docs/tiers/tier1/TIER1_STATUS_LOG.md - Current project status
+- docs/tiers/tier1/DOCUMENTATION_GUIDE.md - Navigation guide
+- docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md - Design production workflow
+
+**Your Completed Outputs:**
+- docs/technical/database-schema-tier1.md - APP-001 COMPLETE (23 tables, PostGIS)
+- docs/technical/api-specification-tier1.md - APP-002 COMPLETE (45+ endpoints, WebSocket)
+- docs/technical/stripe-integration-spec.md - APP-003 COMPLETE (Connect, Identity, Payments)
+
+**Current Status (as of 2026-02-07)**:
+- All technical specifications complete (**100% APP-001, APP-002, APP-003 done**)
+- Development can commence (specifications ready)
+- Role is now **advisory/maintenance** - update specs when product requirements change
 
 ## Your Responsibilities
 

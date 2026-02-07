@@ -3,7 +3,7 @@
 **Document Purpose**: Regulatory and legal compliance requirements for Tier 1 launch.
 
 **Status**: ACTIVE
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-06
 
 ---
 
@@ -175,9 +175,9 @@ Tier 1 compliance is designed to be the **minimum legally viable** posture for c
 - [Legal Framework](/docs/compliance/legal-framework.md)
 - [DPIA](/docs/compliance/dpia.md)
 - [Tiered Market Entry Roadmap](/docs/ROADMAP.md)
-- [Gating Decisions](/docs/product/decisions/gating-decisions.md)
+- [Gating Decisions](/docs/governance/gating-decisions.md)
 - [Founder Decisions](/docs/governance/founder-decisions-responses.md)
 
 ---
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-06
