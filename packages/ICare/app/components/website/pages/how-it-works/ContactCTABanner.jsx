@@ -59,7 +59,7 @@ export default function ContactCTABanner() {
 
                 {/* CTA BUTTON */}
                 <a
-                    href="/contact"
+                    href="/contact-us"
                     style={{
                         display: "inline-flex",
                         alignItems: "center",
