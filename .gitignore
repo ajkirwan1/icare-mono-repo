@@ -1,4 +1,8 @@
 node_modules/
-# env files
-packages/ICare/.env.development
-**/.env*
+# env files - using skip-worktree instead
+# These files are tracked but local changes are ignored:
+#   - packages/ICare/.env.development
+#   - packages/ICare/express-api/.env.development
+#   - docker/.env.production
+**/.env.local
+**/.env*.local
