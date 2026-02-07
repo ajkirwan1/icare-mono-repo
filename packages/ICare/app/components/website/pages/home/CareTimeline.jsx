@@ -162,7 +162,7 @@ export default function HowItWorksThreeSteps() {
         {
             n: "1",
             t: "Browse and compare carers",
-            d: "See clear profiles, availability and support — so you can shortlist with confidence.",
+            d: "See clear profiles, availability and companionship support — so you can shortlist with confidence.",
         },
         {
             n: "2",

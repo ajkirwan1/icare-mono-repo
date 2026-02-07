@@ -428,11 +428,11 @@ export default function ICareCostEstimator({
             <div style={container}>
                 {/* HEADER */}
                 <div style={header}>
-                    <h1 style={h1}>
+                    <h2 style={h1}>
                         A simple estimate to support <br />
                         your care decisions
-                    </h1>
-                    <h2 style={h2Mini}>Budget clarity in under a minute</h2>
+                    </h2>
+                    <h3 style={h2Mini}>Budget clarity in under a minute</h3>
                     <p style={lead}>
                         Caring is emotional — money shouldn’t add extra stress. <br />
                         Adjust rate and hours/week for a monthly estimate.

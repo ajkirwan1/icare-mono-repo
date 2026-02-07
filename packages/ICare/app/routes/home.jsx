@@ -1,4 +1,4 @@
-import heroImage from "/images/heros/heromen2.png";
+import heroImage from "/images/heros/icare-companionship.webp";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
@@ -17,9 +17,9 @@ import AiChat from "../components/website/common/modals/AiChat";
 
 export function meta() {
     const seo = buildSeo({
-        title: "Home",
+        title: "Companionship & home support platform",
         description:
-            "ICare – Supporting better care through intuitive tools.",
+            "Find trusted companionship and everyday support at home. ICare connects families and independent carers directly, without agencies or intermediaries.",
         imagePath: "/images/og/home.png"
     });
 

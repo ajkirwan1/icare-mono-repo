@@ -41,7 +41,7 @@ export default function WhoIsICareForSection() {
                             lineHeight: 1.15,
                         }}
                     >
-                        A calmer home care marketplace
+                        A calmer home support marketplace
                         <br />
                         for families and caregivers
                     </h2>
@@ -51,8 +51,7 @@ export default function WhoIsICareForSection() {
                             margin: "1.2rem auto 0",
                             maxWidth: "65ch",
                             fontSize: "1.35rem",
-                            lineHeight: 1.65,
-                            color: MUTED,
+                            lineHeight: 1.65
                         }}
                     >
                         ICare connects families with independent caregivers through clear

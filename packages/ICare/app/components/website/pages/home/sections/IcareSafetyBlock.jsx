@@ -116,7 +116,6 @@ export default function SafetyComesFirstThreeBoxes() {
 
     const leadStyle = {
         margin: "0.35rem 0 0.5rem",
-        color: "rgba(15,23,42,1)",
         fontSize: "1.05rem",
         lineHeight: 1.65,
         fontWeight: 400,
@@ -184,8 +183,8 @@ export default function SafetyComesFirstThreeBoxes() {
 
             <div style={container}>
                 <div style={header}>
-                    <h1 style={h1}>Safety comes first</h1>
-                    <h2 style={h2}>A safer way to start companionship at home</h2>
+                    <h2 style={h1}>Safety comes first</h2>
+                    <h3 style={h2}>A safer way to start companionship at home</h3>
 
                     <p style={leadStyle}>
                         Trust in home care depends on clear standards, not assumptions.

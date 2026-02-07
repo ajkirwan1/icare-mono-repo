@@ -184,7 +184,7 @@ export default function WhoCanJoin() {
                 >
                     <div>
                         <img
-                            src="images/web/icare-for-caregivers/blackcarer.jpg"
+                            src="images/web/icare-for-caregivers/how-icare-supports-caregivers.webp"
                             alt="Caregiver providing home care support"
                             style={{
                                 width: "100%",

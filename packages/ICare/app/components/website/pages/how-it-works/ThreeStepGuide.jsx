@@ -45,7 +45,7 @@ export default function ThreeStepGuide() {
                 }}
             >
                 {/* HEADER (match HomePage: H1 + H2 + P sizing/weights) */}
-                <h1
+                <h2
                     style={{
                         margin: 0,
                         fontWeight: 500,
@@ -56,7 +56,7 @@ export default function ThreeStepGuide() {
                     }}
                 >
                     Get started in 3 simple steps
-                </h1>
+                </h2>
 
                 <p
                     style={{

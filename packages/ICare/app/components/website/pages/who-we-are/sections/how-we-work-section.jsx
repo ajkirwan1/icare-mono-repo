@@ -150,7 +150,7 @@ export function HowWeWorkSection() {
                                                 ? "images/web/who-we-are/brief.jpg"
                                                 : s.step === 2
                                                     ? "images/web/who-we-are/directmatching.jpg"
-                                                    : "images/web/who-we-are/agreed.png"
+                                                    : "images/web/who-we-are/icare-agree-and-start.webp"
                                         }
                                         alt=""
                                         style={{
