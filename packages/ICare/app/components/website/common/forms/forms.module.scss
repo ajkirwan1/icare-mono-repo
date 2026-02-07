@@ -10,7 +10,8 @@
     box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
     display: grid;
     gap: 14px;
-    min-height: 260px;
+    min-height: 240px;
+    max-width: 600px;
 }
 
 .header {
@@ -28,10 +29,9 @@
 
 .subtitle {
     margin: 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-weight: 650;
+    font-weight: 500;
     line-height: 1.55;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .hr {
@@ -88,7 +88,7 @@
 
 .control {
     width: 100%;
-    border: 1px solid rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(221, 139, 79, 0.4);
     border-radius: 14px;
     padding: 11px 12px;
     background: #fff;
@@ -121,9 +121,9 @@
 
 .note {
     margin: 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-weight: 650;
-    font-size: 0.95rem;
+    color: rgba(15, 23, 42, 0.9);
+    font-weight: 500;
+    font-size: 0.9rem;
     text-align: center;
     line-height: 1.55;
     max-width: 66ch;

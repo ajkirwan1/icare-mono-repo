@@ -4,12 +4,30 @@ import React from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ContactUsForm from "~/components/website/common/forms/contact-us-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faLinkedin,
+    faFacebook
+} from "@fortawesome/free-brands-svg-icons";
 
 export default function ContactUPage() {
     const COLORS = {
         text: "#0F172A",
         textWhite: "#FFF",
     };
+
+    const COMPANY = {
+        brand: "ICare",
+        operatorLabel: "ICare (sole trader, UK)",
+        tradingAs: "ICare",
+        location: "Cheltenham, United Kingdom",
+        email: "customershelp@icare.com",
+        socials: {
+            linkedin: "https://www.linkedin.com/company/icare",
+            facebook: "https://www.facebook.com/icare",
+        },
+    };
+
 
     // ✅ NEW: white section (above)
     const whiteWrap = {
@@ -63,8 +81,8 @@ export default function ContactUPage() {
     };
 
     const whiteCard = {
-        border: "1px solid rgba(15,23,42,0.10)",
-        background: "rgba(255,255,255,0.92)",
+        border: "1px solid rgba(221, 139, 79,0.2)",
+        background: "rgba(255,255,255,1)",
         borderRadius: 18,
         padding: "clamp(16px, 2.2vw, 22px)",
         boxShadow: "0 14px 36px rgba(15,23,42,0.06)",
@@ -95,7 +113,7 @@ export default function ContactUPage() {
     };
 
     const link = {
-        color: COLORS.text,
+        color: "rgba(221, 139, 79,1)",
         textDecoration: "none",
         borderBottom: "1px solid rgba(15,23,42,0.28)",
         fontWeight: 650,
@@ -108,10 +126,9 @@ export default function ContactUPage() {
         fontFamily:
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         color: COLORS.text,
-        padding: "clamp(3.8rem, 5.2vw, 4.8rem) 0",
         backgroundImage: "url('/images/web/homepage/caregiverbottom2.png')",
         backgroundSize: "cover",
-        paddingTop: "calc(var(--navbar-height) + 5vh)",
+        padding: "4rem 0"
     };
 
     const overlay = {
@@ -133,9 +150,9 @@ export default function ContactUPage() {
     const header = {
         display: "grid",
         gap: 10,
-        margin: "0 auto",
+        margin: "0",
         marginBottom: "clamp(18px, 2.6vw, 26px)",
-        maxWidth: "78ch",
+        maxWidth: "600px",
     };
 
     const h2 = {
@@ -144,17 +161,39 @@ export default function ContactUPage() {
         lineHeight: 1.14,
         fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
         color: COLORS.textWhite,
-        textAlign: "center",
         letterSpacing: "-0.6px",
     };
 
     const lead = {
-        margin: "2rem 0 3rem",
+        margin: "1rem 0 1.5rem",
         color: COLORS.textWhite,
         fontSize: "1.25rem",
         lineHeight: 1.6,
         fontWeight: 600,
-        textAlign: "center",
+    };
+
+    const iconStyle = {
+        fontSize: "0.9em",
+        lineHeight: 1,
+    };
+
+    const socials = {
+        display: "flex",
+        marginTop: "1rem",
+        gap: "0.7rem"
+    }
+
+    const socialLink = {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "1.6rem",
+        lineHeight: 1,
+        color: "#0f172a",
+        background: "none",
+        border: "none",
+        padding: 0,
+        transition: "opacity 0.2s ease, transform 0.2s ease",
     };
 
     const grid = { gap: "clamp(14px, 2.2vw, 22px)", alignItems: "stretch" };
@@ -190,8 +229,6 @@ export default function ContactUPage() {
                             </p>
                         </div>
 
-
-
                         <div style={whiteCard}>
                             <h3 style={h3}>For families</h3>
                             <p style={p}>
@@ -207,28 +244,13 @@ export default function ContactUPage() {
                             <p style={p}>
                                 If you’re interested in offering care independently through ICare, we’d love to hear about your experience.
                             </p>
-                            <p style={small}>
+                            <p style={p}>
                                 Tell us what would make care work clearer, fairer, and easier to manage.
                             </p>
                         </div>
-                    </div>
 
 
-
-                    {/* ===== ADDITIONAL INFO (2 columns, divider) ===== */}
-                    <div
-                        style={{
-                            marginTop: "clamp(3rem, 4.5vw, 4rem)",
-                            maxWidth: "1100px",
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1px 1fr",
-                            gap: "2.8rem",
-                            alignItems: "start",
-                        }}
-                        className="icare-contact-extra"
-                    >
-                        {/* LEFT — SOCIAL */}
-                        <div>
+                        <div style={whiteCard}>
                             <h3 style={h3}>Social media</h3>
                             <p style={p}>
                                 We’re building ICare in public and sharing our journey as we go.
@@ -238,38 +260,45 @@ export default function ContactUPage() {
                                 insights:
                             </p>
 
-                            <ul
-                                style={{
-                                    margin: "1rem 0 1rem",
-                                    paddingLeft: 0,
-                                    listStyle: "none",
-                                    lineHeight: 1.7,
-                                    color: "rgba(15,23,42,0.85)",
-                                    fontSize: "1.05rem",
-                                }}
-                            >
-                                <li>Facebook — <em>Coming soon</em></li>
-                                <li>LinkedIn — <em>Coming soon</em></li>
-                                <li>Instagram — <em>Coming soon</em></li>
-                            </ul>
+                            <div style={socials}>
 
-                            <p style={small}>
-                                For now, the best way to stay connected is to join our waitlist or
-                                subscribe to our Care Guidance newsletter.
-                            </p>
+                                <a
+                                    href={COMPANY.socials.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="ICare on LinkedIn"
+                                    style={socialLink}
+                                >
+                                    <FontAwesomeIcon icon={faLinkedin} style={iconStyle} />
+                                </a>
+
+                                <a
+                                    href={COMPANY.socials.facebook}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="ICare on Facebook"
+                                    style={socialLink}
+                                >
+                                    <FontAwesomeIcon icon={faFacebook} style={iconStyle} />
+                                </a>
+
+                            </div>
+
                         </div>
 
-                        {/* DIVIDER */}
-                        <div
-                            aria-hidden="true"
-                            style={{
-                                width: "1px",
-                                background: "rgba(15,23,42,0.14)",
-                                alignSelf: "stretch",
-                            }}
-                        />
+                    </div>
 
-                        {/* RIGHT — RESPONSE TIMES */}
+
+                    <div
+                        style={{
+                            marginTop: "clamp(3rem, 4.5vw, 4rem)",
+                            maxWidth: "600px",
+                            display: "flex"
+                        }}
+                        className="icare-contact-extra"
+                    >
+
+
                         <div>
                             <h3 style={h3}>Response times</h3>
                             <p style={p}>
@@ -283,21 +312,6 @@ export default function ContactUPage() {
                             </p>
                         </div>
 
-                        {/* QUICK LINKS — full width */}
-                        <div
-                            style={{
-                                gridColumn: "1 / -1",
-                                display: "flex",
-                                flexWrap: "wrap",
-                                gap: "3rem",
-                                marginTop: "1.6rem",
-                                justifyContent: "center",
-                            }}
-                        >
-                            <a href="/waitlist" style={link}>Join the waitlist</a>
-                            <a href="/care-guidance" style={link}>Subscribe to Care Guidance</a>
-                            <a href="/privacy" style={link}>Privacy policy</a>
-                        </div>
                     </div>
 
                     <style>{`
