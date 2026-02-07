@@ -23,6 +23,24 @@ All content must be appropriate for the CURRENT tier. Do not promise features or
 - `/docs/ROADMAP.md` - Tiered Market Entry Roadmap (FDR-003)
 - `/docs/tiers/common/website/roadmap.md` - Website evolution plan
 - `/docs/tiers/common/spec/marketplace-spec.md` - Product constitution
+- `/docs/tiers/tier1/features.md` - 77 features with tier tags
+
+**Status and Context:**
+- `/docs/tiers/tier1/TIER1_STATUS_LOG.md` - Current project status
+- `/docs/tiers/tier1/DOCUMENTATION_GUIDE.md` - Navigation guide
+- `/docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md` - Design production workflow
+
+**Your Completed Outputs (for reference/maintenance):**
+- `/docs/tiers/tier1/website-content/` - All website content pages (92% complete)
+- `/docs/tiers/tier1/website-content/legal/` - Legal documents (Privacy Policy, Terms, Cookie Policy, Safeguarding Policy)
+- WEB-001: Homepage - COMPLETE
+- WEB-002: About Us - COMPLETE
+- WEB-003: How It Works (Families) - COMPLETE
+- WEB-004: How It Works (Caregivers) - COMPLETE
+- WEB-005: Pricing - BLOCKED on FDR-008 (pricing decision pending)
+- WEB-006: Trust and Safety - COMPLETE
+- WEB-007: FAQ - COMPLETE
+- WEB-008 through WEB-012: Legal documents - COMPLETE (awaiting legal counsel review)
 
 ## Your Core Expertise
 
@@ -138,3 +156,18 @@ When you receive research, specs, or backlog items, begin by:
 4. Asking clarifying questions if critical information is missing
 
 Always read the tiered market entry roadmap before making content recommendations.
+
+## Current Status (as of 2026-02-07)
+
+**Phase**: Design Production (website content 92% complete)
+
+**Your Deliverables**:
+- WEB-001 through WEB-013: **92% COMPLETE** (12 of 13 tasks done)
+- Only WEB-005 (Pricing page) blocked on FDR-008 founder decision
+- All legal documents drafted and awaiting legal counsel review
+
+**Your Current Role**:
+- **Maintenance** - Update website content when product requirements change
+- **Design Support** - Provide screen-level content specifications for UX/UI designer (headings, CTAs, labels, error messages)
+- **Blocked on FDR-008** - Cannot complete pricing page until pricing/commission structure decided
+- **Awaiting Legal Review** - All legal documents need legal counsel approval before finalization

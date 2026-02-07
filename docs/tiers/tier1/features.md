@@ -3,7 +3,7 @@
 **Document Purpose**: Comprehensive list of all features enabled at Tier 1 (Companionship MVP).
 
 **Status**: ACTIVE
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-06
 
 ---
 
@@ -50,6 +50,8 @@ Tier 1 features are tagged with `[T1]` in the master [Feature Map](../common/spe
 - Availability calendar
 - Bank account setup (Stripe Connect)
 - "Companionship Services Only" badge
+- Profile visibility toggle (active/inactive self-service control)
+- Languages spoken (profile attribute and search filter)
 
 **NOT at Tier 1**:
 - Medical condition experience profile (Tier 3)
@@ -92,11 +94,13 @@ Tier 1 features are tagged with `[T1]` in the master [Feature Map](../common/spe
 - Filter by availability
 - Filter by hourly rate range
 - Filter by "DBS Verified" status
+- Filter by languages spoken
 
 **NOT at Tier 1**:
 - Filter by care skills (Tier 2)
 - Filter by medical condition experience (Tier 3)
 - Condition-specific matching (Tier 3)
+- Saved/favourited caregivers (deferred to post-R1)
 
 ### 6. Booking System [T1]
 
@@ -141,6 +145,7 @@ Tier 1 features are tagged with `[T1]` in the master [Feature Map](../common/spe
 - Review display on caregiver profile
 - Average rating calculation
 - Review moderation queue (admin)
+- Caregiver response to reviews (max 300 characters)
 
 ### 10. Safeguarding & Incident Management [T1]
 
@@ -168,17 +173,17 @@ Tier 1 features are tagged with `[T1]` in the master [Feature Map](../common/spe
 | Category | Tier 1 Features | Deferred |
 |----------|-----------------|----------|
 | Authentication | 8 | 0 |
-| Caregiver Profile | 7 | 3 |
+| Caregiver Profile | 9 | 3 |
 | Verification | 6 | 3 |
 | Care Receiver Profile | 5 | 3 |
-| Discovery | 7 | 3 |
+| Discovery | 8 | 4 |
 | Booking | 9 | 3 |
 | Messaging | 5 | 0 |
 | Payments | 7 | 0 |
-| Reviews | 6 | 0 |
+| Reviews | 7 | 0 |
 | Safeguarding | 6 | 0 |
 | Admin | 7 | 0 |
-| **Total** | **73** | **15** |
+| **Total** | **77** | **16** |
 
 ---
 
@@ -187,8 +192,8 @@ Tier 1 features are tagged with `[T1]` in the master [Feature Map](../common/spe
 - [Feature Map (Master)](../common/spec/feature-map.md)
 - [Build Sequence](planning/build-sequence.md)
 - [Launch Checklist](planning/launch-checklist.md)
-- [MVP Classification](../../planning/mvp-classification.md)
+- [MVP Classification](../common/planning/mvp-classification.md)
 
 ---
 
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-06

@@ -1,10 +1,20 @@
+# ⚠️ DEPRECATED - Tier 1 Application: Design Readiness Roadmap
+
+> **DEPRECATED**: 2026-02-07
+> **Reason**: This roadmap has been superseded by `FIGMA_PRODUCTION_PLAN.md` (created 2026-02-06), which provides a more detailed, dashboard-first approach with explicit phase definitions, agent task assignments, and automated workflow options. The valuable "Design Readiness Criteria" section (Part 2) has been extracted and merged into FIGMA_PRODUCTION_PLAN.md as Appendix B.
+> **Superseded By**: `FIGMA_PRODUCTION_PLAN.md` (includes design readiness criteria)
+> **Status**: ARCHIVED - Use FIGMA_PRODUCTION_PLAN.md instead
+
+---
+
 # Tier 1 Application: Design Readiness Roadmap
 
 **Document Purpose**: Comprehensive analysis and sequenced work plan to reach HIGH-FIDELITY FIGMA DESIGNS for the Tier 1 (Companionship Only) marketplace application.
 
 **Document Owner**: Product Director
 **Created**: 2026-02-02
-**Status**: CANONICAL PLANNING DOCUMENT
+**Last Updated**: 2026-02-06
+**Status**: ~~CANONICAL PLANNING DOCUMENT~~ DEPRECATED (see header)
 
 ---
 
@@ -12,16 +22,25 @@
 
 This document defines the logical sequence of work required to reach "design-ready" status for high-fidelity Figma mockups of the Tier 1 marketplace application. Design work should NOT proceed until all upstream product artifacts are complete and consistent.
 
-**Current Assessment**: The repository is approximately **70% ready** for high-fidelity design work.
+**Current Assessment**: The repository is approximately **85% ready** for high-fidelity design work.
 
-**Critical Gaps**:
-1. No formal screen inventory document exists (route-map-architect has not generated `/docs/product/screen-inventory.md`)
-2. No user flow diagrams exist (detailed interaction flows between screens)
-3. No content specifications exist (copy requirements, field labels, error messages, microcopy)
-4. No component inventory exists (buttons, forms, cards, modals required across screens)
-5. Detailed feature specifications (APP-005, APP-006, APP-007) mentioned but not yet written
+> **Update (2026-02-06)**: Significant progress made since initial assessment. Screen inventory, route map, and user flows now exist.
 
-**Estimated Time to Design-Ready**: 3-4 weeks of focused specialist agent work
+**Completed Items** (since 2026-02-02):
+1. Screen Inventory document created (`/docs/tiers/tier1/draft-design-specs/screen-inventory.md`) - 30 R0 screens documented
+2. Route Map document created (`/docs/tiers/tier1/draft-design-specs/route-map.md`) - Full navigation hierarchy
+3. User Flow Diagrams created (`/docs/tiers/tier1/draft-design-specs/user-flows/`) - 5 core flows documented
+4. R0 Launch Scope updated to 30 screens (CB decisions incorporated)
+5. Consistency audit completed (12 of 27 issues resolved)
+
+**Remaining Gaps**:
+1. Content specifications (copy requirements, field labels, error messages, microcopy) - NOT STARTED
+2. Component inventory (buttons, forms, cards, modals required across screens) - NOT STARTED
+3. Detailed feature specifications (APP-005, APP-006, APP-007) - NOT STARTED
+4. Accessibility requirements (WCAG 2.1 AA mapping per screen) - NOT STARTED
+5. Pricing decision (FDR-008) - PENDING founder input
+
+**Estimated Time to Design-Ready**: 2-3 weeks of focused specialist agent work (reduced from 3-4 weeks)
 
 ---
 
@@ -37,7 +56,7 @@ This document defines the logical sequence of work required to reach "design-rea
 | **Tier 1 Features** | `/docs/tiers/tier1/features.md` | COMPLETE | 73 Tier 1 features across 11 systems |
 | **MVP Classification** | `/docs/tiers/common/planning/mvp-classification.md` | COMPLETE | MVP vs Post-MVP system classification |
 | **Build Sequence** | `/docs/tiers/tier1/planning/build-sequence.md` | COMPLETE | 12-phase development plan with acceptance criteria |
-| **R0 Launch Scope** | `/docs/tiers/tier1/planning/r0-launch-scope.md` | COMPLETE | 26 launch-critical screens defined with routes and rationale |
+| **R0 Launch Scope** | `/docs/tiers/tier1/planning/r0-launch-scope.md` | COMPLETE | 30 launch-critical screens defined with routes and rationale (updated 2026-02-06) |
 | **Comprehensive Analysis** | `/docs/tiers/tier1/TIER1_COMPREHENSIVE_ANALYSIS.md` | COMPLETE | 85% readiness assessment, user journeys documented |
 | **Gaps Analysis** | `/docs/tiers/GAPS_ANALYSIS.md` | COMPLETE | Documentation gaps identified |
 | **Legal Framework** | `/docs/compliance/legal-framework.md` | COMPLETE | Compliance requirements mapped |
@@ -45,28 +64,29 @@ This document defines the logical sequence of work required to reach "design-rea
 
 ### 1.2 What is MISSING (Required Before Design)
 
-| Artifact | Expected Location | Priority | Blocking Agent | Notes |
-|----------|-------------------|----------|----------------|-------|
-| **Screen Inventory** | `/docs/product/screen-inventory.md` | CRITICAL | route-map-architect | Canonical list of ALL screens with IDs, routes, roles, states, data |
-| **Route Map** | `/docs/product/route-map.md` | CRITICAL | route-map-architect | Visual/textual route tree showing navigation hierarchy |
-| **User Flow Diagrams** | `/docs/tiers/tier1/spec/user-flows/` | CRITICAL | route-map-architect | Detailed step-by-step flows for each user journey |
-| **Feature Specifications** | `/docs/tiers/tier1/spec/features/` | HIGH | product-requirements-specialist | APP-005, APP-006, APP-007 detailed specs with acceptance criteria |
-| **Content Specifications** | `/docs/tiers/tier1/spec/content/` | HIGH | content-architect | Page titles, labels, microcopy, error messages, CTAs |
-| **Component Inventory** | `/docs/tiers/tier1/spec/components.md` | HIGH | elderly-care-ux-ui-designer | List of UI components needed (buttons, inputs, cards, modals) |
-| **Accessibility Requirements** | `/docs/tiers/tier1/spec/accessibility.md` | HIGH | elderly-care-ux-ui-designer | WCAG 2.1 AA mapping per screen |
-| **Data Display Requirements** | `/docs/tiers/tier1/spec/data-display.md` | MEDIUM | product-requirements-specialist | What data appears on each screen, sources, formats |
-| **Empty/Loading/Error States** | `/docs/tiers/tier1/spec/ui-states.md` | MEDIUM | elderly-care-ux-ui-designer | Skeleton screens, loading indicators, error displays |
-| **Responsive Breakpoints** | `/docs/tiers/tier1/spec/responsive.md` | MEDIUM | elderly-care-ux-ui-designer | Mobile, tablet, desktop layout rules |
+| Artifact | Expected Location | Priority | Blocking Agent | Status |
+|----------|-------------------|----------|----------------|--------|
+| **Screen Inventory** | `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` | CRITICAL | route-map-architect | **COMPLETE** (2026-02-02) |
+| **Route Map** | `/docs/tiers/tier1/draft-design-specs/route-map.md` | CRITICAL | route-map-architect | **COMPLETE** (2026-02-02) |
+| **User Flow Diagrams** | `/docs/tiers/tier1/draft-design-specs/user-flows/` | CRITICAL | route-map-architect | **COMPLETE** (2026-02-02) - 5 flows |
+| **Feature Specifications** | `/docs/product/features/` | HIGH | product-requirements-specialist | NOT STARTED - APP-005, APP-006, APP-007 |
+| **Content Specifications** | `/docs/tiers/tier1/spec/content/` | HIGH | content-architect | NOT STARTED |
+| **Component Inventory** | `/docs/tiers/tier1/spec/components.md` | HIGH | elderly-care-ux-ui-designer | NOT STARTED |
+| **Accessibility Requirements** | `/docs/tiers/tier1/spec/accessibility.md` | HIGH | elderly-care-ux-ui-designer | NOT STARTED |
+| **Data Display Requirements** | `/docs/tiers/tier1/spec/data-display.md` | MEDIUM | product-requirements-specialist | NOT STARTED |
+| **Empty/Loading/Error States** | `/docs/tiers/tier1/spec/ui-states.md` | MEDIUM | elderly-care-ux-ui-designer | NOT STARTED |
+| **Responsive Breakpoints** | `/docs/tiers/tier1/spec/responsive.md` | MEDIUM | elderly-care-ux-ui-designer | NOT STARTED |
 
 ### 1.3 What is INCONSISTENT or INCOMPLETE
 
-| Issue | Location | Resolution Required |
-|-------|----------|---------------------|
-| **Pricing Model Undefined** | FDR-008 pending | Commission %, fee structure needed before payment screens can be designed |
-| **Insurance Minimums Undefined** | GD-03 open | Affects caregiver verification flow copy |
-| **Screen IDs Inconsistent** | R0 document uses SCR-XXX-NNN but no master list | route-map-architect must generate canonical screen-inventory.md |
-| **User Journey 2 Missing Screen** | SCR-CG-013 (Booking Request Detail for Caregiver) referenced but not in R0 screen list | Needs clarification - is this separate from SCR-CR-008? |
-| **Admin Screens Incomplete** | R0 has 6 admin screens, but feature-map describes more admin functions | Clarify which admin features are manual vs screen-based at R0 |
+| Issue | Location | Resolution Required | Status |
+|-------|----------|---------------------|--------|
+| **Pricing Model Undefined** | FDR-008 pending | Commission %, fee structure needed before payment screens can be designed | PENDING - Using 15% placeholder |
+| **Insurance Minimums Undefined** | GD-03 open | Affects caregiver verification flow copy | PENDING |
+| **Screen IDs Inconsistent** | R0 document uses SCR-XXX-NNN but no master list | route-map-architect must generate canonical screen-inventory.md | **RESOLVED** - screen-inventory.md created |
+| **User Journey 2 Missing Screen** | SCR-CG-013 (Booking Request Detail for Caregiver) referenced but not in R0 screen list | Needs clarification - is this separate from SCR-CR-008? | **RESOLVED** - SCR-CG-013 included in R0 |
+| **Admin Screens Incomplete** | R0 has 6 admin screens, but feature-map describes more admin functions | Clarify which admin features are manual vs screen-based at R0 | **RESOLVED** - Per screen-inventory.md |
+| **R0 Screen Count** | Previously 26 screens | Updated to 30 per CB decisions (CB-001, CB-002, CB-005, CB-006) | **RESOLVED** |
 
 ---
 

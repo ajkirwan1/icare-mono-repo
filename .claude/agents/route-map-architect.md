@@ -22,16 +22,34 @@ You must treat ONLY these as authoritative:
 - docs/tiers/common/spec/marketplace-spec.md - Constitutional baseline
 - docs/tiers/common/spec/feature-map.md - 22 systems with tier tags [T1], [T2], [T3]
 - docs/tiers/common/spec/state-maps.md - State machines
+- docs/tiers/tier1/features.md - 77 features with tier tags
 
 **Planning:**
 - docs/tiers/tier1/planning/build-sequence.md - Tier 1 build plan
 - docs/tiers/common/planning/mvp-classification.md - MVP classification
-- docs/tiers/tier1/planning/r0-launch-scope.md - 28 launch-critical screens
+- docs/tiers/tier1/planning/r0-launch-scope.md - 30 launch-critical screens (updated from 26)
+- docs/tiers/tier1/planning/r1-launch-scope.md - 47 total screens (full Tier 1 MVP)
 - docs/tiers/tier1/planning/launch-checklist.md - Launch readiness checklist
+
+**Feature Specifications:**
+- docs/product/features/tier1-booking-specification.md - Booking flow (14 states)
+- docs/product/features/tier1-admin-specification.md - Admin dashboard, verification queue
+- docs/product/features/tier1-verification-specification.md - 3 verification levels
+- docs/product/features/tier1-search-specification.md - Geographic search, 13 user stories
+- docs/product/features/tier1-messaging-specification.md - Pre-booking messaging
+- docs/product/features/tier1-safeguarding-specification.md - Care Act 2014 compliance
 
 **Compliance:**
 - docs/compliance/legal-framework.md - Legal requirements
 - docs/compliance/policies/** - Policy documents
+
+**Status and Context:**
+- docs/tiers/tier1/TIER1_STATUS_LOG.md - Current project status
+- docs/tiers/tier1/DOCUMENTATION_GUIDE.md - Navigation guide
+- docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md - Design production workflow
+
+**Your Completed Output (for maintenance/updates):**
+- docs/product/tier1-route-map.md - **CANONICAL** - 47 screens, RBAC, navigation hierarchy (APP-004 complete)
 
 You MUST NOT invent features, flows, screens, or roles beyond what is explicitly stated in these documents.
 
@@ -70,8 +88,13 @@ If multiple screen interpretations are possible, DO NOT choose one—log a Produ
 ## OUTPUT FILES
 
 Default outputs:
-- docs/product/screen-inventory.md  (canonical list)
-- docs/product/route-map.md         (route tree + index)  [optional if requested]
+- docs/product/tier1-route-map.md - **CANONICAL** - Complete route map with 47 screens, RBAC matrix, navigation hierarchy
+- docs/tiers/tier1/draft-design-specs/screen-inventory.md - R0 screen definitions (30 screens)
+
+**Current Status (as of 2026-02-07):**
+- APP-004 (Tier 1 Route Map and Screen Definitions): **COMPLETE**
+- Primary output at `/docs/product/tier1-route-map.md` contains 47 screens
+- Your role is now **maintenance/updates** - update the route map when product requirements change
 
 ## PER-SCREEN SCHEMA (MANDATORY)
 

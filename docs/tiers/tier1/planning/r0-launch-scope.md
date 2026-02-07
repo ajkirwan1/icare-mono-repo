@@ -3,7 +3,7 @@
 **Document Purpose**: Define the absolute minimum screens required for a safe, compliant, revenue-generating Tier 1 (Companionship Only) launch at low volume.
 
 **Document Owner**: Product Team
-**Last Updated**: 2026-02-01
+**Last Updated**: 2026-02-06
 **Status**: Canonical - R0 Launch Definition (Tier 1 Aligned)
 
 > **Tier Alignment**: This document defines R0 scope for **Tier 1 (Companionship Only)** market entry.
@@ -25,7 +25,13 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 
 ---
 
-## R0 Launch Screens (26 screens)
+## R0 Launch Screens (30 screens)
+
+> **Change Log**: R0 screen count updated from 26 to 30 following Change Board decisions:
+> - CB-001 (2026-02-02): SCR-CR-001 (Care Receiver Dashboard) elevated to R0
+> - CB-002 (2026-02-02): SCR-CG-001 (Caregiver Dashboard) elevated to R0
+> - CB-005 (2026-02-03): SCR-CR-011 (Message Thread) elevated to R0
+> - CB-006 (2026-02-03): SCR-CR-015 (Leave Review) elevated to R0
 
 > **Tier 1 Alignment Note**: This R0 scope is specifically for Tier 1 (Companionship Only) launch.
 > Medical condition experience profiles and care skills profiles are deferred to Tier 3 and Tier 2
@@ -221,9 +227,9 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 These screens are MVP but can be handled manually or via workarounds at low volume (0-100 bookings/month):
 
 ### Can Be Email/Phone at Low Volume
-- **SCR-CR-011: Message Inbox** - Use email for messaging at low volume
-- **SCR-CR-012: Message Thread** - Email threads work for R0
-- **SCR-CR-015: Leave Review** - Email form submission works for R0
+- **SCR-CR-011: Message Thread** - R0 Status: INCLUDED (Decision CB-005 - 2026-02-03). Note: Simplified booking-scoped messaging only at R0.
+- **SCR-CR-012: Message Inbox** - R1 (centralized inbox not required at R0; booking-scoped messaging sufficient)
+- **SCR-CR-015: Leave Review** - R0 Status: INCLUDED (Decision CB-006 - 2026-02-03)
 - **SCR-CR-020: Safeguarding Report** - Email/phone reporting works initially
 - **SCR-CG-011: Availability Calendar** - Manual coordination via email for R0
 
@@ -238,9 +244,9 @@ These screens are MVP but can be handled manually or via workarounds at low volu
 - **SCR-CR-017: Account Settings** - Support handles setting changes in R0
 - **SCR-CG-003: Profile Management** - Initial profile sufficient, edits via support
 
-### Dashboards (Nice-to-Have)
-- **SCR-CR-001: Care Receiver Dashboard** - Users can navigate directly to booking list
-- **SCR-CG-001: Caregiver Dashboard** - Notifications via email work for R0
+### Dashboards (Elevated to R0 via CB Decisions)
+- **SCR-CR-001: Care Receiver Dashboard** - R0 Status: INCLUDED (Decision CB-001 - 2026-02-02)
+- **SCR-CG-001: Caregiver Dashboard** - R0 Status: INCLUDED (Decision CB-002 - 2026-02-02)
 
 ---
 
@@ -505,6 +511,7 @@ Safeguarding Response Layer (Care Act Compliance)
 |---------|------|--------|---------|
 | 1.0 | 2026-01-31 | Product Team | Initial R0 launch scope |
 | 1.1 | 2026-02-01 | Product Director | Tier 1 alignment - removed SCR-CG-004 (Tier 3) and SCR-CG-005 (Tier 2), updated DBS to voluntary status, reduced screen count from 28 to 26 |
+| 1.2 | 2026-02-06 | Product Director | Updated R0 screen count from 26 to 30 to reflect CB decisions (CB-001, CB-002, CB-005, CB-006) elevating dashboards, message thread, and review screens to R0 |
 
 ---
 

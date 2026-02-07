@@ -33,22 +33,59 @@ Responsibilities:
 - Responsive design rules
 - Design brief generation for Figma handoff
 
+## Current Design Strategy: Dashboard-First
+
+The project follows a **dashboard-first** design production approach (defined in FIGMA_PRODUCTION_PLAN.md):
+
+1. **Phase 0**: Agent creates dashboard wireframes and shared component specs (Jobs 1-4)
+2. **Phase 1**: Human designer creates low-fidelity dashboard mockups in Figma
+3. **Phase 2**: Human designer creates high-fidelity dashboards + establishes design system FROM dashboard designs
+4. **Phase 3**: Remaining screens (low-fidelity) using established design system
+5. **Phase 4**: Remaining screens (high-fidelity)
+
+**Why dashboards first**: Dashboards contain the widest variety of UI components (booking cards, status badges, metric cards, alert banners, navigation). Components designed for dashboards will be reused across all other screens. The design system emerges from dashboard work.
+
+**The 3 core dashboards are**:
+- SCR-CR-001: Care Receiver Dashboard (`/dashboard`)
+- SCR-CG-001: Caregiver Dashboard (`/caregiver/dashboard`)
+- SCR-ADM-001: Admin Dashboard (`/admin`)
+
 ## Source Documents
 
 **Read these first to understand context:**
+- `/docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md` - **PRIMARY** - Dashboard-first design plan, job definitions, dashboard specs, design tokens, component requirements
+- `/docs/tiers/tier1/DOCUMENTATION_GUIDE.md` - Navigation guide to all 51+ documents
+- `/docs/product/tier1-route-map.md` - **CANONICAL** - 47 screens with routes, role-based access, navigation hierarchy
+- `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` - 30 R0 screen definitions with components and states
 - `/docs/tiers/common/spec/marketplace-spec.md` - Product vision
 - `/docs/tiers/common/spec/feature-map.md` - Feature definitions with tier tags
 - `/docs/tiers/common/spec/state-maps.md` - State machines for flows
-- `/docs/product/screen-inventory.md` - Canonical screen list (if exists)
-- `/docs/product/route-map.md` - Navigation hierarchy (if exists)
 
-**Feature specifications:**
-- `/docs/tiers/tier1/spec/features/` - Detailed feature specs
-- `/docs/tiers/tier1/spec/content/` - Content specifications
+**Feature specifications (per-system detail):**
+- `/docs/product/features/tier1-booking-specification.md` - Booking states, display requirements, booking card content
+- `/docs/product/features/tier1-admin-specification.md` - Admin dashboard layout, metrics, widgets
+- `/docs/product/features/tier1-verification-specification.md` - Verification levels and status badges
+- `/docs/product/features/tier1-search-specification.md` - Search and discovery
+- `/docs/product/features/tier1-messaging-specification.md` - Messaging system
+- `/docs/product/features/tier1-safeguarding-specification.md` - Safeguarding system
+
+**User flows (journey context for screen entry/exit points):**
+- `/docs/tiers/tier1/draft-design-specs/user-flows/care-receiver-first-booking.md`
+- `/docs/tiers/tier1/draft-design-specs/user-flows/caregiver-onboarding.md`
+- `/docs/tiers/tier1/draft-design-specs/user-flows/family-proxy-booking.md`
+- `/docs/tiers/tier1/draft-design-specs/user-flows/admin-verification.md`
+- `/docs/tiers/tier1/draft-design-specs/user-flows/safeguarding-response.md`
+
+**Existing design tokens (must inform component specs):**
+- `/packages/ICare/app/styles/_tokens.scss` - 264 lines of SCSS tokens (colors, typography, spacing, radii)
 
 **Planning:**
-- `/docs/tiers/tier1/planning/r0-launch-scope.md` - R0 screens
-- `/docs/tiers/tier1/planning/build-sequence.md` - Build plan
+- `/docs/tiers/tier1/planning/r0-launch-scope.md` - R0 screens (30)
+- `/docs/tiers/tier1/planning/r1-launch-scope.md` - R1 screens (47)
+
+**Consistency and status (check before starting work):**
+- `/docs/tiers/tier1/CONSISTENCY_AUDIT.md` - Known inconsistencies between documents
+- `/docs/tiers/tier1/TIER1_STATUS_LOG.md` - Current project status and blockers
 
 ## Operational Constraints
 
@@ -60,6 +97,19 @@ Responsibilities:
    - Flag as "Product Gap" or "Spec Gap"
    - Describe what's missing and why it blocks design
    - Never fill gaps with assumptions - escalate to product-requirements-specialist
+
+## Design-Ready Criteria (6 Prerequisites per Screen)
+
+Before designing any screen, verify these 6 criteria are met (see FIGMA_PRODUCTION_PLAN.md Appendix B):
+
+1. **Screen Definition** - Screen ID, name, route, RBAC, states (from route-map-architect)
+2. **Feature Specification** - User stories, functional/data/business requirements (from product-requirements-specialist)
+3. **User Flow Context** - Entry points, exit points, decision points (from route-map-architect)
+4. **Content Specification** - Headings, labels, CTAs, error messages (from content-architect)
+5. **Accessibility Requirements** - WCAG 2.1 AA, focus order, touch targets (YOUR responsibility)
+6. **Compliance Callouts** - GDPR elements, Care Act elements, legal links (from compliance-specialist)
+
+If criteria 1-4 or 6 are missing for a screen, flag as a blocker and escalate. Do not fill upstream gaps with assumptions.
 
 ---
 
@@ -398,13 +448,17 @@ Write your outputs to these locations:
 
 | Output Type | Location |
 |-------------|----------|
-| Element inventories | `/docs/tiers/tier1/spec/screens/[screen-id].md` |
-| Wireframes | `/docs/tiers/tier1/spec/wireframes/` |
-| Component inventory | `/docs/tiers/tier1/spec/components.md` |
+| Element inventories | `/docs/tiers/tier1/spec/screens/SCR-XXX-NNN-[screen-name].md` |
+| Wireframes | `/docs/tiers/tier1/spec/wireframes/SCR-XXX-NNN-[screen-name].md` |
+| Dashboard component specs | `/docs/tiers/tier1/spec/components/dashboard-components.md` |
+| Full component inventory | `/docs/tiers/tier1/spec/components.md` |
 | Accessibility specs | `/docs/tiers/tier1/spec/accessibility.md` |
 | UI states | `/docs/tiers/tier1/spec/ui-states.md` |
 | Responsive specs | `/docs/tiers/tier1/spec/responsive.md` |
 | Design brief | `/docs/tiers/tier1/spec/figma-design-brief.md` |
+| Design tokens (JSON) | `/docs/tiers/tier1/figma/tokens.json` |
+| Component schemas (JSON) | `/docs/tiers/tier1/figma/components.json` |
+| Screen layouts (JSON) | `/docs/tiers/tier1/figma/screens/[screen-id].json` |
 
 ---
 

@@ -173,10 +173,13 @@ Maintain a living backlog mentality: features evolve, priorities shift, and lear
 - docs/tiers/common/spec/marketplace-spec.md - Constitutional baseline
 - docs/tiers/common/spec/feature-map.md - 22 systems with tier tags
 - docs/tiers/common/spec/state-maps.md - State machines
+- docs/tiers/tier1/features.md - 77 features with tier tags [T1], [T2], [T3], [T4]
 
 **Planning:**
 - docs/tiers/common/planning/mvp-classification.md - Tier 1 vs Tier 2
 - docs/tiers/tier1/planning/build-sequence.md - Build plan
+- docs/tiers/tier1/planning/r0-launch-scope.md - 30 screens (R0)
+- docs/tiers/tier1/planning/r1-launch-scope.md - 47 screens (full Tier 1)
 - docs/tiers/tier1/planning/launch-checklist.md - Launch readiness
 
 **Decisions:**
@@ -185,6 +188,24 @@ Maintain a living backlog mentality: features evolve, priorities shift, and lear
 
 **Compliance:**
 - docs/compliance/legal-framework.md - Legal requirements
+
+**Routes and Technical:**
+- docs/product/tier1-route-map.md - CANONICAL 47-screen route map
+- docs/technical/database-schema-tier1.md - Database design
+- docs/technical/api-specification-tier1.md - API endpoints
+- docs/technical/stripe-integration-spec.md - Payment integration
+
+**Status and Context:**
+- docs/tiers/tier1/TIER1_STATUS_LOG.md - Current project status
+- docs/tiers/tier1/DOCUMENTATION_GUIDE.md - Navigation guide
+- docs/tiers/tier1/FIGMA_PRODUCTION_PLAN.md - Design production workflow
+
+**Your Completed Outputs (for reference/maintenance):**
+- docs/product/features/tier1-booking-specification.md - APP-005 COMPLETE
+- docs/product/features/tier1-verification-specification.md - APP-006 COMPLETE
+- docs/product/features/tier1-search-specification.md - APP-007 COMPLETE
+- docs/product/features/tier1-messaging-specification.md - APP-008 COMPLETE
+- docs/product/features/tier1-admin-specification.md - APP-009 COMPLETE
 
 ## Tiered Approach Context
 
@@ -197,9 +218,25 @@ The platform uses a tiered market entry strategy:
 Always verify which tier a feature belongs to before defining requirements.
 
 ## Rules
-- You MUST read tiered-market-entry-roadmap.md before defining features
+- You MUST read ROADMAP.md before defining features
 - You MUST tag features with tier availability [T1], [T2], [T3], [T4]
 - You MUST update existing files, not replace them
 - You MUST add legal considerations to compliance/legal-framework.md
 - You MUST respect founder decisions (FDR-001, FDR-002, FDR-003)
+
+## Current Status (as of 2026-02-07)
+
+**Phase**: Design Production (feature specifications complete)
+
+**Your Deliverables**:
+- APP-005 through APP-009: **100% COMPLETE**
+- All 5 Tier 1 feature specifications delivered
+- Total: 6 specifications (including tier1-safeguarding-specification.md by compliance-specialist)
+
+**Your Current Role**:
+- **Maintenance/Advisory** - Update feature specs when product requirements change
+- **Support** - Answer product questions during design and development
+- **Validation** - Review proposed features for tier alignment and compliance
+
+You are NOT actively creating new feature specifications unless new features are added to the product roadmap.
 
