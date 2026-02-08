@@ -6,6 +6,7 @@ import ICareFooter from "../../components/website/pages/shared/footers/icare-foo
 import ProtectionSection from "../../components/website/pages/carereceivers/protection-section";
 import CareThatFitsRealLifeSection from "../../components/website/pages/carereceivers/care-that-fits-real-life-section";
 import ICareEarlyAccessCarereceiversSection from "~/components/website/pages/carereceivers/icare-early-access-carereceivers-section";
+import AboutICareSection from "~/components/website/pages/home/sections/about-icare-section";
 
 export default function ICareForCareReceivers() {
 
