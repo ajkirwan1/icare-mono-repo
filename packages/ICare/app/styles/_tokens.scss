@@ -1,48 +1,33 @@
 /* styles/_tokens.scss */
 
-/* =================================
-   Colors
-   ================================= */
+/* =====================================================================
+   CANONICAL TOKENS — use these in all new code
+   ===================================================================== */
 
-/* core text */
+
+/* ── Colors ── */
+
 $txt: #0f172a;
 $txt-white: #fff;
 $muted: rgba(15, 23, 42, 0.72);
-
-/* alternate text */
 $ink: #1a1a1a;
 $ink-strong: #000;
 $link-bg: rgb(119 141 67);
-
-/* brand */
 $primary-colour: #ffffff;
 $secondary-colour: rgb(176 196 127);
 $tertiary-colour: rgb(231, 153, 97);
-
-/* on-color */
 $on-dark: #fff;
-
-/* surfaces */
 $bg: #f7f7f2;
 $bg-soft-sage: #e8e7d7;
-
-/* translucent surfaces */
 $card-glass: rgba(255, 255, 255, 0.55);
 $card-glass-hover: rgba(255, 255, 255, 0.62);
 $card-glass-strong: rgba(255, 255, 255, 0.65);
 $tag-glass: rgba(255, 255, 255, 0.58);
-
-/* icon accents */
 $icon-bg: rgba(97, 103, 77, 0.12);
 $icon-border: rgba(97, 103, 77, 0.24);
-
-/* tints */
 $tint-soft-olive: #0f3d2014;
 
-
-/* =================================
-   Borders
-   ================================= */
+/* ── Borders ── */
 
 $border-soft: rgba(0, 0, 0, 0.06);
 $border-warm: #e0dbd4;
@@ -50,22 +35,15 @@ $card-border: rgba(15, 23, 42, 0.10);
 $form-border: rgba(15, 23, 42, 0.12);
 $border-strong: rgba(15, 23, 42, 0.14);
 
-
-/* =================================
-   Focus / States
-   ================================= */
+/* ── Focus / States ── */
 
 $focus-border: rgba(31, 171, 31, 0.55);
 $focus-ring: rgba(31, 171, 31, 0.14);
-
 $error-border: rgba(239, 68, 68, 0.55);
 $error-ring: rgba(239, 68, 68, 0.12);
 $error-text: rgba(185, 122, 87, 0.95);
 
-
-/* =================================
-   Radii
-   ================================= */
+/* ── Radii ── */
 
 $radius-sm: 12px;
 $radius-lg: 18px;
@@ -74,32 +52,18 @@ $radius-xl: 24px;
 $radius-30: 30px;
 $radius-pill: 999px;
 
-
-/* =================================
-   Shadows
-   ================================= */
+/* ── Shadows ── */
 
 $shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.06);
-$shadow-card-soft: 0 10px 26px rgba(15, 23, 42, 0.05);
-
-$shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
-$shadow-elev: 0 4px 12px rgba(0, 0, 0, 0.12);
-$shadow-cta: 0 8px 22px rgba(0, 0, 0, 0.12);
-
-$shadow-card-pop: 0 10px 30px rgba(15, 23, 42, 0.14);
-$shadow-card: 0 14px 40px rgba(15, 23, 42, 0.10);
-$shadow-figure: 0 14px 40px rgba(0, 0, 0, 0.08);
-$shadow-photo: 0 18px 44px rgba(15, 23, 42, 0.08);
-
+$shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.12);
+$shadow-md: 0 8px 22px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 14px 40px rgba(15, 23, 42, 0.10);
+$shadow-xl: 0 18px 44px rgba(15, 23, 42, 0.08);
 $shadow-btn: 0 16px 30px rgba(15, 23, 42, 0.16);
 $shadow-text-hero: 0 2px 16px rgba(0, 0, 0, 0.35);
 
+/* ── Font Weights ── */
 
-/* =================================
-   Typography
-   ================================= */
-
-/* font weights */
 $fw-light: 300;
 $fw-normal: 400;
 $fw-semibold: 500;
@@ -108,160 +72,186 @@ $fw-extrabold: 700;
 $fw-heavy: 800;
 $fw-ultra: 900;
 
-/* font sizes (fixed) */
-$fs-xxs: 0.86rem;
-$fs-sm: 0.95rem;
-$fs-xs: 0.99rem;
-$fs-1: 1rem;
-$fs-s: 1.04rem;
-$fs-base: 1.05rem;
-$fs-m: 1.06rem;
-$fs-l: 1.08rem;
-$fs-11: 1.1rem;
-$fs-lg-2: 1.15rem;
-$fs-md: 1.2rem;
-$fs-lg: 1.22rem;
-$fs-xl2: 1.27rem;
-$fs-xl: 1.3rem;
-$fs-hero-list: 1.3rem;
-$fs-hero-h3: 1.48rem;
-$fs-hero-lead-p: 1.6rem;
-$fs-18: 1.8rem;
-$fs-2: 2rem;
-$fs-22: 2.2rem;
-$fs-2xl: 2.4rem;
-$fs-hero-title: 2.4rem;
+/* ── Font Sizes ── */
 
-/* font sizes (additional fixed) */
-$fs-lg-2: 1.15rem; // card short description size
-$fs-hero-h3: 1.8rem; // card title size
+$font-2xs: 0.86rem;
+$font-xs: 0.95rem;
+$font-sm: 1rem;
+$font-base: 1.05rem;
+$font-md: 1.15rem;
+$font-lg: 1.22rem;
+$font-xl: 1.3rem;
+$font-2xl: 1.8rem;
+$font-3xl: 2.4rem;
 
-/* font sizes (fluid / clamp) */
+/* ── Font Sizes (fluid) ── */
+
 $fs-h2-fluid: clamp(1.85rem, 2.8vw, 2.25rem);
 $fs-hero-lead-fluid: clamp(1.25rem, 2vw, 1.55rem);
-
-/* card typography (fluid) */
 $fs-card-title-fluid: clamp(1.6rem, 3.2vw, 2.4rem);
 $fs-card-body-fluid: clamp(1.02rem, 1.6vw, 1.2rem);
 
-/* line heights */
+/* ── Line Heights ── */
+
 $lh-compact: 1.1;
 $lh-tight: 1.14;
 $lh-title: 1.2;
-$lh-hero-title: 1.25;
-$lh-list: 1.5;
-$lh-outro: 1.55;
+$lh-heading: 1.25;
 $lh-body: 1.6;
-$lh-loose: 1.62;
 $lh-copy: 1.65;
-$lh-relaxed: 1.66;
-$lh-card-full: 1.68;
-$lh-copy-lg: 1.7;
-$lh-card: 1.72;
+$lh-relaxed: 1.72;
 
-/* letter spacing */
+/* ── Letter Spacing ── */
+
 $tracking-tight: -0.6px;
-$tracking-h2: -0.45px;
-$tracking-hero-h2: -0.35px;
-$tracking-hero-title: -0.3px;
-$tracking-tight-2: -0.25px;
-$tracking-s: -0.2px;
-$tracking-xs: -0.15px;
-$tracking-xxs: -0.1px;
+$tracking-snug: -0.35px;
+$tracking-normal: -0.15px;
+$tracking-none: 0;
 
-/* opacity */
-$opacity-95: 0.95;
+/* ── Spacing ── */
 
+$sp-1: 4px;
+$sp-2: 8px;
+$sp-3: 12px;
+$sp-4: 16px;
+$sp-5: 20px;
+$sp-6: 24px;
+$sp-8: 32px;
+$sp-10: 40px;
+$sp-12: 48px;
+$sp-14: 56px;
 
-/* =================================
-   Spacing
-   ================================= */
+/* ── Layout Spacing (fluid) ── */
 
-/* pixels */
-$space-2: 2px;
-$space-3: 3px;
-$space-4: 4px;
-$space-7: 7px;
-$space-8: 8px;
-$space-10: 10px;
-$space-11px: 11px;
-$space-12: 12px;
-$space-14px: 14px;
-$space-16: 16px;
-$space-18: 18px;
-$space-20: 20px;
-$space-24: 24px;
-$space-26px: 26px;
-$space-32: 32px;
-$space-36: 36px;
-$space-40: 40px;
-$space-48: 48px;
-$space-56: 56px;
-
-/* rem-based */
-$space-055: 0.55rem;
-$space-065: 0.65rem;
-$space-09: 0.9rem;
-$space-095: 0.95rem;
-$space-11: 0.7rem;
-$space-14: 1.4rem;
-$space-21: 2.1rem;
-$space-22: 2.2rem;
-$space-25: 2.5rem;
-$space-26: 1.6rem;
-$space-30: 3rem;
-$space-35: 3.5rem;
-$space-40: 4rem;
-$space-6: 6rem;
-
-/* layout spacing (fluid) */
 $space-section-y: clamp(4.8rem, 6.2vw, 6.4rem);
 $gap-grid-fluid: clamp(26px, 3.4vw, 52px);
 $space-seo-mt: clamp(30px, 3.8vw, 44px);
 $space-seo-pt: clamp(18px, 2.4vw, 26px);
-
-/* card spacing (fluid) */
 $space-card-wrap-fluid: clamp(1.25rem, 4vw, 3rem);
 
-/* CTA spacing */
-$space-cta-top: $space-065;
-
-
-/* =================================
-   Layout sizing
-   ================================= */
+/* ── Layout Sizing ── */
 
 $container-hero-max: 2000px;
 $container-hero-gutter: 92vw;
 $hero-copy-max: 66ch;
 $hero-badge-max: 600px;
-
 $h-card-media: 420px;
 $maxh-reveal: 280px;
 $maxw-copy-lg: 60ch;
-
-
-/* =================================
-   Section layouts
-   ================================= */
-
 $section-split-min-h: 760px;
 $section-split-col-min-h: 380px;
 
-
-/* =================================
-   Motion
-   ================================= */
+/* ── Motion ── */
 
 $transition-fast: transform 0.1s linear;
 $transition-ui: all 0.25s ease;
 $transition-reveal: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-
-/* reveal motion */
 $transition-reveal-height: max-height 2s cubic-bezier(0.18, 0.95, 0.18, 1);
 $transition-reveal-content: transform 1350ms cubic-bezier(0.18, 0.95, 0.18, 1),
-    opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
-
+  opacity 1350ms cubic-bezier(0.18, 0.95, 0.18, 1);
 $reveal-delay-open: 260ms;
 
+/* ── Misc ── */
+
+$opacity-95: 0.95;
 $nav-bar-height: 12vh;
+
+
+/* =====================================================================
+   LEGACY ALIASES — existing code still references these.
+   Migrate to canonical names when touching a file, then delete the alias.
+   ===================================================================== */
+
+
+/* ── Shadow aliases ── */
+
+$shadow-elev: $shadow-sm;
+$shadow-elev-active: 0 4px 12px rgba(0, 0, 0, 0.14);
+$shadow-cta: $shadow-md;
+$shadow-card-soft: 0 10px 26px rgba(15, 23, 42, 0.05);
+$shadow-card-pop: 0 10px 30px rgba(15, 23, 42, 0.14);
+$shadow-card: $shadow-lg;
+$shadow-figure: 0 14px 40px rgba(0, 0, 0, 0.08);
+$shadow-photo: $shadow-xl;
+
+/* ── Font-size aliases ── */
+
+$fs-xxs: $font-2xs;
+$fs-sm: $font-xs;
+$fs-xs: $font-sm; // was 0.99rem → 1rem
+$fs-1: $font-sm; // was 1rem
+$fs-s: $font-base; // was 1.04rem
+$fs-base: $font-base; // was 1.05rem
+$fs-m: $font-base; // was 1.06rem
+$fs-l: $font-base; // was 1.08rem
+$fs-11: 1.1rem; // kept: between base and md
+$fs-lg-2: $font-md; // was 1.15rem
+$fs-md: 1.2rem; // kept: between md and lg
+$fs-lg: $font-lg; // was 1.22rem
+$fs-xl2: $font-xl; // was 1.27rem → 1.3rem
+$fs-xl: $font-xl; // was 1.3rem
+$fs-hero-list: $font-xl; // was 1.3rem
+$fs-hero-h3: $font-2xl; // was 1.48/1.8rem (dual-declared) → 1.8rem
+$fs-hero-lead-p: 1.6rem; // kept: unique value
+$fs-2xl: $font-3xl; // was 2.4rem
+$fs-hero-title: $font-3xl; // was 2.4rem
+
+/* ── Line-height aliases ── */
+
+$lh-hero-title: $lh-heading; // was 1.25
+$lh-list: 1.5; // kept: unique value
+$lh-outro: 1.55; // kept: unique value
+$lh-loose: $lh-copy; // was 1.62 → 1.65
+$lh-card-full: 1.68; // kept: between copy and relaxed
+$lh-copy-lg: 1.7; // kept: between copy and relaxed
+$lh-card: $lh-relaxed; // was 1.72
+
+/* ── Letter-spacing aliases ── */
+
+$tracking-h2: -0.45px; // kept: between tight and snug
+$tracking-hero-h2: $tracking-snug; // was -0.35px
+$tracking-hero-title: -0.3px; // kept: between snug and normal
+$tracking-tight-2: -0.25px; // kept: between snug and normal
+$tracking-s: -0.2px; // kept: between snug and normal
+$tracking-xs: $tracking-normal; // was -0.15px
+$tracking-xxs: -0.1px; // kept: between normal and none
+
+/* ── Spacing aliases (pixel) ── */
+
+$space-2: 2px; // kept: below $sp-1
+$space-3: 3px; // kept: below $sp-1
+$space-4: $sp-1; // was 4px
+$space-7: 7px; // kept: between sp-1 and sp-2
+$space-8: $sp-2; // was 8px
+$space-10: 10px; // kept: between sp-2 and sp-3
+$space-11px: 11px; // kept: between sp-2 and sp-3
+$space-12: $sp-3; // was 12px
+$space-14px: 14px; // kept: between sp-3 and sp-4
+$space-16: $sp-4; // was 16px
+$space-18: 18px; // kept: between sp-4 and sp-5
+$space-20: $sp-5; // was 20px
+$space-24: $sp-6; // was 24px
+$space-26px: 26px; // kept: between sp-6 and sp-8
+$space-32: $sp-8; // was 32px
+$space-36: 36px; // kept: between sp-8 and sp-10
+$space-40: $sp-10; // was 40px
+$space-48: $sp-12; // was 48px
+$space-56: $sp-14; // was 56px
+
+/* ── Spacing aliases (rem-based, misleading names) ── */
+
+$space-055: 0.55rem;
+$space-065: 0.65rem;
+$space-09: 0.9rem;
+$space-095: 0.95rem;
+$space-11: 0.7rem; // NOTE: name suggests 1.1rem but value is 0.7rem
+$space-14: 1.4rem;
+$space-21: 2.1rem;
+$space-22: 2.2rem;
+$space-25: 2.5rem;
+$space-26: 1.6rem; // NOTE: name suggests 2.6rem but value is 1.6rem
+$space-30: 3rem;
+$space-35: 3.5rem;
+// $space-40: 4rem;            // conflicts with pixel $space-40 — rem version removed
+$space-6: 6rem;
+$space-cta-top: $space-065;

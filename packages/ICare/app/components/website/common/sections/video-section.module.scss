@@ -1,8 +1,133 @@
-.video {
+.mediaWrap {
+    position: relative;
     overflow: hidden;
+    border-radius: 20px;
+    padding: 16px;
+    background: rgba(100, 100, 100, 0.2);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.video {
     width: 100%;
     max-width: 640px;
     display: block;
     border-radius: 15px;
     border: 1px solid #ddd;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.playBtn {
+    position: relative;
+    z-index: 2;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    .overlay:hover & {
+        background: rgba(0, 0, 0, 0.75);
+        transform: scale(1.08);
+    }
+}
+
+.controls {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+
+    .mediaWrap:hover & {
+        opacity: 1;
+    }
+}
+
+.controlBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.divider {
+    width: 1px;
+    align-self: stretch;
+    margin: 6px 2px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.volumeSlider {
+    width: 70px;
+    height: 4px;
+    align-self: center;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        border: none;
+        cursor: pointer;
+    }
 }

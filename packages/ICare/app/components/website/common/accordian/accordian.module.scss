@@ -33,10 +33,21 @@
     align-items: center;
     gap: $space-12;
     padding: $space-4 0;
-}
+    border-radius: $radius-lg;
 
-.summary::-webkit-details-marker {
-    display: none;
+    &::-webkit-details-marker {
+        display: none;
+    }
+
+    &::marker {
+        display: none;
+        content: "";
+    }
+
+    &:focus-visible {
+        outline: 2px solid #4c7865;
+        outline-offset: 4px;
+    }
 }
 
 .question {
@@ -48,9 +59,24 @@
 .arrow {
     flex: 0 0 auto;
     margin-left: $space-12;
-    transition: transform 0.25s ease;
-    width: 24px;
-    height: 24px;
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    background: #5f7235;
+    position: relative;
+    display: inline-block;
+    transition: transform 220ms ease;
+}
+
+.arrowHead {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: translate(-50%, -55%) rotate(45deg);
 }
 
 .item[open] .arrow {
