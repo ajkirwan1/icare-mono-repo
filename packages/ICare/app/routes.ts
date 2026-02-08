@@ -11,6 +11,7 @@ export default [
   route("terms-of-service", "routes/website/terms-of-service.jsx"),
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
+  route("frequently-asked-questions", "routes/website/faqs.jsx"),
 
   // News and articles
   route("care-knowledge", "routes/website/news-and-articles/news-and-articles.jsx"),

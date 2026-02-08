@@ -3,8 +3,8 @@
 
 **Document Type**: Website Copy - Publication Ready
 **Status**: Draft for Review
-**Word Count**: ~1,150 words
-**Last Updated**: 2026-02-01
+**Word Count**: ~1,400 words
+**Last Updated**: 2026-02-08
 **Target Tier**: Tier 1 (Pre-Launch)
 
 ---
@@ -95,6 +95,26 @@ We're building a straightforward payment system into the platform. You'll be pai
 
 ---
 
+## Safety and Safeguarding
+
+### How will iCare protect vulnerable adults?
+
+Safety is built into every layer of iCare. All caregivers must complete identity verification, eligibility checks, and admin approval before their profile goes live. We're designing safeguarding policies aligned with the Care Act 2014 and building reporting tools directly into the platform. Every decision we make is guided by the safety and wellbeing of the people who use iCare.
+
+### What if there is an emergency during a visit?
+
+For any medical emergency, always call 999 first. iCare is not an emergency response service. After ensuring immediate safety, you can notify iCare so we can document the incident and take any necessary action.
+
+### How do I report a safeguarding concern?
+
+We're building a clear and accessible reporting process into the platform. You'll be able to raise concerns directly through iCare, and all reports will be taken seriously and reviewed promptly. Full details of how reporting will work will be shared at launch.
+
+### Is my data safe with iCare?
+
+Yes. We comply with GDPR and UK data protection law. We collect only the minimum information needed and never share your personal details without your consent. At launch, we will collect standard personal data only - no medical or health information. You can read more in our Privacy Policy.
+
+---
+
 ## Waitlist Questions
 
 ### Why should I join the waitlist?
@@ -132,10 +152,11 @@ If your question wasn't answered here, we'd love to hear from you. Contact us an
 - General Questions (5 Q&A): ~290 words
 - For Families (5 Q&A): ~345 words
 - For Caregivers (5 Q&A): ~340 words
+- Safety and Safeguarding (4 Q&A): ~200 words
 - Waitlist Questions (4 Q&A): ~280 words
 - Closing: ~35 words
 
-**Total: ~1,150 words**
+**Total: ~1,400 words**
 
 ### SEO Metadata
 
@@ -151,6 +172,7 @@ If your question wasn't answered here, we'd love to hear from you. Contact us an
 - General Questions
 - For Families
 - For Caregivers
+- Safety and Safeguarding
 - Waitlist Questions
 - Still Have Questions?
 
@@ -200,6 +222,9 @@ If your question wasn't answered here, we'd love to hear from you. Contact us an
 
 - Verification process mentioned (without detail)
 - Safety as foundation principle
+- Safeguarding section with Care Act 2014 alignment
+- Emergency guidance (call 999 first)
+- GDPR and data protection compliance stated
 - Transparency about deferred information
 - Fairness to both families and caregivers
 - Community-building focus
@@ -252,8 +277,8 @@ If your question wasn't answered here, we'd love to hear from you. Contact us an
 ### Questions for Review
 
 1. Should we add a "Technical Questions" section about platform/app?
-2. Do we need a question about insurance or liability?
-3. Should we address data privacy/GDPR in FAQ or keep separate?
+2. ~~Do we need a question about insurance or liability?~~ Addressed in Caregivers section (DBS/insurance Q&A)
+3. ~~Should we address data privacy/GDPR in FAQ or keep separate?~~ Addressed in Safety and Safeguarding section
 4. Would testimonials or quotes enhance this page when available?
 
 ### Future Iterations (Post-Launch)

@@ -6,35 +6,35 @@ import ICareFooter from "../../components/website/pages/shared/footers/icare-foo
 
 export default function PrivacyPage() {
 
-    const navItems = [
-        ["#who", "Who we are"],
-        ["#data", "Data we collect"],
-        ["#use", "How we use data"],
-        ["#emails", "Emails"],
-        ["#law", "Legal basis"],
-        ["#share", "Sharing"],
-        ["#retain", "Retention"],
-        ["#rights", "Your rights"],
-        ["#contact", "Contact"]
-    ];
+  const navItems = [
+    ["#who", "Who we are"],
+    ["#data", "Data we collect"],
+    ["#use", "How we use data"],
+    ["#emails", "Emails"],
+    ["#law", "Legal basis"],
+    ["#share", "Sharing"],
+    ["#retain", "Retention"],
+    ["#rights", "Your rights"],
+    ["#contact", "Contact"]
+  ];
 
-    return (
-        <>
-            <PrivacyHero
-                backgroundSrc={privacySrc}
-                title="Privacy"
-                lead={
-                    <>
-                        Your privacy matters to us.
-                        <br />
-                        This page explains what personal data we collect<br /> why we collect it,
-                        and how you can exercise your rights.
-                    </>
-                }
-                navItems={navItems}
-            />
-            <PrivacyContent />
-            <ICareFooter />
-        </>
-    );
+  return (
+    <>
+      <PrivacyHero
+        backgroundSrc={privacySrc}
+        title="Privacy"
+        lead={
+          <>
+            Your privacy matters to us.
+            <br />
+            This page explains what personal data we collect<br /> why we collect it,
+            and how you can exercise your rights.
+          </>
+        }
+        navItems={navItems}
+      />
+      <PrivacyContent />
+      <ICareFooter />
+    </>
+  );
 }
