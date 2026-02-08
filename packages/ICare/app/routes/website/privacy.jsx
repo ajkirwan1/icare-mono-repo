@@ -1,5 +1,5 @@
 import React from "react";
-import privacySrc from "/images/heros/privacy.jpg";
+import privacySrc from "/images/heros/privacy.webp";
 import PrivacyHero from "../../components/website/pages/privacy/privacy-hero";
 import PrivacyContent from "../../components/website/pages/privacy/privacy-content";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";

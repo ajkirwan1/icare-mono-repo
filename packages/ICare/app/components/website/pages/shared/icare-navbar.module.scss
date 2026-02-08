@@ -1,13 +1,17 @@
 .header {
     position: fixed;
     inset: 0 0 auto 0;
-    z-index: 100;
+    z-index: 10000; // ✅ zawsze nad mobile overlay
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.8rem clamp(20px, 4vw, 48px);
+
+    width: 100vw;
+
+    /* ✅ ważne: NIE nadpisuj height auto, bo top overlay liczy się z navbar-height */
     height: var(--navbar-height);
-    height: auto;
+
     background: rgba(100, 100, 100, 0.8);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -59,7 +63,6 @@
     }
 }
 
-
 .dropdownBtn {
     @extend .link;
     background: none;
@@ -83,6 +86,7 @@
     // border: 1px solid rgba(255, 255, 255, 0.12);
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
+
     z-index: 9999;
 
     opacity: 0;
@@ -109,9 +113,7 @@
     transform: translateY(8px);
 
     /* cascade: each link delays based on --i */
-    transition:
-        opacity 220ms ease,
-        transform 260ms ease;
+    transition: opacity 220ms ease, transform 260ms ease;
     transition-delay: calc(var(--i, 0) * 70ms);
 
     &:hover,
@@ -127,42 +129,202 @@
     transform: translateY(0);
 }
 
+/* =========================================================
+   MOBILE TOGGLE (burger -> X)
+========================================================= */
+
 .mobileToggle {
     display: none;
-    background: none;
+    background: transparent;
     border: none;
-    font-size: 54px;
-    color: white;
+    padding: 10px;
     cursor: pointer;
+    line-height: 0;
+    margin-right: -10px;
 
     @media (max-width: 900px) {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
-.mobileMenu {
-    position: absolute;
-    top: 100%;
+.burger {
+    width: 40px;
+    height: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burgerLine {
+    height: 3px;
+    width: 100%;
+    background: white;
+    border-radius: 999px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+}
+
+/* open -> X */
+.mobileToggleOpen .burgerLine:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.mobileToggleOpen .burgerLine:nth-child(2) {
+    opacity: 0;
+}
+
+.mobileToggleOpen .burgerLine:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+}
+
+/* =========================================================
+   MOBILE MENU (overlay + panel slide-in)
+   ✅ Overlay zaczyna się POD headerem, więc brand/toggle są nad nim
+========================================================= */
+
+.mobileOverlay {
+    position: fixed;
+    left: 0;
     right: 0;
-    width: min(92vw, 360px);
-    padding: 1.2rem;
 
+    /* ✅ klucz: nie przykrywa headera */
+    top: var(--navbar-height);
+    bottom: 0;
+
+    z-index: 9998; // ✅ niżej niż header
+
+    background: rgba(15, 23, 42, 0.34);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobileOverlayOpen {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobilePanel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    /* ✅ panel wypełnia tylko przestrzeń POD headerem */
+    height: calc(100vh - var(--navbar-height));
+    width: 100vw;
+
+    background: #fff;
+    color: #0f172a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+
+    padding: 26px 18px;
+}
+
+.mobileOverlayOpen .mobilePanel {
+    transform: translateX(0);
+}
+
+.mobileNav {
+    width: 100%;
     display: grid;
-    gap: 0.9rem;
+    gap: 14px;
+    text-align: center;
+}
 
-    background: rgba(0, 0, 0, 0.92);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+.mobileLink {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 10px 8px;
+
+    &:hover,
+    &[aria-current="page"] {
+        color: #ffa967;
+    }
 }
 
 .mobileGroup {
     display: grid;
-    gap: 10px;
+    gap: 8px;
+}
+
+.mobileGroupTitle {
+    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 10px 8px;
+    color: #0f172a;
 }
 
 .mobileSub {
     display: grid;
-    gap: 8px;
-    padding-left: 10px;
+    gap: 6px;
+    padding-left: 0;
+}
+
+.mobileSublink {
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 8px 8px;
+
+    &:hover,
+    &[aria-current="page"] {
+        color: #ffa967;
+    }
+}
+
+/* BODY CLASS (scroll lock) */
+:global(body.icare-mobile-open) {
+    overflow: hidden;
+}
+
+.logoBlack {
+    display: none;
+}
+
+/* gdy mobile menu otwarte */
+:global(body.icare-mobile-open) .logoNormal {
+    display: none;
+}
+
+:global(body.icare-mobile-open) .logoBlack {
+    display: block;
+}
+
+
+/* =========================================================
+   EXISTING responsive tweak
+========================================================= */
+@media (max-width: 1100px) {
+    .desktopNav {
+        gap: 2rem;
+    }
+
+    .link {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .backgroundImage {
+        background-position: 38% 50%;
+    }
+
+    :global(body.icare-mobile-open) .header {
+        background: white;
+    }
+
+    :global(body.icare-mobile-open) .burgerLine {
+        background: #000;
+    }
 }

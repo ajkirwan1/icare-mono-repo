@@ -60,3 +60,11 @@
     background: $tertiary-colour;
     color: $txt-white;
 }
+
+@media (max-width:600px) {
+    .button {
+        padding: $space-16 $space-22;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+}

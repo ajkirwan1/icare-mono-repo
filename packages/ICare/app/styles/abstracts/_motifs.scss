@@ -6,6 +6,11 @@
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     // background: var(--section-bg, transparent);
+
+    @media (max-width: 600px) {
+        padding: 40px 20px;
+    }
+
 }
 
 @mixin title {
@@ -15,6 +20,10 @@
     color: t.$txt;
     letter-spacing: t.$tracking-tight;
     line-height: t.$lh-tight;
+
+    @media (max-width: 600px) {
+        font-size: t.$fs-2;
+    }
 }
 
 @mixin subtitle {
@@ -37,6 +46,10 @@
     grid-template-columns: .75fr 1.25fr;
     gap: t.$space-32;
     align-items: start;
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 @mixin split-3-2($gap: t.$space-56, $align: center) {

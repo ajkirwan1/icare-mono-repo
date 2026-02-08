@@ -1,265 +1,106 @@
 import React from "react";
 import { Link } from "react-router";
+import styles from "./home-page-care-cta.module.scss";
 
 export default function WhoIsICareForSection() {
-    const TEXT = "#0F172A";
-    const MUTED = "rgba(15,23,42,0.72)";
-    const BRAND = "#778d43";
-
-    const colStyle = {
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100%",
-    };
-
-    const ctaWrap = {
-        marginTop: "auto",
-        paddingTop: "2rem",
-    };
-
     return (
-        <section
-            aria-label="Who ICare is for"
-            style={{
-                width: "100%",
-                padding: "clamp(3.5rem, 6vw, 5rem) 0",
-                background: "#fff9ef",
-                fontFamily:
-                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-                color: TEXT,
-            }}
-        >
-            <div style={{ width: "min(1100px, 92vw)", margin: "0 auto" }}>
+        <section aria-label="Who ICare is for" className={styles.section}>
+            <div className={styles.container}>
                 {/* HEADER */}
-                <header style={{ textAlign: "center", marginBottom: "3.2rem" }}>
-                    <h2
-                        style={{
-                            margin: 0,
-                            fontWeight: 600,
-                            fontSize: "2.4rem",
-                            letterSpacing: "-0.6px",
-                            lineHeight: 1.15,
-                        }}
-                    >
+                <header className={styles.header}>
+                    <h2 className={styles.h2}>
                         A calmer home support marketplace
                         <br />
                         for families and caregivers
                     </h2>
 
-                    <p
-                        style={{
-                            margin: "1.2rem auto 0",
-                            maxWidth: "65ch",
-                            fontSize: "1.35rem",
-                            lineHeight: 1.65
-                        }}
-                    >
-                        ICare connects families with independent caregivers through clear
-                        profiles, direct messaging and a guided process - so both sides can
-                        agree support with confidence.
+                    <p className={styles.sub}>
+                        ICare connects families with independent caregivers through clear profiles,
+                        direct messaging and a guided process - so both sides can agree support with
+                        confidence.
                     </p>
                 </header>
 
                 {/* TWO COLUMNS */}
-                <div
-                    style={{
-                        background: "#fff",
-                        borderRadius: 24,
-                        padding: "clamp(2rem, 3vw, 3rem)",
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "clamp(2rem, 4vw, 3.5rem)",
-                        border: "1px solid rgba(15,23,42,0.08)",
-                        alignItems: "stretch",
-                    }}
-                >
+                <div className={styles.card}>
                     {/* FOR FAMILIES */}
-                    <div style={colStyle}>
+                    <div className={styles.col}>
                         <div>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.6rem",
-                                    fontWeight: 600,
-                                    letterSpacing: "-0.3px",
-                                }}
-                            >
-                                For families & care receivers
-                            </h3>
+                            <h3 className={styles.h3}>For families &amp; care receivers</h3>
 
-                            <p
-                                style={{
-                                    margin: "0.8rem 0 1.4rem",
-                                    fontSize: "1.2rem",
-                                    lineHeight: 1.6,
-                                }}
-                            >
-                                Find companionship that fits your home - without agency
-                                pressure or uncertainty.
+                            <p className={styles.lead}>
+                                Find companionship that fits your home - without agency pressure or
+                                uncertainty.
                             </p>
 
-                            <ul
-                                style={{
-                                    margin: 0,
-                                    paddingLeft: "1.1rem",
-                                    display: "grid",
-                                    gap: "0.8rem",
-                                    fontSize: "1.15rem",
-                                    lineHeight: 1.55,
-                                    listStyle: "disc",
-                                }}
-                            >
+                            <ul className={styles.list}>
                                 <li>
-                                    Clear caregiver profiles showing experience, availability and
-                                    key details upfront.
+                                    Clear caregiver profiles showing experience, availability and key details
+                                    upfront.
                                 </li>
                                 <li>
-                                    Direct, secure messaging to agree routines, schedules and
-                                    start dates.
+                                    Direct, secure messaging to agree routines, schedules and start dates.
                                 </li>
                             </ul>
                         </div>
 
-                        <div style={ctaWrap}>
+                        <div className={styles.ctaWrap}>
                             <Link
                                 to="#waitlist"
+                                className={`${styles.btn} ${styles.btnOutline}`}
                                 onClick={(e) => {
                                     e.preventDefault();
                                     const el = document.getElementById("waitlist");
                                     if (!el) return;
 
-                                    const y =
-                                        el.getBoundingClientRect().top +
-                                        window.pageYOffset -
-                                        60;
-
+                                    const y = el.getBoundingClientRect().top + window.pageYOffset - 60;
                                     window.scrollTo({ top: y, behavior: "smooth" });
 
-                                    // optional: keep hash in URL (won't jump)
                                     window.history.pushState(null, "", "#waitlist");
-                                }}
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "0.9rem 1.9rem",
-                                    borderRadius: 999,
-                                    border: "1.5px solid #0F172A",
-                                    textDecoration: "none",
-                                    fontWeight: 700,
-                                    color: "#0F172A",
                                 }}
                             >
                                 Join the waiting list
                             </Link>
 
-                            <p
-                                style={{
-                                    marginTop: "0.8rem",
-                                    fontSize: "0.95rem",
-                                }}
-                            >
-                                We’ll notify you when ICare opens in your area.
-                            </p>
+                            <p className={styles.ctaNote}>We’ll notify you when ICare opens in your area.</p>
                         </div>
                     </div>
 
                     {/* FOR CAREGIVERS */}
-                    <div style={colStyle}>
+                    <div className={styles.col}>
                         <div>
-                            <h3
-                                style={{
-                                    margin: 0,
-                                    fontSize: "1.6rem",
-                                    fontWeight: 600,
-                                    letterSpacing: "-0.3px",
-                                }}
-                            >
-                                For caregivers
-                            </h3>
+                            <h3 className={styles.h3}>For caregivers</h3>
 
-                            <p
-                                style={{
-                                    margin: "0.8rem 0 1.4rem",
-                                    fontSize: "1.2rem",
-                                    lineHeight: 1.6,
-                                }}
-                            >
-                                Build trust faster and reduce back-and-forth with a profile
-                                designed for clarity.
+                            <p className={styles.lead}>
+                                Build trust faster and reduce back-and-forth with a profile designed for
+                                clarity.
                             </p>
 
-                            <ul
-                                style={{
-                                    margin: 0,
-                                    paddingLeft: "1.1rem",
-                                    display: "grid",
-                                    gap: "0.8rem",
-                                    fontSize: "1.15rem",
-                                    lineHeight: 1.55,
-                                    listStyle: "disc",
-                                }}
-                            >
+                            <ul className={styles.list}>
+                                <li>Secure messaging to align expectations before work begins.</li>
                                 <li>
-                                    Secure messaging to align expectations before work begins.
-                                </li>
-                                <li>
-                                    A clear profile highlighting your experience, availability
-                                    and optional video introduction.
+                                    A clear profile highlighting your experience, availability and optional
+                                    video introduction.
                                 </li>
                             </ul>
                         </div>
 
-                        <div style={ctaWrap}>
-                            <Link
-                                to="/caregivers"
-                                style={{
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    padding: "0.9rem 2.1rem",
-                                    borderRadius: 999,
-                                    background: BRAND,
-                                    color: "#fff",
-                                    textDecoration: "none",
-                                    fontWeight: 700,
-                                }}
-                            >
+                        <div className={styles.ctaWrap}>
+                            <Link to="/icare-for-caregivers" className={`${styles.btn} ${styles.btnFill}`}>
                                 I’m a caregiver
                             </Link>
 
-                            <p
-                                style={{
-                                    marginTop: "0.8rem",
-                                    fontSize: "0.95rem",
-                                }}
-                            >
-                                Learn how ICare supports independent caregivers.
-                            </p>
+                            <p className={styles.ctaNote}>Learn how ICare supports independent caregivers.</p>
                         </div>
                     </div>
                 </div>
 
                 {/* LEGAL NOTE */}
-                <p
-                    style={{
-                        marginTop: "1.8rem",
-                        fontSize: "0.95rem",
-                        maxWidth: "75ch",
-                    }}
-                >
-                    ICare is a matching platform. We don’t provide care services or
-                    manage care delivery.
+                <p className={styles.legal}>
+                    ICare is a matching platform. We don’t provide care services or manage care
+                    delivery.
                 </p>
             </div>
-
-            <style>{`
-        @media (max-width: 900px) {
-          section [aria-label="Who ICare is for"] > div > div {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }
