@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.8rem clamp(20px, 4vw, 48px);
-
+    min-height: 92px;
     width: 100vw;
 
     /* ✅ ważne: NIE nadpisuj height auto, bo top overlay liczy się z navbar-height */

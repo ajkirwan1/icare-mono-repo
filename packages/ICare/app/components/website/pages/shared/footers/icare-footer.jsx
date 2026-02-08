@@ -68,9 +68,7 @@ export default function ICareFooter() {
                         </NavLink>
 
                         <p className={styles.tagline}>
-                            A transparent marketplace connecting families with independent caregivers
-                            <br />
-                            without agency markups.
+                            A transparent marketplace connecting families with independent caregivers without agency markups.
                         </p>
 
                         {/* SOCIAL ICONS + SHARE */}

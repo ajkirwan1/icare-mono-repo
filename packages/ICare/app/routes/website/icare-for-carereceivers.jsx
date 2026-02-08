@@ -4,21 +4,21 @@ import MobileMockupSection from "../../components/website/pages/carereceivers/mo
 import ReceiversFAQ from "../../components/website/pages/carereceivers/ReceiversFAQ";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ProtectionSection from "../../components/website/pages/carereceivers/protection-section";
-import AboutICareSection from "../../components/website/pages/home/sections/about-icare-section";
+import CareThatFitsRealLifeSection from "../../components/website/pages/carereceivers/care-that-fits-real-life-section";
 import ICareEarlyAccessCarereceiversSection from "~/components/website/pages/carereceivers/icare-early-access-carereceivers-section";
 
 export default function ICareForCareReceivers() {
 
-  return (
-    <>
-      <ICareForCareReceiversHero />
-      <AboutICareSection />
-      <MobileMockupSection />
-      <ReceiversCompareICareVsAgency />
-      <ProtectionSection />
-      <ICareEarlyAccessCarereceiversSection />
-      <ReceiversFAQ />
-      <ICareFooter />
-    </>
-  );
+    return (
+        <>
+            <ICareForCareReceiversHero />
+            <CareThatFitsRealLifeSection />
+            <MobileMockupSection />
+            <ReceiversCompareICareVsAgency />
+            <ProtectionSection />
+            <ICareEarlyAccessCarereceiversSection />
+            <ReceiversFAQ />
+            <ICareFooter />
+        </>
+    );
 }
