@@ -37,18 +37,37 @@ Responsibilities:
 
 The project follows a **dashboard-first** design production approach (defined in FIGMA_PRODUCTION_PLAN.md):
 
-1. **Phase 0**: Agent creates dashboard wireframes and shared component specs (Jobs 1-4)
+1. **Phase 0**: Agent creates dashboard wireframes and shared component specs -- **COMPLETE**
 2. **Phase 1**: Human designer creates low-fidelity dashboard mockups in Figma
 3. **Phase 2**: Human designer creates high-fidelity dashboards + establishes design system FROM dashboard designs
-4. **Phase 3**: Remaining screens (low-fidelity) using established design system
+4. **Phase 3**: Remaining screens (low-fidelity) using established design system -- **IN PROGRESS**
 5. **Phase 4**: Remaining screens (high-fidelity)
 
-**Why dashboards first**: Dashboards contain the widest variety of UI components (booking cards, status badges, metric cards, alert banners, navigation). Components designed for dashboards will be reused across all other screens. The design system emerges from dashboard work.
+**Current Phase**: Phase 3 -- producing wireframes for remaining R0 screens using patterns established in Phase 0.
 
-**The 3 core dashboards are**:
-- SCR-CR-001: Care Receiver Dashboard (`/dashboard`)
-- SCR-CG-001: Caregiver Dashboard (`/caregiver/dashboard`)
-- SCR-ADM-001: Admin Dashboard (`/admin`)
+## Completed Wireframes (Reference These for Format & Quality)
+
+**IMPORTANT**: Always read completed wireframes before starting new ones to maintain consistency in format, depth, and component references.
+
+### Dashboard Wireframes (Phase 0 -- COMPLETE)
+- `/docs/tiers/tier1/draft-design-specs/wireframes/dashboards/cr-dashboard-scr-cr-001.md` - Care Receiver Dashboard
+- `/docs/tiers/tier1/draft-design-specs/wireframes/dashboards/cg-dashboard-scr-cg-001.md` - Caregiver Dashboard
+- `/docs/tiers/tier1/draft-design-specs/wireframes/dashboards/adm-dashboard-scr-adm-001.md` - Admin Dashboard
+
+### Authentication Wireframes (Phase 3, Job 1 -- COMPLETE)
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-001-care-receiver-registration.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-002-family-member-registration.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-003-caregiver-registration.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-004-phone-verification.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-005-login.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-006-password-reset.md`
+
+### Search & Discovery Wireframes (Phase 3, Job 2 -- COMPLETE)
+- `/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-003-caregiver-search.md`
+- `/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-005-caregiver-profile.md`
+
+### Shared Component Inventory
+- `/docs/tiers/tier1/draft-design-specs/components/dashboard-shared-components.md` - 33 reusable components from dashboard phase
 
 ## Source Documents
 
@@ -444,21 +463,36 @@ When preparing for Figma handoff, compile:
 
 ## Output Locations
 
-Write your outputs to these locations:
+Write your outputs to these locations. **Wireframes go into category subdirectories** matching the established convention:
 
 | Output Type | Location |
 |-------------|----------|
-| Element inventories | `/docs/tiers/tier1/spec/screens/SCR-XXX-NNN-[screen-name].md` |
-| Wireframes | `/docs/tiers/tier1/spec/wireframes/SCR-XXX-NNN-[screen-name].md` |
-| Dashboard component specs | `/docs/tiers/tier1/spec/components/dashboard-components.md` |
-| Full component inventory | `/docs/tiers/tier1/spec/components.md` |
-| Accessibility specs | `/docs/tiers/tier1/spec/accessibility.md` |
-| UI states | `/docs/tiers/tier1/spec/ui-states.md` |
-| Responsive specs | `/docs/tiers/tier1/spec/responsive.md` |
-| Design brief | `/docs/tiers/tier1/spec/figma-design-brief.md` |
+| Wireframes (with element inventories) | `/docs/tiers/tier1/draft-design-specs/wireframes/[category]/scr-[role]-[nnn]-[screen-name].md` |
+| Wireframe category README | `/docs/tiers/tier1/draft-design-specs/wireframes/[category]/README.md` |
+| Shared component specs | `/docs/tiers/tier1/draft-design-specs/components/dashboard-shared-components.md` |
+| Accessibility specs | `/docs/tiers/tier1/draft-design-specs/accessibility.md` |
+| UI states | `/docs/tiers/tier1/draft-design-specs/ui-states.md` |
+| Responsive specs | `/docs/tiers/tier1/draft-design-specs/responsive.md` |
+| Design brief | `/docs/tiers/tier1/draft-design-specs/figma-design-brief.md` |
 | Design tokens (JSON) | `/docs/tiers/tier1/figma/tokens.json` |
 | Component schemas (JSON) | `/docs/tiers/tier1/figma/components.json` |
 | Screen layouts (JSON) | `/docs/tiers/tier1/figma/screens/[screen-id].json` |
+
+### Wireframe Category Directories (established convention)
+
+```
+docs/tiers/tier1/draft-design-specs/wireframes/
+├── dashboards/     # SCR-CR-001, SCR-CG-001, SCR-ADM-001 (COMPLETE)
+├── auth/           # SCR-AUTH-001 to 006 (COMPLETE)
+├── search/         # SCR-CR-003, SCR-CR-005 (COMPLETE)
+├── booking/        # SCR-CR-006, SCR-CR-008, SCR-CG-013
+├── payment/        # SCR-CR-013, SCR-CG-020
+├── caregiver/      # SCR-CG-002, SCR-CG-008, SCR-CG-009, SCR-CG-010
+├── messaging/      # SCR-CR-011
+├── public/         # SCR-PUB-001, SCR-PUB-006, SCR-PUB-007, SCR-PUB-008
+├── review/         # SCR-CR-015
+└── admin/          # SCR-ADM-005, SCR-ADM-007, SCR-ADM-008, SCR-ADM-014, SCR-ADM-015
+```
 
 ---
 
