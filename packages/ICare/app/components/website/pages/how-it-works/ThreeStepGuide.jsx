@@ -2,22 +2,11 @@ import React from "react";
 import VideoSection from "../../common/sections/VideoSection";
 
 export default function ThreeStepGuide() {
-    const steps = [
-        {
-            title: "Create your profile",
-            desc: "Introduce yourself, choose your role, and tell us what support you need or offer.",
-            img: "images/web/how-it-works/first.png",
-        },
-        {
-            title: "Get matched instantly",
-            desc: "Browse verified caregivers or care receivers that match your needs and preferences.",
-            img: "images/web/how-it-works/digital.png",
-        },
-        {
-            title: "Start working together",
-            desc: "Agree on the details, sign the contract, and begin high-quality, safe care.",
-            img: "images/web/how-it-works/typing.png",
-        },
+    const bullets = [
+        "Create a clear profile and describe your needs or availability",
+        "Connect instantly with suitable caregivers or families",
+        "Agree care details upfront before anything starts",
+        "Begin working together with shared expectations",
     ];
 
     return (
@@ -44,7 +33,7 @@ export default function ThreeStepGuide() {
                     padding: "0 clamp(22px,4vw,44px)",
                 }}
             >
-                {/* HEADER (match HomePage: H1 + H2 + P sizing/weights) */}
+                {/* HEADER */}
                 <h2
                     style={{
                         margin: 0,
@@ -68,23 +57,80 @@ export default function ThreeStepGuide() {
                         maxWidth: "78ch",
                     }}
                 >
-                    A calmer, guided process.<br />A simpler way to search, speak and agree care directly.
+                    A calmer, guided process.
+                    <br />
+                    Arrange care directly - with clarity and built-in safety.
                 </p>
 
                 <div style={{ height: "30px" }} />
 
-
-
-                <VideoSection
-                    videoSrc="images/web/how-it-works/howitworks.mp4"
+                {/* VIDEO + BULLETS GRID */}
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "1.2fr 1fr",
+                        gap: "clamp(28px,4vw,48px)",
+                        alignItems: "center",
+                    }}
                 >
-                </VideoSection>
+                    {/* VIDEO */}
+                    <VideoSection videoSrc="images/web/how-it-works/howitworks.mp4" />
 
+                    {/* RIGHT COLUMN */}
+                    <div>
+                        <h3
+                            style={{
+                                margin: "0 0 1.2rem 0",
+                                fontWeight: 600,
+                                fontSize: "1.35rem",
+                                color: "#0F172A",
+                            }}
+                        >
+                            A simple, guided process
+                        </h3>
 
+                        <ul
+                            style={{
+                                listStyle: "none",
+                                padding: 0,
+                                margin: 0,
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "1.2rem",
+                                fontSize: "1.25rem",
+                                lineHeight: 1.6,
+                                color: "#0F172A",
+                            }}
+                        >
+                            {bullets.map((text, i) => (
+                                <li
+                                    key={i}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "flex-start",
+                                        gap: "12px",
+                                    }}
+                                >
+                                    <span
+                                        style={{
+                                            width: "8px",
+                                            height: "8px",
+                                            marginTop: "0.6em",
+                                            borderRadius: "50%",
+                                            background: "#778d43",
+                                            flexShrink: 0,
+                                        }}
+                                    />
+                                    <span>{text}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
 
                 <div style={{ height: "clamp(2.0rem, 3.2vw, 2.8rem)" }} />
 
-                {/* CTA BUTTON (orange) */}
+                {/* CTA */}
                 <div>
                     <a
                         href="/register"
@@ -103,7 +149,6 @@ export default function ThreeStepGuide() {
                             border: "1px solid rgba(0,0,0,0.08)",
                             transition: "transform .18s ease, filter .18s ease",
                         }}
-
                     >
                         Create your free account
                     </a>

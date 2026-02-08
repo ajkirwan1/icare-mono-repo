@@ -3,13 +3,14 @@ import SplitMediaSection from "../../common/sections/SplitMediaSection";
 import styles from "./mobile-mockup-section.module.scss";
 
 const ITEMS = [
-    "Secure messaging and care details organised in one place",
-    "Clear caregiver profiles with relevant, practical information",
-    "Saved caregivers for comparison and considered decision-making",
-    "Availability overview to see when care can start",
-    "Simple safety prompts to support informed decisions",
-    "Easy ways to share profiles with family members",
-    "Direct tools to report concerns if something feels wrong",
+    "Video call caregivers before choosing",
+    "Secure private messaging for routines and expectations",
+    "Caregiver profiles: experience, rates, availability",
+    "Save, shortlist, and compare caregivers",
+    "Share shortlisted profiles with family access",
+    "Live availability to plan a start date",
+    "Built-in safety prompts for informed choices",
+    "Tools to flag concerns or request support",
 ];
 
 export default function MobileMockupSection() {

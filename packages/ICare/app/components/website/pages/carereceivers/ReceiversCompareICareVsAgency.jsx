@@ -6,9 +6,9 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
     const steps = [
         {
             step: 1,
-            title: "Browse or get matched to vetted caregivers",
+            title: "Browse or get matched with verified caregiver profiles",
             description:
-                "Review profiles with key details upfront — experience, availability, documents and checks shown clearly.",
+                "Review key details upfront - experience, availability, and the checks or documents a caregiver chooses to share on their profile.",
             img: "images/web/icare-for-carereceivers/browsing.png",
             alt: "Browsing caregiver profiles",
         },
@@ -16,7 +16,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             step: 2,
             title: "Message privately in one place",
             description:
-                "Ask questions, request references, and understand fit before you commit — without intermediaries.",
+                "Ask questions, request references, and check the fit before you agree - directly, without an agency intermediary.",
             img: "images/web/icare-for-carereceivers/privately.png",
             alt: "Messaging and discussing care",
         },
@@ -24,7 +24,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             step: 3,
             title: "Agree the plan upfront",
             description:
-                "Confirm tasks, schedule and rate before care starts — with clear terms and transparent pricing (no hidden fees).",
+                "Confirm tasks, schedule and rate before support starts - with clear terms you agree together.",
             img: "images/web/icare-for-carereceivers/agreed.png",
             alt: "Agreeing a plan and schedule",
         },
@@ -33,7 +33,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
     return (
         <section
             id="receivers-3-steps"
-            aria-label="Arrange home care with structure and safeguards"
+            aria-label="Arrange home support with structure and safety-first tools"
             style={{
                 width: "100%",
                 background: "#fff9ef",
@@ -47,7 +47,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 <div style={{ maxWidth: "720px", marginBottom: "3.6rem" }}>
                     {/* ✅ SCSS controls weight/size */}
                     <h2 className={styles.title}>
-                        Find care with agency level safeguards without agency control
+                        Care arranged simply <br /> with built-in safety
                     </h2>
 
                     {/* ✅ SCSS controls spacing, font-size, font-weight */}
@@ -59,9 +59,10 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                         </span>
 
                         <span style={{ display: "block", fontSize: "1.4rem" }}>
-                            Choose to browse yourself or get matched - then arrange care directly with{" "}
-                            <strong style={{ fontWeight: 600 }}>clear information</strong>, <strong style={{ fontWeight: 600 }}>structured agreements</strong> and{" "}
-                            <strong style={{ fontWeight: 600 }}>support built around safety.</strong>
+                            Choose to browse yourself or get matched — then arrange support directly with{" "}
+                            <strong style={{ fontWeight: 600 }}>clear information</strong>,{" "}
+                            <strong style={{ fontWeight: 600 }}>simple agreements</strong> and{" "}
+                            <strong style={{ fontWeight: 600 }}>safety-first tools.</strong>
                         </span>
                     </p>
                 </div>
@@ -98,7 +99,14 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                             </div>
 
                             {/* IMAGE */}
-                            <div style={{ marginTop: "1.6rem", width: "100%", display: "flex", justifyContent: "center" }}>
+                            <div
+                                style={{
+                                    marginTop: "1.6rem",
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
                                 <div
                                     style={{
                                         width: "100%",
@@ -158,7 +166,8 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 >
                     Need support?
                     <br />
-                    ICare can guide the process and help you adjust or change a match - without agency pressure.
+                    ICare is a matching platform — we can help you use the tools, update your search, or change a match,
+                    without agency pressure.
                 </p>
             </div>
         </section>

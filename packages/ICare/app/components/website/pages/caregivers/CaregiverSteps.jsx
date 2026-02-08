@@ -323,22 +323,7 @@ export default function CaregiverStepsWithProfileGuide() {
 
                 {/* CTA */}
                 <div style={{ marginTop: "2.9rem" }}>
-                    <a
-                        href="/register"
-                        style={{
-                            display: "inline-flex",
-                            padding: "0.85rem 1.8rem",
-                            borderRadius: 999,
-                            background: "#778d43",
-                            color: "#fff",
-                            fontSize: ".95rem",
-                            fontWeight: 700,
-                            textDecoration: "none",
-                            letterSpacing: ".01em",
-                        }}
-                    >
-                        Create your caregiver profile
-                    </a>
+
                 </div>
             </div>
 
