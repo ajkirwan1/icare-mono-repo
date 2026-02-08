@@ -1,310 +1,458 @@
-import React from "react";
-import { NavLink } from "react-router";
 import styles from "./privacy-content.module.scss";
 
 const company = {
-    brand: "ICare",
-    operator: "ICare (sole trader, United Kingdom)",
-    tradingAs: "ICare",
-    email: "hello@icare.com",
-
-    lastUpdated: "January 28, 2026",
+  brand: "iCare",
+  privacyEmail: "privacy@icare.co.uk",
+  generalEmail: "hello@icare.co.uk",
+  lastUpdated: "February 2026"
 };
 
 export default function PrivacyContent() {
-    return (
-        <section className={styles.page} aria-label="Privacy Policy">
-            <div className={styles.container}>
-                {/* HEADER */}
-                <header className={styles.header}>
-                    <h1 className={styles.h1}>Privacy Policy</h1>
+  return (
+    <section className={styles.page} aria-label="Privacy Policy">
+      <div className={styles.container}>
+        {/* HEADER */}
+        <header className={styles.header}>
+          <h2 className={styles.h1}>Privacy Policy</h2>
 
-                    <div className={styles.metaRow}>
-                        <span className={styles.metaItem}>
-                            Last updated: <strong>{company.lastUpdated}</strong>
-                        </span>
-                    </div>
+          <div className={styles.metaRow}>
+            <span>
+              Last updated: <strong>{company.lastUpdated}</strong>
+            </span>
+          </div>
 
-                    <p className={styles.lead}>
-                        This Privacy Policy explains how <strong>{company.brand}</strong> (“we”, “us”) collects,
-                        uses and protects personal data when you use our website and platform marketplace.
-                    </p>
+          <p className={styles.lead}>
+            This privacy policy explains how we collect, use, and protect your information when you
+            join our waitlist or subscribe to our newsletter.
+          </p>
 
-                    <div className={styles.callout} role="note" aria-label="Scope note">
-                        <strong>Scope:</strong> This policy applies to <strong>care receivers/families</strong> and{" "}
-                        <strong>caregivers</strong> using ICare. ICare is an <strong>introductory marketplace</strong>{" "}
-                        (not a care agency). Families and caregivers communicate directly and make arrangements between themselves.
-                    </div>
+          <p className={styles.paragraph}>
+            We&apos;re committed to protecting your privacy and being transparent about what we do with
+            your data. We only collect what we need, and we explain everything in plain English.
+          </p>
 
-                    <p className={styles.note}>
-                        Cookies details:{" "}
-                        <NavLink to="/cookies" className={styles.inlineLink}>
-                            Cookies
-                        </NavLink>
-                        . Essential cookies may be used to keep the site working securely. We ask for consent for non-essential
-                        cookies (if enabled).
-                    </p>
-                </header>
+        </header>
 
-                <div className={styles.separator} />
+        {/* 1) WHO WE ARE */}
+        <section id="who" className={styles.section} aria-label="Who we are">
+          <h2 className={styles.h2}>Who we are</h2>
 
-                {/* 1) WHO WE ARE */}
-                <section className={styles.section} aria-label="Who we are">
-                    <h2 className={styles.h2}>1) Who we are</h2>
+          <p className={styles.paragraph}>
+            {company.brand} is building a platform to connect families with trusted companions for
+            elderly adults across the UK.
+          </p>
 
-                    <div className={styles.tableWrap} role="region" aria-label="Who we are table">
-                        <table className={styles.table}>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Operator</th>
-                                    <td>
-                                        <strong>{company.operator}</strong> trading as <strong>{company.tradingAs}</strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Contact</th>
-                                    <td>
-                                        <a className={styles.inlineLink} href={`mailto:${company.email}`}>
-                                            {company.email}
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Address</th>
-                                    <td>{company.address}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Our role</th>
-                                    <td>
-                                        We act as the controller for personal data collected through the ICare website and platform features.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p className={styles.paragraph}>
-                        Families and caregivers are independent parties. If you share personal data directly with the other party
-                        (e.g., in messages, calls or agreements), they will handle that data separately under their own
-                        responsibility.
-                    </p>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 2) AT A GLANCE */}
-                <section className={styles.section} aria-label="At a glance">
-                    <h2 className={styles.h2}>2) At a glance</h2>
-                    <p className={styles.paragraph}>
-                        This table summarises what we collect, why, the legal basis, and typical retention.
-                    </p>
-
-                    <div className={styles.tableWrap} role="region" aria-label="At a glance table">
-                        <table className={styles.table}>
-                            <thead>
-                                <tr>
-                                    <th scope="col">What we collect</th>
-                                    <th scope="col">Why we collect it</th>
-                                    <th scope="col">Legal basis (UK GDPR)</th>
-                                    <th scope="col">Typical retention</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Waitlist / enquiry details (email, area/postcode, care preferences, optional notes)</td>
-                                    <td>Respond to you, plan platform launch by area, provide requested updates</td>
-                                    <td>Contract steps; Legitimate interests; Consent (optional updates)</td>
-                                    <td> Platform launch period or until you request deletion / unsubscribe</td>
-                                </tr>
-                                <tr>
-                                    <td>Account & profile info (name, contact details, availability, experience you choose to share)</td>
-                                    <td>Provide marketplace features and show relevant profile information</td>
-                                    <td>Contract; Legitimate interests</td>
-                                    <td>While account is active, then a limited period for safety/legal needs</td>
-                                </tr>
-                                <tr>
-                                    <td>Messages in-platform (content + basic metadata)</td>
-                                    <td>Enable direct communication; support safety investigations if needed</td>
-                                    <td>Contract; Legitimate interests</td>
-                                    <td>While account is active, then limited period for dispute/safety reasons</td>
-                                </tr>
-                                <tr>
-                                    <td>Technical data (IP address, device/browser info, security logs)</td>
-                                    <td>Security, fraud prevention, debugging, performance</td>
-                                    <td>Legitimate interests; Legal obligations (where applicable)</td>
-                                    <td>Short, limited period (security/debugging)</td>
-                                </tr>
-                                <tr>
-                                    <td>Cookies (essential + optional analytics, if enabled)</td>
-                                    <td>Run the site securely; understand usage; improve UX</td>
-                                    <td>Legitimate interests (essential); Consent (non-essential)</td>
-                                    <td>Per cookie settings (see Cookies page)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 3) WHAT WE COLLECT */}
-                <section className={styles.section} aria-label="Personal data we collect">
-                    <h2 className={styles.h2}>3) Personal data we collect</h2>
-
-                    <ul className={styles.ul}>
-                        <li>
-                            <strong>Waitlist / enquiries:</strong> email, area/postcode, care preferences, optional notes.
-                        </li>
-                        <li>
-                            <strong>Accounts & profiles (if enabled):</strong> name/contact details, location/availability, and
-                            information you choose to share (e.g., experience, skills, references).
-                        </li>
-                        <li>
-                            <strong>Messages (if enabled):</strong> content you send via the platform, plus basic metadata.
-                        </li>
-                        <li>
-                            <strong>Technical data:</strong> IP address, device/browser info, approximate location (derived from IP),
-                            security logs.
-                        </li>
-                    </ul>
-
-                    <div className={styles.callout} role="note" aria-label="Sensitive data note">
-                        Please avoid sharing unnecessary sensitive details in free-text fields. Where possible, keep medical
-                        information minimal and relevant.
-                    </div>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 4) HOW WE USE */}
-                <section className={styles.section} aria-label="How we use your data">
-                    <h2 className={styles.h2}>4) How we use your data</h2>
-
-                    <ul className={styles.ul}>
-                        <li>To record your request and respond to you.</li>
-                        <li>To provide marketplace features you use (profiles, messaging, support).</li>
-                        <li>To prioritise and plan the platfrom launch by area and care needs (e.g., Cheltenham first).</li>
-                        <li>To keep the service secure and prevent misuse.</li>
-                        <li>To improve the product (debugging, performance, basic analytics if enabled).</li>
-                    </ul>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 5) SHARING */}
-                <section className={styles.section} aria-label="Sharing your data">
-                    <h2 className={styles.h2}>5) Sharing your data</h2>
-
-                    <p className={styles.paragraph}>
-                        We do not sell your personal data. We share it only where necessary to operate the ICare platform:
-                    </p>
-
-                    <ul className={styles.ul}>
-                        <li>
-                            <strong>Service providers:</strong> hosting, email delivery, security tools, and analytics (if enabled).
-                            These providers process data on our behalf under appropriate contractual terms.
-                        </li>
-                        <li>
-                            <strong>Legal reasons:</strong> if required by law, or to protect users, investigate abuse, or prevent
-                            misuse.
-                        </li>
-                    </ul>
-
-                    <p className={styles.paragraph}>
-                        If we add payments later, payment providers will process payment data under their own privacy policies. We
-                        will update this policy before launching payments.
-                    </p>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 6) EMAILS */}
-                <section className={styles.section} aria-label="Emails">
-                    <h2 className={styles.h2}>6) Emails (waitlist and updates)</h2>
-
-                    <p className={styles.paragraph}>
-                        We use your email address to (1) confirm your request and respond to enquiries, (2) send essential service
-                        messages, and (3) send optional launch updates if you opted in.
-                    </p>
-
-                    <p className={styles.paragraph}>
-                        You can unsubscribe from optional updates at any time. If you unsubscribe, we may still send important
-                        service-related emails (e.g., to respond to your enquiry).
-                    </p>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 7) RETENTION */}
-                <section className={styles.section} aria-label="Data retention">
-                    <h2 className={styles.h2}>7) Data retention</h2>
-
-                    <p className={styles.paragraph}>
-                        We keep personal data only as long as needed for the platform service, safety, and legal requirements.
-                    </p>
-
-                    <ul className={styles.ul}>
-                        <li>
-                            <strong>Waitlist:</strong> until the platform launch period ends, you unsubscribe, or you request deletion.
-                        </li>
-                        <li>
-                            <strong>Support enquiries:</strong> as long as needed to respond and resolve issues.
-                        </li>
-                        <li>
-                            <strong>Technical logs:</strong> kept for a limited period for security and debugging.
-                        </li>
-                    </ul>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 8) RIGHTS */}
-                <section className={styles.section} aria-label="Your rights">
-                    <h2 className={styles.h2}>8) Your rights (UK GDPR)</h2>
-
-                    <p className={styles.paragraph}>
-                        Depending on your circumstances, you may have rights to request access, correction, deletion, restriction,
-                        object to processing, data portability, and to withdraw consent where processing is based on consent.
-                    </p>
-
-                    <p className={styles.paragraph}>
-                        To exercise your rights, contact us at{" "}
-                        <a className={styles.inlineLink} href={`mailto:${company.email}`}>
-                            {company.email}
-                        </a>
-                        .
-                    </p>
-                </section>
-
-                <div className={styles.separator} />
-
-                {/* 9) SECURITY + CHANGES */}
-                <section className={styles.section} aria-label="Security and changes">
-                    <h2 className={styles.h2}>9) Security and updates</h2>
-
-                    <p className={styles.paragraph}>
-                        We use reasonable technical and organisational measures to protect personal data (e.g., access controls,
-                        secure hosting, and monitoring). No method of transmission is 100% secure, so please avoid sharing sensitive
-                        personal information unless necessary.
-                    </p>
-
-                    <p className={styles.paragraph}>
-                        We may update this policy from time to time. The “Last updated” date at the top shows when it was last
-                        changed.
-                    </p>
-
-                    <p className={styles.paragraph}>
-                        If you have concerns, contact us first at{" "}
-                        <a className={styles.inlineLink} href={`mailto:${company.email}`}>
-                            {company.email}
-                        </a>
-
-                    </p>
-                </section>
-
-                {/* BIG bottom padding so it breathes above the footer */}
-                <div className={styles.pageBottomSpace} aria-hidden="true" />
-            </div>
+          <div className={styles.tableWrap} role="region" aria-label="Who we are details">
+            <table className={styles.table}>
+              <tbody>
+                <tr>
+                  <th scope="row">Data Controller</th>
+                  <td>iCare Ltd</td>
+                </tr>
+                <tr>
+                  <th scope="row">Privacy contact</th>
+                  <td>
+                    <a className={styles.inlineLink} href={`mailto:${company.privacyEmail}`}>
+                      {company.privacyEmail}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
-    );
+
+        {/* 2) WHAT WE COLLECT */}
+        <section id="data" className={styles.section} aria-label="What we collect">
+          <h2 className={styles.h2}>What information we collect</h2>
+
+          <p className={styles.paragraph}>
+            Right now, we only collect information when you join our waitlist or subscribe to our
+            newsletter.
+          </p>
+
+          <div className={styles.tableWrap} role="region" aria-label="Information we collect">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Information</th>
+                  <th scope="col">Waitlist</th>
+                  <th scope="col">Newsletter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Email address</strong></td>
+                  <td>Required</td>
+                  <td>Required</td>
+                </tr>
+                <tr>
+                  <td><strong>Name</strong></td>
+                  <td>Optional</td>
+                  <td>Optional</td>
+                </tr>
+                <tr>
+                  <td><strong>Role preference</strong></td>
+                  <td>Optional</td>
+                  <td>&mdash;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            <strong>How we collect it:</strong> You provide this information directly when you fill
+            out a signup form on our website.
+          </p>
+
+        </section>
+
+        {/* 3) WHY WE COLLECT */}
+        <section id="use" className={styles.section} aria-label="Why we collect this information">
+          <h2 className={styles.h2}>Why we collect this information</h2>
+
+          <div className={styles.tableWrap} role="region" aria-label="Purpose of data collection">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Audience</th>
+                  <th scope="col">What we send</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Waitlist members</strong></td>
+                  <td>
+                    Launch progress updates, platform readiness notification, priority
+                    access before public launch, exclusive updates on what we&apos;re building
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Newsletter subscribers</strong></td>
+                  <td>
+                    Weekly care guidance content, practical advice about elderly care and
+                    companionship, research and resources to help families
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            <strong>Optional information</strong> (name and role preference) helps us personalise
+            our emails and send you content that&apos;s more relevant to you.
+          </p>
+
+          <p className={styles.paragraph}>
+            <strong>Legal basis:</strong> We process your data based on your consent. When you tick
+            the consent box and submit the form, you&apos;re giving us permission to contact you.
+          </p>
+        </section>
+
+        {/* 4) HOW WE USE */}
+        <section className={styles.section} aria-label="How we use your information">
+          <h2 className={styles.h2}>How we use your information</h2>
+
+          <p className={styles.paragraph}>
+            We will only use your email address to send you the specific emails you signed up for.
+          </p>
+
+          <div className={styles.tableWrap} role="region" aria-label="How we use your data">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Commitment</th>
+                  <th scope="col">We will NOT</th>
+                  <th scope="col">We WILL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Selling data</strong></td>
+                  <td>Sell your email address to anyone</td>
+                  <td>&mdash;</td>
+                </tr>
+                <tr>
+                  <td><strong>Third-party sharing</strong></td>
+                  <td>Share your information for their marketing</td>
+                  <td>&mdash;</td>
+                </tr>
+                <tr>
+                  <td><strong>Communications</strong></td>
+                  <td>Send you spam or unrelated marketing</td>
+                  <td>Send the waitlist updates or newsletter you requested</td>
+                </tr>
+                <tr>
+                  <td><strong>Data security</strong></td>
+                  <td>Use your data for purposes you didn&apos;t agree to</td>
+                  <td>Keep your information secure</td>
+                </tr>
+                <tr>
+                  <td><strong>Unsubscribing</strong></td>
+                  <td>&mdash;</td>
+                  <td>Respect your right to unsubscribe at any time</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* 5) SHARING */}
+        <section id="share" className={styles.section} aria-label="Who we share your information with">
+          <h2 className={styles.h2}>Who we share your information with</h2>
+
+          <p className={styles.paragraph}>
+            We use a trusted email service provider to send emails. This provider processes your
+            email address on our behalf.
+          </p>
+
+          <div className={styles.tableWrap} role="region" aria-label="Email provider obligations">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Obligation</th>
+                  <th scope="col">Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Data Processing Agreement</strong></td>
+                  <td>Signed and in place</td>
+                </tr>
+                <tr>
+                  <td><strong>Data protection</strong></td>
+                  <td>Required to protect your data</td>
+                </tr>
+                <tr>
+                  <td><strong>Permitted use</strong></td>
+                  <td>Can only use your data to send emails on our behalf</td>
+                </tr>
+                <tr>
+                  <td><strong>Restricted use</strong></td>
+                  <td>Cannot use your data for their own purposes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            We don&apos;t share your information with anyone else. If this changes, we&apos;ll update this
+            policy and let you know.
+          </p>
+        </section>
+
+        {/* 6) RETENTION */}
+        <section id="retain" className={styles.section} aria-label="How long we keep your information">
+          <h2 className={styles.h2}>How long we keep your information</h2>
+
+          <div className={styles.tableWrap} role="region" aria-label="Retention periods">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Retention period</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Waitlist members</strong></td>
+                  <td>
+                    Until you become a platform user, or a maximum of 24 months if you don&apos;t
+                    engage. If you don&apos;t open or click any emails for 12 months, we&apos;ll
+                    send a re-engagement email.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Newsletter subscribers</strong></td>
+                  <td>As long as you&apos;re subscribed. You can unsubscribe at any time.</td>
+                </tr>
+                <tr>
+                  <td><strong>After you unsubscribe</strong></td>
+                  <td>
+                    We remove your information within 30 days. We keep your email on a suppression
+                    list to avoid re-adding you.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>If you request deletion</strong></td>
+                  <td>We delete your information within 30 days of your request.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* 7) YOUR RIGHTS */}
+        <section id="rights" className={styles.section} aria-label="Your rights">
+          <h2 className={styles.h2}>Your rights</h2>
+
+          <p className={styles.paragraph}>
+            Under UK data protection law, you have the right to:
+          </p>
+
+          <div className={styles.tableWrap} role="region" aria-label="Your data rights">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Right</th>
+                  <th scope="col">What this means</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Access your data</strong></td>
+                  <td>Ask us what information we hold about you</td>
+                </tr>
+                <tr>
+                  <td><strong>Correct your data</strong></td>
+                  <td>Ask us to update or correct your information</td>
+                </tr>
+                <tr>
+                  <td><strong>Delete your data</strong></td>
+                  <td>Ask us to delete your information completely</td>
+                </tr>
+                <tr>
+                  <td><strong>Withdraw consent</strong></td>
+                  <td>Unsubscribe from emails at any time. Every email includes an unsubscribe link.</td>
+                </tr>
+                <tr>
+                  <td><strong>Object to processing</strong></td>
+                  <td>Tell us to stop using your information</td>
+                </tr>
+                <tr>
+                  <td><strong>Data portability</strong></td>
+                  <td>Ask for a copy of your information in a common format</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            To exercise any of these rights, email us at{" "}
+            <a className={styles.inlineLink} href={`mailto:${company.privacyEmail}`}>
+              {company.privacyEmail}
+            </a>
+            . We&apos;ll respond within 30 days.
+          </p>
+
+          <p className={styles.paragraph}>
+            To unsubscribe quickly, click the unsubscribe link at the bottom of any email we send you.
+          </p>
+        </section>
+
+        {/* 8) SECURITY */}
+        <section className={styles.section} aria-label="How we protect your information">
+          <h2 className={styles.h2}>How we protect your information</h2>
+
+          <div className={styles.tableWrap} role="region" aria-label="Security measures">
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th scope="col">Measure</th>
+                  <th scope="col">Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Email service</strong></td>
+                  <td>Reputable, GDPR-compliant provider</td>
+                </tr>
+                <tr>
+                  <td><strong>Payment data</strong></td>
+                  <td>Not stored (we don&apos;t take payments yet)</td>
+                </tr>
+                <tr>
+                  <td><strong>Access control</strong></td>
+                  <td>Limited to authorised personnel only</td>
+                </tr>
+                <tr>
+                  <td><strong>Encryption</strong></td>
+                  <td>Secure connections (HTTPS) on our website</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            No system is 100% secure, but we do everything reasonable to protect your data.
+          </p>
+        </section>
+
+        {/* 9) CONTACT */}
+        <section id="contact" className={styles.section} aria-label="Contact us about privacy">
+          <h2 className={styles.h2}>How to contact us about privacy</h2>
+
+          <p className={styles.paragraph}>
+            If you have questions about this privacy policy or how we handle your data:
+          </p>
+
+          <div className={styles.tableWrap} role="region" aria-label="Contact details">
+            <table className={styles.table}>
+              <tbody>
+                <tr>
+                  <th scope="row">Privacy enquiries</th>
+                  <td>
+                    <a className={styles.inlineLink} href={`mailto:${company.privacyEmail}`}>
+                      {company.privacyEmail}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">General contact</th>
+                  <td>
+                    <a className={styles.inlineLink} href={`mailto:${company.generalEmail}`}>
+                      {company.generalEmail}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className={styles.paragraph}>
+            If you&apos;re not satisfied with our response, you have the right to complain to the{" "}
+            <a
+              className={styles.inlineLink}
+              href="https://ico.org.uk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Information Commissioner&apos;s Office (ICO)
+            </a>
+            , the UK data protection regulator.
+          </p>
+        </section>
+
+        {/* 10) CHANGES */}
+        <section className={styles.section} aria-label="Changes to this policy">
+          <h2 className={styles.h2}>Changes to this policy</h2>
+
+          <p className={styles.paragraph}>
+            We may update this privacy policy as we develop our platform.
+          </p>
+
+          <ul className={styles.ul}>
+            <li>We&apos;ll update the &ldquo;Last Updated&rdquo; date at the top of this page</li>
+            <li>For significant changes, we&apos;ll send an email to let you know</li>
+            <li>We&apos;ll never reduce your rights without your consent</li>
+          </ul>
+
+        </section>
+
+        {/* 11) QUESTIONS */}
+        <section className={styles.section} aria-label="Questions">
+          <h2 className={styles.h2}>Questions?</h2>
+
+          <p className={styles.paragraph}>
+            We want to be transparent about how we use your information. If anything in this policy
+            is unclear, please ask. Email{" "}
+            <a className={styles.inlineLink} href={`mailto:${company.privacyEmail}`}>
+              {company.privacyEmail}
+            </a>{" "}
+            and we&apos;ll explain.
+          </p>
+        </section>
+      </div>
+    </section>
+  );
 }

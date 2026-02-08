@@ -1,10 +1,8 @@
+@use "@styles/abstracts/mixins" as *;
+
 .page {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 4rem 1rem;
+    @include page-shell(1300px, 3rem);
     padding-top: calc(var(--navbar-height) + 50px);
-    display: grid;
-    gap: 3rem;
 }
 
 .intro {

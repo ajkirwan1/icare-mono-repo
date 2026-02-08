@@ -2,62 +2,161 @@ import { useRef, useState } from "react";
 import styles from "./video-section.module.scss";
 
 export default function VideoSection({
-    videoSrc,
-    poster,
-    imageSide = "left", // "left" | "right"
-    children,
+  videoSrc,
+  poster,
+  imageSide = "left", // "left" | "right"
+  children
 }) {
-    const isRight = imageSide === "right";
-    const videoRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+  const isRight = imageSide === "right";
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(1);
 
-    const togglePlay = async () => {
-        const v = videoRef.current;
-        if (!v) return;
+  const handlePlay = async () => {
+    const v = videoRef.current;
+    if (!v) { return; }
 
-        try {
-            if (v.paused) {
-                await v.play(); // plays with sound if allowed (after user click)
-                setIsPlaying(true);
-            } else {
-                v.pause();
-                setIsPlaying(false);
-            }
-        } catch {
-            // autoplay policies etc. (should be fine because it's user click)
-        }
-    };
+    try {
+      await v.play();
+      setIsPlaying(true);
+    } catch {
+      // autoplay policy — should be fine on user click
+    }
+  };
 
-    const onEnded = () => setIsPlaying(false);
+  const handlePause = () => {
+    const v = videoRef.current;
+    if (!v) { return; }
+    v.pause();
+    setIsPlaying(false);
+  };
 
-    return (
-        <div className={styles.container}>
-            <div className={`${styles.grid} ${isRight ? styles.reverse : ""}`}>
-                <div
-                    className={styles.mediaWrap}
-                    style={{
-                        overflow: "hidden",
-                        borderRadius: 20,
-                        padding: 16,
-                        background: "rgba(100,100,100,0.2)",
-                        display: "inline-block",
-                        verticalAlign: "top"
-                    }}
-                >
-                    <video
-                        className={styles.video}
-                        ref={videoRef}
-                        src={videoSrc}
-                        poster={poster}
-                        controls
-                        playsInline
-                        preload="metadata"
-                    />
-                </div>
+  const handleStop = () => {
+    const v = videoRef.current;
+    if (!v) { return; }
+    v.pause();
+    v.currentTime = 0;
+    setIsPlaying(false);
+  };
 
-                <div className={styles.content}>{children}</div>
+  const toggleMute = () => {
+    const v = videoRef.current;
+    if (!v) { return; }
+    v.muted = !v.muted;
+    setIsMuted(v.muted);
+  };
+
+  const handleVolume = (e) => {
+    const v = videoRef.current;
+    if (!v) { return; }
+    const val = parseFloat(e.target.value);
+    v.volume = val;
+    setVolume(val);
+    if (val === 0) {
+      v.muted = true;
+      setIsMuted(true);
+    } else if (v.muted) {
+      v.muted = false;
+      setIsMuted(false);
+    }
+  };
+
+  const onEnded = () => setIsPlaying(false);
+
+  return (
+    <div className={styles.container}>
+      <div className={`${styles.grid} ${isRight ? styles.reverse : ""}`}>
+        <div className={styles.mediaWrap}>
+          {!isPlaying && (
+            <button
+              type="button"
+              className={styles.overlay}
+              onClick={handlePlay}
+              aria-label="Play video"
+            >
+              {poster && (
+                <img
+                  src={poster}
+                  alt=""
+                  className={styles.poster}
+                />
+              )}
+              <span className={styles.playBtn} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+            </button>
+          )}
+
+          <video
+            className={styles.video}
+            ref={videoRef}
+            src={videoSrc}
+            poster={poster}
+            playsInline
+            preload="metadata"
+            onEnded={onEnded}
+          />
+
+          {isPlaying && (
+            <div className={styles.controls}>
+              <button
+                type="button"
+                className={styles.controlBtn}
+                onClick={handlePause}
+                aria-label="Pause video"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className={styles.controlBtn}
+                onClick={handleStop}
+                aria-label="Stop video"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M6 6h12v12H6z" />
+                </svg>
+              </button>
+
+              <span className={styles.divider} aria-hidden="true" />
+
+              <button
+                type="button"
+                className={styles.controlBtn}
+                onClick={toggleMute}
+                aria-label={isMuted ? "Unmute" : "Mute"}
+              >
+                {isMuted || volume === 0 ? (
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                  </svg>
+                )}
+              </button>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                value={isMuted ? 0 : volume}
+                onChange={handleVolume}
+                className={styles.volumeSlider}
+                aria-label="Volume"
+              />
             </div>
+          )}
         </div>
-    );
 
+        <div className={styles.content}>{children}</div>
+      </div>
+    </div>
+  );
 }
