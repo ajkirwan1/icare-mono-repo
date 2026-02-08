@@ -7,7 +7,7 @@
 
 .section {
     width: 100%;
-    margin: $space-35 0;
+    padding: 4rem 20px;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
         Arial, sans-serif;
 }
@@ -274,4 +274,37 @@
 .subsubtitle span {
     display: inline-block;
     width: 10px;
+}
+
+@media (max-width:600px) {
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .card {
+        background: transparent;
+    }
+
+    .cardContent {
+        position: relative;
+        padding: 24px;
+        background: rgba(119, 141, 67, 1);
+    }
+
+    .expandWrapper {
+        max-height: 300px;
+    }
+
+    .expandInner {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+
+    .gradient {
+        display: none;
+    }
+
+    .learnMore {
+        display: none;
+    }
 }

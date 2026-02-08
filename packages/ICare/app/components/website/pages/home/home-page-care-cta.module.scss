@@ -1,70 +1,154 @@
 @use "@styles/tokens" as *;
-@use "@styles/abstracts/motifs" as motifs;
 
+/* SECTION (1:1 z inline) */
 .section {
-  position: relative;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: $section-split-min-h;
-
-  @media (max-width: 980px) {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
+    width: 100%;
+    padding: clamp(3.5rem, 6vw, 5rem) 0;
+    background: #fff9ef;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #0f172a;
 }
 
-.column {
-  position: relative;
-  min-height: $section-split-col-min-h;
+.container {
+    width: min(1100px, 92vw);
+    margin: 0 auto;
 }
 
-.bgImage {
-  @include motifs.hero-image;
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 3.2rem;
 }
-
-.cardWrap {
-  position: relative;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: $space-card-wrap-fluid;
-}
-
-/* Typography */
 
 .h2 {
-  margin: 0;
-  font-weight: $fw-extrabold;
-  font-size: $fs-card-title-fluid;
-  line-height: $lh-tight;
+    margin: 0;
+    font-weight: 600;
+    font-size: 2.4rem;
+    letter-spacing: -0.6px;
+    line-height: 1.15;
 }
 
-.caregiverTitle {
-  color: $primary-colour;
+.sub {
+    margin: 1.2rem auto 0;
+    max-width: 65ch;
+    font-size: 1.35rem;
+    line-height: 1.65;
 }
 
-.receiverTitle {
-  color: $secondary-colour;
+/* TWO COLUMNS CARD (1:1) */
+.card {
+    background: #fff;
+    border-radius: 24px;
+    padding: clamp(2rem, 3vw, 3rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    align-items: stretch;
 }
 
-.p {
-  margin: $space-16 0 $space-26;
-  font-size: $fs-card-body-fluid;
-  line-height: $lh-copy-lg;
-  font-weight: $fw-semibold;
-  color: $txt;
+@media (max-width: 900px) {
+    .card {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* CTA wrapper to prevent big/stretchy buttons */
-.ctaRow {
-  margin-top: $space-cta-top;
-  display: flex;
-  justify-content: flex-start;
+/* COLUMN (1:1 colStyle) */
+.col {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
 
-  >* {
-    width: auto;
-    max-width: fit-content;
-  }
+/* Typography in columns (1:1) */
+.h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+}
+
+.lead {
+    margin: 0.8rem 0 1.4rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.list {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.8rem;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    list-style: disc;
+}
+
+/* CTA WRAP (1:1 ctaWrap + link/p) */
+.ctaWrap {
+    margin-top: auto;
+    padding-top: 2rem;
+}
+
+.ctaNote {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+}
+
+/* BUTTON BASE (połączone 1:1) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 1.9rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* outline button (1:1) */
+.btnOutline {
+    border: 1.5px solid #0f172a;
+    color: #0f172a;
+}
+
+/* fill button (1:1 BRAND) */
+.btnFill {
+    padding: 0.9rem 2.1rem;
+    background: #778d43;
+    color: #fff;
+}
+
+/* LEGAL NOTE (1:1) */
+.legal {
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+    max-width: 75ch;
+}
+
+
+@media (max-width:600px) {
+    .h2 {
+        font-size: 2rem;
+    }
+
+    .ctaNote {
+        margin-top: 2rem;
+    }
+
+    .btnOutline {
+        padding: 16px 2.2rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        background: #dd8b4f;
+        color: #fff;
+        border: 0;
+    }
+
+    .btnFill {
+        padding: 16px 2.2rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        min-width: 240px;
+    }
 }

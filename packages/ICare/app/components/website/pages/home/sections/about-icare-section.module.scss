@@ -17,7 +17,8 @@
 }
 
 .subtitle {
-    @include motifs.subtitle
+    @include motifs.subtitle;
+    max-width: 520px;
 }
 
 .gridSplit {
@@ -42,9 +43,24 @@
     font-size: 1.3rem;
     transition: 0.3s;
     color: rgb(221, 139, 79);
-    border-bottom: 1px solid
+    border-bottom: 1px solid;
+
+    @media (max-width:600px) {
+        font-size: 22px;
+        font-weight: 500;
+    }
 }
 
 .subtitle a:hover {
     color: #ffa967;
+}
+
+@media (max-width:600px) {
+    .image {
+        height: auto;
+    }
+
+    .section {
+        padding-top: 2rem;
+    }
 }
