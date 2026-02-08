@@ -187,25 +187,25 @@ export default function ICareForCaregiversIntroduction() {
             <div style={container}>
                 {/* HEADER */}
                 <header style={header}>
-                    <h2 style={h2}>Built for independent care work</h2>
+                    <h2 style={h2}>Work independently with clarity and control</h2>
                     <p style={lead}>
                         ICare is being built to support caregivers who value clarity, flexibility and respectful
-                        working relationships — with families, directly.
+                        working relationships - with families, directly.
                     </p>
 
                     {/* ✅ small scan-friendly chips (minimal but adds structure) */}
                     <div style={chipsRow} aria-label="Key benefits">
                         <span style={chip}>
-                            <span style={dot} aria-hidden="true" />
-                            Direct communication
+                            <span aria-hidden="true" />
+                            Direct relationships
                         </span>
                         <span style={chip}>
-                            <span style={dot} aria-hidden="true" />
-                            Clear expectations
+                            <span aria-hidden="true" />
+                            Clear working terms
                         </span>
                         <span style={chip}>
-                            <span style={dot} aria-hidden="true" />
-                            Respectful matches
+                            <span aria-hidden="true" />
+                            Independent control
                         </span>
                     </div>
                 </header>
@@ -215,10 +215,10 @@ export default function ICareForCaregiversIntroduction() {
                     {/* LEFT — INTRODUCTION */}
                     <article style={card}>
                         <div style={sectionTitleRow}>
-                            <h3 style={sectionTitle}>Introduction</h3>
-                        </div>
-                        <hr style={sectionRule} />
 
+                        </div>
+
+                        <h3 style={sectionTitle}>The reality of care work</h3>
                         <p style={p}>If you’re a caregiver, you know the realities of this work.</p>
 
                         <p style={p}>
@@ -232,7 +232,7 @@ export default function ICareForCaregiversIntroduction() {
                         </p>
 
                         <div style={highlight}>
-                            ICare is being built for caregivers who want calm, direct working relationships — with clarity from the start.
+                            ICare is being built for caregivers who want calm, direct working relationships - with clarity from the start.
                         </div>
 
                     </article>
@@ -241,7 +241,7 @@ export default function ICareForCaregiversIntroduction() {
                     <article style={card}>
 
                         <div style={sectionTitleRow}>
-                            <h3 style={sectionTitle}>What we’re creating</h3>
+                            <h3 style={sectionTitle}>What we are creating</h3>
                         </div>
                         <hr style={sectionRule} />
 
@@ -251,20 +251,18 @@ export default function ICareForCaregiversIntroduction() {
 
                         <p style={p}>
                             It’s not a traditional care agency, and it’s not a basic job board. ICare gives you
-                            space to build your own independent practice — with control over your availability,
+                            space to build your own independent practice - with control over your availability,
                             who you work with, and how care is agreed.
                         </p>
 
                         <hr style={hrSoft} />
 
                         <p style={p}>
-                            We’re starting with companionship support, where presence and trust matter most. This
+                            We’re starting with companionship support, where presence and trust matter most. <br />This
                             means spending real time together: conversation, routines, everyday activities and reassurance.
                         </p>
 
-                        <div style={highlight}>
-                            Clarity, fair conditions and direct communication — built in by default.
-                        </div>
+
 
                     </article>
                 </div>
