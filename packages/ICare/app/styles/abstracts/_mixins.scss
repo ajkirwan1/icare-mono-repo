@@ -50,6 +50,22 @@
   }
 }
 
+@mixin page-shell($max-width: 1200px, $gap: 2rem) {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  padding-top: calc(var(--navbar-height) + 5vh);
+  display: grid;
+  gap: $gap;
+  color: t.$txt;
+}
+
+@mixin content-section($gap: 1.5rem, $max-width: 92ch) {
+  display: grid;
+  gap: $gap;
+  max-width: $max-width;
+}
+
 @mixin card {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid t.$card-border;

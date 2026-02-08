@@ -1,164 +1,154 @@
 @use "@styles/tokens" as *;
 
 .page {
-    background: #fff;
+  background: #fff;
 }
 
 .container {
-    max-width: 980px;
-    margin: 0 auto;
-
-    /* DUŻO ODDECHU: góra i dół */
-    padding: clamp(56px, 6vw, 92px) $gap-grid-fluid clamp(80px, 8vw, 140px);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(56px, 6vw, 92px) $gap-grid-fluid clamp(80px, 8vw, 140px);
 }
 
 /* HEADER */
 .header {
-    display: grid;
-    gap: $space-14;
+  display: grid;
+  gap: $space-14;
 }
 
 .h1 {
-    margin: 0;
-    color: $ink-strong;
-    font-weight: 500;
-    font-size: clamp(2rem, 3vw, 2.6rem);
-    letter-spacing: $tracking-xs;
+  margin: 0;
+  color: $ink-strong;
+  font-weight: 500;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  letter-spacing: $tracking-xs;
 }
 
 .h2 {
-    margin: 0;
-    color: $ink-strong;
-    font-weight: $fw-bold;
-    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
-    letter-spacing: $tracking-xxs;
+  margin: 0;
+  color: rgb(119, 141, 67);
+  font-weight: $fw-bold;
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  letter-spacing: $tracking-xxs;
 }
 
 .metaRow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-10;
-    color: $txt;
-    opacity: 0.85;
-    font-size: $fs-sm;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-10;
+  color: $txt;
+  opacity: 0.85;
+  font-size: $fs-sm;
 }
 
 .lead {
-    margin: 0;
-    color: $txt;
-    line-height: $lh-body;
-    font-size: $fs-lg-2;
+  margin: 0;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-lg-2;
 }
 
-.note,
 .paragraph {
-    margin: 0;
-    color: $txt;
-    line-height: $lh-body;
-    font-size: $fs-md;
+  margin: 0;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-md;
 }
 
 /* CALLOUT */
 .callout {
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: $radius-lg; // ✅ FIX
-    padding: $space-14 $space-16;
-    line-height: $lh-body;
-}
-
-/* SEPARATORS */
-.separator {
-    height: 1px;
-    background: rgba(0, 0, 0, 0.10);
-    margin: clamp(28px, 3.5vw, 44px) 0;
+  border: 1px solid rgba(221, 139, 79, 0.2);
+  border-left: 3px solid rgba(221, 139, 79, 0.6);
+  background: rgba(221, 139, 79, 0.04);
+  border-radius: $radius-lg;
+  padding: $space-14 $space-16;
+  line-height: $lh-body;
 }
 
 /* SECTION */
 .section {
-    display: grid;
-    gap: $space-12;
+  display: grid;
+  gap: $space-12;
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
+  margin-top: clamp(28px, 3.5vw, 44px);
+  padding-top: clamp(28px, 3.5vw, 44px);
 }
 
 /* LISTS */
 .ul {
-    margin: 0;
-    padding-left: 1.2rem;
-    display: grid;
-    gap: $space-10;
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: $space-10;
 
-    color: $txt;
-    line-height: $lh-body;
-    font-size: $fs-md;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-md;
 }
 
 /* LINKS */
 .inlineLink {
-    color: $txt;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
-    transition: $transition-ui;
+  color: rgb(119, 141, 67);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(119, 141, 67, 0.3);
+  transition: $transition-ui;
 
-    &:hover {
-        opacity: 0.85;
-    }
+  &:hover {
+    color: rgba(119, 141, 67, 0.8);
+  }
 
-    &:focus-visible {
-        outline: $space-2 solid $focus-border;
-        outline-offset: $space-2;
-        box-shadow: 0 0 0 $space-4 $focus-ring;
-        border-bottom-color: transparent;
-    }
+  &:focus-visible {
+    outline: $space-2 solid $focus-border;
+    outline-offset: $space-2;
+    box-shadow: 0 0 0 $space-4 $focus-ring;
+    border-bottom-color: transparent;
+  }
 }
 
 /* TABLES */
 .tableWrap {
-    overflow-x: auto;
-    border: 1px solid rgba(0, 0, 0, 0.10);
-    border-radius: $radius-lg; // ✅ FIX
-    background: #fff;
+  overflow-x: auto;
+  border: 1px solid rgba(221, 139, 79, 0.18);
+  border-radius: $radius-lg;
+  background: #fff;
+  margin: $space-4 0;
 }
 
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: $fs-sm;
-    line-height: $lh-body;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $fs-sm;
+  line-height: $lh-body;
 }
 
 .table thead th {
-    text-align: left;
-    color: $ink-strong;
-    font-weight: $fw-bold;
-    padding: $space-12 $space-14;
-    background: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-    vertical-align: top;
+  text-align: left;
+  color: $ink-strong;
+  font-weight: $fw-bold;
+  padding: $space-12 $space-14;
+  background: rgba(221, 139, 79, 0.06);
+  border-bottom: 1px solid rgba(221, 139, 79, 0.18);
+  vertical-align: top;
 }
 
 .table tbody th {
-    text-align: left;
-    color: $ink-strong;
-    font-weight: $fw-bold;
-    padding: $space-12 $space-14;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    vertical-align: top;
-    width: 220px;
+  text-align: left;
+  color: $ink-strong;
+  font-weight: $fw-bold;
+  padding: $space-12 $space-14;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+  width: 220px;
 }
 
 .table td {
-    color: $txt;
-    padding: $space-12 $space-14;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    vertical-align: top;
+  color: $txt;
+  padding: $space-12 $space-14;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
 }
 
 .table tbody tr:last-child th,
 .table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-/* BOTTOM SPACE ABOVE FOOTER */
-.pageBottomSpace {
-    height: clamp(44px, 6vw, 96px);
+  border-bottom: none;
 }
