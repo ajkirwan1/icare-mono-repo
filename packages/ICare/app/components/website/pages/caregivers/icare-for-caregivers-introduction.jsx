@@ -11,11 +11,11 @@ export default function ICareForCaregiversIntroduction() {
         bg: "#fff",
         text: "#0F172A",
         muted: "rgba(15,23,42,0.72)",
-        border: "rgba(15,23,42,0.10)",
+        border: "rgba(221, 139, 79, 0.5)",
         borderStrong: "rgba(15,23,42,0.14)",
         accent: "#61674d",
         accentSoft: "rgba(97,103,77,0.14)",
-        card: "rgba(221, 139, 79,0.06)",
+        card: "white",
     };
 
     const wrap = {
@@ -42,7 +42,7 @@ export default function ICareForCaregiversIntroduction() {
     };
 
     const header = {
-        maxWidth: "92ch",
+        maxWidth: "660px",
         marginBottom: "clamp(1.6rem, 2.8vw, 2.4rem)",
     };
 
@@ -57,7 +57,7 @@ export default function ICareForCaregiversIntroduction() {
 
     const h2 = {
         margin: "0.65rem 0 0",
-        fontWeight: 520,
+        fontWeight: 500,
         letterSpacing: "-0.6px",
         lineHeight: 1.14,
         fontSize: "clamp(2.05rem, 2.8vw, 2.45rem)",
@@ -102,20 +102,14 @@ export default function ICareForCaregiversIntroduction() {
     };
 
     const grid = {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "clamp(1.3rem, 2.6vw, 1.9rem)",
-        alignItems: "stretch",
+        maxWidth: "660px"
     };
 
     const card = {
-        border: `1px solid ${COLORS.border}`,
-        background: COLORS.card,
-        borderRadius: 18,
-        padding: "clamp(1.25rem, 2.4vw, 1.75rem)",
-        boxShadow: "0 14px 40px rgba(15,23,42,0.06)",
         position: "relative",
         overflow: "hidden",
+        marginTop: "3rem",
+        textAlign: "justify"
     };
 
     // tiny top accent line (very subtle)
@@ -139,9 +133,9 @@ export default function ICareForCaregiversIntroduction() {
 
     const sectionTitle = {
         margin: 0,
-        fontWeight: 600,
+        fontWeight: 500,
         letterSpacing: "-0.25px",
-        fontSize: "1.28rem",
+        fontSize: "1.8rem",
         lineHeight: 1.25,
         color: COLORS.text,
     };
@@ -155,18 +149,14 @@ export default function ICareForCaregiversIntroduction() {
 
     const p = {
         margin: "0.85rem 0 0",
-        fontSize: "1.12rem",
-        lineHeight: 1.75,
+        fontSize: "1.22rem",
+        lineHeight: 1.65,
         fontWeight: 400,
-        color: "rgba(15,23,42,0.92)",
     };
 
     const highlight = {
         marginTop: "1.05rem",
-        padding: "1.5rem",
         borderRadius: 14,
-        border: `1px solid rgba(221, 139, 79, 0.5)`,
-        background: "rgba(255,255,255,0.7)",
         fontSize: "1.1rem",
         fontWeight: "500",
         lineHeight: 1.6,
@@ -196,15 +186,12 @@ export default function ICareForCaregiversIntroduction() {
                     {/* ✅ small scan-friendly chips (minimal but adds structure) */}
                     <div style={chipsRow} aria-label="Key benefits">
                         <span style={chip}>
-                            <span aria-hidden="true" />
                             Direct relationships
                         </span>
                         <span style={chip}>
-                            <span aria-hidden="true" />
                             Clear working terms
                         </span>
                         <span style={chip}>
-                            <span aria-hidden="true" />
                             Independent control
                         </span>
                     </div>
@@ -243,7 +230,6 @@ export default function ICareForCaregiversIntroduction() {
                         <div style={sectionTitleRow}>
                             <h3 style={sectionTitle}>What we are creating</h3>
                         </div>
-                        <hr style={sectionRule} />
 
                         <p style={p}>
                             ICare is a platform for caregivers who value quality and human connection.
@@ -255,10 +241,8 @@ export default function ICareForCaregiversIntroduction() {
                             who you work with, and how care is agreed.
                         </p>
 
-                        <hr style={hrSoft} />
-
                         <p style={p}>
-                            We’re starting with companionship support, where presence and trust matter most. <br />This
+                            We’re starting with companionship support, where presence and trust matter most. This
                             means spending real time together: conversation, routines, everyday activities and reassurance.
                         </p>
 

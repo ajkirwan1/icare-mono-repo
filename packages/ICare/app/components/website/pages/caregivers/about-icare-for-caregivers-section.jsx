@@ -35,7 +35,7 @@ export default function HowICareWorksForCaregiversSystem() {
             aria-label="How ICare works for caregivers"
             style={{
                 width: "100%",
-                padding: "clamp(4rem, 7vw, 5.4rem) 0",
+                padding: "4rem 0",
                 background: `rgb(242, 242, 242)`,
                 fontFamily:
                     "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",

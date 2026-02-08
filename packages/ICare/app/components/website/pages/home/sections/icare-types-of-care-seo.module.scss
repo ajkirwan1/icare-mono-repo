@@ -377,6 +377,10 @@
 }
 
 @media (max-width:600px) {
+    .h1 {
+        font-size: 2rem;
+    }
+
     .itemTitle {
         font-size: 1.2rem;
     }
@@ -388,5 +392,11 @@
     .img {
         transform: scale(1);
         object-position: 44% 50%;
+    }
+
+    .typesItem {
+        border: 1px solid rgba(119, 141, 67, 0.7);
+        border-radius: 20px;
+        padding: 15px 10px;
     }
 }

@@ -221,12 +221,10 @@
     transition: $transition-ui;
 
     &:hover {
-        opacity: 0.8;
-        background: var(--hover-bg);
+        color: rgb(90, 123, 14);
     }
 
     &:focus-visible {
-        background: var(--hover-bg);
         outline: $space-2 solid $focus-border;
         outline-offset: $space-2;
         box-shadow: 0 0 0 $space-4 $focus-ring;
@@ -271,5 +269,11 @@
         outline-offset: $space-2;
         box-shadow: 0 0 0 $space-4 $focus-ring;
         border-radius: $radius-pill;
+    }
+}
+
+@media (max-width:600px) {
+    .footer .inner {
+        padding-top: 2rem;
     }
 }
