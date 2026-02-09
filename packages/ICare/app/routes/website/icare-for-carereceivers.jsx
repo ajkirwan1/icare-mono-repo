@@ -10,16 +10,16 @@ import AboutICareSection from "~/components/website/pages/home/sections/about-ic
 
 export default function ICareForCareReceivers() {
 
-  return (
-    <>
-      <ICareForCareReceiversHero />
-      <AboutICareSection />
-      <MobileMockupSection />
-      <ReceiversCompareICareVsAgency />
-      <ProtectionSection />
-      <ICareEarlyAccessCarereceiversSection />
-      {/* <ReceiversFAQ /> */}
-      <ICareFooter />
-    </>
-  );
+    return (
+        <>
+            <ICareForCareReceiversHero />
+            <CareThatFitsRealLifeSection />
+            <MobileMockupSection />
+            <ReceiversCompareICareVsAgency />
+            <ProtectionSection />
+            <ICareEarlyAccessCarereceiversSection />
+            {/* <ReceiversFAQ /> */}
+            <ICareFooter />
+        </>
+    );
 }
