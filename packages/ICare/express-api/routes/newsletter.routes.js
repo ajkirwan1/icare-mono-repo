@@ -1,7 +1,7 @@
 import { Router } from "express";
 import crypto from "crypto";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-import { sendConfirmationEmail, sendWelcomeEmail } from "../services/send-emails.js";
+import { sendConfirmationEmail, sendWelcomeEmail } from "../services/emails/newsletter.js";
 import { pool } from "../db/db.js";
 
 const router = Router();
