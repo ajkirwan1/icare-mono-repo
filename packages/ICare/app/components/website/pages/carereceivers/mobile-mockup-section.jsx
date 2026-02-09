@@ -22,7 +22,7 @@ export default function MobileMockupSection() {
                 media={[
                     {
                         type: "image",
-                        src: "images/web/icare-for-carereceivers/mockup-icare3.png",
+                        src: "images/web/icare-for-carereceivers/mockup-icare.webp",
                         alt: "ICare app preview on iPhone",
                     },
                     {
