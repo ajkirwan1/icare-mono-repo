@@ -3,11 +3,10 @@ import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js"; // ren
 import { pool } from "../db/db.js";
 import { ContactSchema } from "../schemas/contact.schemea.js";
 
-// You should implement these similar to sendWaitinglistConfirmationEmail
 import {
     sendContactReceiptEmail,
     sendContactInternalEmail
-} from "../services/send-emails.js";
+} from "../services/emails/contact.js";
 
 const router = Router();
 

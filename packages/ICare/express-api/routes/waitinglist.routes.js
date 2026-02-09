@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-import { sendWaitinglistConfirmationEmail } from "../services/send-emails.js";
+import { sendWaitinglistConfirmationEmail } from "../services/emails/waitinglist.js";
 import { pool } from "../db/db.js";
 import { WaitinglistSchema } from "../schemas/waitinglist.schema.js";
 

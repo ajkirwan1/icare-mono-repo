@@ -94,7 +94,10 @@ export default function ICareAppNavbar({ itemsProp }) {
         };
         document.addEventListener("mousedown", onDocClick);
         window.addEventListener("hero-hover", onHeroHover);
-        return () => document.removeEventListener("mousedown", onDocClick);
+        return () => {
+            document.removeEventListener("mousedown", onDocClick);
+            window.removeEventListener("hero-hover", onHeroHover);
+        };
     }, []);
 
     const closeAll = () => {
