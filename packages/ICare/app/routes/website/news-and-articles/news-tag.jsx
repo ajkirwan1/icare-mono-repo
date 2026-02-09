@@ -3,7 +3,7 @@ import ICareFooter from "~/components/website/pages/shared/footers/icare-footer"
 import { Link, useLoaderData } from "react-router";
 import { urlFor } from "../../../lib/sanityImage";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
-import classes from "./news-and-articles.module.scss"; // reuse your existing grid styles
+import classes from "~/styles/pages/news-and-articles/news-and-articles.module.scss"; // reuse your existing grid styles
 
 function prettifyTag(tag) {
     // "in-home-care" -> "In home care"

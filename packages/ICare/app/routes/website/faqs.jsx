@@ -2,7 +2,7 @@ import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import Accordion from "~/components/website/common/accordian/accordian";
 import { NavLink } from "react-router";
-import styles from "./faqs.module.scss";
+import styles from "~/styles/pages/faqs.module.scss";
 
 const faqsCaregivers = [
   {

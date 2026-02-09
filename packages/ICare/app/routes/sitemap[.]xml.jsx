@@ -1,9 +1,24 @@
 import { sanity } from "../lib/sanity.server";
 
 export async function loader() {
-    const siteUrl = "https://icare.com"; // use env in prod
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://icare.com").replace(/\/$/, "");
 
-    const posts = await sanity.fetch(`
+  const staticPages = [
+    { loc: "/", changefreq: "weekly", priority: "1.0" },
+    { loc: "/how-it-works", changefreq: "monthly", priority: "0.8" },
+    { loc: "/who-we-are", changefreq: "monthly", priority: "0.7" },
+    { loc: "/icare-for-caregivers", changefreq: "monthly", priority: "0.8" },
+    { loc: "/icare-for-carereceivers", changefreq: "monthly", priority: "0.8" },
+    { loc: "/frequently-asked-questions", changefreq: "monthly", priority: "0.7" },
+    { loc: "/contact-us", changefreq: "monthly", priority: "0.6" },
+    { loc: "/trust-and-safety", changefreq: "monthly", priority: "0.6" },
+    { loc: "/privacy", changefreq: "monthly", priority: "0.4" },
+    { loc: "/terms-of-service", changefreq: "monthly", priority: "0.4" },
+    { loc: "/register-interest", changefreq: "monthly", priority: "0.7" },
+    { loc: "/care-knowledge", changefreq: "weekly", priority: "0.8" }
+  ];
+
+  const posts = await sanity.fetch(`
     *[_type == "newsPost" && defined(slug.current)]{
       "slug": slug.current,
       publishedAt,
@@ -11,30 +26,36 @@ export async function loader() {
     }
   `);
 
-    const urls = posts.map((post) => ({
-        loc: `${siteUrl}/care-knowledge/${post.slug}`,
-        lastmod: (post._updatedAt || post.publishedAt).split("T")[0]
-    }));
-
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  const staticXml = staticPages
+    .map(
+      (p) => `
   <url>
-    <loc>${siteUrl}/care-knowledge</loc>
-  </url>
-  ${urls
-            .map(
-                (u) => `
-  <url>
-    <loc>${u.loc}</loc>
-    <lastmod>${u.lastmod}</lastmod>
+    <loc>${siteUrl}${p.loc}</loc>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
   </url>`
-            )
-            .join("")}
+    )
+    .join("");
+
+  const postsXml = posts
+    .map(
+      (post) => `
+  <url>
+    <loc>${siteUrl}/care-knowledge/${post.slug}</loc>
+    <lastmod>${(post._updatedAt || post.publishedAt).split("T")[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+    )
+    .join("");
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${staticXml}${postsXml}
 </urlset>`;
 
-    return new Response(xml, {
-        headers: {
-            "Content-Type": "application/xml"
-        }
-    });
+  return new Response(xml, {
+    headers: {
+      "Content-Type": "application/xml"
+    }
+  });
 }

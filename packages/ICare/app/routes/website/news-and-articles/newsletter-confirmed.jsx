@@ -1,6 +1,6 @@
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
 import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
-import styles from "./newsletter.module.scss";
+import styles from "~/styles/pages/news-and-articles/newsletter.module.scss";
 
 export function meta() {
   return [

@@ -6,12 +6,32 @@ import {
   Scripts,
   ScrollRestoration
 } from "react-router";
-import { useEffect } from "react";
 
 import type { Route } from "./+types/root";
+import { buildSeo } from "./utils/seo/seo";
+import NotFoundPage from "./routes/not-found";
 import "./app.css";
 import "./styles/main.scss";
 import "../../icare-components/src/globals/styles/_globals.scss";
+
+export const meta: Route.MetaFunction = () => {
+  const seo = buildSeo({
+    title: "Companionship & Home Support Platform",
+    description:
+      "Find trusted companionship and everyday support at home. ICare connects families and independent carers directly, without agencies or intermediaries."
+  });
+
+  return [
+    { title: seo.title },
+    { name: "description", content: seo.description },
+    { property: "og:title", content: seo.title },
+    { property: "og:description", content: seo.description },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: seo.url },
+    { property: "og:image", content: seo.image },
+    { property: "og:site_name", content: "ICare" }
+  ];
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,11 +42,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600;1,700&display=swap"
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    href: "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,600;1,700&family=Poppins:wght@300;400;500;600;700&display=swap"
   }
 ];
 
@@ -36,6 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#B0C47F" />
         <Meta />
         <Links />
 
@@ -56,11 +73,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Scripts />
 
         {/* Cloudflare Web Analytics */}
-        <script
-          defer
-          src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token":"fa10eedd07274e7fad97b2f6e9a2f683"}'
-        />
+        {import.meta.env.VITE_CF_BEACON_TOKEN && (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token":"${import.meta.env.VITE_CF_BEACON_TOKEN}"}`}
+          />
+        )}
       </body>
     </html>
   );
@@ -71,16 +90,17 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return <NotFoundPage />;
+  }
+
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    message = `Error ${error.status}`;
+    details = error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;

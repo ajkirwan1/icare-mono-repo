@@ -2,7 +2,7 @@ import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
 import { NavLink, useLoaderData } from "react-router";
 import { urlFor } from "../../../lib/sanityImage";
-import classes from "./news-and-articles.module.scss";
+import classes from "~/styles/pages/news-and-articles/news-and-articles.module.scss";
 import Tag from "~/components/website/common/tags/tag";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 import { useState } from "react";
