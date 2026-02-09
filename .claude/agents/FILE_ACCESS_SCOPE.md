@@ -81,6 +81,10 @@
   - wireframes/dashboards/ (3 dashboard wireframes - COMPLETE)
   - wireframes/auth/ (6 auth wireframes - COMPLETE)
   - wireframes/search/ (2 search wireframes - COMPLETE)
+<<<<<<< Updated upstream
+=======
+  - wireframes/booking/ (3 booking wireframes - COMPLETE)
+>>>>>>> Stashed changes
   - components/dashboard-shared-components.md (33 reusable components)
 - website-content/ (13 pages, 92% complete)
 - archive/ (6 deprecated documents)
@@ -144,7 +148,11 @@ docs/tiers/
 | **product-director** | tiers/_index.md, governance/*, TIER1_STATUS_LOG.md, FIGMA_PRODUCTION_PLAN.md, DOCUMENTATION_GUIDE.md, CONSISTENCY_AUDIT.md, tiers/tier1/archive/*, .claude/agents/* (coordination) |
 | **product-requirements-specialist** | docs/product/features/tier1-*.md (5 specifications), tiers/common/spec/*, tiers/tier1/features.md |
 | **route-map-architect** | docs/product/tier1-route-map.md (47 screens), docs/tiers/tier1/draft-design-specs/screen-inventory.md |
+<<<<<<< Updated upstream
 | **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (11 wireframes across dashboards/, auth/, search/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ |
+=======
+| **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (14 wireframes across dashboards/, auth/, search/, booking/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ |
+>>>>>>> Stashed changes
 | **content-architect** | docs/tiers/tier1/website-content/* (13 pages including legal/) |
 | **compliance-specialist** | compliance/*, docs/product/features/tier1-safeguarding-specification.md, tiers/*/compliance.md (advisory) |
 | **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md) |
