@@ -34,100 +34,53 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
         <section
             id="receivers-3-steps"
             aria-label="Arrange home support with structure and safety-first tools"
-            style={{
-                width: "100%",
-                background: "#fff9ef",
-                padding: "4rem 0",
-                fontFamily:
-                    "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-            }}
+            className={styles.section}
         >
-            <div style={{ width: "min(1100px, 92vw)", margin: "0 auto" }}>
+            <div className={styles.container}>
                 {/* HEADING BLOCK */}
-                <div style={{ maxWidth: "720px", marginBottom: "3.6rem" }}>
-                    {/* ✅ SCSS controls weight/size */}
+                <div className={styles.headingBlock}>
                     <h2 className={styles.title}>
                         Care arranged simply <br /> with built-in safety
                     </h2>
 
-                    {/* ✅ SCSS controls spacing, font-size, font-weight */}
                     <p className={styles.subtitle}>
-                        <span style={{ display: "block", marginBottom: "0.4rem" }}>
-                            <strong style={{ fontWeight: 500, fontSize: "1.6rem" }}>
+                        <span className={styles.subtitleLine}>
+                            <strong className={styles.subtitleStrong}>
                                 Browse yourself or get matched.
                             </strong>
                         </span>
 
-                        <span style={{ display: "block", fontSize: "1.4rem" }}>
+                        <span className={styles.subtitleText}>
                             Choose to browse yourself or get matched — then arrange support directly with{" "}
-                            <strong style={{ fontWeight: 600 }}>clear information</strong>,{" "}
-                            <strong style={{ fontWeight: 600 }}>simple agreements</strong> and{" "}
-                            <strong style={{ fontWeight: 600 }}>safety-first tools.</strong>
+                            <strong className={styles.bold}>clear information</strong>,{" "}
+                            <strong className={styles.bold}>simple agreements</strong> and{" "}
+                            <strong className={styles.bold}>safety-first tools.</strong>
                         </span>
                     </p>
                 </div>
 
-                {/* STEPS GRID (layout jak u Ciebie) */}
-                <div
-                    style={{
-                        display: "grid",
-                        gap: "clamp(34px,3vw,50px)",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                    }}
-                >
+                {/* STEPS GRID */}
+                <div className={styles.stepsGrid}>
                     {steps.map((s) => (
-                        <div
-                            key={s.step}
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between",
-                                height: "100%",
-                            }}
-                        >
-                            <div style={{ display: "flex", flexDirection: "column", gap: "1.4rem" }}>
-                                {/* ✅ SCSS class for title weight/size */}
-                                <h3 className={styles.stepTitle} style={{ margin: 0, color: "#0f172a" }}>
-                                    <span style={{ marginRight: "10px" }}>{s.step}.</span>
+                        <div key={s.step} className={styles.stepCard}>
+                            <div className={styles.stepCardInner}>
+                                <h3 className={styles.stepTitle}>
+                                    <span className={styles.stepNo}>{s.step}.</span>
                                     {s.title}
                                 </h3>
 
-                                {/* ✅ SCSS class for desc */}
-                                <p className={styles.stepDesc} style={{ margin: 0, color: "#000000ff" }}>
-                                    {s.description}
-                                </p>
+                                <p className={styles.stepDesc}>{s.description}</p>
                             </div>
 
                             {/* IMAGE */}
-                            <div
-                                style={{
-                                    marginTop: "1.6rem",
-                                    width: "100%",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                }}
-                            >
-                                <div
-                                    style={{
-                                        width: "100%",
-                                        height: "240px",
-                                        borderRadius: "16px",
-                                        overflow: "hidden",
-                                        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                                        background: "#f3f4f6",
-                                    }}
-                                >
+                            <div className={styles.stepMedia}>
+                                <div className={styles.stepMediaFrame}>
                                     <img
                                         src={s.img}
                                         alt={s.alt}
                                         loading="lazy"
                                         referrerPolicy="no-referrer"
-                                        style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            objectFit: "cover",
-                                            display: "block",
-                                        }}
+                                        className={styles.stepMediaImg}
                                     />
                                 </div>
                             </div>
@@ -136,16 +89,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 </div>
 
                 {/* CTA */}
-                <div
-                    className={styles.ctaRow}
-                    style={{
-                        marginTop: "3.6rem",
-                        display: "flex",
-                        gap: "14px",
-                        flexWrap: "wrap",
-                        alignItems: "center",
-                    }}
-                >
+                <div className={styles.ctaRow}>
                     <Link to="/signup" className={styles.primaryBtn}>
                         Create your free account
                     </Link>
@@ -156,14 +100,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 </div>
 
                 {/* reassurance */}
-                <p
-                    style={{
-                        marginTop: "2rem",
-                        fontSize: "1.2rem",
-                        lineHeight: 1.55,
-                        maxWidth: "70ch",
-                    }}
-                >
+                <p className={styles.reassurance}>
                     Need support?
                     <br />
                     ICare is a matching platform — we can help you use the tools, update your search, or change a match,

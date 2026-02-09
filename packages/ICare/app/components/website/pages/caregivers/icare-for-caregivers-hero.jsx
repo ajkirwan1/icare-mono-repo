@@ -90,7 +90,8 @@ export default function ICareForCaregiversHero() {
                 <div
                     className={styles.section}
                     style={{
-                        display: "flex",
+                        //display: "flex",
+                        display: "none",
                         gap: "2vw",
                         height: "20vh",
                         background: "#fff9ef",

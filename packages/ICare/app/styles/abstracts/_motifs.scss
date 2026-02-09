@@ -2,7 +2,7 @@
 
 @mixin section {
     width: 100vw;
-    padding: 2rem 1rem 6rem 6rem;
+    padding: 4rem 2rem;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     // background: var(--section-bg, transparent);
@@ -32,6 +32,10 @@
     color: t.$txt;
     max-width: 50ch;
     line-height: t.$lh-relaxed;
+
+    @media (max-width:600px) {
+        font-size: t.$fs-md;
+    }
 }
 
 @mixin grid-two {

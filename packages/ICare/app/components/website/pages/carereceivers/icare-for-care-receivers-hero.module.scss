@@ -23,6 +23,11 @@
     font-size: 2.8rem;
     color: $on-dark; // ✅ white
     font-weight: 500; // jak w caregivers
+
+    @media (max-width:600px) {
+        font-size: 2rem;
+        color: black;
+    }
 }
 
 /* H2 — smaller, calm */
@@ -33,6 +38,11 @@
     line-height: 1.45;
     color: rgba($on-dark, 0.92);
     max-width: 48ch;
+
+    @media (max-width:600px) {
+        font-size: 1.2rem;
+        color: black;
+    }
 }
 
 /* LIST */
@@ -49,6 +59,17 @@
     font-size: 1.4rem;
     line-height: $lh-body;
     color: rgba($on-dark, 0.92);
+
+    @media (max-width:600px) {
+        font-size: 1.2rem;
+        color: black;
+    }
+}
+
+.copyList svg {
+    @media (max-width:600px) {
+        fill: black;
+    }
 }
 
 .check {

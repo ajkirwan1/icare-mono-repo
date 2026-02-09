@@ -9,7 +9,7 @@ export default function CareThatFitsRealLifeSection() {
             className={styles.section}
             style={{ display: "flex", justifyContent: "center" }}
         >
-            <div className={styles.gridThreeQuarter}>
+            <div className={styles.gridSplit}>
                 <img
                     src="images/web/icare-for-carereceivers/care-that-fits-real-life.webp"
                     alt="Person receiving care at home"

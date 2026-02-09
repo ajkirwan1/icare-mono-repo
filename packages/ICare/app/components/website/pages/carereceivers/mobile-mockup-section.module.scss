@@ -72,6 +72,11 @@
     line-height: 1.65;
     color: #0f172a; // ⬅️ CZARNY
     font-weight: 400;
+
+    @media (max-width:600px) {
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
 }
 
 /* OUTRO */

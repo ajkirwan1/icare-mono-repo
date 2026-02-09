@@ -6,6 +6,10 @@
     background: rgba(100, 100, 100, 0.2);
     display: inline-block;
     vertical-align: top;
+
+    @media (max-width:600px) {
+        padding: 10px;
+    }
 }
 
 .video {
