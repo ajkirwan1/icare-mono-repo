@@ -1,0 +1,181 @@
+$text: #0f172a;
+$icon: #dd8b4f;
+$border: rgba(15, 23, 42, 0.10);
+$bg: #fff9ef;
+
+.section {
+    width: 100%;
+    padding: clamp(4.2rem, 6.2vw, 5.6rem) 0;
+    background: $bg;
+    color: $text;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
+}
+
+.dividerTop,
+.dividerBottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $border;
+}
+
+.dividerTop {
+    top: 0;
+}
+
+.dividerBottom {
+    bottom: 0;
+}
+
+.container {
+    width: min(92vw, 1100px);
+    margin: 0 auto;
+}
+
+/* ---------- HEADER ---------- */
+
+.header {
+    max-width: 78ch;
+    display: grid;
+    gap: 0;
+    margin: 0 0 clamp(26px, 3.8vw, 42px);
+    padding: 0;
+    text-align: left;
+}
+
+.h2 {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    letter-spacing: -0.6px;
+    line-height: 1.14;
+    font-size: 2.6rem;
+    color: $text;
+
+    @media (max-width:600px) {
+        font-size: 2rem;
+    }
+}
+
+.lead {
+    margin: 12px 0 0;
+    padding: 0;
+    color: $text;
+    font-weight: 500;
+    line-height: 1.65;
+    font-size: 1.25rem;
+    max-width: 78ch;
+}
+
+/* ---------- GRID ---------- */
+
+.grid {
+    margin-top: clamp(22px, 3.2vw, 34px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(18px, 2.2vw, 26px);
+    align-items: stretch;
+}
+
+/* item style */
+.item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px 0;
+    height: 100%;
+    align-self: stretch;
+
+    @media (max-width:600px) {
+        border-radius: 1rem;
+        padding: 1rem 0.8rem;
+        border: 1px solid rgb(221, 139, 79);
+    }
+}
+
+.iconWrap {
+    width: 30px;
+    height: 38px;
+    display: inline-flex;
+    align-items: start;
+    justify-content: center;
+    color: $icon;
+    flex: 0 0 auto;
+    margin-top: 2px;
+}
+
+.icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.title {
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    color: $text;
+    font-size: 1.12rem;
+    line-height: 1.4;
+    white-space: normal;
+    overflow: visible;
+}
+
+.desc {
+    margin: 0;
+    color: $text;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 1.02rem;
+    white-space: normal;
+    overflow: visible;
+}
+
+/* ---------- NOTE ---------- */
+
+.note {
+    margin-top: clamp(26px, 4vw, 44px);
+    padding-top: clamp(14px, 2vw, 18px);
+    border-top: 1px solid $border;
+    color: $text;
+    max-width: 78ch;
+}
+
+.noteTitle {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    color: $text;
+}
+
+.noteText {
+    margin: 0.55rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    font-weight: 400;
+    color: $text;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 1020px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

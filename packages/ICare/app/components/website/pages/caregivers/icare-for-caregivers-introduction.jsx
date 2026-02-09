@@ -1,264 +1,99 @@
 import React from "react";
+import styles from "./icare-for-caregivers-intro.module.scss";
 
-/**
- * ICare — For Caregivers: Introduction + What we're creating
- * ✅ calm / elder-like copy
- * ✅ simple 2-column editorial layout (mobile -> 1 col)
- * ✅ minimal but more readable (cards + chips + subtle accents)
- */
 export default function ICareForCaregiversIntroduction() {
-    const COLORS = {
-        bg: "#fff",
-        text: "#0F172A",
-        muted: "rgba(15,23,42,0.72)",
-        border: "rgba(221, 139, 79, 0.5)",
-        borderStrong: "rgba(15,23,42,0.14)",
-        accent: "#61674d",
-        accentSoft: "rgba(97,103,77,0.14)",
-        card: "white",
-    };
-
-    const wrap = {
-        width: "100%",
-        padding: "clamp(4rem, 6vw, 5rem) 0",
-        background: COLORS.bg,
-        fontFamily:
-            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        color: COLORS.text,
-        position: "relative",
-    };
-
-    const divider = {
-        position: "absolute",
-        left: 0,
-        right: 0,
-        height: 1,
-        background: COLORS.border,
-    };
-
-    const container = {
-        width: "min(96vw, 1240px)",
-        margin: "0 auto",
-    };
-
-    const header = {
-        maxWidth: "660px",
-        marginBottom: "clamp(1.6rem, 2.8vw, 2.4rem)",
-    };
-
-    const kicker = {
-        margin: 0,
-        fontSize: "0.92rem",
-        letterSpacing: "0.12em",
-        textTransform: "uppercase",
-        color: COLORS.accent,
-        fontWeight: 800,
-    };
-
-    const h2 = {
-        margin: "0.65rem 0 0",
-        fontWeight: 500,
-        letterSpacing: "-0.6px",
-        lineHeight: 1.14,
-        fontSize: "clamp(2.05rem, 2.8vw, 2.45rem)",
-        color: COLORS.text,
-    };
-
-    const lead = {
-        margin: "0.85rem 0 0",
-        fontWeight: 400,
-        lineHeight: 1.65,
-        fontSize: "1.18rem",
-        maxWidth: "86ch",
-    };
-
-    const chipsRow = {
-        marginTop: "1.05rem",
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "0.55rem",
-    };
-
-    const chip = {
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "0.55rem",
-        padding: "0.55rem 0.85rem",
-        borderRadius: 999,
-        border: `1px solid ${COLORS.border}`,
-        background: "rgba(255,255,255,0.72)",
-        fontSize: "0.98rem",
-        color: "rgba(15,23,42,0.92)",
-        letterSpacing: "-0.01em",
-        fontWeight: 520,
-    };
-
-    const dot = {
-        width: 9,
-        height: 9,
-        borderRadius: 999,
-        background: COLORS.accent,
-        boxShadow: `0 0 0 4px ${COLORS.accentSoft}`,
-    };
-
-    const grid = {
-        maxWidth: "660px"
-    };
-
-    const card = {
-        position: "relative",
-        overflow: "hidden",
-        marginTop: "3rem",
-        textAlign: "justify"
-    };
-
-    // tiny top accent line (very subtle)
-    const cardTopAccent = {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 3,
-        background:
-            "linear-gradient(90deg, rgba(97,103,77,0.55), rgba(97,103,77,0.08))",
-    };
-
-    const sectionTitleRow = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "1rem",
-        marginBottom: "0.15rem",
-    };
-
-    const sectionTitle = {
-        margin: 0,
-        fontWeight: 500,
-        letterSpacing: "-0.25px",
-        fontSize: "1.8rem",
-        lineHeight: 1.25,
-        color: COLORS.text,
-    };
-
-    const sectionRule = {
-        marginTop: "0.75rem",
-        height: 1,
-        background: COLORS.borderStrong,
-        border: "none",
-    };
-
-    const p = {
-        margin: "0.85rem 0 0",
-        fontSize: "1.22rem",
-        lineHeight: 1.65,
-        fontWeight: 400,
-    };
-
-    const highlight = {
-        marginTop: "1.05rem",
-        borderRadius: 14,
-        fontSize: "1.1rem",
-        fontWeight: "500",
-        lineHeight: 1.6,
-    };
-
-    const hrSoft = {
-        margin: "clamp(1.2rem, 2.2vw, 1.6rem) 0",
-        height: 1,
-        background: COLORS.border,
-        border: "none",
-    };
-
     return (
-        <section id="caregivers-introduction" aria-label="Caregivers introduction" style={wrap}>
-            <div style={{ ...divider, top: 0 }} />
-            <div style={{ ...divider, bottom: 0 }} />
+        <section
+            id="caregivers-introduction"
+            aria-label="Caregivers introduction"
+            className={styles.section}
+        >
+            <div className={styles.dividerTop} />
+            <div className={styles.dividerBottom} />
 
-            <div style={container}>
+            <div className={styles.container}>
                 {/* HEADER */}
-                <header style={header}>
-                    <h2 style={h2}>Work independently with clarity and control</h2>
-                    <p style={lead}>
-                        ICare is being built to support caregivers who value clarity, flexibility and respectful
-                        working relationships - with families, directly.
+                <header className={styles.header}>
+                    <h2 className={styles.h2}>
+                        Work independently with clarity and control
+                    </h2>
+
+                    <p className={styles.lead}>
+                        ICare is being built to support caregivers who value clarity,
+                        flexibility and respectful working relationships - with families,
+                        directly.
                     </p>
 
-                    {/* ✅ small scan-friendly chips (minimal but adds structure) */}
-                    <div style={chipsRow} aria-label="Key benefits">
-                        <span style={chip}>
-                            Direct relationships
-                        </span>
-                        <span style={chip}>
-                            Clear working terms
-                        </span>
-                        <span style={chip}>
-                            Independent control
-                        </span>
+                    <div className={styles.chipsRow} aria-label="Key benefits">
+                        <span className={styles.chip}>Direct relationships</span>
+                        <span className={styles.chip}>Clear working terms</span>
+                        <span className={styles.chip}>Independent control</span>
                     </div>
                 </header>
 
                 {/* CONTENT */}
-                <div className="icare-caregivers-intro-grid" style={grid}>
-                    {/* LEFT — INTRODUCTION */}
-                    <article style={card}>
-                        <div style={sectionTitleRow}>
+                <div className={styles.grid}>
+                    <div className={styles.articles}>
+                        {/* LEFT */}
+                        <article className={styles.card}>
+                            <h3 className={styles.sectionTitle}>
+                                The reality of care work
+                            </h3>
 
-                        </div>
+                            <p className={styles.p}>
+                                If you’re a caregiver, you know the realities of this work.
+                            </p>
 
-                        <h3 style={sectionTitle}>The reality of care work</h3>
-                        <p style={p}>If you’re a caregiver, you know the realities of this work.</p>
+                            <p className={styles.p}>
+                                Short visits, changing schedules, unpaid travel time — and too
+                                often, feeling treated like a task rather than a professional.
+                                Most caregivers didn’t choose this work for that.
+                            </p>
 
-                        <p style={p}>
-                            Short visits, changing schedules, unpaid travel time — and too often, feeling treated
-                            like a task rather than a professional. Most caregivers didn’t choose this work for that.
-                        </p>
+                            <p className={styles.p}>
+                                You chose care to support people properly, build trust, and
+                                make a real difference in everyday life.
+                            </p>
 
-                        <p style={p}>
-                            You chose care to support people properly, build trust, and make a real difference in
-                            everyday life.
-                        </p>
+                            <div className={styles.highlight}>
+                                ICare is being built for caregivers who want calm, direct
+                                working relationships - with clarity from the start.
+                            </div>
+                        </article>
 
-                        <div style={highlight}>
-                            ICare is being built for caregivers who want calm, direct working relationships - with clarity from the start.
-                        </div>
+                        {/* RIGHT */}
+                        <article className={styles.card}>
+                            <h3 className={styles.sectionTitle}>
+                                What we are creating
+                            </h3>
 
-                    </article>
+                            <p className={styles.p}>
+                                ICare is a platform for caregivers who value quality and
+                                human connection.
+                            </p>
 
-                    {/* RIGHT — WHAT WE’RE CREATING */}
-                    <article style={card}>
+                            <p className={styles.p}>
+                                It’s not a traditional care agency, and it’s not a basic job
+                                board. ICare gives you space to build your own independent
+                                practice - with control over your availability, who you work
+                                with, and how care is agreed.
+                            </p>
 
-                        <div style={sectionTitleRow}>
-                            <h3 style={sectionTitle}>What we are creating</h3>
-                        </div>
+                            <p className={styles.p}>
+                                We’re starting with companionship support, where presence and
+                                trust matter most. This means spending real time together:
+                                conversation, routines, everyday activities and reassurance.
+                            </p>
+                        </article>
+                    </div>
 
-                        <p style={p}>
-                            ICare is a platform for caregivers who value quality and human connection.
-                        </p>
-
-                        <p style={p}>
-                            It’s not a traditional care agency, and it’s not a basic job board. ICare gives you
-                            space to build your own independent practice - with control over your availability,
-                            who you work with, and how care is agreed.
-                        </p>
-
-                        <p style={p}>
-                            We’re starting with companionship support, where presence and trust matter most. This
-                            means spending real time together: conversation, routines, everyday activities and reassurance.
-                        </p>
-
-
-
-                    </article>
+                    <img
+                        src="images/web/icare-for-caregivers/work-independently.webp"
+                        alt="ICare work independently"
+                        className={styles.image}
+                    />
                 </div>
             </div>
-
-            <style>{`
-        @media (max-width: 960px){
-          .icare-caregivers-intro-grid{
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }

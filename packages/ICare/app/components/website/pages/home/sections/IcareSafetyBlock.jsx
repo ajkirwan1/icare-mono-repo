@@ -12,7 +12,7 @@ export default function SafetyComesFirstThreeBoxes() {
                     profile becomes visible.
                 </>
             ),
-            image: "/images/web/homepage/id.png",
+            image: "/images/web/homepage/verified-caregiver-profiles.webp",
             alt: "Identity verification documents",
         },
         {
@@ -36,7 +36,7 @@ export default function SafetyComesFirstThreeBoxes() {
                     provided and relevant — depending on location and the nature of support.
                 </>
             ),
-            image: "/images/web/homepage/confirmeddocs.png",
+            image: "/images/web/homepage/DBS-and-insurance.webp",
             alt: "Safety checks and protection",
         },
     ];

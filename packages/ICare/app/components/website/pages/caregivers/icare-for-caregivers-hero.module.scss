@@ -53,6 +53,14 @@
     &:hover {
         filter: brightness(0.95);
     }
+
+    @media (max-width:600px) {
+        padding: 16px 2.2rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        min-width: 320px;
+    }
+
 }
 
 
@@ -62,6 +70,11 @@
     font-weight: $fw-semibold;
     line-height: 1.05; // no token
     color: $on-dark;
+
+    @media (max-width:600px) {
+        font-size: 2rem;
+        color: black;
+    }
 }
 
 .copy {
@@ -69,6 +82,10 @@
     max-width: $maxw-copy-lg; // 60ch
     line-height: $lh-body; // 1.6
     color: #fff;
+
+    @media (max-width:600px) {
+        color: black;
+    }
 }
 
 /* individual copy lines */
@@ -77,24 +94,42 @@
     font-weight: $fw-normal;
     margin-bottom: 1.3rem;
     color: #fff;
+
+    @media (max-width:600px) {
+        color: black;
+        font-size: 1.4rem;
+        line-height: 1.4;
+    }
 }
 
 .copyList {
     display: flex;
     font-size: $fs-hero-list;
-    font-weight: $fw-light;
+    font-weight: $fw-normal;
     margin-bottom: 0.5rem;
     color: #fff;
     align-items: center;
+
+    @media (max-width:600px) {
+        color: black;
+    }
 }
 
 .copyList svg {
     margin-right: 10px;
+
+    @media (max-width:600px) {
+        fill: black;
+    }
 }
 
 .copySecondaryLast {
     font-size: $fs-md; // 1.2rem
     color: #fff;
+
+    @media (max-width:600px) {
+        color: black;
+    }
 }
 
 .subheading {

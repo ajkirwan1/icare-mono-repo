@@ -29,8 +29,8 @@
 }
 
 .container {
-    /* was: min(92vw, 1100px) */
-    width: min(82.8vw, 1100px);
+    max-width: 1140px;
+    padding: 0 20px;
     margin: 0 auto;
     color: $txt;
 }
@@ -39,6 +39,10 @@
     @include motifs.grid-two; // gap: clamp(26px, 3.4vw, 52px);
     // align-items: start;
     margin-top: 1rem;
+
+    @media (max-width:600px) {
+        grid-template-columns: auto;
+    }
 }
 
 .h2Clamp {
