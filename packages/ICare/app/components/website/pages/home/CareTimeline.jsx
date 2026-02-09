@@ -14,7 +14,7 @@ export default function HowItWorksThreeSteps() {
             ([entry]) => {
                 if (entry.isIntersecting) {
                     cards.forEach((card) => card.classList.add(styles.isVisible));
-                    observer.disconnect(); // animacja tylko raz
+                    observer.disconnect();
                 }
             },
             { threshold: 0.25 }
@@ -27,18 +27,18 @@ export default function HowItWorksThreeSteps() {
     const steps = [
         {
             n: "1",
-            t: "Browse and compare carers",
-            d: "See clear profiles, availability and companionship support — so you can shortlist with confidence.",
+            t: "Browse and choose a companion",
+            d: "View clear caregiver profiles and choose someone who feels right for your home.",
         },
         {
             n: "2",
-            t: "Message and agree the details",
-            d: "Talk directly and confirm tasks, hours, start date and expectations — in one place.",
+            t: "Talk and agree the details",
+            d: "Message directly to agree routines, hours and start dates with confidence.",
         },
         {
             n: "3",
-            t: "Start care with clarity",
-            d: "Begin support knowing what’s agreed. No agency pressure — just a clear arrangement.",
+            t: "Begin companionship calmly",
+            d: "Start support knowing everything is clear and agreed — without agency pressure.",
         },
     ];
 
@@ -51,9 +51,11 @@ export default function HowItWorksThreeSteps() {
         >
             <div className={styles.hiwContainer}>
                 <div className={styles.hiwHeader}>
-                    <h2 className={styles.hiwTitle}>What makes ICare different from agencies</h2>
+                    <h2 className={styles.hiwTitle}>
+                        A calmer way to arrange companionship
+                    </h2>
                     <p className={styles.hiwSub}>
-                        A calmer path through a big decision with clear steps and no pressure.
+                        Simple steps to help you make a big decision with clarity and confidence.
                     </p>
                 </div>
 
@@ -73,7 +75,7 @@ export default function HowItWorksThreeSteps() {
                     <p className={styles.ctaText}>
                         Want early access in your area?
                         <br />
-                        Join the waiting list - we will notify you when ICare opens near you.
+                        Join the waiting list and we’ll let you know when ICare opens near you.
                     </p>
 
                     <button
@@ -83,7 +85,10 @@ export default function HowItWorksThreeSteps() {
                             const el = document.getElementById("waitlist");
                             if (!el) return;
 
-                            const y = el.getBoundingClientRect().top + window.pageYOffset - 60;
+                            const y =
+                                el.getBoundingClientRect().top +
+                                window.pageYOffset -
+                                60;
                             window.scrollTo({ top: y, behavior: "smooth" });
                             window.history.pushState(null, "", "#waitlist");
                         }}
