@@ -1183,6 +1183,81 @@ function renderSingleChild(child, R, width, index) {
       return { svg: s, height: ddH };
     }
 
+    case 'dropdown-menu': {
+      var dmH = 60;
+      var dmp = child.props || {};
+      var dmLabel = dmp.label || 'Select';
+      var dmVal = dmp.value || dmp.placeholder || 'Choose...';
+      let s = '';
+      s += `<text x="0" y="14" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">${esc(dmLabel)}${dmp.required ? ' *' : ''}</text>`;
+      s += `<rect x="0" y="22" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="45" font-family="Inter,sans-serif" font-size="14" fill="${dmp.value ? textP : textM}">${esc(dmVal)}</text>`;
+      s += `<text x="${width - 20}" y="45" font-family="Inter,sans-serif" font-size="12" fill="${textM}">&#x25BE;</text>`;
+      return { svg: s, height: dmH };
+    }
+
+    case 'input-field': {
+      var ifH = 60;
+      var ifp = child.props || {};
+      var ifLabel = ifp.label || 'Input';
+      var ifVal = ifp.value || ifp.placeholder || '';
+      var ifDisabled = ifp.disabled;
+      let s = '';
+      s += `<text x="0" y="14" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">${esc(ifLabel)}${ifp.required ? ' *' : ''}</text>`;
+      s += `<rect x="0" y="22" width="${width}" height="36" rx="8" fill="${ifDisabled ? '#f3f4f6' : 'white'}" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="45" font-family="Inter,sans-serif" font-size="14" fill="${ifVal && ifp.value ? textP : textM}">${esc(ifVal)}</text>`;
+      if (ifp.helpText) {
+        s += `<text x="0" y="${ifH + 2}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(ifp.helpText.substring(0, 80))}</text>`;
+        ifH += 16;
+      }
+      return { svg: s, height: ifH };
+    }
+
+    case 'textarea': {
+      var taH = 100;
+      var tap = child.props || {};
+      var taLabel = tap.label || 'Text Area';
+      var taPlaceholder = tap.placeholder || '';
+      var taRows = tap.rows || 3;
+      var taFieldH = Math.max(taRows * 20, 60);
+      let s = '';
+      s += `<text x="0" y="14" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">${esc(taLabel)}${tap.required ? ' *' : ''}</text>`;
+      s += `<rect x="0" y="22" width="${width}" height="${taFieldH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="40" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(taPlaceholder.substring(0, 60))}${taPlaceholder.length > 60 ? '...' : ''}</text>`;
+      if (tap.showCharacterCount) {
+        s += `<text x="${width - 8}" y="${22 + taFieldH - 8}" font-family="Inter,sans-serif" font-size="11" fill="${textM}" text-anchor="end">0/${tap.maxLength || 500}</text>`;
+      }
+      taH = 22 + taFieldH + 4;
+      return { svg: s, height: taH };
+    }
+
+    case 'checkbox': {
+      var cbH = 24;
+      var cbp = child.props || {};
+      var cbLabel = cbp.label || 'Checkbox';
+      var cbChecked = cbp.checked;
+      let s = '';
+      s += `<rect x="0" y="2" width="18" height="18" rx="4" fill="${cbChecked ? brand : 'white'}" stroke="${cbChecked ? brand : border}" stroke-width="1.5"/>`;
+      if (cbChecked) {
+        s += `<text x="4" y="16" font-family="Inter,sans-serif" font-size="14" fill="white">&#x2713;</text>`;
+      }
+      s += `<text x="26" y="16" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${esc(cbLabel)}</text>`;
+      return { svg: s, height: cbH };
+    }
+
+    case 'alert-banner': {
+      var abp = child.props || {};
+      var abVariant = child.variant || 'info';
+      var abColors = { info: { bg: '#dbeafe', t: '#1e40af' }, warning: { bg: '#fef3c7', t: '#92400e' }, error: { bg: '#fee2e2', t: '#991b1b' }, success: { bg: '#dcfce7', t: '#166534' } };
+      var abc = abColors[abVariant] || abColors.info;
+      var abH = 48;
+      var abMsg = abp.message || abp.heading || 'Notice';
+      let s = '';
+      s += `<rect x="0" y="0" width="${width}" height="${abH}" rx="8" fill="${abc.bg}"/>`;
+      s += `<text x="16" y="28" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${abc.t}">${esc(abMsg.substring(0, 80))}</text>`;
+      return { svg: s, height: abH };
+    }
+
     case 'loading-skeleton':
     case 'loading-spinner': {
       var lsH = 48;
@@ -1591,6 +1666,15 @@ function generateScreenSvg(screen, R) {
       };
     } else if (section.children) {
       result = renderPageHeader(section, R, W);
+    } else if (section.component) {
+      // Fallback: try rendering as a single child component with section padding
+      const padH = isMobile() ? 16 : n(R, section.padding && section.padding.horizontal, 24);
+      const padV = n(R, section.padding && section.padding.vertical, 16);
+      const childResult = renderSingleChild(section, R, W - padH * 2, 0);
+      result = {
+        svg: `<g transform="translate(${padH}, ${padV})">${childResult.svg}</g>`,
+        height: childResult.height + padV * 2,
+      };
     } else {
       result = renderGenericSection(section, R, W);
     }
