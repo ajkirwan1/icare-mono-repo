@@ -6,10 +6,19 @@ import styles from "./cost-estimator.module.scss";
  * ✅ Hourly rate: small number pill + slider underneath
  * ✅ Inputs have same "soft" background as result pills (Care cost)
  * ✅ Same treatment for Hours per week
+ *
+ * Copy goals (legal-safe):
+ * ✅ show what families may pay (total estimates)
+ * ✅ explain what agency pricing can include (neutral, factual)
+ * ✅ avoid blame/accusations; use "estimate / varies / comparison only"
+ *
+ * Logic update:
+ * ✅ show "carer share of total" (agency vs ICare) so families understand where the budget goes
+ * ✅ agency margin is an adjustable assumption (default chosen for day/week style pricing)
  */
 export default function ICareCostEstimator({
     icareFeePct = 10,
-    agencyMarginPct = 35,
+    agencyMarginPct = 170,
     waitlistHref = "#waitlist",
 }) {
     const TEXT = "#0F172A";
@@ -39,7 +48,7 @@ export default function ICareCostEstimator({
     const [hourly, setHourly] = React.useState(UK_LIVE_IN_AVG_HOURLY_GBP);
     const [hoursWeek, setHoursWeek] = React.useState(30);
 
-    // kept but unused
+    // kept but unused (future lead capture)
     const [emailOptIn, setEmailOptIn] = React.useState(false);
     const [email, setEmail] = React.useState("");
 
@@ -64,13 +73,29 @@ export default function ICareCostEstimator({
         [currency]
     );
 
-    const { baseCost, agencyTotal, icareTotal, youSave, savePct } = React.useMemo(() => {
+    const {
+        baseCost,
+        agencyTotal,
+        icareTotal,
+        youSave,
+        savePct,
+        agencyCarerSharePct,
+        icareCarerSharePct,
+    } = React.useMemo(() => {
         const weeksPerMonth = 4.33;
         const base = hourly * hoursWeek * weeksPerMonth;
+
+        // Agency total = care pay base + estimated overhead/margin (assumption for comparison)
         const agency = base * (1 + agencyMarginPct / 100);
+
+        // ICare total = care pay base + platform service fee (assumption)
         const icare = base * (1 + icareFeePct / 100);
+
         const save = Math.max(0, agency - icare);
         const pct = agency > 0 ? (save / agency) * 100 : 0;
+
+        const agencyShare = agency > 0 ? (base / agency) * 100 : 0;
+        const icareShare = icare > 0 ? (base / icare) * 100 : 0;
 
         return {
             baseCost: base,
@@ -78,13 +103,17 @@ export default function ICareCostEstimator({
             icareTotal: icare,
             youSave: save,
             savePct: pct,
+            agencyCarerSharePct: agencyShare,
+            icareCarerSharePct: icareShare,
         };
     }, [hourly, hoursWeek, agencyMarginPct, icareFeePct]);
 
     const savePctClamped = Math.max(0, Math.min(100, savePct));
     const savePctRounded = Math.round(savePct);
 
-    // UI bits
+    const agencyCarerShareRounded = Math.max(0, Math.min(100, Math.round(agencyCarerSharePct)));
+    const icareCarerShareRounded = Math.max(0, Math.min(100, Math.round(icareCarerSharePct)));
+
     const CurrencyToggle = () => (
         <div className={styles.curr} aria-label="Currency selector">
             <button
@@ -109,7 +138,6 @@ export default function ICareCostEstimator({
             aria-label="Cost estimator"
             className={styles.wrap}
             style={{
-                // tylko dynamiczne rzeczy, które wcześniej i tak były dynamiczne
                 ["--accent"]: ACCENT,
                 ["--accent2"]: ACCENT2,
                 ["--text"]: TEXT,
@@ -127,7 +155,7 @@ export default function ICareCostEstimator({
                     <h3 className={styles.h2Mini}>Budget clarity in under a minute</h3>
                     <p className={styles.lead}>
                         Caring is emotional — money shouldn’t add extra stress. <br />
-                        Adjust rate and hours/week for a monthly estimate.
+                        Adjust rate and hours/week to see an illustrative monthly family budget estimate.
                     </p>
                 </div>
 
@@ -177,7 +205,7 @@ export default function ICareCostEstimator({
                                 </div>
 
                                 <div className={styles.helper}>
-                                    Tip: choose a rate that’s fair and sustainable for the carer.
+                                    Tip: choose a rate that’s fair, sustainable — and clear for both sides.
                                 </div>
                             </div>
 
@@ -195,7 +223,9 @@ export default function ICareCostEstimator({
                                     />
                                 </div>
 
-                                <div className={styles.helper}>A helpful starting point is 20–40 hours/week.</div>
+                                <div className={styles.helper}>
+                                    A helpful starting point is 20–40 hours/week (adjust to your family’s routine).
+                                </div>
                             </div>
                         </div>
 
@@ -208,20 +238,38 @@ export default function ICareCostEstimator({
 
                         <div className={styles.resultGrid}>
                             <div className={styles.pill}>
-                                <div className={styles.k}>Care cost (no fees)</div>
+                                <div className={styles.k}>
+                                    Care pay (carer earnings, no fees)
+                                    <span className={styles.tip}>
+                                        <span className={styles.infoIcon} aria-label="Care pay info" tabIndex={0}>
+                                            i
+                                        </span>
+                                        <span className={styles.tipBubble} role="tooltip">
+                                            Estimated amount going to the carer for the hours and rate you selected
+                                            (before any third-party fees). Shown to help families understand the “care
+                                            pay” portion of the monthly budget.
+                                        </span>
+                                    </span>
+                                </div>
                                 <div className={styles.v}>{nf.format(baseCost)}</div>
                             </div>
 
                             <div className={styles.pill}>
                                 <div className={styles.k}>
-                                    Typical agency total
+                                    Agency estimate (family pays)
                                     <span className={styles.tip}>
                                         <span className={styles.infoIcon} aria-label="Agency total info" tabIndex={0}>
                                             i
                                         </span>
                                         <span className={styles.tipBubble} role="tooltip">
-                                            A market estimate for comparison only. Agency totals can include overheads
-                                            and margins and may vary by provider, location and care needs.
+                                            Illustrative estimate for comparison only (not a market survey and not a
+                                            quote). Agency pricing often includes the carer’s pay plus overheads (e.g.
+                                            recruitment, admin, support, compliance) and a business margin. Totals can
+                                            vary by provider, location and care needs.
+                                            <br />
+                                            <br />
+                                            Based on the assumptions used in this calculator, “care pay” is about{" "}
+                                            <strong>{agencyCarerShareRounded}%</strong> of this agency estimate.
                                         </span>
                                     </span>
                                 </div>
@@ -230,14 +278,19 @@ export default function ICareCostEstimator({
 
                             <div className={styles.pill}>
                                 <div className={styles.k}>
-                                    Estimated with ICare
+                                    Estimated via ICare (family budget)
                                     <span className={styles.tip}>
                                         <span className={styles.infoIcon} aria-label="ICare estimate info" tabIndex={0}>
                                             i
                                         </span>
                                         <span className={styles.tipBubble} role="tooltip">
-                                            Includes an estimated ICare service fee based on your inputs. This is not a
-                                            quote and does not include any optional extras you may agree separately.
+                                            Includes an estimated ICare service fee based on your inputs. This is an
+                                            estimate (not a quote). Any optional extras are agreed separately between
+                                            families and carers.
+                                            <br />
+                                            <br />
+                                            Based on the assumptions used in this calculator, “care pay” is about{" "}
+                                            <strong>{icareCarerShareRounded}%</strong> of the estimated ICare total.
                                         </span>
                                     </span>
                                 </div>
@@ -245,7 +298,7 @@ export default function ICareCostEstimator({
                             </div>
 
                             <div className={`${styles.pill} ${styles.pillHighlight}`}>
-                                <div className={styles.k}>Estimated savings</div>
+                                <div className={styles.k}>Estimated comparison</div>
                                 <div className={`${styles.v} ${styles.vHighlight}`}>{nf.format(youSave)}</div>
                             </div>
                         </div>
@@ -255,18 +308,19 @@ export default function ICareCostEstimator({
                         </div>
 
                         <div className={styles.saveLine}>
-                            You may save around{" "}
+                            Illustrative difference of{" "}
                             <span className={styles.savePct}>{savePctRounded}%</span>{" "}
-                            compared with a typical agency.
+                            versus the agency estimate (for comparison only).
                         </div>
 
                         <div className={styles.helper}>
-                            This is an estimate — needs, cities and experience can change rates.
+                            Estimates vary — care needs, schedules, location and experience can change rates and totals.
                         </div>
 
                         <div className={styles.microNote}>
-                            Live-in care is often priced per day or per week. Hourly equivalents are shown for
-                            comparison only.
+                            Families are often quoted a day or week rate (especially for live-in care). We show an
+                            hourly/monthly equivalent here to make comparisons easier. This tool is illustrative and not
+                            a quote.
                         </div>
 
                         <div className={styles.cardSpacer} />
@@ -276,17 +330,14 @@ export default function ICareCostEstimator({
                 {/* Reference note */}
                 <div className={styles.avgPayBox}>
                     <strong className={styles.avgStrong}>UK pay reference (live-in):</strong>{" "}
-                    Hourly equivalents can vary because many live-in roles are described per day/week and
-                    include different expectations around “active” hours. As a rough benchmark, Glassdoor
-                    estimates about <strong className={styles.avgStrong}>~£11/hour average</strong> for
-                    “Live-in Carer” (UK) and shows higher reports around{" "}
-                    <strong className={styles.avgStrong}>~£13/hour</strong>. The UK National Living Wage from{" "}
-                    <strong className={styles.avgStrong}>1 April 2026</strong> is{" "}
+                    Hourly equivalents can vary because many live-in roles are described per day/week and include
+                    different expectations around “active” hours. As a rough benchmark, Glassdoor estimates about{" "}
+                    <strong className={styles.avgStrong}>~£11/hour average</strong> for “Live-in Carer” (UK) and shows
+                    higher reports around <strong className={styles.avgStrong}>~£13/hour</strong>. The UK National Living
+                    Wage from <strong className={styles.avgStrong}>1 April 2026</strong> is{" "}
                     <strong className={styles.avgStrong}>£12.71/hour</strong> (21+){" "}
-                    <strong className={styles.avgStrong}>(for reference only)</strong>. Some market guides
-                    also describe live-in as{" "}
-                    <strong className={styles.avgStrong}>~£120/day or ~£800/week</strong> (example platform
-                    guidance).
+                    <strong className={styles.avgStrong}>(for reference only)</strong>. Some market guides also describe
+                    live-in as <strong className={styles.avgStrong}>~£120/day or ~£800/week</strong> (example guidance).
                     <div className={styles.sourcesRow}>
                         <a
                             href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
