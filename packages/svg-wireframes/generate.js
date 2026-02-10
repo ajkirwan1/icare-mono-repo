@@ -107,6 +107,55 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+// ── Template String Resolver (sampleData interpolation) ─────────────────────
+
+function _lookupSamplePath(dotPath, sampleData) {
+  var parts = dotPath.split('.');
+  var cur = sampleData;
+  for (var i = 0; i < parts.length; i++) {
+    if (cur && typeof cur === 'object' && parts[i] in cur) {
+      cur = cur[parts[i]];
+    } else {
+      return undefined;
+    }
+  }
+  return cur;
+}
+
+function resolveTemplateStrings(obj, sampleData) {
+  if (!sampleData || !obj) return obj;
+  if (typeof obj === 'string') {
+    // If the entire string is a single ${...} pattern, return the raw resolved value
+    // (preserves arrays/objects instead of coercing to string)
+    var singleMatch = obj.match(/^\$\{([^}]+)\}$/);
+    if (singleMatch) {
+      var resolved = _lookupSamplePath(singleMatch[1], sampleData);
+      return resolved !== undefined ? resolved : obj;
+    }
+    // Otherwise interpolate inline ${...} patterns as strings
+    return obj.replace(/\$\{([^}]+)\}/g, function (match, path) {
+      var resolved = _lookupSamplePath(path, sampleData);
+      if (resolved !== undefined && (typeof resolved === 'string' || typeof resolved === 'number' || typeof resolved === 'boolean')) {
+        return String(resolved);
+      }
+      return match;
+    });
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(function (item) { return resolveTemplateStrings(item, sampleData); });
+  }
+  if (typeof obj === 'object') {
+    var result = {};
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        result[key] = resolveTemplateStrings(obj[key], sampleData);
+      }
+    }
+    return result;
+  }
+  return obj;
+}
+
 function c(resolver, token) {
   return resolver.color(token) || '#cccccc';
 }
@@ -695,6 +744,21 @@ function renderSingleChild(child, R, width, index) {
       return { svg: s, height: H };
     }
 
+    case 'text-link': {
+      const H = 24;
+      const label = (child.props && child.props.label) || 'Link';
+      const linkColor = c(R, child.tokens && child.tokens.fill) || c(R, '{colors.brand.link-bg}') || brand;
+      const fs = n(R, child.tokens && child.tokens.fontSize, 14);
+      const hasArrow = /[\u2190\u2192\u2039\u203A]/.test(label) || label.includes('<-') || label.includes('->');
+      const displayLabel = hasArrow ? label : (child.props && child.props.iconPosition === 'left' ? '\u2190 ' + label : label + ' \u2192');
+      let s = `<text x="0" y="16" font-family="Inter,sans-serif" font-size="${fs}" fill="${linkColor}" text-decoration="underline">${esc(displayLabel)}</text>`;
+      return { svg: s, height: H };
+    }
+
+    case 'widget-container': {
+      return renderWidgetContainer(child, R, width, 0);
+    }
+
     case 'link-list': {
       const H = 80;
       const links = (child.props && child.props.links) || ['Link 1', 'Link 2', 'Link 3'];
@@ -1179,17 +1243,19 @@ function renderTwoColumnSection(section, R, W) {
 }
 
 function renderColumn(column, R, width) {
-  if (!column || !column.children || !Array.isArray(column.children)) return { svg: '', height: 0 };
+  // Support both .children and .sections (caregiver-profile uses sections)
+  var items = column && (Array.isArray(column.children) ? column.children : Array.isArray(column.sections) ? column.sections : null);
+  if (!items) return { svg: '', height: 0 };
 
   const gap = n(R, column.gap, 24);
   let s = '';
   let y = 0;
 
-  for (const child of column.children) {
+  for (const child of items) {
     let result;
     if (child.component === 'widget-container') {
       result = renderWidgetContainer(child, R, width, 0);
-    } else if (child.children) {
+    } else if (Array.isArray(child.children) && child.children.length > 0) {
       result = renderWidgetChild(child, R, width);
     } else {
       result = renderSingleChild(child, R, width, 0);
@@ -1437,7 +1503,9 @@ function renderGenericSection(section, R, W) {
 function generateScreenSvg(screen, R) {
   const W = VIEWPORT_WIDTHS[VIEWPORT] || 1440;
   const bg = c(R, screen.frame.fill);
-  const sorted = [...screen.sections].sort((a, b) => a.order - b.order);
+  const sampleData = screen.sampleData || null;
+  const rawSorted = [...screen.sections].sort((a, b) => a.order - b.order);
+  const sorted = sampleData ? resolveTemplateStrings(rawSorted, sampleData) : rawSorted;
 
   let totalH = 0;
   const parts = [];
