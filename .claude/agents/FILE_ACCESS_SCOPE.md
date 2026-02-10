@@ -1,6 +1,6 @@
 # Agent File Access Scope Matrix
 
-**Last Updated:** 2026-02-08
+**Last Updated:** 2026-02-10
 **Purpose:** Define which agents should access which documentation folders
 
 ---
@@ -65,9 +65,15 @@
 
 ### docs/technical/
 **Owner:** Technical Architect
-**Contains:** database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md
+**Contains:** database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md, figma-plugin-specification.md
 **Who Reads:** All agents
 **Who Writes:** Technical Architect
+
+### packages/figma-plugin/
+**Owner:** Technical Architect (code), Elderly Care UX/UI Designer (JSON inputs)
+**Contains:** Custom Figma plugin for importing design tokens, components, and screen layouts
+**Who Reads:** All agents
+**Who Writes:** Technical Architect (plugin code), manual builds only
 
 ### docs/tiers/tier1/ (Current Status - 2026-02-07)
 **Owner:** Product Director (status files), Various specialists (content)
@@ -81,10 +87,7 @@
   - wireframes/dashboards/ (3 dashboard wireframes - COMPLETE)
   - wireframes/auth/ (6 auth wireframes - COMPLETE)
   - wireframes/search/ (2 search wireframes - COMPLETE)
-<<<<<<< Updated upstream
-=======
   - wireframes/booking/ (3 booking wireframes - COMPLETE)
->>>>>>> Stashed changes
   - components/dashboard-shared-components.md (33 reusable components)
 - website-content/ (13 pages, 92% complete)
 - archive/ (6 deprecated documents)
@@ -148,14 +151,10 @@ docs/tiers/
 | **product-director** | tiers/_index.md, governance/*, TIER1_STATUS_LOG.md, FIGMA_PRODUCTION_PLAN.md, DOCUMENTATION_GUIDE.md, CONSISTENCY_AUDIT.md, tiers/tier1/archive/*, .claude/agents/* (coordination) |
 | **product-requirements-specialist** | docs/product/features/tier1-*.md (5 specifications), tiers/common/spec/*, tiers/tier1/features.md |
 | **route-map-architect** | docs/product/tier1-route-map.md (47 screens), docs/tiers/tier1/draft-design-specs/screen-inventory.md |
-<<<<<<< Updated upstream
-| **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (11 wireframes across dashboards/, auth/, search/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ |
-=======
-| **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (14 wireframes across dashboards/, auth/, search/, booking/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ |
->>>>>>> Stashed changes
+| **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (14 wireframes across dashboards/, auth/, search/, booking/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ (tokens.json, components.json, screens/*.json) |
 | **content-architect** | docs/tiers/tier1/website-content/* (13 pages including legal/) |
 | **compliance-specialist** | compliance/*, docs/product/features/tier1-safeguarding-specification.md, tiers/*/compliance.md (advisory) |
-| **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md) |
+| **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md, figma-plugin-specification.md) |
 
 ---
 

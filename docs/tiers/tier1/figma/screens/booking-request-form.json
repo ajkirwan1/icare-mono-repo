@@ -1,0 +1,949 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-006",
+    "screenName": "Booking Request Form",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cr-006-booking-request-form.md",
+    "generatedDate": "2026-02-10",
+    "role": "care_receiver",
+    "route": "/bookings/new/:caregiverId",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default",
+      "validation-errors",
+      "submitting",
+      "no-payment-method"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "2",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "items": [
+          { "label": "Home", "href": "/" },
+          { "label": "Search", "href": "/search" },
+          { "label": "Sarah Thompson", "href": "/caregivers/cg-001" },
+          { "label": "Request Booking", "href": null }
+        ],
+        "currentPage": "Request Booking"
+      },
+      "accessibility": {
+        "ariaLabel": "Breadcrumb navigation"
+      }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Header",
+      "order": 3,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Request Booking with Sarah",
+          "tokens": {
+            "fontSize": "{fontSizes.2xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}",
+            "lineHeight": "{lineHeights.tight}"
+          },
+          "accessibility": {
+            "role": "heading",
+            "ariaLevel": "1"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Complete this form to send a booking request. Sarah has 24 hours to respond.",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.normal}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.normal}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-payment-warning",
+      "name": "Payment Method Warning (Conditional)",
+      "order": 4,
+      "component": "alert-banner",
+      "variant": "warning",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "severity": "warning",
+        "title": "Add a payment method to continue",
+        "message": "You'll need to add a card before you can send a booking request",
+        "showCTA": true,
+        "ctaLabel": "Add Payment Method",
+        "ctaUrl": "/settings/payment-methods"
+      },
+      "tokens": {
+        "fill": "{colors.alert.warning-bg}",
+        "border": "1px solid {colors.alert.warning-border}",
+        "borderRadius": "{borderRadius.lg}"
+      },
+      "visibility": {
+        "condition": "paymentMethodCount === 0",
+        "description": "Show only if user has no payment method on file"
+      },
+      "accessibility": {
+        "role": "alert",
+        "ariaLive": "assertive"
+      }
+    },
+    {
+      "id": "section-caregiver-summary",
+      "name": "Caregiver Summary Card",
+      "order": 5,
+      "component": "caregiver-summary-card",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "name": "Sarah Thompson",
+        "photo": "/uploads/photos/sarah-thompson.jpg",
+        "rating": "4.8",
+        "reviewCount": "23",
+        "hourlyRate": "£18.00",
+        "distance": "3.2 miles",
+        "isVerified": true,
+        "showViewProfile": true,
+        "profileUrl": "/caregivers/cg-001"
+      },
+      "tokens": {
+        "fill": "{colors.background.card-glass}",
+        "borderRadius": "{borderRadius.lg}",
+        "boxShadow": "{boxShadow.card-soft}"
+      }
+    },
+    {
+      "id": "section-content-area",
+      "name": "Content Area (Form + Price Summary)",
+      "order": 6,
+      "layout": "two-column",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "gap": "{spacing.6}",
+      "children": [
+        {
+          "id": "form-container",
+          "name": "Booking Form (Left)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "60%", "height": "auto" },
+          "children": [
+            {
+              "id": "booking-details-section",
+              "name": "Booking Details Section",
+              "component": "form-section",
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "children": [
+                {
+                  "component": "text",
+                  "variant": "h2",
+                  "content": "Booking Details",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xl}",
+                    "fontWeight": "{fontWeights.semibold}",
+                    "fill": "{colors.text.primary}",
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "role": "heading",
+                    "ariaLevel": "2"
+                  }
+                },
+                {
+                  "component": "date-picker",
+                  "variant": "default",
+                  "props": {
+                    "label": "Booking Date",
+                    "required": true,
+                    "currentMonth": "March 2026",
+                    "availableDates": ["2026-03-15", "2026-03-16", "2026-03-18", "2026-03-20", "2026-03-22"],
+                    "selectedDate": null,
+                    "minDate": "today",
+                    "helpText": "Select a date when Sarah is available"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Select booking date",
+                    "ariaRequired": true,
+                    "ariaDescribedBy": "date-help-text"
+                  },
+                  "validation": {
+                    "required": true,
+                    "errorMessage": "Please select an available date"
+                  }
+                },
+                {
+                  "component": "dropdown-menu",
+                  "variant": "form-select",
+                  "props": {
+                    "label": "Start Time",
+                    "required": true,
+                    "placeholder": "Select time...",
+                    "options": [
+                      { "value": "08:00", "label": "08:00 AM" },
+                      { "value": "08:30", "label": "08:30 AM" },
+                      { "value": "09:00", "label": "09:00 AM" },
+                      { "value": "09:30", "label": "09:30 AM" },
+                      { "value": "10:00", "label": "10:00 AM" },
+                      { "value": "10:30", "label": "10:30 AM" },
+                      { "value": "11:00", "label": "11:00 AM" },
+                      { "value": "11:30", "label": "11:30 AM" },
+                      { "value": "12:00", "label": "12:00 PM" },
+                      { "value": "12:30", "label": "12:30 PM" },
+                      { "value": "13:00", "label": "01:00 PM" },
+                      { "value": "13:30", "label": "01:30 PM" },
+                      { "value": "14:00", "label": "02:00 PM" },
+                      { "value": "14:30", "label": "02:30 PM" },
+                      { "value": "15:00", "label": "03:00 PM" },
+                      { "value": "15:30", "label": "03:30 PM" },
+                      { "value": "16:00", "label": "04:00 PM" },
+                      { "value": "16:30", "label": "04:30 PM" },
+                      { "value": "17:00", "label": "05:00 PM" },
+                      { "value": "17:30", "label": "05:30 PM" },
+                      { "value": "18:00", "label": "06:00 PM" },
+                      { "value": "18:30", "label": "06:30 PM" },
+                      { "value": "19:00", "label": "07:00 PM" },
+                      { "value": "19:30", "label": "07:30 PM" },
+                      { "value": "20:00", "label": "08:00 PM" }
+                    ]
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Select start time",
+                    "ariaRequired": true
+                  },
+                  "validation": {
+                    "required": true,
+                    "errorMessage": "Please select a start time"
+                  }
+                },
+                {
+                  "component": "duration-selector",
+                  "variant": "default",
+                  "props": {
+                    "label": "Duration",
+                    "required": true,
+                    "options": ["2h", "3h", "4h", "6h", "8h"],
+                    "selectedDuration": "4h",
+                    "helpText": "Minimum booking duration is 2 hours"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Select booking duration",
+                    "ariaRequired": true,
+                    "role": "radiogroup"
+                  },
+                  "validation": {
+                    "required": true,
+                    "errorMessage": "Minimum booking duration is 2 hours"
+                  }
+                },
+                {
+                  "component": "input-field",
+                  "variant": "text",
+                  "props": {
+                    "label": "Service Type",
+                    "value": "Companionship",
+                    "disabled": true,
+                    "helpText": "Personal care services are available from Tier 2 onwards"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  }
+                },
+                {
+                  "component": "textarea",
+                  "props": {
+                    "label": "Special Requests or Notes",
+                    "placeholder": "Example: I'd like to go for a walk if the weather is nice, or we can stay in and chat. I have a small dog who loves visitors.",
+                    "rows": 4,
+                    "maxLength": 500,
+                    "showCharacterCount": true,
+                    "required": false
+                  },
+                  "tokens": {
+                    "marginBottom": "0"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Enter special requests or notes",
+                    "ariaDescribedBy": "special-requests-help"
+                  },
+                  "validation": {
+                    "maxLength": 500,
+                    "errorMessage": "Special requests must be 500 characters or less"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "emergency-contact-section",
+              "name": "Emergency Contact Section",
+              "component": "form-section",
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "children": [
+                {
+                  "component": "text",
+                  "variant": "h2",
+                  "content": "Emergency Contact",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xl}",
+                    "fontWeight": "{fontWeights.semibold}",
+                    "fill": "{colors.text.primary}",
+                    "marginBottom": "{spacing.2}"
+                  },
+                  "accessibility": {
+                    "role": "heading",
+                    "ariaLevel": "2"
+                  }
+                },
+                {
+                  "component": "text",
+                  "variant": "help-text",
+                  "content": "This person will be notified if there's an emergency during the booking",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.text.muted}",
+                    "marginBottom": "{spacing.4}"
+                  }
+                },
+                {
+                  "component": "input-field",
+                  "variant": "text",
+                  "props": {
+                    "label": "Emergency Contact Name",
+                    "required": true,
+                    "value": "Jane Smith",
+                    "placeholder": "Enter name"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Emergency contact name",
+                    "ariaRequired": true
+                  },
+                  "validation": {
+                    "required": true,
+                    "minLength": 2,
+                    "maxLength": 100,
+                    "errorMessage": "Emergency contact name is required"
+                  }
+                },
+                {
+                  "component": "input-field",
+                  "variant": "tel",
+                  "props": {
+                    "label": "Emergency Contact Phone",
+                    "required": true,
+                    "value": "07700 900123",
+                    "placeholder": "07700 900000"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Emergency contact phone number",
+                    "ariaRequired": true
+                  },
+                  "validation": {
+                    "required": true,
+                    "pattern": "UK phone format",
+                    "errorMessage": "Please enter a valid UK phone number"
+                  }
+                },
+                {
+                  "component": "dropdown-menu",
+                  "variant": "form-select",
+                  "props": {
+                    "label": "Relationship",
+                    "required": true,
+                    "value": "Daughter",
+                    "options": [
+                      { "value": "daughter", "label": "Daughter" },
+                      { "value": "son", "label": "Son" },
+                      { "value": "spouse", "label": "Spouse" },
+                      { "value": "partner", "label": "Partner" },
+                      { "value": "friend", "label": "Friend" },
+                      { "value": "other", "label": "Other" }
+                    ]
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Relationship to emergency contact",
+                    "ariaRequired": true
+                  },
+                  "validation": {
+                    "required": true,
+                    "errorMessage": "Please specify relationship to emergency contact"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "cancellation-policy-section",
+              "name": "Cancellation Policy Section",
+              "component": "form-section",
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "children": [
+                {
+                  "component": "text",
+                  "variant": "h3",
+                  "content": "Cancellation Policy",
+                  "tokens": {
+                    "fontSize": "{fontSizes.lg}",
+                    "fontWeight": "{fontWeights.semibold}",
+                    "fill": "{colors.text.primary}",
+                    "marginBottom": "{spacing.3}"
+                  },
+                  "accessibility": {
+                    "role": "heading",
+                    "ariaLevel": "3"
+                  }
+                },
+                {
+                  "component": "text",
+                  "variant": "policy-summary",
+                  "content": "• Full refund if cancelled 24+ hours before start time\n• 50% refund if cancelled less than 24 hours before start\n• No refund if cancelled within 2 hours of start time",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.text.primary}",
+                    "lineHeight": "{lineHeights.relaxed}",
+                    "marginBottom": "{spacing.4}"
+                  }
+                },
+                {
+                  "component": "checkbox",
+                  "props": {
+                    "label": "I understand and accept the cancellation policy",
+                    "required": true,
+                    "checked": false
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.2}"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Accept cancellation policy",
+                    "ariaRequired": true
+                  },
+                  "validation": {
+                    "required": true,
+                    "errorMessage": "You must accept the cancellation policy to continue"
+                  }
+                },
+                {
+                  "component": "text",
+                  "variant": "link",
+                  "content": "Read full cancellation policy →",
+                  "props": {
+                    "href": "/terms/cancellation-policy",
+                    "target": "_blank"
+                  },
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.brand.link-bg}",
+                    "cursor": "pointer"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sidebar-container",
+          "name": "Price Summary Sidebar (Right)",
+          "position": { "x": "auto", "y": 0 },
+          "size": { "width": "40%", "height": "auto" },
+          "children": [
+            {
+              "component": "price-summary-card",
+              "variant": "default",
+              "props": {
+                "hourlyRate": "£18.00",
+                "duration": "4",
+                "serviceFeePercent": "5",
+                "subtotal": "£72.00",
+                "serviceFee": "£3.60",
+                "total": "£75.60",
+                "paymentNote": "Payment will be authorized now and charged when Sarah accepts.",
+                "isCalculating": false
+              },
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}",
+                "position": "sticky",
+                "top": "{spacing.6}"
+              },
+              "accessibility": {
+                "role": "complementary",
+                "ariaLabel": "Booking price summary",
+                "ariaLive": "polite",
+                "ariaAtomic": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-form-actions",
+      "name": "Form Action Buttons",
+      "order": 7,
+      "layout": "horizontal",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "button",
+          "variant": "secondary",
+          "size": "md",
+          "props": {
+            "label": "Cancel",
+            "action": "confirmCancel"
+          },
+          "tokens": {
+            "minWidth": "120px",
+            "height": "48px"
+          },
+          "accessibility": {
+            "ariaLabel": "Cancel booking request"
+          }
+        },
+        {
+          "component": "button",
+          "variant": "primary",
+          "size": "lg",
+          "props": {
+            "label": "Send Request",
+            "action": "submitBookingRequest",
+            "disabled": "paymentMethodCount === 0 || !formValid"
+          },
+          "tokens": {
+            "minWidth": "160px",
+            "height": "56px",
+            "marginLeft": "auto"
+          },
+          "accessibility": {
+            "ariaLabel": "Send booking request to caregiver",
+            "ariaDisabled": "disabled"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 8,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "layout": "two-column (60% form / 40% sidebar)",
+      "priceSummary": "sticky sidebar on right",
+      "formSections": "full width cards with generous padding",
+      "buttons": "horizontal layout (Cancel left, Send Request right)"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "layout": "single column (form stacked, price summary below)",
+      "priceSummary": "full-width card below form sections",
+      "formSections": "full width with reduced padding",
+      "buttons": "horizontal layout (smaller buttons)"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "layout": "single column (all stacked)",
+      "priceSummary": "full-width card, sticky bottom bar variant",
+      "formSections": "full width with minimal padding",
+      "buttons": "vertical stack (Cancel, then Send Request)",
+      "emergencyContact": "all fields stacked vertically",
+      "durationSelector": "wrapped button group"
+    }
+  },
+  "stateVariations": {
+    "default": {
+      "description": "Clean form ready for input, payment method exists",
+      "sections": {
+        "section-payment-warning": { "visible": false },
+        "section-caregiver-summary": { "visible": true },
+        "section-content-area": { "visible": true },
+        "section-form-actions": {
+          "visible": true,
+          "children": {
+            "send-request-button": { "disabled": false }
+          }
+        }
+      },
+      "sampleData": {
+        "caregiver": {
+          "name": "Sarah Thompson",
+          "rating": 4.8,
+          "reviewCount": 23,
+          "hourlyRate": "£18.00",
+          "distance": "3.2 miles",
+          "isVerified": true
+        },
+        "paymentMethodCount": 1,
+        "formValid": false
+      }
+    },
+    "validation-errors": {
+      "description": "User attempted submission with incomplete/invalid fields",
+      "sections": {
+        "section-content-area": {
+          "visible": true,
+          "children": {
+            "date-picker": {
+              "state": "error",
+              "errorMessage": "Please select an available date"
+            },
+            "start-time-dropdown": {
+              "state": "error",
+              "errorMessage": "Please select a start time"
+            },
+            "duration-selector": {
+              "state": "error",
+              "errorMessage": "Please select a duration"
+            },
+            "cancellation-checkbox": {
+              "state": "error",
+              "errorMessage": "You must accept the cancellation policy to continue"
+            }
+          }
+        }
+      },
+      "sampleData": {
+        "formValid": false,
+        "validationErrors": [
+          { "field": "date", "message": "Please select an available date" },
+          { "field": "startTime", "message": "Please select a start time" },
+          { "field": "duration", "message": "Please select a duration" },
+          { "field": "cancellationPolicy", "message": "You must accept the cancellation policy to continue" }
+        ]
+      }
+    },
+    "submitting": {
+      "description": "Form submission in progress, payment authorization processing",
+      "sections": {
+        "section-content-area": {
+          "visible": true,
+          "children": {
+            "all-form-fields": { "disabled": true }
+          }
+        },
+        "section-form-actions": {
+          "children": {
+            "cancel-button": { "disabled": true },
+            "send-request-button": {
+              "disabled": true,
+              "label": "Sending request...",
+              "showSpinner": true
+            }
+          }
+        }
+      },
+      "overlay": {
+        "visible": true,
+        "component": "loading-spinner",
+        "message": "Sending your booking request...",
+        "submessage": "Please wait while we authorize payment and notify Sarah"
+      },
+      "sampleData": {
+        "isSubmitting": true
+      }
+    },
+    "no-payment-method": {
+      "description": "User has no payment method on file, form disabled",
+      "sections": {
+        "section-payment-warning": { "visible": true },
+        "section-content-area": {
+          "visible": true,
+          "children": {
+            "all-form-fields": { "disabled": false }
+          }
+        },
+        "section-form-actions": {
+          "children": {
+            "send-request-button": {
+              "disabled": true,
+              "tooltip": "Add a payment method to continue"
+            }
+          }
+        }
+      },
+      "sampleData": {
+        "paymentMethodCount": 0,
+        "formValid": false
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "alert-banner": "Component ID: alert-banner",
+    "caregiver-summary-card": "Component ID: caregiver-summary-card",
+    "date-picker": "Component ID: date-picker",
+    "price-summary-card": "Component ID: price-summary-card",
+    "duration-selector": "Component ID: duration-selector",
+    "input-field": "Component ID: input-field",
+    "textarea": "Component ID: textarea",
+    "checkbox": "Component ID: checkbox",
+    "dropdown-menu": "Component ID: dropdown-menu",
+    "button": "Component ID: button",
+    "footer-global": "Component ID: footer-global",
+    "loading-spinner": "Component ID: loading-spinner"
+  },
+  "sampleData": {
+    "caregiver": {
+      "id": "cg-001",
+      "name": "Sarah Thompson",
+      "photoUrl": "/uploads/photos/sarah-thompson.jpg",
+      "rating": 4.8,
+      "reviewCount": 23,
+      "hourlyRate": "£18.00",
+      "distance": "3.2 miles",
+      "isVerified": true,
+      "verificationBadges": ["DBS Checked", "ID Verified"],
+      "serviceType": "Companionship Only"
+    },
+    "pricing": {
+      "hourlyRate": 18.00,
+      "duration": 4,
+      "subtotal": 72.00,
+      "serviceFee": 3.60,
+      "serviceFeePercent": 5,
+      "total": 75.60
+    },
+    "availableDates": [
+      "2026-03-15",
+      "2026-03-16",
+      "2026-03-18",
+      "2026-03-20",
+      "2026-03-22",
+      "2026-03-23",
+      "2026-03-25",
+      "2026-03-27",
+      "2026-03-29",
+      "2026-03-30"
+    ],
+    "availableTimes": [
+      "09:00",
+      "10:00",
+      "11:00",
+      "13:00",
+      "14:00",
+      "15:00"
+    ],
+    "emergencyContact": {
+      "name": "Jane Smith",
+      "phone": "07700 900123",
+      "relationship": "Daughter"
+    },
+    "paymentMethodCount": 1,
+    "formValid": false
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "caregiver-summary-view-profile-link",
+      "add-payment-method-button (if visible)",
+      "date-picker-input",
+      "start-time-dropdown",
+      "duration-radio-group",
+      "service-type-input (disabled)",
+      "special-requests-textarea",
+      "emergency-contact-name-input",
+      "emergency-contact-phone-input",
+      "emergency-contact-relationship-dropdown",
+      "cancellation-policy-checkbox",
+      "read-policy-link",
+      "cancel-button",
+      "send-request-button",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "section": "section-payment-warning",
+        "element": "alert-banner",
+        "ariaLive": "assertive",
+        "description": "Payment method warning announced immediately when shown"
+      },
+      {
+        "section": "sidebar-container",
+        "element": "price-summary-card",
+        "ariaLive": "polite",
+        "ariaAtomic": true,
+        "description": "Price updates announced when duration changes"
+      },
+      {
+        "section": "section-content-area",
+        "element": "form-validation-errors",
+        "ariaLive": "assertive",
+        "description": "Validation errors announced on submission"
+      }
+    ],
+    "landmarks": {
+      "navigation-header": {
+        "role": "banner",
+        "ariaLabel": "Site navigation"
+      },
+      "breadcrumb": {
+        "role": "navigation",
+        "ariaLabel": "Breadcrumb"
+      },
+      "booking-form": {
+        "role": "main",
+        "id": "main-content",
+        "ariaLabel": "Booking request form"
+      },
+      "price-summary": {
+        "role": "complementary",
+        "ariaLabel": "Booking price summary"
+      },
+      "footer": {
+        "role": "contentinfo",
+        "ariaLabel": "Site footer"
+      }
+    },
+    "formAccessibility": {
+      "requiredFields": [
+        "date",
+        "startTime",
+        "duration",
+        "emergencyContactName",
+        "emergencyContactPhone",
+        "emergencyContactRelationship",
+        "cancellationPolicyAcceptance"
+      ],
+      "errorLinking": "All error messages linked via aria-describedby to their respective fields",
+      "labelAssociation": "All form fields have explicit label associations via for/id attributes",
+      "fieldsetGrouping": "Emergency contact fields grouped in fieldset with legend"
+    },
+    "keyboardShortcuts": {
+      "Tab": "Navigate between form fields",
+      "Shift+Tab": "Navigate backward",
+      "Arrow keys": "Navigate calendar dates in date picker, navigate duration options",
+      "Enter": "Select date, submit form (when focused on submit button)",
+      "Space": "Toggle checkbox, select radio button",
+      "Esc": "Close date picker overlay"
+    },
+    "screenReaderAnnouncements": {
+      "pageLoad": "Request Booking with Sarah Thompson. Main content. Complete this form to send a booking request. Sarah has 24 hours to respond.",
+      "datePickerFocus": "Booking date, required. Select a date when Sarah is available. Date picker. Use arrow keys to navigate dates, Enter to select.",
+      "durationChange": "Duration updated to 4 hours. Total: £75.60",
+      "validationError": "Form submission failed. Please correct the highlighted fields. Booking date: Please select an available date.",
+      "paymentWarning": "Warning: Add a payment method to continue. You'll need to add a card before you can send a booking request.",
+      "submitting": "Sending your booking request. Please wait while we authorize payment and notify Sarah.",
+      "success": "Success! Booking Request Sent! Your request has been sent to Sarah. She has 24 hours to respond."
+    },
+    "minTouchTargets": "48x48px for all interactive elements, 56px for primary submit button",
+    "minFontSize": "16px body text, 18px buttons, 20px headings",
+    "minContrastRatio": "4.5:1 normal text, 3:1 large text",
+    "focusIndicator": "3px solid border with high contrast color on all interactive elements"
+  }
+}

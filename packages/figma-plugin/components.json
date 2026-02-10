@@ -1,0 +1,3173 @@
+{
+  "_metadata": {
+    "generatedFrom": "dashboard-shared-components.md",
+    "generatedDate": "2026-02-10",
+    "tokenSource": "tokens.json",
+    "totalComponents": 33,
+    "scope": "dashboard-screens-only",
+    "description": "Component schemas for programmatic Figma component generation via local development plugin"
+  },
+  "components": [
+    {
+      "id": "navigation-header",
+      "name": "Navigation Header (Authenticated)",
+      "category": "navigation",
+      "description": "Global navigation and user context across all authenticated screens",
+      "dimensions": {
+        "width": "100%",
+        "height": "64px"
+      },
+      "variants": [
+        {
+          "name": "Care Receiver",
+          "properties": {
+            "role": "care-receiver",
+            "hasSearch": false
+          }
+        },
+        {
+          "name": "Caregiver",
+          "properties": {
+            "role": "caregiver",
+            "hasSearch": false
+          }
+        },
+        {
+          "name": "Admin",
+          "properties": {
+            "role": "admin",
+            "hasSearch": true
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "logo",
+          "type": "instanceSwap",
+          "default": "logo-component"
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "options": ["care-receiver", "caregiver", "admin"],
+          "default": "care-receiver"
+        },
+        {
+          "name": "userName",
+          "type": "text",
+          "default": "Sarah"
+        },
+        {
+          "name": "userAvatar",
+          "type": "instanceSwap",
+          "default": null
+        },
+        {
+          "name": "notificationCount",
+          "type": "text",
+          "default": "0"
+        },
+        {
+          "name": "hasSearch",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "background",
+          "type": "rectangle",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "64px" },
+          "tokens": {
+            "fill": "{colors.brand.primary}",
+            "borderBottom": "1px solid {colors.border.soft}"
+          }
+        },
+        {
+          "name": "container",
+          "type": "frame",
+          "position": { "x": "{spacing.4}", "y": 0 },
+          "size": { "width": "auto", "height": "64px" },
+          "tokens": {
+            "paddingHorizontal": "{spacing.4}",
+            "paddingVertical": "{spacing.3}",
+            "gap": "{spacing.6}"
+          },
+          "children": [
+            {
+              "name": "logo",
+              "type": "instance",
+              "position": { "x": 0, "y": 0 },
+              "size": { "width": "auto", "height": "36px" }
+            },
+            {
+              "name": "navigation-items",
+              "type": "frame",
+              "position": { "x": "auto", "y": 0 },
+              "size": { "width": "auto", "height": "100%" },
+              "tokens": {
+                "gap": "{spacing.6}"
+              },
+              "children": [
+                {
+                  "name": "nav-link",
+                  "type": "text",
+                  "tokens": {
+                    "fontFamily": "{typography.nav-link.fontFamily}",
+                    "fontSize": "{typography.nav-link.fontSize}",
+                    "fontWeight": "{typography.nav-link.fontWeight}",
+                    "fill": "{colors.text.primary}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "search-bar",
+              "type": "instance",
+              "position": { "x": "auto", "y": 0 },
+              "size": { "width": "240px", "height": "40px" },
+              "visible": "hasSearch === true"
+            },
+            {
+              "name": "notification-bell",
+              "type": "frame",
+              "position": { "x": "auto", "y": 0 },
+              "size": { "width": "40px", "height": "40px" },
+              "children": [
+                {
+                  "name": "icon",
+                  "type": "icon",
+                  "size": { "width": "24px", "height": "24px" }
+                },
+                {
+                  "name": "badge",
+                  "type": "instance",
+                  "visible": "notificationCount > 0"
+                }
+              ]
+            },
+            {
+              "name": "user-menu",
+              "type": "frame",
+              "position": { "x": "auto", "y": 0 },
+              "size": { "width": "auto", "height": "40px" },
+              "tokens": {
+                "gap": "{spacing.2}"
+              },
+              "children": [
+                {
+                  "name": "avatar",
+                  "type": "instance",
+                  "size": { "width": "32px", "height": "32px" }
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fontWeight": "{fontWeights.normal}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [
+        "default",
+        "mobile-collapsed",
+        "search-focused",
+        "user-menu-open"
+      ],
+      "accessibility": {
+        "role": "banner",
+        "hasSkipLink": true,
+        "keyboardNav": "tab through all links, enter to activate",
+        "focusIndicator": "3px solid border"
+      },
+      "figmaNotes": "Master Component with role variants. Create 3 role-specific instances (Care Receiver, Caregiver, Admin). Share base structure, override navigation items per role. Responsive breakpoints: Mobile (hamburger), Tablet (condensed), Desktop (full horizontal)."
+    },
+    {
+      "id": "footer-global",
+      "name": "Footer (Global)",
+      "category": "navigation",
+      "description": "Legal links, support access, and secondary navigation",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Desktop (Full)",
+          "properties": {
+            "layout": "horizontal"
+          }
+        },
+        {
+          "name": "Tablet (Condensed)",
+          "properties": {
+            "layout": "two-line"
+          }
+        },
+        {
+          "name": "Mobile (Compact)",
+          "properties": {
+            "layout": "vertical"
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "layout",
+          "type": "enum",
+          "options": ["horizontal", "two-line", "vertical"],
+          "default": "horizontal"
+        },
+        {
+          "name": "copyrightText",
+          "type": "text",
+          "default": "© 2026 Platform Name. All rights reserved."
+        },
+        {
+          "name": "version",
+          "type": "text",
+          "default": null
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "auto" },
+          "tokens": {
+            "borderTop": "1px solid {colors.border.soft}",
+            "paddingVertical": "{spacing.8}",
+            "paddingHorizontal": "{spacing.6}",
+            "gap": "{spacing.6}"
+          },
+          "children": [
+            {
+              "name": "links",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.6}"
+              },
+              "children": [
+                {
+                  "name": "link",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xs}",
+                    "fontWeight": "{fontWeights.normal}",
+                    "fill": "{colors.text.muted}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "copyright",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.xs}",
+                "fill": "{colors.text.muted}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "link-hover"],
+      "accessibility": {
+        "role": "contentinfo",
+        "linkText": "Clear descriptive text, not 'click here'",
+        "externalLinks": "rel='noopener noreferrer', aria-label includes 'opens in new tab'"
+      },
+      "figmaNotes": "Master Component with layout variants: Desktop (horizontal), Tablet (2-line), Mobile (vertical)."
+    },
+    {
+      "id": "skip-link",
+      "name": "Skip to Main Content Link",
+      "category": "navigation",
+      "description": "Allow keyboard users to bypass navigation",
+      "dimensions": {
+        "width": "auto",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Hidden",
+          "properties": { "visible": false }
+        },
+        {
+          "name": "Focused",
+          "properties": { "visible": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Skip to main content"
+        }
+      ],
+      "layers": [
+        {
+          "name": "link",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "auto", "height": "auto" },
+          "tokens": {
+            "fill": "{colors.brand.secondary}",
+            "paddingVertical": "{spacing.2}",
+            "paddingHorizontal": "{spacing.4}",
+            "borderRadius": "{borderRadius.sm}",
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.semibold}"
+          }
+        }
+      ],
+      "states": ["hidden", "focused"],
+      "accessibility": {
+        "requirement": "WCAG 2.1 AA bypass blocks",
+        "tabOrder": "First focusable element on page"
+      },
+      "figmaNotes": "Shared Component (low priority for visual design). Visually hidden until keyboard focus."
+    },
+    {
+      "id": "page-container",
+      "name": "Page Container",
+      "category": "layout",
+      "description": "Consistent page structure with header, main content, and footer",
+      "dimensions": {
+        "width": "100%",
+        "height": "100vh"
+      },
+      "props": [
+        {
+          "name": "backgroundColor",
+          "type": "text",
+          "default": "{colors.background.base}"
+        },
+        {
+          "name": "maxWidth",
+          "type": "enum",
+          "options": ["1200px", "1440px", "none"],
+          "default": "1200px"
+        }
+      ],
+      "layers": [
+        {
+          "name": "page",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "100vh" },
+          "tokens": {
+            "fill": "{colors.background.base}"
+          },
+          "children": [
+            {
+              "name": "header",
+              "type": "instance",
+              "position": { "x": 0, "y": 0 }
+            },
+            {
+              "name": "main",
+              "type": "frame",
+              "position": { "x": 0, "y": "64px" },
+              "size": { "width": "100%", "height": "auto" },
+              "tokens": {
+                "paddingHorizontal": "{spacing.6}",
+                "paddingVertical": "{spacing.8}"
+              }
+            },
+            {
+              "name": "footer",
+              "type": "instance",
+              "position": { "x": 0, "y": "auto" }
+            }
+          ]
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {
+        "mainLandmark": "role='main' with id='main-content'"
+      },
+      "figmaNotes": "Template (frame structure, not component)."
+    },
+    {
+      "id": "content-grid",
+      "name": "Content Grid",
+      "category": "layout",
+      "description": "Responsive grid layout for cards, widgets, metrics",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "1 Column",
+          "properties": { "columns": 1 }
+        },
+        {
+          "name": "2 Columns",
+          "properties": { "columns": 2 }
+        },
+        {
+          "name": "3 Columns",
+          "properties": { "columns": 3 }
+        }
+      ],
+      "props": [
+        {
+          "name": "columns",
+          "type": "enum",
+          "options": [1, 2, 3],
+          "default": 1
+        }
+      ],
+      "layers": [
+        {
+          "name": "grid",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "auto" },
+          "tokens": {
+            "gap": "clamp(26px, 3.4vw, 52px)",
+            "display": "grid"
+          }
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {},
+      "figmaNotes": "Auto Layout Frame with variants. Mobile (320-767px): 1 column forced. Tablet (768-1023px): 2 columns. Desktop (1024+): Specified column count."
+    },
+    {
+      "id": "widget-container",
+      "name": "Section Card / Widget Container",
+      "category": "layout",
+      "description": "Consistent container styling for dashboard widgets",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "With Header Action",
+          "properties": { "hasHeaderAction": true, "hasFooterAction": false }
+        },
+        {
+          "name": "With Footer Action",
+          "properties": { "hasHeaderAction": false, "hasFooterAction": true }
+        },
+        {
+          "name": "With Both Actions",
+          "properties": { "hasHeaderAction": true, "hasFooterAction": true }
+        },
+        {
+          "name": "No Actions",
+          "properties": { "hasHeaderAction": false, "hasFooterAction": false }
+        }
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Widget Title"
+        },
+        {
+          "name": "subtitle",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "hasHeaderAction",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "hasFooterAction",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "headerActionLabel",
+          "type": "text",
+          "default": "View All"
+        },
+        {
+          "name": "footerActionLabel",
+          "type": "text",
+          "default": "Load More"
+        }
+      ],
+      "layers": [
+        {
+          "name": "card",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "auto" },
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "stroke": "{colors.border.card}",
+            "strokeWidth": "1px",
+            "borderRadius": "{borderRadius.lg}",
+            "paddingVertical": "{spacing.8}",
+            "paddingHorizontal": "{spacing.8}",
+            "boxShadow": "{boxShadow.card-soft}"
+          },
+          "children": [
+            {
+              "name": "header",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.3}"
+              },
+              "children": [
+                {
+                  "name": "title",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.lg}",
+                    "fontWeight": "{fontWeights.bold}",
+                    "fill": "{colors.text.primary}"
+                  }
+                },
+                {
+                  "name": "subtitle",
+                  "type": "text",
+                  "visible": "subtitle !== null",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fill": "{colors.text.muted}"
+                  }
+                },
+                {
+                  "name": "header-action",
+                  "type": "text",
+                  "visible": "hasHeaderAction === true",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fill": "{colors.brand.link-bg}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "content",
+              "type": "frame",
+              "tokens": {
+                "marginTop": "{spacing.6}"
+              }
+            },
+            {
+              "name": "footer-action",
+              "type": "instance",
+              "visible": "hasFooterAction === true",
+              "tokens": {
+                "marginTop": "{spacing.6}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "loading", "empty", "error"],
+      "accessibility": {
+        "semanticHTML": "<section> or <article>",
+        "heading": "H2 for title"
+      },
+      "figmaNotes": "Master Component with header/footer variants. Variant: With header action | Without header action. Variant: With footer action | Without footer action."
+    },
+    {
+      "id": "two-column-layout",
+      "name": "Two-Column Layout (Main + Sidebar)",
+      "category": "layout",
+      "description": "Primary content area (70%) with secondary sidebar (30%)",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "props": [
+        {
+          "name": "mainWidth",
+          "type": "text",
+          "default": "70%"
+        },
+        {
+          "name": "sidebarWidth",
+          "type": "text",
+          "default": "30%"
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.8}",
+            "display": "flex"
+          },
+          "children": [
+            {
+              "name": "main-content",
+              "type": "frame",
+              "size": { "width": "70%", "height": "auto" }
+            },
+            {
+              "name": "sidebar",
+              "type": "frame",
+              "size": { "width": "30%", "height": "auto" }
+            }
+          ]
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {},
+      "figmaNotes": "Auto Layout Frame (horizontal → vertical on mobile). Desktop: Side-by-side. Tablet/Mobile: Stacked (sidebar below main)."
+    },
+    {
+      "id": "divider",
+      "name": "Divider / Separator",
+      "category": "layout",
+      "description": "Visual separation between content sections",
+      "dimensions": {
+        "width": "100%",
+        "height": "1px"
+      },
+      "variants": [
+        {
+          "name": "Horizontal Solid",
+          "properties": { "orientation": "horizontal", "style": "solid" }
+        },
+        {
+          "name": "Horizontal Dashed",
+          "properties": { "orientation": "horizontal", "style": "dashed" }
+        },
+        {
+          "name": "Vertical",
+          "properties": { "orientation": "vertical", "style": "solid" }
+        }
+      ],
+      "props": [
+        {
+          "name": "orientation",
+          "type": "enum",
+          "options": ["horizontal", "vertical"],
+          "default": "horizontal"
+        },
+        {
+          "name": "style",
+          "type": "enum",
+          "options": ["solid", "dashed"],
+          "default": "solid"
+        }
+      ],
+      "layers": [
+        {
+          "name": "line",
+          "type": "rectangle",
+          "tokens": {
+            "fill": "{colors.border.soft}",
+            "height": "1px"
+          }
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {
+        "role": "separator"
+      },
+      "figmaNotes": "Line element with color style."
+    },
+    {
+      "id": "booking-card",
+      "name": "Booking Card",
+      "category": "content-display",
+      "description": "Display booking information with caregiver/care receiver details, status, and actions. MOST COMPLEX COMPONENT.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Pending Request (CR)",
+          "properties": { "type": "pending-request-cr", "showCountdown": true, "showEarnings": false }
+        },
+        {
+          "name": "Pending Request (CG)",
+          "properties": { "type": "pending-request-cg", "showCountdown": true, "showEarnings": true }
+        },
+        {
+          "name": "Upcoming (CR)",
+          "properties": { "type": "upcoming-cr", "showCountdown": false, "showEarnings": false }
+        },
+        {
+          "name": "Upcoming (CG)",
+          "properties": { "type": "upcoming-cg", "showCountdown": false, "showEarnings": true }
+        },
+        {
+          "name": "In Progress",
+          "properties": { "type": "in-progress", "showCountdown": false, "showEarnings": false }
+        },
+        {
+          "name": "Completed",
+          "properties": { "type": "completed", "showCountdown": false, "showEarnings": false }
+        },
+        {
+          "name": "Search Result",
+          "properties": { "type": "search-result", "showCountdown": false, "showEarnings": false }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["pending-request-cr", "pending-request-cg", "upcoming-cr", "upcoming-cg", "in-progress", "completed", "search-result"],
+          "default": "upcoming-cr"
+        },
+        {
+          "name": "userName",
+          "type": "text",
+          "default": "Margaret S."
+        },
+        {
+          "name": "userPhoto",
+          "type": "instanceSwap",
+          "default": null
+        },
+        {
+          "name": "date",
+          "type": "text",
+          "default": "Tuesday, 10 February 2026"
+        },
+        {
+          "name": "startTime",
+          "type": "text",
+          "default": "14:00"
+        },
+        {
+          "name": "endTime",
+          "type": "text",
+          "default": "17:00"
+        },
+        {
+          "name": "location",
+          "type": "text",
+          "default": "SW1A 1AA"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "options": ["requested", "accepted", "in_progress", "completed", "cancelled"],
+          "default": "requested"
+        },
+        {
+          "name": "showCountdown",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "countdownHours",
+          "type": "text",
+          "default": "18"
+        },
+        {
+          "name": "countdownUrgency",
+          "type": "enum",
+          "options": ["ok", "warning", "urgent"],
+          "default": "ok"
+        },
+        {
+          "name": "showEarnings",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "earnings",
+          "type": "text",
+          "default": "£51.00"
+        },
+        {
+          "name": "primaryActionLabel",
+          "type": "text",
+          "default": "View Details"
+        },
+        {
+          "name": "secondaryActionLabel",
+          "type": "text",
+          "default": null
+        }
+      ],
+      "layers": [
+        {
+          "name": "card",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "100%", "height": "auto" },
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "stroke": "{colors.border.card}",
+            "strokeWidth": "1px",
+            "borderRadius": "{borderRadius.lg}",
+            "paddingVertical": "{spacing.6}",
+            "paddingHorizontal": "{spacing.6}",
+            "boxShadow": "{boxShadow.card-soft}",
+            "gap": "{spacing.4}"
+          },
+          "children": [
+            {
+              "name": "avatar-section",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.3}"
+              },
+              "children": [
+                {
+                  "name": "avatar",
+                  "type": "instance",
+                  "size": { "width": "56px", "height": "56px" },
+                  "tokens": {
+                    "borderRadius": "{borderRadius.pill}"
+                  }
+                },
+                {
+                  "name": "user-info",
+                  "type": "frame",
+                  "tokens": {
+                    "gap": "{spacing.1}"
+                  },
+                  "children": [
+                    {
+                      "name": "name",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.lg}",
+                        "fontWeight": "{fontWeights.bold}",
+                        "fill": "{colors.text.primary}"
+                      }
+                    },
+                    {
+                      "name": "verification-badges",
+                      "type": "frame",
+                      "visible": "type === 'search-result'",
+                      "tokens": {
+                        "gap": "{spacing.1}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "booking-details",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.2}"
+              },
+              "children": [
+                {
+                  "name": "date-time",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fill": "{colors.text.muted}"
+                  }
+                },
+                {
+                  "name": "location",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fill": "{colors.text.muted}"
+                  }
+                },
+                {
+                  "name": "service-icons",
+                  "type": "frame",
+                  "tokens": {
+                    "gap": "{spacing.2}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "status-section",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.2}"
+              },
+              "children": [
+                {
+                  "name": "status-badge",
+                  "type": "instance"
+                },
+                {
+                  "name": "countdown-timer",
+                  "type": "instance",
+                  "visible": "showCountdown === true"
+                },
+                {
+                  "name": "earnings",
+                  "type": "text",
+                  "visible": "showEarnings === true",
+                  "tokens": {
+                    "fontSize": "{fontSizes.lg}",
+                    "fontWeight": "{fontWeights.bold}",
+                    "fill": "{colors.text.primary}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "actions",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.3}",
+                "marginTop": "{spacing.4}"
+              },
+              "children": [
+                {
+                  "name": "primary-button",
+                  "type": "instance"
+                },
+                {
+                  "name": "secondary-button",
+                  "type": "instance",
+                  "visible": "secondaryActionLabel !== null"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "loading", "countdown-ok", "countdown-warning", "countdown-urgent"],
+      "accessibility": {
+        "role": "article",
+        "ariaLabelledby": "booking-[id]-title",
+        "cardClickable": true,
+        "countdownLive": "aria-live='polite'",
+        "touchTarget": "48x48px minimum"
+      },
+      "figmaNotes": "Master Component with multiple variants. Property: card_type (7 variants). Property: countdown_urgency (ok, warning, urgent) - conditional. Boolean: show_earnings (caregiver view only). Boolean: show_verification_badges (search results only). Responsive variants: Desktop (horizontal layout), Mobile (vertical stack)."
+    },
+    {
+      "id": "status-badge",
+      "name": "Status Badge",
+      "category": "content-display",
+      "description": "Visual indicator of booking status, verification status, or system status",
+      "dimensions": {
+        "width": "auto",
+        "height": "28px"
+      },
+      "variants": [
+        {
+          "name": "Requested",
+          "properties": { "status": "requested" }
+        },
+        {
+          "name": "Accepted",
+          "properties": { "status": "accepted" }
+        },
+        {
+          "name": "In Progress",
+          "properties": { "status": "in_progress" }
+        },
+        {
+          "name": "Completed",
+          "properties": { "status": "completed" }
+        },
+        {
+          "name": "Cancelled",
+          "properties": { "status": "cancelled" }
+        },
+        {
+          "name": "Disputed",
+          "properties": { "status": "disputed" }
+        },
+        {
+          "name": "Verified",
+          "properties": { "status": "verified" }
+        },
+        {
+          "name": "Pending Review",
+          "properties": { "status": "pending" }
+        },
+        {
+          "name": "Rejected",
+          "properties": { "status": "rejected" }
+        }
+      ],
+      "props": [
+        {
+          "name": "status",
+          "type": "enum",
+          "options": ["requested", "accepted", "in_progress", "completed", "cancelled", "disputed", "verified", "pending", "rejected"],
+          "default": "accepted"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Confirmed"
+        },
+        {
+          "name": "icon",
+          "type": "text",
+          "default": "✓"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        }
+      ],
+      "layers": [
+        {
+          "name": "badge",
+          "type": "frame",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "auto", "height": "28px" },
+          "tokens": {
+            "paddingHorizontal": "{spacing.3}",
+            "paddingVertical": "{spacing.1}",
+            "borderRadius": "{borderRadius.pill}",
+            "gap": "{spacing.1}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "text",
+              "tokens": {
+                "fontSize": "16px"
+              }
+            },
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.xs}",
+                "fontWeight": "{fontWeights.semibold}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "disabled"],
+      "accessibility": {
+        "ariaLabel": "Booking status: [status]",
+        "colorNotOnly": "Icon + text both present",
+        "contrast": "4.5:1 minimum"
+      },
+      "figmaNotes": "Master Component with status property (dropdown with all status options). Property: status. Property: size (sm, md, lg). Auto-swap background color, text color, icon based on status. Color mapping from tokens.json status colors."
+    },
+    {
+      "id": "countdown-timer",
+      "name": "Countdown Timer",
+      "category": "content-display",
+      "description": "Display time remaining for time-sensitive actions",
+      "dimensions": {
+        "width": "auto",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "OK (>6h)",
+          "properties": { "urgency": "ok" }
+        },
+        {
+          "name": "Warning (2-6h)",
+          "properties": { "urgency": "warning" }
+        },
+        {
+          "name": "Urgent (<2h)",
+          "properties": { "urgency": "urgent" }
+        }
+      ],
+      "props": [
+        {
+          "name": "hoursRemaining",
+          "type": "text",
+          "default": "18"
+        },
+        {
+          "name": "urgency",
+          "type": "enum",
+          "options": ["ok", "warning", "urgent"],
+          "default": "ok"
+        },
+        {
+          "name": "format",
+          "type": "enum",
+          "options": ["long", "short"],
+          "default": "long"
+        },
+        {
+          "name": "showIcon",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "timer",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.1}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "text",
+              "visible": "showIcon === true",
+              "tokens": {
+                "fontSize": "20px"
+              }
+            },
+            {
+              "name": "time-text",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fontWeight": "{fontWeights.semibold}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["ok", "warning", "urgent", "expired"],
+      "accessibility": {
+        "ariaLive": "polite",
+        "updateFrequency": "Every 30 minutes (not every second)",
+        "ariaLabel": "Time remaining: [hours] hours"
+      },
+      "figmaNotes": "Component with urgency variants. Property: urgency (ok, warning, urgent). Auto-swap text color based on urgency. Urgent variant includes pulsing animation notation. OK: green (#16a34a), Warning: yellow (#f59e0b), Urgent: red (#dc2626)."
+    },
+    {
+      "id": "empty-state",
+      "name": "Empty State",
+      "category": "content-display",
+      "description": "Guide users when no data exists, provide next action",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "No Bookings",
+          "properties": { "type": "no-bookings", "showCTA": true }
+        },
+        {
+          "name": "No Requests",
+          "properties": { "type": "no-requests", "showCTA": false }
+        },
+        {
+          "name": "No Activity",
+          "properties": { "type": "no-activity", "showCTA": false }
+        },
+        {
+          "name": "No Results",
+          "properties": { "type": "no-results", "showCTA": true }
+        },
+        {
+          "name": "No Messages",
+          "properties": { "type": "no-messages", "showCTA": false }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["no-bookings", "no-requests", "no-activity", "no-results", "no-messages"],
+          "default": "no-bookings"
+        },
+        {
+          "name": "icon",
+          "type": "text",
+          "default": "📅"
+        },
+        {
+          "name": "heading",
+          "type": "text",
+          "default": "No upcoming bookings"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "default": "Find a caregiver to get started"
+        },
+        {
+          "name": "showCTA",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "ctaLabel",
+          "type": "text",
+          "default": "Find a Caregiver"
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "paddingVertical": "{spacing.12}",
+            "paddingHorizontal": "{spacing.8}",
+            "alignItems": "center",
+            "gap": "{spacing.6}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "text",
+              "tokens": {
+                "fontSize": "64px"
+              }
+            },
+            {
+              "name": "heading",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.xl}",
+                "fontWeight": "{fontWeights.bold}",
+                "fill": "{colors.text.primary}",
+                "textAlign": "center"
+              }
+            },
+            {
+              "name": "message",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fill": "{colors.text.muted}",
+                "textAlign": "center",
+                "maxWidth": "42ch"
+              }
+            },
+            {
+              "name": "cta-button",
+              "type": "instance",
+              "visible": "showCTA === true",
+              "tokens": {
+                "marginTop": "{spacing.6}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {
+        "heading": "H3 or H4",
+        "screenReader": "Announces empty state when list loads empty"
+      },
+      "figmaNotes": "Master Component with type variants. Property: type (no-bookings, no-requests, etc.). Boolean: show_cta (with/without action button). Auto-swap icon, heading, message based on type."
+    },
+    {
+      "id": "alert-banner",
+      "name": "Alert Banner",
+      "category": "content-display",
+      "description": "Display urgent or important messages requiring user attention",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Info",
+          "properties": { "severity": "info" }
+        },
+        {
+          "name": "Warning",
+          "properties": { "severity": "warning" }
+        },
+        {
+          "name": "Error",
+          "properties": { "severity": "error" }
+        },
+        {
+          "name": "Success",
+          "properties": { "severity": "success" }
+        }
+      ],
+      "props": [
+        {
+          "name": "severity",
+          "type": "enum",
+          "options": ["info", "warning", "error", "success"],
+          "default": "info"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Alert Title"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "default": "Alert message text"
+        },
+        {
+          "name": "showCTA",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "ctaLabel",
+          "type": "text",
+          "default": "Take Action"
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "banner",
+          "type": "frame",
+          "tokens": {
+            "paddingVertical": "{spacing.4}",
+            "paddingHorizontal": "{spacing.6}",
+            "borderRadius": "{borderRadius.sm}",
+            "borderLeft": "4px solid",
+            "gap": "{spacing.3}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "text",
+              "tokens": {
+                "fontSize": "24px"
+              }
+            },
+            {
+              "name": "content",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.2}",
+                "flex": "1"
+              },
+              "children": [
+                {
+                  "name": "title",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.lg}",
+                    "fontWeight": "{fontWeights.bold}"
+                  }
+                },
+                {
+                  "name": "message",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "cta-button",
+              "type": "instance",
+              "visible": "showCTA === true"
+            },
+            {
+              "name": "dismiss-button",
+              "type": "instance",
+              "visible": "dismissible === true",
+              "tokens": {
+                "width": "32px",
+                "height": "32px"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "dismissed"],
+      "accessibility": {
+        "role": "alert (critical) or status (info)",
+        "ariaLive": "assertive (error/warning) or polite (info/success)",
+        "dismissButton": "aria-label='Dismiss alert'"
+      },
+      "figmaNotes": "Master Component with severity variants. Property: severity (info, warning, error, success). Boolean: show_cta. Boolean: dismissible. Auto-swap background, border, icon based on severity. Colors from tokens.json alert colors."
+    },
+    {
+      "id": "user-avatar",
+      "name": "User Avatar / Profile Photo",
+      "category": "content-display",
+      "description": "Display user profile photo or initials fallback",
+      "dimensions": {
+        "width": "48px",
+        "height": "48px"
+      },
+      "variants": [
+        {
+          "name": "Small (32px)",
+          "properties": { "size": "sm" }
+        },
+        {
+          "name": "Medium (48px)",
+          "properties": { "size": "md" }
+        },
+        {
+          "name": "Large (56px)",
+          "properties": { "size": "lg" }
+        },
+        {
+          "name": "XL (80px)",
+          "properties": { "size": "xl" }
+        },
+        {
+          "name": "2XL (120px)",
+          "properties": { "size": "2xl" }
+        }
+      ],
+      "props": [
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg", "xl", "2xl"],
+          "default": "md"
+        },
+        {
+          "name": "hasPhoto",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "photoUrl",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "initials",
+          "type": "text",
+          "default": "MS"
+        },
+        {
+          "name": "hasBorder",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "avatar",
+          "type": "frame",
+          "tokens": {
+            "borderRadius": "{borderRadius.pill}",
+            "border": "2px solid {colors.border.soft}"
+          },
+          "children": [
+            {
+              "name": "photo",
+              "type": "rectangle",
+              "visible": "hasPhoto === true",
+              "tokens": {
+                "borderRadius": "{borderRadius.pill}"
+              }
+            },
+            {
+              "name": "initials-bg",
+              "type": "rectangle",
+              "visible": "hasPhoto === false",
+              "tokens": {
+                "fill": "{colors.brand.secondary}",
+                "borderRadius": "{borderRadius.pill}"
+              }
+            },
+            {
+              "name": "initials-text",
+              "type": "text",
+              "visible": "hasPhoto === false",
+              "tokens": {
+                "fontSize": "calc(size * 0.4)",
+                "fontWeight": "{fontWeights.semibold}",
+                "fill": "{colors.text.primary}",
+                "textAlign": "center"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["with-photo", "without-photo", "loading", "error"],
+      "accessibility": {
+        "altText": "[User name] profile photo (if photo exists)",
+        "altTextInitials": "[User initials] (if initials shown)"
+      },
+      "figmaNotes": "Master Component with size variants. Property: size (sm=32px, md=48px, lg=56px, xl=80px, 2xl=120px). Boolean: has_photo (swaps between photo layer and initials layer). Text override: initials. Background color auto-generated from user ID hash."
+    },
+    {
+      "id": "metric-card",
+      "name": "Metric Card / Stat Widget",
+      "category": "content-display",
+      "description": "Display a single metric with label, value, trend, and optional link",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Simple",
+          "properties": { "type": "simple", "showTrend": false, "showLink": false }
+        },
+        {
+          "name": "With Trend",
+          "properties": { "type": "trend", "showTrend": true, "showLink": false }
+        },
+        {
+          "name": "Detailed",
+          "properties": { "type": "detailed", "showTrend": false, "showLink": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["simple", "trend", "detailed"],
+          "default": "simple"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Total Bookings"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "default": "127"
+        },
+        {
+          "name": "showTrend",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "trendDirection",
+          "type": "enum",
+          "options": ["up", "down", "neutral"],
+          "default": "up"
+        },
+        {
+          "name": "trendPercentage",
+          "type": "text",
+          "default": "5.2"
+        },
+        {
+          "name": "subtext",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "showLink",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "linkLabel",
+          "type": "text",
+          "default": "View Details"
+        }
+      ],
+      "layers": [
+        {
+          "name": "card",
+          "type": "frame",
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "stroke": "{colors.border.card}",
+            "strokeWidth": "1px",
+            "borderRadius": "{borderRadius.lg}",
+            "paddingVertical": "{spacing.6}",
+            "paddingHorizontal": "{spacing.6}",
+            "boxShadow": "{boxShadow.card-soft}",
+            "gap": "{spacing.3}"
+          },
+          "children": [
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fontWeight": "{fontWeights.normal}",
+                "fill": "{colors.text.muted}"
+              }
+            },
+            {
+              "name": "value",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.3xl}",
+                "fontWeight": "{fontWeights.bold}",
+                "fill": "{colors.text.primary}"
+              }
+            },
+            {
+              "name": "trend",
+              "type": "frame",
+              "visible": "showTrend === true",
+              "tokens": {
+                "gap": "{spacing.1}"
+              },
+              "children": [
+                {
+                  "name": "trend-icon",
+                  "type": "text"
+                },
+                {
+                  "name": "trend-text",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "subtext",
+              "type": "text",
+              "visible": "subtext !== null",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fill": "{colors.text.muted}"
+              }
+            },
+            {
+              "name": "link",
+              "type": "text",
+              "visible": "showLink === true",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fill": "{colors.brand.link-bg}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "loading", "link-hover"],
+      "accessibility": {
+        "semanticHTML": "<article> or <section>",
+        "label": "H3 or <dt>",
+        "value": "<dd> or emphasized text",
+        "trendLabel": "Up 5% from last month (not just ↑5%)"
+      },
+      "figmaNotes": "Master Component with type variants. Property: type (simple, trend, detailed). Boolean: show_icon. Boolean: show_trend. Boolean: show_link."
+    },
+    {
+      "id": "activity-feed-item",
+      "name": "Activity Feed Item",
+      "category": "content-display",
+      "description": "Display a single activity/event in a chronological list",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Booking Activity",
+          "properties": { "type": "booking" }
+        },
+        {
+          "name": "Verification Activity",
+          "properties": { "type": "verification" }
+        },
+        {
+          "name": "Safeguarding Activity",
+          "properties": { "type": "safeguarding" }
+        },
+        {
+          "name": "Admin Activity",
+          "properties": { "type": "admin" }
+        },
+        {
+          "name": "User Activity",
+          "properties": { "type": "user" }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["booking", "verification", "safeguarding", "admin", "user"],
+          "default": "booking"
+        },
+        {
+          "name": "timestamp",
+          "type": "text",
+          "default": "Today, 14:32"
+        },
+        {
+          "name": "actorName",
+          "type": "text",
+          "default": "Admin Sarah"
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "default": "approved caregiver verification"
+        },
+        {
+          "name": "subjectLabel",
+          "type": "text",
+          "default": "John Smith (#4523)"
+        },
+        {
+          "name": "showIcon",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "item",
+          "type": "frame",
+          "tokens": {
+            "paddingVertical": "{spacing.3}",
+            "borderBottom": "1px solid {colors.border.soft}",
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "text",
+              "visible": "showIcon === true",
+              "tokens": {
+                "fontSize": "20px"
+              }
+            },
+            {
+              "name": "content",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.1}"
+              },
+              "children": [
+                {
+                  "name": "activity-text",
+                  "type": "frame",
+                  "tokens": {
+                    "gap": "{spacing.1}"
+                  },
+                  "children": [
+                    {
+                      "name": "actor",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fontWeight": "{fontWeights.semibold}"
+                      }
+                    },
+                    {
+                      "name": "action",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fontWeight": "{fontWeights.normal}"
+                      }
+                    },
+                    {
+                      "name": "subject",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fill": "{colors.brand.link-bg}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "timestamp",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xs}",
+                    "fill": "{colors.text.muted}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "unread"],
+      "accessibility": {
+        "listItem": "<li> in <ul> or <ol>",
+        "timestamp": "<time> element with datetime attribute",
+        "screenReader": "Entire item announced as single sentence"
+      },
+      "figmaNotes": "Master Component with type variants. Property: type (booking, verification, safeguarding, admin, user). Boolean: show_icon. Auto-swap icon based on type."
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "category": "interactive",
+      "description": "Primary interaction element for actions (submit forms, navigate, trigger events)",
+      "dimensions": {
+        "width": "auto",
+        "height": "44px"
+      },
+      "variants": [
+        {
+          "name": "Primary Medium",
+          "properties": { "variant": "primary", "size": "md" }
+        },
+        {
+          "name": "Secondary Medium",
+          "properties": { "variant": "secondary", "size": "md" }
+        },
+        {
+          "name": "Destructive Medium",
+          "properties": { "variant": "destructive", "size": "md" }
+        },
+        {
+          "name": "Ghost Medium",
+          "properties": { "variant": "ghost", "size": "md" }
+        },
+        {
+          "name": "Primary Small",
+          "properties": { "variant": "primary", "size": "sm" }
+        },
+        {
+          "name": "Primary Large",
+          "properties": { "variant": "primary", "size": "lg" }
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Button"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "options": ["primary", "secondary", "destructive", "ghost", "link"],
+          "default": "primary"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        {
+          "name": "hasIconLeft",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "hasIconRight",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "button",
+          "type": "frame",
+          "tokens": {
+            "paddingHorizontal": "{spacing.4}",
+            "paddingVertical": "{spacing.3}",
+            "borderRadius": "{borderRadius.sm}",
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "icon-left",
+              "type": "icon",
+              "visible": "hasIconLeft === true",
+              "tokens": {
+                "fontSize": "20px"
+              }
+            },
+            {
+              "name": "label",
+              "type": "text",
+              "visible": "loading === false",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fontWeight": "{fontWeights.semibold}"
+              }
+            },
+            {
+              "name": "spinner",
+              "type": "instance",
+              "visible": "loading === true"
+            },
+            {
+              "name": "icon-right",
+              "type": "icon",
+              "visible": "hasIconRight === true",
+              "tokens": {
+                "fontSize": "20px"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "active", "focused", "disabled", "loading"],
+      "accessibility": {
+        "touchTarget": "48x48px minimum (mobile)",
+        "focusIndicator": "3px solid border",
+        "disabled": "aria-disabled='true'",
+        "loading": "aria-busy='true'",
+        "type": "type='button' (not submit unless in form)"
+      },
+      "figmaNotes": "Master Component with variant properties. Property: variant (primary, secondary, destructive, ghost, link). Property: size (sm=36px, md=44px, lg=56px). Boolean: has_icon_left. Boolean: has_icon_right. Boolean: loading (swap label with spinner). Boolean: disabled (apply opacity)."
+    },
+    {
+      "id": "link",
+      "name": "Link",
+      "category": "interactive",
+      "description": "Navigate to another page or section",
+      "dimensions": {
+        "width": "auto",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Inline",
+          "properties": { "variant": "inline" }
+        },
+        {
+          "name": "Standalone",
+          "properties": { "variant": "standalone" }
+        },
+        {
+          "name": "Nav",
+          "properties": { "variant": "nav" }
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Link text"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "options": ["inline", "standalone", "nav", "card"],
+          "default": "inline"
+        },
+        {
+          "name": "hasIcon",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "link",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.1}"
+          },
+          "children": [
+            {
+              "name": "text",
+              "type": "text",
+              "tokens": {
+                "fill": "{colors.brand.link-bg}",
+                "textDecoration": "underline"
+              }
+            },
+            {
+              "name": "icon",
+              "type": "icon",
+              "visible": "hasIcon === true"
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "visited", "focused", "active"],
+      "accessibility": {
+        "linkText": "Clear descriptive text, not 'click here'",
+        "external": "rel='noopener noreferrer', icon or text indicates new tab"
+      },
+      "figmaNotes": "Text Style with variants (not component). Define as text styles: Link Inline, Link Standalone, Link Nav."
+    },
+    {
+      "id": "icon-button",
+      "name": "Icon Button",
+      "category": "interactive",
+      "description": "Button with icon only, no text label",
+      "dimensions": {
+        "width": "40px",
+        "height": "40px"
+      },
+      "variants": [
+        {
+          "name": "Default Medium",
+          "properties": { "variant": "default", "size": "md" }
+        },
+        {
+          "name": "Close Medium",
+          "properties": { "variant": "close", "size": "md" }
+        },
+        {
+          "name": "Menu Medium",
+          "properties": { "variant": "menu", "size": "md" }
+        },
+        {
+          "name": "Notification",
+          "properties": { "variant": "notification", "size": "md" }
+        }
+      ],
+      "props": [
+        {
+          "name": "variant",
+          "type": "enum",
+          "options": ["default", "close", "menu", "notification"],
+          "default": "default"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        {
+          "name": "ariaLabel",
+          "type": "text",
+          "default": "Icon button"
+        },
+        {
+          "name": "badge",
+          "type": "text",
+          "default": null
+        }
+      ],
+      "layers": [
+        {
+          "name": "button",
+          "type": "frame",
+          "tokens": {
+            "width": "40px",
+            "height": "40px",
+            "borderRadius": "{borderRadius.sm}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "icon",
+              "tokens": {
+                "fontSize": "24px"
+              }
+            },
+            {
+              "name": "badge",
+              "type": "instance",
+              "visible": "badge !== null"
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover", "active", "focused", "disabled"],
+      "accessibility": {
+        "ariaLabel": "Required (describes action, e.g., 'Close modal')",
+        "touchTarget": "48x48px minimum (mobile)"
+      },
+      "figmaNotes": "Master Component with variant property. Property: variant (default, close, menu, notification). Property: size (sm=32px, md=40px, lg=48px). Auto-swap icon based on variant."
+    },
+    {
+      "id": "toggle-switch",
+      "name": "Toggle Switch",
+      "category": "interactive",
+      "description": "Binary on/off control for settings",
+      "dimensions": {
+        "width": "40px",
+        "height": "22px"
+      },
+      "variants": [
+        {
+          "name": "Off Medium",
+          "properties": { "checked": false, "size": "md" }
+        },
+        {
+          "name": "On Medium",
+          "properties": { "checked": true, "size": "md" }
+        },
+        {
+          "name": "Off Small",
+          "properties": { "checked": false, "size": "sm" }
+        },
+        {
+          "name": "On Large",
+          "properties": { "checked": true, "size": "lg" }
+        }
+      ],
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Toggle"
+        }
+      ],
+      "layers": [
+        {
+          "name": "track",
+          "type": "rectangle",
+          "tokens": {
+            "width": "40px",
+            "height": "22px",
+            "borderRadius": "{borderRadius.pill}",
+            "fill": "checked ? {colors.brand.secondary} : #d1d5db"
+          },
+          "children": [
+            {
+              "name": "knob",
+              "type": "rectangle",
+              "tokens": {
+                "width": "18px",
+                "height": "18px",
+                "borderRadius": "{borderRadius.pill}",
+                "fill": "#ffffff",
+                "boxShadow": "{boxShadow.xs}",
+                "x": "checked ? 20px : 2px"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["off", "on", "disabled", "focused"],
+      "accessibility": {
+        "role": "switch",
+        "ariaChecked": "true/false",
+        "keyboard": "Tab to focus, Space to toggle"
+      },
+      "figmaNotes": "Master Component with boolean property. Property: checked (boolean, swaps knob position and track color). Property: size (sm=32x18px, md=40x22px, lg=48x26px). Property: disabled (boolean, applies opacity)."
+    },
+    {
+      "id": "dropdown-menu",
+      "name": "Dropdown Menu",
+      "category": "interactive",
+      "description": "Display a list of options in a popup menu",
+      "dimensions": {
+        "width": "auto",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "User Menu Closed",
+          "properties": { "type": "user-menu", "open": false }
+        },
+        {
+          "name": "User Menu Open",
+          "properties": { "type": "user-menu", "open": true }
+        },
+        {
+          "name": "Filter Closed",
+          "properties": { "type": "filter", "open": false }
+        },
+        {
+          "name": "Filter Open",
+          "properties": { "type": "filter", "open": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["user-menu", "filter", "actions"],
+          "default": "user-menu"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "position",
+          "type": "enum",
+          "options": ["left", "right", "center"],
+          "default": "right"
+        }
+      ],
+      "layers": [
+        {
+          "name": "trigger",
+          "type": "frame",
+          "children": [
+            {
+              "name": "trigger-content",
+              "type": "frame"
+            }
+          ]
+        },
+        {
+          "name": "dropdown",
+          "type": "frame",
+          "visible": "open === true",
+          "tokens": {
+            "fill": "{colors.brand.primary}",
+            "stroke": "{colors.border.soft}",
+            "strokeWidth": "1px",
+            "borderRadius": "{borderRadius.sm}",
+            "boxShadow": "{boxShadow.sm}",
+            "paddingVertical": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "menu-item",
+              "type": "frame",
+              "tokens": {
+                "paddingVertical": "{spacing.3}",
+                "paddingHorizontal": "{spacing.4}",
+                "gap": "{spacing.2}",
+                "height": "40px"
+              },
+              "children": [
+                {
+                  "name": "icon",
+                  "type": "icon"
+                },
+                {
+                  "name": "label",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": ["closed", "open", "item-hover", "item-focused"],
+      "accessibility": {
+        "trigger": "aria-haspopup='true', aria-expanded",
+        "dropdown": "role='menu'",
+        "menuItems": "role='menuitem'",
+        "keyboard": "Arrow keys to navigate, Enter to select, Escape to close"
+      },
+      "figmaNotes": "Master Component with open/closed variants. Property: open (boolean, shows/hides dropdown layer). Property: type (user-menu, filter, actions). Component variant: Item (with icon, without icon, divider, destructive)."
+    },
+    {
+      "id": "modal",
+      "name": "Modal / Dialog",
+      "category": "interactive",
+      "description": "Display content in an overlay, requiring user interaction to dismiss",
+      "dimensions": {
+        "width": "600px",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Confirmation Medium",
+          "properties": { "type": "confirmation", "size": "md" }
+        },
+        {
+          "name": "Form Medium",
+          "properties": { "type": "form", "size": "md" }
+        },
+        {
+          "name": "Alert Small",
+          "properties": { "type": "alert", "size": "sm" }
+        },
+        {
+          "name": "Lightbox Large",
+          "properties": { "type": "lightbox", "size": "lg" }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["confirmation", "form", "alert", "lightbox"],
+          "default": "confirmation"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "default": "Modal Title"
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "overlay",
+          "type": "rectangle",
+          "tokens": {
+            "fill": "rgba(0, 0, 0, 0.5)",
+            "width": "100vw",
+            "height": "100vh"
+          }
+        },
+        {
+          "name": "modal",
+          "type": "frame",
+          "tokens": {
+            "fill": "{colors.brand.primary}",
+            "borderRadius": "{borderRadius.xl}",
+            "boxShadow": "{boxShadow.lg}",
+            "padding": "{spacing.8}",
+            "maxWidth": "600px"
+          },
+          "children": [
+            {
+              "name": "header",
+              "type": "frame",
+              "tokens": {
+                "gap": "{spacing.3}"
+              },
+              "children": [
+                {
+                  "name": "title",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xl}",
+                    "fontWeight": "{fontWeights.bold}"
+                  }
+                },
+                {
+                  "name": "close-button",
+                  "type": "instance",
+                  "visible": "dismissible === true"
+                }
+              ]
+            },
+            {
+              "name": "content",
+              "type": "frame",
+              "tokens": {
+                "marginTop": "{spacing.6}",
+                "fontSize": "{fontSizes.base}"
+              }
+            },
+            {
+              "name": "footer",
+              "type": "frame",
+              "tokens": {
+                "marginTop": "{spacing.6}",
+                "gap": "{spacing.3}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["opening", "open", "closing", "closed"],
+      "accessibility": {
+        "role": "dialog",
+        "ariaModal": "true",
+        "ariaLabelledby": "title ID",
+        "focusTrap": "Tab cycles through modal elements only",
+        "keyboard": "Escape to close (if dismissible)"
+      },
+      "figmaNotes": "Master Component with type variants. Property: type (confirmation, form, alert, lightbox). Property: size (sm=400px, md=600px, lg=800px). Layer: Overlay (50% black). Layer: Modal card. Boolean: dismissible (shows/hides close X button)."
+    },
+    {
+      "id": "input-field",
+      "name": "Input Field",
+      "category": "form",
+      "description": "Single-line text input for forms",
+      "dimensions": {
+        "width": "100%",
+        "height": "44px"
+      },
+      "variants": [
+        {
+          "name": "Text Empty",
+          "properties": { "type": "text", "state": "empty" }
+        },
+        {
+          "name": "Text Filled",
+          "properties": { "type": "text", "state": "filled" }
+        },
+        {
+          "name": "Text Focused",
+          "properties": { "type": "text", "state": "focused" }
+        },
+        {
+          "name": "Text Error",
+          "properties": { "type": "text", "state": "error" }
+        },
+        {
+          "name": "Email",
+          "properties": { "type": "email", "state": "empty" }
+        },
+        {
+          "name": "Password",
+          "properties": { "type": "password", "state": "empty" }
+        },
+        {
+          "name": "Search",
+          "properties": { "type": "search", "state": "empty" }
+        }
+      ],
+      "props": [
+        {
+          "name": "type",
+          "type": "enum",
+          "options": ["text", "email", "password", "search", "number", "tel"],
+          "default": "text"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "placeholder",
+          "type": "text",
+          "default": "Placeholder text"
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "hasError",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "errorMessage",
+          "type": "text",
+          "default": "Error message"
+        },
+        {
+          "name": "hasIcon",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "field-group",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fontWeight": "{fontWeights.semibold}",
+                "marginBottom": "{spacing.2}"
+              }
+            },
+            {
+              "name": "input-container",
+              "type": "frame",
+              "tokens": {
+                "height": "44px",
+                "paddingHorizontal": "{spacing.4}",
+                "paddingVertical": "{spacing.3}",
+                "fill": "{colors.brand.primary}",
+                "stroke": "{colors.border.form}",
+                "strokeWidth": "1px",
+                "borderRadius": "{borderRadius.sm}"
+              },
+              "children": [
+                {
+                  "name": "icon",
+                  "type": "icon",
+                  "visible": "hasIcon === true"
+                },
+                {
+                  "name": "input",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "flex": "1"
+                  }
+                },
+                {
+                  "name": "clear-button",
+                  "type": "instance",
+                  "visible": "clearable === true && value !== ''"
+                }
+              ]
+            },
+            {
+              "name": "error-message",
+              "type": "text",
+              "visible": "hasError === true",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fill": "{colors.text.error}",
+                "marginTop": "{spacing.1}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["empty", "filled", "focused", "error", "disabled"],
+      "accessibility": {
+        "label": "Associated with input via <label for='input-id'>",
+        "required": "aria-required='true', asterisk in label",
+        "error": "aria-invalid='true', aria-describedby (error message ID)",
+        "placeholder": "Not a replacement for label"
+      },
+      "figmaNotes": "Master Component with state variants. Property: state (empty, filled, focused, error, disabled). Boolean: required (shows asterisk). Boolean: has_icon. Boolean: has_error (shows error message)."
+    },
+    {
+      "id": "textarea",
+      "name": "Text Area",
+      "category": "form",
+      "description": "Multi-line text input for longer content",
+      "dimensions": {
+        "width": "100%",
+        "height": "100px"
+      },
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Label"
+        },
+        {
+          "name": "placeholder",
+          "type": "text",
+          "default": "Enter text..."
+        },
+        {
+          "name": "rows",
+          "type": "text",
+          "default": "4"
+        },
+        {
+          "name": "maxLength",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "hasError",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "field-group",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fontWeight": "{fontWeights.semibold}"
+              }
+            },
+            {
+              "name": "textarea",
+              "type": "frame",
+              "tokens": {
+                "minHeight": "100px",
+                "padding": "{spacing.3}",
+                "fill": "{colors.brand.primary}",
+                "stroke": "{colors.border.form}",
+                "strokeWidth": "1px",
+                "borderRadius": "{borderRadius.sm}",
+                "fontSize": "{fontSizes.base}",
+                "lineHeight": "{lineHeights.body}"
+              }
+            },
+            {
+              "name": "character-count",
+              "type": "text",
+              "visible": "maxLength !== null",
+              "tokens": {
+                "fontSize": "{fontSizes.xs}",
+                "fill": "{colors.text.muted}",
+                "marginTop": "{spacing.1}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["empty", "filled", "focused", "error", "disabled"],
+      "accessibility": {
+        "label": "Associated with textarea",
+        "characterCounter": "aria-live='polite' announces remaining characters"
+      },
+      "figmaNotes": "Component with error variant. Similar structure to Input Field."
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "category": "form",
+      "description": "Single on/off option",
+      "dimensions": {
+        "width": "20px",
+        "height": "20px"
+      },
+      "variants": [
+        {
+          "name": "Unchecked",
+          "properties": { "checked": false }
+        },
+        {
+          "name": "Checked",
+          "properties": { "checked": true }
+        },
+        {
+          "name": "Disabled Unchecked",
+          "properties": { "checked": false, "disabled": true }
+        },
+        {
+          "name": "Disabled Checked",
+          "properties": { "checked": true, "disabled": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "I agree to the Terms of Service"
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "checkbox-group",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "box",
+              "type": "rectangle",
+              "tokens": {
+                "width": "20px",
+                "height": "20px",
+                "stroke": "{colors.border.form}",
+                "strokeWidth": "2px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "checked ? {colors.brand.secondary} : transparent"
+              },
+              "children": [
+                {
+                  "name": "checkmark",
+                  "type": "icon",
+                  "visible": "checked === true",
+                  "tokens": {
+                    "fill": "#ffffff"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "marginLeft": "{spacing.2}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["unchecked", "checked", "focused", "disabled"],
+      "accessibility": {
+        "checkbox": "type='checkbox', aria-checked",
+        "label": "Associated via <label for='checkbox-id'>",
+        "keyboard": "Tab to focus, Space to toggle"
+      },
+      "figmaNotes": "Component with checked boolean. Mobile: 24x24px for better touch target."
+    },
+    {
+      "id": "progress-bar",
+      "name": "Progress Bar",
+      "category": "data-display",
+      "description": "Display completion percentage visually",
+      "dimensions": {
+        "width": "100%",
+        "height": "12px"
+      },
+      "variants": [
+        {
+          "name": "0% Medium",
+          "properties": { "percentage": 0, "height": "md" }
+        },
+        {
+          "name": "50% Medium",
+          "properties": { "percentage": 50, "height": "md" }
+        },
+        {
+          "name": "100% Medium",
+          "properties": { "percentage": 100, "height": "md" }
+        },
+        {
+          "name": "50% Small",
+          "properties": { "percentage": 50, "height": "sm" }
+        },
+        {
+          "name": "50% Large",
+          "properties": { "percentage": 50, "height": "lg" }
+        }
+      ],
+      "props": [
+        {
+          "name": "percentage",
+          "type": "text",
+          "default": "0"
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "height",
+          "type": "enum",
+          "options": ["sm", "md", "lg"],
+          "default": "md"
+        }
+      ],
+      "layers": [
+        {
+          "name": "progress-group",
+          "type": "frame",
+          "tokens": {
+            "gap": "{spacing.1}"
+          },
+          "children": [
+            {
+              "name": "label",
+              "type": "text",
+              "visible": "showLabel === true",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "marginBottom": "{spacing.1}"
+              }
+            },
+            {
+              "name": "track",
+              "type": "rectangle",
+              "tokens": {
+                "width": "100%",
+                "height": "12px",
+                "fill": "#e5e7eb",
+                "borderRadius": "{borderRadius.pill}"
+              },
+              "children": [
+                {
+                  "name": "bar",
+                  "type": "rectangle",
+                  "tokens": {
+                    "width": "percentage%",
+                    "height": "12px",
+                    "fill": "percentage === 100 ? #22c55e : {colors.brand.secondary}",
+                    "borderRadius": "{borderRadius.pill}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": ["0-percent", "1-99-percent", "100-percent"],
+      "accessibility": {
+        "role": "progressbar",
+        "ariaValuenow": "percentage",
+        "ariaValuemin": "0",
+        "ariaValuemax": "100"
+      },
+      "figmaNotes": "Component with percentage property. Height: sm=8px, md=12px, lg=16px. 100% bar color changes to green."
+    },
+    {
+      "id": "badge-count",
+      "name": "Badge / Pill (Count Badge)",
+      "category": "data-display",
+      "description": "Display small count or label",
+      "dimensions": {
+        "width": "20px",
+        "height": "20px"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": { "variant": "default" }
+        },
+        {
+          "name": "Primary",
+          "properties": { "variant": "primary" }
+        },
+        {
+          "name": "Error",
+          "properties": { "variant": "error" }
+        }
+      ],
+      "props": [
+        {
+          "name": "count",
+          "type": "text",
+          "default": "1"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "options": ["default", "primary", "error"],
+          "default": "default"
+        }
+      ],
+      "layers": [
+        {
+          "name": "badge",
+          "type": "frame",
+          "tokens": {
+            "minWidth": "20px",
+            "height": "20px",
+            "paddingHorizontal": "{spacing.1}",
+            "borderRadius": "{borderRadius.pill}",
+            "fontSize": "{fontSizes.2xs}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "#ffffff"
+          },
+          "children": [
+            {
+              "name": "count",
+              "type": "text"
+            }
+          ]
+        }
+      ],
+      "states": ["default"],
+      "accessibility": {
+        "screenReader": "3 unread messages (not just 3)",
+        "decorative": "aria-hidden='true' if decorative"
+      },
+      "figmaNotes": "Component with variant property. Default: gray bg. Primary: sage green bg. Error: red bg. Display '99+' if count > 99."
+    },
+    {
+      "id": "tag",
+      "name": "Tag / Label",
+      "category": "data-display",
+      "description": "Label content with category or attribute",
+      "dimensions": {
+        "width": "auto",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": { "removable": false }
+        },
+        {
+          "name": "Removable",
+          "properties": { "removable": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Tag"
+        },
+        {
+          "name": "removable",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "tag",
+          "type": "frame",
+          "tokens": {
+            "paddingHorizontal": "{spacing.2}",
+            "paddingVertical": "{spacing.1}",
+            "fill": "{colors.background.tag-glass}",
+            "stroke": "{colors.border.soft}",
+            "strokeWidth": "1px",
+            "borderRadius": "{borderRadius.sm}",
+            "gap": "{spacing.1}"
+          },
+          "children": [
+            {
+              "name": "label",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.xs}",
+                "fontWeight": "{fontWeights.normal}"
+              }
+            },
+            {
+              "name": "remove-button",
+              "type": "icon",
+              "visible": "removable === true",
+              "tokens": {
+                "fontSize": "14px"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover-remove"],
+      "accessibility": {
+        "removableButton": "aria-label='Remove [label]'"
+      },
+      "figmaNotes": "Component with removable boolean. Used for service types on booking cards, filter chips."
+    },
+    {
+      "id": "list-item",
+      "name": "List Item",
+      "category": "data-display",
+      "description": "Single item in a vertical list",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Without Divider",
+          "properties": { "divider": false }
+        },
+        {
+          "name": "With Divider",
+          "properties": { "divider": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "title",
+          "type": "text",
+          "default": "List item title"
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "default": null
+        },
+        {
+          "name": "hasIcon",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "hasAction",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "divider",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "layers": [
+        {
+          "name": "item",
+          "type": "frame",
+          "tokens": {
+            "paddingVertical": "{spacing.3}",
+            "paddingHorizontal": "{spacing.4}",
+            "borderBottom": "divider ? 1px solid {colors.border.soft} : none",
+            "gap": "{spacing.2}"
+          },
+          "children": [
+            {
+              "name": "icon",
+              "type": "icon",
+              "visible": "hasIcon === true"
+            },
+            {
+              "name": "content",
+              "type": "frame",
+              "tokens": {
+                "flex": "1",
+                "gap": "{spacing.1}"
+              },
+              "children": [
+                {
+                  "name": "title",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fontWeight": "{fontWeights.normal}"
+                  }
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "visible": "description !== null",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.text.muted}"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "action",
+              "type": "instance",
+              "visible": "hasAction === true"
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover"],
+      "accessibility": {},
+      "figmaNotes": "Component with divider boolean. Hover background: {colors.background.base}."
+    },
+    {
+      "id": "table-row",
+      "name": "Table Row (Admin)",
+      "category": "data-display",
+      "description": "Single row in data table",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": { "striped": false, "clickable": false }
+        },
+        {
+          "name": "Striped",
+          "properties": { "striped": true, "clickable": false }
+        },
+        {
+          "name": "Clickable",
+          "properties": { "striped": false, "clickable": true }
+        }
+      ],
+      "props": [
+        {
+          "name": "striped",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "clickable",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "layers": [
+        {
+          "name": "row",
+          "type": "frame",
+          "tokens": {
+            "paddingVertical": "{spacing.3}",
+            "paddingHorizontal": "{spacing.4}",
+            "borderBottom": "1px solid {colors.border.soft}",
+            "fill": "striped ? {colors.background.base} : transparent",
+            "gap": "{spacing.4}"
+          },
+          "children": [
+            {
+              "name": "cell",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": ["default", "hover"],
+      "accessibility": {
+        "table": "<table> with <thead>, <tbody>",
+        "row": "<tr>",
+        "cells": "<th> (header), <td> (data)",
+        "clickable": "role='button', keyboard accessible"
+      },
+      "figmaNotes": "Component with striped boolean. Striped background every other row. Hover background if clickable."
+    }
+  ]
+}

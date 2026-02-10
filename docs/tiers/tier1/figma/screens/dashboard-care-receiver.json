@@ -1,0 +1,497 @@
+{
+  "_metadata": {
+    "screenId": "scr-cr-001",
+    "screenName": "Care Receiver Dashboard",
+    "wireframeSource": "cr-dashboard-scr-cr-001.md",
+    "generatedDate": "2026-02-10",
+    "role": "care-receiver",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "empty-state-new-user",
+      "active-bookings-state",
+      "pending-requests-state"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "2",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Header",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.8}",
+        "top": "{spacing.8}",
+        "bottom": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Welcome back, Sarah",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "lineHeight": "{lineHeights.title}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Last updated: Today at 14:32",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.normal}",
+            "fill": "{colors.text.muted}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-account-status-banner",
+      "name": "Account Status Banner",
+      "order": 3,
+      "component": "alert-banner",
+      "variant": "warning",
+      "conditional": "paymentMethodMissing === true",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": 0, "bottom": "{spacing.4}" },
+      "props": {
+        "variant": "warning",
+        "icon": "alert-triangle",
+        "title": "Add a payment method to request bookings",
+        "message": "You'll need to add a card before you can book caregivers",
+        "ctaLabel": "Add Payment Method",
+        "ctaUrl": "/settings/payment",
+        "dismissible": true
+      }
+    },
+    {
+      "id": "section-quick-actions",
+      "name": "Quick Actions",
+      "order": 4,
+      "layout": "horizontal-grid",
+      "columns": 3,
+      "gap": "clamp(26px, 3.4vw, 52px)",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "responsive": {
+        "tablet": { "columns": 2, "order": "find-caregiver full-width, bookings + messages side-by-side" },
+        "mobile": { "columns": 1, "order": "stacked" }
+      },
+      "children": [
+        {
+          "component": "cta-card",
+          "variant": "primary",
+          "props": {
+            "icon": "search",
+            "title": "Find a Caregiver",
+            "ctaLabel": "Search Now",
+            "ctaUrl": "/search"
+          },
+          "tokens": {
+            "fill": "{colors.brand.secondary}",
+            "borderRadius": "{borderRadius.lg}",
+            "padding": "{spacing.6}",
+            "boxShadow": "{boxShadow.card-soft}"
+          }
+        },
+        {
+          "component": "cta-card",
+          "variant": "secondary",
+          "props": {
+            "icon": "calendar",
+            "title": "View All Bookings",
+            "ctaLabel": "View Bookings",
+            "ctaUrl": "/bookings"
+          }
+        },
+        {
+          "component": "cta-card",
+          "variant": "secondary",
+          "props": {
+            "icon": "message",
+            "title": "Messages",
+            "badge": "2",
+            "ctaLabel": "View Messages",
+            "ctaUrl": "/messages"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-pending-requests",
+      "name": "Pending Booking Requests",
+      "order": 5,
+      "component": "widget-container",
+      "variant": "with-header-action",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+      "props": {
+        "title": "Pending Requests",
+        "subtitle": "Awaiting caregiver response",
+        "hasHeaderAction": true,
+        "headerActionLabel": "View all 3 →",
+        "headerActionUrl": "/bookings?status=requested"
+      },
+      "states": [
+        {
+          "name": "populated",
+          "condition": "pendingRequests.length > 0",
+          "children": [
+            {
+              "component": "booking-card",
+              "variant": "pending-request",
+              "repeat": "pendingRequests",
+              "maxVisible": 3,
+              "layout": "vertical-stack",
+              "gap": "{spacing.4}",
+              "props": {
+                "caregiverName": "${item.caregiverName}",
+                "caregiverPhoto": "${item.caregiverPhotoUrl}",
+                "date": "${item.date}",
+                "time": "${item.time}",
+                "duration": "${item.durationHours}",
+                "serviceTypes": "${item.serviceTypes}",
+                "location": "${item.postcode}",
+                "status": "requested",
+                "countdownTimer": "${item.hoursRemaining}",
+                "ctaLabel": "View Details",
+                "secondaryCtaLabel": "Cancel Request"
+              }
+            }
+          ]
+        },
+        {
+          "name": "empty",
+          "condition": "pendingRequests.length === 0",
+          "children": [
+            {
+              "component": "empty-state",
+              "variant": "neutral",
+              "props": {
+                "icon": "checkmark",
+                "heading": "No pending requests",
+                "message": "Your caregiver requests will appear here",
+                "hasAction": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-upcoming-bookings",
+      "name": "Upcoming Bookings",
+      "order": 6,
+      "component": "widget-container",
+      "variant": "with-header-action",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+      "props": {
+        "title": "Upcoming Bookings",
+        "subtitle": "Next 7 days",
+        "hasHeaderAction": true,
+        "headerActionLabel": "View all 5 →",
+        "headerActionUrl": "/bookings"
+      },
+      "states": [
+        {
+          "name": "populated",
+          "condition": "upcomingBookings.length > 0",
+          "children": [
+            {
+              "component": "booking-card",
+              "variant": "confirmed",
+              "repeat": "upcomingBookings",
+              "maxVisible": 3,
+              "layout": "vertical-stack",
+              "gap": "{spacing.4}",
+              "props": {
+                "caregiverName": "${item.caregiverName}",
+                "caregiverPhoto": "${item.caregiverPhotoUrl}",
+                "date": "${item.date}",
+                "time": "${item.time}",
+                "duration": "${item.durationHours}",
+                "serviceTypes": "${item.serviceTypes}",
+                "location": "${item.postcode}",
+                "status": "${item.status}",
+                "statusLabel": "${item.status === 'in_progress' ? 'In Progress' : 'Confirmed'}",
+                "ctaLabel": "View Details",
+                "secondaryCtaLabel": "${item.status === 'in_progress' ? 'Emergency Contact' : 'Message Caregiver'}"
+              }
+            }
+          ]
+        },
+        {
+          "name": "empty",
+          "condition": "upcomingBookings.length === 0",
+          "children": [
+            {
+              "component": "empty-state",
+              "variant": "call-to-action",
+              "props": {
+                "icon": "calendar",
+                "heading": "No upcoming bookings",
+                "message": "Find a caregiver to get started",
+                "hasAction": true,
+                "ctaLabel": "Find a Caregiver",
+                "ctaUrl": "/search"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-recent-activity",
+      "name": "Recent Activity",
+      "order": 7,
+      "component": "widget-container",
+      "variant": "no-actions",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+      "props": {
+        "title": "Recent Activity",
+        "subtitle": null
+      },
+      "states": [
+        {
+          "name": "populated",
+          "condition": "recentActivity.length > 0",
+          "children": [
+            {
+              "component": "activity-card",
+              "variant": "review-request",
+              "repeat": "recentActivity",
+              "maxVisible": 3,
+              "layout": "vertical-stack",
+              "gap": "{spacing.3}",
+              "props": {
+                "icon": "${item.activityType}",
+                "message": "${item.message}",
+                "timestamp": "${item.timestamp}",
+                "ctaLabel": "${item.primaryAction}",
+                "secondaryCtaLabel": "${item.secondaryAction}"
+              }
+            }
+          ]
+        },
+        {
+          "name": "empty",
+          "condition": "recentActivity.length === 0",
+          "children": [
+            {
+              "component": "empty-state",
+              "variant": "neutral",
+              "props": {
+                "icon": "none",
+                "heading": "No recent activity",
+                "message": "Your booking history will appear here",
+                "hasAction": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 8,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "sectionLayout": "single-column-full-width",
+      "quickActionsColumns": 3,
+      "bookingCardsLayout": "full-details"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "sectionLayout": "single-column-full-width",
+      "quickActionsColumns": "2 (find-caregiver full-width, bookings + messages side-by-side)",
+      "bookingCardsLayout": "condensed-icons-instead-of-labels"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "sectionLayout": "stacked",
+      "quickActionsColumns": 1,
+      "bookingCardsLayout": "compact-minimal-details"
+    }
+  },
+  "stateVariations": {
+    "empty-state-new-user": {
+      "sections": {
+        "section-account-status-banner": { "visible": true },
+        "section-pending-requests": { "state": "empty" },
+        "section-upcoming-bookings": { "state": "empty" },
+        "section-recent-activity": { "state": "empty" }
+      }
+    },
+    "active-bookings-state": {
+      "sections": {
+        "section-account-status-banner": { "visible": false },
+        "section-pending-requests": { "state": "empty" },
+        "section-upcoming-bookings": { "state": "populated", "items": 5 },
+        "section-recent-activity": { "state": "populated", "items": 1 }
+      }
+    },
+    "pending-requests-state": {
+      "sections": {
+        "section-account-status-banner": { "visible": false },
+        "section-pending-requests": { "state": "populated", "items": 3 },
+        "section-upcoming-bookings": { "state": "empty" },
+        "section-recent-activity": { "state": "empty" }
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID in components.json",
+    "alert-banner": "Component ID: alert-banner",
+    "cta-card": "Component ID: cta-card",
+    "widget-container": "Component ID: widget-container",
+    "booking-card": "Component ID: booking-card",
+    "empty-state": "Component ID: empty-state",
+    "activity-card": "Component ID: activity-card",
+    "footer-global": "Component ID: footer-global"
+  },
+  "sampleData": {
+    "pendingRequests": [
+      {
+        "caregiverName": "Emma Wilson",
+        "caregiverPhotoUrl": "/uploads/photos/emma.jpg",
+        "date": "Tuesday, March 5",
+        "time": "2:00 PM",
+        "durationHours": 3,
+        "serviceTypes": ["Companionship", "Light housework"],
+        "postcode": "SW1A 1AA",
+        "hoursRemaining": 20
+      },
+      {
+        "caregiverName": "John Anderson",
+        "caregiverPhotoUrl": "/uploads/photos/john.jpg",
+        "date": "Wednesday, March 6",
+        "time": "10:00 AM",
+        "durationHours": 4,
+        "serviceTypes": ["Companionship", "Shopping"],
+        "postcode": "E1 6AN",
+        "hoursRemaining": 5
+      }
+    ],
+    "upcomingBookings": [
+      {
+        "caregiverName": "Mary Thompson",
+        "caregiverPhotoUrl": "/uploads/photos/mary.jpg",
+        "date": "Wednesday, March 6",
+        "time": "10:00 AM",
+        "durationHours": 4,
+        "serviceTypes": ["Companionship", "Light housework"],
+        "postcode": "SW1A 1AA",
+        "status": "accepted"
+      },
+      {
+        "caregiverName": "Emma Wilson",
+        "caregiverPhotoUrl": "/uploads/photos/emma.jpg",
+        "date": "Friday, March 8",
+        "time": "2:00 PM",
+        "durationHours": 3,
+        "serviceTypes": ["Companionship", "Shopping"],
+        "postcode": "SW1A 1AA",
+        "status": "accepted"
+      },
+      {
+        "caregiverName": "John Anderson",
+        "caregiverPhotoUrl": "/uploads/photos/john.jpg",
+        "date": "Today",
+        "time": "2:00 PM",
+        "durationHours": 3,
+        "serviceTypes": ["Companionship", "Meal preparation"],
+        "postcode": "SW1A 1AA",
+        "status": "in_progress"
+      }
+    ],
+    "recentActivity": [
+      {
+        "activityType": "review-requested",
+        "icon": "star",
+        "message": "Mary Thompson's visit on March 4 is complete",
+        "timestamp": "2 hours ago",
+        "primaryAction": "Leave Review",
+        "secondaryAction": "Not now"
+      }
+    ]
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "quick-actions",
+      "pending-requests",
+      "upcoming-bookings",
+      "recent-activity",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "section": "pending-requests",
+        "element": "countdown-timer",
+        "ariaLive": "polite",
+        "description": "Countdown timers announce time updates"
+      }
+    ],
+    "minTouchTargets": "48x48px",
+    "minFontSize": "16px body text, 20px+ primary CTAs"
+  }
+}

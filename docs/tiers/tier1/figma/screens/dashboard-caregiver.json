@@ -1,0 +1,556 @@
+{
+  "_metadata": {
+    "screenId": "scr-cg-001",
+    "screenName": "Caregiver Dashboard",
+    "wireframeSource": "cg-dashboard-scr-cg-001.md",
+    "generatedDate": "2026-02-10",
+    "role": "caregiver",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "empty-state-new-caregiver",
+      "pending-requests-state",
+      "active-bookings-state",
+      "earnings-summary-state"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "caregiver",
+      "props": {
+        "role": "caregiver",
+        "userName": "Sarah",
+        "notificationCount": "2",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Header",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.8}",
+        "top": "{spacing.8}",
+        "bottom": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Welcome back, Sarah!",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "lineHeight": "{lineHeights.title}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Tuesday, 7 February 2026",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.normal}",
+            "fill": "{colors.text.muted}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-alert-banner",
+      "name": "Alert Banner",
+      "order": 3,
+      "component": "alert-banner",
+      "variant": "warning",
+      "conditional": "pendingRequestsCount > 1",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": 0, "bottom": "{spacing.4}" },
+      "props": {
+        "variant": "warning",
+        "icon": "alert-triangle",
+        "title": "2 booking requests awaiting your response",
+        "message": "Please respond within 24 hours.",
+        "dismissible": true
+      }
+    },
+    {
+      "id": "section-main-content",
+      "name": "Main Content Area",
+      "order": 4,
+      "layout": "two-column",
+      "columnRatio": "70-30",
+      "gap": "clamp(26px, 3.4vw, 52px)",
+      "padding": { "horizontal": "{spacing.6}", "vertical": 0 },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "responsive": {
+        "tablet": { "layout": "single-column" },
+        "mobile": { "layout": "stacked" }
+      },
+      "children": [
+        {
+          "id": "main-column-left",
+          "name": "Left Column (Main Widgets)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "size": { "width": "70%", "height": "auto" },
+          "responsive": {
+            "tablet": { "width": "100%" },
+            "mobile": { "width": "100%" }
+          },
+          "children": [
+            {
+              "id": "widget-pending-requests",
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Pending Booking Requests",
+                "subtitle": "Awaiting caregiver response",
+                "badge": "2",
+                "hasHeaderAction": true,
+                "headerActionLabel": "View All",
+                "headerActionUrl": "/caregiver/bookings?status=requested"
+              },
+              "states": [
+                {
+                  "name": "populated",
+                  "condition": "pendingRequests.length > 0",
+                  "children": [
+                    {
+                      "component": "booking-request-card",
+                      "variant": "caregiver-pending",
+                      "repeat": "pendingRequests",
+                      "maxVisible": 3,
+                      "layout": "vertical-stack",
+                      "gap": "{spacing.4}",
+                      "props": {
+                        "careReceiverName": "${item.careReceiverName}",
+                        "careReceiverPhoto": "${item.careReceiverPhotoUrl}",
+                        "date": "${item.date}",
+                        "time": "${item.time}",
+                        "duration": "${item.durationHours}",
+                        "serviceTypes": "${item.serviceTypes}",
+                        "location": "${item.postcode}",
+                        "distance": "${item.distanceMiles}",
+                        "specialRequests": "${item.specialRequests}",
+                        "earnings": "${item.caregiverEarnings}",
+                        "hoursRemaining": "${item.hoursRemaining}",
+                        "urgency": "${item.hoursRemaining > 6 ? 'ok' : item.hoursRemaining > 2 ? 'warning' : 'urgent'}",
+                        "ctaLabel": "View Details"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "empty",
+                  "condition": "pendingRequests.length === 0",
+                  "children": [
+                    {
+                      "component": "empty-state",
+                      "variant": "neutral",
+                      "props": {
+                        "icon": "checkmark",
+                        "heading": "No pending requests yet",
+                        "message": "Complete your profile to appear in search results and receive booking requests from care receivers.",
+                        "hasAction": false
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "widget-upcoming-bookings",
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Upcoming Bookings",
+                "subtitle": null,
+                "badge": "3",
+                "hasHeaderAction": true,
+                "headerActionLabel": "View All Bookings",
+                "headerActionUrl": "/caregiver/bookings"
+              },
+              "states": [
+                {
+                  "name": "populated",
+                  "condition": "upcomingBookings.length > 0",
+                  "children": [
+                    {
+                      "component": "booking-card",
+                      "variant": "caregiver-upcoming",
+                      "repeat": "upcomingBookings",
+                      "maxVisible": 3,
+                      "layout": "vertical-stack",
+                      "gap": "{spacing.4}",
+                      "props": {
+                        "careReceiverName": "${item.careReceiverName}",
+                        "careReceiverPhoto": "${item.careReceiverPhotoUrl}",
+                        "date": "${item.date}",
+                        "time": "${item.time}",
+                        "duration": "${item.durationHours}",
+                        "serviceTypes": "${item.serviceTypes}",
+                        "location": "${item.postcode}",
+                        "distance": "${item.distanceMiles}",
+                        "status": "${item.status}",
+                        "timing": "${item.timeUntilStart}",
+                        "ctaLabel": "View Details"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "empty",
+                  "condition": "upcomingBookings.length === 0",
+                  "children": [
+                    {
+                      "component": "empty-state",
+                      "variant": "neutral",
+                      "props": {
+                        "icon": "calendar",
+                        "heading": "No upcoming bookings yet",
+                        "message": null,
+                        "hasAction": false
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "widget-earnings-summary",
+              "component": "widget-container",
+              "variant": "with-footer-action",
+              "props": {
+                "title": "Earnings Summary",
+                "subtitle": null,
+                "hasFooterAction": true,
+                "footerActionLabel": "View Full Earnings",
+                "footerActionUrl": "/caregiver/earnings"
+              },
+              "children": [
+                {
+                  "component": "metric-card",
+                  "variant": "earnings-primary",
+                  "layout": "horizontal-split",
+                  "gap": "{spacing.6}",
+                  "children": [
+                    {
+                      "component": "metric-display",
+                      "props": {
+                        "label": "This Month",
+                        "value": "£450.00",
+                        "trend": "+£120 from last month",
+                        "trendDirection": "up"
+                      },
+                      "tokens": {
+                        "fontSize": "{fontSizes.3xl}",
+                        "fontWeight": "{fontWeights.bold}",
+                        "fill": "{colors.text.primary}"
+                      }
+                    },
+                    {
+                      "component": "metric-display",
+                      "props": {
+                        "label": "Pending Payouts",
+                        "value": "£120.00",
+                        "subtext": "2 bookings awaiting completion"
+                      },
+                      "tokens": {
+                        "fontSize": "{fontSizes.xl}",
+                        "fontWeight": "{fontWeights.semibold}",
+                        "fill": "{colors.text.primary}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "main-column-right",
+          "name": "Right Column (Sidebar)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "size": { "width": "30%", "height": "auto" },
+          "responsive": {
+            "tablet": { "width": "100%", "order": "after-left-column" },
+            "mobile": { "width": "100%", "order": "after-left-column" }
+          },
+          "children": [
+            {
+              "id": "widget-profile-status",
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Profile Status",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "profile-completion-bar",
+                  "props": {
+                    "percentage": 85,
+                    "completionLabel": "85% complete"
+                  }
+                },
+                {
+                  "component": "verification-badges",
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.2}",
+                  "props": {
+                    "badges": [
+                      { "label": "Identity Verified", "status": "verified" },
+                      { "label": "Right to Work Verified", "status": "verified" },
+                      { "label": "DBS (optional)", "status": "not-submitted" }
+                    ]
+                  }
+                },
+                {
+                  "component": "profile-visibility-toggle",
+                  "props": {
+                    "label": "Profile Visibility",
+                    "isActive": true,
+                    "activeText": "Your profile is visible in search results",
+                    "inactiveText": "Your profile is hidden from search results"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "widget-quick-actions",
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Quick Actions",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "quick-action-button",
+                  "repeat": "quickActions",
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.3}",
+                  "props": {
+                    "icon": "${item.icon}",
+                    "label": "${item.label}",
+                    "url": "${item.url}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 5,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "top": "{spacing.8}" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "mainLayout": "two-column-70-30",
+      "leftColumn": "pending-requests + upcoming-bookings + earnings",
+      "rightColumn": "profile-status + quick-actions"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "mainLayout": "single-column",
+      "order": "pending-requests → upcoming-bookings → profile-status → earnings → quick-actions"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "mainLayout": "stacked",
+      "contentCondensed": true,
+      "activityLogMaxItems": 3
+    }
+  },
+  "stateVariations": {
+    "empty-state-new-caregiver": {
+      "sections": {
+        "section-alert-banner": { "visible": true, "variant": "info", "message": "Complete your profile to start receiving booking requests (45% complete)" },
+        "widget-pending-requests": { "state": "empty" },
+        "widget-upcoming-bookings": { "state": "empty" },
+        "widget-earnings-summary": { "state": "zero-earnings" },
+        "widget-profile-status": { "completionPercentage": 45, "verificationsPending": true }
+      }
+    },
+    "pending-requests-state": {
+      "sections": {
+        "section-alert-banner": { "visible": true, "variant": "warning", "message": "2 booking requests awaiting your response. Please respond within 24 hours." },
+        "widget-pending-requests": { "state": "populated", "items": 2 },
+        "widget-upcoming-bookings": { "state": "populated", "items": 1 },
+        "widget-earnings-summary": { "state": "has-earnings" },
+        "widget-profile-status": { "completionPercentage": 85, "verificationsComplete": true, "profileActive": true }
+      }
+    },
+    "active-bookings-state": {
+      "sections": {
+        "section-alert-banner": { "visible": false },
+        "widget-pending-requests": { "state": "empty" },
+        "widget-upcoming-bookings": { "state": "populated", "items": 3, "highlightNext": true },
+        "widget-earnings-summary": { "state": "has-earnings" },
+        "widget-profile-status": { "completionPercentage": 100, "verificationsComplete": true, "profileActive": true }
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID in components.json",
+    "alert-banner": "Component ID: alert-banner",
+    "widget-container": "Component ID: widget-container",
+    "booking-request-card": "Component ID: booking-request-card-caregiver",
+    "booking-card": "Component ID: booking-card",
+    "empty-state": "Component ID: empty-state",
+    "metric-card": "Component ID: metric-card",
+    "metric-display": "Component ID: metric-display",
+    "profile-completion-bar": "Component ID: profile-completion-bar",
+    "verification-badges": "Component ID: verification-badges",
+    "profile-visibility-toggle": "Component ID: profile-visibility-toggle",
+    "quick-action-button": "Component ID: quick-action-button",
+    "footer-global": "Component ID: footer-global"
+  },
+  "sampleData": {
+    "pendingRequests": [
+      {
+        "careReceiverName": "Margaret S.",
+        "careReceiverPhotoUrl": "/uploads/photos/margaret.jpg",
+        "date": "Tuesday 10 Feb",
+        "time": "2-5pm",
+        "durationHours": 3,
+        "postcode": "SW1A 1AA",
+        "distanceMiles": 2.3,
+        "serviceTypes": ["Companionship", "Light housework"],
+        "specialRequests": "I'd like help organizing...",
+        "caregiverEarnings": 51.00,
+        "hoursRemaining": 18
+      },
+      {
+        "careReceiverName": "John W.",
+        "careReceiverPhotoUrl": "/uploads/photos/john-w.jpg",
+        "date": "Wednesday 11 Feb",
+        "time": "10am-1pm",
+        "durationHours": 3,
+        "postcode": "E1 6AN",
+        "distanceMiles": 1.8,
+        "serviceTypes": ["Companionship", "Shopping"],
+        "specialRequests": "Would like to go to...",
+        "caregiverEarnings": 51.00,
+        "hoursRemaining": 6
+      }
+    ],
+    "upcomingBookings": [
+      {
+        "careReceiverName": "Margaret S.",
+        "careReceiverPhotoUrl": "/uploads/photos/margaret.jpg",
+        "date": "Wednesday 8 Feb",
+        "time": "2-5pm",
+        "durationHours": 3,
+        "postcode": "SW1A 1AA",
+        "distanceMiles": 2.3,
+        "serviceTypes": ["Companionship", "Light housework"],
+        "status": "accepted",
+        "timeUntilStart": "Tomorrow"
+      },
+      {
+        "careReceiverName": "John W.",
+        "careReceiverPhotoUrl": "/uploads/photos/john-w.jpg",
+        "date": "Friday 10 Feb",
+        "time": "10am-1pm",
+        "durationHours": 3,
+        "postcode": "E1 6AN",
+        "distanceMiles": 1.8,
+        "serviceTypes": ["Companionship", "Shopping"],
+        "status": "accepted",
+        "timeUntilStart": "In 3 days"
+      },
+      {
+        "careReceiverName": "Anne P.",
+        "careReceiverPhotoUrl": "/uploads/photos/anne.jpg",
+        "date": "Monday 13 Feb",
+        "time": "3-6pm",
+        "durationHours": 3,
+        "postcode": "SW7 2AZ",
+        "distanceMiles": 3.1,
+        "serviceTypes": ["Companionship", "Meal prep"],
+        "status": "accepted",
+        "timeUntilStart": "In 6 days"
+      }
+    ],
+    "quickActions": [
+      { "icon": "calendar", "label": "Manage Availability", "url": "/caregiver/availability" },
+      { "icon": "pound-sterling", "label": "View Earnings", "url": "/caregiver/earnings" },
+      { "icon": "upload", "label": "Upload DBS Certificate", "url": "/caregiver/verify/dbs" }
+    ]
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "alert-banner",
+      "pending-requests-widget",
+      "upcoming-bookings-widget",
+      "earnings-summary-widget",
+      "profile-status-widget",
+      "quick-actions-widget",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "section": "pending-requests",
+        "element": "countdown-timer",
+        "ariaLive": "polite",
+        "updateFrequency": "every-30-minutes"
+      },
+      {
+        "section": "alert-banner",
+        "ariaLive": "assertive",
+        "description": "Critical alerts announced immediately"
+      }
+    ],
+    "minTouchTargets": "48x48px",
+    "minFontSize": "16px body text, 18px primary CTAs"
+  }
+}

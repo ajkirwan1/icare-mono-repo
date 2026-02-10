@@ -1,0 +1,855 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-003",
+    "screenName": "Caregiver Search",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-003-caregiver-search.md",
+    "generatedDate": "2026-02-10",
+    "role": "care_receiver",
+    "route": "/search",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default",
+      "no-results",
+      "loading",
+      "filter-applied"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "2",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "items": [
+          { "label": "Home", "url": "/" },
+          { "label": "Search Caregivers", "url": "/search", "active": true }
+        ]
+      },
+      "accessibility": {
+        "ariaLabel": "Breadcrumb navigation"
+      }
+    },
+    {
+      "id": "section-search-bar",
+      "name": "Search Bar (Primary)",
+      "order": 3,
+      "component": "search-bar",
+      "variant": "location-search",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "props": {
+        "label": "Where do you need care?",
+        "placeholder": "Enter your postcode (e.g., SW1A 1AA)",
+        "value": "SW1A 1AA",
+        "radiusLabel": "Search radius",
+        "radiusOptions": ["5 miles", "10 miles", "15 miles", "20 miles", "30 miles"],
+        "radiusDefault": "10 miles",
+        "searchButtonLabel": "Search",
+        "searchButtonIcon": "magnifying-glass"
+      },
+      "tokens": {
+        "fill": "{colors.background.card-glass}",
+        "borderRadius": "{borderRadius.lg}",
+        "boxShadow": "{boxShadow.card-soft}"
+      },
+      "accessibility": {
+        "role": "search",
+        "inputLabel": "Enter postcode for caregiver search",
+        "buttonLabel": "Search for caregivers"
+      }
+    },
+    {
+      "id": "section-results-header",
+      "name": "Search Results Header",
+      "order": 4,
+      "layout": "horizontal",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "result-count",
+          "content": "24 caregivers found",
+          "tokens": {
+            "fontSize": "{fontSizes.lg}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}"
+          },
+          "accessibility": {
+            "ariaLive": "polite",
+            "ariaAtomic": true
+          }
+        },
+        {
+          "component": "text",
+          "variant": "result-summary",
+          "content": "Within 10 miles of SW1A 1AA",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.normal}",
+            "fill": "{colors.text.muted}"
+          }
+        },
+        {
+          "component": "filter-tag-row",
+          "layout": "horizontal",
+          "gap": "{spacing.2}",
+          "props": {
+            "tags": [
+              { "label": "DBS Verified", "dismissible": true },
+              { "label": "Morning availability", "dismissible": true }
+            ]
+          },
+          "accessibility": {
+            "ariaLabel": "Active filters"
+          }
+        },
+        {
+          "component": "dropdown",
+          "variant": "sort",
+          "props": {
+            "label": "Sort by:",
+            "options": [
+              { "value": "distance", "label": "Distance (nearest first)", "default": true },
+              { "value": "rating-high", "label": "Rating (highest first)" },
+              { "value": "price-low", "label": "Price (low to high)" },
+              { "value": "price-high", "label": "Price (high to low)" },
+              { "value": "newest", "label": "Newest caregivers first" }
+            ]
+          },
+          "position": "right",
+          "accessibility": {
+            "ariaLabel": "Sort caregivers by",
+            "keyboardNav": "Arrow keys to select, Enter to apply"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-content-area",
+      "name": "Content Area (Sidebar + Results Grid)",
+      "order": 5,
+      "layout": "two-column",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "gap": "{spacing.6}",
+      "children": [
+        {
+          "id": "filter-sidebar-container",
+          "name": "Filter Sidebar (Left)",
+          "component": "filter-sidebar",
+          "variant": "desktop-visible",
+          "position": { "x": 0, "y": 0 },
+          "size": { "width": "280px", "height": "auto" },
+          "props": {
+            "filterGroups": [
+              {
+                "id": "availability",
+                "label": "Availability",
+                "collapsible": true,
+                "expanded": true,
+                "fields": [
+                  {
+                    "type": "checkbox-group",
+                    "label": "Days of week",
+                    "options": [
+                      { "value": "monday", "label": "Monday", "checked": true },
+                      { "value": "tuesday", "label": "Tuesday", "checked": true },
+                      { "value": "wednesday", "label": "Wednesday", "checked": true },
+                      { "value": "thursday", "label": "Thursday", "checked": false },
+                      { "value": "friday", "label": "Friday", "checked": false },
+                      { "value": "saturday", "label": "Saturday", "checked": false },
+                      { "value": "sunday", "label": "Sunday", "checked": false }
+                    ]
+                  },
+                  {
+                    "type": "checkbox-group",
+                    "label": "Time of day",
+                    "options": [
+                      { "value": "morning", "label": "Morning (6am-12pm)", "checked": true },
+                      { "value": "afternoon", "label": "Afternoon (12pm-6pm)", "checked": true },
+                      { "value": "evening", "label": "Evening (6pm-10pm)", "checked": false }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "hourly-rate",
+                "label": "Hourly rate",
+                "collapsible": true,
+                "expanded": true,
+                "fields": [
+                  {
+                    "type": "dual-range-slider",
+                    "component": "dual-range-slider",
+                    "min": 10,
+                    "max": 40,
+                    "currentMin": 15,
+                    "currentMax": 25,
+                    "step": 1,
+                    "unit": "£",
+                    "unitSuffix": "/hour",
+                    "helperText": "Platform adds 15% service fee to your total"
+                  }
+                ]
+              },
+              {
+                "id": "service-types",
+                "label": "Services offered",
+                "collapsible": true,
+                "expanded": true,
+                "fields": [
+                  {
+                    "type": "checkbox-group",
+                    "options": [
+                      { "value": "companionship", "label": "Companionship (conversation, activities)", "checked": true },
+                      { "value": "light-housework", "label": "Light housework (cleaning, tidying)", "checked": true },
+                      { "value": "shopping", "label": "Shopping and errands", "checked": false },
+                      { "value": "meal-prep", "label": "Meal preparation (no feeding)", "checked": false },
+                      { "value": "transportation", "label": "Transportation (caregiver has vehicle)", "checked": false }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "verification-status",
+                "label": "Verification",
+                "collapsible": true,
+                "expanded": true,
+                "fields": [
+                  {
+                    "type": "checkbox-group",
+                    "options": [
+                      { "value": "dbs", "label": "DBS Verified", "checked": true },
+                      { "value": "id", "label": "ID Verified", "checked": true },
+                      { "value": "right-to-work", "label": "Right to Work Verified", "checked": true }
+                    ],
+                    "helperText": "DBS is voluntary for companionship services"
+                  }
+                ]
+              },
+              {
+                "id": "languages",
+                "label": "Languages spoken",
+                "collapsible": true,
+                "expanded": false,
+                "fields": [
+                  {
+                    "type": "dropdown-multiselect",
+                    "options": [
+                      { "value": "english", "label": "English", "selected": true },
+                      { "value": "polish", "label": "Polish", "selected": false },
+                      { "value": "romanian", "label": "Romanian", "selected": false },
+                      { "value": "urdu", "label": "Urdu", "selected": false },
+                      { "value": "bengali", "label": "Bengali", "selected": false },
+                      { "value": "punjabi", "label": "Punjabi", "selected": false },
+                      { "value": "welsh", "label": "Welsh", "selected": false },
+                      { "value": "other", "label": "Other", "selected": false }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "gender",
+                "label": "Gender preference (optional)",
+                "collapsible": true,
+                "expanded": false,
+                "fields": [
+                  {
+                    "type": "radio-group",
+                    "options": [
+                      { "value": "male", "label": "Male", "selected": false },
+                      { "value": "female", "label": "Female", "selected": false },
+                      { "value": "no-preference", "label": "No Preference", "selected": true }
+                    ],
+                    "helperText": "This is a personal comfort preference"
+                  }
+                ]
+              },
+              {
+                "id": "minimum-rating",
+                "label": "Minimum rating",
+                "collapsible": true,
+                "expanded": false,
+                "fields": [
+                  {
+                    "type": "radio-group",
+                    "options": [
+                      { "value": "any", "label": "Any rating", "selected": true },
+                      { "value": "4-plus", "label": "4+ stars", "selected": false },
+                      { "value": "4.5-plus", "label": "4.5+ stars", "selected": false }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "primaryAction": {
+              "label": "Apply Filters",
+              "variant": "primary"
+            },
+            "secondaryAction": {
+              "label": "Clear all",
+              "variant": "text-link"
+            }
+          },
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "borderRadius": "{borderRadius.lg}",
+            "boxShadow": "{boxShadow.card-soft}",
+            "padding": "{spacing.6}"
+          },
+          "accessibility": {
+            "role": "complementary",
+            "ariaLabel": "Filter search results",
+            "keyboardNav": "Tab to navigate filters, Space to toggle checkboxes, Enter/Space for radio buttons"
+          },
+          "responsive": {
+            "tablet": {
+              "variant": "slide-out-sidebar",
+              "trigger": "Filters button with count badge"
+            },
+            "mobile": {
+              "variant": "bottom-sheet-modal",
+              "trigger": "Filters button with count badge",
+              "fullScreen": false
+            }
+          }
+        },
+        {
+          "id": "results-grid-container",
+          "name": "Caregiver Results Grid (Right)",
+          "layout": "grid",
+          "position": { "x": "auto", "y": 0 },
+          "size": { "width": "fill", "height": "auto" },
+          "gap": "{spacing.6}",
+          "children": [
+            {
+              "component": "caregiver-card",
+              "variant": "search-result",
+              "repeat": "caregivers",
+              "maxVisible": 6,
+              "layout": "grid",
+              "columns": {
+                "desktop": 3,
+                "tablet": 2,
+                "mobile": 1
+              },
+              "gap": "{spacing.6}",
+              "props": {
+                "profilePhoto": "${item.photoUrl}",
+                "name": "${item.name}",
+                "distance": "${item.distance}",
+                "verificationBadges": "${item.verificationBadges}",
+                "serviceTypeBadge": "${item.serviceType}",
+                "hourlyRate": "${item.hourlyRate}",
+                "rating": "${item.rating}",
+                "reviewCount": "${item.reviewCount}",
+                "isNewCaregiver": "${item.isNew}",
+                "bioExcerpt": "${item.bio}",
+                "languages": "${item.languages}",
+                "availabilitySummary": "${item.availability}",
+                "isFavorited": "${item.favorited}",
+                "ctaPrimaryLabel": "View Profile",
+                "ctaPrimaryUrl": "/caregivers/${item.id}",
+                "ctaSecondaryLabel": "Add to Favorites",
+                "ctaSecondaryIcon": "heart"
+              }
+            }
+          ],
+          "accessibility": {
+            "role": "main",
+            "ariaLabel": "Search results",
+            "itemRole": "article"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination Controls",
+      "order": 6,
+      "component": "pagination-controls",
+      "variant": "default",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "props": {
+        "currentPage": 1,
+        "totalPages": 3,
+        "resultsPerPage": 12,
+        "previousLabel": "← Previous",
+        "nextLabel": "Next →",
+        "maxPageLinks": 5
+      },
+      "tokens": {
+        "gap": "{spacing.2}"
+      },
+      "accessibility": {
+        "role": "navigation",
+        "ariaLabel": "Search results pagination",
+        "keyboardNav": "Tab to navigate, Enter to activate"
+      },
+      "responsive": {
+        "mobile": {
+          "maxPageLinks": 3,
+          "simplifiedLayout": true
+        }
+      }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 7,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "searchBarLayout": "inline (postcode + radius + search button horizontal)",
+      "filterSidebar": "visible, fixed position, 280px width",
+      "resultsGrid": "3-column",
+      "paginationLayout": "full (5 page links)"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "searchBarLayout": "inline (postcode + radius horizontal, search button right-aligned)",
+      "filterSidebar": "slide-out sidebar (hamburger toggle), overlays content",
+      "resultsGrid": "2-column",
+      "paginationLayout": "full (5 page links)"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "searchBarLayout": "stacked (postcode full-width, radius below, search button full-width)",
+      "filterSidebar": "bottom sheet modal (Filters button with count badge)",
+      "resultsGrid": "1-column (full-width cards)",
+      "paginationLayout": "simplified (2-3 page numbers max)"
+    }
+  },
+  "stateVariations": {
+    "default": {
+      "description": "Results found, filters can be applied",
+      "sections": {
+        "section-results-header": { "visible": true },
+        "section-content-area": { "visible": true },
+        "section-pagination": { "visible": true }
+      },
+      "sampleData": {
+        "resultCount": 24,
+        "caregivers": "${sampleData.caregivers}"
+      }
+    },
+    "no-results": {
+      "description": "No caregivers match search criteria",
+      "sections": {
+        "section-results-header": {
+          "visible": true,
+          "children": [
+            {
+              "component": "text",
+              "content": "0 caregivers found"
+            }
+          ]
+        },
+        "section-content-area": {
+          "children": [
+            {
+              "id": "filter-sidebar-container",
+              "visible": true
+            },
+            {
+              "id": "results-grid-container",
+              "children": [
+                {
+                  "component": "empty-state",
+                  "variant": "no-results",
+                  "props": {
+                    "icon": "magnifying-glass",
+                    "heading": "No caregivers found",
+                    "message": "No caregivers match your search criteria",
+                    "suggestions": [
+                      "Try expanding your search radius",
+                      "Adjust your hourly rate range",
+                      "Select more availability options",
+                      "Remove some service filters"
+                    ],
+                    "actions": [
+                      {
+                        "label": "Notify me when caregivers become available",
+                        "variant": "primary",
+                        "action": "openEmailSignup"
+                      },
+                      {
+                        "label": "Contact support for help",
+                        "variant": "secondary",
+                        "url": "/contact"
+                      },
+                      {
+                        "label": "View all caregivers in postcode area",
+                        "variant": "text-link",
+                        "action": "clearFilters"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "section-pagination": { "visible": false }
+      }
+    },
+    "loading": {
+      "description": "Search query in progress",
+      "sections": {
+        "section-results-header": {
+          "visible": true,
+          "children": [
+            {
+              "component": "text",
+              "content": "Searching for caregivers near you...",
+              "tokens": {
+                "fontSize": "{fontSizes.lg}",
+                "fontWeight": "{fontWeights.normal}",
+                "fill": "{colors.text.muted}"
+              }
+            },
+            {
+              "component": "loading-spinner",
+              "variant": "subtle",
+              "size": "24px"
+            }
+          ]
+        },
+        "section-content-area": {
+          "children": [
+            {
+              "id": "filter-sidebar-container",
+              "visible": true
+            },
+            {
+              "id": "results-grid-container",
+              "children": [
+                {
+                  "component": "loading-skeleton",
+                  "variant": "caregiver-card",
+                  "repeat": 6,
+                  "layout": "grid",
+                  "columns": {
+                    "desktop": 3,
+                    "tablet": 2,
+                    "mobile": 1
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "section-pagination": { "visible": false }
+      }
+    },
+    "filter-applied": {
+      "description": "Active filters modify results",
+      "sections": {
+        "section-results-header": {
+          "visible": true,
+          "children": [
+            {
+              "component": "text",
+              "content": "12 caregivers found (filtered)"
+            },
+            {
+              "component": "filter-tag-row",
+              "props": {
+                "tags": [
+                  { "label": "DBS Verified", "dismissible": true },
+                  { "label": "Morning availability", "dismissible": true },
+                  { "label": "£15-£25/hour", "dismissible": true }
+                ]
+              }
+            }
+          ]
+        },
+        "section-content-area": { "visible": true },
+        "section-pagination": { "visible": true }
+      },
+      "sampleData": {
+        "resultCount": 12,
+        "caregivers": "${sampleData.caregivers.slice(0, 4)}"
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "search-bar": "Component ID: search-bar",
+    "filter-tag": "Component ID: filter-tag",
+    "filter-sidebar": "Component ID: filter-sidebar",
+    "dual-range-slider": "Component ID: dual-range-slider",
+    "caregiver-card": "Component ID: caregiver-card",
+    "star-rating": "Component ID: star-rating (used within caregiver-card)",
+    "pagination-controls": "Component ID: pagination-controls",
+    "empty-state": "Component ID: empty-state",
+    "loading-spinner": "Component ID: loading-spinner",
+    "loading-skeleton": "Component ID: loading-skeleton",
+    "footer-global": "Component ID: footer-global"
+  },
+  "sampleData": {
+    "caregivers": [
+      {
+        "id": "cg-001",
+        "name": "Sarah Thompson",
+        "photoUrl": "/uploads/photos/sarah-thompson.jpg",
+        "location": "Islington, London",
+        "distance": "1.2 miles",
+        "rating": 4.8,
+        "reviewCount": 23,
+        "hourlyRate": "£18",
+        "serviceType": "Companionship Only",
+        "services": ["Companionship", "Light Housekeeping"],
+        "verificationBadges": ["DBS Checked", "ID Verified"],
+        "bio": "Experienced companion with a warm personality and 5 years caring for elderly residents in North London...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" },
+          { "code": "pl", "label": "Polish", "flag": "🇵🇱" }
+        ],
+        "availability": "Mon, Wed mornings",
+        "favorited": false,
+        "isNew": false
+      },
+      {
+        "id": "cg-002",
+        "name": "James Okafor",
+        "photoUrl": "/uploads/photos/james-okafor.jpg",
+        "location": "Hackney, London",
+        "distance": "2.4 miles",
+        "rating": 4.5,
+        "reviewCount": 11,
+        "hourlyRate": "£16",
+        "serviceType": "Companionship + Light Care",
+        "services": ["Companionship", "Meal Preparation"],
+        "verificationBadges": ["DBS Checked", "ID Verified"],
+        "bio": "Friendly caregiver with experience in meal preparation and light care assistance...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" }
+        ],
+        "availability": "Tues, Thurs afternoons",
+        "favorited": false,
+        "isNew": false
+      },
+      {
+        "id": "cg-003",
+        "name": "Maria Santos",
+        "photoUrl": "/uploads/photos/maria-santos.jpg",
+        "location": "Camden, London",
+        "distance": "3.1 miles",
+        "rating": 5.0,
+        "reviewCount": 8,
+        "hourlyRate": "£20",
+        "serviceType": "Companionship + Tech Help",
+        "services": ["Companionship", "Errands", "Technology Help"],
+        "verificationBadges": ["DBS Checked", "ID Verified", "References Checked"],
+        "bio": "I love helping elderly people stay connected with family through video calls and teaching basic smartphone use...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" },
+          { "code": "es", "label": "Spanish", "flag": "🇪🇸" }
+        ],
+        "availability": "Mon-Fri mornings",
+        "favorited": false,
+        "isNew": true
+      },
+      {
+        "id": "cg-004",
+        "name": "David Williams",
+        "photoUrl": "/uploads/photos/david-williams.jpg",
+        "location": "Westminster, London",
+        "distance": "4.1 miles",
+        "rating": 4.7,
+        "reviewCount": 15,
+        "hourlyRate": "£19",
+        "serviceType": "Companionship + Transportation",
+        "services": ["Companionship", "Shopping", "Transportation"],
+        "verificationBadges": ["DBS Checked", "ID Verified"],
+        "bio": "Retired teacher with a passion for supporting elderly individuals with shopping trips and medical appointments...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" }
+        ],
+        "availability": "Mon-Wed afternoons",
+        "favorited": true,
+        "isNew": false
+      },
+      {
+        "id": "cg-005",
+        "name": "Anna Rodriguez",
+        "photoUrl": "/uploads/photos/anna-rodriguez.jpg",
+        "location": "Islington, London",
+        "distance": "5.2 miles",
+        "rating": 4.9,
+        "reviewCount": 19,
+        "hourlyRate": "£17",
+        "serviceType": "Companionship Only",
+        "services": ["Companionship", "Light Housework"],
+        "verificationBadges": ["ID Verified"],
+        "bio": "Patient and caring companion with experience supporting people with dementia...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" },
+          { "code": "es", "label": "Spanish", "flag": "🇪🇸" }
+        ],
+        "availability": "Tues, Thurs, Sat mornings",
+        "favorited": false,
+        "isNew": false
+      },
+      {
+        "id": "cg-006",
+        "name": "Emily Chen",
+        "photoUrl": "/uploads/photos/emily-chen.jpg",
+        "location": "Camden, London",
+        "distance": "6.1 miles",
+        "rating": 4.6,
+        "reviewCount": 9,
+        "hourlyRate": "£18",
+        "serviceType": "Companionship + Meal Prep",
+        "services": ["Companionship", "Meal Preparation", "Light Housework"],
+        "verificationBadges": ["DBS Checked", "ID Verified"],
+        "bio": "Passionate about supporting elderly independence through nutritious meal preparation and light assistance...",
+        "languages": [
+          { "code": "en", "label": "English", "flag": "🇬🇧" },
+          { "code": "zh", "label": "Cantonese", "flag": "🇭🇰" }
+        ],
+        "availability": "Mon-Fri afternoons",
+        "favorited": false,
+        "isNew": false
+      }
+    ]
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "search-postcode-input",
+      "search-radius-dropdown",
+      "search-button",
+      "filter-sidebar-toggle (mobile/tablet)",
+      "filter-sidebar-filters",
+      "sort-dropdown",
+      "caregiver-card-1",
+      "caregiver-card-2",
+      "... (all cards)",
+      "pagination-previous",
+      "pagination-page-numbers",
+      "pagination-next",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "section": "section-results-header",
+        "element": "result-count",
+        "ariaLive": "polite",
+        "ariaAtomic": true,
+        "description": "Result count updates announced when search completes or filters applied"
+      },
+      {
+        "section": "section-content-area",
+        "element": "results-grid",
+        "ariaLive": "polite",
+        "description": "Announces when results are loading or loaded"
+      }
+    ],
+    "landmarks": {
+      "search-bar": {
+        "role": "search",
+        "ariaLabel": "Search for caregivers by location"
+      },
+      "filter-sidebar": {
+        "role": "complementary",
+        "ariaLabel": "Filter search results"
+      },
+      "results-grid": {
+        "role": "main",
+        "id": "main-content",
+        "ariaLabel": "Caregiver search results"
+      }
+    },
+    "keyboardShortcuts": {
+      "/": "Focus search input",
+      "Esc": "Clear search / Close filter sidebar (mobile)",
+      "ArrowUp/ArrowDown": "Navigate between caregiver cards (when focused)",
+      "Enter": "Open focused caregiver profile"
+    },
+    "screenReaderAnnouncements": {
+      "searchInitiated": "Searching for caregivers near SW1A 1AA, loading",
+      "resultsLoaded": "24 caregivers found within 10 miles of SW1A 1AA",
+      "noResults": "No caregivers found matching your criteria. Try expanding your search radius or adjusting filters.",
+      "filtersApplied": "Filters applied. 12 caregivers found.",
+      "pageChanged": "Page 2 of 3 loaded"
+    },
+    "minTouchTargets": "48x48px",
+    "minFontSize": "16px body text, 18px+ card titles, 20px+ primary CTAs",
+    "minContrastRatio": "4.5:1 normal text, 3:1 large text",
+    "focusIndicator": "3px solid blue border on all interactive elements"
+  }
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 16px;
+      background: #fff;
+      color: #333;
+      font-size: 13px;
+    }
+    h2 { font-size: 18px; margin-bottom: 4px; color: #1a1a1a; }
+    h2 + p { color: #666; margin-bottom: 16px; font-size: 12px; }
+    h3 { font-size: 14px; margin-bottom: 8px; }
+
+    .step {
+      margin-bottom: 16px;
+      border: 1px solid #e0e0e0;
+      padding: 14px;
+      border-radius: 8px;
+      background: #fafafa;
+      transition: all 0.2s;
+    }
+    .step.active { border-color: #18a0fb; background: #f8fbff; }
+    .step.complete { background: #f0faf0; border-color: #34a853; }
+    .step p { color: #666; font-size: 12px; margin-bottom: 10px; }
+
+    .upload-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .upload-row label {
+      font-size: 12px;
+      color: #555;
+      min-width: 120px;
+    }
+    .upload-row input[type="file"] {
+      font-size: 11px;
+      flex: 1;
+    }
+
+    #upload-status {
+      font-size: 11px;
+      color: #18a0fb;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      margin-top: 10px;
+      display: none;
+      background: #e8e8e8;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 6px;
+    }
+    .progress {
+      height: 6px;
+      background: #18a0fb;
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .log {
+      background: #1a1a2e;
+      color: #a0e8a0;
+      padding: 10px;
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 11px;
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+    .log div { word-break: break-all; }
+
+    button {
+      background: #18a0fb;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    button:hover:not(:disabled) { background: #0d8de8; }
+    button:disabled { background: #bbb; cursor: not-allowed; }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>iCare Design System Importer</h2>
+  <p>Import design tokens, components, and screen layouts from JSON.</p>
+
+  <!-- Step 1: Upload Files -->
+  <div class="step active" id="step-upload">
+    <h3>Step 1: Upload JSON Files</h3>
+    <div class="upload-row">
+      <label for="file-tokens">tokens.json</label>
+      <input type="file" id="file-tokens" accept=".json" />
+    </div>
+    <div class="upload-row">
+      <label for="file-components">components.json</label>
+      <input type="file" id="file-components" accept=".json" />
+    </div>
+    <div class="upload-row">
+      <label for="file-screens">screen JSONs</label>
+      <input type="file" id="file-screens" accept=".json" multiple />
+    </div>
+    <div id="upload-status">Upload JSON files to begin.</div>
+    <div id="upload-error" class="error"></div>
+  </div>
+
+  <!-- Step 2: Import Tokens -->
+  <div class="step" id="step-tokens">
+    <h3>Step 2: Import Design Tokens</h3>
+    <p>Creates Figma Color, Text, and Effect Styles + Variables</p>
+    <button id="btn-import-tokens" disabled>Import Tokens</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-tokens" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Step 3: Generate Components -->
+  <div class="step" id="step-components">
+    <h3>Step 3: Generate Components</h3>
+    <p>Creates 33 master components with variants, organized by category</p>
+    <button id="btn-generate-components" disabled>Generate Components</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-components" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Step 4: Generate Screens -->
+  <div class="step" id="step-screens">
+    <h3>Step 4: Generate Screen Layouts</h3>
+    <p>Creates 3 dashboard screens with component instances</p>
+    <button id="btn-generate-screens" disabled>Generate Screens</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-screens" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Console Log -->
+  <div class="step">
+    <h3>Console</h3>
+    <div class="log" id="log-output">
+      <div>Ready. Upload JSON files to begin.</div>
+    </div>
+  </div>
+
+  <script src="ui.js"></script>
+</body>
+</html>

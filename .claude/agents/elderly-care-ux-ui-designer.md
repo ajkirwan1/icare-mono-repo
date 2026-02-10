@@ -66,14 +66,11 @@ The project follows a **dashboard-first** design production approach (defined in
 - `/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-003-caregiver-search.md`
 - `/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-005-caregiver-profile.md`
 
-<<<<<<< Updated upstream
-=======
 ### Booking Flow Wireframes (Phase 3, Job 3 -- COMPLETE)
 - `/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cr-006-booking-request-form.md`
 - `/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cr-008-booking-detail.md`
 - `/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cg-013-booking-request-detail.md`
 
->>>>>>> Stashed changes
 ### Shared Component Inventory
 - `/docs/tiers/tier1/draft-design-specs/components/dashboard-shared-components.md` - 33 reusable components from dashboard phase
 
@@ -493,11 +490,7 @@ docs/tiers/tier1/draft-design-specs/wireframes/
 ├── dashboards/     # SCR-CR-001, SCR-CG-001, SCR-ADM-001 (COMPLETE)
 ├── auth/           # SCR-AUTH-001 to 006 (COMPLETE)
 ├── search/         # SCR-CR-003, SCR-CR-005 (COMPLETE)
-<<<<<<< Updated upstream
-├── booking/        # SCR-CR-006, SCR-CR-008, SCR-CG-013
-=======
 ├── booking/        # SCR-CR-006, SCR-CR-008, SCR-CG-013 (COMPLETE)
->>>>>>> Stashed changes
 ├── payment/        # SCR-CR-013, SCR-CG-020
 ├── caregiver/      # SCR-CG-002, SCR-CG-008, SCR-CG-009, SCR-CG-010
 ├── messaging/      # SCR-CR-011
