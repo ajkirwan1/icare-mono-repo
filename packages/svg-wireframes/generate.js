@@ -484,6 +484,11 @@ function renderWidgetChild(child, R, width) {
     return { svg: s, height: y - gap };
   }
 
+  // Components whose children are data rows, not sub-components — render directly
+  if (comp === 'attribute-list' || comp === 'service-list') {
+    return renderSingleChild(child, R, width, 0);
+  }
+
   // Containers with children (metric-card, metric-list, etc.)
   if (Array.isArray(child.children) && child.children.length > 0) {
     return renderChildContainer(child, R, width);
@@ -736,6 +741,40 @@ function renderSingleChild(child, R, width, index) {
       s += `<circle cx="8" cy="14" r="6" fill="#f59e0b"/>`;
       s += `<text x="22" y="18" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(label)}</text>`;
       return { svg: s, height: H };
+    }
+
+    case 'attribute-list': {
+      var alItems = Array.isArray(child.children) ? child.children : [];
+      var alGap = 28;
+      let s = '', aly = 0;
+      alItems.forEach(function (item) {
+        var label = item.label || '';
+        var value = item.value || '';
+        s += `<circle cx="8" cy="${aly + 10}" r="6" fill="${brand}" opacity="0.25"/>`;
+        s += `<text x="24" y="${aly + 8}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">${esc(label)}</text>`;
+        s += `<text x="24" y="${aly + 24}" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(String(value).substring(0, 70))}</text>`;
+        aly += alGap;
+      });
+      return { svg: s, height: Math.max(aly - 4, 0) };
+    }
+
+    case 'service-list': {
+      var slItems = Array.isArray(child.children) ? child.children : [];
+      var slGap = 24;
+      let s = '', sly = 0;
+      slItems.forEach(function (item) {
+        var label = item.label || '';
+        var desc = item.description || '';
+        s += `<text x="0" y="${sly + 14}" font-family="Inter,sans-serif" font-size="14" fill="#16a34a">&#x2713;</text>`;
+        s += `<text x="20" y="${sly + 14}" font-family="Inter,sans-serif" font-size="14" font-weight="500" fill="${textP}">${esc(label)}</text>`;
+        if (desc) {
+          s += `<text x="20" y="${sly + 30}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(desc.substring(0, 60))}</text>`;
+          sly += slGap + 12;
+        } else {
+          sly += slGap;
+        }
+      });
+      return { svg: s, height: Math.max(sly - 4, 0) };
     }
 
     case 'activity-timeline':
