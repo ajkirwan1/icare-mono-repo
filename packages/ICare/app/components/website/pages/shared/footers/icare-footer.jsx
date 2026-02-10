@@ -21,7 +21,7 @@ export default function ICareFooter() {
         email: "customershelp@icare.com",
         socials: {
             linkedin: "https://www.linkedin.com/company/icare",
-            facebook: "https://www.facebook.com/icare"
+            facebook: "https://www.facebook.com/profile.php?id=61587936540417"
         }
     };
 
@@ -144,7 +144,6 @@ export default function ICareFooter() {
                     <div className={styles.legalLinks} aria-label="Legal links">
                         <NavLink to="/terms-of-service">Terms</NavLink>
                         <NavLink to="/privacy">Privacy</NavLink>
-                        <NavLink to="/cookies">Cookies</NavLink>
                     </div>
 
                     <div className={styles.copyright}>

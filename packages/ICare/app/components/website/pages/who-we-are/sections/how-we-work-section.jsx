@@ -56,7 +56,7 @@ export function HowWeWorkSection() {
             ref={sectionRef}
             style={{
                 width: "100%",
-                background: "#e8e7d7",
+                background: "#f2f2f2",
                 padding: "4rem 0",
                 fontFamily:
                     "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -93,7 +93,7 @@ export function HowWeWorkSection() {
                         }}
                     >
                         <span style={{ display: "block", marginBottom: "0.4rem" }}>
-                            <strong style={{ fontWeight: 600, fontSize: "1.5rem" }}>
+                            <strong style={{ color: "rgb(119, 141, 67)", fontWeight: 600, fontSize: "1.5rem" }}>
                                 A simple, transparent way to arrange companionship at home.
                             </strong>
                         </span>

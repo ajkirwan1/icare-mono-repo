@@ -22,7 +22,7 @@ export function OurValuesSection() {
                 display: "flex",
                 alignItems: "flex-start",
                 gap: "1.4rem",
-                padding: "1.8rem 1.6rem",
+                padding: "1.1rem 1.6rem",
 
             }}
         >
@@ -45,7 +45,7 @@ export function OurValuesSection() {
                         fontSize: "1.35rem",
                         fontWeight: 600,
                         lineHeight: 1.25,
-                        color: "#1B1F1A",
+                        color: "#000",
                     }}
                 >
                     {title}
@@ -137,10 +137,10 @@ export function OurValuesSection() {
 
                     <p
                         style={{
-                            fontSize: "1.4rem",
+                            fontSize: "1.3rem",
                             marginTop: "1rem",
                             color: "#0f172a",
-                            fontWeight: 500,
+                            fontWeight: 400,
                         }}
                     >
                         Care is built on trust, responsibility and mutual respect.

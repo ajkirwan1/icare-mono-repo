@@ -1,77 +1,12 @@
 import React from "react";
+import styles from "./compare-agency-vs-icare.module.scss";
 
 export default function CompareAgencyVsICare() {
-    const BRAND = "#1FAB1F";
-    const TEXT = "#0F172A";
-
-    const H1 = {
-        margin: 0,
-        fontWeight: 500,
-        letterSpacing: "-0.6px",
-        lineHeight: 1.14,
-        fontSize: "clamp(2.25rem, 3vw, 2.6rem)",
-        color: TEXT,
-    };
-
-    const H2 = {
-        margin: "10px 0 0",
-        fontWeight: 600,
-        letterSpacing: "-0.2px",
-        lineHeight: 1.25,
-        fontSize: "1.30rem",
-        color: TEXT,
-    };
-
-    const LEAD = {
-        margin: "0.9rem 0 3rem",
-        color: TEXT,
-        maxWidth: "50ch",
-        lineHeight: 1.65,
-        fontSize: "1.4rem",
-        fontWeight: 400,
-    };
-
-    const DISCLAIMER = {
-        marginTop: "1.2rem",
-        fontSize: "0.85rem",
-        lineHeight: 1.5,
-        color: "rgba(15,23,42,0.65)",
-        maxWidth: "65ch",
-    };
-
-    const CARD_TITLE = {
-        margin: 0,
-        fontSize: "1.50rem",
-        fontWeight: 500,
-        color: TEXT,
-        letterSpacing: "-0.15px",
-        lineHeight: 1.25,
-    };
-
-    const LI_TEXT = {
-        display: "flex",
-        gap: 12,
-        color: "#1f2a37",
-        fontSize: "1.25rem",
-        lineHeight: 1.55,
-        fontWeight: 400,
-    };
-
-    const LI_SVG = {
-        position: "relative",
-        top: "7px",
-    };
-
     return (
         <section
             id="compare"
             aria-label="Compare agency vs ICare"
-            style={{
-                background: "white",
-                borderTop: "1px solid rgba(15,23,42,0.06)",
-                borderBottom: "1px solid rgba(15,23,42,0.06)",
-                padding: "4rem",
-            }}
+            className={styles.section}
         >
             <div
                 style={{
@@ -95,15 +30,7 @@ export default function CompareAgencyVsICare() {
                 </p>
 
                 {/* GRID */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "clamp(50px,6vw,70px)",
-                        alignItems: "start",
-                        marginTop: "3rem",
-                    }}
-                >
+                <div className={styles.grid}>
                     {/* PHOTO — Traditional Agency */}
                     <img
                         src="images/web/how-it-works/paperwork.jpg"
@@ -236,13 +163,6 @@ export default function CompareAgencyVsICare() {
                     </article>
                 </div>
             </div>
-
-            <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
         </section>
     );
 }

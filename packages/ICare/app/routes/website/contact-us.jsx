@@ -220,8 +220,8 @@ export default function ContactUPage() {
                             </p>
                             <p style={small}>
                                 <strong>Email:</strong>{" "}
-                                <a href="mailto:hello@icare.co.uk" style={link}>
-                                    hello@icare.co.uk
+                                <a href="mailto:hello@icare-app.co.uk" style={link}>
+                                    hello@icare-app.co.uk
                                 </a>
                             </p>
                             <p style={small}>
