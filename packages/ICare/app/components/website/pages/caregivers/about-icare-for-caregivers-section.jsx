@@ -47,7 +47,7 @@ export default function HowICareWorksForCaregiversSystem() {
                 <div className={styles.grid}>
                     {/* LEFT — VIDEO */}
                     <div className={styles.videoWrap}>
-                        <VideoSection videoSrc="images/web/icare-for-caregivers/voice.mp4" />
+                        <VideoSection poster="images/web/icare-for-caregivers/icare-for-caregivers-placeholder.webp" videoSrc="images/web/icare-for-caregivers/voice.mp4" />
                     </div>
 
                     {/* RIGHT — STEPS */}

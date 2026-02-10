@@ -128,7 +128,7 @@ export function OurImpactSection() {
 
                     <div>
                         <div style={mediaCard}>
-                            <VideoSection videoSrc="images/web/who-we-are/who-we-are.mp4" />
+                            <VideoSection poster="images/web/who-we-are/who-we-are-placeholder.webp" videoSrc="images/web/who-we-are/who-we-are.mp4" />
                         </div>
                     </div>
                 </div>

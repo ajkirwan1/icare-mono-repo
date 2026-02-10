@@ -1,4 +1,4 @@
-import heroImage from "/images/heros/icare-for-carereceivers.jpg";
+import heroImage from "/images/heros/icare-receivers-hero.webp";
 import ICareNavbar from "../shared/icare-navbar";
 import styles from "./icare-for-care-receivers-hero.module.scss";
 

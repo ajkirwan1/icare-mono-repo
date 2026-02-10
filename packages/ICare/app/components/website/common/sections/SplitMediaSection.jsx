@@ -68,13 +68,12 @@ export default function SplitMediaSection({
             try {
                 v.pause();
                 v.currentTime = 0;
+                v.load(); // ✅ przywraca poster/stan początkowy bez usuwania src
             } catch { }
         }
 
         const active = media[index];
-        if (active?.type !== "video") {
-            setAutoEnabled(true);
-        }
+        if (active?.type !== "video") setAutoEnabled(true);
     }, [index, media]);
 
     const playWithSound = async () => {
@@ -87,10 +86,10 @@ export default function SplitMediaSection({
         const v = videoRef.current;
         if (!v) return;
 
-        v.muted = false;
-        v.playsInline = true;
-
         try {
+            v.playsInline = true;
+            v.muted = false;  // user gesture => można odmutować
+            v.load();         // ✅ upewnia się że źródło/poster są zsynchronizowane
             await v.play();
             setVideoStarted(true);
         } catch {
@@ -104,7 +103,6 @@ export default function SplitMediaSection({
         <div className={styles.container}>
             <div className={`${styles.grid} ${isRight ? styles.reverse : ""}`}>
                 <div className={slider.mediaWrap} aria-label="Media slider">
-                    {/* ✅ ARROWS MUST LIVE OUTSIDE ratioBox (ratioBox has overflow:hidden) */}
                     {media.length > 1 && (
                         <>
                             <button
@@ -154,9 +152,10 @@ export default function SplitMediaSection({
                                             <video
                                                 ref={i === index ? videoRef : null}
                                                 src={item.src}
-                                                poster="/images/web/icare-for-carereceivers/video-placeholder.webp"
+                                                poster={item.poster}
                                                 playsInline
-                                                preload="metadata"
+                                                preload="none"
+                                                muted // ✅ start w stanie muted; odmutowujemy po kliknięciu
                                                 controls={i === index && videoStarted}
                                                 className={slider.video}
                                                 onEnded={() => {
@@ -165,12 +164,12 @@ export default function SplitMediaSection({
                                                     try {
                                                         v.pause();
                                                         v.currentTime = 0;
+                                                        v.load(); // ✅ wróć do poster
                                                     } catch { }
                                                     setVideoStarted(false);
                                                 }}
                                             />
 
-                                            {/* Big play overlay (only when active video slide and not started) */}
                                             {i === index && isActiveVideo && !videoStarted && (
                                                 <button
                                                     type="button"
@@ -194,8 +193,7 @@ export default function SplitMediaSection({
                                 <button
                                     key={i}
                                     type="button"
-                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""
-                                        }`}
+                                    className={`${slider.dot} ${i === index ? slider.dotActive : ""}`}
                                     onClick={() => goTo(i)}
                                     aria-label={`Go to slide ${i + 1}`}
                                 />

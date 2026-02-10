@@ -144,7 +144,6 @@ export default function ICareFooter() {
                     <div className={styles.legalLinks} aria-label="Legal links">
                         <NavLink to="/terms-of-service">Terms</NavLink>
                         <NavLink to="/privacy">Privacy</NavLink>
-                        <NavLink to="/cookies">Cookies</NavLink>
                     </div>
 
                     <div className={styles.copyright}>

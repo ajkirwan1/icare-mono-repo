@@ -88,16 +88,6 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                     ))}
                 </div>
 
-                {/* CTA */}
-                <div className={styles.ctaRow}>
-                    <Link to="/signup" className={styles.primaryBtn}>
-                        Create your free account
-                    </Link>
-
-                    <Link to="/caregivers" className={styles.secondaryBtn}>
-                        Browse caregivers
-                    </Link>
-                </div>
 
                 {/* reassurance */}
                 <p className={styles.reassurance}>
