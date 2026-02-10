@@ -80,15 +80,19 @@ export default function CompareAgencyVsICare() {
                     animation: "fadeUp 1s ease both",
                 }}
             >
-                <h2 style={H1}>An alternative to traditional care agencies</h2>
+                <h2 style={H1}>A calmer alternative to traditional agencies</h2>
 
                 <p style={LEAD}>
-                    ICare offers a modern way to arrange care at home - without agency lock-ins,
-                    unclear pricing or unnecessary complexity. Families stay in control,
-                    with clear terms and direct contact from the start.
+                    Arrange companionship at home with more clarity and more control.
+                    ICare helps families connect with independent caregivers directly - with
+                    transparent terms and a clear platform fee.
                 </p>
 
-
+                {/* Legal / trust micro-disclaimer */}
+                <p style={DISCLAIMER}>
+                    Comparison reflects common industry structures. Experiences, fees and terms may vary
+                    between providers.
+                </p>
 
                 {/* GRID */}
                 <div
@@ -103,7 +107,7 @@ export default function CompareAgencyVsICare() {
                     {/* PHOTO — Traditional Agency */}
                     <img
                         src="images/web/how-it-works/paperwork.jpg"
-                        alt="Traditional agency paperwork"
+                        alt="Paperwork and costs often associated with traditional agencies"
                         style={{
                             width: "100%",
                             height: "340px",
@@ -117,7 +121,7 @@ export default function CompareAgencyVsICare() {
                     {/* AGENCY CARD */}
                     <article>
                         <div>
-                            <h3 style={CARD_TITLE}>Traditional agency model</h3>
+                            <h3 style={CARD_TITLE}>Typical agency structure</h3>
 
                             <ul
                                 style={{
@@ -129,11 +133,11 @@ export default function CompareAgencyVsICare() {
                                 }}
                             >
                                 {[
-                                    "Often higher agency fees",
-                                    "More limited caregiver choice",
-                                    "Contracts may be restrictive",
-                                    "Changes can involve extra fees",
-                                    "Less pricing transparency",
+                                    "Agency fees can vary and may be higher",
+                                    "Choice may be limited to the agency’s pool",
+                                    "Terms can feel restrictive",
+                                    "Changes may involve additional charges",
+                                    "Pricing can be less transparent",
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
@@ -160,7 +164,7 @@ export default function CompareAgencyVsICare() {
                     {/* PHOTO — ICare */}
                     <img
                         src="/images/web/how-it-works/icare-how-it-works.webp"
-                        alt="Caregiver supportive environment"
+                        alt="Companionship at home with a supportive caregiver"
                         style={{
                             width: "100%",
                             height: "340px",
@@ -201,11 +205,12 @@ export default function CompareAgencyVsICare() {
                                 }}
                             >
                                 {[
-                                    "Clear flat platform fee",
-                                    "Choose your preferred caregiver",
-                                    "Transparent terms",
-                                    "Direct family-caregiver agreements",
+
+                                    "Choose the caregiver you feel comfortable with",
+                                    "Transparent terms from the start",
+                                    "Direct family–caregiver agreements",
                                     "Fairer pay for caregivers",
+                                    "More control over care decisions",
                                 ].map((item) => (
                                     <li key={item} style={LI_TEXT}>
                                         <svg
