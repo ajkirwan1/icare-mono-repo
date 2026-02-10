@@ -13,9 +13,9 @@ export default function ICareNewCaregiversTickerSection() {
 
     const wrap = {
         width: "100%",
-        background: "rgb(236 221 209 / 55%)",
+        background: "rgba(255, 249, 239, 0.85)",
         color: TEXT,
-        padding: "clamp(3.6rem, 5.6vw, 5rem) 0",
+        padding: "4rem 3rem",
         fontFamily:
             "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     };
@@ -71,16 +71,17 @@ export default function ICareNewCaregiversTickerSection() {
         background: PANEL,
         padding: "40px 22px", // więcej pionu
         display: "grid",
-        gridTemplateColumns: "72px 1fr", // większy avatar
+        gridTemplateColumns: "85px 1fr", // większy avatar
         gap: 18,
         alignItems: "center",
         flex: "0 0 auto",
     };
 
     const avatarImg = {
-        width: 64,
-        height: 64,
+        width: 85,
+        height: 85,
         borderRadius: 999,
+        background: "#bbb",
         objectFit: "cover",
         border: "1px solid rgba(15,23,42,0.12)",
     };
@@ -128,7 +129,7 @@ export default function ICareNewCaregiversTickerSection() {
                 </div>
 
                 {/* VIEW ALL */}
-                <div style={{ marginTop: 14 }}>
+                <div style={{ display: "none" }}>
                     <button
                         onClick={() => setShowAll((v) => !v)}
                         style={{

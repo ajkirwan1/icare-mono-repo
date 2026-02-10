@@ -33,7 +33,7 @@ export default function SafetyComesFirstThreeBoxes() {
                 <>
                     <strong className={styles.strong}>DBS</strong> and{" "}
                     <strong className={styles.strong}>insurance</strong> are displayed when
-                    provided and relevant — depending on location and the nature of support.
+                    provided and relevant depending on location and the nature of support.
                 </>
             ),
             image: "/images/web/homepage/DBS-and-insurance.webp",

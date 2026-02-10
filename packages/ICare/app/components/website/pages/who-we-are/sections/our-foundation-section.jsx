@@ -23,7 +23,7 @@ export function OurFoundationSection() {
                 {/* ================= LEFT — OUR FOUNDATION ================= */}
                 <div
                     style={{
-                        background: "#f1e2c9",
+                        background: "#f2f2f2",
                         padding: "3rem",
                         display: "flex",
                         justifyContent: "flex-end",
@@ -33,11 +33,11 @@ export function OurFoundationSection() {
                     <div style={{ maxWidth: "500px", color: TEXT }}>
                         <h2
                             style={{
-                                fontSize: "2.8rem",
+                                fontSize: "2.4rem",
                                 fontWeight: 500,
                                 lineHeight: 1.22,
                                 letterSpacing: "-0.3px",
-                                marginBottom: "1.4rem",
+                                marginBottom: "1rem",
                                 color: TEXT, // ✅
                             }}
                         >
@@ -48,7 +48,7 @@ export function OurFoundationSection() {
                             style={{
                                 fontSize: "1.22rem",
                                 lineHeight: 1.65,
-                                marginBottom: "1.8rem",
+                                marginBottom: "1rem",
                                 color: TEXT, // ✅
                                 fontWeight: 400,
                             }}
@@ -60,7 +60,7 @@ export function OurFoundationSection() {
                             style={{
                                 fontSize: "1.22rem",
                                 lineHeight: 1.65,
-                                marginBottom: "1.8rem",
+                                marginBottom: "1rem",
                                 color: TEXT, // ✅
                                 fontWeight: 400,
                             }}
@@ -70,7 +70,7 @@ export function OurFoundationSection() {
 
                         <p
                             style={{
-                                marginTop: "2rem",
+                                marginTop: "1rem",
                                 fontSize: "1.22rem",
                                 lineHeight: 1.6,
                                 color: TEXT, // ✅
@@ -82,7 +82,7 @@ export function OurFoundationSection() {
 
                         <p
                             style={{
-                                marginTop: "2rem",
+                                marginTop: "1rem",
                                 fontSize: "1.22rem",
                                 lineHeight: 1.6,
                                 color: TEXT, // ✅
@@ -97,7 +97,7 @@ export function OurFoundationSection() {
                 {/* ================= RIGHT — OUR MISSION ================= */}
                 <div
                     style={{
-                        background: "#fff9ef",
+                        background: "#fff",
                         padding: "3rem",
                         display: "flex",
                         justifyContent: "flex-start",
@@ -107,7 +107,7 @@ export function OurFoundationSection() {
                     <div style={{ maxWidth: "500px", color: TEXT }}>
                         <h2
                             style={{
-                                fontSize: "2.8rem",
+                                fontSize: "2.4rem",
                                 fontWeight: 500,
                                 lineHeight: 1.22,
                                 letterSpacing: "-0.3px",
@@ -127,9 +127,25 @@ export function OurFoundationSection() {
                             }}
                         >
                             We help older adults live with dignity, connection and everyday companionship.
-                            <br /><br />
+                        </p>
+                        <p
+                            style={{
+                                fontSize: "1.22rem",
+                                lineHeight: 1.65,
+                                marginBottom: "1.6rem",
+                                color: TEXT, // ✅
+                            }}
+                        >
                             Across the UK, too many people experience loneliness, while families struggle to find support they can truly trust.
-                            <br />
+                        </p>
+                        <p
+                            style={{
+                                fontSize: "1.22rem",
+                                lineHeight: 1.65,
+                                marginBottom: "1.6rem",
+                                color: TEXT, // ✅
+                            }}
+                        >
                             ICare exists to make finding companionship calmer, clearer and more human - while valuing the caregivers who bring warmth and presence into people’s lives.
                         </p>
 
@@ -171,7 +187,7 @@ export function OurFoundationSection() {
                             fontWeight: 500,
                             lineHeight: 1.22,
                             letterSpacing: "-0.3px",
-                            marginBottom: "1.2rem",
+                            marginBottom: "1rem",
                             color: TEXT,
                         }}
                     >
@@ -182,12 +198,12 @@ export function OurFoundationSection() {
                         style={{
                             fontSize: "1.22rem",
                             lineHeight: 1.65,
-                            marginBottom: "1.4rem",
+                            marginBottom: "1rem",
                             color: TEXT,
                         }}
                     >
                         ICare is a UK-based platform designed to connect families with trusted companions for older adults.
-                        We’re starting with <strong>companionship</strong>, because meaningful human connection is where care truly begins.
+                        We’re starting with <strong style={{ fontWeight: 600 }}>companionship</strong>, because meaningful human connection is where care truly begins.
                     </p>
 
                     <p

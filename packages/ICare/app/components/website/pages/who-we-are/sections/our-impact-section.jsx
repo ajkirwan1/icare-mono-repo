@@ -107,7 +107,7 @@ export function OurImpactSection() {
                 <header style={header}>
                     <h2 style={h2}>Our approach is built on a few simple principles</h2>
                     <p style={lead}>
-                        Care is personal and changes over time.
+                        <strong style={{ fontWeight: 600, fontSize: "1.4rem", color: "rgb(119, 141, 67)" }}>Care is personal and changes over time.</strong>
                         <br />
                         ICare helps families and caregivers connect with clarity and calm while keeping decisions where they belong: with people.
                     </p>

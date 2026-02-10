@@ -23,7 +23,7 @@ export default function CareThatFitsRealLifeSection() {
 
                     <p className={styles.subtitle}>Across the UK and Europe, populations are ageing and more people are living longer with changing support needs. At the same time, families often balance care alongside work, distance and everyday responsibilities.</p>
 
-                    <p className={styles.subtitle}>This has increased the need for care that works around real life — not only long-term or intensive support, but also companionship and everyday help that fits daily routines.</p>
+                    <p className={styles.subtitle}>This has increased the need for care that works around real life - not only long-term or intensive support, but also companionship and everyday help that fits daily routines.</p>
 
                     <p className={styles.subtitle}>ICare brings families and independent caregivers together in one place, supporting direct communication, clear expectations and transparent costs</p>
 

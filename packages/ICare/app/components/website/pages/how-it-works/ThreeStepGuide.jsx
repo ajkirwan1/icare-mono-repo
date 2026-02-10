@@ -23,9 +23,9 @@ export default function ThreeStepGuide() {
                 </h2>
 
                 <p className={styles.lead}>
-                    A calmer, guided process.
+                    <b style={{ color: "rgb(119, 141, 67)" }}>A calmer, guided process</b>.
                     <br />
-                    Arrange care directly - with clarity and built-in safety.
+                    Arrange care directly with clarity and built-in safety.
                 </p>
 
                 <div className={styles.spacer30} />
@@ -40,9 +40,6 @@ export default function ThreeStepGuide() {
 
                     {/* RIGHT COLUMN */}
                     <div>
-                        <h3 className={styles.subheading}>
-                            A simple, guided process
-                        </h3>
 
                         <ul className={styles.list}>
                             {bullets.map((text, i) => (

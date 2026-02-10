@@ -21,7 +21,7 @@ export default function ICareFooter() {
         email: "customershelp@icare.com",
         socials: {
             linkedin: "https://www.linkedin.com/company/icare",
-            facebook: "https://www.facebook.com/icare"
+            facebook: "https://www.facebook.com/profile.php?id=61587936540417"
         }
     };
 
