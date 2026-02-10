@@ -16,7 +16,6 @@ export default function ICareForCareReceivers() {
             <CareThatFitsRealLifeSection />
             <MobileMockupSection />
             <ReceiversCompareICareVsAgency />
-            <ProtectionSection />
             <ICareEarlyAccessCarereceiversSection />
             {/* <ReceiversFAQ /> */}
             <ICareFooter />

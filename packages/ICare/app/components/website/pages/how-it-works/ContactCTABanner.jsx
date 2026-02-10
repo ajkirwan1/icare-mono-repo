@@ -1,87 +1,27 @@
 import React from "react";
+import styles from "./contact-cta-banner.module.scss";
 
 export default function ContactCTABanner() {
-    const BRAND = "#1FAB1F";
-
     return (
         <section
             id="contact"
             aria-label="Contact CTA"
-            style={{
-                marginLeft: "calc(50% - 50vw)",
-                marginRight: "calc(50% - 50vw)",
-                width: "100vw",
-
-                background: "#fff", // ✅ changed to #ffff (white)
-                borderTop: "1px solid rgba(0,0,0,0.04)",
-                padding: "clamp(2.8rem,4.4vw,3.8rem) 0" // ✅ smaller section
-            }}
+            className={styles.section}
         >
-            <div
-                style={{
-                    maxWidth: 1100,
-                    margin: "0 auto",
-
-                    display: "grid",
-                    gridTemplateColumns: "1fr auto",
-                    gap: "2.2rem", // ✅ smaller gap
-                    alignItems: "center",
-                }}
-            >
+            <div className={styles.container}>
                 {/* TEXT */}
                 <div>
-                    <h3
-                        style={{
-                            margin: 0,
-                            color: "#0F172A",
-                            fontWeight: 500,
-                            fontSize: "2.4rem", // ✅ smaller title
-                            lineHeight: 1.12,
-                            letterSpacing: "-0.35px",
-                        }}
-                    >
+                    <h3 className={styles.heading}>
                         Questions about ICare?
                     </h3>
 
-                    <p
-                        style={{
-                            margin: "0.75rem 0 0", // ✅ tighter spacing
-                            color: "#1f2a37",
-                            fontSize: "1.25rem", // ✅ smaller text
-                            lineHeight: 1.7,
-                            fontWeight: 400,
-                            maxWidth: "60ch",
-                        }}
-                    >
+                    <p className={styles.text}>
                         We can walk you through matching, agreements and getting started - step by step and with no pressure.
                     </p>
                 </div>
 
                 {/* CTA BUTTON */}
-                <a
-                    href="/contact-us"
-                    style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 12,
-                        textDecoration: "none",
-
-                        padding: "0.9rem 2rem", // ✅ smaller button
-                        borderRadius: 999,
-
-                        fontWeight: 800,
-                        letterSpacing: ".02em",
-                        fontSize: "1rem", // ✅ slightly smaller text
-
-                        background: "#778d43",
-
-                        color: "#FFFFFF",
-
-                        transition: "all .22s ease",
-                        whiteSpace: "nowrap",
-                    }}
-
-                >
+                <a href="/contact-us" className={styles.cta}>
                     Contact us
 
                     <svg
@@ -94,7 +34,7 @@ export default function ContactCTABanner() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         aria-hidden="true"
-                        style={{ opacity: 0.9 }}
+                        className={styles.icon}
                     >
                         <path d="M5 12h14" />
                         <path d="M13 5l6 7-6 7" />
@@ -102,7 +42,5 @@ export default function ContactCTABanner() {
                 </a>
             </div>
         </section>
-
-
     );
 }

@@ -32,6 +32,7 @@ export default function MobileMockupSection() {
                     {
                         type: "video",
                         src: "images/web/icare-for-carereceivers/senior1.mp4",
+                        poster: "images/web/icare-for-carereceivers/senior-placeholder.webp"
                     },
                 ]}
             >
