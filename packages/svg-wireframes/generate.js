@@ -666,6 +666,36 @@ function renderSingleChild(child, R, width, index) {
       return { svg: s, height: H };
     }
 
+    case 'verification-badge-row': {
+      const vbrBadges = Array.isArray(child.props && child.props.badges) ? child.props.badges : ['DBS Verified', 'ID Verified'];
+      const vbrH = 32;
+      let s = '', bx = 0;
+      vbrBadges.forEach(function (badge) {
+        const label = typeof badge === 'string' ? badge : (badge.label || 'Badge');
+        const bw = label.length * 7 + 24;
+        s += `<rect x="${bx}" y="2" width="${bw}" height="26" rx="13" fill="#dcfce7"/>`;
+        s += `<text x="${bx + 12}" y="20" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#166534">${esc(label)}</text>`;
+        bx += bw + 8;
+      });
+      return { svg: s, height: vbrH };
+    }
+
+    case 'user-avatar': {
+      const avatarSize = parseInt((child.props && child.props.size) || '56', 10) || 56;
+      const r = Math.min(avatarSize, 80) / 2;
+      const name = (child.props && child.props.name) || '';
+      const initials = name.split(' ').map(function (w) { return w.charAt(0); }).join('').substring(0, 2).toUpperCase() || '?';
+      let s = '';
+      s += `<circle cx="${r}" cy="${r}" r="${r}" fill="${brand}" opacity="0.2"/>`;
+      s += `<text x="${r}" y="${r + 6}" font-family="Inter,sans-serif" font-size="${Math.round(r * 0.7)}" font-weight="600" fill="${brand}" text-anchor="middle">${esc(initials)}</text>`;
+      return { svg: s, height: r * 2 };
+    }
+
+    case 'frame': {
+      // Frame is a layout container — if children somehow not caught upstream, render empty
+      return { svg: '', height: 0 };
+    }
+
     case 'profile-visibility-toggle': {
       const H = 36;
       let s = '';
@@ -1471,10 +1501,19 @@ function renderProfileHeaderSection(section, R, W) {
 function renderHorizontalSection(section, R, W) {
   var padH = isMobile() ? 16 : n(R, section.padding && section.padding.horizontal, 24);
   var padV = n(R, section.padding && section.padding.vertical, 16);
+  var cw = W - padH * 2;
   var s = '', y = padV;
   if (section.children) {
     for (var i = 0; i < section.children.length; i++) {
-      var result = renderSingleChild(section.children[i], R, W - padH * 2, 0);
+      var child = section.children[i];
+      var result;
+      if (child.component === 'widget-container') {
+        result = renderWidgetContainer(child, R, cw, 0);
+      } else if (Array.isArray(child.children) && child.children.length > 0) {
+        result = renderChildContainer(child, R, cw);
+      } else {
+        result = renderSingleChild(child, R, cw, 0);
+      }
       s += `<g transform="translate(${padH}, ${y})">${result.svg}</g>`;
       y += result.height + 8;
     }
