@@ -287,7 +287,7 @@ Safeguarding means protecting adults who are at risk of abuse or neglect. The **
 
 **Always Available**:
 - In-app "Report Concern" button on every caregiver profile and booking
-- Email: safeguarding@icare.co.uk (monitored 24/7)
+- Email: safeguarding@icare-app.co.uk (monitored 24/7)
 - Phone: [SAFEGUARDING HOTLINE] (24-hour response)
 
 **How It Works**:
@@ -407,7 +407,7 @@ Every local authority in England has a Safeguarding Adults Board responsible for
 - Safeguarding section in settings
 
 **By Email**:
-safeguarding@icare.co.uk
+safeguarding@icare-app.co.uk
 
 Include:
 - Your name and contact information
@@ -675,7 +675,7 @@ Verification is important, but it's one piece of a larger safeguarding system.
 
 **Safeguarding Emergency**: Call 999 if immediate danger, then report to iCare safeguarding team
 
-**Non-Emergency Concern**: Report via in-app button or email safeguarding@icare.co.uk
+**Non-Emergency Concern**: Report via in-app button or email safeguarding@icare-app.co.uk
 
 ---
 
@@ -695,7 +695,7 @@ This is different from a care agency where the agency employs caregivers and is 
 
 **In-App**: "Report Concern" button on profiles and bookings
 
-**Email**: safeguarding@icare.co.uk (24/7 monitoring)
+**Email**: safeguarding@icare-app.co.uk (24/7 monitoring)
 
 **Phone**: [SAFEGUARDING HOTLINE] (24-hour response)
 
@@ -728,7 +728,7 @@ Depending on severity:
 - Confidential submission
 
 ### Email
-safeguarding@icare.co.uk
+safeguarding@icare-app.co.uk
 Monitored 24/7
 
 ### Phone

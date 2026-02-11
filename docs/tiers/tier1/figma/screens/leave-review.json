@@ -1,0 +1,240 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-015",
+    "screenName": "Leave Review",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/review/scr-cr-015-leave-review.md",
+    "generatedDate": "2026-02-11",
+    "role": "care-receiver",
+    "route": "/bookings/:bookingId/review",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["empty-form", "rating-selected", "review-entered", "validation-error", "submitting", "success", "already-reviewed", "not-eligible"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "caregiver": {
+      "name": "Mary Thompson",
+      "firstName": "Mary",
+      "photo": "/uploads/photos/mary-thompson.jpg",
+      "rating": 4.8,
+      "reviewCount": 24,
+      "verificationBadges": [
+        { "type": "identity", "label": "Identity Verified", "icon": "✓" },
+        { "type": "dbs", "label": "DBS Verified", "icon": "✓" }
+      ]
+    },
+    "booking": {
+      "id": "bk-2026-0142",
+      "date": "Wednesday, March 6, 2026",
+      "time": "10:00 AM - 2:00 PM",
+      "duration": "4 hours",
+      "service": "Companionship"
+    },
+    "selectedRating": 0,
+    "reviewText": "",
+    "charCount": "0 / 500"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "0",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/" },
+          { "label": "My Bookings", "url": "/bookings" },
+          { "label": "Booking Details", "url": "/bookings/${booking.id}" },
+          { "label": "Leave Review", "url": "", "active": true }
+        ]
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    },
+    {
+      "id": "section-form",
+      "name": "Review Form",
+      "order": 3,
+      "layout": "vertical",
+      "gap": "{spacing.6}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.6}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "Leave a Review",
+          "tokens": { "fontSize": "{fontSizes.2xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Share your experience with ${caregiver.firstName}",
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "marginBottom": "{spacing.4}" }
+        },
+        {
+          "component": "booking-summary-card",
+          "props": {
+            "caregiverName": "${caregiver.name}",
+            "caregiverPhoto": "${caregiver.photo}",
+            "verificationBadges": "${caregiver.verificationBadges}",
+            "rating": "${caregiver.rating}",
+            "reviewCount": "${caregiver.reviewCount}",
+            "date": "${booking.date}",
+            "time": "${booking.time}",
+            "duration": "${booking.duration}",
+            "service": "${booking.service}"
+          }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "How would you rate your experience? *",
+          "tokens": { "fontSize": "{fontSizes.lg}", "fontWeight": "{fontWeights.semibold}", "fill": "{colors.text.primary}", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text", "content": "Click a star to rate (1 = Poor, 5 = Excellent)",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}" }
+        },
+        {
+          "component": "star-rating-input",
+          "props": {
+            "totalStars": 5,
+            "selectedStars": 0,
+            "starSize": 48,
+            "labels": ["Poor", "Fair", "Good", "Very Good", "Excellent"],
+            "filledColor": "#F59E0B",
+            "emptyColor": "#D1D5DB"
+          }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "Tell us more about your experience (optional)",
+          "tokens": { "fontSize": "{fontSizes.lg}", "fontWeight": "{fontWeights.semibold}", "fill": "{colors.text.primary}", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text", "content": "Share what you liked or areas for improvement. Your review will be visible to other families.",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}" }
+        },
+        {
+          "component": "textarea",
+          "props": {
+            "placeholder": "e.g., Mary was punctual, kind, and made my father feel very comfortable...",
+            "maxLength": 500,
+            "charCount": "0 / 500",
+            "rows": 4
+          }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "ℹ️",
+            "heading": "Review guidelines",
+            "message": "• Be honest and constructive\n• Focus on the service provided\n• Avoid sharing personal contact information\n• Reviews cannot be edited or deleted once submitted"
+          }
+        },
+        {
+          "component": "button", "variant": "secondary",
+          "props": { "label": "Cancel", "action": "navigateBack" },
+          "tokens": { "width": "120px", "height": "48px", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Submit Review", "action": "submitReview" },
+          "tokens": { "width": "200px", "height": "48px" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 4,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "empty-form": {
+      "description": "Default state - no rating selected, textarea empty"
+    },
+    "rating-selected": {
+      "description": "User has selected 4 stars",
+      "changes": {
+        "sampleData.selectedRating": 4,
+        "section-form.children[5].props.selectedStars": 4
+      }
+    },
+    "review-entered": {
+      "description": "User has selected 5 stars and entered text review",
+      "changes": {
+        "sampleData.selectedRating": 5,
+        "section-form.children[5].props.selectedStars": 5,
+        "sampleData.reviewText": "Mary was punctual, kind, and made my father feel very comfortable. She helped with light housework and we had a lovely afternoon. I would highly recommend her to other families.",
+        "sampleData.charCount": "167 / 500"
+      }
+    },
+    "validation-error": {
+      "description": "User tried to submit without selecting a star rating",
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "⚠️", "message": "Please select a star rating" } }
+      ]
+    },
+    "submitting": {
+      "description": "Review submission in progress",
+      "changes": {
+        "section-form.children[11].props.label": "Submitting...",
+        "section-form.children[11].props.disabled": true
+      }
+    },
+    "success": {
+      "description": "Review submitted successfully",
+      "fullReplace": true,
+      "elements": [
+        { "component": "alert-banner", "variant": "success", "props": { "icon": "✅", "heading": "Review Submitted!", "message": "Thank you for sharing your feedback! Your review has been published and will help other families find great care." } },
+        { "component": "text", "content": "Your review: ★★★★★ 5 stars", "tokens": { "fontSize": "{fontSizes.base}", "fontWeight": "{fontWeights.semibold}" } },
+        { "component": "button", "variant": "primary", "props": { "label": "Back to Dashboard", "action": "navigateToDashboard" } },
+        { "component": "button", "variant": "secondary", "props": { "label": "Book Mary Again", "action": "rebookCaregiver" } }
+      ]
+    },
+    "already-reviewed": {
+      "description": "User already submitted a review for this booking",
+      "fullReplace": true,
+      "elements": [
+        { "component": "alert-banner", "variant": "info", "props": { "icon": "ℹ️", "heading": "Review already submitted", "message": "You have already submitted a review for this booking. Reviews cannot be edited or deleted once submitted." } },
+        { "component": "button", "variant": "secondary", "props": { "label": "View Your Review" } },
+        { "component": "button", "variant": "primary", "props": { "label": "Back to Dashboard" } }
+      ]
+    },
+    "not-eligible": {
+      "description": "Booking not eligible for review (not completed)",
+      "fullReplace": true,
+      "elements": [
+        { "component": "alert-banner", "variant": "warning", "props": { "icon": "⚠️", "heading": "Cannot review this booking", "message": "This booking is not eligible for review. You can only review completed bookings." } },
+        { "component": "button", "variant": "secondary", "props": { "label": "Back to Booking Details" } }
+      ]
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "Single column centered, max-width 800px. 48x48px stars. Horizontal buttons (Cancel left, Submit right)." },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "Single column, full width. 48x48px stars. Condensed booking summary." },
+    "mobile": { "breakpoint": "320px-767px", "layout": "Full-width stacked. 56x56px stars (larger for tapping). Stacked buttons (full width). Star labels condensed (Poor/Good/Excellent only)." }
+  },
+  "accessibilityNotes": {
+    "pageLoad": "Leave a Review for Mary Thompson. Booking from Wednesday, March 6 at 10:00 AM.",
+    "starSelected": "4 out of 5 stars selected",
+    "charCounter": "167 of 500 characters",
+    "validationError": "Please select a star rating",
+    "submitSuccess": "Review submitted successfully. Thank you for your feedback."
+  }
+}

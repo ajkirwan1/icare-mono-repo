@@ -12,8 +12,8 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "Our Commitment to Safety - iCare" },
     { property: "og:description", content: "Safety is the foundation of everything we build. Learn about our principles and commitments to families and caregivers." },
-    { property: "og:url", content: "https://icare.co.uk/safety" },
-    { property: "og:image", content: "https://icare.co.uk/images/og-safety.jpg" },
+    { property: "og:url", content: "https://icare-app.co.uk/safety" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og-safety.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Shield with checkmark: Our commitment to safety" },
@@ -21,14 +21,14 @@ export const meta = () => {
     // Twitter Card
     { name: "twitter:title", content: "Our Commitment to Safety - iCare" },
     { name: "twitter:description", content: "Trust is everything. Learn about the 5 safety principles that guide everything we build." },
-    { name: "twitter:image", content: "https://icare.co.uk/images/twitter-safety.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-safety.jpg" },
     { name: "twitter:image:alt", content: "Safety principles: Identity, Choice, Transparency, Support, Improvement" }
   ];
 };
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/safety" }
+    { rel: "canonical", href: "https://icare-app.co.uk/safety" }
   ];
 };
 
@@ -37,7 +37,7 @@ const jsonLd = {
   "@type": "WebPage",
   "name": "Our Commitment to Safety",
   "description": "iCare's safety principles and commitments for families and caregivers.",
-  "url": "https://icare.co.uk/safety",
+  "url": "https://icare-app.co.uk/safety",
   "mainEntity": {
     "@type": "ItemList",
     "name": "Safety Principles",

@@ -1,0 +1,164 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-008",
+    "screenName": "Identity Verification",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/caregiver/scr-cg-008-identity-verification.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/caregiver/verify/identity",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["upload", "uploading", "pending-review", "approved", "rejected", "upload-error"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "verificationStatus": "not-submitted",
+    "documentType": "",
+    "fileName": "",
+    "fileSize": "",
+    "rejectionReason": "Photo is blurry. Please upload a clearer image.",
+    "verifiedDate": "12 Feb 2026",
+    "documentTypeName": "UK Passport"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Minimal Navigation Header",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "\u2190 Back to Onboarding" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Identity Verification Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "Identity Verification",
+          "tokens": { "fontSize": "{fontSizes.2xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Upload a government-issued ID to verify your identity",
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "status-badge",
+          "props": { "label": "Not Submitted", "variant": "neutral" }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "\u2139\ufe0f",
+            "message": "Upload a clear photo of your passport photo page or driving licence (front). Ensure all text is readable and the photo is not blurry. Accepted: JPG, PNG, PDF \u2014 Max 5MB"
+          }
+        },
+        {
+          "component": "dropdown",
+          "props": {
+            "label": "Document type",
+            "placeholder": "Select document type",
+            "options": ["UK Passport", "Driving Licence"],
+            "required": true
+          }
+        },
+        {
+          "component": "file-upload",
+          "props": {
+            "label": "Upload Document",
+            "acceptedFormats": "JPG, PNG, PDF",
+            "maxSize": "5MB",
+            "dragDropText": "Drag and drop your file here, or click to browse",
+            "mobileText": "Tap to upload file"
+          }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Submit for Review", "action": "submitIdentityVerification" },
+          "tokens": { "width": "100%", "height": "48px", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text-link",
+          "props": { "label": "\u2190 Back to Onboarding", "href": "/caregiver/onboarding" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "upload": {
+      "description": "Default state - form ready for document upload"
+    },
+    "uploading": {
+      "description": "File upload in progress with progress bar",
+      "additionalElements": [
+        { "component": "text", "content": "passport-photo.jpg \u2014 2.3 MB \u2014 Uploading... 80%" }
+      ]
+    },
+    "pending-review": {
+      "description": "Document submitted, awaiting admin review",
+      "changes": {
+        "section-form.children[2].props.label": "Pending Review",
+        "section-form.children[2].props.variant": "warning"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "info", "props": { "message": "Your ID has been submitted and is awaiting admin review. This typically takes 24-48 hours." } }
+      ]
+    },
+    "approved": {
+      "description": "Identity verified by admin",
+      "changes": {
+        "section-form.children[2].props.label": "Identity Verified",
+        "section-form.children[2].props.variant": "success"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "success", "props": { "icon": "\u2705", "heading": "Your identity has been verified.", "message": "Document: UK Passport. Verified on: 12 Feb 2026" } }
+      ]
+    },
+    "rejected": {
+      "description": "Verification rejected with reason and resubmit option",
+      "changes": {
+        "section-form.children[2].props.label": "Rejected",
+        "section-form.children[2].props.variant": "error"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "\u274c", "heading": "Your ID verification was rejected.", "message": "Reason: Photo is blurry. Please upload a clearer image." } },
+        { "component": "button", "variant": "primary", "props": { "label": "Resubmit", "action": "resubmitIdentity" } }
+      ]
+    },
+    "upload-error": {
+      "description": "File upload failed (too large, wrong format)",
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "\u274c", "message": "File too large. Maximum size is 5MB. Please choose a smaller file." } }
+      ]
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 600px, drag-and-drop supported" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 600px" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width with 16px padding. Upload area shows Tap to upload (no drag-drop)" }
+  },
+  "accessibilityNotes": {
+    "pageLoad": "Identity Verification page. Status: Not Submitted. Upload government-issued ID.",
+    "fileSelected": "File selected: passport-photo.jpg, 2.3 megabytes.",
+    "uploadComplete": "File uploaded successfully.",
+    "submitted": "ID submitted for review. Admin review takes 24-48 hours.",
+    "approved": "Identity verified successfully.",
+    "rejected": "Identity verification rejected. Reason: Photo is blurry."
+  }
+}

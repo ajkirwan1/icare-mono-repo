@@ -14,8 +14,8 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "Frequently Asked Questions - iCare" },
     { property: "og:description", content: "Get answers about iCare's companionship platform, services, safety, and how to join the waitlist." },
-    { property: "og:url", content: "https://icare.co.uk/faq" },
-    { property: "og:image", content: "https://icare.co.uk/images/og-faq.jpg" },
+    { property: "og:url", content: "https://icare-app.co.uk/faq" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og-faq.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "FAQ: Your questions about iCare answered" },
@@ -23,14 +23,14 @@ export const meta = () => {
     // Twitter Card
     { name: "twitter:title", content: "FAQ - Your Questions About iCare Answered" },
     { name: "twitter:description", content: "Find answers about companionship care, safety, pricing, and more. Your questions answered." },
-    { name: "twitter:image", content: "https://icare.co.uk/images/twitter-faq.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-faq.jpg" },
     { name: "twitter:image:alt", content: "Frequently asked questions about iCare" }
   ];
 };
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/faq" }
+    { rel: "canonical", href: "https://icare-app.co.uk/faq" }
   ];
 };
 

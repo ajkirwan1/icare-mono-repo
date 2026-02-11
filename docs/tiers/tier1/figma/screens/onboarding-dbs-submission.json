@@ -1,0 +1,194 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-010",
+    "screenName": "DBS Check Submission",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/caregiver/scr-cg-010-dbs-submission.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/caregiver/verify/dbs",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["upload", "uploading", "pending-review", "approved", "rejected", "skipped", "upload-error", "certificate-old-warning"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "verificationStatus": "not-submitted",
+    "certificateNumber": "",
+    "issueDate": "",
+    "certificateLevel": "Enhanced",
+    "rejectionReason": "Certificate expired (issued >3 years ago). Please obtain a new DBS.",
+    "verifiedDate": "12 Feb 2026"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Minimal Navigation Header",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "\u2190 Back to Onboarding" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "DBS Submission Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "DBS Check Submission",
+          "tokens": { "fontSize": "{fontSizes.2xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.1}" }
+        },
+        {
+          "component": "status-badge",
+          "props": { "label": "OPTIONAL", "variant": "info" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Upload your DBS certificate to earn the 'DBS Verified' badge",
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "status-badge",
+          "props": { "label": "Not Submitted", "variant": "neutral" }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "\u2139\ufe0f",
+            "heading": "Why submit a DBS certificate?",
+            "message": "Stand out to families \u2014 caregivers with 'DBS Verified' badge receive more bookings. Prepare for Tier 2 \u2014 personal care services require mandatory DBS. Meet care sector standards \u2014 show your commitment to safety.\n\nDBS checks are VOLUNTARY for companionship services (Tier 1). You can activate your profile without submitting."
+          }
+        },
+        {
+          "component": "file-upload",
+          "props": {
+            "label": "Upload DBS Certificate",
+            "acceptedFormats": "JPG, PNG, PDF",
+            "maxSize": "5MB",
+            "dragDropText": "Drag and drop your DBS certificate here, or click to browse",
+            "mobileText": "Tap to upload file"
+          }
+        },
+        {
+          "component": "input-field",
+          "props": {
+            "label": "DBS Certificate Number (optional)",
+            "placeholder": "Enter certificate number",
+            "required": false,
+            "helpText": "Certificate number helps admin verify authenticity (optional)"
+          }
+        },
+        {
+          "component": "input-field",
+          "props": {
+            "label": "Issue Date",
+            "placeholder": "DD / MM / YYYY",
+            "required": true,
+            "type": "date",
+            "helpText": "Certificate issue date (recommended: within 3 years)"
+          }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Submit for Review", "action": "submitDBS" },
+          "tokens": { "width": "48%", "height": "48px", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "button", "variant": "secondary",
+          "props": { "label": "Skip for Now", "action": "skipDBS" },
+          "tokens": { "width": "48%", "height": "48px" }
+        },
+        {
+          "component": "text-link",
+          "props": { "label": "\u2190 Back to Onboarding", "href": "/caregiver/onboarding" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "upload": {
+      "description": "Default state - form ready for DBS certificate upload"
+    },
+    "uploading": {
+      "description": "Certificate upload in progress"
+    },
+    "pending-review": {
+      "description": "DBS submitted, awaiting admin review (48 hours)",
+      "changes": {
+        "section-form.children[3].props.label": "Pending Review",
+        "section-form.children[3].props.variant": "warning"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "info", "props": { "message": "Your DBS certificate has been submitted and is awaiting admin review. This typically takes 48 hours." } }
+      ]
+    },
+    "approved": {
+      "description": "DBS verified - Enhanced level badge awarded",
+      "changes": {
+        "section-form.children[3].props.label": "DBS Verified",
+        "section-form.children[3].props.variant": "success"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "success", "props": { "icon": "\u2705", "heading": "Your DBS certificate has been verified.", "message": "Certificate Level: Enhanced. Issue Date: 15 Jan 2023. Verified on: 12 Feb 2026. You now have the 'DBS Verified' badge on your profile!" } }
+      ]
+    },
+    "rejected": {
+      "description": "DBS rejected with actionable reason",
+      "changes": {
+        "section-form.children[3].props.label": "Rejected",
+        "section-form.children[3].props.variant": "error"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "\u274c", "heading": "Your DBS certificate was rejected.", "message": "Reason: Certificate expired (issued 4 years ago, >3 year best practice). Please obtain a new DBS certificate.\n\nHow to obtain a new DBS: Via umbrella body (Trustid, UKCBC, Disclosure Scotland). Cost: \u00a340-60 (self-funded at Tier 1). Processing time: 4-8 weeks (Enhanced level)." } },
+        { "component": "button", "variant": "primary", "props": { "label": "Resubmit", "action": "resubmitDBS" } },
+        { "component": "button", "variant": "secondary", "props": { "label": "Skip for Now", "action": "skipDBS" } }
+      ]
+    },
+    "skipped": {
+      "description": "DBS submission skipped - profile can still activate",
+      "changes": {
+        "section-form.children[3].props.label": "DBS Not Submitted (Skipped)",
+        "section-form.children[3].props.variant": "neutral"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "info", "props": { "icon": "\u2139\ufe0f", "heading": "You skipped DBS certificate submission.", "message": "Your profile can still be activated without DBS. You can add DBS certificate later from Settings > Verification.\n\nRemember: Caregivers with 'DBS Verified' badge receive more booking requests from families." } }
+      ]
+    },
+    "upload-error": {
+      "description": "File upload error"
+    },
+    "certificate-old-warning": {
+      "description": "Non-blocking warning when certificate is >3 years old",
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "warning", "props": { "icon": "\u26a0\ufe0f", "message": "Warning: Certificate issued 4 years ago. DBS best practice recommends renewal every 3 years. You can still submit, but admin may request newer DBS." } }
+      ]
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 600px, drag-and-drop, buttons side-by-side" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 600px, buttons side-by-side" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width 16px padding, Tap to upload, Skip for Now stacked below Submit" }
+  },
+  "accessibilityNotes": {
+    "pageLoad": "DBS Check Submission page. Optional. Status: Not Submitted. Upload DBS certificate to earn DBS Verified badge.",
+    "optionalBadge": "DBS verification is optional for companionship services.",
+    "submitted": "DBS certificate submitted for review. Admin review takes 48 hours.",
+    "approved": "DBS certificate verified successfully. You now have the DBS Verified badge.",
+    "rejected": "DBS certificate verification rejected. Reason: [rejection reason].",
+    "skipped": "DBS certificate submission skipped. You can add DBS later from Settings."
+  }
+}

@@ -15,8 +15,8 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "How It Works - Find Trusted Companionship Care" },
     { property: "og:description", content: "Browse profiles, message directly, and agree terms. A simpler, fairer alternative to traditional care agencies." },
-    { property: "og:url", content: "https://icare.co.uk/how-it-works" },
-    { property: "og:image", content: "https://icare.co.uk/images/og/how-it-works.jpg" },
+    { property: "og:url", content: "https://icare-app.co.uk/how-it-works" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og/how-it-works.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "How iCare works: 3 simple steps to find trusted companionship care" },
@@ -24,14 +24,14 @@ export const meta = () => {
     // Twitter Card
     { name: "twitter:title", content: "How It Works - Find Trusted Companionship Care" },
     { name: "twitter:description", content: "Find trusted companions for elderly relatives in 3 simple steps. A fairer alternative to traditional care agencies." },
-    { name: "twitter:image", content: "https://icare.co.uk/images/og/how-it-works.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/og/how-it-works.jpg" },
     { name: "twitter:image:alt", content: "How iCare works: 3 simple steps to find trusted companionship care" }
   ];
 };
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/how-it-works" }
+    { rel: "canonical", href: "https://icare-app.co.uk/how-it-works" }
   ];
 };
 
@@ -40,7 +40,7 @@ const jsonLd = {
   "@type": "HowTo",
   "name": "How to Find Companionship Care Through iCare",
   "description": "Step-by-step guide to finding trusted companionship care for elderly relatives through the iCare platform.",
-  "url": "https://icare.co.uk/how-it-works",
+  "url": "https://icare-app.co.uk/how-it-works",
   "step": [
     {
       "@type": "HowToStep",

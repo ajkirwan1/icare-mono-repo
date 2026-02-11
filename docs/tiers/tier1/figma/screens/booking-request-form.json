@@ -4,7 +4,7 @@
     "screenName": "Booking Request Form",
     "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cr-006-booking-request-form.md",
     "generatedDate": "2026-02-10",
-    "role": "care_receiver",
+    "role": "care-receiver",
     "route": "/bookings/new/:caregiverId",
     "breakpoints": {
       "desktop": 1440,

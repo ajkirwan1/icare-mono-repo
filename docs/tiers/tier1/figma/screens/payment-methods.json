@@ -1,0 +1,445 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-013",
+    "screenName": "Payment Methods",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/payment/scr-cr-013-payment-methods.md",
+    "generatedDate": "2026-02-11",
+    "role": "care-receiver",
+    "route": "/settings/payment",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "cards-loaded",
+      "adding-card",
+      "empty-state",
+      "processing",
+      "success",
+      "error",
+      "remove-confirmation"
+    ],
+    "description": "Payment methods management screen. Allows care receivers and family members to view, add, set default, and remove payment cards via Stripe Elements."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "cards": [
+      {
+        "id": "pm_visa_4242",
+        "brand": "Visa",
+        "last4": "4242",
+        "expiry": "03/27",
+        "isDefault": true,
+        "isExpired": false
+      },
+      {
+        "id": "pm_mc_8765",
+        "brand": "Mastercard",
+        "last4": "8765",
+        "expiry": "01/26",
+        "isDefault": false,
+        "isExpired": true
+      }
+    ],
+    "user": {
+      "name": "Jane"
+    }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Jane",
+        "notificationCount": "1",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/" },
+          { "label": "Settings", "url": "/settings" },
+          { "label": "Payment Methods", "url": "/settings/payment", "active": true }
+        ]
+      },
+      "accessibility": {
+        "ariaLabel": "Breadcrumb navigation"
+      }
+    },
+    {
+      "id": "section-page-title",
+      "name": "Page Header",
+      "order": 3,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Payment Methods",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}",
+            "lineHeight": "{lineHeights.heading}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Manage your payment cards for booking payments",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-expired-warning",
+      "name": "Expired Card Warning",
+      "order": 4,
+      "component": "alert-banner",
+      "variant": "warning",
+      "visible": true,
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.3}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "props": {
+        "heading": "Card expired",
+        "message": "Your card ending in 8765 has expired. Please update or remove this card and add a new one."
+      },
+      "accessibility": {
+        "role": "alert",
+        "ariaLive": "polite"
+      }
+    },
+    {
+      "id": "section-saved-cards",
+      "name": "Saved Cards List",
+      "order": 5,
+      "layout": "vertical",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "text",
+          "variant": "h2",
+          "content": "Saved Cards",
+          "tokens": {
+            "fontSize": "{fontSizes.xl}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "saved-card-item",
+          "props": {
+            "brand": "Visa",
+            "last4": "4242",
+            "expiry": "03/27",
+            "isDefault": true,
+            "isExpired": false
+          }
+        },
+        {
+          "component": "saved-card-item",
+          "props": {
+            "brand": "Mastercard",
+            "last4": "8765",
+            "expiry": "01/26",
+            "isDefault": false,
+            "isExpired": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-add-card",
+      "name": "Add Payment Method Section",
+      "order": 6,
+      "layout": "vertical",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "button",
+          "variant": "primary",
+          "props": {
+            "label": "+ Add Payment Method"
+          },
+          "tokens": {
+            "width": "100%",
+            "maxWidth": "280px"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-add-card-form",
+      "name": "Stripe Card Input Form (Expanded State)",
+      "order": 7,
+      "layout": "vertical",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "tokens": {
+        "fill": "{colors.background.card-glass}",
+        "borderRadius": "{borderRadius.lg}",
+        "boxShadow": "{boxShadow.card-soft}",
+        "padding": "{spacing.6}"
+      },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h3",
+          "content": "Add New Card",
+          "tokens": {
+            "fontSize": "{fontSizes.lg}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "stripe-secure-input",
+          "props": {
+            "fields": ["cardNumber", "expiry", "cvc", "cardholderName", "postcode"]
+          }
+        },
+        {
+          "component": "trust-badge-row",
+          "props": {
+            "badges": [
+              { "icon": "\uD83D\uDD12", "label": "256-bit Encrypted" },
+              { "icon": "\u2713", "label": "Powered by Stripe" }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "content": "Your card details are securely processed by Stripe. We never store your full card number.",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        },
+        {
+          "id": "form-actions",
+          "layout": "horizontal",
+          "gap": "{spacing.3}",
+          "children": [
+            {
+              "component": "button",
+              "variant": "primary",
+              "props": {
+                "label": "Save Card"
+              }
+            },
+            {
+              "component": "button",
+              "variant": "secondary",
+              "props": {
+                "label": "Cancel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 8,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved."
+      }
+    }
+  ],
+  "stateVariations": {
+    "cards-loaded": {
+      "description": "Default state with saved cards displayed",
+      "sections": {
+        "section-add-card-form": { "visible": false }
+      }
+    },
+    "adding-card": {
+      "description": "Stripe Elements form is open for new card entry",
+      "sections": {
+        "section-add-card": { "visible": false },
+        "section-add-card-form": { "visible": true }
+      }
+    },
+    "empty-state": {
+      "description": "No saved cards, empty state shown",
+      "sections": {
+        "section-saved-cards": {
+          "children": [
+            {
+              "component": "empty-state",
+              "props": {
+                "heading": "No payment methods",
+                "message": "Add a payment card to make bookings with caregivers.",
+                "hasAction": true,
+                "ctaLabel": "+ Add Payment Method"
+              }
+            }
+          ]
+        },
+        "section-expired-warning": { "visible": false }
+      }
+    },
+    "processing": {
+      "description": "Card being saved via Stripe",
+      "sections": {
+        "section-add-card-form": {
+          "children": {
+            "form-actions": { "disabled": true },
+            "loading": true
+          }
+        }
+      }
+    },
+    "success": {
+      "description": "Card added successfully",
+      "alertBanner": {
+        "visible": true,
+        "variant": "success",
+        "message": "Card added successfully"
+      }
+    },
+    "error": {
+      "description": "Card save failed",
+      "alertBanner": {
+        "visible": true,
+        "variant": "error",
+        "message": "Unable to save card. Please check your details and try again."
+      }
+    },
+    "remove-confirmation": {
+      "description": "Confirmation modal for card removal",
+      "modal": {
+        "title": "Remove payment method?",
+        "message": "Are you sure you want to remove the card ending in 4242? This action cannot be undone.",
+        "confirmLabel": "Remove",
+        "confirmVariant": "destructive",
+        "cancelLabel": "Cancel"
+      }
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "layout": "Centered, max-width 700px",
+      "cardForm": "Side-by-side expiry/CVC fields"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "layout": "Centered, max-width 700px",
+      "cardForm": "Side-by-side expiry/CVC fields"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "layout": "Full-width with padding",
+      "cardForm": "Stacked expiry/CVC fields",
+      "buttonHeight": "56px"
+    }
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "saved-card-1-set-default",
+      "saved-card-1-remove",
+      "saved-card-2-set-default",
+      "saved-card-2-remove",
+      "add-payment-method-button",
+      "card-number-input",
+      "expiry-input",
+      "cvc-input",
+      "cardholder-name-input",
+      "postcode-input",
+      "save-card-button",
+      "cancel-button",
+      "footer"
+    ],
+    "screenReaderAnnouncements": {
+      "pageLoad": "Payment Methods page. You have 2 saved payment methods.",
+      "cardAdded": "Card added successfully. Visa card ending in 4242.",
+      "cardRemoved": "Card removed. Mastercard ending in 8765 has been removed.",
+      "error": "Error: Unable to save card. Please check your details."
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "alert-banner": "Component ID: alert-banner",
+    "saved-card-item": "Component ID: saved-card-item",
+    "stripe-secure-input": "Component ID: stripe-secure-input",
+    "trust-badge-row": "Component ID: trust-badge-row",
+    "button": "Component ID: button",
+    "empty-state": "Component ID: empty-state",
+    "footer-global": "Component ID: footer-global"
+  }
+}

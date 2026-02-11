@@ -31,8 +31,8 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "How It Works for Families - iCare" },
     { property: "og:description", content: "Learn how iCare makes it easy to find trusted companions for elderly relatives. Priority access available for families on the waitlist." },
-    { property: "og:url", content: "https://icare.co.uk/how-it-works/families" },
-    { property: "og:image", content: "https://icare.co.uk/images/og-how-families.jpg" },
+    { property: "og:url", content: "https://icare-app.co.uk/how-it-works/families" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og-how-families.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Family searching for care on laptop with elderly parent nearby" },
@@ -40,7 +40,7 @@ export const meta = () => {
     // Twitter Card tags
     { name: "twitter:title", content: "How It Works for Families - iCare" },
     { name: "twitter:description", content: "Find trusted companions for your elderly relative in 5 simple steps. Join the waitlist for priority access." },
-    { name: "twitter:image", content: "https://icare.co.uk/images/twitter-how-families.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-how-families.jpg" },
     { name: "twitter:image:alt", content: "Family searching for care on laptop" },
   ];
 };
@@ -53,7 +53,7 @@ export const meta = () => {
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/how-it-works/families" },
+    { rel: "canonical", href: "https://icare-app.co.uk/how-it-works/families" },
   ];
 };
 

@@ -1,0 +1,450 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-020",
+    "screenName": "Payout Setup",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/payment/scr-cg-020-payout-setup.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/caregiver/earnings/setup",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "not-connected",
+      "connected",
+      "stripe-loading",
+      "verification-failed",
+      "kyc-required"
+    ],
+    "description": "Payout setup screen for caregivers to connect their bank account via Stripe Connect and view earnings summary."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "payoutStatus": "not-connected",
+    "bankName": "Barclays",
+    "accountEnding": "5678",
+    "earnings": {
+      "total": "\u00a30.00",
+      "pending": "\u00a30.00",
+      "nextPayout": "No payouts scheduled"
+    },
+    "commissionRate": "15%",
+    "netRate": "85%"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header (Caregiver)",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "caregiver",
+      "props": {
+        "role": "caregiver",
+        "userName": "Emma",
+        "notificationCount": "0",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/caregiver" },
+          { "label": "Earnings", "url": "/caregiver/earnings" },
+          { "label": "Payout Setup", "url": "/caregiver/earnings/setup", "active": true }
+        ]
+      },
+      "accessibility": {
+        "ariaLabel": "Breadcrumb navigation"
+      }
+    },
+    {
+      "id": "section-page-title",
+      "name": "Page Header",
+      "order": 3,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Payout Setup",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}",
+            "lineHeight": "{lineHeights.heading}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Connect your bank account to receive earnings from bookings",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-warning-banner",
+      "name": "Bank Not Connected Warning",
+      "order": 4,
+      "component": "alert-banner",
+      "variant": "warning",
+      "visible": true,
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.3}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "props": {
+        "heading": "Bank account required",
+        "message": "You need to add a bank account to receive payouts. Set up your payout method to start earning."
+      },
+      "accessibility": {
+        "role": "alert",
+        "ariaLive": "polite"
+      }
+    },
+    {
+      "id": "section-payout-status",
+      "name": "Payout Status Card",
+      "order": 5,
+      "layout": "vertical",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "tokens": {
+        "fill": "{colors.background.card-glass}",
+        "borderRadius": "{borderRadius.lg}",
+        "boxShadow": "{boxShadow.card-soft}",
+        "padding": "{spacing.6}"
+      },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h2",
+          "content": "Payout Status",
+          "tokens": {
+            "fontSize": "{fontSizes.xl}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "payout-status-card",
+          "variant": "not-connected",
+          "props": {
+            "status": "not-connected",
+            "bankName": "",
+            "accountEnding": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-earnings",
+      "name": "Earnings Summary",
+      "order": 6,
+      "layout": "vertical",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "tokens": {
+        "fill": "{colors.background.card-glass}",
+        "borderRadius": "{borderRadius.lg}",
+        "boxShadow": "{boxShadow.card-soft}",
+        "padding": "{spacing.6}"
+      },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h2",
+          "content": "Earnings Summary",
+          "tokens": {
+            "fontSize": "{fontSizes.xl}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "earnings-metric-row",
+          "props": {
+            "metrics": [
+              { "label": "Total Earned", "value": "\u00a30.00" },
+              { "label": "Pending Payouts", "value": "\u00a30.00" },
+              { "label": "Next Payout", "value": "No payouts scheduled" }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "content": "Payouts arrive within 2-3 business days after booking completion.",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-commission",
+      "name": "Commission Information",
+      "order": 7,
+      "component": "alert-banner",
+      "variant": "info",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.3}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "props": {
+        "heading": "Platform commission: 15% of your hourly rate",
+        "message": "This covers payment processing, insurance, and platform services. You'll receive 85% of each booking total."
+      },
+      "accessibility": {
+        "role": "note"
+      }
+    },
+    {
+      "id": "section-tax-guidance",
+      "name": "Self-Employment Tax Guidance",
+      "order": 8,
+      "layout": "vertical",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "text",
+          "content": "As a self-employed professional, you are responsible for reporting your earnings to HMRC.",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        },
+        {
+          "component": "text-link",
+          "props": {
+            "label": "Learn about self-employment tax obligations",
+            "href": "https://www.gov.uk/self-employed"
+          },
+          "tokens": {
+            "fontSize": "{fontSizes.sm}",
+            "fill": "{colors.brand.link-bg}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-stripe-security",
+      "name": "Stripe Security Notice",
+      "order": 9,
+      "layout": "vertical",
+      "gap": "{spacing.3}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "maxWidth": "700px",
+      "children": [
+        {
+          "component": "trust-badge-row",
+          "props": {
+            "badges": [
+              { "icon": "\uD83D\uDD12", "label": "Bank-grade Security" },
+              { "icon": "\u2713", "label": "Powered by Stripe" }
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "content": "Your bank details are handled by Stripe. We never see your full account number.",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.body}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 10,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved."
+      }
+    }
+  ],
+  "stateVariations": {
+    "not-connected": {
+      "description": "Default state - no bank account connected",
+      "payoutStatus": "not-connected",
+      "warningBanner": true
+    },
+    "connected": {
+      "description": "Bank account connected via Stripe",
+      "payoutStatus": "connected",
+      "sections": {
+        "section-warning-banner": { "visible": false },
+        "section-payout-status": {
+          "children": {
+            "payout-status-card": {
+              "variant": "connected",
+              "props": {
+                "status": "connected",
+                "bankName": "Barclays",
+                "accountEnding": "5678"
+              }
+            }
+          }
+        },
+        "section-earnings": {
+          "children": {
+            "earnings-metric-row": {
+              "props": {
+                "metrics": [
+                  { "label": "Total Earned", "value": "\u00a3245.00" },
+                  { "label": "Pending Payouts", "value": "\u00a335.00" },
+                  { "label": "Next Payout", "value": "14 Feb 2026" }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "stripe-loading": {
+      "description": "Redirecting to Stripe Connect",
+      "alertBanner": {
+        "visible": true,
+        "variant": "info",
+        "message": "Connecting to Stripe... You'll be redirected to securely add your bank details."
+      }
+    },
+    "verification-failed": {
+      "description": "Bank verification failed",
+      "alertBanner": {
+        "visible": true,
+        "variant": "error",
+        "message": "Unable to verify your bank account. Please check your details or contact support."
+      }
+    },
+    "kyc-required": {
+      "description": "Stripe requires additional identity verification",
+      "alertBanner": {
+        "visible": true,
+        "variant": "warning",
+        "message": "Additional verification required by Stripe. Please complete identity verification to activate payouts."
+      }
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "layout": "Centered, max-width 700px",
+      "earningsMetrics": "Horizontal row (3 columns)"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "layout": "Centered, max-width 700px",
+      "earningsMetrics": "Horizontal row (3 columns)"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "layout": "Full-width with padding",
+      "earningsMetrics": "Stacked vertically"
+    }
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "warning-banner",
+      "payout-status",
+      "set-up-payouts-button",
+      "earnings-summary",
+      "commission-info",
+      "tax-guidance-link",
+      "footer"
+    ],
+    "screenReaderAnnouncements": {
+      "pageLoad-notConnected": "Payout Setup page. Bank account not connected. Set up payouts to receive earnings.",
+      "pageLoad-connected": "Payout Setup page. Connected to Barclays account ending in 5678.",
+      "setupComplete": "Bank account connected successfully. You'll receive payouts within 2-3 business days.",
+      "error": "Error: Unable to verify bank account."
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "alert-banner": "Component ID: alert-banner",
+    "payout-status-card": "Component ID: payout-status-card",
+    "earnings-metric-row": "Component ID: earnings-metric-row",
+    "trust-badge-row": "Component ID: trust-badge-row",
+    "text-link": "Component ID: text-link",
+    "button": "Component ID: button",
+    "footer-global": "Component ID: footer-global"
+  }
+}

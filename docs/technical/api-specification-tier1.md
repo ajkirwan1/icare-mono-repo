@@ -37,15 +37,15 @@
 
 ### 1.1 Base URL Structure
 
-**Production**: `https://api.icare.co.uk`
-**Staging**: `https://api-staging.icare.co.uk`
+**Production**: `https://api.icare-app.co.uk`
+**Staging**: `https://api-staging.icare-app.co.uk`
 **Development**: `http://localhost:3000`
 
 **API Version**: `/api/v1`
 
 **Full Base URL**: `{environment}/api/v1`
 
-Example: `https://api.icare.co.uk/api/v1/auth/login`
+Example: `https://api.icare-app.co.uk/api/v1/auth/login`
 
 ### 1.2 Versioning Strategy
 
@@ -2115,11 +2115,11 @@ limit=25
 
 ### 12.1 WebSocket Connection
 
-**Endpoint**: `wss://api.icare.co.uk/ws`
+**Endpoint**: `wss://api.icare-app.co.uk/ws`
 
 **Authentication**: JWT token in connection query parameter
 ```
-wss://api.icare.co.uk/ws?token=<JWT_TOKEN>
+wss://api.icare-app.co.uk/ws?token=<JWT_TOKEN>
 ```
 
 ### 12.2 Real-Time Messaging Events
@@ -2302,7 +2302,7 @@ X-Pagination-Page: 1
 X-Pagination-Limit: 25
 X-Pagination-Total-Pages: 10
 X-Pagination-Total-Count: 248
-Link: <https://api.icare.co.uk/api/v1/caregivers?page=2>; rel="next"
+Link: <https://api.icare-app.co.uk/api/v1/caregivers?page=2>; rel="next"
 ```
 
 ---

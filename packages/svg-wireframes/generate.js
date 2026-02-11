@@ -269,21 +269,19 @@ function renderPageHeader(section, R, W) {
   const padH = isMobile() ? 16 : n(R, section.padding && section.padding.horizontal, 24);
   const padTop = n(R, section.padding && section.padding.top, 32);
   const padBottom = n(R, section.padding && section.padding.bottom, 16);
+  const childGap = n(R, section.gap, 16);
+  const contentW = W - padH * 2;
 
   let s = '';
   let y = padTop;
 
   if (section.children) {
     for (const child of section.children) {
-      if (child.component === 'text') {
-        const fs = n(R, child.tokens && child.tokens.fontSize, 16);
-        const fw = n(R, child.tokens && child.tokens.fontWeight, 400);
-        const fill = c(R, child.tokens && child.tokens.fill);
-        const weight = fw >= 600 ? 'bold' : fw >= 500 ? '500' : 'normal';
-        s += `<text x="${padH}" y="${y + fs * 0.8}" font-family="Inter,sans-serif" font-size="${fs}" font-weight="${weight}" fill="${fill}">${esc(child.content || '')}</text>`;
-        y += fs * 1.5;
-      }
+      const result = renderWidgetChild(child, R, contentW);
+      s += `<g transform="translate(${padH}, ${y})">${result.svg}</g>`;
+      y += result.height + childGap;
     }
+    if (section.children.length > 0) y -= childGap;
   }
   y += padBottom;
   return { svg: s, height: y };
@@ -748,7 +746,7 @@ function renderSingleChild(child, R, width, index) {
     case 'button': {
       const H = 40;
       const label = (child.props && child.props.label) || 'Button';
-      const variant = (child.props && child.props.variant) || 'primary';
+      const variant = child.variant || (child.props && child.props.variant) || 'primary';
       const bg = variant === 'secondary' ? `${textP}` : brand;
       const opac = variant === 'secondary' ? '0.08' : '1';
       const textFill = variant === 'secondary' ? textP : 'white';
@@ -1240,10 +1238,12 @@ function renderSingleChild(child, R, width, index) {
       var ddp = child.props || {};
       var ddLabel = ddp.label || 'Select';
       var ddOpts = ddp.options || [];
-      var ddDefault = ddOpts.find(function (o) { return o.default; }) || ddOpts[0];
+      var ddDefault = ddOpts.find(function (o) { return typeof o === 'object' && o.default; }) || ddOpts[0];
+      var ddDefaultLabel = typeof ddDefault === 'string' ? ddDefault : (ddDefault ? ddDefault.label : '');
+      var ddSelectedVal = ddp.value || ddDefaultLabel || '';
       let s = '';
       s += `<rect x="0" y="0" width="${Math.min(width, 240)}" height="${ddH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
-      s += `<text x="12" y="23" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(ddLabel)} ${esc(ddDefault ? ddDefault.label : '')} &#x25BE;</text>`;
+      s += `<text x="12" y="23" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(ddLabel)}: ${esc(ddSelectedVal)} &#x25BE;</text>`;
       return { svg: s, height: ddH };
     }
 
@@ -1480,6 +1480,945 @@ function renderSingleChild(child, R, width, index) {
       const labelText = strength.charAt(0).toUpperCase() + strength.slice(1).replace('-', ' ');
       s += `<text x="0" y="${segH + 16}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${labelCol}">${esc(labelText)}</text>`;
       return { svg: s, height: psH };
+    }
+
+    case 'saved-card-item': {
+      const sciH = 72;
+      const scip = child.props || {};
+      const sciBrand = scip.brand || 'Card';
+      const sciLast4 = scip.last4 || '****';
+      const sciExpiry = scip.expiry || 'MM/YY';
+      const sciDefault = scip.isDefault;
+      const sciExpired = scip.isExpired;
+      let s = '';
+      s += `<rect x="0" y="0" width="${width}" height="${sciH}" rx="12" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
+      // Card brand icon placeholder
+      s += `<rect x="16" y="${sciH / 2 - 16}" width="48" height="32" rx="6" fill="${brand}" opacity="0.12"/>`;
+      s += `<text x="40" y="${sciH / 2 + 4}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${brand}" text-anchor="middle">${esc(sciBrand)}</text>`;
+      // Card number
+      s += `<text x="80" y="${sciH / 2 - 4}" font-family="Inter,sans-serif" font-size="15" font-weight="500" fill="${textP}">&#x2022;&#x2022;&#x2022;&#x2022; &#x2022;&#x2022;&#x2022;&#x2022; &#x2022;&#x2022;&#x2022;&#x2022; ${esc(sciLast4)}</text>`;
+      // Expiry
+      s += `<text x="80" y="${sciH / 2 + 14}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">Expires ${esc(sciExpiry)}</text>`;
+      // Status badge
+      if (sciDefault) {
+        s += `<rect x="${width - 220}" y="${sciH / 2 - 12}" width="68" height="24" rx="12" fill="#dcfce7"/>`;
+        s += `<text x="${width - 186}" y="${sciH / 2 + 3}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#166534" text-anchor="middle">Default</text>`;
+      }
+      if (sciExpired) {
+        s += `<rect x="${width - 220}" y="${sciH / 2 - 12}" width="68" height="24" rx="12" fill="#fee2e2"/>`;
+        s += `<text x="${width - 186}" y="${sciH / 2 + 3}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#991b1b" text-anchor="middle">Expired</text>`;
+      }
+      // Action buttons
+      if (!sciDefault) {
+        s += `<rect x="${width - 140}" y="${sciH / 2 - 14}" width="56" height="28" rx="6" fill="transparent" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="${width - 112}" y="${sciH / 2 + 2}" font-family="Inter,sans-serif" font-size="10" fill="${textM}" text-anchor="middle">Default</text>`;
+      }
+      s += `<rect x="${width - 76}" y="${sciH / 2 - 14}" width="56" height="28" rx="6" fill="transparent" stroke="#dc2626" stroke-width="1"/>`;
+      s += `<text x="${width - 48}" y="${sciH / 2 + 2}" font-family="Inter,sans-serif" font-size="10" fill="#dc2626" text-anchor="middle">Remove</text>`;
+      return { svg: s, height: sciH };
+    }
+
+    case 'stripe-secure-input': {
+      const ssiMobile = isMobile();
+      let s = '', siy = 0;
+      // Card number field
+      s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">Card number *</text>`;
+      s += `<rect x="0" y="${siy + 22}" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">1234 5678 9012 3456</text>`;
+      s += `<rect x="${width - 28}" y="${siy + 28}" width="20" height="24" rx="4" fill="${brand}" opacity="0.1"/>`;
+      s += `<text x="${width - 18}" y="${siy + 45}" font-family="Inter,sans-serif" font-size="10" fill="${brand}" text-anchor="middle">&#x1F512;</text>`;
+      siy += 66;
+      // Expiry + CVC side by side (desktop) or stacked (mobile)
+      if (ssiMobile) {
+        s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">Expiry date *</text>`;
+        s += `<rect x="0" y="${siy + 22}" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">MM / YY</text>`;
+        siy += 66;
+        s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">CVC *</text>`;
+        s += `<rect x="0" y="${siy + 22}" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">CVC</text>`;
+        siy += 66;
+      } else {
+        var halfW = (width - 16) / 2;
+        s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">Expiry date *</text>`;
+        s += `<text x="${halfW + 16}" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">CVC *</text>`;
+        s += `<rect x="0" y="${siy + 22}" width="${halfW}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">MM / YY</text>`;
+        s += `<rect x="${halfW + 16}" y="${siy + 22}" width="${halfW}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="${halfW + 28}" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">CVC</text>`;
+        siy += 66;
+      }
+      // Cardholder name
+      s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">Cardholder name *</text>`;
+      s += `<rect x="0" y="${siy + 22}" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">e.g., Jane Smith</text>`;
+      siy += 66;
+      // Billing postcode
+      s += `<text x="0" y="${siy + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}">Billing postcode *</text>`;
+      s += `<rect x="0" y="${siy + 22}" width="${width}" height="36" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="12" y="${siy + 45}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">e.g., SW1A 1AA</text>`;
+      siy += 66;
+      return { svg: s, height: siy };
+    }
+
+    case 'payout-status-card': {
+      const pscP = child.props || {};
+      const pscConnected = (child.variant === 'connected') || (pscP.status === 'connected');
+      const pscH = pscConnected ? 100 : 80;
+      let s = '';
+      if (pscConnected) {
+        // Connected state
+        s += `<rect x="0" y="0" width="90" height="26" rx="13" fill="#dcfce7"/>`;
+        s += `<text x="12" y="17" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="#166534">&#x2713; Connected</text>`;
+        s += `<text x="0" y="48" font-family="Inter,sans-serif" font-size="14" fill="${textM}">Bank: <tspan font-weight="500" fill="${textP}">${esc(pscP.bankName || 'Barclays')}</tspan></text>`;
+        s += `<text x="0" y="68" font-family="Inter,sans-serif" font-size="14" fill="${textM}">Account: <tspan font-weight="500" fill="${textP}">&#x2022;&#x2022;&#x2022;&#x2022; ${esc(pscP.accountEnding || '5678')}</tspan></text>`;
+        s += `<rect x="0" y="${pscH - 4}" width="180" height="36" rx="8" fill="transparent" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="90" y="${pscH + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${textP}" text-anchor="middle">Update Payout Method</text>`;
+      } else {
+        // Not connected state
+        s += `<rect x="0" y="0" width="110" height="26" rx="13" fill="#f3f4f6"/>`;
+        s += `<text x="12" y="17" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="${textM}">&#x25CB; Not Connected</text>`;
+        s += `<rect x="0" y="40" width="180" height="36" rx="8" fill="${brand}"/>`;
+        s += `<text x="90" y="63" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">Set Up Payouts</text>`;
+      }
+      return { svg: s, height: pscH + 32 };
+    }
+
+    case 'earnings-metric-row': {
+      const emrP = child.props || {};
+      const emrMetrics = Array.isArray(emrP.metrics) ? emrP.metrics : [
+        { label: 'Total Earned', value: '\u00a30.00' },
+        { label: 'Pending', value: '\u00a30.00' },
+        { label: 'Next Payout', value: '--' }
+      ];
+      const emrMobile = isMobile();
+      let s = '';
+      if (emrMobile) {
+        let ey = 0;
+        emrMetrics.forEach(function (m) {
+          s += `<text x="0" y="${ey + 14}" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(m.label)}</text>`;
+          s += `<text x="${width}" y="${ey + 14}" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="${textP}" text-anchor="end">${esc(m.value)}</text>`;
+          ey += 32;
+        });
+        return { svg: s, height: ey };
+      } else {
+        const colW = (width - 32) / emrMetrics.length;
+        emrMetrics.forEach(function (m, i) {
+          const mx = i * (colW + 16);
+          s += `<text x="${mx}" y="14" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(m.label)}</text>`;
+          s += `<text x="${mx}" y="40" font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="${textP}">${esc(m.value)}</text>`;
+        });
+        return { svg: s, height: 50 };
+      }
+    }
+
+    case 'file-upload': {
+      const fuP = child.props || {};
+      const fuFormats = fuP.acceptedFormats || 'JPG, PNG, PDF';
+      const fuMaxSize = fuP.maxSize || '5MB';
+      const fuDragText = fuP.dragDropText || 'Drag and drop your file here, or click to browse';
+      const fuMobileText = fuP.mobileText || 'Tap to upload file';
+      const fuShape = fuP.shape || 'rectangle';
+      const fuH = fuShape === 'circle' ? 200 : 140;
+      let s = '';
+      if (fuShape === 'circle') {
+        // Profile photo upload (circle preview)
+        const cx = width / 2;
+        const cy = 75;
+        const cr = 60;
+        s += `<circle cx="${cx}" cy="${cy}" r="${cr}" fill="none" stroke="${border}" stroke-width="2" stroke-dasharray="8,4"/>`;
+        s += `<text x="${cx}" y="${cy - 6}" font-family="Inter,sans-serif" font-size="24" fill="${textM}" text-anchor="middle" opacity="0.5">&#x1F4F7;</text>`;
+        s += `<text x="${cx}" y="${cy + 18}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">Upload Photo</text>`;
+        s += `<text x="${cx}" y="${fuH - 8}" font-family="Inter,sans-serif" font-size="11" fill="${textM}" text-anchor="middle">${esc(fuFormats)} \u2014 Max ${esc(fuMaxSize)}</text>`;
+      } else {
+        // Rectangle drag-drop zone
+        s += `<rect x="0" y="0" width="${width}" height="${fuH}" rx="8" fill="${textP}" opacity="0.02" stroke="${border}" stroke-width="2" stroke-dasharray="8,4"/>`;
+        s += `<text x="${width / 2}" y="40" font-family="Inter,sans-serif" font-size="24" fill="${textM}" text-anchor="middle" opacity="0.4">&#x1F4C4;</text>`;
+        const displayText = isMobile() ? fuMobileText : fuDragText;
+        s += `<text x="${width / 2}" y="72" font-family="Inter,sans-serif" font-size="14" fill="${textM}" text-anchor="middle">${esc(displayText)}</text>`;
+        s += `<text x="${width / 2}" y="96" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle" opacity="0.7">${esc(fuFormats)} \u2014 Max ${esc(fuMaxSize)}</text>`;
+      }
+      return { svg: s, height: fuH };
+    }
+
+    case 'availability-grid': {
+      const agP = child.props || {};
+      const days = Array.isArray(agP.days) ? agP.days : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const periods = Array.isArray(agP.periods) ? agP.periods : ['Morning', 'Afternoon', 'Evening'];
+      const selected = agP.selected || {};
+      const cellSize = isMobile() ? 32 : 40;
+      const labelW = isMobile() ? 50 : 100;
+      const headerH = 36;
+      const rowH = cellSize + 4;
+      const colW = cellSize + 8;
+      const gridW = labelW + periods.length * colW;
+      const gridH = headerH + days.length * rowH + 8;
+      const offsetX = Math.max(0, (width - gridW) / 2);
+      let s = '';
+      // Background
+      s += `<rect x="${offsetX}" y="0" width="${gridW}" height="${gridH}" rx="8" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
+      // Period headers
+      periods.forEach(function (p, pi) {
+        const px = offsetX + labelW + pi * colW + colW / 2;
+        const lbl = isMobile() ? p.substring(0, 3) : p.replace(/ \(.*\)/, '');
+        s += `<text x="${px}" y="24" font-family="Inter,sans-serif" font-size="${isMobile() ? 10 : 12}" font-weight="600" fill="${textM}" text-anchor="middle">${esc(lbl)}</text>`;
+      });
+      // Days and cells
+      days.forEach(function (day, di) {
+        const ry = headerH + di * rowH;
+        const dayLabel = isMobile() ? day.substring(0, 3) : day;
+        s += `<text x="${offsetX + 8}" y="${ry + cellSize / 2 + 5}" font-family="Inter,sans-serif" font-size="${isMobile() ? 11 : 13}" fill="${textP}">${esc(dayLabel)}</text>`;
+        periods.forEach(function (p, pi) {
+          const cx = offsetX + labelW + pi * colW + (colW - cellSize) / 2;
+          const cy = ry;
+          const periodKey = p.toLowerCase().split(' ')[0];
+          const daySelected = selected[day] || [];
+          const isSelected = Array.isArray(daySelected) && daySelected.indexOf(periodKey) >= 0;
+          if (isSelected) {
+            s += `<rect x="${cx}" y="${cy}" width="${cellSize}" height="${cellSize}" rx="6" fill="#2563eb" opacity="0.15" stroke="#2563eb" stroke-width="2"/>`;
+            s += `<text x="${cx + cellSize / 2}" y="${cy + cellSize / 2 + 5}" font-family="Inter,sans-serif" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="700">&#x2713;</text>`;
+          } else {
+            s += `<rect x="${cx}" y="${cy}" width="${cellSize}" height="${cellSize}" rx="6" fill="none" stroke="${border}" stroke-width="1"/>`;
+          }
+        });
+      });
+      return { svg: s, height: gridH };
+    }
+
+    case 'radio-group': {
+      const rgP = child.props || {};
+      const rgLabel = rgP.label || '';
+      const rgOptions = Array.isArray(rgP.options) ? rgP.options : [];
+      const rgSelected = rgP.selected || '';
+      const rgRequired = rgP.required ? ' *' : '';
+      const optH = 32;
+      let s = '';
+      let ry = 0;
+      if (rgLabel) {
+        s += `<text x="0" y="16" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="${textP}">${esc(rgLabel)}${rgRequired}</text>`;
+        ry = 28;
+      }
+      rgOptions.forEach(function (opt) {
+        const isSelected = opt.value === rgSelected;
+        const circleX = 14;
+        const circleY = ry + 14;
+        // Outer circle
+        s += `<circle cx="${circleX}" cy="${circleY}" r="10" fill="none" stroke="${isSelected ? '#2563eb' : border}" stroke-width="2"/>`;
+        // Inner fill if selected
+        if (isSelected) {
+          s += `<circle cx="${circleX}" cy="${circleY}" r="5" fill="#2563eb"/>`;
+        }
+        s += `<text x="32" y="${ry + 19}" font-family="Inter,sans-serif" font-size="14" fill="${textP}">${esc(opt.label || opt.value)}</text>`;
+        ry += optH;
+      });
+      return { svg: s, height: ry };
+    }
+
+    case 'verification-status-card': {
+      const vscP = child.props || {};
+      const vscTitle = vscP.title || 'Verification';
+      const vscDesc = vscP.description || '';
+      const vscStatus = vscP.status || 'not-submitted';
+      const vscAction = vscP.actionLabel || 'Verify';
+      const vscOptional = vscP.optionalBadge === true;
+      const vscSkip = vscP.skipLabel || '';
+      const vscH = vscSkip ? 110 : 90;
+      let s = '';
+      // Card background
+      s += `<rect x="0" y="0" width="${width}" height="${vscH}" rx="8" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
+      // Title
+      s += `<text x="16" y="28" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="${textP}">${esc(vscTitle)}</text>`;
+      // Optional badge
+      if (vscOptional) {
+        const obX = vscTitle.length * 9 + 24;
+        s += `<rect x="${obX}" y="12" width="76" height="24" rx="12" fill="#dbeafe"/>`;
+        s += `<text x="${obX + 38}" y="28" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#1d4ed8" text-anchor="middle">OPTIONAL</text>`;
+      }
+      // Status badge
+      const statusColors = { 'not-submitted': { bg: '#f3f4f6', text: '#6b7280', label: 'Not Submitted' }, 'pending': { bg: '#fef3c7', text: '#92400e', label: 'Pending' }, 'verified': { bg: '#dcfce7', text: '#166534', label: 'Verified' }, 'rejected': { bg: '#fee2e2', text: '#991b1b', label: 'Rejected' } };
+      const sc = statusColors[vscStatus] || statusColors['not-submitted'];
+      const sbX = width - 120;
+      s += `<rect x="${sbX}" y="12" width="104" height="24" rx="12" fill="${sc.bg}"/>`;
+      s += `<text x="${sbX + 52}" y="28" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${sc.text}" text-anchor="middle">${sc.label}</text>`;
+      // Description
+      if (vscDesc) {
+        s += `<text x="16" y="50" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(vscDesc)}</text>`;
+      }
+      // Action button
+      const btnW = Math.min(vscAction.length * 9 + 32, width - 32);
+      const btnX = width - btnW - 16;
+      s += `<rect x="${btnX}" y="${vscH - 44}" width="${btnW}" height="32" rx="6" fill="${brand}"/>`;
+      s += `<text x="${btnX + btnW / 2}" y="${vscH - 23}" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">${esc(vscAction)}</text>`;
+      // Skip link
+      if (vscSkip) {
+        s += `<text x="${btnX + btnW / 2}" y="${vscH - 4}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">${esc(vscSkip)}</text>`;
+      }
+      return { svg: s, height: vscH };
+    }
+
+    // ── Messaging Components ──────────────────────────────────────────────
+
+    case 'message-bubble': {
+      const p = child.props || {};
+      const variant = child.variant || p.variant || 'other'; // own | other | system
+      const text = p.text || '';
+      const senderName = p.senderName || '';
+      const time = p.time || '';
+      const readReceipt = p.readReceipt || '';
+      const redactionAlert = p.redactionAlert || '';
+
+      const maxBubbleW = Math.min(width * 0.65, 500);
+      const padBubble = 16;
+      // Estimate text wrapping
+      const charsPerLine = Math.floor((maxBubbleW - padBubble * 2) / 7.5);
+      const lines = Math.max(1, Math.ceil(text.length / charsPerLine));
+      const textH = lines * 20;
+      const bubbleH = textH + padBubble * 2;
+
+      let s = '';
+      let totalH = 0;
+
+      if (variant === 'system') {
+        // Centered yellow system message
+        const bw = Math.min(text.length * 7 + 40, width - 40);
+        const bx = (width - bw) / 2;
+        s += `<rect x="${bx}" y="0" width="${bw}" height="${bubbleH}" rx="8" fill="#FEF3C7"/>`;
+        s += `<text x="${width / 2}" y="${padBubble + 14}" font-family="Inter,sans-serif" font-size="13" fill="#92400E" text-anchor="middle">${esc(text)}</text>`;
+        totalH = bubbleH + 4;
+      } else if (variant === 'own') {
+        // Right-aligned light blue bubble
+        const bx = width - maxBubbleW;
+        s += `<rect x="${bx}" y="0" width="${maxBubbleW}" height="${bubbleH}" rx="8" fill="#E0F2FE"/>`;
+        // Text lines
+        for (let li = 0; li < lines; li++) {
+          const lineText = text.substr(li * charsPerLine, charsPerLine);
+          s += `<text x="${bx + padBubble}" y="${padBubble + 14 + li * 20}" font-family="Inter,sans-serif" font-size="14" fill="#1F2937">${esc(lineText)}</text>`;
+        }
+        // Time + read receipt
+        const metaY = bubbleH + 14;
+        s += `<text x="${width - 8}" y="${metaY}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="end">${esc(time)}${readReceipt ? '     ' + esc(readReceipt) : ''}</text>`;
+        totalH = metaY + 8;
+      } else {
+        // Left-aligned gray bubble (other)
+        s += `<rect x="0" y="0" width="${maxBubbleW}" height="${bubbleH}" rx="8" fill="#F3F4F6"/>`;
+        for (let li = 0; li < lines; li++) {
+          const lineText = text.substr(li * charsPerLine, charsPerLine);
+          s += `<text x="${padBubble}" y="${padBubble + 14 + li * 20}" font-family="Inter,sans-serif" font-size="14" fill="#1F2937">${esc(lineText)}</text>`;
+        }
+        // Sender name + time
+        const metaY = bubbleH + 14;
+        s += `<text x="0" y="${metaY}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(senderName)}</text>`;
+        s += `<text x="0" y="${metaY + 16}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(time)}</text>`;
+        totalH = metaY + 24;
+        // Redaction alert
+        if (redactionAlert) {
+          s += `<text x="${maxBubbleW + 12}" y="${metaY}" font-family="Inter,sans-serif" font-size="12" fill="#D97706">${esc(redactionAlert)}</text>`;
+        }
+      }
+      return { svg: s, height: totalH };
+    }
+
+    case 'message-input': {
+      const p = child.props || {};
+      const placeholder = p.placeholder || 'Type your message...';
+      const charCount = p.charCount || '';
+      const sendLabel = p.sendLabel || 'Send Message';
+
+      const textareaH = isMobile() ? 60 : 80;
+      const btnH = isMobile() ? 56 : 48;
+      const gap = 12;
+      const totalH = textareaH + gap + btnH;
+
+      let s = '';
+      // Textarea
+      s += `<rect x="0" y="0" width="${width}" height="${textareaH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="16" y="${textareaH / 2 + 4}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">${esc(placeholder)}</text>`;
+      // Char counter (top right inside textarea)
+      if (charCount) {
+        s += `<text x="${width - 16}" y="20" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="end">${esc(charCount)}</text>`;
+      }
+      // Send button
+      const btnW = Math.min(sendLabel.length * 9 + 32, 200);
+      const btnX = width - btnW;
+      s += `<rect x="${btnX}" y="${textareaH + gap}" width="${btnW}" height="${btnH}" rx="10" fill="${brand}"/>`;
+      s += `<text x="${btnX + btnW / 2}" y="${textareaH + gap + btnH / 2 + 5}" font-family="Inter,sans-serif" font-size="14" font-weight="500" fill="white" text-anchor="middle">${esc(sendLabel)}</text>`;
+
+      return { svg: s, height: totalH };
+    }
+
+    case 'date-divider': {
+      const p = child.props || {};
+      const label = p.label || 'Today';
+      const H = 24;
+      const lineY = H / 2;
+      const labelW = label.length * 8 + 24;
+      const labelX = (width - labelW) / 2;
+      let s = '';
+      s += `<line x1="0" y1="${lineY}" x2="${labelX - 4}" y2="${lineY}" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="${width / 2}" y="${lineY + 4}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">${esc(label)}</text>`;
+      s += `<line x1="${labelX + labelW + 4}" y1="${lineY}" x2="${width}" y2="${lineY}" stroke="${border}" stroke-width="1"/>`;
+      return { svg: s, height: H };
+    }
+
+    case 'typing-indicator': {
+      const p = child.props || {};
+      const name = p.name || 'Someone';
+      const H = 28;
+      let s = '';
+      // Three animated dots
+      const dotR = 3;
+      const dotGap = 8;
+      const dotsStartX = 8;
+      for (let d = 0; d < 3; d++) {
+        s += `<circle cx="${dotsStartX + d * dotGap}" cy="${H / 2}" r="${dotR}" fill="#3B82F6" opacity="${0.4 + d * 0.2}"/>`;
+      }
+      s += `<text x="${dotsStartX + 3 * dotGap + 8}" y="${H / 2 + 4}" font-family="Inter,sans-serif" font-size="13" fill="${textM}" font-style="italic">${esc(name)} is typing...</text>`;
+      return { svg: s, height: H };
+    }
+
+    // ── Review Components ─────────────────────────────────────────────────
+
+    case 'star-rating-input': {
+      const p = child.props || {};
+      const total = p.totalStars || 5;
+      const selected = p.selectedStars || 0;
+      const starSize = isMobile() ? 56 : (p.starSize || 48);
+      const gap = isMobile() ? 12 : 16;
+      const filledColor = p.filledColor || '#F59E0B';
+      const emptyColor = p.emptyColor || '#D1D5DB';
+      const labels = Array.isArray(p.labels) ? p.labels : ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+      const totalStarW = total * starSize + (total - 1) * gap;
+      const startX = Math.max(0, (width - totalStarW) / 2);
+
+      let s = '';
+      // Stars
+      for (let i = 0; i < total; i++) {
+        const cx = startX + i * (starSize + gap) + starSize / 2;
+        const cy = starSize / 2;
+        const isFilled = i < selected;
+        // Draw star as polygon
+        const r = starSize * 0.4;
+        const ri = r * 0.4;
+        let pts = '';
+        for (let j = 0; j < 5; j++) {
+          const angle = (j * 72 - 90) * Math.PI / 180;
+          pts += `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)} `;
+          const innerAngle = ((j * 72) + 36 - 90) * Math.PI / 180;
+          pts += `${cx + ri * Math.cos(innerAngle)},${cy + ri * Math.sin(innerAngle)} `;
+        }
+        s += `<polygon points="${pts.trim()}" fill="${isFilled ? filledColor : 'none'}" stroke="${isFilled ? filledColor : emptyColor}" stroke-width="2"/>`;
+      }
+      // Labels below stars
+      const labelY = starSize + 20;
+      if (isMobile()) {
+        // Condensed: only show Poor / Good / Excellent
+        const condensed = [labels[0], labels[2] || 'Good', labels[4] || 'Excellent'];
+        const positions = [0, Math.floor(total / 2), total - 1];
+        for (let i = 0; i < condensed.length; i++) {
+          const cx = startX + positions[i] * (starSize + gap) + starSize / 2;
+          s += `<text x="${cx}" y="${labelY}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">${esc(condensed[i])}</text>`;
+        }
+      } else {
+        for (let i = 0; i < total; i++) {
+          const cx = startX + i * (starSize + gap) + starSize / 2;
+          const lbl = labels[i] || '';
+          s += `<text x="${cx}" y="${labelY}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">${esc(lbl)}</text>`;
+        }
+      }
+      return { svg: s, height: labelY + 8 };
+    }
+
+    case 'booking-summary-card': {
+      const p = child.props || {};
+      const cgName = p.caregiverName || 'Caregiver';
+      const rating = p.rating || 0;
+      const reviewCount = p.reviewCount || 0;
+      const date = p.date || '';
+      const time = p.time || '';
+      const duration = p.duration || '';
+      const service = p.service || '';
+
+      const cardW = width;
+      const photoSize = isMobile() ? 60 : 80;
+      const padC = 16;
+      let s = '';
+      let y = 0;
+
+      s += `<rect x="0" y="0" width="${cardW}" height="auto" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+
+      // Section heading
+      s += `<text x="${padC}" y="${padC + 14}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${textM}" letter-spacing="0.5">BOOKING SUMMARY</text>`;
+      y = padC + 28;
+
+      // Photo placeholder
+      s += `<rect x="${padC}" y="${y}" width="${photoSize}" height="${photoSize}" rx="${photoSize / 2}" fill="${textM}" opacity="0.12"/>`;
+      s += `<text x="${padC + photoSize / 2}" y="${y + photoSize / 2 + 4}" font-family="Inter,sans-serif" font-size="11" fill="${textM}" text-anchor="middle">Photo</text>`;
+
+      // Name + badges + rating
+      const infoX = padC + photoSize + 16;
+      s += `<text x="${infoX}" y="${y + 16}" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${textP}">${esc(cgName)}</text>`;
+      // Verification badges
+      s += `<text x="${infoX}" y="${y + 34}" font-family="Inter,sans-serif" font-size="12" fill="#16A34A">✓ Identity Verified  ✓ DBS Verified</text>`;
+      // Star rating display
+      let starStr = '';
+      for (let i = 0; i < 5; i++) starStr += i < Math.round(rating) ? '★' : '☆';
+      s += `<text x="${infoX}" y="${y + 52}" font-family="Inter,sans-serif" font-size="13" fill="#F59E0B">${starStr} <tspan fill="${textM}">${rating} (${reviewCount} reviews)</tspan></text>`;
+
+      y += photoSize + 16;
+
+      // Booking details
+      const details = [
+        { label: 'Date', value: date },
+        { label: 'Time', value: time },
+        { label: 'Duration', value: duration },
+        { label: 'Service', value: service }
+      ];
+      for (const d of details) {
+        if (d.value) {
+          s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(d.label)}: <tspan fill="${textP}">${esc(d.value)}</tspan></text>`;
+          y += 22;
+        }
+      }
+
+      const totalH = y + padC;
+      // Re-draw background rect with correct height
+      s = `<rect x="0" y="0" width="${cardW}" height="${totalH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>` + s.replace(/height="auto"/, `height="${totalH}"`);
+      return { svg: s, height: totalH };
+    }
+
+    // ── Admin Components ──────────────────────────────────────────────────
+
+    case 'data-table': {
+      const p = child.props || {};
+      const columns = Array.isArray(p.columns) ? p.columns : [];
+      const rows = Array.isArray(p.rows) ? p.rows : [];
+      const headerBg = '#F9FAFB';
+      const rowH = isMobile() ? 56 : 64;
+      const headerH = 44;
+      const padC = 12;
+      const colCount = columns.length || 4;
+      const colW = (width - padC * 2) / colCount;
+      let s = '';
+      let y = 0;
+
+      // Table border
+      const totalRows = Math.min(rows.length, isMobile() ? 3 : 5);
+      const tableH = headerH + totalRows * rowH;
+      s += `<rect x="0" y="0" width="${width}" height="${tableH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+
+      // Header row
+      s += `<rect x="1" y="1" width="${width - 2}" height="${headerH}" rx="8" fill="${headerBg}"/>`;
+      s += `<rect x="1" y="${headerH - 8}" width="${width - 2}" height="8" fill="${headerBg}"/>`;
+      columns.forEach((col, ci) => {
+        const cx = padC + ci * colW;
+        const label = typeof col === 'string' ? col : (col.label || col.name || '');
+        if (isMobile() && ci > 3) return; // limit columns on mobile
+        s += `<text x="${cx}" y="${headerH / 2 + 5}" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="${textM}">${esc(label)}</text>`;
+      });
+      y = headerH;
+
+      // Data rows
+      for (let ri = 0; ri < totalRows; ri++) {
+        const row = rows[ri] || {};
+        const cells = Array.isArray(row.cells) ? row.cells : (Array.isArray(row) ? row : []);
+        const rowBg = row.highlight === 'urgent' ? '#FEE2E2' : (row.highlight === 'warning' ? '#FEF3C7' : (ri % 2 === 1 ? '#FAFAFA' : 'white'));
+
+        if (rowBg !== 'white') {
+          s += `<rect x="1" y="${y}" width="${width - 2}" height="${rowH}" fill="${rowBg}"/>`;
+        }
+        // Row separator
+        s += `<line x1="0" y1="${y + rowH}" x2="${width}" y2="${y + rowH}" stroke="${border}" stroke-width="0.5"/>`;
+
+        cells.forEach((cell, ci) => {
+          if (isMobile() && ci > 3) return;
+          const cx = padC + ci * colW;
+          const val = typeof cell === 'string' ? cell : (cell.text || cell.value || '');
+          const cellColor = cell.color || textP;
+          const isBadge = cell.badge === true;
+
+          if (isBadge) {
+            const bw = Math.min(val.length * 7 + 16, colW - 8);
+            const badgeBg = cell.badgeColor || '#E5E7EB';
+            const badgeText = cell.badgeTextColor || textP;
+            s += `<rect x="${cx}" y="${y + rowH / 2 - 10}" width="${bw}" height="20" rx="10" fill="${badgeBg}"/>`;
+            s += `<text x="${cx + 8}" y="${y + rowH / 2 + 4}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="${badgeText}">${esc(val)}</text>`;
+          } else {
+            s += `<text x="${cx}" y="${y + rowH / 2 + 4}" font-family="Inter,sans-serif" font-size="13" fill="${cellColor}">${esc(val)}</text>`;
+          }
+        });
+
+        // Kebab menu icon at end of row
+        if (!isMobile()) {
+          const kx = width - 32;
+          s += `<text x="${kx}" y="${y + rowH / 2 + 3}" font-family="Inter,sans-serif" font-size="16" fill="${textM}">&#x22EE;</text>`;
+        }
+        y += rowH;
+      }
+
+      // Results count
+      const resultsText = p.resultsText || `Showing ${totalRows} rows`;
+      s += `<text x="${padC}" y="${y + 20}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(resultsText)}</text>`;
+      y += 32;
+
+      return { svg: s, height: y };
+    }
+
+    case 'filter-bar': {
+      const p = child.props || {};
+      const filters = Array.isArray(p.filters) ? p.filters : [];
+      const searchPlaceholder = p.searchPlaceholder || 'Search...';
+      const hasSearch = p.hasSearch !== false;
+      const padC = 0;
+      const inputH = 40;
+      const gap = 12;
+      const rad = 8;
+      const inputBg = 'white';
+      let s = '';
+
+      if (isMobile()) {
+        // Mobile: stack filters vertically
+        let y = 0;
+        if (hasSearch) {
+          s += `<rect x="0" y="${y}" width="${width}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+          s += `<text x="12" y="${y + 25}" font-family="Inter,sans-serif" font-size="13" fill="${textM}">&#x1F50D; ${esc(searchPlaceholder)}</text>`;
+          y += inputH + gap;
+        }
+        filters.forEach(f => {
+          const label = typeof f === 'string' ? f : (f.label || 'Filter');
+          s += `<rect x="0" y="${y}" width="${width}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+          s += `<text x="12" y="${y + 25}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${esc(label)}: All &#x25BE;</text>`;
+          y += inputH + gap;
+        });
+        // Buttons
+        const btnW = (width - gap) / 2;
+        s += `<rect x="0" y="${y}" width="${btnW}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="${btnW / 2}" y="${y + 25}" font-family="Inter,sans-serif" font-size="13" fill="${textM}" text-anchor="middle">Clear Filters</text>`;
+        s += `<rect x="${btnW + gap}" y="${y}" width="${btnW}" height="${inputH}" rx="${rad}" fill="${brand}"/>`;
+        s += `<text x="${btnW + gap + btnW / 2}" y="${y + 25}" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Apply</text>`;
+        y += inputH;
+        return { svg: s, height: y };
+      }
+
+      // Desktop: horizontal filter bar
+      const barH = inputH + 24;
+      s += `<rect x="0" y="0" width="${width}" height="${barH}" rx="12" fill="#F8FAFC" stroke="${border}" stroke-width="1"/>`;
+      let x = 16;
+      const innerY = 12;
+
+      // Search input
+      if (hasSearch) {
+        const searchW = Math.min(280, width * 0.25);
+        s += `<rect x="${x}" y="${innerY}" width="${searchW}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="${x + 12}" y="${innerY + 25}" font-family="Inter,sans-serif" font-size="13" fill="${textM}">&#x1F50D; ${esc(searchPlaceholder)}</text>`;
+        x += searchW + gap;
+      }
+
+      // Filter dropdowns
+      const remainW = width - x - 200; // leave space for buttons
+      const filterW = Math.min(160, remainW / Math.max(filters.length, 1));
+      filters.forEach(f => {
+        const label = typeof f === 'string' ? f : (f.label || 'Filter');
+        s += `<rect x="${x}" y="${innerY}" width="${filterW}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+        s += `<text x="${x + 10}" y="${innerY + 25}" font-family="Inter,sans-serif" font-size="12" fill="${textP}">${esc(label)}: All &#x25BE;</text>`;
+        x += filterW + gap;
+      });
+
+      // Clear + Apply buttons
+      const clearW = 90;
+      const applyW = 80;
+      const bx = width - clearW - applyW - gap - 16;
+      s += `<rect x="${bx}" y="${innerY}" width="${clearW}" height="${inputH}" rx="${rad}" fill="${inputBg}" stroke="${border}" stroke-width="1"/>`;
+      s += `<text x="${bx + clearW / 2}" y="${innerY + 25}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">Clear Filters</text>`;
+      s += `<rect x="${bx + clearW + gap}" y="${innerY}" width="${applyW}" height="${inputH}" rx="${rad}" fill="${brand}"/>`;
+      s += `<text x="${bx + clearW + gap + applyW / 2}" y="${innerY + 25}" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="white" text-anchor="middle">Apply</text>`;
+
+      return { svg: s, height: barH };
+    }
+
+    case 'verification-queue-card': {
+      const p = child.props || {};
+      const name = p.name || 'Caregiver Name';
+      const appliedDate = p.appliedDate || '3 days ago';
+      const slaStatus = p.slaStatus || 'on-track';
+      const slaPending = p.slaPending || '8h pending';
+      const checklist = Array.isArray(p.checklist) ? p.checklist : [
+        { type: 'Identity', status: 'submitted', date: '15/01/26' },
+        { type: 'Right to Work', status: 'submitted', date: '15/01/26' },
+        { type: 'DBS', status: 'not-submitted', date: null }
+      ];
+      const padC = 20;
+      const avatarSize = isMobile() ? 48 : 56;
+      let s = '';
+      let y = 0;
+
+      // Card background
+      const slaBg = slaStatus === 'breached' ? '#FEE2E2' : (slaStatus === 'approaching' ? '#FEF3C7' : 'white');
+      const slaBorder = slaStatus === 'breached' ? '#DC2626' : (slaStatus === 'approaching' ? '#F59E0B' : border);
+      const cardH = isMobile() ? 260 : 190;
+      s += `<rect x="0" y="0" width="${width}" height="${cardH}" rx="12" fill="${slaBg}" stroke="${slaBorder}" stroke-width="${slaStatus === 'breached' ? 2 : 1}"/>`;
+
+      // Header: Avatar + Name + SLA badge
+      y = padC;
+      s += `<rect x="${padC}" y="${y}" width="${avatarSize}" height="${avatarSize}" rx="${avatarSize / 2}" fill="${brand}" opacity="0.2"/>`;
+      s += `<text x="${padC + avatarSize / 2}" y="${y + avatarSize / 2 + 4}" font-family="Inter,sans-serif" font-size="14" fill="${textM}" text-anchor="middle">${esc(name.split(' ').map(n => n[0]).join(''))}</text>`;
+
+      const infoX = padC + avatarSize + 14;
+      s += `<text x="${infoX}" y="${y + 18}" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${textP}">${esc(name)}</text>`;
+      s += `<text x="${infoX}" y="${y + 36}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">Applied: ${esc(appliedDate)}</text>`;
+
+      // SLA badge (right side)
+      if (!isMobile()) {
+        const slaColors = { breached: { bg: '#FEE2E2', text: '#DC2626', label: 'Breached' }, approaching: { bg: '#FEF3C7', text: '#F59E0B', label: 'Approaching SLA' }, 'on-track': { bg: '#DCFCE7', text: '#166534', label: 'On Track' } };
+        const sla = slaColors[slaStatus] || slaColors['on-track'];
+        const slaBadgeW = sla.label.length * 8 + 20;
+        s += `<rect x="${width - padC - slaBadgeW}" y="${y + 4}" width="${slaBadgeW}" height="24" rx="12" fill="${sla.bg}" stroke="${sla.text}" stroke-width="1"/>`;
+        s += `<text x="${width - padC - slaBadgeW + 10}" y="${y + 20}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${sla.text}">${esc(sla.label)}</text>`;
+        s += `<text x="${width - padC - slaBadgeW}" y="${y + 42}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(slaPending)}</text>`;
+      }
+
+      // Checklist
+      y += avatarSize + 16;
+      s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="${textM}">Verification Checklist:</text>`;
+      y += 24;
+
+      checklist.forEach(item => {
+        const submitted = item.status === 'submitted';
+        const icon = submitted ? '&#x2611;' : '&#x2610;';
+        const statusText = submitted ? `Submitted (${item.date || ''})` : (item.type === 'DBS' ? 'Not submitted (voluntary)' : 'Not submitted');
+        s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="13" fill="${submitted ? '#16A34A' : textM}">${icon} ${esc(item.type)}: ${esc(statusText)}</text>`;
+
+        // Review button
+        if (submitted && !isMobile()) {
+          const btnLabel = `Review ${item.type === 'Right to Work' ? 'RTW' : item.type}`;
+          const btnW = btnLabel.length * 7 + 20;
+          s += `<rect x="${width - padC - btnW}" y="${y}" width="${btnW}" height="24" rx="6" fill="${brand}"/>`;
+          s += `<text x="${width - padC - btnW + 10}" y="${y + 16}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="white">${esc(btnLabel)}</text>`;
+        }
+        y += isMobile() ? 28 : 26;
+      });
+
+      // View profile link
+      y += 4;
+      s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="${brand}" text-decoration="underline">View Full Profile</text>`;
+
+      return { svg: s, height: cardH };
+    }
+
+    case 'toggle-switch': {
+      const p = child.props || {};
+      const label = p.label || 'Toggle';
+      const value = p.value || 'OFF';
+      const helpText = p.helpText || '';
+      const warning = p.warning || '';
+      const disabled = p.disabled === true;
+      const locked = p.locked === true;
+      const padC = 0;
+      let s = '';
+      let y = 0;
+
+      // Label
+      s += `<text x="0" y="16" font-family="Inter,sans-serif" font-size="14" font-weight="500" fill="${textP}">${esc(label)}</text>`;
+
+      // Toggle track
+      const trackW = 44;
+      const trackH = 24;
+      const isOn = value === 'ON' || value === true;
+      const trackX = width - trackW;
+      const trackFill = disabled ? '#D1D5DB' : (isOn ? brand : '#D1D5DB');
+      s += `<rect x="${trackX}" y="2" width="${trackW}" height="${trackH}" rx="${trackH / 2}" fill="${trackFill}"/>`;
+      // Handle
+      const handleX = isOn ? trackX + trackW - trackH + 2 : trackX + 2;
+      s += `<circle cx="${handleX + (trackH - 4) / 2}" cy="${2 + trackH / 2}" r="${(trackH - 4) / 2}" fill="white"/>`;
+      // Lock icon for mandatory
+      if (locked) {
+        s += `<text x="${trackX - 20}" y="19" font-family="Inter,sans-serif" font-size="13" fill="${textM}">&#x1F512;</text>`;
+      }
+      y = 28;
+
+      // Help text
+      if (helpText) {
+        s += `<text x="0" y="${y + 14}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(helpText.substring(0, 80))}${helpText.length > 80 ? '...' : ''}</text>`;
+        y += 22;
+      }
+      // Warning
+      if (warning) {
+        s += `<text x="0" y="${y + 14}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="#DC2626">&#x26A0; ${esc(warning.substring(0, 70))}${warning.length > 70 ? '...' : ''}</text>`;
+        y += 20;
+      }
+
+      return { svg: s, height: y + 8 };
+    }
+
+    case 'settings-nav': {
+      const p = child.props || {};
+      const categories = Array.isArray(p.categories) ? p.categories : [];
+      const activeId = p.activeCategory || (categories[0] && categories[0].id);
+      const itemH = 44;
+      const padC = 12;
+      const navW = width;
+      let s = '';
+      let y = 0;
+
+      // Background
+      s += `<rect x="0" y="0" width="${navW}" height="${categories.length * itemH + 16}" rx="8" fill="#F8FAFC" stroke="${border}" stroke-width="1"/>`;
+      y = 8;
+
+      categories.forEach(cat => {
+        const isActive = cat.id === activeId;
+        const label = cat.label || cat.id;
+        const icon = cat.icon || '';
+        const badge = cat.badge || '';
+
+        if (isActive) {
+          s += `<rect x="4" y="${y}" width="${navW - 8}" height="${itemH}" rx="6" fill="#EFF6FF"/>`;
+          s += `<rect x="4" y="${y}" width="3" height="${itemH}" rx="1.5" fill="${brand}"/>`;
+        }
+        s += `<text x="${padC + 8}" y="${y + itemH / 2 + 5}" font-family="Inter,sans-serif" font-size="14" font-weight="${isActive ? '600' : '400'}" fill="${isActive ? brand : textP}">${esc(icon ? icon + ' ' : '')}${esc(label)}</text>`;
+        if (badge) {
+          const bw = badge.length * 6 + 14;
+          s += `<rect x="${navW - padC - bw}" y="${y + itemH / 2 - 9}" width="${bw}" height="18" rx="9" fill="#FEF3C7"/>`;
+          s += `<text x="${navW - padC - bw + 7}" y="${y + itemH / 2 + 4}" font-family="Inter,sans-serif" font-size="10" fill="#92400E">${esc(badge)}</text>`;
+        }
+        y += itemH;
+      });
+      y += 8;
+
+      return { svg: s, height: y };
+    }
+
+    case 'info-box-calculation': {
+      const p = child.props || {};
+      const title = p.title || 'Calculation';
+      const lines = Array.isArray(p.lines) ? p.lines : [];
+      const padC = 16;
+      const lineH = 22;
+      let s = '';
+      let y = 0;
+
+      const boxH = padC * 2 + 24 + lines.length * lineH + 8;
+      s += `<rect x="0" y="0" width="${width}" height="${boxH}" rx="8" fill="#F8FAFC" stroke="${border}" stroke-width="1"/>`;
+      y = padC;
+
+      s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="${textP}">${esc(title)}</text>`;
+      y += 24;
+
+      lines.forEach(line => {
+        const label = line.label || '';
+        const value = line.value || '';
+        const style = line.style || 'normal';
+        const isBold = style === 'total' || style === 'subtotal';
+        const isLine = style === 'divider';
+
+        if (isLine) {
+          s += `<line x1="${padC}" y1="${y + 8}" x2="${width - padC}" y2="${y + 8}" stroke="${border}" stroke-width="1"/>`;
+        } else {
+          s += `<text x="${padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="${isBold ? '13' : '12'}" font-weight="${isBold ? '600' : '400'}" fill="${textP}">${esc(label)}</text>`;
+          if (value) {
+            s += `<text x="${width - padC}" y="${y + 14}" font-family="Inter,sans-serif" font-size="${isBold ? '13' : '12'}" font-weight="${isBold ? '600' : '400'}" fill="${textP}" text-anchor="end">${esc(value)}</text>`;
+          }
+        }
+        y += lineH;
+      });
+
+      return { svg: s, height: boxH };
+    }
+
+    case 'bulk-actions-toolbar': {
+      const p = child.props || {};
+      const selectedCount = p.selectedCount || 2;
+      const actions = Array.isArray(p.actions) ? p.actions : ['Suspend Selected', 'Export Selected', 'Clear Selection'];
+      const toolbarH = 48;
+      let s = '';
+
+      s += `<rect x="0" y="0" width="${width}" height="${toolbarH}" rx="8" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1"/>`;
+      s += `<text x="16" y="${toolbarH / 2 + 5}" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#1D4ED8">${selectedCount} users selected</text>`;
+
+      let x = 180;
+      actions.forEach(action => {
+        const btnW = action.length * 7 + 24;
+        s += `<rect x="${x}" y="8" width="${btnW}" height="32" rx="6" fill="white" stroke="#93C5FD" stroke-width="1"/>`;
+        s += `<text x="${x + 12}" y="29" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="#1D4ED8">${esc(action)}</text>`;
+        x += btnW + 8;
+      });
+
+      return { svg: s, height: toolbarH };
+    }
+
+    case 'audit-log-table': {
+      const p = child.props || {};
+      const entries = Array.isArray(p.entries) ? p.entries : [];
+      const headerH = 36;
+      const rowH = 40;
+      const padC = 12;
+      let s = '';
+      let y = 0;
+
+      // Section heading
+      s += `<text x="0" y="16" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="${textP}">Recent Changes</text>`;
+      s += `<text x="0" y="34" font-family="Inter,sans-serif" font-size="12" fill="${textM}">Last ${entries.length || 5} settings modifications</text>`;
+      y = 48;
+
+      const totalRows = Math.min(entries.length, isMobile() ? 3 : 5);
+      const tableH = headerH + totalRows * rowH;
+      s += `<rect x="0" y="${y}" width="${width}" height="${tableH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+
+      // Header
+      s += `<rect x="1" y="${y + 1}" width="${width - 2}" height="${headerH}" rx="8" fill="#F9FAFB"/>`;
+      const cols = isMobile()
+        ? [{ label: 'Change', w: 0.6 }, { label: 'Value', w: 0.4 }]
+        : [{ label: 'Date/Time', w: 0.2 }, { label: 'Admin', w: 0.2 }, { label: 'Category', w: 0.15 }, { label: 'Field', w: 0.2 }, { label: 'Old', w: 0.1 }, { label: 'New', w: 0.15 }];
+      let cx = padC;
+      cols.forEach(col => {
+        s += `<text x="${cx}" y="${y + headerH / 2 + 4}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${textM}">${esc(col.label)}</text>`;
+        cx += width * col.w;
+      });
+      y += headerH;
+
+      for (let i = 0; i < totalRows; i++) {
+        const entry = entries[i] || {};
+        s += `<line x1="0" y1="${y + rowH}" x2="${width}" y2="${y + rowH}" stroke="${border}" stroke-width="0.5"/>`;
+
+        if (isMobile()) {
+          s += `<text x="${padC}" y="${y + 16}" font-family="Inter,sans-serif" font-size="11" fill="${textP}">${esc(entry.field || '')} (${esc(entry.category || '')})</text>`;
+          s += `<text x="${padC}" y="${y + 32}" font-family="Inter,sans-serif" font-size="10" fill="${textM}">${esc(entry.date || '')} by ${esc(entry.admin || '')}</text>`;
+          s += `<text x="${width * 0.6 + padC}" y="${y + 24}" font-family="Inter,sans-serif" font-size="11" fill="${textP}">${esc(entry.oldValue || '')} &#x2192; ${esc(entry.newValue || '')}</text>`;
+        } else {
+          let cx2 = padC;
+          const vals = [entry.date, entry.admin, entry.category, entry.field, entry.oldValue, entry.newValue];
+          cols.forEach((col, ci) => {
+            s += `<text x="${cx2}" y="${y + rowH / 2 + 4}" font-family="Inter,sans-serif" font-size="12" fill="${ci >= 4 ? (ci === 5 ? '#16A34A' : '#DC2626') : textP}">${esc(vals[ci] || '')}</text>`;
+            cx2 += width * col.w;
+          });
+        }
+        y += rowH;
+      }
+
+      y += 12;
+      s += `<text x="0" y="${y + 14}" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="${brand}" text-decoration="underline">View Full Audit Log &#x2192;</text>`;
+      y += 28;
+
+      return { svg: s, height: y };
+    }
+
+    case 'super-admin-badge': {
+      const p = child.props || {};
+      const label = p.label || 'SUPER ADMIN ONLY';
+      const bw = label.length * 7 + 16;
+      let s = '';
+      s += `<rect x="0" y="0" width="${bw}" height="24" rx="4" fill="#F59E0B"/>`;
+      s += `<text x="8" y="16" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="white" letter-spacing="0.5">${esc(label)}</text>`;
+      return { svg: s, height: 24 };
+    }
+
+    case 'placeholder-badge': {
+      const p = child.props || {};
+      const label = p.label || 'PLACEHOLDER';
+      const bw = label.length * 6 + 16;
+      let s = '';
+      s += `<rect x="0" y="0" width="${bw}" height="20" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>`;
+      s += `<text x="8" y="14" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92400E">${esc(label)}</text>`;
+      return { svg: s, height: 20 };
     }
 
     default: {
@@ -1934,10 +2873,13 @@ function main() {
     for (const file of screenFiles) {
       const screen = JSON.parse(fs.readFileSync(path.join(screensDir, file), 'utf8'));
       const name = screen._metadata.screenName;
+      const role = screen._metadata.role || 'public';
       console.log(`  Generating: ${name}`);
 
       const svg = generateScreenSvg(screen, R);
-      const outFile = path.join(outDir, file.replace('.json', '.svg'));
+      const roleDir = path.join(outDir, role);
+      if (!fs.existsSync(roleDir)) fs.mkdirSync(roleDir, { recursive: true });
+      const outFile = path.join(roleDir, file.replace('.json', '.svg'));
       fs.writeFileSync(outFile, svg);
       console.log(`    -> ${path.relative(process.cwd(), outFile)}`);
       totalGenerated++;

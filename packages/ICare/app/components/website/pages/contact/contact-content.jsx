@@ -4,7 +4,7 @@ import styles from "./contact-content.module.scss";
 
 const company = {
     brand: "ICare",
-    email: "hello@icare.co.uk",
+    email: "hello@icare-app.co.uk",
     lastUpdated: "January 28, 2026",
 };
 

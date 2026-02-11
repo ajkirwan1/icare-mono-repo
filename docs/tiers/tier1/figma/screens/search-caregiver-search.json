@@ -4,7 +4,7 @@
     "screenName": "Caregiver Search",
     "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-003-caregiver-search.md",
     "generatedDate": "2026-02-10",
-    "role": "care_receiver",
+    "role": "care-receiver",
     "route": "/search",
     "breakpoints": {
       "desktop": 1440,

@@ -2,7 +2,7 @@
   "_metadata": {
     "screenId": "SCR-CR-005",
     "screenName": "Caregiver Profile (Public View)",
-    "role": "care_receiver",
+    "role": "care-receiver",
     "route": "/caregivers/:caregiverId",
     "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-005-caregiver-profile.md",
     "generatedDate": "2026-02-10",

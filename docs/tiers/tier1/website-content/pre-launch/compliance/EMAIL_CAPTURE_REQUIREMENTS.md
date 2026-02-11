@@ -189,7 +189,7 @@ Unsubscribe | Update Preferences | Privacy Policy
 
 iCare Ltd
 [Registered Address]
-Contact: hello@icare.co.uk
+Contact: hello@icare-app.co.uk
 ```
 
 **Subject line guidance**:
@@ -265,7 +265,7 @@ Privacy Notice Summary
 
 We collect your email to send waitlist updates [or newsletter]. We use
 [Email Provider] to send emails. You can unsubscribe or request deletion
-anytime by emailing privacy@icare.co.uk.
+anytime by emailing privacy@icare-app.co.uk.
 
 Full Privacy Policy: [link]
 ```
@@ -325,7 +325,7 @@ Full Privacy Policy: [link]
 **Deletion request process**:
 
 1. **Request channels**:
-   - Email: privacy@icare.co.uk
+   - Email: privacy@icare-app.co.uk
    - Unsubscribe link in every email (for list removal)
    - Privacy Policy page (contact information)
 
@@ -383,7 +383,7 @@ You're receiving this because you joined the iCare [waitlist/newsletter].
 
 Unsubscribe | Update Email Preferences | Privacy Policy
 
-iCare Ltd | [Address] | hello@icare.co.uk
+iCare Ltd | [Address] | hello@icare-app.co.uk
 -------------------------------------------------------
 ```
 
@@ -396,13 +396,13 @@ You won't receive further emails from us.
 
 Changed your mind? Re-subscribe here.
 
-Questions? Contact privacy@icare.co.uk
+Questions? Contact privacy@icare-app.co.uk
 ```
 
 4. **List-Unsubscribe header**: Include technical header for email clients
 
 ```
-List-Unsubscribe: <mailto:unsubscribe@icare.co.uk?subject=unsubscribe>
+List-Unsubscribe: <mailto:unsubscribe@icare-app.co.uk?subject=unsubscribe>
 List-Unsubscribe-Post: List-Unsubscribe=One-Click
 ```
 
@@ -442,7 +442,7 @@ List-Unsubscribe-Post: List-Unsubscribe=One-Click
 **Processes**:
 - [ ] Document data retention policy
 - [ ] Create deletion request process
-- [ ] Assign responsibility for privacy requests (privacy@icare.co.uk)
+- [ ] Assign responsibility for privacy requests (privacy@icare-app.co.uk)
 - [ ] Set calendar reminder for 12-month re-engagement campaign
 
 **Testing**:

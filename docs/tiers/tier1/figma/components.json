@@ -2,11 +2,11 @@
   "_metadata": {
     "generatedFrom": "dashboard-shared-components.md + search/booking wireframes",
     "generatedDate": "2026-02-10",
-    "lastUpdated": "2026-02-10",
+    "lastUpdated": "2026-02-11",
     "tokenSource": "tokens.json",
-    "totalComponents": 55,
-    "scope": "dashboard-screens + search-screens + booking-screens + profile-screens",
-    "description": "Component schemas for programmatic Figma component generation via local development plugin. Includes 33 dashboard components + 7 search/discovery components + 15 profile/booking components.",
+    "totalComponents": 82,
+    "scope": "dashboard-screens + search-screens + booking-screens + profile-screens + auth-screens + payment-screens + onboarding-screens + messaging-screens + review-screens + admin-screens",
+    "description": "Component schemas for programmatic Figma component generation via local development plugin. Includes 33 dashboard components + 7 search/discovery components + 15 profile/booking components + 3 auth components + 4 payment components + 4 onboarding components + 4 messaging components + 2 review components + 10 admin components.",
     "newComponents": [
       "search-bar",
       "caregiver-card",
@@ -29,7 +29,25 @@
       "payment-summary",
       "booking-timeline",
       "earnings-breakdown-card",
-      "care-receiver-card"
+      "care-receiver-card",
+      "saved-card-item",
+      "stripe-secure-input",
+      "payout-status-card",
+      "earnings-metric-row",
+      "file-upload",
+      "availability-grid",
+      "radio-group",
+      "verification-status-card",
+      "data-table",
+      "filter-bar",
+      "verification-queue-card",
+      "settings-nav",
+      "info-box-calculation",
+      "audit-log-table",
+      "super-admin-badge",
+      "placeholder-badge",
+      "filter-tag-row",
+      "bulk-actions-toolbar"
     ]
   },
   "components": [
@@ -8632,6 +8650,662 @@
         "ariaLabel": "Password strength: {strength}"
       },
       "figmaNotes": "4-segment horizontal bar. Weak: 1 red segment. Fair: 2 amber segments. Strong: 3 green segments. Very strong: 4 green segments. Unfilled segments: light gray. Label below bar shows strength text. Updates in real-time as user types. Place directly below password input field."
+    },
+    {
+      "id": "saved-card-item",
+      "name": "Saved Card Item",
+      "category": "payment",
+      "description": "Row displaying a saved payment card with brand icon, masked number, expiry, status badge, and action buttons",
+      "dimensions": {
+        "width": "100%",
+        "height": "72px"
+      },
+      "variants": [
+        {
+          "name": "Default Card",
+          "properties": { "isDefault": true, "isExpired": false }
+        },
+        {
+          "name": "Non-Default Card",
+          "properties": { "isDefault": false, "isExpired": false }
+        },
+        {
+          "name": "Expired Card",
+          "properties": { "isDefault": false, "isExpired": true }
+        }
+      ],
+      "props": [
+        { "name": "brand", "type": "text", "default": "Visa" },
+        { "name": "last4", "type": "text", "default": "4242" },
+        { "name": "expiry", "type": "text", "default": "03/27" },
+        { "name": "isDefault", "type": "boolean", "default": false },
+        { "name": "isExpired", "type": "boolean", "default": false }
+      ],
+      "tokens": {
+        "fill": "{component.bookingCard.background}",
+        "stroke": "{component.bookingCard.border}",
+        "borderRadius": "{borderRadius.sm}",
+        "padding": "{spacing.4}"
+      },
+      "figmaNotes": "Card row: left-aligned brand icon placeholder (48x32 rounded rect), masked card number, expiry date below. Right side: 'Default' green badge or 'Expired' red badge, then 'Set as Default' and 'Remove' buttons. Remove button uses destructive red border."
+    },
+    {
+      "id": "stripe-secure-input",
+      "name": "Stripe Secure Card Input",
+      "category": "payment",
+      "description": "Representation of Stripe Elements secure card input form with card number, expiry, CVC, cardholder name, and billing postcode",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": { "layout": "desktop" }
+        },
+        {
+          "name": "Mobile",
+          "properties": { "layout": "mobile" }
+        }
+      ],
+      "props": [
+        { "name": "fields", "type": "array", "default": ["cardNumber", "expiry", "cvc", "cardholderName", "postcode"] }
+      ],
+      "tokens": {
+        "inputBg": "white",
+        "inputBorder": "{component.inputField.border}",
+        "inputRadius": "{borderRadius.sm}"
+      },
+      "figmaNotes": "Five input fields: Card number (full width with lock icon), Expiry + CVC (side by side on desktop, stacked on mobile), Cardholder name (full width), Billing postcode (full width). All inputs use standard input-field styling. Lock icon on card number indicates Stripe secure iframe."
+    },
+    {
+      "id": "payout-status-card",
+      "name": "Payout Status Card",
+      "category": "payment",
+      "description": "Shows bank connection status for caregiver payouts via Stripe Connect",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Not Connected",
+          "properties": { "status": "not-connected" }
+        },
+        {
+          "name": "Connected",
+          "properties": { "status": "connected" }
+        }
+      ],
+      "props": [
+        { "name": "status", "type": "enum", "options": ["not-connected", "connected"], "default": "not-connected" },
+        { "name": "bankName", "type": "text", "default": "" },
+        { "name": "accountEnding", "type": "text", "default": "" }
+      ],
+      "tokens": {
+        "connectedBadgeBg": "{colors.status.in-progress-bg}",
+        "connectedBadgeText": "{colors.status.in-progress-text}",
+        "notConnectedBadgeBg": "{colors.status.completed-bg}",
+        "notConnectedBadgeText": "{colors.status.completed-text}"
+      },
+      "figmaNotes": "Not connected: gray 'Not Connected' pill badge + prominent green 'Set Up Payouts' button. Connected: green 'Connected' pill badge + bank name + masked account number + secondary 'Update Payout Method' button."
+    },
+    {
+      "id": "earnings-metric-row",
+      "name": "Earnings Metric Row",
+      "category": "payment",
+      "description": "Horizontal row of earnings metrics (total earned, pending payouts, next payout)",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Horizontal (Desktop)",
+          "properties": { "layout": "horizontal" }
+        },
+        {
+          "name": "Stacked (Mobile)",
+          "properties": { "layout": "vertical" }
+        }
+      ],
+      "props": [
+        {
+          "name": "metrics",
+          "type": "array",
+          "default": [
+            { "label": "Total Earned", "value": "\u00a30.00" },
+            { "label": "Pending Payouts", "value": "\u00a30.00" },
+            { "label": "Next Payout", "value": "No payouts scheduled" }
+          ]
+        }
+      ],
+      "tokens": {
+        "labelColor": "{colors.text.muted}",
+        "valueColor": "{colors.text.primary}"
+      },
+      "figmaNotes": "Desktop: 3 columns equally spaced. Each column has muted label text above and bold value below. Mobile: stacked rows with label left-aligned and value right-aligned. Values use metric-value typography for desktop, slightly smaller for mobile."
+    },
+    {
+      "id": "file-upload",
+      "name": "File Upload (Drag & Drop)",
+      "category": "onboarding",
+      "description": "Drag-and-drop file upload zone with dashed border, file icon, format/size guidance. Used for document uploads (ID, passport, DBS certificate, profile photo).",
+      "dimensions": {
+        "width": "100%",
+        "height": "140px (rectangle) or 200px (circle)"
+      },
+      "variants": [
+        {
+          "name": "Rectangle (Document)",
+          "properties": { "shape": "rectangle" }
+        },
+        {
+          "name": "Circle (Profile Photo)",
+          "properties": { "shape": "circle", "previewSize": 150 }
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "string", "default": "Upload File" },
+        { "name": "acceptedFormats", "type": "string", "default": "JPG, PNG, PDF" },
+        { "name": "maxSize", "type": "string", "default": "5MB" },
+        { "name": "dragDropText", "type": "string", "default": "Drag and drop your file here, or click to browse" },
+        { "name": "mobileText", "type": "string", "default": "Tap to upload file" },
+        { "name": "shape", "type": "string", "default": "rectangle" },
+        { "name": "required", "type": "boolean", "default": false }
+      ],
+      "tokens": {
+        "borderColor": "{colors.border.card}",
+        "textColor": "{colors.text.muted}",
+        "iconOpacity": "0.4"
+      },
+      "figmaNotes": "Dashed border (2px, 8/4 pattern). File icon centered above text. Desktop shows drag-and-drop text, mobile shows 'Tap to upload'. Circle variant used for profile photo with 150px preview circle. Rectangle is 140px tall with centered content."
+    },
+    {
+      "id": "availability-grid",
+      "name": "Availability Grid",
+      "category": "onboarding",
+      "description": "7-day x 3-period weekly schedule grid with toggleable cells. Used in caregiver onboarding Step 3.",
+      "dimensions": {
+        "width": "auto (centered within parent)",
+        "height": "auto (depends on day count)"
+      },
+      "variants": [
+        {
+          "name": "Desktop",
+          "properties": { "cellSize": 40, "labelWidth": 100, "fullDayNames": true }
+        },
+        {
+          "name": "Mobile",
+          "properties": { "cellSize": 32, "labelWidth": 50, "fullDayNames": false }
+        }
+      ],
+      "props": [
+        { "name": "days", "type": "array", "default": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
+        { "name": "periods", "type": "array", "default": ["Morning (6am-12pm)", "Afternoon (12-5pm)", "Evening (5-9pm)"] },
+        { "name": "selected", "type": "object", "default": {} }
+      ],
+      "tokens": {
+        "selectedFill": "#2563eb (opacity 0.15)",
+        "selectedStroke": "#2563eb",
+        "cardBackground": "{colors.background.card-glass}",
+        "borderColor": "{colors.border.card}"
+      },
+      "figmaNotes": "Grid with day labels on left, period headers on top. Selected cells have blue tinted background with checkmark. Unselected cells have light border. Mobile abbreviates day names (Mon, Tue...) and period names. Grid is centered in parent. Uses role=grid for accessibility with arrow key navigation."
+    },
+    {
+      "id": "radio-group",
+      "name": "Radio Button Group",
+      "category": "onboarding",
+      "description": "Vertical list of radio buttons with optional group label. Used for verification method selection (UK passport vs UKVI share code).",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": {}
+        }
+      ],
+      "props": [
+        { "name": "label", "type": "string", "default": "" },
+        { "name": "required", "type": "boolean", "default": false },
+        { "name": "options", "type": "array", "default": [] },
+        { "name": "selected", "type": "string", "default": "" }
+      ],
+      "tokens": {
+        "selectedColor": "#2563eb",
+        "borderColor": "{colors.border.card}",
+        "textColor": "{colors.text.primary}"
+      },
+      "figmaNotes": "Each option is a 32px-tall row with 20px circle (outer ring 2px stroke, inner fill 10px for selected). Label text 14px aligned after 32px offset. Group label bold 14px above options with 12px gap. Selected state: blue outer ring + blue inner circle. Unselected: gray outer ring only."
+    },
+    {
+      "id": "verification-status-card",
+      "name": "Verification Status Card",
+      "category": "onboarding",
+      "description": "Card showing verification item with status badge and action button. Used in caregiver onboarding Step 5 for Identity, Right to Work, and DBS verification links.",
+      "dimensions": {
+        "width": "100%",
+        "height": "90px (or 110px with skip link)"
+      },
+      "variants": [
+        {
+          "name": "Required",
+          "properties": { "required": true, "optionalBadge": false }
+        },
+        {
+          "name": "Optional (with Skip)",
+          "properties": { "required": false, "optionalBadge": true, "skipLabel": "Skip for now" }
+        }
+      ],
+      "props": [
+        { "name": "title", "type": "string", "default": "Verification" },
+        { "name": "description", "type": "string", "default": "" },
+        { "name": "status", "type": "string", "default": "not-submitted", "options": ["not-submitted", "pending", "verified", "rejected"] },
+        { "name": "actionLabel", "type": "string", "default": "Verify" },
+        { "name": "actionHref", "type": "string", "default": "" },
+        { "name": "required", "type": "boolean", "default": true },
+        { "name": "optionalBadge", "type": "boolean", "default": false },
+        { "name": "skipLabel", "type": "string", "default": "" }
+      ],
+      "tokens": {
+        "cardBackground": "{colors.background.card-glass}",
+        "borderColor": "{colors.border.card}",
+        "titleColor": "{colors.text.primary}",
+        "descriptionColor": "{colors.text.muted}"
+      },
+      "figmaNotes": "Card with 8px border-radius and 1px border. Title (15px bold) top-left, status badge (pill) top-right. Description (13px muted) below title. Action button (brand color) bottom-right. Optional variant adds blue 'OPTIONAL' pill badge after title and 'Skip for now' text link below action button. Status badge colors: not-submitted (gray), pending (amber), verified (green), rejected (red)."
+    },
+    {
+      "id": "message-bubble",
+      "name": "Message Bubble",
+      "category": "messaging",
+      "description": "Chat message bubble with three variants: own (right-aligned, light blue), other (left-aligned, gray), system (centered, yellow). Supports sender name, timestamp, read receipts, and contact redaction alerts.",
+      "dimensions": { "width": "65% of container (max 500px)", "height": "auto (based on text)" },
+      "variants": [
+        { "name": "Own", "properties": { "align": "right", "fill": "#E0F2FE", "showReadReceipt": true } },
+        { "name": "Other", "properties": { "align": "left", "fill": "#F3F4F6", "showSenderName": true } },
+        { "name": "System", "properties": { "align": "center", "fill": "#FEF3C7", "showSenderName": false } }
+      ],
+      "props": [
+        { "name": "text", "type": "string", "default": "Message text here" },
+        { "name": "senderName", "type": "string", "default": "" },
+        { "name": "time", "type": "string", "default": "Today at 2:30 PM" },
+        { "name": "readReceipt", "type": "string", "default": "", "options": ["✓ Sent", "✓✓ Read", "⏳ Sending..."] },
+        { "name": "redactionAlert", "type": "string", "default": "" }
+      ],
+      "tokens": {
+        "padding": "16px",
+        "borderRadius": "8px",
+        "fontSize": "14px",
+        "timestampSize": "12px"
+      },
+      "figmaNotes": "Own messages right-aligned with light blue (#E0F2FE) background, 8px border-radius, 16px padding. Timestamp + read receipt below right. Other messages left-aligned with gray (#F3F4F6) background. Sender name + timestamp below left. System messages centered with yellow (#FEF3C7) background. All text 14px, timestamps 12px gray."
+    },
+    {
+      "id": "message-input",
+      "name": "Message Input",
+      "category": "messaging",
+      "description": "Message composition area with auto-resizing textarea, character counter, and send button.",
+      "dimensions": { "width": "100%", "height": "auto (textarea 60-80px + button 48-56px)" },
+      "variants": [
+        { "name": "Default", "properties": { "disabled": false } },
+        { "name": "Disabled", "properties": { "disabled": true } }
+      ],
+      "props": [
+        { "name": "placeholder", "type": "string", "default": "Type your message..." },
+        { "name": "maxLength", "type": "number", "default": 1000 },
+        { "name": "charCount", "type": "string", "default": "0 / 1000" },
+        { "name": "sendLabel", "type": "string", "default": "Send Message" }
+      ],
+      "tokens": {
+        "textareaBorder": "{colors.border.card}",
+        "buttonFill": "{colors.brand.primary}",
+        "gap": "12px"
+      },
+      "figmaNotes": "Textarea with 8px border-radius, 1px border, white fill. Placeholder text 14px gray. Character counter 12px gray top-right. Send button brand color below right. Desktop textarea 80px, mobile 60px. Desktop send button 48px, mobile 56px."
+    },
+    {
+      "id": "date-divider",
+      "name": "Date Divider",
+      "category": "messaging",
+      "description": "Horizontal line divider with centered date label (Today, Yesterday, or specific date).",
+      "dimensions": { "width": "100%", "height": "24px" },
+      "variants": [],
+      "props": [
+        { "name": "label", "type": "string", "default": "Today" }
+      ],
+      "tokens": {
+        "lineColor": "{colors.border.card}",
+        "labelColor": "{colors.text.muted}",
+        "fontSize": "12px"
+      },
+      "figmaNotes": "Thin horizontal line (#E5E7EB) with centered label text in 12px gray. Line breaks around label with 4px gap on each side."
+    },
+    {
+      "id": "typing-indicator",
+      "name": "Typing Indicator",
+      "category": "messaging",
+      "description": "Shows that another participant is typing with three animated dots and participant name.",
+      "dimensions": { "width": "auto", "height": "28px" },
+      "variants": [],
+      "props": [
+        { "name": "name", "type": "string", "default": "Someone" }
+      ],
+      "tokens": {
+        "dotColor": "#3B82F6",
+        "textColor": "{colors.text.muted}",
+        "fontSize": "13px"
+      },
+      "figmaNotes": "Three 3px radius dots in blue (#3B82F6) with increasing opacity (0.4, 0.6, 0.8), spaced 8px apart. Followed by '[Name] is typing...' in 13px italic gray. In Figma, animate dots with Smart Animate (pulse effect)."
+    },
+    {
+      "id": "star-rating-input",
+      "name": "Star Rating Input",
+      "category": "review",
+      "description": "Interactive 5-star rating input with hover/click states and label text below each star. Stars rendered as polygons.",
+      "dimensions": { "width": "auto (centered)", "height": "auto (star size + labels)" },
+      "variants": [
+        { "name": "Empty", "properties": { "selectedStars": 0 } },
+        { "name": "Selected (4 stars)", "properties": { "selectedStars": 4 } },
+        { "name": "Full (5 stars)", "properties": { "selectedStars": 5 } }
+      ],
+      "props": [
+        { "name": "totalStars", "type": "number", "default": 5 },
+        { "name": "selectedStars", "type": "number", "default": 0 },
+        { "name": "starSize", "type": "number", "default": 48 },
+        { "name": "labels", "type": "array", "default": ["Poor", "Fair", "Good", "Very Good", "Excellent"] },
+        { "name": "filledColor", "type": "string", "default": "#F59E0B" },
+        { "name": "emptyColor", "type": "string", "default": "#D1D5DB" }
+      ],
+      "tokens": {
+        "labelColor": "{colors.text.muted}",
+        "labelFontSize": "12px",
+        "gap": "16px (desktop), 12px (mobile)"
+      },
+      "figmaNotes": "Stars are 48x48px desktop, 56x56px mobile. Filled stars yellow (#F59E0B), empty stars gray outline (#D1D5DB). Stars centered horizontally with 16px gap. Labels below each star in 12px gray. Mobile shows condensed labels (Poor/Good/Excellent only). In Figma, use component variants for 0-5 selected states. Hover state fills stars up to cursor. Use role=radiogroup with role=radio per star."
+    },
+    {
+      "id": "booking-summary-card",
+      "name": "Booking Summary Card (Review)",
+      "category": "review",
+      "description": "Card showing booking context for the review screen: caregiver photo, name, verification badges, rating, and booking date/time/duration/service.",
+      "dimensions": { "width": "100%", "height": "auto" },
+      "variants": [],
+      "props": [
+        { "name": "caregiverName", "type": "string", "default": "Caregiver Name" },
+        { "name": "caregiverPhoto", "type": "string", "default": "" },
+        { "name": "verificationBadges", "type": "array", "default": [] },
+        { "name": "rating", "type": "number", "default": 0 },
+        { "name": "reviewCount", "type": "number", "default": 0 },
+        { "name": "date", "type": "string", "default": "" },
+        { "name": "time", "type": "string", "default": "" },
+        { "name": "duration", "type": "string", "default": "" },
+        { "name": "service", "type": "string", "default": "" }
+      ],
+      "tokens": {
+        "cardBackground": "white",
+        "borderColor": "{colors.border.card}",
+        "borderRadius": "8px",
+        "padding": "16px"
+      },
+      "figmaNotes": "White card with 8px border-radius and 1px border. 'BOOKING SUMMARY' label 11px uppercase gray. Caregiver photo (80px desktop, 60px mobile) circle left, name + badges + rating right. Below: Date/Time/Duration/Service rows in 13px with label gray and value primary."
+    },
+    {
+      "id": "data-table",
+      "name": "Data Table",
+      "category": "admin",
+      "description": "Sortable data table with column headers, badge cells, row highlighting, and kebab action menus. Used for user management, safeguarding reports, and other admin list views.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        { "name": "Default", "properties": { "highlight": false } },
+        { "name": "With Highlights", "properties": { "highlight": true } }
+      ],
+      "props": [
+        { "name": "columns", "type": "array", "description": "Array of { label, name? } column header objects" },
+        { "name": "rows", "type": "array", "description": "Array of row objects. Each row has 'cells' array (strings or badge objects with text/badge/badgeColor/badgeTextColor/color) and optional 'highlight' (urgent/warning)" },
+        { "name": "resultsText", "type": "string", "description": "Results count text shown below the table, e.g. 'Showing 1-20 of 23 users'" }
+      ],
+      "styling": {
+        "headerBackground": "#F9FAFB",
+        "headerFontSize": "11px",
+        "headerFontWeight": "600",
+        "rowBorderBottom": "1px solid #E5E7EB",
+        "cellFontSize": "13px",
+        "urgentHighlight": "#FEE2E2",
+        "warningHighlight": "#FEF3C7",
+        "borderRadius": "8px",
+        "border": "1px solid {colors.border.card}"
+      },
+      "figmaNotes": "Rounded 8px container with 1px border. Header row #F9FAFB with 11px uppercase semibold labels. Data rows alternate white. Badge cells render as small rounded pills. Urgent rows get #FEE2E2 background. Each row has a kebab (3-dot) action menu icon on the right."
+    },
+    {
+      "id": "filter-bar",
+      "name": "Filter Bar",
+      "category": "admin",
+      "description": "Horizontal filter bar with optional search input, dropdown filters, and clear/apply action buttons. Responsive: stacks vertically on mobile.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        { "name": "With Search", "properties": { "hasSearch": true } },
+        { "name": "Without Search", "properties": { "hasSearch": false } }
+      ],
+      "props": [
+        { "name": "hasSearch", "type": "boolean", "description": "Whether to show a search input field" },
+        { "name": "searchPlaceholder", "type": "string", "description": "Placeholder text for search input" },
+        { "name": "filters", "type": "array", "description": "Array of { label } filter dropdown objects" }
+      ],
+      "styling": {
+        "background": "#F8FAFC",
+        "borderRadius": "8px",
+        "border": "1px solid #E2E8F0",
+        "padding": "12px 16px",
+        "gap": "12px"
+      },
+      "figmaNotes": "Light blue-gray container (#F8FAFC) with 8px border-radius. Search input (if enabled) takes ~40% width on desktop. Filter dropdowns are 120px wide with chevron-down icon. 'Clear' secondary button and 'Apply' primary button right-aligned. On mobile, all elements stack vertically full-width."
+    },
+    {
+      "id": "verification-queue-card",
+      "name": "Verification Queue Card",
+      "category": "admin",
+      "description": "Card showing a caregiver's verification status with avatar, SLA tracking badge, document checklist, and review action buttons.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        { "name": "SLA Breached", "properties": { "slaStatus": "breached" } },
+        { "name": "SLA Approaching", "properties": { "slaStatus": "approaching" } },
+        { "name": "On Track", "properties": { "slaStatus": "on-track" } }
+      ],
+      "props": [
+        { "name": "name", "type": "string", "description": "Caregiver name" },
+        { "name": "appliedDate", "type": "string", "description": "Application date with relative time, e.g. '3 days ago (15/01/2026)'" },
+        { "name": "slaStatus", "type": "string", "description": "SLA status: breached | approaching | on-track" },
+        { "name": "slaPending", "type": "string", "description": "Pending time text, e.g. '72h pending'" },
+        { "name": "checklist", "type": "array", "description": "Array of { type, status (submitted|not-submitted), date } verification items" }
+      ],
+      "styling": {
+        "background": "white",
+        "borderRadius": "8px",
+        "border": "1px solid {colors.border.card}",
+        "padding": "16px",
+        "slaBreachedColor": "#DC2626",
+        "slaApproachingColor": "#F59E0B",
+        "slaOnTrackColor": "#16A34A",
+        "avatarSize": "48px"
+      },
+      "figmaNotes": "White card with 8px border-radius. Left: 48px gray avatar circle with initials. Right: Name (16px bold), applied date (12px gray), SLA badge (colored pill matching status). Below: checklist with checkmark/x icons per document type. Bottom: 'Review' primary button + 'Skip' secondary button side by side."
+    },
+    {
+      "id": "settings-nav",
+      "name": "Settings Navigation Sidebar",
+      "category": "admin",
+      "description": "Vertical navigation sidebar for system settings categories. Shows active state with left accent bar and background highlight. Supports badges for status indicators.",
+      "dimensions": {
+        "width": "200px",
+        "height": "auto"
+      },
+      "props": [
+        { "name": "activeCategory", "type": "string", "description": "ID of the currently active category" },
+        { "name": "categories", "type": "array", "description": "Array of { id, label, icon, badge? } category objects" }
+      ],
+      "styling": {
+        "background": "white",
+        "borderRadius": "8px",
+        "border": "1px solid {colors.border.card}",
+        "activeBackground": "#EFF6FF",
+        "activeAccentColor": "#2563EB",
+        "activeAccentWidth": "3px",
+        "itemPadding": "12px 16px",
+        "fontSize": "14px"
+      },
+      "figmaNotes": "White sidebar card with 8px border-radius. Each category is a row with icon + label. Active row has #EFF6FF background and 3px left blue accent bar. Badges appear right-aligned in 10px gray text. On mobile/tablet, this becomes a horizontal scrollable tab bar."
+    },
+    {
+      "id": "info-box-calculation",
+      "name": "Info Box Calculation",
+      "category": "admin",
+      "description": "Bordered information box showing a financial calculation breakdown with label-value pairs, dividers, subtotals, and totals. Used in system settings for commission/fee examples.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "props": [
+        { "name": "title", "type": "string", "description": "Box title, e.g. 'Example Booking Calculation:'" },
+        { "name": "lines", "type": "array", "description": "Array of line objects: { label, value, style? (divider|subtotal|total) }" }
+      ],
+      "styling": {
+        "background": "#F0F9FF",
+        "borderRadius": "8px",
+        "border": "1px solid #BAE6FD",
+        "padding": "16px",
+        "titleFontSize": "14px",
+        "titleFontWeight": "600",
+        "lineFontSize": "13px",
+        "subtotalFontWeight": "600",
+        "totalFontWeight": "700",
+        "totalBackground": "#DBEAFE"
+      },
+      "figmaNotes": "Light blue bordered box (#F0F9FF bg, #BAE6FD border). Title at top in 14px semibold. Each line is a horizontal label-value pair. Divider lines are 1px #BAE6FD. Subtotal lines use semibold. Total line gets #DBEAFE background highlight with bold text."
+    },
+    {
+      "id": "audit-log-table",
+      "name": "Audit Log Table",
+      "category": "admin",
+      "description": "Compact table showing recent system setting changes with date, admin name, category, field, old value, and new value columns.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "props": [
+        { "name": "entries", "type": "array", "description": "Array of { date, admin, category, field, oldValue, newValue } audit entries" }
+      ],
+      "styling": {
+        "headerBackground": "#F9FAFB",
+        "headerFontSize": "10px",
+        "cellFontSize": "12px",
+        "borderRadius": "8px",
+        "border": "1px solid {colors.border.card}",
+        "oldValueColor": "#DC2626",
+        "newValueColor": "#16A34A"
+      },
+      "figmaNotes": "Compact table with 'Recent Changes' heading (14px semibold). Header row in #F9FAFB with 10px uppercase labels. Data rows in 12px. Old values shown in red with strikethrough, new values in green. 6 columns: Date, Admin, Category, Field, Old, New."
+    },
+    {
+      "id": "super-admin-badge",
+      "name": "Super Admin Badge",
+      "category": "admin",
+      "description": "Small orange badge indicating super-admin-only access. Displayed next to page titles on restricted admin screens.",
+      "dimensions": {
+        "width": "auto",
+        "height": "24px"
+      },
+      "props": [
+        { "name": "label", "type": "string", "default": "SUPER ADMIN ONLY", "description": "Badge label text" }
+      ],
+      "styling": {
+        "background": "#FED7AA",
+        "textColor": "#C2410C",
+        "fontSize": "10px",
+        "fontWeight": "700",
+        "borderRadius": "4px",
+        "padding": "4px 8px"
+      },
+      "figmaNotes": "Small inline badge with orange background (#FED7AA) and dark orange text (#C2410C). 10px bold uppercase text. 4px border-radius. Typically placed inline next to a page heading."
+    },
+    {
+      "id": "placeholder-badge",
+      "name": "Placeholder Badge",
+      "category": "admin",
+      "description": "Yellow badge indicating a value is a placeholder pending a founder decision (FDR). Used to flag configurable values that are not yet finalized.",
+      "dimensions": {
+        "width": "auto",
+        "height": "24px"
+      },
+      "props": [
+        { "name": "label", "type": "string", "default": "PLACEHOLDER - FDR-008 PENDING", "description": "Badge label text" }
+      ],
+      "styling": {
+        "background": "#FEF3C7",
+        "textColor": "#92400E",
+        "fontSize": "10px",
+        "fontWeight": "600",
+        "borderRadius": "4px",
+        "padding": "4px 8px"
+      },
+      "figmaNotes": "Small inline badge with yellow background (#FEF3C7) and dark amber text (#92400E). 10px semibold text. 4px border-radius. Placed near form fields whose values are pending a founder decision."
+    },
+    {
+      "id": "filter-tag-row",
+      "name": "Filter Tag Row",
+      "category": "admin",
+      "description": "Horizontal row of active filter tags with dismiss (x) buttons. Shows currently applied filters that can be individually removed.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "props": [
+        { "name": "tags", "type": "array", "description": "Array of tag label strings, e.g. ['Role: Caregiver', 'Status: Suspended']" }
+      ],
+      "styling": {
+        "tagBackground": "#EFF6FF",
+        "tagTextColor": "#1D4ED8",
+        "tagFontSize": "12px",
+        "tagBorderRadius": "12px",
+        "tagPadding": "4px 10px",
+        "gap": "8px"
+      },
+      "figmaNotes": "Horizontal flex row with 8px gap. Each tag is a light blue pill (#EFF6FF) with blue text (#1D4ED8), 12px font, 12px border-radius. Each tag has a small 'x' dismiss icon on the right side."
+    },
+    {
+      "id": "bulk-actions-toolbar",
+      "name": "Bulk Actions Toolbar",
+      "category": "admin",
+      "description": "Floating toolbar shown when table rows are selected. Displays selected count and action buttons (e.g., Suspend, Activate, Export).",
+      "dimensions": {
+        "width": "100%",
+        "height": "48px"
+      },
+      "props": [
+        { "name": "selectedCount", "type": "number", "description": "Number of selected items" },
+        { "name": "actions", "type": "array", "description": "Array of { label, variant? } action button objects" }
+      ],
+      "styling": {
+        "background": "#1E293B",
+        "textColor": "white",
+        "borderRadius": "8px",
+        "padding": "8px 16px",
+        "fontSize": "13px"
+      },
+      "figmaNotes": "Dark toolbar (#1E293B) with white text. Left side shows '3 users selected' count. Right side has action buttons (outlined white for secondary, solid white-on-blue for primary). 8px border-radius. Appears at the bottom of the table area when rows are checkbox-selected."
     }
   ]
 }

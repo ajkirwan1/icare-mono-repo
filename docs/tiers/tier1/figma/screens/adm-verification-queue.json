@@ -1,0 +1,295 @@
+{
+  "_metadata": {
+    "screenId": "scr-adm-007",
+    "screenName": "Admin Verification Queue",
+    "wireframeSource": "scr-adm-007-verification-queue.md",
+    "generatedDate": "2026-02-11",
+    "role": "admin",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default-verifications-pending",
+      "sla-breach-alert",
+      "filtered",
+      "empty-all-clear"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Verification Officer",
+        "notificationCount": "4",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Verifications" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Caregiver Verification Queue",
+          "tokens": {
+            "fontSize": "32",
+            "fontWeight": "700"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Review and process pending verifications"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-sla-alert",
+      "name": "SLA Alert Banner",
+      "order": 4,
+      "component": "alert-banner",
+      "props": {
+        "variant": "warning",
+        "title": "SLA BREACH ALERT",
+        "message": "3 verifications over 48 hours require urgent review",
+        "ctaLabel": "Review Oldest First"
+      },
+      "padding": { "horizontal": 24, "bottom": 16 }
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter Bar",
+      "order": 5,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": false,
+            "filters": [
+              { "label": "Type" },
+              { "label": "SLA Status" },
+              { "label": "Sort By" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 6,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "clipboard-checklist",
+            "label": "Pending Verifications",
+            "value": "12 caregivers",
+            "subtext": "Avg wait: 18 hours"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "id-card",
+            "label": "Identity",
+            "value": "8 pending",
+            "statusColor": "blue"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "document",
+            "label": "Right to Work",
+            "value": "4 pending",
+            "statusColor": "green"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "shield-checkmark",
+            "label": "DBS (Voluntary)",
+            "value": "3 pending",
+            "subtext": "Optional at Tier 1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-results-count",
+      "name": "Results Count",
+      "order": 7,
+      "children": [
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-12 of 12 caregivers"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 }
+    },
+    {
+      "id": "section-queue-card-1",
+      "name": "Verification Card - SLA Breached",
+      "order": 8,
+      "children": [
+        {
+          "component": "verification-queue-card",
+          "props": {
+            "name": "John Smith",
+            "appliedDate": "3 days ago (15/01/2026)",
+            "slaStatus": "breached",
+            "slaPending": "72h pending",
+            "checklist": [
+              { "type": "Identity", "status": "submitted", "date": "15/01/26" },
+              { "type": "Right to Work", "status": "submitted", "date": "15/01/26" },
+              { "type": "DBS", "status": "not-submitted", "date": null }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 12 }
+    },
+    {
+      "id": "section-queue-card-2",
+      "name": "Verification Card - SLA Breached",
+      "order": 9,
+      "children": [
+        {
+          "component": "verification-queue-card",
+          "props": {
+            "name": "Mary Kelly",
+            "appliedDate": "5 days ago (13/01/2026)",
+            "slaStatus": "breached",
+            "slaPending": "120h pending",
+            "checklist": [
+              { "type": "Identity", "status": "submitted", "date": "13/01/26" },
+              { "type": "Right to Work", "status": "submitted", "date": "13/01/26" },
+              { "type": "DBS", "status": "submitted", "date": "13/01/26" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 12 }
+    },
+    {
+      "id": "section-queue-card-3",
+      "name": "Verification Card - Approaching SLA",
+      "order": 10,
+      "children": [
+        {
+          "component": "verification-queue-card",
+          "props": {
+            "name": "Anna Chen",
+            "appliedDate": "1 day ago (10/02/2026)",
+            "slaStatus": "approaching",
+            "slaPending": "30h pending",
+            "checklist": [
+              { "type": "Identity", "status": "submitted", "date": "10/02/26" },
+              { "type": "Right to Work", "status": "submitted", "date": "10/02/26" },
+              { "type": "DBS", "status": "not-submitted", "date": null }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 12 }
+    },
+    {
+      "id": "section-queue-card-4",
+      "name": "Verification Card - On Track",
+      "order": 11,
+      "children": [
+        {
+          "component": "verification-queue-card",
+          "props": {
+            "name": "Tom Brown",
+            "appliedDate": "8 hours ago (11/02/2026)",
+            "slaStatus": "on-track",
+            "slaPending": "8h pending",
+            "checklist": [
+              { "type": "Identity", "status": "submitted", "date": "11/02/26" },
+              { "type": "Right to Work", "status": "submitted", "date": "11/02/26" },
+              { "type": "DBS", "status": "not-submitted", "date": null }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 12 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 12,
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 1
+      },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 13,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalPending": 12,
+    "identityPending": 8,
+    "rtwPending": 4,
+    "dbsPending": 3,
+    "slaBreaches": 3,
+    "averageWaitHours": 18
+  }
+}
