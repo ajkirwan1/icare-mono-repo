@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router";
 import styles from "./contact-cta-banner.module.scss";
 
 export default function ContactCTABanner() {
@@ -11,9 +12,9 @@ export default function ContactCTABanner() {
             <div className={styles.container}>
                 {/* TEXT */}
                 <div>
-                    <h3 className={styles.heading}>
+                    <h2 className={styles.heading}>
                         Questions about ICare?
-                    </h3>
+                    </h2>
 
                     <p className={styles.text}>
                         We can walk you through matching, agreements and getting started - step by step and with no pressure.
@@ -21,7 +22,7 @@ export default function ContactCTABanner() {
                 </div>
 
                 {/* CTA BUTTON */}
-                <a href="/contact-us" className={styles.cta}>
+                <NavLink to="/contact-us" className={styles.cta}>
                     Contact us
 
                     <svg
@@ -39,7 +40,7 @@ export default function ContactCTABanner() {
                         <path d="M5 12h14" />
                         <path d="M13 5l6 7-6 7" />
                     </svg>
-                </a>
+                </NavLink>
             </div>
         </section>
     );

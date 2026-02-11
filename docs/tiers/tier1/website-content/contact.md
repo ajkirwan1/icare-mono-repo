@@ -26,7 +26,7 @@ Whether you have questions about using iCare, need support with a booking, or wa
 
 **For general questions about iCare, how it works, or our services**
 
-**Email**: hello@icare.co.uk
+**Email**: hello@icare-app.co.uk
 
 **Response Time**: 24-48 hours
 
@@ -43,7 +43,7 @@ Whether you have questions about using iCare, need support with a booking, or wa
 
 **For help with bookings, accounts, or using the platform as a family**
 
-**Email**: support@icare.co.uk
+**Email**: support@icare-app.co.uk
 
 **Phone**: [SUPPORT LINE]
 - **Hours**: Monday-Friday, 9am-6pm GMT
@@ -67,7 +67,7 @@ Whether you have questions about using iCare, need support with a booking, or wa
 
 **For caregiver applications, verification, or account help**
 
-**Email**: caregivers@icare.co.uk
+**Email**: caregivers@icare-app.co.uk
 
 **Phone**: [CAREGIVER SUPPORT LINE]
 - **Hours**: Monday-Friday, 9am-6pm GMT
@@ -90,7 +90,7 @@ Whether you have questions about using iCare, need support with a booking, or wa
 
 **For urgent safety or safeguarding issues**
 
-**Email**: safeguarding@icare.co.uk
+**Email**: safeguarding@icare-app.co.uk
 - **Monitoring**: 24/7 (checked multiple times per day)
 
 **Phone**: [SAFEGUARDING HOTLINE]
@@ -117,7 +117,7 @@ Whether you have questions about using iCare, need support with a booking, or wa
 
 **For formal complaints or detailed feedback**
 
-**Email**: complaints@icare.co.uk
+**Email**: complaints@icare-app.co.uk
 
 **Response Time**: Acknowledged within 48 hours, full response within 7 days
 
@@ -209,7 +209,7 @@ iCare is **not an emergency service**. If you or your loved one are experiencing
 
 1. **Call 999** (police, ambulance, fire)
 2. Ensure immediate safety
-3. **Then** notify iCare safeguarding team: safeguarding@icare.co.uk or [SAFEGUARDING HOTLINE]
+3. **Then** notify iCare safeguarding team: safeguarding@icare-app.co.uk or [SAFEGUARDING HOTLINE]
 
 We can coordinate with emergency services, suspend accounts if needed, and document the incident, but we cannot provide emergency response.
 
@@ -220,7 +220,7 @@ We can coordinate with emergency services, suspend accounts if needed, and docum
 If someone is at risk of harm but not in immediate danger:
 
 **Contact Our Safeguarding Team**:
-- Email: safeguarding@icare.co.uk (checked 24/7)
+- Email: safeguarding@icare-app.co.uk (checked 24/7)
 - Phone: [SAFEGUARDING HOTLINE]
 
 **Local Safeguarding Adults Board**:
@@ -289,7 +289,7 @@ We don't provide customer support via social media - please use email or phone f
 
 Interested in partnering with iCare?
 
-**Email**: partnerships@icare.co.uk
+**Email**: partnerships@icare-app.co.uk
 
 **Potential Partnerships**:
 - Local authority commissioning
@@ -305,7 +305,7 @@ Interested in partnering with iCare?
 
 For press inquiries, media requests, or journalist questions:
 
-**Email**: press@icare.co.uk
+**Email**: press@icare-app.co.uk
 
 **Available For**:
 - Feature interviews
@@ -328,7 +328,7 @@ For press inquiries, media requests, or journalist questions:
 [Full Office Address if applicable]
 
 **Visiting Our Office**:
-We operate primarily online, but welcome pre-arranged visits. Please email hello@icare.co.uk to schedule an appointment.
+We operate primarily online, but welcome pre-arranged visits. Please email hello@icare-app.co.uk to schedule an appointment.
 
 **Parking**: [Details if applicable]
 **Public Transport**: [Details if applicable]
@@ -425,12 +425,12 @@ iCare is built for you - families seeking care and caregivers providing it. Your
 
 | Need | Email | Phone | Hours | Response |
 |------|-------|-------|-------|----------|
-| **General Questions** | hello@icare.co.uk | - | - | 24-48h |
-| **Family Support** | support@icare.co.uk | [SUPPORT LINE] | Mon-Fri 9-6 | 24h |
-| **Caregiver Support** | caregivers@icare.co.uk | [CAREGIVER LINE] | Mon-Fri 9-6 | 24h |
-| **Safeguarding** | safeguarding@icare.co.uk | [SAFEGUARDING HOTLINE] | 24/7 | Immediate/24h |
-| **Complaints** | complaints@icare.co.uk | - | - | 48h ack, 7d resolution |
-| **Press** | press@icare.co.uk | - | - | 48h |
+| **General Questions** | hello@icare-app.co.uk | - | - | 24-48h |
+| **Family Support** | support@icare-app.co.uk | [SUPPORT LINE] | Mon-Fri 9-6 | 24h |
+| **Caregiver Support** | caregivers@icare-app.co.uk | [CAREGIVER LINE] | Mon-Fri 9-6 | 24h |
+| **Safeguarding** | safeguarding@icare-app.co.uk | [SAFEGUARDING HOTLINE] | 24/7 | Immediate/24h |
+| **Complaints** | complaints@icare-app.co.uk | - | - | 48h ack, 7d resolution |
+| **Press** | press@icare-app.co.uk | - | - | 48h |
 
 ---
 

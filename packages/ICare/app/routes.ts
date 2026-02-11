@@ -8,7 +8,7 @@ export default [
   route("icare-for-carereceivers", "routes/website/icare-for-carereceivers.jsx"),
   route("privacy", "routes/website/privacy.jsx"),
   route("carerecipient", "routes/carerecipient.jsx"),
-  route("terms-of-service", "routes/website/terms-of-service.jsx"),
+  route("safety-commitment", "routes/website/safety-commitment.jsx"),
   route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
   route("contact-us", "routes/website/contact-us.jsx"),
   route("frequently-asked-questions", "routes/website/faqs.jsx"),

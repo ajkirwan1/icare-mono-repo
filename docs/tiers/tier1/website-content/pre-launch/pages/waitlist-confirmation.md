@@ -105,7 +105,7 @@ Help us build a community that believes care can be better.
 We're building this for you, and we want to hear from you.
 
 Have questions? Want to share your story? Get in touch anytime:
-- Email: hello@icare.co.uk
+- Email: hello@icare-app.co.uk
 - Follow our journey on [Facebook] and [LinkedIn]
 
 Thank you for believing in what we're building.
@@ -185,7 +185,7 @@ Better care starts with better caregivers.
 We're building this with caregivers, not just for them. Your voice matters.
 
 Have questions? Want to share what you're looking for in a platform? Get in touch:
-- Email: caregivers@icare.co.uk
+- Email: caregivers@icare-app.co.uk
 - Follow our journey on [Facebook] and [LinkedIn]
 
 Welcome to the iCare community. We're glad you're here.
@@ -279,7 +279,7 @@ Welcome to the iCare community. We're glad you're here.
 ## Review Notes
 
 **For Review**:
-- Confirm email addresses (hello@icare.co.uk, caregivers@icare.co.uk)
+- Confirm email addresses (hello@icare-app.co.uk, caregivers@icare-app.co.uk)
 - Confirm social media handles/links when available
 - Confirm newsletter subscription CTA behaviour (don't show if already subscribed)
 - Legal review: any GDPR implications for confirmation message?

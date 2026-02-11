@@ -238,7 +238,7 @@ All payments **must** go through iCare. Off-platform payments (cash, bank transf
 
 Report via:
 - In-app "Report Concern" button
-- Email: safeguarding@icare.co.uk
+- Email: safeguarding@icare-app.co.uk
 - Phone: [SUPPORT LINE]
 
 ---

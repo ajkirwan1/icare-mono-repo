@@ -290,7 +290,7 @@ The following items need to be confirmed/replaced before launch:
 
 | Item | Current Placeholder | Action Required |
 |------|---------------------|-----------------|
-| Email addresses | hello@icare.co.uk, privacy@icare.co.uk | Confirm domain and create mailboxes |
+| Email addresses | hello@icare-app.co.uk, privacy@icare-app.co.uk | Confirm domain and create mailboxes |
 | Company registration | "iCare Ltd (registration pending)" | Update when registered |
 | Social media links | [Twitter], [Facebook], [LinkedIn] | Create accounts and add URLs |
 | Founder story | Generic narrative included | Review/customise in About Us |

@@ -1,0 +1,324 @@
+{
+  "_metadata": {
+    "screenId": "scr-adm-014",
+    "screenName": "Admin System Settings",
+    "wireframeSource": "scr-adm-014-system-settings.md",
+    "generatedDate": "2026-02-11",
+    "role": "admin",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default-general-settings",
+      "payments-category",
+      "features-category",
+      "editing-unsaved-changes",
+      "access-denied"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Sarah (Super Admin)",
+        "userRole": "Super Admin",
+        "notificationCount": "3",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "System Settings" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "System Settings",
+          "tokens": {
+            "fontSize": "32",
+            "fontWeight": "700"
+          }
+        },
+        {
+          "component": "super-admin-badge",
+          "props": {
+            "label": "SUPER ADMIN ONLY"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Configure platform-wide settings and business rules"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 16 },
+      "gap": 8
+    },
+    {
+      "id": "section-settings-layout",
+      "name": "Settings Two-Column Layout",
+      "order": 4,
+      "layout": "two-column",
+      "columnRatio": "20-80",
+      "gap": 24,
+      "padding": { "horizontal": 24, "vertical": 0 },
+      "children": [
+        {
+          "id": "settings-sidebar",
+          "name": "Settings Category Sidebar",
+          "layout": "vertical",
+          "gap": 0,
+          "size": { "width": "20%", "height": "auto" },
+          "children": [
+            {
+              "component": "settings-nav",
+              "props": {
+                "activeCategory": "payments",
+                "categories": [
+                  { "id": "general", "label": "General", "icon": "⚙" },
+                  { "id": "payments", "label": "Payments", "icon": "💳", "badge": "Updated 2d" },
+                  { "id": "verification", "label": "Verification", "icon": "🛡" },
+                  { "id": "notifications", "label": "Notifications", "icon": "🔔" },
+                  { "id": "features", "label": "Features", "icon": "⚡", "badge": "2 disabled" }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "settings-content",
+          "name": "Settings Content Area",
+          "layout": "vertical",
+          "gap": 20,
+          "size": { "width": "80%", "height": "auto" },
+          "children": [
+            {
+              "component": "text",
+              "variant": "section-heading",
+              "content": "Payments Settings",
+              "tokens": {
+                "fontSize": "24",
+                "fontWeight": "600"
+              }
+            },
+            {
+              "component": "text",
+              "variant": "body-small",
+              "content": "Configure commission rates, service fees, and payment provider"
+            },
+            {
+              "component": "alert-banner",
+              "props": {
+                "variant": "warning",
+                "title": "Commission Rate Notice",
+                "message": "Commission rate changes affect all FUTURE bookings only. Existing bookings retain their original rate."
+              }
+            },
+            {
+              "component": "text",
+              "variant": "section-heading",
+              "content": "Commission Rates",
+              "tokens": {
+                "fontSize": "16",
+                "fontWeight": "600"
+              }
+            },
+            {
+              "component": "input-field",
+              "props": {
+                "label": "Caregiver Commission (%)",
+                "value": "15.00",
+                "placeholder": "Enter commission rate",
+                "helpText": "Percentage deducted from caregiver earnings"
+              }
+            },
+            {
+              "component": "placeholder-badge",
+              "props": {
+                "label": "PLACEHOLDER - FDR-008 PENDING"
+              }
+            },
+            {
+              "component": "input-field",
+              "props": {
+                "label": "Care Receiver Service Fee (%)",
+                "value": "5.00",
+                "placeholder": "Enter service fee",
+                "helpText": "Percentage added to booking total"
+              }
+            },
+            {
+              "component": "text",
+              "variant": "body-large",
+              "content": "Total Platform Revenue: 20.00%",
+              "tokens": {
+                "fontSize": "18",
+                "fontWeight": "700"
+              }
+            },
+            {
+              "component": "info-box-calculation",
+              "props": {
+                "title": "Example Booking Calculation:",
+                "lines": [
+                  { "label": "Caregiver hourly rate", "value": "£20.00" },
+                  { "label": "Booking duration", "value": "3 hours" },
+                  { "label": "Booking subtotal", "value": "£60.00" },
+                  { "style": "divider" },
+                  { "label": "Care Receiver Service Fee (5%)", "value": "+£3.00" },
+                  { "label": "Total Charged to Care Receiver", "value": "£63.00", "style": "subtotal" },
+                  { "style": "divider" },
+                  { "label": "Caregiver Commission (15%)", "value": "-£9.00" },
+                  { "label": "Caregiver Earnings (Payout)", "value": "£51.00", "style": "subtotal" },
+                  { "style": "divider" },
+                  { "label": "Platform Revenue", "value": "£12.00 (20%)", "style": "total" }
+                ]
+              }
+            },
+            {
+              "component": "divider"
+            },
+            {
+              "component": "text",
+              "variant": "section-heading",
+              "content": "Payment Provider",
+              "tokens": {
+                "fontSize": "16",
+                "fontWeight": "600"
+              }
+            },
+            {
+              "component": "dropdown",
+              "props": {
+                "label": "Payment Provider",
+                "value": "Stripe",
+                "options": ["Stripe"],
+                "helpText": "R0 supports Stripe only"
+              }
+            },
+            {
+              "component": "input-field",
+              "props": {
+                "label": "Stripe Publishable Key",
+                "value": "pk_live_••••••••••••••5678",
+                "helpText": "Public key for Stripe client-side integration"
+              }
+            },
+            {
+              "component": "input-field",
+              "props": {
+                "label": "Stripe Secret Key",
+                "value": "sk_live_••••••••••••••••••••••••",
+                "helpText": "🔒 Never share. Stored encrypted. Reveal requires 2FA."
+              }
+            },
+            {
+              "component": "divider"
+            },
+            {
+              "component": "text",
+              "variant": "section-heading",
+              "content": "Payout Schedule",
+              "tokens": {
+                "fontSize": "16",
+                "fontWeight": "600"
+              }
+            },
+            {
+              "component": "dropdown",
+              "props": {
+                "label": "Caregiver Payout Schedule",
+                "value": "Weekly",
+                "options": ["Daily (R1+)", "Weekly", "Bi-weekly", "Monthly"],
+                "helpText": "How often caregivers receive payouts"
+              }
+            },
+            {
+              "component": "dropdown",
+              "props": {
+                "label": "Payout Day",
+                "value": "Friday",
+                "options": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "helpText": "Payouts processed on this day each week"
+              }
+            },
+            {
+              "component": "divider"
+            },
+            {
+              "component": "button",
+              "variant": "secondary",
+              "props": {
+                "label": "Discard Changes"
+              }
+            },
+            {
+              "component": "button",
+              "variant": "primary",
+              "props": {
+                "label": "Save Payment Settings"
+              }
+            },
+            {
+              "component": "divider"
+            },
+            {
+              "component": "audit-log-table",
+              "props": {
+                "entries": [
+                  { "date": "11 Feb 14:32", "admin": "Sarah (SA)", "category": "Payments", "field": "Commission Rate", "oldValue": "15%", "newValue": "12%" },
+                  { "date": "10 Feb 09:15", "admin": "Mike (SA)", "category": "Features", "field": "Messaging", "oldValue": "ON", "newValue": "OFF" },
+                  { "date": "09 Feb 16:45", "admin": "Sarah (SA)", "category": "Verification", "field": "DBS Expiry", "oldValue": "5 years", "newValue": "3 years" },
+                  { "date": "08 Feb 11:22", "admin": "Mike (SA)", "category": "General", "field": "Maintenance", "oldValue": "OFF", "newValue": "ON" },
+                  { "date": "07 Feb 08:30", "admin": "Sarah (SA)", "category": "Payments", "field": "Service Fee", "oldValue": "5%", "newValue": "7%" }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 5,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ]
+}

@@ -347,19 +347,19 @@ We monitor CQC guidance and may choose to pursue registration in future tiers if
 ### How to Reach Us
 
 **General Inquiries**:
-hello@icare.co.uk
+hello@icare-app.co.uk
 
 **Support (Families and Caregivers)**:
-support@icare.co.uk
+support@icare-app.co.uk
 
 **Caregiver Applications**:
-caregivers@icare.co.uk
+caregivers@icare-app.co.uk
 
 **Safeguarding Concerns**:
-safeguarding@icare.co.uk (24/7 monitoring)
+safeguarding@icare-app.co.uk (24/7 monitoring)
 
 **Press and Partnerships**:
-partnerships@icare.co.uk
+partnerships@icare-app.co.uk
 
 ---
 

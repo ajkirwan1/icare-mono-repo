@@ -1,0 +1,108 @@
+{
+  "_metadata": {
+    "screenId": "SCR-AUTH-004",
+    "screenName": "Phone Verification",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-004-phone-verification.md",
+    "generatedDate": "2026-02-11",
+    "role": "public",
+    "route": "/verify-phone",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default", "code-entered", "invalid-code", "expired-code", "resend-cooldown", "verified"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "phone": { "masked": "07*** ***456", "full": "07700 900456" },
+    "resendCooldown": 60,
+    "attemptsRemaining": 3,
+    "codeLength": 6
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header (Public)",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "Log in" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Verification Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.6}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Verify Your Phone Number",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}", "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "We've sent a 6-digit code to ${phone.masked}",
+          "tokens": {
+            "fontSize": "{fontSizes.lg}", "fill": "{colors.text.muted}",
+            "textAlign": "center", "marginBottom": "{spacing.8}"
+          }
+        },
+        {
+          "component": "verification-code-input",
+          "props": { "digits": 6, "label": "Enter verification code" }
+        },
+        {
+          "component": "button",
+          "variant": "primary",
+          "props": { "label": "Verify Code", "action": "submitVerification" },
+          "tokens": { "width": "100%", "height": "56px", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text",
+          "content": "Didn't receive the code?",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}",
+            "textAlign": "center", "marginTop": "{spacing.6}"
+          }
+        },
+        {
+          "component": "text-link",
+          "props": { "label": "Resend code", "href": "#resend" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center" }
+        },
+        {
+          "component": "text",
+          "content": "Check your SMS inbox and spam folder. The code expires in 10 minutes.",
+          "tokens": {
+            "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}",
+            "textAlign": "center", "marginTop": "{spacing.2}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 500px" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 500px" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width, code boxes 44px" }
+  }
+}

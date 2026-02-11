@@ -1,0 +1,131 @@
+{
+  "_metadata": {
+    "screenId": "SCR-AUTH-002",
+    "screenName": "Family Member Registration",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-002-family-member-registration.md",
+    "generatedDate": "2026-02-11",
+    "role": "public",
+    "route": "/register/family-member",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default", "validation-errors", "email-taken", "submitting"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "familyMember": { "name": "", "email": "", "phone": "", "relationship": "" },
+    "careReceiver": { "name": "", "dateOfBirth": "", "postcode": "", "phone": "" },
+    "emergencyContact": { "useFamilyMember": true, "name": "", "phone": "", "relationship": "" }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header (Public)",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "Already have an account? Log in" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Family Member Registration Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "Register on Behalf of a Family Member",
+          "tokens": { "fontSize": "{fontSizes.3xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Create an account to manage care for your loved one",
+          "tokens": { "fontSize": "{fontSizes.lg}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.4}" }
+        },
+        {
+          "component": "trust-badge-row",
+          "props": { "badges": [{ "icon": "\ud83d\udd12", "label": "256-bit Encrypted" }, { "icon": "\u2713", "label": "GDPR Compliant" }, { "icon": "\ud83d\udeab", "label": "No Spam" }] }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": { "icon": "\u2139\ufe0f", "heading": "Two accounts will be created", "message": "You'll create accounts for yourself and your family member. You'll manage bookings and messages on their behalf." }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "YOUR DETAILS (FAMILY MEMBER)",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text", "content": "This is your login account",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}", "marginBottom": "{spacing.3}" }
+        },
+        { "component": "input-field", "props": { "label": "Your full name", "placeholder": "e.g., John Smith", "required": true } },
+        { "component": "input-field", "variant": "email", "props": { "label": "Your email", "placeholder": "your.email@example.com", "required": true } },
+        { "component": "input-field", "variant": "password", "props": { "label": "Create a password", "placeholder": "At least 8 characters", "required": true, "showToggle": true, "helpText": "At least 8 characters, 1 uppercase, 1 number" } },
+        { "component": "password-strength-meter", "props": { "strength": "fair" } },
+        { "component": "input-field", "variant": "tel", "props": { "label": "Your mobile number", "placeholder": "07xxx xxxxxx", "required": true, "helpText": "We'll send a verification code" } },
+        { "component": "dropdown-menu", "props": { "label": "Your relationship to care receiver", "placeholder": "Select relationship", "required": true, "options": ["Son", "Daughter", "Spouse/Partner", "Sibling", "Grandchild", "Niece/Nephew", "Friend", "Other"] } },
+        {
+          "component": "text", "variant": "h2", "content": "CARE RECEIVER DETAILS",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text", "content": "The person who will receive care",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}", "marginBottom": "{spacing.3}" }
+        },
+        { "component": "input-field", "props": { "label": "Care receiver's name", "placeholder": "e.g., Mary Johnson", "required": true } },
+        { "component": "input-field", "variant": "date", "props": { "label": "Date of birth", "placeholder": "DD/MM/YYYY", "required": true, "helpText": "Must be 65+ or have documented care needs" } },
+        { "component": "input-field", "props": { "label": "Postcode", "placeholder": "e.g., SW1A 1AA", "required": true, "helpText": "We'll show local caregivers" } },
+        { "component": "input-field", "variant": "tel", "props": { "label": "Care receiver's phone (optional)", "placeholder": "07xxx xxxxxx", "required": false, "helpText": "If different from yours" } },
+        {
+          "component": "text", "variant": "h2", "content": "EMERGENCY CONTACT",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text", "content": "This person will be contacted in case of emergency during care visits",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}", "marginBottom": "{spacing.3}" }
+        },
+        { "component": "checkbox", "props": { "label": "Use my details as the emergency contact", "checked": true } },
+        {
+          "component": "consent-checkbox-group",
+          "props": {
+            "items": [
+              { "label": "I confirm I have the care receiver's consent to register on their behalf", "linkText": null, "linkUrl": null, "required": true },
+              { "label": "I accept the", "linkText": "Terms of Service", "linkUrl": "/terms", "required": true },
+              { "label": "I accept the", "linkText": "Privacy Policy", "linkUrl": "/privacy", "required": true },
+              { "label": "I'd like to receive helpful tips and updates via email", "linkText": null, "linkUrl": null, "required": false }
+            ]
+          }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Create Accounts", "action": "submitFamilyRegistration" },
+          "tokens": { "width": "100%", "height": "56px", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text-link", "props": { "label": "Already have an account? Log in", "href": "/login" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text-link", "props": { "label": "Register for yourself", "href": "/register/care-receiver" },
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.2}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 600px" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 600px" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width with 16px padding, stacked sections" }
+  }
+}

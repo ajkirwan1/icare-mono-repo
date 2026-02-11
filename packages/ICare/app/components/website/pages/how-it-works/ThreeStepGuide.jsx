@@ -23,12 +23,10 @@ export default function ThreeStepGuide() {
                 </h2>
 
                 <p className={styles.lead}>
-                    <b style={{ color: "rgb(119, 141, 67)" }}>A calmer, guided process</b>.
+                    <b className={styles.brandAccent}>A calmer, guided process</b>.
                     <br />
                     Arrange care directly with clarity and built-in safety.
                 </p>
-
-                <div className={styles.spacer30} />
 
                 {/* VIDEO + BULLETS GRID */}
                 <div className={styles.grid}>

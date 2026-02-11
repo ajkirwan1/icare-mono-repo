@@ -115,9 +115,11 @@ export default function ICareCostEstimator({
     const icareCarerShareRounded = Math.max(0, Math.min(100, Math.round(icareCarerSharePct)));
 
     const CurrencyToggle = () => (
-        <div className={styles.curr} aria-label="Currency selector">
+        <div className={styles.curr} role="radiogroup" aria-labelledby="currency-label-home">
             <button
                 type="button"
+                role="radio"
+                aria-checked={currency === "GBP"}
                 className={`${styles.currBtn} ${currency === "GBP" ? styles.isActive : ""}`}
                 onClick={() => setCurrency("GBP")}
             >
@@ -125,6 +127,8 @@ export default function ICareCostEstimator({
             </button>
             <button
                 type="button"
+                role="radio"
+                aria-checked={currency === "EUR"}
                 className={`${styles.currBtn} ${currency === "EUR" ? styles.isActive : ""}`}
                 onClick={() => setCurrency("EUR")}
             >
@@ -163,21 +167,22 @@ export default function ICareCostEstimator({
                 <div className={styles.cardsRow}>
                     {/* LEFT = controls */}
                     <div className={styles.card}>
-                        <div className={styles.cardTitle}>Your inputs</div>
+                        <h3 className={styles.cardTitle}>Your inputs</h3>
 
                         <div className={styles.inputsGrid}>
                             {/* Currency row */}
                             <div className={styles.currencyRow}>
-                                <span className={styles.label}>Currency</span>
+                                <span id="currency-label-home" className={styles.label}>Currency</span>
                                 <CurrencyToggle />
                             </div>
 
                             {/* 1) Hourly rate */}
                             <div className={styles.block}>
                                 <div className={styles.blockTop}>
-                                    <span className={styles.label}>Hourly rate</span>
+                                    <label htmlFor="hourly-rate-home" className={styles.label}>Hourly rate</label>
 
                                     <input
+                                        id="hourly-rate-home"
                                         className={`${styles.inputMini} ${styles.estInput}`}
                                         type="number"
                                         value={hourly}
@@ -185,7 +190,6 @@ export default function ICareCostEstimator({
                                         max={range.max}
                                         step={range.step}
                                         onChange={(e) => setHourly(Number(e.target.value))}
-                                        aria-label="Hourly rate"
                                     />
                                 </div>
 
@@ -197,6 +201,7 @@ export default function ICareCostEstimator({
                                     step={range.step}
                                     value={hourly}
                                     onChange={(e) => setHourly(Number(e.target.value))}
+                                    aria-label="Hourly rate slider"
                                 />
 
                                 <div className={styles.rangeMinMax}>
@@ -204,50 +209,48 @@ export default function ICareCostEstimator({
                                     <span>{range.max}</span>
                                 </div>
 
-                                <div className={styles.helper}>
-                                    Tip: choose a rate that’s fair, sustainable — and clear for both sides.
-                                </div>
+                                <p className={styles.helper}>
+                                    Tip: choose a rate that's fair, sustainable — and clear for both sides.
+                                </p>
                             </div>
 
                             {/* 2) Hours per week */}
                             <div className={styles.block}>
                                 <div className={styles.blockTop}>
-                                    <span className={styles.label}>Hours per week</span>
+                                    <label htmlFor="hours-week-home" className={styles.label}>Hours per week</label>
 
                                     <input
+                                        id="hours-week-home"
                                         className={`${styles.inputMini} ${styles.estInput}`}
                                         type="number"
                                         value={hoursWeek}
                                         onChange={(e) => setHoursWeek(Number(e.target.value))}
-                                        aria-label="Hours per week"
                                     />
                                 </div>
 
-                                <div className={styles.helper}>
-                                    A helpful starting point is 20–40 hours/week (adjust to your family’s routine).
-                                </div>
+                                <p className={styles.helper}>
+                                    A helpful starting point is 20–40 hours/week (adjust to your family's routine).
+                                </p>
                             </div>
                         </div>
-
-                        <div className={styles.cardSpacer} />
                     </div>
 
                     {/* RIGHT = results */}
                     <div className={styles.card}>
-                        <div className={styles.cardTitle}>Monthly estimate</div>
+                        <h3 className={styles.cardTitle}>Monthly estimate</h3>
 
                         <div className={styles.resultGrid}>
                             <div className={styles.pill}>
                                 <div className={styles.k}>
                                     Care pay (carer earnings, no fees)
                                     <span className={styles.tip}>
-                                        <span className={styles.infoIcon} aria-label="Care pay info" tabIndex={0}>
+                                        <button type="button" className={styles.infoIcon} aria-label="Care pay info">
                                             i
-                                        </span>
+                                        </button>
                                         <span className={styles.tipBubble} role="tooltip">
                                             Estimated amount going to the carer for the hours and rate you selected
-                                            (before any third-party fees). Shown to help families understand the “care
-                                            pay” portion of the monthly budget.
+                                            (before any third-party fees). Shown to help families understand the "care
+                                            pay" portion of the monthly budget.
                                         </span>
                                     </span>
                                 </div>
@@ -258,17 +261,17 @@ export default function ICareCostEstimator({
                                 <div className={styles.k}>
                                     Agency estimate (family pays)
                                     <span className={styles.tip}>
-                                        <span className={styles.infoIcon} aria-label="Agency total info" tabIndex={0}>
+                                        <button type="button" className={styles.infoIcon} aria-label="Agency total info">
                                             i
-                                        </span>
+                                        </button>
                                         <span className={styles.tipBubble} role="tooltip">
                                             Illustrative estimate for comparison only (not a market survey and not a
-                                            quote). Agency pricing often includes the carer’s pay plus overheads (e.g.
+                                            quote). Agency pricing often includes the carer's pay plus overheads (e.g.
                                             recruitment, admin, support, compliance) and a business margin. Totals can
                                             vary by provider, location and care needs.
                                             <br />
                                             <br />
-                                            Based on the assumptions used in this calculator, “care pay” is about{" "}
+                                            Based on the assumptions used in this calculator, "care pay" is about{" "}
                                             <strong>{agencyCarerShareRounded}%</strong> of this agency estimate.
                                         </span>
                                     </span>
@@ -280,16 +283,16 @@ export default function ICareCostEstimator({
                                 <div className={styles.k}>
                                     Estimated via ICare (family budget)
                                     <span className={styles.tip}>
-                                        <span className={styles.infoIcon} aria-label="ICare estimate info" tabIndex={0}>
+                                        <button type="button" className={styles.infoIcon} aria-label="ICare estimate info">
                                             i
-                                        </span>
+                                        </button>
                                         <span className={styles.tipBubble} role="tooltip">
                                             Includes an estimated ICare service fee based on your inputs. This is an
                                             estimate (not a quote). Any optional extras are agreed separately between
                                             families and carers.
                                             <br />
                                             <br />
-                                            Based on the assumptions used in this calculator, “care pay” is about{" "}
+                                            Based on the assumptions used in this calculator, "care pay" is about{" "}
                                             <strong>{icareCarerShareRounded}%</strong> of the estimated ICare total.
                                         </span>
                                     </span>
@@ -303,27 +306,25 @@ export default function ICareCostEstimator({
                             </div>
                         </div>
 
-                        <div className={styles.bar}>
+                        <div className={styles.bar} role="progressbar" aria-valuenow={savePctRounded} aria-valuemin={0} aria-valuemax={100} aria-label="Estimated savings percentage">
                             <div className={styles.barFill} />
                         </div>
 
-                        <div className={styles.saveLine}>
+                        <p className={styles.saveLine}>
                             Illustrative difference of{" "}
                             <span className={styles.savePct}>{savePctRounded}%</span>{" "}
                             versus the agency estimate (for comparison only).
-                        </div>
+                        </p>
 
-                        <div className={styles.helper}>
+                        <p className={styles.helper}>
                             Estimates vary — care needs, schedules, location and experience can change rates and totals.
-                        </div>
+                        </p>
 
-                        <div className={styles.microNote}>
+                        <p className={styles.microNote}>
                             Families are often quoted a day or week rate (especially for live-in care). We show an
                             hourly/monthly equivalent here to make comparisons easier. This tool is illustrative and not
                             a quote.
-                        </div>
-
-                        <div className={styles.cardSpacer} />
+                        </p>
                     </div>
                 </div>
 

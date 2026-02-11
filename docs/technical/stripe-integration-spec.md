@@ -41,7 +41,7 @@ The platform integrates three primary Stripe products:
 ### 1.2 Account Structure
 
 ```
-Platform Account (icare.co.uk)
+Platform Account (icare-app.co.uk)
     |
     |-- Stripe Account (Platform)
     |   |-- Receives payments from care receivers
@@ -173,8 +173,8 @@ await db.caregivers.update(caregiver.id, {
 ```javascript
 const accountLink = await stripe.accountLinks.create({
   account: account.id,
-  refresh_url: 'https://app.icare.co.uk/caregiver/onboarding/refresh',
-  return_url: 'https://app.icare.co.uk/caregiver/onboarding/complete',
+  refresh_url: 'https://app.icare-app.co.uk/caregiver/onboarding/refresh',
+  return_url: 'https://app.icare-app.co.uk/caregiver/onboarding/complete',
   type: 'account_onboarding'
 });
 
@@ -637,7 +637,7 @@ const verificationSession = await stripe.identity.verificationSessions.create({
       require_matching_selfie: true // Selfie must match ID photo
     }
   },
-  return_url: 'https://app.icare.co.uk/caregiver/verification/complete'
+  return_url: 'https://app.icare-app.co.uk/caregiver/verification/complete'
 });
 
 // Save verification session ID
@@ -1409,7 +1409,7 @@ const paymentIntent = await stripe.paymentIntents.create({
   capture_method: 'manual',
   off_session: false, // 3D Secure requires customer present
   confirm: true,
-  return_url: 'https://app.icare.co.uk/bookings/payment-complete'
+  return_url: 'https://app.icare-app.co.uk/bookings/payment-complete'
 });
 
 // If 3D Secure required
@@ -2083,7 +2083,7 @@ async function createCaregiverConnectAccount(caregiver) {
       product_description: 'Companionship and care services',
       support_email: caregiver.email,
       support_phone: caregiver.phone,
-      url: `https://app.icare.co.uk/caregivers/${caregiver.id}`
+      url: `https://app.icare-app.co.uk/caregivers/${caregiver.id}`
     },
 
     // Payout settings
@@ -2105,8 +2105,8 @@ async function createCaregiverConnectAccount(caregiver) {
   // Generate onboarding link
   const accountLink = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: 'https://app.icare.co.uk/caregiver/onboarding/refresh',
-    return_url: 'https://app.icare.co.uk/caregiver/onboarding/complete',
+    refresh_url: 'https://app.icare-app.co.uk/caregiver/onboarding/refresh',
+    return_url: 'https://app.icare-app.co.uk/caregiver/onboarding/complete',
     type: 'account_onboarding'
   });
 
@@ -2296,7 +2296,7 @@ async function createIdentityVerificationSession(caregiver) {
     },
 
     // Return URL after verification
-    return_url: 'https://app.icare.co.uk/caregiver/verification/complete'
+    return_url: 'https://app.icare-app.co.uk/caregiver/verification/complete'
   });
 
   // Save to database

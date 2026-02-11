@@ -1,5 +1,3 @@
-import React from "react";
-import privacySrc from "/images/heros/privacy.webp";
 import PrivacyHero from "../../components/website/pages/privacy/privacy-hero";
 import PrivacyContent from "../../components/website/pages/privacy/privacy-content";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
@@ -27,7 +25,7 @@ export function meta() {
 }
 
 export const links = () => [
-  { rel: "canonical", href: "https://icare.co.uk/privacy" }
+  { rel: "canonical", href: "https://icare-app.co.uk/privacy" }
 ];
 
 export default function PrivacyPage() {
@@ -42,7 +40,7 @@ export default function PrivacyPage() {
             name: "Privacy Policy",
             description:
               "iCare's privacy policy explaining how we collect, use, and protect personal information.",
-            url: "https://icare.co.uk/privacy",
+            url: "https://icare-app.co.uk/privacy",
             datePublished: "2026-02-01",
             dateModified: "2026-02-01"
           })

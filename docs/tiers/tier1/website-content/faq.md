@@ -196,7 +196,7 @@ The choice is always yours.
 
 ### What if I'm not happy with the care provided?
 
-Contact our support team immediately: support@icare.co.uk
+Contact our support team immediately: support@icare-app.co.uk
 
 We'll investigate and can facilitate partial or full refunds where appropriate. We take complaints seriously and will address issues with caregivers.
 
@@ -222,7 +222,7 @@ Many families coordinate care together - we understand and support this.
 
 **Medical Emergency**: Call 999 first. iCare is not an emergency service.
 
-**Safeguarding Concern**: Report via in-app button, email safeguarding@icare.co.uk, or call [SAFEGUARDING HOTLINE].
+**Safeguarding Concern**: Report via in-app button, email safeguarding@icare-app.co.uk, or call [SAFEGUARDING HOTLINE].
 
 ---
 
@@ -436,7 +436,7 @@ After ensuring safety, report to iCare so we can document and take platform-leve
 
 **In the App**: "Report Concern" button on profiles and bookings
 
-**Email**: safeguarding@icare.co.uk (monitored 24/7)
+**Email**: safeguarding@icare-app.co.uk (monitored 24/7)
 
 **Phone**: [SAFEGUARDING HOTLINE] (24-hour response)
 
@@ -466,7 +466,7 @@ We comply with **Care Act 2014** safeguarding duties:
 
 **Then Report to iCare**:
 - In-app "Report Concern"
-- Email: safeguarding@icare.co.uk
+- Email: safeguarding@icare-app.co.uk
 - Phone: [SAFEGUARDING HOTLINE]
 
 We investigate all reports and escalate to appropriate authorities (police, SABs, social services) when needed.
@@ -489,7 +489,7 @@ All payments must go through the platform. Off-platform payments (cash, bank tra
 
 Report via:
 - In-app "Report Concern"
-- Email: safeguarding@icare.co.uk
+- Email: safeguarding@icare-app.co.uk
 
 Caregiver may face suspension or ban.
 
@@ -628,7 +628,7 @@ If a caregiver's rate isn't attracting bookings, they can adjust it in their set
 
 ### What if there's a payment dispute?
 
-Contact support immediately: support@icare.co.uk
+Contact support immediately: support@icare-app.co.uk
 
 We investigate all payment disputes and ensure fair outcomes. We can issue refunds to families or ensure caregivers receive payment as appropriate.
 
@@ -694,7 +694,7 @@ Yes. You have the right to request account deletion under GDPR.
 
 **How to Delete**:
 - Go to Settings → Account → Delete Account
-- Or email support@icare.co.uk requesting deletion
+- Or email support@icare-app.co.uk requesting deletion
 
 **What Happens**:
 - Your profile is removed
@@ -775,13 +775,13 @@ Native mobile apps (iOS and Android) are on our roadmap for future release.
 
 **Contact Us**:
 
-**General Questions**: hello@icare.co.uk
+**General Questions**: hello@icare-app.co.uk
 
-**Support**: support@icare.co.uk
+**Support**: support@icare-app.co.uk
 
-**Caregiver Applications**: caregivers@icare.co.uk
+**Caregiver Applications**: caregivers@icare-app.co.uk
 
-**Safeguarding**: safeguarding@icare.co.uk (24/7)
+**Safeguarding**: safeguarding@icare-app.co.uk (24/7)
 
 **Phone**: [SUPPORT LINE] (Mon-Fri 9am-6pm)
 
@@ -805,7 +805,7 @@ We aim to respond to all inquiries within 24-48 hours.
 
 **Formal Complaints Process**:
 
-1. Email: complaints@icare.co.uk
+1. Email: complaints@icare-app.co.uk
 2. Include:
    - Your name and account details
    - Description of complaint
@@ -832,7 +832,7 @@ We aim to respond to all inquiries within 24-48 hours.
 
 Yes. See [Trust & Safety page](/trust-and-safety#safeguarding) for our safeguarding commitment and procedures.
 
-Full Safeguarding Policy available on request: safeguarding@icare.co.uk
+Full Safeguarding Policy available on request: safeguarding@icare-app.co.uk
 
 ---
 

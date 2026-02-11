@@ -2,8 +2,8 @@ import styles from "./privacy-content.module.scss";
 
 const company = {
   brand: "iCare",
-  privacyEmail: "privacy@icare.co.uk",
-  generalEmail: "hello@icare.co.uk",
+  privacyEmail: "privacy@icare-app.co.uk",
+  generalEmail: "hello@icare-app.co.uk",
   lastUpdated: "February 2026"
 };
 

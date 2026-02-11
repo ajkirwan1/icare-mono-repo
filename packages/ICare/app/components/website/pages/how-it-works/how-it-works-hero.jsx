@@ -8,7 +8,7 @@ export default function HowItWorksHero() {
     return (
         <>
             <ICareNavbar />
-            <section aria-label="How it works hero" className={styles.hero}>
+            <header aria-label="How it works hero" className={styles.hero}>
                 <img
                     src={whoWeAreHeroSrc}
                     alt="Care coordination background"
@@ -31,7 +31,7 @@ export default function HowItWorksHero() {
                 </div>
 
 
-            </section>
+            </header>
         </>
     );
 }

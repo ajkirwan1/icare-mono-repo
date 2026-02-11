@@ -79,7 +79,7 @@ export const meta = ({ data }) => {
     { name: "description", content: "Page description" },
     { property: "og:title", content: "OG Title" },
     { property: "og:description", content: "OG Description" },
-    { property: "og:image", content: "https://icare.co.uk/images/og-image.jpg" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og-image.jpg" },
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: "Twitter Title" },
   ];
@@ -88,7 +88,7 @@ export const meta = ({ data }) => {
 // Link tags (canonical, stylesheets)
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/page-url" },
+    { rel: "canonical", href: "https://icare-app.co.uk/page-url" },
   ];
 };
 
@@ -159,8 +159,8 @@ export default function App() {
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "iCare",
-              "url": "https://icare.co.uk",
-              "logo": "https://icare.co.uk/images/logo.png",
+              "url": "https://icare-app.co.uk",
+              "logo": "https://icare-app.co.uk/images/logo.png",
               "description": "Trusted companionship care connecting families with caring professionals across the UK.",
               "address": {
                 "@type": "PostalAddress",
@@ -221,7 +221,7 @@ export const meta = ({ data }) => {
 
 export const links = ({ params }) => {
   return [
-    { rel: "canonical", href: `https://icare.co.uk/care-guidance/${params.slug}` },
+    { rel: "canonical", href: `https://icare-app.co.uk/care-guidance/${params.slug}` },
   ];
 };
 ```
@@ -440,8 +440,8 @@ Per route, you should implement:
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "iCare",
-  "url": "https://icare.co.uk",
-  "logo": "https://icare.co.uk/images/logo.png",
+  "url": "https://icare-app.co.uk",
+  "logo": "https://icare-app.co.uk/images/logo.png",
   "description": "Trusted companionship care connecting families with caring professionals across the UK.",
   "address": {
     "@type": "PostalAddress",
@@ -485,8 +485,8 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "iCare - Trusted Companionship for Elderly Adults" },
     { property: "og:description", content: "Find trusted companions for elderly relatives or join our community of caregivers. Be among the first when we launch." },
-    { property: "og:url", content: "https://icare.co.uk/" },
-    { property: "og:image", content: "https://icare.co.uk/images/og-homepage.jpg" },
+    { property: "og:url", content: "https://icare-app.co.uk/" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og-homepage.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Elderly adult and caregiver sharing tea and conversation" },
@@ -494,14 +494,14 @@ export const meta = () => {
     // Twitter Card
     { name: "twitter:title", content: "iCare - Trusted Companionship for Elderly Adults" },
     { name: "twitter:description", content: "We're building a better way to find trusted companionship care. Join the waitlist today." },
-    { name: "twitter:image", content: "https://icare.co.uk/images/twitter-homepage.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-homepage.jpg" },
     { name: "twitter:image:alt", content: "Elderly adult and caregiver sharing tea and conversation" },
   ];
 };
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare.co.uk/" },
+    { rel: "canonical", href: "https://icare-app.co.uk/" },
   ];
 };
 
@@ -516,11 +516,11 @@ export default function Index() {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "iCare",
-            "url": "https://icare.co.uk",
+            "url": "https://icare-app.co.uk",
             "description": "Trusted companionship care connecting families with caring professionals across the UK.",
             "potentialAction": {
               "@type": "SearchAction",
-              "target": "https://icare.co.uk/search?q={search_term_string}",
+              "target": "https://icare-app.co.uk/search?q={search_term_string}",
               "query-input": "required name=search_term_string"
             }
           }),
@@ -542,7 +542,7 @@ export default function Index() {
 <title>iCare - Trusted Companionship for Elderly Adults Across the UK</title>
 <meta name="description" content="Find trusted companions for elderly relatives or join our community of caregivers. We're building a better way to connect families with caring professionals. Join the waitlist.">
 <meta name="keywords" content="elderly companionship UK, companionship care for elderly, companion for elderly parent, caregiver jobs UK, trusted caregivers">
-<link rel="canonical" href="https://icare.co.uk/">
+<link rel="canonical" href="https://icare-app.co.uk/">
 ```
 
 ### Open Graph Tags
@@ -550,8 +550,8 @@ export default function Index() {
 ```html
 <meta property="og:title" content="iCare - Trusted Companionship for Elderly Adults">
 <meta property="og:description" content="Find trusted companions for elderly relatives or join our community of caregivers. Be among the first when we launch.">
-<meta property="og:url" content="https://icare.co.uk/">
-<meta property="og:image" content="https://icare.co.uk/images/og-homepage.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-homepage.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Elderly adult and caregiver sharing tea and conversation">
@@ -562,7 +562,7 @@ export default function Index() {
 ```html
 <meta name="twitter:title" content="iCare - Trusted Companionship for Elderly Adults">
 <meta name="twitter:description" content="We're building a better way to find trusted companionship care. Join the waitlist today.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-homepage.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-homepage.jpg">
 <meta name="twitter:image:alt" content="Elderly adult and caregiver sharing tea and conversation">
 ```
 
@@ -573,11 +573,11 @@ export default function Index() {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "iCare",
-  "url": "https://icare.co.uk",
+  "url": "https://icare-app.co.uk",
   "description": "Trusted companionship care connecting families with caring professionals across the UK.",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://icare.co.uk/search?q={search_term_string}",
+    "target": "https://icare-app.co.uk/search?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }
@@ -705,7 +705,7 @@ export default function Index() {
 <title>About iCare - Our Mission to End Elderly Loneliness in the UK</title>
 <meta name="description" content="Learn why we're building iCare. Discover our mission to connect elderly adults with trusted companions and create meaningful work for caregivers. Join our journey.">
 <meta name="keywords" content="elderly loneliness UK, about iCare, companionship for elderly, care platform mission">
-<link rel="canonical" href="https://icare.co.uk/about-us">
+<link rel="canonical" href="https://icare-app.co.uk/about-us">
 ```
 
 ### Open Graph Tags
@@ -713,8 +713,8 @@ export default function Index() {
 ```html
 <meta property="og:title" content="About iCare - Our Mission to End Elderly Loneliness">
 <meta property="og:description" content="We're building iCare because elderly adults deserve companionship, caregivers deserve respect, and families deserve peace of mind.">
-<meta property="og:url" content="https://icare.co.uk/about-us">
-<meta property="og:image" content="https://icare.co.uk/images/og-about-us.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/about-us">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-about-us.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Diverse group of elderly adults and caregivers together">
@@ -725,7 +725,7 @@ export default function Index() {
 ```html
 <meta name="twitter:title" content="About iCare - Our Mission to End Elderly Loneliness">
 <meta name="twitter:description" content="We believe elderly adults deserve companionship, caregivers deserve respect, and families deserve peace of mind.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-about-us.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-about-us.jpg">
 <meta name="twitter:image:alt" content="Diverse group of elderly adults and caregivers together">
 ```
 
@@ -737,7 +737,7 @@ export default function Index() {
   "@type": "AboutPage",
   "name": "About iCare",
   "description": "Learn about iCare's mission to connect elderly adults with trusted companionship care and empower caregivers.",
-  "url": "https://icare.co.uk/about-us",
+  "url": "https://icare-app.co.uk/about-us",
   "mainEntity": {
     "@type": "Organization",
     "name": "iCare",
@@ -832,7 +832,7 @@ export default function Index() {
 <title>How It Works for Families - iCare Companionship Services</title>
 <meta name="description" content="Discover how iCare helps families find trusted companions for elderly relatives. Simple, safe, and designed around real human connection. Join the waitlist today.">
 <meta name="keywords" content="companion for elderly parent, how companionship care works, find companion for elderly UK, care for elderly parent">
-<link rel="canonical" href="https://icare.co.uk/how-it-works/families">
+<link rel="canonical" href="https://icare-app.co.uk/how-it-works/families">
 ```
 
 ### Open Graph Tags
@@ -840,8 +840,8 @@ export default function Index() {
 ```html
 <meta property="og:title" content="How It Works for Families - iCare">
 <meta property="og:description" content="Learn how iCare makes it easy to find trusted companions for elderly relatives. Priority access available for families on the waitlist.">
-<meta property="og:url" content="https://icare.co.uk/how-it-works/families">
-<meta property="og:image" content="https://icare.co.uk/images/og-how-families.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/how-it-works/families">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-how-families.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Family searching for care on laptop with elderly parent nearby">
@@ -852,7 +852,7 @@ export default function Index() {
 ```html
 <meta name="twitter:title" content="How It Works for Families - iCare">
 <meta name="twitter:description" content="Find trusted companions for your elderly relative in 5 simple steps. Join the waitlist for priority access.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-how-families.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-how-families.jpg">
 <meta name="twitter:image:alt" content="Family searching for care on laptop">
 ```
 
@@ -994,7 +994,7 @@ export default function Index() {
 <title>How It Works for Caregivers - Build Your Companion Care Practice | iCare</title>
 <meta name="description" content="Join iCare as a companion caregiver. Set your own hours, choose who you work with, and build meaningful relationships. Fair pay, flexibility, and respect.">
 <meta name="keywords" content="companion carer jobs UK, companionship care jobs, flexible carer work, private carer opportunities, caregiver platform">
-<link rel="canonical" href="https://icare.co.uk/how-it-works/caregivers">
+<link rel="canonical" href="https://icare-app.co.uk/how-it-works/caregivers">
 ```
 
 ### Open Graph Tags
@@ -1002,8 +1002,8 @@ export default function Index() {
 ```html
 <meta property="og:title" content="How It Works for Caregivers - Build Your Practice">
 <meta property="og:description" content="Set your own hours. Choose who you work with. Build meaningful relationships. Join iCare's founding community of caregivers.">
-<meta property="og:url" content="https://icare.co.uk/how-it-works/caregivers">
-<meta property="og:image" content="https://icare.co.uk/images/og-how-caregivers.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/how-it-works/caregivers">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-how-caregivers.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Professional caregiver providing companionship to elderly adult">
@@ -1014,7 +1014,7 @@ export default function Index() {
 ```html
 <meta name="twitter:title" content="How It Works for Caregivers - iCare">
 <meta name="twitter:description" content="Build a flexible companion care practice. Set your hours, choose your clients, earn fair pay. Join the waitlist.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-how-caregivers.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-how-caregivers.jpg">
 <meta name="twitter:image:alt" content="Caregiver and elderly adult working on puzzle together">
 ```
 
@@ -1142,7 +1142,7 @@ Similar to Families page, ensure:
 <title>Care Guidance - Expert Advice for Families | iCare</title>
 <meta name="description" content="Practical advice and insights for families navigating elderly care. Weekly guidance on understanding needs, having conversations, and finding the right support.">
 <meta name="keywords" content="elderly care advice, caring for elderly parent, elderly care guidance UK, family caregiver support">
-<link rel="canonical" href="https://icare.co.uk/care-guidance">
+<link rel="canonical" href="https://icare-app.co.uk/care-guidance">
 ```
 
 ### Open Graph Tags
@@ -1150,8 +1150,8 @@ Similar to Families page, ensure:
 ```html
 <meta property="og:title" content="Care Guidance - Expert Advice for Families">
 <meta property="og:description" content="Practical advice for families navigating elderly care challenges. Free weekly guidance delivered to your inbox.">
-<meta property="og:url" content="https://icare.co.uk/care-guidance">
-<meta property="og:image" content="https://icare.co.uk/images/og-care-guidance.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/care-guidance">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-care-guidance.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Family reading care guidance materials together">
@@ -1162,7 +1162,7 @@ Similar to Families page, ensure:
 ```html
 <meta name="twitter:title" content="Care Guidance - Expert Advice for Families">
 <meta name="twitter:description" content="Practical advice for families caring for elderly relatives. Subscribe for weekly guidance.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-care-guidance.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-care-guidance.jpg">
 <meta name="twitter:image:alt" content="Care Guidance newsletter preview">
 ```
 
@@ -1174,13 +1174,13 @@ Similar to Families page, ensure:
   "@type": "Blog",
   "name": "iCare Care Guidance",
   "description": "Expert advice and practical guidance for families navigating elderly care challenges.",
-  "url": "https://icare.co.uk/care-guidance",
+  "url": "https://icare-app.co.uk/care-guidance",
   "publisher": {
     "@type": "Organization",
     "name": "iCare",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://icare.co.uk/images/logo.png"
+      "url": "https://icare-app.co.uk/images/logo.png"
     }
   }
 }
@@ -1264,7 +1264,7 @@ Similar to Families page, ensure:
 <title>FAQ - Your Questions About iCare Answered</title>
 <meta name="description" content="Get answers about iCare's companionship platform. Learn how we connect families with trusted caregivers, what services we offer, and how to join our waitlist.">
 <meta name="keywords" content="iCare FAQ, companionship care questions, how does iCare work, caregiver platform FAQ">
-<link rel="canonical" href="https://icare.co.uk/faq">
+<link rel="canonical" href="https://icare-app.co.uk/faq">
 ```
 
 ### Open Graph Tags
@@ -1272,8 +1272,8 @@ Similar to Families page, ensure:
 ```html
 <meta property="og:title" content="Frequently Asked Questions - iCare">
 <meta property="og:description" content="Get answers about iCare's companionship platform, services, safety, and how to join the waitlist.">
-<meta property="og:url" content="https://icare.co.uk/faq">
-<meta property="og:image" content="https://icare.co.uk/images/og-faq.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/faq">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-faq.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="FAQ: Your questions about iCare answered">
@@ -1284,7 +1284,7 @@ Similar to Families page, ensure:
 ```html
 <meta name="twitter:title" content="FAQ - Your Questions About iCare Answered">
 <meta name="twitter:description" content="Find answers about companionship care, safety, pricing, and more. Your questions answered.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-faq.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-faq.jpg">
 <meta name="twitter:image:alt" content="Frequently asked questions about iCare">
 ```
 
@@ -1440,7 +1440,7 @@ Similar to Families page, ensure:
 <title>Our Safety Commitment - Trusted Companionship Care | iCare</title>
 <meta name="description" content="Safety isn't an afterthought at iCare - it's the foundation of everything we build. Learn how we're creating a trusted platform for elderly companionship care.">
 <meta name="keywords" content="trusted caregivers UK, safe companionship care, verified caregivers, elderly care safety">
-<link rel="canonical" href="https://icare.co.uk/safety">
+<link rel="canonical" href="https://icare-app.co.uk/safety">
 ```
 
 ### Open Graph Tags
@@ -1448,8 +1448,8 @@ Similar to Families page, ensure:
 ```html
 <meta property="og:title" content="Our Commitment to Safety - iCare">
 <meta property="og:description" content="Safety is the foundation of everything we build. Learn about our principles and commitments to families and caregivers.">
-<meta property="og:url" content="https://icare.co.uk/safety">
-<meta property="og:image" content="https://icare.co.uk/images/og-safety.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/safety">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-safety.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Shield with checkmark: Our commitment to safety">
@@ -1460,7 +1460,7 @@ Similar to Families page, ensure:
 ```html
 <meta name="twitter:title" content="Our Commitment to Safety - iCare">
 <meta name="twitter:description" content="Trust is everything. Learn about the 5 safety principles that guide everything we build.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-safety.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-safety.jpg">
 <meta name="twitter:image:alt" content="Safety principles: Identity, Choice, Transparency, Support, Improvement">
 ```
 
@@ -1472,7 +1472,7 @@ Similar to Families page, ensure:
   "@type": "WebPage",
   "name": "Our Commitment to Safety",
   "description": "iCare's safety principles and commitments for families and caregivers.",
-  "url": "https://icare.co.uk/safety",
+  "url": "https://icare-app.co.uk/safety",
   "mainEntity": {
     "@type": "ItemList",
     "name": "Safety Principles",
@@ -1607,7 +1607,7 @@ Similar to Families page, ensure:
 <title>Contact Us - Get in Touch with iCare</title>
 <meta name="description" content="Have questions about iCare? Get in touch with our team. We're here to help families and caregivers learn more about our companionship platform.">
 <meta name="keywords" content="contact iCare, iCare support, get in touch, companionship care inquiry">
-<link rel="canonical" href="https://icare.co.uk/contact">
+<link rel="canonical" href="https://icare-app.co.uk/contact">
 ```
 
 ### Open Graph Tags
@@ -1615,8 +1615,8 @@ Similar to Families page, ensure:
 ```html
 <meta property="og:title" content="Contact Us - iCare">
 <meta property="og:description" content="Have questions about iCare? Get in touch with our team. We're here to help.">
-<meta property="og:url" content="https://icare.co.uk/contact">
-<meta property="og:image" content="https://icare.co.uk/images/og-contact.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/contact">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-contact.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Contact iCare - We're here to help">
@@ -1627,7 +1627,7 @@ Similar to Families page, ensure:
 ```html
 <meta name="twitter:title" content="Contact Us - iCare">
 <meta name="twitter:description" content="Questions about companionship care? Get in touch with the iCare team.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-contact.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-contact.jpg">
 <meta name="twitter:image:alt" content="Email or phone icons for contacting iCare">
 ```
 
@@ -1638,15 +1638,15 @@ Similar to Families page, ensure:
   "@context": "https://schema.org",
   "@type": "ContactPage",
   "name": "Contact iCare",
-  "url": "https://icare.co.uk/contact",
+  "url": "https://icare-app.co.uk/contact",
   "mainEntity": {
     "@type": "Organization",
     "name": "iCare",
-    "email": "hello@icare.co.uk",
+    "email": "hello@icare-app.co.uk",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "Customer Support",
-      "email": "hello@icare.co.uk",
+      "email": "hello@icare-app.co.uk",
       "availableLanguage": "English",
       "areaServed": "GB"
     }
@@ -1692,7 +1692,7 @@ Similar to Families page, ensure:
 | Image Purpose | Dimensions | Alt Text | File Name |
 |---------------|------------|----------|-----------|
 | Hero | 1920x1080 | "Friendly support team member at desk with laptop, smiling and welcoming" | contact-hero.jpg |
-| Email icon | 64x64 | "Email us at hello@icare.co.uk" | icon-email.svg |
+| Email icon | 64x64 | "Email us at hello@icare-app.co.uk" | icon-email.svg |
 | OG/Social card | 1200x630 | "Contact iCare: We're here to help" | og-contact.jpg |
 
 ### Internal Linking Strategy
@@ -1748,7 +1748,7 @@ Similar to Families page, ensure:
 <title>Privacy Policy - How iCare Protects Your Data</title>
 <meta name="description" content="Learn how iCare collects, uses, and protects your personal information. Our commitment to data privacy and GDPR compliance.">
 <meta name="keywords" content="iCare privacy policy, data protection, GDPR compliance, email data privacy">
-<link rel="canonical" href="https://icare.co.uk/privacy-policy">
+<link rel="canonical" href="https://icare-app.co.uk/privacy-policy">
 <meta name="robots" content="index, follow">
 ```
 
@@ -1757,8 +1757,8 @@ Similar to Families page, ensure:
 ```html
 <meta property="og:title" content="Privacy Policy - iCare">
 <meta property="og:description" content="How iCare collects, uses, and protects your personal information. Read our privacy policy.">
-<meta property="og:url" content="https://icare.co.uk/privacy-policy">
-<meta property="og:image" content="https://icare.co.uk/images/og-default.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/privacy-policy">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-default.jpg">
 ```
 
 ### Twitter Card Tags
@@ -1766,7 +1766,7 @@ Similar to Families page, ensure:
 ```html
 <meta name="twitter:title" content="Privacy Policy - iCare">
 <meta name="twitter:description" content="How iCare protects your data and respects your privacy. GDPR compliant.">
-<meta name="twitter:image" content="https://icare.co.uk/images/twitter-default.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/twitter-default.jpg">
 ```
 
 ### Schema.org Structured Data
@@ -1777,7 +1777,7 @@ Similar to Families page, ensure:
   "@type": "WebPage",
   "name": "Privacy Policy",
   "description": "iCare's privacy policy explaining how we collect, use, and protect personal information.",
-  "url": "https://icare.co.uk/privacy-policy",
+  "url": "https://icare-app.co.uk/privacy-policy",
   "datePublished": "2026-02-01",
   "dateModified": "2026-02-01"
 }
@@ -1862,7 +1862,7 @@ Similar to Families page, ensure:
 <title>Welcome to iCare - You're on the Waitlist!</title>
 <meta name="description" content="Thank you for joining the iCare waitlist. You'll be among the first to access our companionship platform when we launch.">
 <meta name="keywords" content="iCare waitlist, welcome to iCare">
-<link rel="canonical" href="https://icare.co.uk/waitlist-confirmation">
+<link rel="canonical" href="https://icare-app.co.uk/waitlist-confirmation">
 <meta name="robots" content="noindex, follow"> <!-- Don't index confirmation pages -->
 ```
 
@@ -1872,7 +1872,7 @@ Similar to Families page, ensure:
 <title>Welcome to iCare - You're in Our Founding Community!</title>
 <meta name="description" content="Thank you for joining iCare's caregiver waitlist. You'll get early access and help shape our platform.">
 <meta name="keywords" content="iCare caregiver waitlist, founding community">
-<link rel="canonical" href="https://icare.co.uk/waitlist-confirmation">
+<link rel="canonical" href="https://icare-app.co.uk/waitlist-confirmation">
 <meta name="robots" content="noindex, follow">
 ```
 
@@ -1882,14 +1882,14 @@ Similar to Families page, ensure:
 <!-- Family variant -->
 <meta property="og:title" content="Welcome to the iCare Community!">
 <meta property="og:description" content="You're on the waitlist for trusted companionship care. Priority access coming soon.">
-<meta property="og:url" content="https://icare.co.uk/waitlist-confirmation">
-<meta property="og:image" content="https://icare.co.uk/images/og-welcome-family.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/waitlist-confirmation">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-welcome-family.jpg">
 
 <!-- Caregiver variant -->
 <meta property="og:title" content="Welcome to iCare's Founding Community!">
 <meta property="og:description" content="You're part of our founding caregiver community. Get ready to build meaningful work.">
-<meta property="og:url" content="https://icare.co.uk/waitlist-confirmation">
-<meta property="og:image" content="https://icare.co.uk/images/og-welcome-caregiver.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/waitlist-confirmation">
+<meta property="og:image" content="https://icare-app.co.uk/images/og-welcome-caregiver.jpg">
 ```
 
 ### Twitter Card Tags
@@ -1904,7 +1904,7 @@ Similar to OG tags, dynamic based on type parameter.
   "@type": "ConfirmationPage",
   "name": "Waitlist Confirmation",
   "description": "Thank you page confirming waitlist signup.",
-  "url": "https://icare.co.uk/waitlist-confirmation"
+  "url": "https://icare-app.co.uk/waitlist-confirmation"
 }
 ```
 
@@ -1990,7 +1990,7 @@ All articles follow this pattern with article-specific variations.
 <title>[Article Title] | iCare Care Guidance</title>
 <meta name="description" content="[Article-specific description]">
 <meta name="keywords" content="[Primary keywords], [Secondary keywords], care guidance">
-<link rel="canonical" href="https://icare.co.uk/care-guidance/[article-slug]">
+<link rel="canonical" href="https://icare-app.co.uk/care-guidance/[article-slug]">
 <meta name="author" content="iCare Care Guidance Team">
 <meta name="article:published_time" content="2026-02-01T00:00:00+00:00">
 <meta name="article:modified_time" content="2026-02-01T00:00:00+00:00">
@@ -2002,8 +2002,8 @@ All articles follow this pattern with article-specific variations.
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Article Title]">
 <meta property="og:description" content="[Article description]">
-<meta property="og:url" content="https://icare.co.uk/care-guidance/[article-slug]">
-<meta property="og:image" content="https://icare.co.uk/images/articles/[article-slug]-og.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/care-guidance/[article-slug]">
+<meta property="og:image" content="https://icare-app.co.uk/images/articles/[article-slug]-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="[Image description]">
@@ -2021,7 +2021,7 @@ All articles follow this pattern with article-specific variations.
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="[Article Title]">
 <meta name="twitter:description" content="[Article description - 200 chars max]">
-<meta name="twitter:image" content="https://icare.co.uk/images/articles/[article-slug]-twitter.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/articles/[article-slug]-twitter.jpg">
 <meta name="twitter:image:alt" content="[Image description]">
 <meta name="twitter:label1" content="Reading time">
 <meta name="twitter:data1" content="[X] min read">
@@ -2037,7 +2037,7 @@ All articles follow this pattern with article-specific variations.
   "@type": "Article",
   "headline": "[Article Title]",
   "description": "[Article description]",
-  "image": "https://icare.co.uk/images/articles/[article-slug]-og.jpg",
+  "image": "https://icare-app.co.uk/images/articles/[article-slug]-og.jpg",
   "author": {
     "@type": "Organization",
     "name": "iCare Care Guidance Team"
@@ -2047,14 +2047,14 @@ All articles follow this pattern with article-specific variations.
     "name": "iCare",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://icare.co.uk/images/logo.png"
+      "url": "https://icare-app.co.uk/images/logo.png"
     }
   },
   "datePublished": "2026-02-01",
   "dateModified": "2026-02-01",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://icare.co.uk/care-guidance/[article-slug]"
+    "@id": "https://icare-app.co.uk/care-guidance/[article-slug]"
   },
   "wordCount": [word count],
   "articleSection": "Care Guidance",
@@ -2121,7 +2121,7 @@ All articles follow this pattern with article-specific variations.
 <title>Understanding Loneliness in Elderly Adults | iCare Care Guidance</title>
 <meta name="description" content="Loneliness affects 1.4 million elderly people in the UK. Learn about the causes, health effects, warning signs, and what families can do to help their loved ones.">
 <meta name="keywords" content="elderly loneliness UK, loneliness in elderly adults, signs of loneliness in elderly, how to help lonely elderly parent, health effects of loneliness">
-<link rel="canonical" href="https://icare.co.uk/care-guidance/loneliness-elderly-adults">
+<link rel="canonical" href="https://icare-app.co.uk/care-guidance/loneliness-elderly-adults">
 ```
 
 **Open Graph Tags**
@@ -2129,8 +2129,8 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta property="og:title" content="Understanding Loneliness in Elderly Adults">
 <meta property="og:description" content="1.4 million elderly people in the UK are chronically lonely. Learn the causes, health impacts, and how families can help.">
-<meta property="og:url" content="https://icare.co.uk/care-guidance/loneliness-elderly-adults">
-<meta property="og:image" content="https://icare.co.uk/images/articles/loneliness-og.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/care-guidance/loneliness-elderly-adults">
+<meta property="og:image" content="https://icare-app.co.uk/images/articles/loneliness-og.jpg">
 <meta property="og:image:alt" content="Elderly person sitting alone looking out window - representing loneliness">
 <meta property="article:tag" content="Loneliness">
 <meta property="article:tag" content="Health">
@@ -2142,7 +2142,7 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta name="twitter:title" content="Understanding Loneliness in Elderly Adults">
 <meta name="twitter:description" content="1.4M elderly people in UK are lonely. Learn causes, health effects & how to help. Essential reading for families.">
-<meta name="twitter:image" content="https://icare.co.uk/images/articles/loneliness-twitter.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/articles/loneliness-twitter.jpg">
 <meta name="twitter:label1" content="Reading time">
 <meta name="twitter:data1" content="10 min read">
 ```
@@ -2170,7 +2170,7 @@ All articles follow this pattern with article-specific variations.
 <title>Signs Your Elderly Parent May Need Support | iCare Care Guidance</title>
 <meta name="description" content="Recognise the warning signs that your elderly parent needs help. From hygiene changes to social withdrawal, learn what to look for and how to start the conversation.">
 <meta name="keywords" content="signs elderly parent needs help, when elderly parent needs support, warning signs aging parent, elderly care signs, parent needs help UK">
-<link rel="canonical" href="https://icare.co.uk/care-guidance/signs-parent-needs-support">
+<link rel="canonical" href="https://icare-app.co.uk/care-guidance/signs-parent-needs-support">
 ```
 
 **Open Graph Tags**
@@ -2178,8 +2178,8 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta property="og:title" content="Signs Your Elderly Parent May Need Support">
 <meta property="og:description" content="Recognise warning signs your parent needs help: hygiene changes, social withdrawal, memory concerns. Learn what to look for.">
-<meta property="og:url" content="https://icare.co.uk/care-guidance/signs-parent-needs-support">
-<meta property="og:image" content="https://icare.co.uk/images/articles/signs-parent-og.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/care-guidance/signs-parent-needs-support">
+<meta property="og:image" content="https://icare-app.co.uk/images/articles/signs-parent-og.jpg">
 <meta property="og:image:alt" content="Adult child noticing warning signs in elderly parent's home">
 <meta property="article:tag" content="Warning Signs">
 <meta property="article:tag" content="Families">
@@ -2191,7 +2191,7 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta name="twitter:title" content="Signs Your Elderly Parent May Need Support">
 <meta name="twitter:description" content="Is your parent withdrawing socially? Neglecting hygiene? Learn the warning signs and how to help.">
-<meta name="twitter:image" content="https://icare.co.uk/images/articles/signs-parent-twitter.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/articles/signs-parent-twitter.jpg">
 <meta name="twitter:label1" content="Reading time">
 <meta name="twitter:data1" content="9 min read">
 ```
@@ -2219,7 +2219,7 @@ All articles follow this pattern with article-specific variations.
 <title>How to Start as a Companion Carer in the UK | iCare Care Guidance</title>
 <meta name="description" content="Want to become a companion carer? Learn what the role involves, skills you need, how to get started, and what to expect. No formal qualifications required.">
 <meta name="keywords" content="become companion carer UK, how to start as carer, companion care jobs, become caregiver no experience, companion carer requirements">
-<link rel="canonical" href="https://icare.co.uk/care-guidance/starting-companion-carer">
+<link rel="canonical" href="https://icare-app.co.uk/care-guidance/starting-companion-carer">
 ```
 
 **Open Graph Tags**
@@ -2227,8 +2227,8 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta property="og:title" content="How to Start as a Companion Carer in the UK">
 <meta property="og:description" content="Become a companion carer: Learn what the role involves, skills needed, and how to get started. No formal qualifications required.">
-<meta property="og:url" content="https://icare.co.uk/care-guidance/starting-companion-carer">
-<meta property="og:image" content="https://icare.co.uk/images/articles/starting-carer-og.jpg">
+<meta property="og:url" content="https://icare-app.co.uk/care-guidance/starting-companion-carer">
+<meta property="og:image" content="https://icare-app.co.uk/images/articles/starting-carer-og.jpg">
 <meta property="og:image:alt" content="New caregiver spending time with elderly person, both smiling">
 <meta property="article:tag" content="Caregivers">
 <meta property="article:tag" content="Getting Started">
@@ -2240,7 +2240,7 @@ All articles follow this pattern with article-specific variations.
 ```html
 <meta name="twitter:title" content="How to Start as a Companion Carer">
 <meta name="twitter:description" content="Want to become a companion carer? Learn what it involves, skills needed & how to start. No formal qualifications required.">
-<meta name="twitter:image" content="https://icare.co.uk/images/articles/starting-carer-twitter.jpg">
+<meta name="twitter:image" content="https://icare-app.co.uk/images/articles/starting-carer-twitter.jpg">
 <meta name="twitter:label1" content="Reading time">
 <meta name="twitter:data1" content="9 min read">
 ```

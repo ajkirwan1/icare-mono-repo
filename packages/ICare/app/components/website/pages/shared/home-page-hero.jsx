@@ -17,7 +17,7 @@ export default function HomePageHero({ imgSrc }) {
         <>
             <ICareNavbar />
 
-            <section
+            <header
                 aria-label="ICare homepage hero"
                 className={styles.hero}
                 onMouseEnter={() => emit(true)}
@@ -39,7 +39,7 @@ export default function HomePageHero({ imgSrc }) {
 
                             <p className={`${styles.homeLead} ${styles.desktopOnly}`}><b>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly <br />with families transparently and on your terms</p>
 
-                            <p className={`${styles.homeLead} ${styles.mobileOnly}`}><b>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly with families transparently and on your terms</p>
+                            <p className={`${styles.homeLead} ${styles.mobileOnly}`} aria-hidden="true"><b>Interested in working as an independent carer?</b><br />Discover how iCare helps you connect directly with families transparently and on your terms</p>
 
 
                             {/* CTA */}
@@ -63,7 +63,7 @@ export default function HomePageHero({ imgSrc }) {
                         </div>
                     </div>
                 </div>
-            </section >
+            </header>
         </>
     );
 }

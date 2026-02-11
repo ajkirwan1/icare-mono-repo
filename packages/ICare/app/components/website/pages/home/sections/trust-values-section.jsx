@@ -17,6 +17,7 @@ export default function TrustValuesSection() {
             descFull:
                 "See who you’re speaking with, what support is offered, and what it costs - without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
             img: "/images/web/homepage/icare-trust.webp",
+            alt: "Caregiver and elderly person reviewing a clear profile together",
         },
         {
             k: "Care",
@@ -24,6 +25,7 @@ export default function TrustValuesSection() {
             descFull:
                 "Care is a relationship. We prioritise dignity, consistency and real presence  - from companionship visits to live-in continuity, matched to your needs.",
             img: "/images/web/homepage/care.jpg",
+            alt: "Caregiver providing compassionate support at home",
         },
         {
             k: "Community",
@@ -31,6 +33,7 @@ export default function TrustValuesSection() {
             descFull:
                 "Families and caregivers benefit from shared clarity and better matching over time. Early access helps us prioritise the right towns first - starting with your area.",
             img: "/images/web/homepage/community.jpg",
+            alt: "Families and caregivers connecting in a local community",
         },
     ];
 
@@ -67,7 +70,7 @@ export default function TrustValuesSection() {
                                 onMouseLeave={() => setHoverIndex(null)}
                             >
                                 {/* ✅ keep existing images */}
-                                <img src={item.img} alt={item.k} className={styles.image} />
+                                <img src={item.img} alt={item.alt} className={styles.image} />
 
                                 <div className={styles.gradient} />
 
@@ -76,7 +79,7 @@ export default function TrustValuesSection() {
 
                                     <p className={styles.cardShort}>{item.descShort}</p>
 
-                                    {!isOpen && <span className={styles.learnMore}>Learn more</span>}
+                                    {!isOpen && <span className={styles.learnMore} aria-hidden="true">Learn more</span>}
 
                                     <div
                                         className={`${styles.expandWrapper} ${isOpen ? styles.expandWrapperOpen : ""}`}

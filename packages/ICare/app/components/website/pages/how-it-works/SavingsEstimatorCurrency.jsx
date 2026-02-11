@@ -332,7 +332,7 @@ export default function ICareCostEstimatorExpanded() {
                 {/* LEFT */}
                 <div style={infoGrid}>
                     <div style={infoCard}>
-                        <div style={infoHead}>Live-in care: typical weekly range (UK)</div>
+                        <h3 style={infoHead}>Live-in care: typical weekly range (UK)</h3>
 
                         <p style={infoP}>
                             Live-in care is usually priced as a <strong>weekly rate</strong>.{" "}
@@ -360,7 +360,7 @@ export default function ICareCostEstimatorExpanded() {
                     </div>
 
                     <div style={infoCard}>
-                        <div style={infoHead}>What affects cost most</div>
+                        <h3 style={infoHead}>What affects cost most</h3>
 
                         <ul style={bullets}>
                             <li>
@@ -416,7 +416,7 @@ export default function ICareCostEstimatorExpanded() {
                     </details>
 
                     <div style={infoCard}>
-                        <div style={infoHead}>Note</div>
+                        <h3 style={infoHead}>Note</h3>
 
                         <p style={infoP}>
                             Estimates are based on your selected rate and weekly hours.
@@ -434,7 +434,7 @@ export default function ICareCostEstimatorExpanded() {
                 <div className="icare-est-cards" style={cardsRow}>
                     {/* INPUTS */}
                     <div style={card}>
-                        <div style={infoHead}>Your inputs</div>
+                        <h3 style={infoHead}>Your inputs</h3>
 
                         <div style={{ display: "grid", gap: 12, marginTop: 10 }}>
                             {/* Currency row — EXACT layout you asked */}
@@ -446,11 +446,13 @@ export default function ICareCostEstimatorExpanded() {
                                     gap: 12,
                                 }}
                             >
-                                <span style={label}>Currency</span>
+                                <span id="currency-label" style={label}>Currency</span>
 
-                                <div className="icare-curr" aria-label="Currency selector" style={currWrap}>
+                                <div className="icare-curr" role="radiogroup" aria-labelledby="currency-label" style={currWrap}>
                                     <button
                                         type="button"
+                                        role="radio"
+                                        aria-checked={currency === "GBP"}
                                         className={`icare-curr-btn ${currency === "GBP" ? "is-active" : ""}`}
                                         style={currBtn(currency === "GBP")}
                                         onClick={() => setCurrency("GBP")}
@@ -459,6 +461,8 @@ export default function ICareCostEstimatorExpanded() {
                                     </button>
                                     <button
                                         type="button"
+                                        role="radio"
+                                        aria-checked={currency === "EUR"}
                                         className={`icare-curr-btn ${currency === "EUR" ? "is-active" : ""}`}
                                         style={currBtn(currency === "EUR")}
                                         onClick={() => setCurrency("EUR")}
@@ -478,14 +482,14 @@ export default function ICareCostEstimatorExpanded() {
                                         gap: 12,
                                     }}
                                 >
-                                    <span style={label}>Hourly rate</span>
+                                    <label htmlFor="hourly-rate" style={label}>Hourly rate</label>
 
                                     <input
+                                        id="hourly-rate"
                                         className="icare-est-input"
                                         min={range.min}
                                         max={range.max}
                                         step={range.step}
-                                        aria-label="Hourly rate"
                                         type="number"
                                         value={hourly}
                                         onChange={(e) => setHourly(Number(e.target.value))}
@@ -521,9 +525,9 @@ export default function ICareCostEstimatorExpanded() {
                                     <span>{range.max}</span>
                                 </div>
 
-                                <div style={helper}>
-                                    Tip: choose a rate that’s fair and sustainable for the carer.
-                                </div>
+                                <p style={helper}>
+                                    Tip: choose a rate that's fair and sustainable for the carer.
+                                </p>
                             </div>
 
                             {/* Hours per week */}
@@ -536,9 +540,10 @@ export default function ICareCostEstimatorExpanded() {
                                         gap: 12,
                                     }}
                                 >
-                                    <span style={label}>Hours per week</span>
+                                    <label htmlFor="hours-week" style={label}>Hours per week</label>
 
                                     <input
+                                        id="hours-week"
                                         className="icare-est-input"
                                         type="number"
                                         value={hoursWeek}
@@ -546,13 +551,12 @@ export default function ICareCostEstimatorExpanded() {
                                         max={168}
                                         onChange={(e) => setHoursWeek(Number(e.target.value))}
                                         style={fieldMini}
-                                        aria-label="Hours per week"
                                     />
                                 </div>
 
-                                <div style={{ ...helper, marginTop: 1 }}>
+                                <p style={{ ...helper, marginTop: 1 }}>
                                     A helpful starting point is 20–40 hours/week.
-                                </div>
+                                </p>
                             </div>
 
                             {/* Agency markup */}
@@ -565,14 +569,14 @@ export default function ICareCostEstimatorExpanded() {
                                         gap: 12,
                                     }}
                                 >
-                                    <span style={label}>Agency markup</span>
+                                    <label htmlFor="agency-markup" style={label}>Agency markup</label>
 
                                     <select
+                                        id="agency-markup"
                                         className="icare-est-input"
                                         value={agencyMarkupPct}
                                         onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
                                         style={selectLike}
-                                        aria-label="Agency markup percent"
                                     >
                                         <option value={25}>25%</option>
                                         <option value={30}>30%</option>
@@ -581,9 +585,9 @@ export default function ICareCostEstimatorExpanded() {
                                     </select>
                                 </div>
 
-                                <div style={{ ...helper, marginTop: 2 }}>
-                                    Used for an illustrative “typical agency total”.
-                                </div>
+                                <p style={{ ...helper, marginTop: 2 }}>
+                                    Used for an illustrative &ldquo;typical agency total&rdquo;.
+                                </p>
                             </div>
 
                             {/* ICare fee (optional, but matches your 2x2 reference) */}
@@ -596,14 +600,14 @@ export default function ICareCostEstimatorExpanded() {
                                         gap: 12,
                                     }}
                                 >
-                                    <span style={label}>ICare service fee</span>
+                                    <label htmlFor="icare-fee" style={label}>ICare service fee</label>
 
                                     <select
+                                        id="icare-fee"
                                         className="icare-est-input"
                                         value={icareFeePct}
                                         onChange={(e) => setIcareFeePct(Number(e.target.value))}
                                         style={selectLike}
-                                        aria-label="ICare service fee percent"
                                     >
                                         <option value={5}>5%</option>
                                         <option value={10}>10%</option>
@@ -612,18 +616,17 @@ export default function ICareCostEstimatorExpanded() {
                                     </select>
                                 </div>
 
-                                <div style={{ ...helper, marginTop: 2 }}>
-                                    Used only to show “Estimated with ICare” (illustrative).
-                                </div>
+                                <p style={{ ...helper, marginTop: 2 }}>
+                                    Used only to show &ldquo;Estimated with ICare&rdquo; (illustrative).
+                                </p>
                             </div>
                         </div>
 
-                        <div style={{ marginTop: "auto" }} />
                     </div>
 
                     {/* RESULTS */}
                     <div style={card}>
-                        <div style={infoHead}>Monthly estimate</div>
+                        <h3 style={infoHead}>Monthly estimate</h3>
 
                         <div style={resultGrid}>
                             <div style={resultBox(false)}>
@@ -635,9 +638,9 @@ export default function ICareCostEstimatorExpanded() {
                                 <div style={resultK}>
                                     Typical agency total
                                     <span className="icare-tip" style={tooltipWrap}>
-                                        <span style={infoIcon} aria-label="Agency total info" tabIndex={0}>
+                                        <button type="button" style={{ ...infoIcon, border: "1px solid rgba(15, 23, 42, 0.22)", padding: 0 }} aria-label="Agency total info">
                                             i
-                                        </span>
+                                        </button>
                                         <span className="icare-tip-bubble" role="tooltip">
                                             A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs.
                                         </span>
@@ -650,9 +653,9 @@ export default function ICareCostEstimatorExpanded() {
                                 <div style={resultK}>
                                     Estimated with ICare
                                     <span className="icare-tip" style={tooltipWrap}>
-                                        <span style={infoIcon} aria-label="ICare estimate info" tabIndex={0}>
+                                        <button type="button" style={{ ...infoIcon, border: "1px solid rgba(15, 23, 42, 0.22)", padding: 0 }} aria-label="ICare estimate info">
                                             i
-                                        </span>
+                                        </button>
                                         <span className="icare-tip-bubble" role="tooltip">
                                             Includes an estimated ICare service fee based on your inputs. This is not a quote and does not include any optional extras you may agree separately.
                                         </span>
@@ -667,24 +670,22 @@ export default function ICareCostEstimatorExpanded() {
                             </div>
                         </div>
 
-                        <div style={bar}>
+                        <div style={bar} role="progressbar" aria-valuenow={Math.round(savePct)} aria-valuemin={0} aria-valuemax={100} aria-label="Estimated savings percentage">
                             <div style={barFill} />
                         </div>
 
-                        <div style={{ ...helper, marginTop: 12 }}>
+                        <p style={{ ...helper, marginTop: 12 }}>
                             You may save around{" "}
                             <span style={{ color: BRAND, fontWeight: 650 }}>
                                 {Math.round(savePct)}%
                             </span>{" "}
                             compared with a typical agency.
-                        </div>
+                        </p>
 
-                        <div style={disclaimer}>
+                        <p style={disclaimer}>
                             This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
                             Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
-                        </div>
-
-                        <div style={{ marginTop: "auto" }} />
+                        </p>
                     </div>
                 </div>
             </div>
@@ -749,6 +750,7 @@ export default function ICareCostEstimatorExpanded() {
           border: 7px solid transparent;
           border-top-color: rgba(15,23,42,0.96);
         }
+        .icare-tip button{ cursor: help; }
         .icare-tip:hover .icare-tip-bubble,
         .icare-tip:focus-within .icare-tip-bubble{
           opacity: 1;

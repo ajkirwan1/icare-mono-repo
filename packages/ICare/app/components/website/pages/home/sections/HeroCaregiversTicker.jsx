@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-
 /**
- * ICare — New caregivers ticker + expandable list
+ * ICare — New caregivers ticker
  */
 export default function ICareNewCaregiversTickerSection() {
-    const [showAll, setShowAll] = useState(false);
-
     const TEXT = "#0F172A";
-    const BG = "rgba(217, 215, 189, 0.55)";
     const PANEL = "rgba(255,255,255,0.78)";
     const BORDER = "rgba(15,23,42,0.14)";
 
@@ -98,7 +93,7 @@ export default function ICareNewCaregiversTickerSection() {
     const base = [...people, ...people, ...people, ...people];
 
     return (
-        <section style={wrap}>
+        <section style={wrap} aria-label="New people on ICare">
             <div style={container}>
                 <div style={header}>
                     <h2 style={h2}>New people on ICare</h2>
@@ -108,12 +103,12 @@ export default function ICareNewCaregiversTickerSection() {
                 {/* MARQUEE */}
                 <div style={rail}>
                     <div className="icare-marquee" style={track}>
-                        <div style={group}>
+                        <ul style={{ ...group, listStyle: "none", margin: 0, padding: 0 }}>
                             {base.map((x, i) => (
-                                <div key={`a-${i}`} style={card}>
+                                <li key={`a-${i}`} style={card}>
                                     <img
                                         src={`https://source.unsplash.com/${x.imgId}/140x140`}
-                                        alt=""
+                                        alt={`Photo of ${x.n}`}
                                         style={avatarImg}
                                     />
                                     <div style={{ lineHeight: 1.55 }}>
@@ -122,59 +117,12 @@ export default function ICareNewCaregiversTickerSection() {
                                             Joined {x.joined}
                                         </div>
                                     </div>
-                                </div>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 </div>
 
-                {/* VIEW ALL */}
-                <div style={{ display: "none" }}>
-                    <button
-                        onClick={() => setShowAll((v) => !v)}
-                        style={{
-                            background: "none",
-                            border: "none",
-                            padding: 0,
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            color: TEXT,
-                        }}
-                    >
-                        {showAll ? "Show fewer people" : "View all people"}
-                    </button>
-                </div>
-
-                {/* EXPANDED GRID */}
-                {showAll && (
-                    <div
-                        style={{
-                            marginTop: 28,
-                            display: "grid",
-                            gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))",
-                            gap: 20,
-                        }}
-                    >
-                        {people.map((x, i) => (
-                            <div key={`grid-${i}`} style={card}>
-                                <img
-                                    src={`https://source.unsplash.com/${x.imgId}/140x140`}
-                                    alt=""
-                                    style={avatarImg}
-                                />
-                                <div style={{ lineHeight: 1.55 }}>
-                                    <strong style={{ fontSize: "1.05rem" }}>
-                                        {x.n}
-                                    </strong>{" "}
-                                    · {x.city}
-                                    <div style={{ opacity: 0.75, marginTop: 4 }}>
-                                        Joined {x.joined}
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
             </div>
 
             <style>{`

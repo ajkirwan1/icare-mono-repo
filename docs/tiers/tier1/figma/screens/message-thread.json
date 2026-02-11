@@ -1,0 +1,284 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-011",
+    "screenName": "Message Thread",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/messaging/scr-cr-011-message-thread.md",
+    "generatedDate": "2026-02-11",
+    "role": "care-receiver",
+    "route": "/messages/:conversationId",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["active-conversation", "empty-state", "contact-redaction", "blocked", "archived", "sending", "failed-to-send", "loading"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "participant": {
+      "name": "Mary Thompson",
+      "role": "Caregiver",
+      "photo": "/uploads/photos/mary-thompson.jpg",
+      "online": true,
+      "verificationBadges": [
+        { "type": "identity", "label": "Identity", "icon": "✓" },
+        { "type": "dbs", "label": "DBS", "icon": "✓" }
+      ]
+    },
+    "booking": {
+      "id": "bk-2026-0142",
+      "ref": "BK-12345",
+      "date": "Wednesday, March 6 at 10:00 AM",
+      "status": "Accepted"
+    },
+    "messages": [
+      { "id": 1, "sender": "other", "senderName": "Mary Thompson", "text": "Hi Sarah, I'm looking forward to meeting you on Wednesday!", "time": "Today at 2:30 PM" },
+      { "id": 2, "sender": "own", "text": "Thank you, Mary! I'm excited too. Do you have any dietary restrictions I should know about?", "time": "Today at 2:45 PM", "readReceipt": "Read" },
+      { "id": 3, "sender": "other", "senderName": "Mary Thompson", "text": "No dietary restrictions, thank you for asking!", "time": "Today at 3:00 PM" }
+    ],
+    "charCount": "0 / 1000"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "1",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/" },
+          { "label": "Messages", "url": "/messages" },
+          { "label": "Mary Thompson", "url": "", "active": true }
+        ]
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    },
+    {
+      "id": "section-conversation-header",
+      "name": "Conversation Header",
+      "order": 3,
+      "layout": "two-column",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.5}" },
+      "gap": "{spacing.6}",
+      "columnSizes": {
+        "desktop": ["50%", "50%"],
+        "tablet": ["100%"],
+        "mobile": ["100%"]
+      },
+      "children": [
+        {
+          "id": "participant-card",
+          "name": "Participant Card",
+          "layout": "horizontal",
+          "gap": "{spacing.4}",
+          "children": [
+            {
+              "component": "user-avatar",
+              "props": { "src": "${participant.photo}", "name": "${participant.name}", "size": "80px" }
+            },
+            {
+              "component": "frame",
+              "layout": "vertical",
+              "gap": "{spacing.2}",
+              "children": [
+                { "component": "text", "variant": "h2", "content": "${participant.name}", "tokens": { "fontSize": "{fontSizes.xl}", "fontWeight": "{fontWeights.semibold}", "fill": "{colors.text.primary}" } },
+                { "component": "text", "content": "${participant.role}", "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}" } },
+                { "component": "text", "content": "● Online", "tokens": { "fontSize": "{fontSizes.sm}", "fill": "#10B981" } },
+                { "component": "verification-badge-row", "props": { "badges": "${participant.verificationBadges}" } }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "booking-context-card",
+          "name": "Booking Context Card",
+          "component": "frame",
+          "layout": "vertical",
+          "gap": "{spacing.3}",
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "borderRadius": "{borderRadius.lg}",
+            "padding": "{spacing.5}"
+          },
+          "children": [
+            { "component": "text", "content": "ABOUT THIS CONVERSATION", "tokens": { "fontSize": "{fontSizes.xs}", "fontWeight": "{fontWeights.semibold}", "fill": "{colors.text.muted}", "letterSpacing": "0.5px" } },
+            { "component": "text", "content": "Booking #${booking.ref}", "tokens": { "fontSize": "{fontSizes.base}", "fontWeight": "{fontWeights.semibold}", "fill": "{colors.text.primary}" } },
+            { "component": "text", "content": "${booking.date}", "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}" } },
+            { "component": "status-badge", "props": { "status": "${booking.status}", "size": "small" } },
+            { "component": "text-link", "props": { "label": "View Booking Details →", "href": "/bookings/${booking.id}" }, "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.brand.link-bg}" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-messages",
+      "name": "Message Thread",
+      "order": 4,
+      "layout": "vertical",
+      "gap": "{spacing.3}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.5}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "date-divider",
+          "props": { "label": "Today" }
+        },
+        {
+          "component": "message-bubble",
+          "variant": "other",
+          "props": {
+            "senderName": "Mary Thompson",
+            "text": "Hi Sarah, I'm looking forward to meeting you on Wednesday!",
+            "time": "Today at 2:30 PM"
+          }
+        },
+        {
+          "component": "message-bubble",
+          "variant": "own",
+          "props": {
+            "text": "Thank you, Mary! I'm excited too. Do you have any dietary restrictions I should know about?",
+            "time": "Today at 2:45 PM",
+            "readReceipt": "✓✓ Read"
+          }
+        },
+        {
+          "component": "message-bubble",
+          "variant": "other",
+          "props": {
+            "senderName": "Mary Thompson",
+            "text": "No dietary restrictions, thank you for asking!",
+            "time": "Today at 3:00 PM"
+          }
+        },
+        {
+          "component": "typing-indicator",
+          "props": { "name": "Mary" }
+        }
+      ]
+    },
+    {
+      "id": "section-contact-warning",
+      "name": "Contact Warning Banner",
+      "order": 5,
+      "component": "alert-banner",
+      "variant": "warning",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.3}" },
+      "props": {
+        "icon": "⚠️",
+        "message": "Don't share phone numbers or email addresses until the booking is accepted. Messages are monitored for your safety."
+      }
+    },
+    {
+      "id": "section-message-input",
+      "name": "Message Input Area",
+      "order": 6,
+      "layout": "vertical",
+      "gap": "{spacing.3}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "message-input",
+          "props": {
+            "placeholder": "Type your message...",
+            "maxLength": 1000,
+            "charCount": "0 / 1000",
+            "sendLabel": "Send Message"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 7,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "active-conversation": {
+      "description": "Default state with message history, typing indicator, and input area"
+    },
+    "empty-state": {
+      "description": "First message - no messages yet",
+      "replaceSection": "section-messages",
+      "elements": [
+        { "component": "text", "content": "💬", "tokens": { "fontSize": "48px", "textAlign": "center" } },
+        { "component": "text", "variant": "h2", "content": "Start the conversation", "tokens": { "fontSize": "{fontSizes.xl}", "textAlign": "center" } },
+        { "component": "text", "content": "Send a message to Mary to get started. Messages are monitored for your safety.", "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "textAlign": "center" } }
+      ]
+    },
+    "contact-redaction": {
+      "description": "Message with redacted contact information",
+      "additionalElements": [
+        { "component": "message-bubble", "variant": "other", "props": { "senderName": "Mary Thompson", "text": "Hi! My number is [REDACTED] - call me anytime.", "time": "Today at 2:30 PM", "redactionAlert": "⚠️ Contact info removed for your safety" } }
+      ]
+    },
+    "blocked": {
+      "description": "Conversation blocked by user",
+      "replaceSection": "section-message-input",
+      "elements": [
+        { "component": "alert-banner", "variant": "warning", "props": { "icon": "⚠️", "heading": "This conversation is blocked", "message": "You have blocked this user. You can no longer send or receive messages. Your booking is not affected." } },
+        { "component": "button", "variant": "secondary", "props": { "label": "Unblock User" } }
+      ]
+    },
+    "archived": {
+      "description": "Conversation archived after 30 days",
+      "replaceSection": "section-message-input",
+      "elements": [
+        { "component": "alert-banner", "variant": "info", "props": { "icon": "ℹ️", "heading": "This conversation is archived", "message": "This booking was completed more than 30 days ago. You can view messages but cannot send new ones." } },
+        { "component": "button", "variant": "secondary", "props": { "label": "View Booking Details" } }
+      ]
+    },
+    "sending": {
+      "description": "Message being sent",
+      "additionalElements": [
+        { "component": "message-bubble", "variant": "own", "props": { "text": "Great, see you Wednesday!", "time": "Sending...", "readReceipt": "⏳" } }
+      ]
+    },
+    "failed-to-send": {
+      "description": "Message failed to send",
+      "additionalElements": [
+        { "component": "message-bubble", "variant": "own", "props": { "text": "Great, see you Wednesday!", "time": "⚠️ Failed to send", "readReceipt": "Retry" } }
+      ]
+    },
+    "loading": {
+      "description": "Initial page loading state"
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "Two-column conversation header. Message container centered, max-width 900px. Fixed message input at bottom." },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "Single column conversation header (stacked). Smaller participant photo (60px). Full-width messages." },
+    "mobile": { "breakpoint": "320px-767px", "layout": "Compact: Back button top-left. Participant card 40px photo. Booking context collapsible. Fixed message input at bottom. Contact warning condensed." }
+  },
+  "accessibilityNotes": {
+    "pageLoad": "Messages with Mary Thompson. Caregiver. Online. 3 messages loaded.",
+    "newMessage": "Mary Thompson says: No dietary restrictions, thank you for asking!",
+    "typingIndicator": "Mary is typing",
+    "messageSent": "Message sent",
+    "contactRedaction": "Contact information removed for your safety. Phone numbers and email addresses are hidden until booking is accepted.",
+    "reportSubmitted": "Report submitted. Our safeguarding team will review this conversation within 24 hours."
+  }
+}

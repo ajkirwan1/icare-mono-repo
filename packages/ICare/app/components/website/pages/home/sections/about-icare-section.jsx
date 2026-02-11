@@ -8,6 +8,7 @@ export default function AboutICareSection() {
         <section
             className={styles.section}
             style={{ display: "flex", justifyContent: "center" }}
+            aria-labelledby="about-icare-heading"
         >
             <div className={styles.gridThreeQuarter}>
                 <img
@@ -17,7 +18,7 @@ export default function AboutICareSection() {
                 />
 
                 <div>
-                    <h2 className={styles.title}>
+                    <h2 id="about-icare-heading" className={styles.title}>
                         Care that fits real life
                     </h2>
 

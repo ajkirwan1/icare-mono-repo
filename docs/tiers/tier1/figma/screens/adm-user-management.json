@@ -1,0 +1,273 @@
+{
+  "_metadata": {
+    "screenId": "scr-adm-005",
+    "screenName": "Admin User Management",
+    "wireframeSource": "scr-adm-005-user-management.md",
+    "generatedDate": "2026-02-11",
+    "role": "admin",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default-users-loaded",
+      "filtered",
+      "bulk-actions-active",
+      "empty-no-results"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "2",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Users" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "User Management",
+          "tokens": {
+            "fontSize": "32",
+            "fontWeight": "700"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "View and manage all platform users"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter & Search Bar",
+      "order": 4,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": true,
+            "searchPlaceholder": "Search by name, email, or user ID...",
+            "filters": [
+              { "label": "Role" },
+              { "label": "Status" },
+              { "label": "Registered" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 16, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 5,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": {
+            "icon": "users",
+            "label": "Total Users",
+            "value": "1,234",
+            "trend": "↑12% from last month",
+            "trendDirection": "up"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "checkmark-circle",
+            "label": "Active Users",
+            "value": "1,156",
+            "subtext": "93.7% of total",
+            "statusColor": "green"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "ban",
+            "label": "Suspended Users",
+            "value": "23",
+            "subtext": "Requires review",
+            "statusColor": "red"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": {
+            "icon": "user-plus",
+            "label": "New This Week",
+            "value": "87",
+            "trend": "↑15 from last week",
+            "trendDirection": "up"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-active-filters",
+      "name": "Active Filters Display",
+      "order": 6,
+      "children": [
+        {
+          "component": "filter-tag-row",
+          "props": {
+            "tags": ["Role: Caregiver", "Status: Suspended"]
+          }
+        },
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-20 of 23 users"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-user-table",
+      "name": "User Table",
+      "order": 7,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Name", "name": "name" },
+              { "label": "Role", "name": "role" },
+              { "label": "Status", "name": "status" },
+              { "label": "Registered", "name": "registered" },
+              { "label": "Last Active", "name": "lastActive" }
+            ],
+            "rows": [
+              {
+                "cells": [
+                  { "text": "Sarah Johnson" },
+                  { "text": "Caregiver", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  { "text": "Suspended", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "15/01/2026",
+                  "3 days ago"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "Mary Kelly" },
+                  { "text": "Caregiver", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  { "text": "Suspended", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "08/12/2025",
+                  "7 days ago"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "Tom Brown" },
+                  { "text": "Care Receiver", "badge": true, "badgeColor": "#DBEAFE", "badgeTextColor": "#1D4ED8" },
+                  { "text": "Suspended", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "22/11/2025",
+                  "Never"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "Anna Chen" },
+                  { "text": "Caregiver", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  { "text": "Active", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "05/11/2025",
+                  "14 days ago"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "James Wilson" },
+                  { "text": "Family Member", "badge": true, "badgeColor": "#EDE9FE", "badgeTextColor": "#6D28D9" },
+                  { "text": "Active", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "01/10/2025",
+                  "Today"
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-20 of 23 users"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 8,
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 2,
+        "resultsText": "Showing 1-20 of 23 users"
+      },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 9,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalUsers": 1234,
+    "activeUsers": 1156,
+    "suspendedUsers": 23,
+    "newThisWeek": 87
+  }
+}

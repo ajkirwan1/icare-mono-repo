@@ -1,0 +1,788 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-013",
+    "screenName": "Booking Request Detail (Caregiver)",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/booking/scr-cg-013-booking-request-detail.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/bookings/:bookingId",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "pending",
+      "accepted",
+      "in_progress",
+      "completed",
+      "payment_released",
+      "declined",
+      "expired"
+    ],
+    "description": "Caregiver view of booking request detail. Shows earnings breakdown, accept/decline actions, privacy-limited care receiver info before acceptance, and mark complete functionality."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "caregiver",
+      "props": {
+        "role": "caregiver",
+        "userName": "Sarah Thompson",
+        "notificationCount": "1",
+        "hasSearch": false
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/dashboard", "active": false },
+          { "label": "My Bookings", "url": "/bookings", "active": false },
+          { "label": "Booking Request", "url": "/bookings/${booking.id}", "active": true }
+        ]
+      },
+      "accessibility": {
+        "ariaLabel": "Breadcrumb navigation"
+      }
+    },
+    {
+      "id": "section-page-title",
+      "name": "Page Title with Status and Timer",
+      "order": 3,
+      "layout": "horizontal",
+      "alignItems": "center",
+      "justifyContent": "space-between",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Booking Request from ${careReceiver.firstName}",
+          "tokens": {
+            "fontSize": "{fontSizes.2xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}"
+          }
+        },
+        {
+          "component": "frame",
+          "layout": "horizontal",
+          "gap": "{spacing.3}",
+          "alignItems": "center",
+          "children": [
+            {
+              "component": "status-badge",
+              "variant": "${statusVariant}",
+              "props": {
+                "status": "${booking.status}",
+                "size": "large"
+              },
+              "accessibility": {
+                "role": "status",
+                "ariaLabel": "Booking status: ${booking.statusLabel}"
+              }
+            },
+            {
+              "component": "countdown-timer",
+              "variant": "${timerVariant}",
+              "visible": "${showCountdownTimer}",
+              "props": {
+                "deadline": "${booking.responseDeadline || booking.confirmationDeadline}",
+                "format": "hours-minutes",
+                "urgentThreshold": "2h"
+              },
+              "accessibility": {
+                "role": "timer",
+                "ariaLive": "polite",
+                "ariaAtomic": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-alert-banner",
+      "name": "State-Dependent Alert Banner",
+      "order": 4,
+      "component": "alert-banner",
+      "variant": "${alertVariant}",
+      "visible": "${showAlertBanner}",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "props": {
+        "icon": "${alertIcon}",
+        "heading": "${alertHeading}",
+        "message": "${alertMessage}",
+        "actions": "${alertActions}"
+      },
+      "accessibility": {
+        "role": "alert",
+        "ariaLive": "polite"
+      }
+    },
+    {
+      "id": "section-content-area",
+      "name": "Content Area (Two-Column Layout)",
+      "order": 5,
+      "layout": "two-column",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}"
+      },
+      "gap": "{spacing.8}",
+      "columnSizes": {
+        "desktop": ["65%", "35%"],
+        "tablet": ["100%"],
+        "mobile": ["100%"]
+      },
+      "children": [
+        {
+          "id": "main-column",
+          "name": "Main Column (Left)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "children": [
+            {
+              "id": "care-receiver-info-card",
+              "name": "Care Receiver Information Card",
+              "component": "care-receiver-card",
+              "variant": "${privacyVariant}",
+              "props": {
+                "careReceiver": "${careReceiver}",
+                "variant": "${privacyVariant}",
+                "showFullDetails": "${showContactDetails}"
+              },
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "accessibility": {
+                "ariaLabel": "Care receiver information"
+              }
+            },
+            {
+              "id": "booking-detail-card",
+              "name": "Booking Details Card",
+              "component": "booking-detail-card",
+              "props": {
+                "booking": "${booking}",
+                "showEmergencyContact": false
+              },
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              }
+            },
+            {
+              "id": "booking-timeline",
+              "name": "Booking History Timeline",
+              "component": "booking-timeline",
+              "visible": "${showTimeline}",
+              "props": {
+                "events": "${booking.timeline}",
+                "currentStatus": "${booking.status}"
+              },
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "accessibility": {
+                "role": "list",
+                "ariaLabel": "Booking status history"
+              }
+            }
+          ]
+        },
+        {
+          "id": "sidebar-column",
+          "name": "Sidebar Column (Right)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "children": [
+            {
+              "id": "earnings-breakdown-card",
+              "name": "Earnings Breakdown",
+              "component": "earnings-breakdown-card",
+              "props": {
+                "earnings": "${earnings}",
+                "status": "${booking.status}"
+              },
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              }
+            },
+            {
+              "id": "emergency-contact-card",
+              "name": "Emergency Contact (In Progress)",
+              "component": "frame",
+              "visible": "${showEmergencyContactCard}",
+              "tokens": {
+                "fill": "{colors.alert.error-bg}",
+                "border": "2px solid {colors.alert.error-border}",
+                "borderRadius": "{borderRadius.lg}",
+                "padding": "{spacing.6}"
+              },
+              "layout": "vertical",
+              "gap": "{spacing.4}",
+              "children": [
+                {
+                  "component": "text",
+                  "variant": "h2",
+                  "content": "🚨 Emergency Contact",
+                  "tokens": {
+                    "fontSize": "{fontSizes.lg}",
+                    "fontWeight": "{fontWeights.bold}",
+                    "fill": "{colors.alert.error-text}"
+                  }
+                },
+                {
+                  "component": "text",
+                  "content": "${emergencyContact.name}",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fontWeight": "{fontWeights.semibold}"
+                  }
+                },
+                {
+                  "component": "text",
+                  "content": "${emergencyContact.relationship}",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.text.muted}"
+                  }
+                },
+                {
+                  "component": "text",
+                  "content": "📞 ${emergencyContact.phone}",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fontWeight": "{fontWeights.semibold}"
+                  }
+                },
+                {
+                  "component": "button",
+                  "variant": "destructive",
+                  "label": "Call Emergency Contact",
+                  "action": "tel:${emergencyContact.phone}",
+                  "tokens": {
+                    "width": "100%"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Call emergency contact ${emergencyContact.name}"
+                  }
+                },
+                {
+                  "component": "button",
+                  "variant": "destructive",
+                  "label": "Call 999",
+                  "action": "tel:999",
+                  "tokens": {
+                    "width": "100%"
+                  },
+                  "accessibility": {
+                    "ariaLabel": "Call emergency services 999"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "actions-card",
+              "name": "Action Buttons",
+              "component": "frame",
+              "tokens": {
+                "fill": "{colors.background.card-glass}",
+                "borderRadius": "{borderRadius.lg}",
+                "boxShadow": "{boxShadow.card-soft}",
+                "padding": "{spacing.6}"
+              },
+              "layout": "vertical",
+              "gap": "{spacing.3}",
+              "children": "${stateActions}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 6,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "layout": "Two-column (65% main / 35% sidebar)",
+      "alertBanner": "Full width above content",
+      "actionButtons": "In sidebar card",
+      "emergencyContact": "Sidebar card (in_progress state)"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "layout": "Single column, stacked sections",
+      "alertBanner": "Full width",
+      "actionButtons": "Full width below content",
+      "emergencyContact": "Full width card above actions"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "layout": "Single column, stacked sections",
+      "alertBanner": "Full width, condensed text",
+      "actionButtons": "Sticky bottom bar (full width buttons)",
+      "emergencyContact": "Full width card, prominent at top",
+      "countdownTimer": "Abbreviated format (20h 15m)"
+    }
+  },
+  "stateVariations": {
+    "pending": {
+      "description": "Awaiting caregiver response (24h window)",
+      "statusVariant": "pending",
+      "showCountdownTimer": true,
+      "timerVariant": "ok",
+      "showAlertBanner": true,
+      "alertVariant": "info",
+      "alertIcon": "⏳",
+      "alertHeading": "Respond within 24 hours",
+      "alertMessage": "Review this booking request and accept or decline within 24 hours. If you don't respond, the request will be automatically declined.",
+      "alertActions": [
+        {
+          "label": "Accept Booking",
+          "variant": "primary",
+          "action": "modal:accept-booking-confirmation"
+        },
+        {
+          "label": "Decline Booking",
+          "variant": "destructive-outlined",
+          "action": "modal:decline-booking-reason"
+        }
+      ],
+      "privacyVariant": "privacy-limited",
+      "showContactDetails": false,
+      "enableMessaging": false,
+      "showTimeline": false,
+      "paymentVariant": "authorized",
+      "showEmergencyContactCard": false,
+      "stateActions": [
+        {
+          "component": "button",
+          "variant": "primary",
+          "label": "Accept Booking",
+          "action": "modal:accept-booking-confirmation",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Accept booking request. Earnings: £${earnings.netEarnings}"
+          }
+        },
+        {
+          "component": "button",
+          "variant": "destructive-outlined",
+          "label": "Decline Booking",
+          "action": "modal:decline-booking-reason",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Decline booking request. Opens decline reason form."
+          }
+        }
+      ]
+    },
+    "accepted": {
+      "description": "Booking confirmed, awaiting start time",
+      "statusVariant": "confirmed",
+      "showCountdownTimer": false,
+      "showAlertBanner": true,
+      "alertVariant": "success",
+      "alertIcon": "✅",
+      "alertHeading": "Booking accepted",
+      "alertMessage": "You accepted this booking. Care receiver contact details are now available. Your booking is on ${booking.dateFormatted} at ${booking.timeFormatted}.",
+      "alertActions": [],
+      "privacyVariant": "full",
+      "showContactDetails": true,
+      "enableMessaging": true,
+      "showTimeline": false,
+      "paymentVariant": "captured",
+      "showEmergencyContactCard": false,
+      "stateActions": [
+        {
+          "component": "button",
+          "variant": "secondary",
+          "label": "Message Care Receiver",
+          "action": "navigate:/messages/${booking.id}",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Send message to ${careReceiver.fullName}"
+          }
+        },
+        {
+          "component": "button",
+          "variant": "destructive-outlined",
+          "label": "Cancel Booking",
+          "action": "modal:cancel-booking-warning",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Cancel confirmed booking (emergency only, may affect reliability rating)"
+          }
+        }
+      ]
+    },
+    "in_progress": {
+      "description": "Session currently happening",
+      "statusVariant": "in-progress",
+      "showCountdownTimer": false,
+      "showAlertBanner": true,
+      "alertVariant": "warning",
+      "alertIcon": "ℹ️",
+      "alertHeading": "Session in progress",
+      "alertMessage": "Mark this booking as complete when the session ends. The care receiver will then have 48 hours to confirm.",
+      "alertActions": [
+        {
+          "label": "Mark Complete",
+          "variant": "primary",
+          "action": "modal:mark-complete-confirmation"
+        }
+      ],
+      "privacyVariant": "full",
+      "showContactDetails": true,
+      "enableMessaging": true,
+      "showTimeline": false,
+      "paymentVariant": "held",
+      "showEmergencyContactCard": true,
+      "stateActions": [
+        {
+          "component": "button",
+          "variant": "primary",
+          "label": "Mark Complete",
+          "action": "modal:mark-complete-confirmation",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Mark session as complete"
+          }
+        },
+        {
+          "component": "button",
+          "variant": "secondary",
+          "label": "Report Issue",
+          "action": "modal:report-issue",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "Report issue with booking (no-show, emergency, other)"
+          }
+        }
+      ]
+    },
+    "completed": {
+      "description": "Session finished, awaiting care receiver confirmation (48h window)",
+      "statusVariant": "completed",
+      "showCountdownTimer": true,
+      "timerVariant": "ok",
+      "showAlertBanner": true,
+      "alertVariant": "info",
+      "alertIcon": "ℹ️",
+      "alertHeading": "Awaiting care receiver confirmation",
+      "alertMessage": "You marked this booking complete. The care receiver has 48 hours to confirm. If they don't respond, completion is auto-confirmed and payment will be released. Earnings: £${earnings.netEarnings} (pending release)",
+      "alertActions": [],
+      "privacyVariant": "full",
+      "showContactDetails": true,
+      "enableMessaging": true,
+      "showTimeline": true,
+      "paymentVariant": "pending-release",
+      "showEmergencyContactCard": false,
+      "stateActions": []
+    },
+    "payment_released": {
+      "description": "Payment sent to caregiver",
+      "statusVariant": "completed",
+      "showCountdownTimer": false,
+      "showAlertBanner": true,
+      "alertVariant": "success",
+      "alertIcon": "✅",
+      "alertHeading": "Payment released",
+      "alertMessage": "Earnings of £${earnings.netEarnings} have been released. Payment will arrive in your account in 2-3 business days.",
+      "alertActions": [],
+      "privacyVariant": "full",
+      "showContactDetails": true,
+      "enableMessaging": true,
+      "showTimeline": true,
+      "paymentVariant": "released",
+      "showEmergencyContactCard": false,
+      "stateActions": [
+        {
+          "component": "button",
+          "variant": "secondary",
+          "label": "View Earnings Statement",
+          "action": "navigate:/earnings/${booking.id}",
+          "tokens": {
+            "width": "100%"
+          },
+          "accessibility": {
+            "ariaLabel": "View detailed earnings statement for this booking"
+          }
+        }
+      ]
+    },
+    "declined": {
+      "description": "Caregiver declined request",
+      "statusVariant": "cancelled",
+      "showCountdownTimer": false,
+      "showAlertBanner": true,
+      "alertVariant": "info",
+      "alertIcon": "ℹ️",
+      "alertHeading": "Booking declined",
+      "alertMessage": "You declined this request on ${booking.declinedDate}. Reason: ${booking.declineReason}",
+      "alertActions": [],
+      "privacyVariant": "privacy-limited",
+      "showContactDetails": false,
+      "enableMessaging": false,
+      "showTimeline": false,
+      "paymentVariant": "refunded",
+      "showEmergencyContactCard": false,
+      "stateActions": []
+    },
+    "expired": {
+      "description": "Caregiver did not respond within 24 hours",
+      "statusVariant": "cancelled",
+      "showCountdownTimer": false,
+      "showAlertBanner": true,
+      "alertVariant": "warning",
+      "alertIcon": "⚠️",
+      "alertHeading": "Request expired",
+      "alertMessage": "You did not respond within 24 hours. This request has been automatically declined.",
+      "alertActions": [],
+      "privacyVariant": "privacy-limited",
+      "showContactDetails": false,
+      "enableMessaging": false,
+      "showTimeline": false,
+      "paymentVariant": "refunded",
+      "showEmergencyContactCard": false,
+      "stateActions": []
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "status-badge": "Component ID: status-badge",
+    "countdown-timer": "Component ID: countdown-timer",
+    "alert-banner": "Component ID: alert-banner",
+    "care-receiver-card": "Component ID: care-receiver-card",
+    "booking-detail-card": "Component ID: booking-detail-card",
+    "earnings-breakdown-card": "Component ID: earnings-breakdown-card",
+    "booking-timeline": "Component ID: booking-timeline",
+    "button": "Component ID: button",
+    "footer-global": "Component ID: footer-global"
+  },
+  "sampleData": {
+    "booking": {
+      "id": "bk-2026-0142",
+      "ref": "BK-2026-0142",
+      "status": "pending",
+      "statusLabel": "Pending Your Response",
+      "date": "2026-03-06",
+      "dateFormatted": "Wednesday, March 6, 2026",
+      "time": "10:00 - 14:00",
+      "timeFormatted": "10:00 AM - 2:00 PM",
+      "startTime": "2026-03-06T10:00:00Z",
+      "endTime": "2026-03-06T14:00:00Z",
+      "duration": "4 hours",
+      "serviceType": "Companionship",
+      "serviceTypes": ["Companionship", "Light housework"],
+      "specialRequests": "I'd like to go for a walk if the weather is nice.",
+      "responseDeadline": "2026-02-11T14:32:00Z",
+      "confirmationDeadline": "2026-03-06T16:15:00Z",
+      "requestedAt": "2026-02-10T14:32:00Z",
+      "acceptedAt": null,
+      "declineReason": null,
+      "declinedDate": null,
+      "timeline": [
+        {
+          "timestamp": "2026-02-10T14:32:00Z",
+          "timestampFormatted": "6 Mar, 14:32",
+          "title": "Booking Requested",
+          "description": "Care receiver submitted booking request",
+          "icon": "📝",
+          "isActive": false
+        },
+        {
+          "timestamp": "2026-02-10T14:32:00Z",
+          "timestampFormatted": "6 Mar, 14:32",
+          "title": "Awaiting Your Response",
+          "description": "24 hour response window",
+          "icon": "⏳",
+          "isActive": true
+        }
+      ]
+    },
+    "careReceiver": {
+      "id": "cr-001",
+      "firstName": "John",
+      "lastInitial": "S",
+      "fullName": "John Smith",
+      "location": "London, SW1A area",
+      "distance": "3.2 miles",
+      "address": "123 High Street, London SW1A 1AA",
+      "phone": "07700 900123",
+      "email": null
+    },
+    "earnings": {
+      "hourlyRate": 18.00,
+      "duration": 4,
+      "subtotal": 72.00,
+      "commission": 10.80,
+      "commissionRate": "15%",
+      "netEarnings": 61.20
+    },
+    "emergencyContact": {
+      "name": "Jane Smith",
+      "phone": "07700 900456",
+      "relationship": "Daughter"
+    }
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "status-badge",
+      "countdown-timer (if visible)",
+      "alert-banner-actions",
+      "care-receiver-call-button (if visible)",
+      "emergency-contact-actions (if visible)",
+      "sidebar-action-buttons",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "element": "status-badge",
+        "ariaLive": "polite",
+        "ariaAtomic": true,
+        "description": "Status announced when page loads or status changes"
+      },
+      {
+        "element": "countdown-timer",
+        "ariaLive": "polite",
+        "description": "Timer updates announced at key thresholds (2h, 1h, 30min, 10min)"
+      },
+      {
+        "element": "alert-banner",
+        "role": "alert",
+        "ariaLive": "polite",
+        "description": "Alert message announced when page loads or changes"
+      }
+    ],
+    "landmarks": {
+      "navigation-header": {
+        "role": "banner",
+        "ariaLabel": "Site navigation"
+      },
+      "content-area": {
+        "role": "main",
+        "id": "main-content",
+        "ariaLabel": "Booking request details"
+      },
+      "footer": {
+        "role": "contentinfo",
+        "ariaLabel": "Site footer"
+      }
+    },
+    "screenReaderAnnouncements": {
+      "pageLoad-pending": "Booking request from ${careReceiver.firstName}. Status: Pending your response. ${countdownHours} hours remaining to respond. Net earnings: £${earnings.netEarnings}",
+      "pageLoad-accepted": "Booking with ${careReceiver.fullName}. Status: Accepted. Your booking is on ${booking.dateFormatted} at ${booking.timeFormatted}.",
+      "pageLoad-in_progress": "Booking with ${careReceiver.fullName}. Status: In Progress. Session started ${minutesAgo} minutes ago. Emergency contact information is available.",
+      "pageLoad-completed": "Booking with ${careReceiver.fullName}. Status: Completed. Awaiting care receiver confirmation. Earnings pending: £${earnings.netEarnings}",
+      "pageLoad-declined": "Booking request from ${careReceiver.firstName}. Status: Declined. You declined this request on ${booking.declinedDate}.",
+      "statusChange": "Booking status updated to ${newStatus}. ${statusDescription}",
+      "timerUpdate-urgent": "Warning: ${minutesRemaining} minutes remaining to respond",
+      "timerUpdate-expired": "Response window has expired. Booking status updated to expired."
+    },
+    "minTouchTargets": "48x48px (mobile), 44x44px (desktop)",
+    "minFontSize": "16px body text, 18px+ buttons, 20px+ primary headings",
+    "minContrastRatio": "4.5:1 normal text, 3:1 large text",
+    "focusIndicator": "3px solid blue border ({colors.focus.border}) with {colors.focus.ring} outline",
+    "keyboardNavigation": {
+      "Tab": "Navigate forward through interactive elements",
+      "Shift+Tab": "Navigate backward through interactive elements",
+      "Enter": "Activate focused button or link",
+      "Escape": "Close modal dialogs"
+    },
+    "notes": [
+      "Privacy protection: Care receiver contact details only revealed after caregiver accepts booking",
+      "Earnings transparency: Net earnings prominently displayed after commission deduction (15%)",
+      "Emergency contact prominence: Displayed in prominent sidebar card during in_progress state (safety priority)",
+      "Countdown timer accessibility: Updates announced via aria-live at key thresholds, not every second",
+      "State transitions: All status changes announced to screen readers with context",
+      "Action button clarity: All buttons have descriptive aria-labels indicating what will happen",
+      "Destructive actions: Red buttons clearly labeled and require confirmation modals",
+      "Mobile touch targets: All buttons expand to full width on mobile for easier tapping (elderly-friendly)"
+    ]
+  }
+}
+

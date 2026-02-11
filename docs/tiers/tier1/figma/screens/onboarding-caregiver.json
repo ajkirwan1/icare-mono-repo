@@ -1,0 +1,201 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-002",
+    "screenName": "Caregiver Onboarding",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/caregiver/scr-cg-002-caregiver-onboarding.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/caregiver/onboarding",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["step-1-profile", "step-2-services", "step-3-availability", "step-4-rate", "step-5-verification", "step-incomplete-warning", "submitted", "photo-uploading"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "caregiver": {
+      "name": "Emma Wilson",
+      "bio": "",
+      "yearsExperience": "",
+      "services": [],
+      "serviceRadius": "",
+      "hourlyRate": "",
+      "availability": {}
+    },
+    "currentStep": 3,
+    "commissionRate": "15%"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Minimal Navigation Header",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "Save and Continue Later" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Onboarding Wizard",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "step-indicator",
+          "props": {
+            "currentStep": 3,
+            "totalSteps": 5,
+            "stepLabels": ["Profile", "Services", "Availability", "Rate", "Verification"]
+          }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "Set your availability",
+          "tokens": { "fontSize": "{fontSizes.2xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Set your recurring weekly schedule. You can update this anytime from your dashboard.",
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.6}" }
+        },
+        {
+          "component": "availability-grid",
+          "props": {
+            "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "periods": ["Morning (6am-12pm)", "Afternoon (12-5pm)", "Evening (5-9pm)"],
+            "selected": {
+              "Monday": ["morning", "afternoon"],
+              "Tuesday": ["morning", "afternoon"],
+              "Wednesday": ["afternoon"],
+              "Thursday": ["morning", "afternoon"],
+              "Friday": ["morning"]
+            }
+          }
+        },
+        {
+          "component": "text", "content": "Select at least one time slot",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}", "marginTop": "{spacing.2}" }
+        },
+        {
+          "component": "button", "variant": "secondary",
+          "props": { "label": "\u2190 Back", "action": "previousStep" },
+          "tokens": { "width": "120px", "height": "48px", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Next \u2192", "action": "nextStep" },
+          "tokens": { "width": "120px", "height": "48px" }
+        },
+        {
+          "component": "text-link",
+          "props": { "label": "Save and Continue Later", "href": "/caregiver/dashboard" },
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "step-1-profile": {
+      "description": "Step 1: Profile — photo upload, bio textarea, years experience",
+      "changes": {
+        "sampleData.currentStep": 1,
+        "section-form.children[0].props.currentStep": 1,
+        "section-form.children[1].content": "Create Your Professional Profile",
+        "section-form.children[2].content": "Upload a clear photo, write your bio, and share your experience."
+      },
+      "additionalElements": [
+        { "component": "file-upload", "props": { "label": "Profile Photo", "acceptedFormats": "JPG, PNG", "maxSize": "5MB", "shape": "circle", "previewSize": 150, "helpText": "Upload a clear, professional photo. This will be visible to care receivers." } },
+        { "component": "textarea", "props": { "label": "About you", "placeholder": "Tell care receivers about yourself, your experience, and why you enjoy caregiving...", "required": true, "minLength": 100, "maxLength": 500, "helpText": "Minimum 100 characters. Share your personality and approach to care.", "charCount": "0/500" } },
+        { "component": "input-field", "props": { "label": "Years of experience in care", "placeholder": "e.g., 3", "required": true, "type": "number" } }
+      ]
+    },
+    "step-2-services": {
+      "description": "Step 2: Services — checkboxes for service types, radius dropdown",
+      "changes": {
+        "sampleData.currentStep": 2,
+        "section-form.children[0].props.currentStep": 2,
+        "section-form.children[1].content": "What services do you offer?",
+        "section-form.children[2].content": "Tier 1 services only — companionship and light support."
+      },
+      "additionalElements": [
+        { "component": "checkbox", "props": { "label": "Companionship (conversation, activities, outings)" } },
+        { "component": "checkbox", "props": { "label": "Light housework and cleaning" } },
+        { "component": "checkbox", "props": { "label": "Shopping and errands" } },
+        { "component": "checkbox", "props": { "label": "Meal preparation (no feeding assistance)" } },
+        { "component": "checkbox", "props": { "label": "Transportation (if you have a vehicle)" } },
+        { "component": "dropdown", "props": { "label": "How far are you willing to travel?", "placeholder": "Select distance", "options": ["5 miles", "10 miles", "15 miles", "20 miles", "30 miles"], "required": true } }
+      ]
+    },
+    "step-3-availability": {
+      "description": "Step 3: Availability — 7x3 weekly schedule grid (default view shown in main sections)"
+    },
+    "step-4-rate": {
+      "description": "Step 4: Rate — hourly rate input with market guidance",
+      "changes": {
+        "sampleData.currentStep": 4,
+        "section-form.children[0].props.currentStep": 4,
+        "section-form.children[1].content": "Set your hourly rate",
+        "section-form.children[2].content": "Set a competitive rate to attract more bookings."
+      },
+      "additionalElements": [
+        { "component": "input-field", "props": { "label": "Your hourly rate", "placeholder": "e.g., 15", "prefix": "\u00a3", "required": true, "helpText": "Rate must be between \u00a310 and \u00a3100 per hour" } },
+        { "component": "alert-banner", "variant": "info", "props": { "icon": "\u2139\ufe0f", "message": "Typical companionship rates in your area: \u00a312-\u00a318/hour. Set a competitive rate to attract more bookings." } },
+        { "component": "alert-banner", "variant": "info", "props": { "icon": "\u2139\ufe0f", "heading": "Platform commission: 15%", "message": "For a \u00a315/hour rate, you'll earn \u00a312.75 per hour after commission. This covers payment processing, insurance, and platform services." } }
+      ]
+    },
+    "step-5-verification": {
+      "description": "Step 5: Verification — three verification status cards linking to sub-screens",
+      "changes": {
+        "sampleData.currentStep": 5,
+        "section-form.children[0].props.currentStep": 5,
+        "section-form.children[1].content": "Verification Documents",
+        "section-form.children[2].content": "Complete identity and right to work verification. DBS is optional for companionship services."
+      },
+      "additionalElements": [
+        { "component": "verification-status-card", "props": { "title": "Identity Verification", "description": "Upload a government-issued ID", "status": "not-submitted", "actionLabel": "Verify Identity", "actionHref": "/caregiver/verify/identity", "required": true } },
+        { "component": "verification-status-card", "props": { "title": "Right to Work Verification", "description": "Confirm your right to work in the UK", "status": "not-submitted", "actionLabel": "Verify Right to Work", "actionHref": "/caregiver/verify/right-to-work", "required": true } },
+        { "component": "verification-status-card", "props": { "title": "DBS Check", "description": "Submit existing DBS certificate for 'DBS Verified' badge", "status": "not-submitted", "actionLabel": "Submit DBS", "actionHref": "/caregiver/verify/dbs", "required": false, "optionalBadge": true, "skipLabel": "Skip for now" } }
+      ]
+    },
+    "submitted": {
+      "description": "Success state after submitting profile for review",
+      "fullReplace": true,
+      "elements": [
+        { "component": "alert-banner", "variant": "success", "props": { "icon": "\u2705", "heading": "Profile submitted for review!", "message": "Admin review typically takes 24-48 hours. We'll email you when verified." } },
+        { "component": "button", "variant": "primary", "props": { "label": "Go to Dashboard", "action": "navigateToDashboard" } }
+      ]
+    },
+    "step-incomplete-warning": {
+      "description": "Warning when trying to proceed without completing required fields",
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "warning", "props": { "icon": "\u26a0\ufe0f", "message": "Complete all required fields before proceeding." } }
+      ]
+    },
+    "photo-uploading": {
+      "description": "Photo upload in progress with progress bar"
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 700px. Full step labels. Side-by-side Back/Next." },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 700px. Full step labels." },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width with 16px padding, stacked. Availability grid scrolls horizontally. Step labels hidden (numbers only)." }
+  },
+  "accessibilityNotes": {
+    "stepChange": "Step 2 of 5: Services. Define the services you offer.",
+    "stepComplete": "Step 1 complete. Moving to Step 2: Services.",
+    "photoUploaded": "Profile photo uploaded successfully.",
+    "submitted": "Profile submitted for review. Admin review takes 24-48 hours.",
+    "availabilityGrid": "Grid uses role=grid with role=row and role=gridcell. Each cell is checkbox: Monday Morning, unchecked. Arrow key navigation."
+  }
+}

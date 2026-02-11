@@ -1,0 +1,1014 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-005",
+    "screenName": "Caregiver Profile (Public View)",
+    "role": "care-receiver",
+    "route": "/caregivers/:caregiverId",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/search/scr-cr-005-caregiver-profile.md",
+    "generatedDate": "2026-02-10",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default",
+      "new-caregiver-no-reviews",
+      "fully-booked",
+      "own-profile-view"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "care-receiver",
+      "props": {
+        "role": "care-receiver",
+        "userName": "Sarah",
+        "notificationCount": "2",
+        "hasSearch": true
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Home", "url": "/" },
+          { "label": "Search", "url": "/search" },
+          { "label": "${caregiverName}", "url": null, "active": true }
+        ]
+      },
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}",
+        "top": "{spacing.4}",
+        "bottom": "{spacing.2}"
+      },
+      "accessibility": {
+        "role": "navigation",
+        "label": "Breadcrumb"
+      }
+    },
+    {
+      "id": "section-back-link",
+      "name": "Back to Search Link",
+      "order": 3,
+      "layout": "horizontal",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.2}",
+        "bottom": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text-link",
+          "props": {
+            "label": "← Back to Search Results",
+            "url": "/search",
+            "icon": "arrow-left",
+            "iconPosition": "left"
+          },
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fill": "{colors.brand.link-bg}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-profile-header",
+      "name": "Profile Header",
+      "order": 4,
+      "component": "profile-header",
+      "variant": "default",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.6}",
+        "bottom": "{spacing.8}"
+      },
+      "props": {
+        "caregiverName": "${caregiver.name}",
+        "caregiverPhoto": "${caregiver.photo}",
+        "location": "${caregiver.location}",
+        "distance": "${caregiver.distance}",
+        "verificationBadges": "${caregiver.verificationBadges}",
+        "serviceTypeBadge": "Companionship Services Only",
+        "rating": "${caregiver.rating}",
+        "reviewCount": "${caregiver.reviewCount}",
+        "hourlyRate": "${caregiver.hourlyRate}",
+        "memberSince": "${caregiver.memberSince}",
+        "totalBookings": "${caregiver.totalBookings}",
+        "responseTime": "${caregiver.responseTime}",
+        "showRequestBookingButton": true,
+        "requestBookingUrl": "/bookings/new/${caregiverId}",
+        "hasFavoriteButton": true,
+        "hasShareButton": true
+      },
+      "states": [
+        {
+          "name": "default",
+          "condition": "viewerRole !== 'self'",
+          "props": {
+            "showRequestBookingButton": true
+          }
+        },
+        {
+          "name": "own-profile",
+          "condition": "viewerRole === 'self'",
+          "props": {
+            "showRequestBookingButton": false,
+            "showEditProfileButton": true,
+            "editProfileUrl": "/profile/edit"
+          }
+        },
+        {
+          "name": "fully-booked",
+          "condition": "availableSlots === 0",
+          "props": {
+            "requestBookingLabel": "Request Future Booking",
+            "fullyBookedBadge": true,
+            "fullyBookedMessage": "Fully booked this week"
+          }
+        }
+      ],
+      "accessibility": {
+        "role": "region",
+        "label": "Caregiver profile header"
+      }
+    },
+    {
+      "id": "section-main-content",
+      "name": "Main Content Area (Two-Column)",
+      "order": 5,
+      "layout": "two-column",
+      "columns": {
+        "main": "65%",
+        "sidebar": "35%"
+      },
+      "gap": "clamp(32px, 4vw, 64px)",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.4}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "responsive": {
+        "tablet": {
+          "layout": "two-column",
+          "columns": { "main": "60%", "sidebar": "40%" }
+        },
+        "mobile": {
+          "layout": "single-column",
+          "order": "main-sections-first, then-sidebar"
+        }
+      },
+      "children": [
+        {
+          "column": "main",
+          "sections": [
+            {
+              "id": "about-section",
+              "name": "About Me Section",
+              "order": 1,
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "About ${caregiver.firstName}",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "text",
+                  "variant": "body",
+                  "content": "${caregiver.aboutMe}",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "lineHeight": "{lineHeights.relaxed}",
+                    "fill": "{colors.text.primary}"
+                  }
+                },
+                {
+                  "component": "attribute-list",
+                  "variant": "with-icons",
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.3}",
+                  "children": [
+                    {
+                      "icon": "calendar",
+                      "label": "Experience",
+                      "value": "${caregiver.experienceYears} years of experience in elderly care"
+                    },
+                    {
+                      "icon": "globe",
+                      "label": "Languages",
+                      "value": "${caregiver.languagesSpoken}"
+                    },
+                    {
+                      "icon": "heart",
+                      "label": "Interests",
+                      "value": "${caregiver.interests}"
+                    },
+                    {
+                      "icon": "car",
+                      "label": "Transportation",
+                      "value": "${caregiver.hasVehicle ? 'Has own vehicle' : 'Uses public transport'}",
+                      "conditional": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "services-section",
+              "name": "Services Offered Section",
+              "order": 2,
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Services I Offer",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "service-list",
+                  "variant": "checkmarks",
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.3}",
+                  "children": [
+                    {
+                      "icon": "check",
+                      "label": "Companionship",
+                      "description": "Conversation, activities, social support",
+                      "offered": true
+                    },
+                    {
+                      "icon": "check",
+                      "label": "Light housework",
+                      "description": "Cleaning, tidying, laundry (no heavy lifting)",
+                      "offered": "${caregiver.services.includes('light_housework')}"
+                    },
+                    {
+                      "icon": "check",
+                      "label": "Shopping and errands",
+                      "description": "Grocery shopping, pharmacy visits, post office",
+                      "offered": "${caregiver.services.includes('shopping')}"
+                    },
+                    {
+                      "icon": "check",
+                      "label": "Meal preparation",
+                      "description": "Preparing meals (no feeding or eating assistance)",
+                      "offered": "${caregiver.services.includes('meal_prep')}"
+                    },
+                    {
+                      "icon": "check",
+                      "label": "Transportation",
+                      "description": "Transport to appointments, social outings (insured for passenger transport)",
+                      "offered": "${caregiver.services.includes('transportation') && caregiver.hasVehicle}",
+                      "conditional": true
+                    }
+                  ]
+                },
+                {
+                  "component": "alert-banner",
+                  "variant": "info",
+                  "props": {
+                    "icon": "info",
+                    "message": "Looking for personal care services? We'll be adding these services soon. Join the waitlist.",
+                    "ctaLabel": "Join Waitlist",
+                    "ctaUrl": "/waitlist/personal-care",
+                    "dismissible": false
+                  }
+                }
+              ]
+            },
+            {
+              "id": "availability-section",
+              "name": "Availability Section",
+              "order": 3,
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Availability",
+                "subtitle": "Next 30 days"
+              },
+              "children": [
+                {
+                  "component": "availability-calendar",
+                  "variant": "default",
+                  "props": {
+                    "availableDates": "${caregiver.availableDates}",
+                    "bookedDates": "${caregiver.bookedDates}",
+                    "unavailableDates": "${caregiver.unavailableDates}",
+                    "onDateClick": "showTimeSlots",
+                    "onTimeSlotClick": "prefillBookingForm"
+                  },
+                  "states": [
+                    {
+                      "name": "default",
+                      "condition": "availableSlots > 0"
+                    },
+                    {
+                      "name": "fully-booked",
+                      "condition": "availableSlots === 0",
+                      "children": [
+                        {
+                          "component": "alert-banner",
+                          "variant": "warning",
+                          "props": {
+                            "icon": "alert-circle",
+                            "title": "Fully booked this week",
+                            "message": "This caregiver has no availability in the next 7 days. You can request a booking for a future date.",
+                            "ctaLabel": "Request Future Booking",
+                            "ctaUrl": "/bookings/new/${caregiverId}",
+                            "dismissible": false
+                          }
+                        },
+                        {
+                          "component": "text",
+                          "content": "Next available: ${nextAvailableDate}",
+                          "tokens": {
+                            "fontSize": "{fontSizes.base}",
+                            "fill": "{colors.text.muted}"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "responsive": {
+                "mobile": {
+                  "variant": "list-view",
+                  "props": {
+                    "displayMode": "simplified-list",
+                    "listFormat": "Available Monday mornings, Wednesday afternoons..."
+                  }
+                }
+              }
+            },
+            {
+              "id": "reviews-section",
+              "name": "Reviews & Ratings Section",
+              "order": 4,
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Reviews & Ratings",
+                "subtitle": null,
+                "hasHeaderAction": true,
+                "headerActionType": "dropdown",
+                "headerActionLabel": "Sort by",
+                "headerActionOptions": [
+                  { "label": "Most Recent", "value": "recent" },
+                  { "label": "Highest Rated", "value": "highest" },
+                  { "label": "Lowest Rated", "value": "lowest" }
+                ]
+              },
+              "states": [
+                {
+                  "name": "has-reviews",
+                  "condition": "reviewCount > 0",
+                  "children": [
+                    {
+                      "component": "rating-distribution-chart",
+                      "props": {
+                        "averageRating": "${caregiver.rating}",
+                        "totalReviews": "${caregiver.reviewCount}",
+                        "distribution": "${caregiver.ratingDistribution}"
+                      }
+                    },
+                    {
+                      "component": "review-card",
+                      "repeat": "reviews",
+                      "maxVisible": 10,
+                      "layout": "vertical-stack",
+                      "gap": "{spacing.4}",
+                      "props": {
+                        "reviewerName": "${item.reviewerName}",
+                        "reviewerAvatar": "${item.reviewerAvatar}",
+                        "rating": "${item.rating}",
+                        "date": "${item.date}",
+                        "serviceType": "${item.serviceType}",
+                        "reviewText": "${item.text}",
+                        "caregiverResponse": "${item.caregiverResponse}",
+                        "helpfulCount": "${item.helpfulCount}",
+                        "hasHelpfulButton": true
+                      }
+                    },
+                    {
+                      "component": "button",
+                      "variant": "secondary-outline",
+                      "conditional": "reviews.length > maxVisible",
+                      "props": {
+                        "label": "Show more reviews",
+                        "action": "loadMoreReviews",
+                        "icon": "chevron-down"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "no-reviews",
+                  "condition": "reviewCount === 0",
+                  "children": [
+                    {
+                      "component": "empty-state",
+                      "variant": "neutral",
+                      "props": {
+                        "icon": "star",
+                        "heading": "New to the platform - no reviews yet",
+                        "message": "Be the first to book ${caregiver.firstName} and leave a review!",
+                        "hasAction": false
+                      }
+                    }
+                  ]
+                }
+              ],
+              "accessibility": {
+                "role": "region",
+                "label": "Reviews and ratings"
+              }
+            }
+          ]
+        },
+        {
+          "column": "sidebar",
+          "sections": [
+            {
+              "id": "verification-sidebar",
+              "name": "Verification Details Sidebar",
+              "order": 1,
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Verification Status",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "verification-detail-list",
+                  "props": {
+                    "verificationItems": "${caregiver.verificationItems}",
+                    "showActionButtons": false
+                  },
+                  "states": [
+                    {
+                      "name": "viewer-is-caregiver",
+                      "condition": "viewerRole === 'self'",
+                      "props": {
+                        "showActionButtons": true,
+                        "actionLabel": "Complete Verification",
+                        "actionUrl": "/profile/verification"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "component": "text",
+                  "variant": "caption",
+                  "content": "All caregivers undergo identity verification before joining the platform. DBS checks are voluntary for companionship services.",
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "lineHeight": "{lineHeights.relaxed}",
+                    "fill": "{colors.text.muted}",
+                    "padding": "{spacing.4}"
+                  }
+                }
+              ],
+              "accessibility": {
+                "role": "complementary",
+                "label": "Verification details"
+              }
+            },
+            {
+              "id": "similar-caregivers-sidebar",
+              "name": "Similar Caregivers Section",
+              "order": 2,
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Similar Caregivers",
+                "subtitle": "Near you"
+              },
+              "children": [
+                {
+                  "component": "caregiver-summary-card",
+                  "variant": "compact-vertical",
+                  "repeat": "similarCaregivers",
+                  "maxVisible": 2,
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.4}",
+                  "props": {
+                    "caregiverName": "${item.name}",
+                    "caregiverPhoto": "${item.photo}",
+                    "rating": "${item.rating}",
+                    "reviewCount": "${item.reviewCount}",
+                    "hourlyRate": "${item.hourlyRate}",
+                    "distance": "${item.distance}",
+                    "profileUrl": "/caregivers/${item.id}",
+                    "hasVerificationBadges": true
+                  }
+                }
+              ],
+              "accessibility": {
+                "role": "complementary",
+                "label": "Similar caregivers nearby"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-bottom-cta",
+      "name": "Bottom CTA Section (Repeat Booking Button)",
+      "order": 6,
+      "layout": "horizontal",
+      "gap": "{spacing.4}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.8}",
+        "top": "{spacing.8}",
+        "bottom": "{spacing.8}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "widget-container",
+          "variant": "centered-cta",
+          "layout": "vertical",
+          "alignItems": "center",
+          "gap": "{spacing.2}",
+          "children": [
+            {
+              "component": "button",
+              "variant": "primary-large",
+              "props": {
+                "label": "Request Booking",
+                "url": "/bookings/new/${caregiverId}",
+                "icon": "calendar"
+              },
+              "tokens": {
+                "minWidth": "280px",
+                "height": "56px",
+                "fontSize": "{fontSizes.lg}"
+              }
+            },
+            {
+              "component": "text",
+              "variant": "caption",
+              "content": "Response time: ${caregiver.responseTime}",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fill": "{colors.text.muted}"
+              }
+            },
+            {
+              "component": "text",
+              "variant": "caption",
+              "content": "Acceptance rate: ${caregiver.acceptanceRate}",
+              "tokens": {
+                "fontSize": "{fontSizes.sm}",
+                "fill": "{colors.text.muted}"
+              }
+            }
+          ]
+        }
+      ],
+      "conditional": "viewerRole !== 'self'",
+      "responsive": {
+        "mobile": {
+          "display": "none",
+          "reason": "Mobile uses sticky bottom bar instead"
+        }
+      }
+    },
+    {
+      "id": "section-mobile-sticky-cta",
+      "name": "Mobile Sticky Bottom CTA Bar",
+      "order": 7,
+      "layout": "horizontal",
+      "gap": "{spacing.2}",
+      "padding": {
+        "horizontal": "{spacing.4}",
+        "vertical": "{spacing.3}"
+      },
+      "position": { "fixed": true, "bottom": 0, "left": 0, "right": 0 },
+      "size": { "width": "100vw", "height": "auto" },
+      "tokens": {
+        "fill": "{colors.background.card-glass-strong}",
+        "borderTop": "1px solid {colors.border.soft}",
+        "backdropFilter": "blur(12px)",
+        "zIndex": 100
+      },
+      "children": [
+        {
+          "component": "button",
+          "variant": "primary-large",
+          "props": {
+            "label": "Request Booking",
+            "url": "/bookings/new/${caregiverId}",
+            "fullWidth": true
+          },
+          "tokens": {
+            "height": "48px",
+            "fontSize": "{fontSizes.base}"
+          }
+        }
+      ],
+      "conditional": "viewerRole !== 'self'",
+      "responsive": {
+        "desktop": { "display": "none" },
+        "tablet": { "display": "none" },
+        "mobile": { "display": "flex" }
+      },
+      "accessibility": {
+        "role": "region",
+        "label": "Booking action bar",
+        "ariaLive": "polite"
+      }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 8,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved."
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "sectionLayout": "two-column-main-sidebar",
+      "mainColumnWidth": "65%",
+      "sidebarWidth": "35%",
+      "profilePhotoSize": "120x120px",
+      "availabilityCalendar": "full-month-grid",
+      "reviewsVisible": 10,
+      "stickyCtaBar": false
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "sectionLayout": "two-column-main-sidebar",
+      "mainColumnWidth": "60%",
+      "sidebarWidth": "40%",
+      "profilePhotoSize": "100x100px",
+      "availabilityCalendar": "week-grid",
+      "reviewsVisible": 5,
+      "stickyCtaBar": false
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "sectionLayout": "single-column-stacked",
+      "order": "header, main-sections, sidebar-sections",
+      "profilePhotoSize": "80x80px",
+      "availabilityCalendar": "simplified-list",
+      "reviewsVisible": 3,
+      "stickyCtaBar": true,
+      "bottomCtaDisplay": "none"
+    }
+  },
+  "stateVariations": {
+    "default": {
+      "description": "Caregiver with reviews, verification, and availability",
+      "sections": {
+        "section-profile-header": { "variant": "default" },
+        "reviews-section": { "state": "has-reviews" },
+        "availability-section": { "state": "default" },
+        "section-bottom-cta": { "visible": true },
+        "section-mobile-sticky-cta": { "visible": true }
+      }
+    },
+    "new-caregiver-no-reviews": {
+      "description": "New caregiver without any reviews yet",
+      "sections": {
+        "section-profile-header": {
+          "variant": "new-caregiver",
+          "props": {
+            "newCaregiverBadge": true
+          }
+        },
+        "reviews-section": { "state": "no-reviews" },
+        "availability-section": { "state": "default" }
+      }
+    },
+    "fully-booked": {
+      "description": "Caregiver with no availability in next 7 days",
+      "sections": {
+        "section-profile-header": {
+          "variant": "fully-booked",
+          "props": {
+            "fullyBookedBadge": true,
+            "requestBookingLabel": "Request Future Booking"
+          }
+        },
+        "availability-section": { "state": "fully-booked" },
+        "section-bottom-cta": {
+          "children": [
+            {
+              "component": "button",
+              "props": { "label": "Request Future Booking" }
+            }
+          ]
+        }
+      }
+    },
+    "own-profile-view": {
+      "description": "Caregiver viewing their own profile",
+      "sections": {
+        "section-profile-header": {
+          "variant": "own-profile",
+          "props": {
+            "showRequestBookingButton": false,
+            "showEditProfileButton": true
+          }
+        },
+        "verification-sidebar": {
+          "props": {
+            "showActionButtons": true
+          }
+        },
+        "section-bottom-cta": { "visible": false },
+        "section-mobile-sticky-cta": { "visible": false }
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID: navigation-header",
+    "breadcrumb": "Component ID: breadcrumb",
+    "profile-header": "Component ID: profile-header",
+    "widget-container": "Component ID: widget-container",
+    "availability-calendar": "Component ID: availability-calendar",
+    "review-card": "Component ID: review-card",
+    "rating-distribution-chart": "Component ID: rating-distribution-chart",
+    "verification-detail-list": "Component ID: verification-detail-list",
+    "caregiver-summary-card": "Component ID: caregiver-summary-card",
+    "alert-banner": "Component ID: alert-banner",
+    "button": "Component ID: button",
+    "empty-state": "Component ID: empty-state",
+    "footer-global": "Component ID: footer-global",
+    "star-rating": "Component ID: star-rating",
+    "text": "Component ID: text",
+    "text-link": "Component ID: text-link"
+  },
+  "sampleData": {
+    "caregiver": {
+      "id": "cg-12345",
+      "name": "Sarah Thompson",
+      "firstName": "Sarah",
+      "photo": "/uploads/photos/sarah-thompson.jpg",
+      "location": "SW1A area",
+      "distance": "1.2 miles from you",
+      "rating": 4.8,
+      "reviewCount": 23,
+      "hourlyRate": "£18",
+      "memberSince": "March 2025",
+      "totalBookings": 47,
+      "responseTime": "Usually within 2 hours",
+      "acceptanceRate": "85%",
+      "aboutMe": "I'm a friendly and experienced companion with over 5 years of caring experience. I love chatting, going for walks, and helping with everyday tasks. I have a special interest in gardening and board games!",
+      "experienceYears": 5,
+      "languagesSpoken": "🇬🇧 English, 🇵🇱 Polish",
+      "interests": "Gardening, reading, gentle walks, cooking, board games",
+      "hasVehicle": true,
+      "services": ["companionship", "light_housework", "shopping", "meal_prep", "transportation"],
+      "verificationBadges": ["DBS Verified", "ID Verified", "Right to Work Verified"],
+      "verificationItems": [
+        {
+          "name": "Identity Verified",
+          "status": "passed",
+          "completedDate": "2025-03-15",
+          "details": "Government-issued ID verified on 15 Mar 2025",
+          "method": "Verified via Stripe Identity"
+        },
+        {
+          "name": "Enhanced DBS Check",
+          "status": "passed",
+          "completedDate": "2025-03-20",
+          "details": "Enhanced DBS check completed on 20 Mar 2025",
+          "certificateNumber": "****567890",
+          "validUntil": "2028-03-20",
+          "dbsUpdateService": true
+        },
+        {
+          "name": "References Checked",
+          "status": "passed",
+          "completedDate": "2025-04-01",
+          "details": "2 professional references verified"
+        },
+        {
+          "name": "Right to Work",
+          "status": "passed",
+          "completedDate": "2025-03-15",
+          "details": "UK passport verified"
+        }
+      ],
+      "availableDates": ["2026-03-07", "2026-03-09", "2026-03-10", "2026-03-12", "2026-03-14"],
+      "bookedDates": ["2026-03-06", "2026-03-08", "2026-03-11"],
+      "unavailableDates": ["2026-03-13", "2026-03-15"],
+      "nextAvailableDate": "Monday, March 7, 2026",
+      "ratingDistribution": {
+        "5": 20,
+        "4": 3,
+        "3": 0,
+        "2": 0,
+        "1": 0
+      }
+    },
+    "reviews": [
+      {
+        "reviewerName": "Margaret H.",
+        "reviewerAvatar": null,
+        "rating": 5.0,
+        "date": "2026-01-15",
+        "serviceType": "Companionship",
+        "text": "Sarah is absolutely wonderful. She's always punctual and my mother looks forward to her visits every week.",
+        "caregiverResponse": "Thank you so much, Margaret! It was a joy spending time with your mother. Looking forward to our next visit!",
+        "helpfulCount": 3
+      },
+      {
+        "reviewerName": "David P.",
+        "reviewerAvatar": null,
+        "rating": 4.5,
+        "date": "2025-12-28",
+        "serviceType": "Companionship",
+        "text": "Very reliable and caring. Great at engaging my father in conversation and activities.",
+        "caregiverResponse": null,
+        "helpfulCount": 1
+      },
+      {
+        "reviewerName": "Linda K.",
+        "reviewerAvatar": null,
+        "rating": 5.0,
+        "date": "2025-11-10",
+        "serviceType": "Companionship",
+        "text": "Couldn't recommend Sarah more highly. She goes above and beyond every visit.",
+        "caregiverResponse": "Thank you Linda! I really enjoy our time together.",
+        "helpfulCount": 5
+      }
+    ],
+    "similarCaregivers": [
+      {
+        "id": "cg-67890",
+        "name": "James Okafor",
+        "photo": "/uploads/photos/james-okafor.jpg",
+        "rating": 4.5,
+        "reviewCount": 12,
+        "hourlyRate": "£16",
+        "distance": "2.4 miles"
+      },
+      {
+        "id": "cg-11223",
+        "name": "Maria Santos",
+        "photo": "/uploads/photos/maria-santos.jpg",
+        "rating": 5.0,
+        "reviewCount": 8,
+        "hourlyRate": "£20",
+        "distance": "3.1 miles"
+      }
+    ]
+  },
+  "accessibilityNotes": {
+    "landmarkRegions": [
+      {
+        "region": "banner",
+        "element": "section-header",
+        "description": "Site navigation header"
+      },
+      {
+        "region": "navigation",
+        "element": "section-breadcrumb",
+        "description": "Breadcrumb navigation"
+      },
+      {
+        "region": "main",
+        "element": "section-profile-header",
+        "description": "Main profile content starts here"
+      },
+      {
+        "region": "region",
+        "element": "about-section",
+        "description": "About section"
+      },
+      {
+        "region": "region",
+        "element": "services-section",
+        "description": "Services offered"
+      },
+      {
+        "region": "region",
+        "element": "availability-section",
+        "description": "Availability calendar"
+      },
+      {
+        "region": "region",
+        "element": "reviews-section",
+        "description": "Reviews and ratings"
+      },
+      {
+        "region": "complementary",
+        "element": "verification-sidebar",
+        "description": "Verification details"
+      },
+      {
+        "region": "complementary",
+        "element": "similar-caregivers-sidebar",
+        "description": "Similar caregivers nearby"
+      }
+    ],
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "breadcrumb",
+      "back-to-search-link",
+      "favorite-button",
+      "share-button",
+      "request-booking-button",
+      "see-all-reviews-link",
+      "availability-calendar-dates",
+      "time-slot-buttons",
+      "review-helpful-buttons",
+      "show-more-reviews-button",
+      "bottom-cta-button",
+      "footer-links"
+    ],
+    "ariaLabels": {
+      "profileHeader": "aria-label='Sarah Thompson's profile'",
+      "requestBookingButton": "aria-label='Request booking with Sarah Thompson'",
+      "favoriteButton": "aria-label='Add Sarah Thompson to favorites', aria-pressed='false'",
+      "shareButton": "aria-label='Share Sarah Thompson's profile'",
+      "starRating": "aria-label='4.8 out of 5 stars, based on 23 reviews'",
+      "verificationBadges": "aria-label='DBS verified, ID verified, Right to work verified'",
+      "calendarDate": "aria-label='Wednesday March 7, available'",
+      "timeSlot": "aria-label='Morning 9am to 12pm, available'"
+    },
+    "ariaLiveRegions": [
+      {
+        "element": "toast-notifications",
+        "ariaLive": "assertive",
+        "description": "Favorite added/removed, link copied notifications"
+      },
+      {
+        "element": "time-slots-panel",
+        "ariaLive": "polite",
+        "description": "Announces available time slots when date is selected"
+      }
+    ],
+    "minTouchTargets": "48x48px",
+    "minFontSize": "16px body text, 20px+ primary CTAs",
+    "keyboardShortcuts": [
+      { "key": "b", "action": "Focus 'Request Booking' button" },
+      { "key": "r", "action": "Scroll to reviews section" },
+      { "key": "a", "action": "Scroll to availability section" },
+      { "key": "Esc", "action": "Close tooltips/modals" }
+    ],
+    "contrastRatios": {
+      "bodyText": "7:1 (AAA)",
+      "badgeText": "4.5:1 minimum",
+      "linkText": "4.5:1 minimum, underlined"
+    },
+    "screenReaderAnnouncements": {
+      "profileLoaded": "Sarah Thompson's profile loaded. DBS verified, ID verified, Right to work verified. Rated 4.8 out of 5 stars based on 23 reviews.",
+      "favoriteAdded": "Sarah Thompson added to favorites",
+      "favoriteRemoved": "Sarah Thompson removed from favorites",
+      "linkCopied": "Profile link copied to clipboard",
+      "dateSelected": "Wednesday March 7 selected. Available time slots: Morning 9am-12pm, Afternoon 2pm-6pm"
+    }
+  }
+}

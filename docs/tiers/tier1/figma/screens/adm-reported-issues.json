@@ -1,0 +1,300 @@
+{
+  "_metadata": {
+    "screenId": "scr-adm-008",
+    "screenName": "Admin Reported Issues",
+    "wireframeSource": "scr-adm-008-reported-issues.md",
+    "generatedDate": "2026-02-11",
+    "role": "admin",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default-reports-active",
+      "urgent-alert",
+      "filtered",
+      "empty-no-reports"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Safeguarding Officer",
+        "notificationCount": "5",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Safeguarding" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Safeguarding Reports",
+          "tokens": {
+            "fontSize": "32",
+            "fontWeight": "700"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Review and manage safety concerns and incidents"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-urgent-alert",
+      "name": "Urgent Alert Banner",
+      "order": 4,
+      "component": "alert-banner",
+      "props": {
+        "variant": "error",
+        "title": "URGENT: 2 CRITICAL REPORTS",
+        "message": "Reports #SR-00423 and #SR-00424 require immediate action",
+        "ctaLabel": "Review Now"
+      },
+      "padding": { "horizontal": 24, "bottom": 16 }
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter & Search Bar",
+      "order": 5,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": true,
+            "searchPlaceholder": "Search by case ID, reporter, user...",
+            "filters": [
+              { "label": "Type" },
+              { "label": "Severity" },
+              { "label": "Status" },
+              { "label": "Date" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 6,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "alert-circle",
+            "label": "Active Reports",
+            "value": "12 cases",
+            "subtext": "Requiring action",
+            "statusColor": "orange"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "warning-triangle",
+            "label": "Urgent Reports",
+            "value": "2 critical",
+            "subtext": "1 over 2h SLA",
+            "statusColor": "red"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "checkmark-circle",
+            "label": "Resolved This Week",
+            "value": "8 cases",
+            "subtext": "Sub: 3 | Unsub: 4 | Inc: 1",
+            "statusColor": "green"
+          }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": {
+            "icon": "clock",
+            "label": "Avg Response Time",
+            "value": "3.2 hours",
+            "subtext": "Target: <4h"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-active-filters",
+      "name": "Active Filters",
+      "order": 7,
+      "children": [
+        {
+          "component": "filter-tag-row",
+          "props": {
+            "tags": ["Severity: Critical"]
+          }
+        },
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-2 of 2 reports"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-reports-table",
+      "name": "Reports Table",
+      "order": 8,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Case ID" },
+              { "label": "Reporter" },
+              { "label": "Reported User" },
+              { "label": "Type" },
+              { "label": "Severity" },
+              { "label": "Status" },
+              { "label": "Age" }
+            ],
+            "rows": [
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "SAF-2026-423", "color": "#2563EB" },
+                  "Sarah J. (Care Recv.)",
+                  "John S. (Caregiver)",
+                  { "text": "Physical Abuse", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  { "text": "Critical", "badge": true, "badgeColor": "#DC2626", "badgeTextColor": "white" },
+                  { "text": "New", "badge": true, "badgeColor": "#DBEAFE", "badgeTextColor": "#1D4ED8" },
+                  "35 min"
+                ]
+              },
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "SAF-2026-424", "color": "#2563EB" },
+                  "Tom H. (Family)",
+                  "Mary K. (Caregiver)",
+                  { "text": "Financial Abuse", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  { "text": "Critical", "badge": true, "badgeColor": "#DC2626", "badgeTextColor": "white" },
+                  { "text": "Triaging", "badge": true, "badgeColor": "#DBEAFE", "badgeTextColor": "#1D4ED8" },
+                  "2 hours"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "SAF-2026-422", "color": "#2563EB" },
+                  "Jane D. (Care Recv.)",
+                  "David L. (Caregiver)",
+                  { "text": "Neglect", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  { "text": "High", "badge": true, "badgeColor": "#FED7AA", "badgeTextColor": "#C2410C" },
+                  { "text": "Investigating", "badge": true, "badgeColor": "#EDE9FE", "badgeTextColor": "#6D28D9" },
+                  "1 day"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "SAF-2026-421", "color": "#2563EB" },
+                  "Anonymous",
+                  "Lisa M. (Caregiver)",
+                  { "text": "Off-Platform Pay", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  { "text": "Medium", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  { "text": "Investigating", "badge": true, "badgeColor": "#EDE9FE", "badgeTextColor": "#6D28D9" },
+                  "3 days"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "SAF-2026-420", "color": "#2563EB" },
+                  "Robert P. (Family)",
+                  "Emma W. (Caregiver)",
+                  { "text": "Conduct", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  { "text": "Low", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  { "text": "Escalated", "badge": true, "badgeColor": "#FED7AA", "badgeTextColor": "#C2410C" },
+                  "5 days"
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-5 of 12 reports"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 9,
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 3
+      },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 10,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "activeReports": 12,
+    "urgentReports": 2,
+    "resolvedThisWeek": 8,
+    "avgResponseHours": 3.2,
+    "slaBreaches": 1
+  }
+}

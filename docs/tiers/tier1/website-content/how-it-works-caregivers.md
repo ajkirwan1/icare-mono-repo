@@ -416,7 +416,7 @@ If you witness or suspect:
 
 **Report via**:
 - In-app safeguarding report button
-- Email: safeguarding@icare.co.uk
+- Email: safeguarding@icare-app.co.uk
 - Phone: [24-hour safeguarding line]
 
 All reports are confidential and taken seriously. We work with local Safeguarding Adults Boards and follow Care Act 2014 procedures.
@@ -773,7 +773,7 @@ Join professional caregivers across the UK who are building flexible, rewarding 
 **Apply to Become a Caregiver**
 
 ### Support Contact
-Questions about joining? Email caregivers@icare.co.uk or call [PHONE]
+Questions about joining? Email caregivers@icare-app.co.uk or call [PHONE]
 
 ---
 

@@ -83,9 +83,9 @@ export default function ICareTypesOfCareSEO() {
                     </p>
                 </div>
 
-                <div className={styles.typesGrid}>
+                <ul className={styles.typesGrid}>
                     {types.map((x) => (
-                        <div key={x.t} className={styles.typesItem}>
+                        <li key={x.t} className={styles.typesItem}>
                             <span className={styles.iconWrap} aria-hidden="true">
                                 <FontAwesomeIcon className={styles.icon} icon={x.icon} />
                             </span>
@@ -94,9 +94,9 @@ export default function ICareTypesOfCareSEO() {
                                 <h3 className={styles.itemTitle}>{x.t}</h3>
                                 <p className={styles.itemDesc}>{x.d}</p>
                             </div>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
 
                 {/* Disclaimer — flat, no cards */}
                 {/*    <div className={styles.infoBox}>

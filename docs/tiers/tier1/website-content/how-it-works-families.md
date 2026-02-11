@@ -276,7 +276,7 @@ If you have any safeguarding concerns about a caregiver, a booking, or a situati
 
 **In the App**: Use the "Report Concern" button available on every caregiver profile and booking
 
-**By Email**: safeguarding@icare.co.uk (monitored 24/7)
+**By Email**: safeguarding@icare-app.co.uk (monitored 24/7)
 
 **By Phone**: [NUMBER] (24-hour safeguarding line)
 
@@ -425,7 +425,7 @@ Join families across the UK who are finding trusted companionship care through i
 **Get Started - Find a Caregiver**
 
 ### Support Contact
-**Questions?** Contact our support team at support@icare.co.uk or [PHONE]
+**Questions?** Contact our support team at support@icare-app.co.uk or [PHONE]
 
 ---
 

@@ -1,0 +1,717 @@
+{
+  "_metadata": {
+    "screenId": "scr-adm-001",
+    "screenName": "Admin Dashboard",
+    "wireframeSource": "adm-dashboard-scr-adm-001.md",
+    "generatedDate": "2026-02-10",
+    "role": "admin",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default-normal-operations",
+      "alert-safeguarding-urgent",
+      "alert-sla-breach",
+      "empty-queue-all-clear"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "3",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" },
+      "accessibility": {
+        "role": "banner",
+        "skipLinkTarget": "main-content"
+      }
+    },
+    {
+      "id": "section-urgent-alert-banner",
+      "name": "Urgent Alert Banner",
+      "order": 2,
+      "component": "alert-banner",
+      "variant": "safeguarding-urgent",
+      "conditional": "urgentAlerts.length > 0",
+      "position": { "x": 0, "y": 64 },
+      "size": { "width": "100%", "height": "auto" },
+      "states": [
+        {
+          "name": "safeguarding-urgent",
+          "condition": "urgentAlerts.type === 'safeguarding'",
+          "props": {
+            "variant": "error",
+            "icon": "alert-circle-red",
+            "title": "URGENT SAFEGUARDING REPORT",
+            "message": "Report #SR-00423 submitted 35 minutes ago requires immediate review",
+            "ctaLabel": "Review Report Now",
+            "ctaUrl": "/admin/safeguarding/SR-00423",
+            "dismissible": true,
+            "tokens": {
+              "background": "{colors.alert.error-bg}",
+              "border": "4px solid {colors.alert.error-border}",
+              "borderSide": "left"
+            }
+          }
+        },
+        {
+          "name": "sla-breach",
+          "condition": "urgentAlerts.type === 'sla-breach'",
+          "props": {
+            "variant": "warning",
+            "icon": "clock-yellow",
+            "title": "SLA BREACH ALERT",
+            "message": "3 caregiver verifications pending >48 hours",
+            "ctaLabel": "Review Queue",
+            "ctaUrl": "/admin/verifications",
+            "dismissible": true,
+            "tokens": {
+              "background": "{colors.alert.warning-bg}",
+              "border": "4px solid {colors.alert.warning-border}",
+              "borderSide": "left"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-main-content",
+      "name": "Main Content Area",
+      "order": 3,
+      "layout": "two-column",
+      "columnRatio": "70-30",
+      "gap": "clamp(26px, 3.4vw, 52px)",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.6}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "responsive": {
+        "tablet": { "layout": "single-column" },
+        "mobile": { "layout": "stacked" }
+      },
+      "children": [
+        {
+          "id": "main-column-left",
+          "name": "Left Column (Primary Widgets)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "size": { "width": "70%", "height": "auto" },
+          "responsive": {
+            "tablet": { "width": "100%" },
+            "mobile": { "width": "100%" }
+          },
+          "children": [
+            {
+              "id": "widget-verification-queue",
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Verification Queue",
+                "subtitle": "Caregivers awaiting admin review",
+                "hasHeaderAction": true,
+                "headerActionLabel": "View Queue",
+                "headerActionUrl": "/admin/verifications"
+              },
+              "states": [
+                {
+                  "name": "populated",
+                  "condition": "verificationQueue.totalPending > 0",
+                  "children": [
+                    {
+                      "component": "metric-list",
+                      "layout": "vertical",
+                      "gap": "{spacing.3}",
+                      "children": [
+                        {
+                          "component": "metric-row",
+                          "props": {
+                            "label": "Pending Verifications",
+                            "value": "12 caregivers",
+                            "linkUrl": "/admin/verifications"
+                          }
+                        },
+                        {
+                          "component": "metric-breakdown",
+                          "layout": "horizontal",
+                          "gap": "{spacing.4}",
+                          "children": [
+                            {
+                              "component": "metric-item",
+                              "props": { "label": "Identity", "value": "8 pending" }
+                            },
+                            {
+                              "component": "metric-item",
+                              "props": { "label": "Right to Work", "value": "4 pending" }
+                            },
+                            {
+                              "component": "metric-item",
+                              "props": { "label": "DBS (Voluntary)", "value": "3 pending" }
+                            }
+                          ]
+                        },
+                        {
+                          "component": "sla-indicator",
+                          "props": {
+                            "icon": "warning-triangle-red",
+                            "text": "3 over 48h SLA",
+                            "status": "breached"
+                          },
+                          "tokens": {
+                            "fill": "{colors.semantic.error}",
+                            "fontWeight": "{fontWeights.bold}"
+                          }
+                        },
+                        {
+                          "component": "metric-row",
+                          "props": {
+                            "label": "Average Wait Time",
+                            "value": "18 hours",
+                            "statusLabel": "On Track",
+                            "statusColor": "green"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "component": "button",
+                      "variant": "primary",
+                      "props": {
+                        "label": "Review Queue",
+                        "url": "/admin/verifications"
+                      },
+                      "tokens": {
+                        "marginTop": "{spacing.4}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "empty",
+                  "condition": "verificationQueue.totalPending === 0",
+                  "children": [
+                    {
+                      "component": "empty-state",
+                      "variant": "success",
+                      "props": {
+                        "icon": "checkmark-green",
+                        "heading": "All Clear! No pending verifications.",
+                        "message": "Last verification reviewed: 2 hours ago by Admin Sarah",
+                        "hasAction": true,
+                        "ctaLabel": "View Queue",
+                        "ctaVariant": "secondary",
+                        "ctaUrl": "/admin/verifications"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "widget-safeguarding-reports",
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Safeguarding Reports",
+                "subtitle": "Active safety concerns requiring attention",
+                "hasHeaderAction": true,
+                "headerActionLabel": "View Reports",
+                "headerActionUrl": "/admin/safeguarding"
+              },
+              "states": [
+                {
+                  "name": "populated",
+                  "condition": "safeguardingReports.activeCount > 0",
+                  "children": [
+                    {
+                      "component": "metric-list",
+                      "layout": "vertical",
+                      "gap": "{spacing.3}",
+                      "children": [
+                        {
+                          "component": "metric-row",
+                          "props": {
+                            "label": "Active Reports",
+                            "value": "2 cases",
+                            "linkUrl": "/admin/safeguarding"
+                          }
+                        },
+                        {
+                          "component": "urgent-indicator",
+                          "props": {
+                            "icon": "warning-triangle-red",
+                            "label": "Urgent (High Severity)",
+                            "value": "1 report",
+                            "subtext": "Submitted 35 minutes ago"
+                          },
+                          "tokens": {
+                            "fill": "{colors.semantic.error}",
+                            "fontWeight": "{fontWeights.bold}"
+                          }
+                        },
+                        {
+                          "component": "activity-timeline",
+                          "props": {
+                            "title": "Recent Activity (last 7 days)",
+                            "items": [
+                              { "date": "Feb 6", "text": "Report #SR-00421 resolved (outcome: no action)" },
+                              { "date": "Feb 5", "text": "Report #SR-00420 escalated to SAB" },
+                              { "date": "Feb 3", "text": "Report #SR-00419 resolved (user suspended)" }
+                            ],
+                            "viewAllUrl": "/admin/safeguarding/activity"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "component": "button",
+                      "variant": "primary",
+                      "props": {
+                        "label": "View Reports",
+                        "url": "/admin/safeguarding"
+                      },
+                      "tokens": {
+                        "marginTop": "{spacing.4}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "empty",
+                  "condition": "safeguardingReports.activeCount === 0",
+                  "children": [
+                    {
+                      "component": "empty-state",
+                      "variant": "success",
+                      "props": {
+                        "icon": "checkmark-green",
+                        "heading": "No active safeguarding reports",
+                        "message": null,
+                        "hasAction": true,
+                        "ctaLabel": "View Reports",
+                        "ctaVariant": "secondary",
+                        "ctaUrl": "/admin/safeguarding"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "widget-recent-activity",
+              "component": "widget-container",
+              "variant": "with-header-action",
+              "props": {
+                "title": "Recent Activity",
+                "subtitle": "Last 24 hours",
+                "hasHeaderAction": true,
+                "headerActionLabel": "View Full Audit Log",
+                "headerActionUrl": "/admin/audit-log"
+              },
+              "children": [
+                {
+                  "component": "filter-dropdown",
+                  "props": {
+                    "label": "Filter:",
+                    "options": [
+                      { "value": "all", "label": "All activity" },
+                      { "value": "my-actions", "label": "My actions only" },
+                      { "value": "verifications", "label": "Verifications only" },
+                      { "value": "bookings", "label": "Bookings only" },
+                      { "value": "safeguarding", "label": "Safeguarding only" }
+                    ],
+                    "default": "all"
+                  },
+                  "tokens": {
+                    "marginBottom": "{spacing.4}"
+                  }
+                },
+                {
+                  "component": "activity-feed",
+                  "props": {
+                    "items": [
+                      {
+                        "timestamp": "Today, 14:32",
+                        "actor": "Admin Sarah",
+                        "action": "approved caregiver verification:",
+                        "subject": "John Smith (#4523)",
+                        "subjectUrl": "/admin/users/4523"
+                      },
+                      {
+                        "timestamp": "Today, 14:15",
+                        "actor": null,
+                        "action": "Booking #7821 completed successfully",
+                        "subject": "(Jane D. → Mary K.)",
+                        "subjectUrl": "/admin/bookings/7821"
+                      },
+                      {
+                        "timestamp": "Today, 13:47",
+                        "actor": "Admin Sarah",
+                        "action": "rejected caregiver verification:",
+                        "subject": "David Jones (#4522) - ID expired",
+                        "subjectUrl": "/admin/users/4522"
+                      },
+                      {
+                        "timestamp": "Today, 12:05",
+                        "actor": null,
+                        "action": "Dispute raised on Booking #7803 by",
+                        "subject": "Tom H.",
+                        "subjectUrl": "/admin/bookings/7803"
+                      },
+                      {
+                        "timestamp": "Today, 11:23",
+                        "actor": "Admin Sarah",
+                        "action": "resolved dispute on Booking #7789",
+                        "subject": "- Partial refund (50%)",
+                        "subjectUrl": "/admin/bookings/7789"
+                      }
+                    ],
+                    "maxVisible": 10
+                  },
+                  "layout": "vertical-list",
+                  "gap": "{spacing.2}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "main-column-right",
+          "name": "Right Column (Sidebar)",
+          "layout": "vertical",
+          "gap": "{spacing.6}",
+          "size": { "width": "30%", "height": "auto" },
+          "responsive": {
+            "tablet": { "width": "100%", "order": "after-left-column" },
+            "mobile": { "width": "100%", "order": "after-left-column" }
+          },
+          "children": [
+            {
+              "id": "widget-quick-actions",
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Quick Actions",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "quick-action-button",
+                  "repeat": "quickActions",
+                  "layout": "vertical-stack",
+                  "gap": "{spacing.2}",
+                  "props": {
+                    "icon": "${item.icon}",
+                    "label": "${item.label}",
+                    "url": "${item.url}",
+                    "disabled": "${item.disabled}"
+                  }
+                },
+                {
+                  "component": "divider",
+                  "tokens": {
+                    "marginVertical": "{spacing.4}",
+                    "borderTop": "1px solid {colors.border.soft}"
+                  }
+                },
+                {
+                  "component": "text",
+                  "variant": "section-heading",
+                  "content": "Resources",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}",
+                    "fontWeight": "{fontWeights.semibold}",
+                    "marginBottom": "{spacing.2}"
+                  }
+                },
+                {
+                  "component": "link-list",
+                  "layout": "vertical",
+                  "gap": "{spacing.2}",
+                  "props": {
+                    "links": [
+                      { "label": "Safeguarding Policy", "url": "/public/safeguarding-policy" },
+                      { "label": "Admin Guide", "url": "/admin/guide" },
+                      { "label": "Contact Support", "url": "/admin/support" }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "widget-platform-health",
+              "component": "widget-container",
+              "variant": "no-actions",
+              "props": {
+                "title": "Platform Health",
+                "subtitle": null
+              },
+              "children": [
+                {
+                  "component": "metric-card-grid",
+                  "layout": "2x2-grid",
+                  "gap": "{spacing.3}",
+                  "responsive": {
+                    "mobile": { "layout": "stacked" }
+                  },
+                  "children": [
+                    {
+                      "component": "metric-card",
+                      "variant": "standard",
+                      "props": {
+                        "icon": "calendar-checkmark",
+                        "label": "Active Bookings",
+                        "value": "45",
+                        "subtext": "0 issues",
+                        "statusColor": "green"
+                      }
+                    },
+                    {
+                      "component": "metric-card",
+                      "variant": "with-trend",
+                      "props": {
+                        "icon": "chart-up",
+                        "label": "Bookings This Week",
+                        "value": "67",
+                        "trend": "↑5% from last week",
+                        "trendDirection": "up"
+                      }
+                    },
+                    {
+                      "component": "metric-card",
+                      "variant": "standard",
+                      "props": {
+                        "icon": "user-checkmark",
+                        "label": "Active Caregivers",
+                        "value": "89",
+                        "subtext": "12 pending",
+                        "linkUrl": "/admin/users?role=caregiver"
+                      }
+                    },
+                    {
+                      "component": "metric-card",
+                      "variant": "standard",
+                      "props": {
+                        "icon": "home",
+                        "label": "Active Care Receivers",
+                        "value": "156",
+                        "subtext": "89 payment added"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "component": "system-status-bar",
+                  "props": {
+                    "label": "System Status",
+                    "status": "operational",
+                    "statusText": "All Systems Operational",
+                    "statusIcon": "dot-green",
+                    "subtext": "Uptime: 99.8% (last 30 days)"
+                  },
+                  "tokens": {
+                    "marginTop": "{spacing.4}",
+                    "padding": "{spacing.3}",
+                    "background": "{colors.background.soft-sage}",
+                    "borderRadius": "{borderRadius.sm}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 4,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "padding": { "top": "{spacing.8}" },
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "© 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      },
+      "responsive": {
+        "tablet": { "variant": "tablet-condensed", "layout": "two-line" },
+        "mobile": { "variant": "mobile-compact", "layout": "vertical" }
+      }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "mainLayout": "two-column-70-30",
+      "leftColumn": "verification-queue + safeguarding + recent-activity",
+      "rightColumn": "quick-actions + platform-health"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "mainLayout": "single-column",
+      "order": "verification → safeguarding → platform-health-user-activity-side-by-side → recent-activity"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "mainLayout": "stacked",
+      "contentCondensed": true,
+      "recentActivityMaxItems": 3
+    }
+  },
+  "stateVariations": {
+    "default-normal-operations": {
+      "sections": {
+        "section-urgent-alert-banner": { "visible": false },
+        "widget-verification-queue": { "state": "populated", "slaBreaches": 3 },
+        "widget-safeguarding-reports": { "state": "populated", "urgentCount": 1 },
+        "widget-recent-activity": { "state": "populated", "items": 10 },
+        "widget-platform-health": { "state": "all-operational" }
+      }
+    },
+    "alert-safeguarding-urgent": {
+      "sections": {
+        "section-urgent-alert-banner": { "visible": true, "variant": "safeguarding-urgent" },
+        "widget-verification-queue": { "state": "populated" },
+        "widget-safeguarding-reports": { "state": "populated", "urgentCount": 1, "highlighted": true },
+        "widget-recent-activity": { "state": "populated" },
+        "widget-platform-health": { "state": "all-operational" }
+      }
+    },
+    "alert-sla-breach": {
+      "sections": {
+        "section-urgent-alert-banner": { "visible": true, "variant": "sla-breach" },
+        "widget-verification-queue": { "state": "populated", "slaBreaches": 3, "slaHighlighted": true },
+        "widget-safeguarding-reports": { "state": "populated" },
+        "widget-recent-activity": { "state": "populated" },
+        "widget-platform-health": { "state": "all-operational" }
+      }
+    },
+    "empty-queue-all-clear": {
+      "sections": {
+        "section-urgent-alert-banner": { "visible": false },
+        "widget-verification-queue": { "state": "empty" },
+        "widget-safeguarding-reports": { "state": "empty" },
+        "widget-recent-activity": { "state": "populated" },
+        "widget-platform-health": { "state": "all-operational" }
+      }
+    }
+  },
+  "componentMapping": {
+    "navigation-header": "Component ID in components.json",
+    "alert-banner": "Component ID: alert-banner",
+    "widget-container": "Component ID: widget-container",
+    "metric-list": "Component ID: metric-list",
+    "metric-row": "Component ID: metric-row",
+    "metric-breakdown": "Component ID: metric-breakdown",
+    "metric-item": "Component ID: metric-item",
+    "sla-indicator": "Component ID: sla-indicator",
+    "empty-state": "Component ID: empty-state",
+    "urgent-indicator": "Component ID: urgent-indicator",
+    "activity-timeline": "Component ID: activity-timeline",
+    "filter-dropdown": "Component ID: filter-dropdown",
+    "activity-feed": "Component ID: activity-feed",
+    "quick-action-button": "Component ID: quick-action-button",
+    "metric-card-grid": "Component ID: metric-card-grid",
+    "metric-card": "Component ID: metric-card",
+    "system-status-bar": "Component ID: system-status-bar",
+    "footer-global": "Component ID: footer-global"
+  },
+  "sampleData": {
+    "verificationQueue": {
+      "totalPending": 12,
+      "identityPending": 8,
+      "rightToWorkPending": 4,
+      "dbsPending": 3,
+      "slaBreaches": 3,
+      "averageWaitHours": 18,
+      "status": "on_track"
+    },
+    "safeguardingReports": {
+      "activeCount": 2,
+      "urgentCount": 1,
+      "urgentReportDetails": {
+        "id": "SR-00423",
+        "submittedMinutesAgo": 35,
+        "severity": "high"
+      },
+      "recentActivity": [
+        { "date": "Feb 6", "reportId": "SR-00421", "outcome": "resolved_no_action" },
+        { "date": "Feb 5", "reportId": "SR-00420", "outcome": "escalated_to_sab" },
+        { "date": "Feb 3", "reportId": "SR-00419", "outcome": "resolved_user_suspended" }
+      ]
+    },
+    "platformHealth": {
+      "activeBookings": 45,
+      "bookingsThisWeek": 67,
+      "bookingsTrend": 5,
+      "activeCaregivers": 89,
+      "pendingCaregivers": 12,
+      "activeCareReceivers": 156,
+      "paymentMethodAdded": 89,
+      "systemStatus": "operational",
+      "uptimePercentage": 99.8
+    },
+    "quickActions": [
+      { "icon": "checkmark-clipboard", "label": "Review Next Verification", "url": "/admin/verifications/next", "disabled": false },
+      { "icon": "search", "label": "Search User", "url": "#search-bar", "disabled": false },
+      { "icon": "calendar-today", "label": "View Today's Bookings", "url": "/admin/bookings?date=today", "disabled": false },
+      { "icon": "phone-emergency", "label": "Emergency Contacts", "url": "/admin/emergency-contacts", "disabled": false }
+    ]
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "navigation-header",
+      "search-bar",
+      "notifications-bell",
+      "user-menu",
+      "alert-banner-cta",
+      "verification-queue-review-button",
+      "safeguarding-view-reports-button",
+      "platform-health-metrics",
+      "recent-activity-filter",
+      "recent-activity-links",
+      "quick-actions",
+      "footer"
+    ],
+    "ariaLiveRegions": [
+      {
+        "section": "alert-banner",
+        "ariaLive": "assertive",
+        "description": "Urgent alerts announced immediately on page load"
+      },
+      {
+        "section": "notification-bell",
+        "ariaLive": "polite",
+        "description": "New notification count updates"
+      }
+    ],
+    "colorContrastChecks": [
+      "Red SLA warning text on light background: 5.8:1",
+      "Green success indicators include icon + text (not color alone)",
+      "Yellow warning indicators include icon + text (not color alone)"
+    ],
+    "minTouchTargets": "48x48px",
+    "minFontSize": "16px body text, 18px CTAs"
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-009",
+    "screenName": "Right to Work Verification",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/caregiver/scr-cg-009-right-to-work.md",
+    "generatedDate": "2026-02-11",
+    "role": "caregiver",
+    "route": "/caregiver/verify/right-to-work",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["uk-passport-path", "share-code-path", "uploading", "pending-review", "approved", "rejected", "upload-error", "invalid-share-code"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "verificationStatus": "not-submitted",
+    "verificationMethod": "uk-passport",
+    "shareCode": "",
+    "dateOfBirth": "",
+    "rejectionReason": "Share code expired (issued >90 days ago). Generate a new share code and resubmit.",
+    "verifiedDate": "12 Feb 2026",
+    "verifiedMethod": "UK Passport"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Minimal Navigation Header",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "\u2190 Back to Onboarding" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Right to Work Verification Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "Right to Work Verification",
+          "tokens": { "fontSize": "{fontSizes.2xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Confirm you have legal right to work in the UK",
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "status-badge",
+          "props": { "label": "Not Submitted", "variant": "neutral" }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "\u2139\ufe0f",
+            "message": "All caregivers must prove they can legally work in the UK (Immigration Act 2006). UK passport holders: Confirm you have a UK passport. Non-UK nationals: Enter your UKVI share code."
+          }
+        },
+        {
+          "component": "radio-group",
+          "props": {
+            "label": "Verification Method",
+            "required": true,
+            "options": [
+              { "value": "uk-passport", "label": "I am a UK passport holder" },
+              { "value": "share-code", "label": "I have a UKVI share code (visa/settled status)" }
+            ],
+            "selected": "uk-passport"
+          }
+        },
+        {
+          "component": "checkbox",
+          "props": { "label": "I confirm I am a UK passport holder", "required": true }
+        },
+        {
+          "component": "file-upload",
+          "props": {
+            "label": "Upload Passport Photo Page",
+            "acceptedFormats": "JPG, PNG, PDF",
+            "maxSize": "5MB",
+            "dragDropText": "Drag and drop your passport photo page, or click to browse",
+            "mobileText": "Tap to upload file",
+            "required": true
+          }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Submit for Review", "action": "submitRightToWork" },
+          "tokens": { "width": "100%", "height": "48px", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text-link",
+          "props": { "label": "\u2190 Back to Onboarding", "href": "/caregiver/onboarding" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "uk-passport-path": {
+      "description": "UK passport verification selected (default) - shows confirmation checkbox + file upload"
+    },
+    "share-code-path": {
+      "description": "UKVI share code path selected - shows share code input + DOB",
+      "changes": {
+        "section-form.children[4].props.selected": "share-code"
+      },
+      "replaceElements": {
+        "indices": [5, 6],
+        "with": [
+          { "component": "input-field", "props": { "label": "UKVI Share Code", "placeholder": "XXX-XXX-XXX", "required": true, "helpText": "Your share code is valid for 90 days. Format: XXX-XXX-XXX" } },
+          { "component": "text-link", "props": { "label": "Generate your share code at gov.uk/prove-right-to-work \u2192", "href": "https://www.gov.uk/prove-right-to-work", "external": true } },
+          { "component": "input-field", "props": { "label": "Date of Birth", "placeholder": "DD / MM / YYYY", "required": true, "type": "date", "helpText": "Enter your DOB as registered with UKVI" } }
+        ]
+      }
+    },
+    "uploading": {
+      "description": "Passport upload in progress"
+    },
+    "pending-review": {
+      "description": "Submitted and awaiting admin review",
+      "changes": {
+        "section-form.children[2].props.label": "Pending Review",
+        "section-form.children[2].props.variant": "warning"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "info", "props": { "message": "Your right to work has been submitted and is awaiting admin review. This typically takes 24-48 hours." } }
+      ]
+    },
+    "approved": {
+      "description": "Right to work verified",
+      "changes": {
+        "section-form.children[2].props.label": "Right to Work Verified",
+        "section-form.children[2].props.variant": "success"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "success", "props": { "icon": "\u2705", "heading": "Your right to work has been verified.", "message": "Method: UK Passport. Verified on: 12 Feb 2026" } }
+      ]
+    },
+    "rejected": {
+      "description": "Verification rejected with reason",
+      "changes": {
+        "section-form.children[2].props.label": "Rejected",
+        "section-form.children[2].props.variant": "error"
+      },
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "\u274c", "heading": "Your right to work verification was rejected.", "message": "Reason: Share code expired (issued >90 days ago). Generate a new share code and resubmit." } },
+        { "component": "button", "variant": "primary", "props": { "label": "Resubmit", "action": "resubmitRightToWork" } }
+      ]
+    },
+    "upload-error": {
+      "description": "File upload error"
+    },
+    "invalid-share-code": {
+      "description": "Invalid share code format entered",
+      "additionalElements": [
+        { "component": "alert-banner", "variant": "error", "props": { "icon": "\u274c", "message": "Invalid share code format. Share codes are 9 characters: XXX-XXX-XXX" } }
+      ]
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 600px, drag-and-drop supported" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 600px" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width 16px padding, radio buttons stacked, upload shows Tap to upload, help links abbreviated" }
+  },
+  "accessibilityNotes": {
+    "pageLoad": "Right to Work Verification page. Status: Not Submitted. Confirm legal right to work in the UK.",
+    "ukPassportSelected": "UK passport verification method selected. Upload passport photo page.",
+    "shareCodeSelected": "UKVI share code verification method selected. Enter 9-character share code and date of birth.",
+    "submitted": "Right to work submitted for review. Admin review takes 24-48 hours.",
+    "approved": "Right to work verified successfully.",
+    "rejected": "Right to work verification rejected. Reason: [rejection reason]."
+  }
+}

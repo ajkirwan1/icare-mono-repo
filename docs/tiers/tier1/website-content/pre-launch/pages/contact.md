@@ -19,7 +19,7 @@ We're still in our early stages, building a platform that connects families with
 
 For general questions about iCare, our vision, or how the platform will work:
 
-**Email**: hello@icare.co.uk
+**Email**: hello@icare-app.co.uk
 
 We read every message and aim to respond within 2 business days. Please bear with us during this pre-launch phase - we're a small team working hard to get everything right.
 
@@ -53,7 +53,7 @@ Whether you're an experienced carer frustrated with agencies or someone explorin
 
 For media inquiries, partnership opportunities, or business-related questions:
 
-**Email**: hello@icare.co.uk (please mark "Press" or "Partnership" in the subject line)
+**Email**: hello@icare-app.co.uk (please mark "Press" or "Partnership" in the subject line)
 
 We're open to conversations with organisations who share our commitment to improving elderly care and tackling loneliness.
 

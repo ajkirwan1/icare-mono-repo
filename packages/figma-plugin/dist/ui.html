@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 16px;
+      background: #fff;
+      color: #333;
+      font-size: 13px;
+    }
+    h2 { font-size: 18px; margin-bottom: 4px; color: #1a1a1a; }
+    h2 + p { color: #666; margin-bottom: 16px; font-size: 12px; }
+    h3 { font-size: 14px; margin-bottom: 8px; }
+
+    .step {
+      margin-bottom: 16px;
+      border: 1px solid #e0e0e0;
+      padding: 14px;
+      border-radius: 8px;
+      background: #fafafa;
+      transition: all 0.2s;
+    }
+    .step.active { border-color: #18a0fb; background: #f8fbff; }
+    .step.complete { background: #f0faf0; border-color: #34a853; }
+    .step p { color: #666; font-size: 12px; margin-bottom: 10px; }
+
+    .upload-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .upload-row label {
+      font-size: 12px;
+      color: #555;
+      min-width: 120px;
+    }
+    .upload-row input[type="file"] {
+      font-size: 11px;
+      flex: 1;
+    }
+
+    #upload-status {
+      font-size: 11px;
+      color: #18a0fb;
+      margin-top: 8px;
+    }
+
+    .progress-bar {
+      margin-top: 10px;
+      display: none;
+      background: #e8e8e8;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 6px;
+    }
+    .progress {
+      height: 6px;
+      background: #18a0fb;
+      transition: width 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .log {
+      background: #1a1a2e;
+      color: #a0e8a0;
+      padding: 10px;
+      font-family: 'SF Mono', Menlo, monospace;
+      font-size: 11px;
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 6px;
+      line-height: 1.5;
+    }
+    .log div { word-break: break-all; }
+
+    button {
+      background: #18a0fb;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    button:hover:not(:disabled) { background: #0d8de8; }
+    button:disabled { background: #bbb; cursor: not-allowed; }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+      font-size: 12px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>iCare Design System Importer</h2>
+  <p>Import design tokens, components, and screen layouts from JSON.</p>
+
+  <!-- Step 1: Upload Files -->
+  <div class="step active" id="step-upload">
+    <h3>Step 1: Upload JSON Files</h3>
+    <div class="upload-row">
+      <label for="file-tokens">tokens.json</label>
+      <input type="file" id="file-tokens" accept=".json" />
+    </div>
+    <div class="upload-row">
+      <label for="file-components">components.json</label>
+      <input type="file" id="file-components" accept=".json" />
+    </div>
+    <div class="upload-row">
+      <label for="file-screens">screen JSONs</label>
+      <input type="file" id="file-screens" accept=".json" multiple />
+    </div>
+    <div id="upload-status">Upload JSON files to begin.</div>
+    <div id="upload-error" class="error"></div>
+  </div>
+
+  <!-- Step 2: Import Tokens -->
+  <div class="step" id="step-tokens">
+    <h3>Step 2: Import Design Tokens</h3>
+    <p>Creates Figma Color, Text, and Effect Styles + Variables</p>
+    <button id="btn-import-tokens" disabled>Import Tokens</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-tokens" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Step 3: Generate Components -->
+  <div class="step" id="step-components">
+    <h3>Step 3: Generate Components</h3>
+    <p>Creates 33 master components with variants, organized by category</p>
+    <button id="btn-generate-components" disabled>Generate Components</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-components" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Step 4: Generate Screens -->
+  <div class="step" id="step-screens">
+    <h3>Step 4: Generate Screen Layouts</h3>
+    <p>Creates 3 dashboard screens with component instances</p>
+    <button id="btn-generate-screens" disabled>Generate Screens</button>
+    <div class="progress-bar">
+      <div class="progress" id="progress-screens" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <!-- Console Log -->
+  <div class="step">
+    <h3>Console</h3>
+    <div class="log" id="log-output">
+      <div>Ready. Upload JSON files to begin.</div>
+    </div>
+  </div>
+
+  <script>"use strict";
+(() => {
+  // src/ui.ts
+  var tokensData = null;
+  var componentsData = null;
+  var screensData = [];
+  var logOutput = document.getElementById("log-output");
+  var fileTokens = document.getElementById("file-tokens");
+  var fileComponents = document.getElementById("file-components");
+  var fileScreens = document.getElementById("file-screens");
+  var btnImportTokens = document.getElementById("btn-import-tokens");
+  var btnGenerateComponents = document.getElementById("btn-generate-components");
+  var btnGenerateScreens = document.getElementById("btn-generate-screens");
+  var progressTokens = document.getElementById("progress-tokens");
+  var progressComponents = document.getElementById("progress-components");
+  var progressScreens = document.getElementById("progress-screens");
+  var uploadStatus = document.getElementById("upload-status");
+  var uploadError = document.getElementById("upload-error");
+  fileTokens.addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file)
+      return;
+    try {
+      tokensData = JSON.parse(await file.text());
+      appendLog(`Loaded tokens.json (${file.size} bytes)`);
+      checkUploadState();
+    } catch (err) {
+      showUploadError(`Invalid tokens.json: ${err}`);
+    }
+  });
+  fileComponents.addEventListener("change", async (e) => {
+    const file = e.target.files?.[0];
+    if (!file)
+      return;
+    try {
+      componentsData = JSON.parse(await file.text());
+      appendLog(`Loaded components.json (${file.size} bytes)`);
+      checkUploadState();
+    } catch (err) {
+      showUploadError(`Invalid components.json: ${err}`);
+    }
+  });
+  fileScreens.addEventListener("change", async (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0)
+      return;
+    try {
+      screensData = [];
+      for (let i = 0; i < files.length; i++) {
+        const json = JSON.parse(await files[i].text());
+        screensData.push(json);
+        appendLog(`Loaded ${files[i].name} (${files[i].size} bytes)`);
+      }
+      checkUploadState();
+    } catch (err) {
+      showUploadError(`Invalid screen JSON: ${err}`);
+    }
+  });
+  function checkUploadState() {
+    const allLoaded = tokensData && componentsData && screensData.length > 0;
+    const tokensOnly = !!tokensData;
+    btnImportTokens.disabled = !tokensOnly;
+    uploadStatus.textContent = allLoaded ? `All files loaded (${screensData.length} screens)` : tokensOnly ? "Tokens loaded. Upload components and screens to continue." : "Upload JSON files to begin.";
+    uploadError.style.display = "none";
+    if (tokensOnly) {
+      document.getElementById("step-tokens").classList.add("active");
+    }
+  }
+  function showUploadError(msg) {
+    uploadError.textContent = msg;
+    uploadError.style.display = "block";
+  }
+  btnImportTokens.addEventListener("click", () => {
+    btnImportTokens.disabled = true;
+    progressTokens.parentElement.style.display = "block";
+    parent.postMessage(
+      { pluginMessage: { type: "import-tokens", payload: tokensData } },
+      "*"
+    );
+  });
+  btnGenerateComponents.addEventListener("click", () => {
+    btnGenerateComponents.disabled = true;
+    progressComponents.parentElement.style.display = "block";
+    parent.postMessage(
+      { pluginMessage: { type: "generate-components", payload: componentsData } },
+      "*"
+    );
+  });
+  btnGenerateScreens.addEventListener("click", () => {
+    btnGenerateScreens.disabled = true;
+    progressScreens.parentElement.style.display = "block";
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: "generate-screens",
+          payload: { screens: screensData, tokens: tokensData }
+        }
+      },
+      "*"
+    );
+  });
+  window.onmessage = (event) => {
+    const msg = event.data.pluginMessage;
+    if (!msg)
+      return;
+    switch (msg.type) {
+      case "progress": {
+        const { step, message, percent } = msg.payload;
+        appendLog(message);
+        updateProgress(step, percent);
+        break;
+      }
+      case "log": {
+        appendLog(msg.payload.message);
+        break;
+      }
+      case "complete": {
+        const { step, message, stats } = msg.payload;
+        appendLog(`COMPLETE: ${message}`);
+        updateProgress(step, 100);
+        markStepComplete(step);
+        if (stats) {
+          appendLog(`  Stats: ${JSON.stringify(stats)}`);
+        }
+        break;
+      }
+      case "error": {
+        appendLog(`ERROR [${msg.payload.step}]: ${msg.payload.message}`);
+        enableStepButton(msg.payload.step);
+        break;
+      }
+    }
+  };
+  function appendLog(message) {
+    const line = document.createElement("div");
+    const time = (/* @__PURE__ */ new Date()).toLocaleTimeString();
+    line.textContent = `[${time}] ${message}`;
+    logOutput.appendChild(line);
+    logOutput.scrollTop = logOutput.scrollHeight;
+  }
+  function updateProgress(step, percent) {
+    const bar = getProgressBar(step);
+    if (bar)
+      bar.style.width = `${percent}%`;
+  }
+  function getProgressBar(step) {
+    switch (step) {
+      case "import-tokens":
+        return progressTokens;
+      case "generate-components":
+        return progressComponents;
+      case "generate-screens":
+        return progressScreens;
+      default:
+        return null;
+    }
+  }
+  function markStepComplete(step) {
+    switch (step) {
+      case "import-tokens":
+        document.getElementById("step-tokens").classList.add("complete");
+        document.getElementById("step-tokens").classList.remove("active");
+        btnGenerateComponents.disabled = !componentsData;
+        document.getElementById("step-components").classList.add("active");
+        break;
+      case "generate-components":
+        document.getElementById("step-components").classList.add("complete");
+        document.getElementById("step-components").classList.remove("active");
+        btnGenerateScreens.disabled = screensData.length === 0;
+        document.getElementById("step-screens").classList.add("active");
+        break;
+      case "generate-screens":
+        document.getElementById("step-screens").classList.add("complete");
+        document.getElementById("step-screens").classList.remove("active");
+        appendLog("All steps complete! Review the generated pages in Figma.");
+        break;
+    }
+  }
+  function enableStepButton(step) {
+    switch (step) {
+      case "import-tokens":
+        btnImportTokens.disabled = false;
+        break;
+      case "generate-components":
+        btnGenerateComponents.disabled = false;
+        break;
+      case "generate-screens":
+        btnGenerateScreens.disabled = false;
+        break;
+    }
+  }
+})();
+</script>
+</body>
+</html>

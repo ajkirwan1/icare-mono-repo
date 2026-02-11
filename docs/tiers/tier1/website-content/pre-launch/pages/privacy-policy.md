@@ -21,7 +21,7 @@ iCare is building a platform to connect families with trusted companions for eld
 
 **Data Controller**: iCare Ltd (company registration pending)
 
-**Contact**: privacy@icare.co.uk
+**Contact**: privacy@icare-app.co.uk
 
 **What this policy covers**: This policy covers our pre-launch website only. When we launch the full platform, we'll have a more detailed privacy policy covering the marketplace service.
 
@@ -129,7 +129,7 @@ Under UK data protection law, you have the right to:
 
 **Data portability**: Ask us to give you a copy of your information in a common format.
 
-**To exercise any of these rights**, email us at privacy@icare.co.uk. We'll respond within 30 days.
+**To exercise any of these rights**, email us at privacy@icare-app.co.uk. We'll respond within 30 days.
 
 **To unsubscribe quickly**, click the unsubscribe link at the bottom of any email we send you.
 
@@ -152,9 +152,9 @@ No system is 100% secure, but we do everything reasonable to protect your data.
 
 If you have questions about this privacy policy or how we handle your data:
 
-**Email**: privacy@icare.co.uk
+**Email**: privacy@icare-app.co.uk
 
-**General contact**: hello@icare.co.uk
+**General contact**: hello@icare-app.co.uk
 
 We'll do our best to answer your questions clearly and quickly.
 
@@ -177,7 +177,7 @@ We may update this privacy policy as we develop our platform.
 
 ## Questions?
 
-We want to be transparent about how we use your information. If anything in this policy is unclear, please ask. Email privacy@icare.co.uk and we'll explain.
+We want to be transparent about how we use your information. If anything in this policy is unclear, please ask. Email privacy@icare-app.co.uk and we'll explain.
 
 ---
 
