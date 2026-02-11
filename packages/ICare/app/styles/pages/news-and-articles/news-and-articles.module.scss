@@ -533,6 +533,110 @@
 }
 
 
+/* ===== Page content: two-column layout ===== */
+
+$text: #0f172a;
+$border: rgba(15, 23, 42, 0.10);
+
+.pageContent {
+    display: grid;
+}
+
+.twoCols {
+    margin-top: 2.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid $border;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 3.2rem;
+    align-items: start;
+    grid-template-areas:
+        "familiesIntro caregiversIntro"
+        "familiesBody caregiversBody";
+}
+
+.block {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.familiesIntro {
+    grid-area: familiesIntro;
+}
+
+.caregiversIntro {
+    grid-area: caregiversIntro;
+}
+
+.familiesBody {
+    grid-area: familiesBody;
+    padding: 2rem 0;
+}
+
+.caregiversBody {
+    grid-area: caregiversBody;
+    padding: 2rem 0;
+}
+
+.sectionTitle {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    letter-spacing: -0.2px;
+    font-weight: 600;
+    color: $text;
+}
+
+.paragraph {
+    margin: 0.8rem 0 0;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: $text;
+    font-weight: 400;
+    max-width: 70ch;
+}
+
+.paragraphSmall {
+    margin: 0.75rem 0 0;
+    font-size: 1.12rem;
+    line-height: 1.7;
+    color: $text;
+    font-weight: 400;
+    max-width: 70ch;
+}
+
+.closing {
+    margin: 1rem 0 0;
+    font-size: 1.12rem;
+    line-height: 1.7;
+    color: $text;
+    font-weight: 450;
+    max-width: 70ch;
+}
+
+.topicsHeading {
+    color: rgb(119, 141, 67);
+}
+
+.topicsList {
+    margin: 0.9rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.55rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: $text;
+    max-width: 72ch;
+    list-style: disc;
+}
+
+.engagementCompact {
+    display: grid;
+}
+
 /* ===== Responsive ===== */
 
 @media (max-width: 900px) {
@@ -545,5 +649,17 @@
         border-left: none;
         border-top: 1px solid #eee;
         padding-top: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .twoCols {
+        grid-template-columns: 1fr;
+        gap: 2.4rem;
+        grid-template-areas:
+            "familiesIntro"
+            "familiesBody"
+            "caregiversIntro"
+            "caregiversBody";
     }
 }

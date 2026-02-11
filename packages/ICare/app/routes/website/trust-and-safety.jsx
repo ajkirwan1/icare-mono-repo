@@ -1,378 +1,298 @@
-import React from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
+import styles from "./trust-and-safety.module.scss";
 
-const styles = {
-    page: {
-        maxWidth: "1200px",
-        margin: "0 auto",
-        padding: "4rem 1rem",
-        paddingTop: "calc(var(--navbar-height) + 5vh)",
-        paddingBottom: "7rem", // ✅ więcej oddechu przed footerem
-        display: "grid",
-        gap: "3.8rem",
-        color: "#0F172A",
-    },
+export const meta = () => {
+  return [
+    { title: "Trust and Safety - How iCare Protects You | iCare" },
+    { name: "description", content: "iCare is built around transparency, respect, and informed choice. Learn about our platform safeguards, caregiver profiles, verification, and how to stay safe." },
+    { name: "keywords", content: "iCare trust and safety, safe companionship care, caregiver verification, elderly care safeguards UK" },
 
-    hero: {
-        display: "grid",
-        gap: "1.4rem",
-        maxWidth: "92ch",
-    },
+    // Open Graph
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: "Trust and Safety - iCare" },
+    { property: "og:description", content: "Learn how iCare helps families and caregivers connect with confidence through platform safeguards, verification, and practical safety guidance." },
+    { property: "og:url", content: "https://icare.co.uk/trust-and-safety" },
+    { property: "og:image", content: "https://icare.co.uk/images/og-trust-safety.jpg" },
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+    { property: "og:image:alt", content: "Trust and Safety at iCare: Connecting with confidence" },
 
-    section: {
-        display: "grid",
-        gap: "1.5rem",
-        maxWidth: "92ch",
-    },
+    // Twitter Card
+    { name: "twitter:title", content: "Trust and Safety - iCare" },
+    { name: "twitter:description", content: "Platform safeguards, caregiver verification, and practical safety guidance for families and caregivers." },
+    { name: "twitter:image", content: "https://icare.co.uk/images/twitter-trust-safety.jpg" },
+    { name: "twitter:image:alt", content: "iCare Trust and Safety" }
+  ];
+};
 
-    separator: {
-        height: "1px",
-        background: "rgba(15,23,42,0.10)",
-        width: "100%",
-        maxWidth: "92ch",
-        margin: "0.2rem 0 0.2rem",
-    },
+export const links = () => {
+  return [
+    { rel: "canonical", href: "https://icare.co.uk/trust-and-safety" }
+  ];
+};
 
-    h1: {
-        margin: 0,
-        lineHeight: 1.08,
-        letterSpacing: "-0.02em",
-        color: "#0F172A",
-        fontSize: "2.4rem",
-        fontWeight: 500,
-
-    },
-
-    h2: {
-        margin: 0,
-        lineHeight: 1.15,
-        letterSpacing: "-0.01em",
-        paddingTop: "0.2rem",
-        color: "#0F172A",
-        fontSize: "1.4rem",
-        fontWeight: 700,
-    },
-
-    h3: {
-        margin: 0,
-        lineHeight: 1.2,
-        color: "#0F172A",
-        fontSize: "1.2rem",
-        fontWeight: 700,
-    },
-
-    p: {
-        margin: 0,
-        lineHeight: 1.75,
-        fontSize: "1.2rem",
-        color: "#0F172A",
-        fontWeight: 400,
-    },
-
-    lead: {
-        margin: 0,
-        lineHeight: 1.75,
-        fontSize: "1.2rem",
-        color: "#0F172A",
-        fontWeight: 400,
-    },
-
-    spacer: {
-        height: "1rem",
-    },
-
-    // --- Minimal checklist (ticks only) ---
-    checklist: {
-        listStyle: "none",
-        margin: 0,
-        padding: 0,
-        display: "grid",
-        gap: "0.85rem",
-        fontSize: "1.2rem",
-        lineHeight: 1.65,
-        color: "#0F172A",
-    },
-
-    checklistItem: {
-        display: "grid",
-        gridTemplateColumns: "14px 1fr",
-        gap: "0.75rem",
-        alignItems: "start",
-    },
-
-    // minimalist tick using borders (no circle)
-    tick: {
-        width: 12,
-        height: 7,
-        borderLeft: "1.8px solid rgba(15,23,42,0.85)",
-        borderBottom: "1.8px solid rgba(15,23,42,0.85)",
-        transform: "rotate(-45deg)",
-        marginTop: "0.45rem",
-        boxSizing: "border-box",
-    },
-
-    // ✅ subtle inline link (elder-like)
-    inlineLink: {
-        color: "#0F172A",
-        textDecoration: "none",
-        borderBottom: "1px solid rgba(15,23,42,0.22)",
-        paddingBottom: "1px",
-    },
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Trust and Safety",
+  "description": "iCare's trust and safety information for families and caregivers, including platform safeguards, verification, and reporting procedures.",
+  "url": "https://icare.co.uk/trust-and-safety"
 };
 
 function TickItem({ children }) {
-    return (
-        <li style={styles.checklistItem}>
-            <span aria-hidden="true" style={styles.tick} />
-            <span>{children}</span>
-        </li>
-    );
+  return (
+    <li className={styles.checklistItem}>
+      <span aria-hidden="true" className={styles.tick} />
+      <span>{children}</span>
+    </li>
+  );
 }
 
 export default function TrustAndSafetyPage() {
-    return (
-        <>
-            <ICareNavbar />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
-            <section style={styles.page}>
-                {/* HERO */}
-                <header style={styles.hero}>
-                    <h1 style={styles.h1}>Trust and Safety</h1>
+      <ICareNavbar />
 
-                    <p style={styles.lead}>
-                        ICare is a platform designed to help caregivers and care receivers connect
-                        with confidence, clarity, and respect. While no online marketplace can
-                        eliminate all risks, our goal is to provide tools and information that help
-                        people make informed decisions.
-                    </p>
+      <section className={styles.page}>
+        {/* HERO */}
+        <header className={styles.hero}>
+          <h1 className={styles.h1}>Trust and Safety</h1>
 
-                    <p style={styles.p}>
-                        ICare is built around transparency, respect, and informed choice, helping
-                        families feel confident as they navigate care decisions.
-                    </p>
-                </header>
+          <p className={styles.lead}>
+            ICare is a platform designed to help caregivers and care receivers connect
+            with confidence, clarity, and respect. While no online marketplace can
+            eliminate all risks, our goal is to provide tools and information that help
+            people make informed decisions.
+          </p>
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            ICare is built around transparency, respect, and informed choice, helping
+            families feel confident as they navigate care decisions.
+          </p>
+        </header>
 
-                {/* OUR PROMISE */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Our Promise to You</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        ICare is a marketplace, not a care provider. We do not employ caregivers,
-                        arrange care on your behalf, or deliver care services directly. Instead,
-                        we focus on providing a clear environment where individuals can connect,
-                        communicate, and decide what works best for their needs.
-                    </p>
+        {/* OUR PROMISE */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Our Promise to You</h2>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            ICare is a marketplace, not a care provider. We do not employ caregivers,
+            arrange care on your behalf, or deliver care services directly. Instead,
+            we focus on providing a clear environment where individuals can connect,
+            communicate, and decide what works best for their needs.
+          </p>
 
-                    <p style={styles.p}>
-                        This means families decide who they want to speak to, interview, and hire —
-                        and caregivers choose the work that fits them. Hours, duties, start dates,
-                        and pay are agreed directly between the people involved.
-                    </p>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            This means families decide who they want to speak to, interview, and hire —
+            and caregivers choose the work that fits them. Hours, duties, start dates,
+            and pay are agreed directly between the people involved.
+          </p>
 
-                    <p style={styles.p}>
-                        We support safer decisions by providing platform safeguards, clear guidance,
-                        and tools to report concerns. Any verification or profile information
-                        available on ICare is intended to support transparency and informed choice,
-                        but it does not replace personal judgment, interviews, or due diligence by
-                        users.
-                    </p>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            We support safer decisions by providing platform safeguards, clear guidance,
+            and tools to report concerns. Any verification or profile information
+            available on ICare is intended to support transparency and informed choice,
+            but it does not replace personal judgment, interviews, or due diligence by
+            users.
+          </p>
 
-                    <p style={styles.p}>
-                        Tip: keep early conversations on ICare, ask questions, and take your time
-                        before agreeing to anything.
-                    </p>
-                </section>
+          <div className={styles.spacer} />
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            Tip: keep early conversations on ICare, ask questions, and take your time
+            before agreeing to anything.
+          </p>
+        </section>
 
-                {/* CAREGIVER PROFILES */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Caregiver Profiles</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        Caregivers on ICare create profiles describing their experience,
-                        availability, location, and the types of care they offer. We encourage
-                        caregivers to keep this information accurate and up to date so families
-                        can make informed choices.
-                    </p>
+        {/* CAREGIVER PROFILES */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Caregiver Profiles</h2>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            Caregivers on ICare create profiles describing their experience,
+            availability, location, and the types of care they offer. We encourage
+            caregivers to keep this information accurate and up to date so families
+            can make informed choices.
+          </p>
 
-                    <p style={styles.p}>
-                        Families can use profiles to compare fit and ask the right questions —
-                        for example, what type of support is offered (personal care,
-                        companionship, mobility support, overnight presence, household help),
-                        what availability looks like, and what boundaries the caregiver has.
-                    </p>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            Families can use profiles to compare fit and ask the right questions —
+            for example, what type of support is offered (personal care,
+            companionship, mobility support, overnight presence, household help),
+            what availability looks like, and what boundaries the caregiver has.
+          </p>
 
-                    <p style={styles.p}>
-                        Profile information is provided by caregivers themselves. Families are
-                        encouraged to request interviews, references, and relevant documentation
-                        where appropriate.
-                    </p>
+          <div className={styles.spacer} />
 
-                    {/* ✅ Elder-like protection line */}
-                    <p style={styles.p}>
-                        Information shown on profiles is provided by users and should be considered
-                        informational only.
-                    </p>
-                </section>
+          <p className={styles.p}>
+            Profile information is provided by caregivers themselves. Families are
+            encouraged to request interviews, references, and relevant documentation
+            where appropriate.
+          </p>
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            Information shown on profiles is provided by users and should be considered
+            informational only.
+          </p>
+        </section>
 
-                {/* VERIFICATION */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Verification and Platform Safeguards</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        ICare provides safeguards designed to encourage transparency and respectful
-                        behaviour. These include secure on-platform messaging, profile prompts that
-                        support clearer information, and tools to block or report users.
-                    </p>
+        {/* VERIFICATION */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Verification and Platform Safeguards</h2>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            ICare provides safeguards designed to encourage transparency and respectful
+            behaviour. These include secure on-platform messaging, profile prompts that
+            support clearer information, and tools to block or report users.
+          </p>
 
-                    <p style={styles.p}>
-                        Some caregivers may choose to share documents such as references,
-                        certifications, or background checks. ICare does not independently verify
-                        all information shared by users and encourages both families and caregivers
-                        to conduct their own checks before agreeing to care.
-                    </p>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            Some caregivers may choose to share documents such as references,
+            certifications, or background checks. ICare does not independently verify
+            all information shared by users and encourages both families and caregivers
+            to conduct their own checks before agreeing to care.
+          </p>
 
-                    {/* ✅ slightly safer wording */}
-                    <p style={styles.p}>
-                        Platform safeguards are designed to support safer interactions, but they
-                        cannot guarantee outcomes or replace personal judgment.
-                    </p>
-                </section>
+          <div className={styles.spacer} />
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            Platform safeguards are designed to support safer interactions, but they
+            cannot guarantee outcomes or replace personal judgment.
+          </p>
+        </section>
 
-                {/* STAYING SAFE */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Staying Safe: Practical Guidance</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        Small steps can make a big difference. Below are practical recommendations
-                        commonly used across trusted care marketplaces.
-                    </p>
+        {/* STAYING SAFE */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Staying Safe: Practical Guidance</h2>
 
-                    {/* ✅ add short “not advice” line */}
-                    <p style={styles.p}>
-                        These are general recommendations only and may not be appropriate in every situation.
-                    </p>
+          <p className={styles.p}>
+            Small steps can make a big difference. Below are practical recommendations
+            commonly used across trusted care marketplaces.
+          </p>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            These are general recommendations only and may not be appropriate in every situation.
+          </p>
 
-                    <h3 style={styles.h3}>For families and care receivers:</h3>
-                    <ul style={styles.checklist}>
-                        <TickItem>Arrange a video or phone call before meeting in person.</TickItem>
-                        <TickItem>Ask for relevant documents where appropriate (ID, references, DBS, certifications).</TickItem>
-                        <TickItem>Agree duties, hours, start date, and pay clearly before care begins.</TickItem>
-                        <TickItem>For early meetings, involve a family member or trusted person.</TickItem>
-                        <TickItem>Be cautious of pressure tactics or requests for upfront payments.</TickItem>
-                    </ul>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <h3 className={styles.h3}>For families and care receivers:</h3>
+          <ul className={styles.checklist}>
+            <TickItem>Arrange a video or phone call before meeting in person.</TickItem>
+            <TickItem>Ask for relevant documents where appropriate (ID, references, DBS, certifications).</TickItem>
+            <TickItem>Agree duties, hours, start date, and pay clearly before care begins.</TickItem>
+            <TickItem>For early meetings, involve a family member or trusted person.</TickItem>
+            <TickItem>Be cautious of pressure tactics or requests for upfront payments.</TickItem>
+          </ul>
 
-                    <h3 style={styles.h3}>For caregivers:</h3>
-                    <ul style={styles.checklist}>
-                        <TickItem>Confirm care needs, schedule, and expectations before accepting work.</TickItem>
-                        <TickItem>Agree terms clearly and keep a written record of key details.</TickItem>
-                        <TickItem>Keep communication on ICare until trust is established.</TickItem>
-                        <TickItem>Avoid sharing sensitive documents outside the platform.</TickItem>
-                        <TickItem>Trust your instincts if something feels unclear or unsafe.</TickItem>
-                    </ul>
-                </section>
+          <div className={styles.spacer} />
 
-                <div style={styles.separator} />
+          <h3 className={styles.h3}>For caregivers:</h3>
+          <ul className={styles.checklist}>
+            <TickItem>Confirm care needs, schedule, and expectations before accepting work.</TickItem>
+            <TickItem>Agree terms clearly and keep a written record of key details.</TickItem>
+            <TickItem>Keep communication on ICare until trust is established.</TickItem>
+            <TickItem>Avoid sharing sensitive documents outside the platform.</TickItem>
+            <TickItem>Trust your instincts if something feels unclear or unsafe.</TickItem>
+          </ul>
+        </section>
 
-                {/* REPORTING */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Reporting Concerns</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        If something does not feel right, we encourage users to trust their instincts.
-                        ICare provides ways to report concerns, inappropriate behaviour, or suspected
-                        misuse of the platform so that issues can be reviewed.
-                    </p>
+        {/* REPORTING */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Reporting Concerns</h2>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            If something does not feel right, we encourage users to trust their instincts.
+            ICare provides ways to report concerns, inappropriate behaviour, or suspected
+            misuse of the platform so that issues can be reviewed.
+          </p>
 
-                    <p style={styles.p}>
-                        Please report immediately if you notice requests for upfront payments,
-                        pressure to move conversations off-platform, harassment, discrimination,
-                        or suspected impersonation.
-                    </p>
+          <div className={styles.spacer} />
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            Please report immediately if you notice requests for upfront payments,
+            pressure to move conversations off-platform, harassment, discrimination,
+            or suspected impersonation.
+          </p>
 
-                    <p style={styles.p}>
-                        In case of emergency or immediate danger, contact local emergency services.
-                        ICare cannot provide emergency response.
-                    </p>
-                </section>
+          <div className={styles.spacer} />
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            In case of emergency or immediate danger, contact local emergency services.
+            ICare cannot provide emergency response.
+          </p>
+        </section>
 
-                {/* PRIVACY */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Privacy and Data Protection</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        We respect the privacy of everyone using ICare. Personal information is
-                        collected only to support core platform functionality such as account
-                        creation, communication between users, and safety-related features. We do
-                        not sell personal data to third parties.
-                    </p>
+        {/* PRIVACY */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Privacy and Data Protection</h2>
 
-                    <div style={styles.spacer} />
+          <p className={styles.p}>
+            We respect the privacy of everyone using ICare. Personal information is
+            collected only to support core platform functionality such as account
+            creation, communication between users, and safety-related features. We do
+            not sell personal data to third parties.
+          </p>
 
-                    <p style={styles.p}>
-                        We follow data minimisation and purpose limitation principles: we collect
-                        what is necessary, use it to operate the platform and support safety, and
-                        restrict access to authorised systems and staff.
-                    </p>
+          <div className={styles.spacer} />
 
-                    {/* ✅ link to Privacy */}
-                    <p style={styles.p}>
-                        For more details, please see our{" "}
-                        <a href="/privacy" style={styles.inlineLink}>
-                            Privacy Policy
-                        </a>
-                        .
-                    </p>
-                </section>
+          <p className={styles.p}>
+            We follow data minimisation and purpose limitation principles: we collect
+            what is necessary, use it to operate the platform and support safety, and
+            restrict access to authorised systems and staff.
+          </p>
 
-                <div style={styles.separator} />
+          <p className={styles.p}>
+            For more details, please see our{" "}
+            <a href="/privacy" className={styles.inlineLink}>
+              Privacy Policy
+            </a>
+            .
+          </p>
+        </section>
 
-                {/* DISCLAIMER */}
-                <section style={styles.section}>
-                    <h2 style={styles.h2}>Important Disclaimer</h2>
+        <div className={styles.separator} />
 
-                    <p style={styles.p}>
-                        ICare does not provide medical, legal, or professional care advice and does
-                        not deliver care services. Users are responsible for conducting their own
-                        due diligence and making decisions appropriate to their individual
-                        circumstances. In case of emergency, always contact local emergency services.
-                    </p>
-                </section>
-            </section>
+        {/* DISCLAIMER */}
+        <section className={styles.section}>
+          <h2 className={styles.h2}>Important Disclaimer</h2>
 
-            <ICareFooter />
-        </>
-    );
+          <p className={styles.p}>
+            ICare does not provide medical, legal, or professional care advice and does
+            not deliver care services. Users are responsible for conducting their own
+            due diligence and making decisions appropriate to their individual
+            circumstances. In case of emergency, always contact local emergency services.
+          </p>
+        </section>
+      </section>
+
+      <ICareFooter />
+    </>
+  );
 }

@@ -240,6 +240,31 @@ function renderNavHeader(section, R, W) {
   return { svg: s, height: H };
 }
 
+function renderNavHeaderPublic(section, R, W) {
+  const H = 64;
+  const bg = c(R, '{colors.brand.primary}');
+  const border = c(R, '{colors.border.soft}');
+  const txt = c(R, '{colors.text.primary}');
+  const brand = c(R, '{colors.brand.secondary}');
+  const link = c(R, '{colors.brand.link-bg}');
+  const ctaLabel = (section.props && section.props.ctaLabel) || 'Already have an account? Log in';
+
+  let s = '';
+  s += `<rect width="${W}" height="${H}" fill="${bg}"/>`;
+  s += `<line x1="0" y1="${H}" x2="${W}" y2="${H}" stroke="${border}" stroke-width="1"/>`;
+
+  if (isMobile()) {
+    s += `<rect x="16" y="14" width="80" height="36" rx="8" fill="${brand}" opacity="0.25"/>`;
+    s += `<text x="32" y="38" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="${txt}">iCare</text>`;
+    s += `<text x="${W - 16}" y="38" font-family="Inter,sans-serif" font-size="13" fill="${link}" text-anchor="end">${esc(ctaLabel)}</text>`;
+  } else {
+    s += `<rect x="24" y="14" width="100" height="36" rx="8" fill="${brand}" opacity="0.25"/>`;
+    s += `<text x="46" y="38" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="${txt}">iCare</text>`;
+    s += `<text x="${W - 24}" y="38" font-family="Inter,sans-serif" font-size="14" fill="${link}" text-anchor="end">${esc(ctaLabel)}</text>`;
+  }
+  return { svg: s, height: H };
+}
+
 function renderPageHeader(section, R, W) {
   const padH = isMobile() ? 16 : n(R, section.padding && section.padding.horizontal, 24);
   const padTop = n(R, section.padding && section.padding.top, 32);
@@ -1324,6 +1349,139 @@ function renderSingleChild(child, R, width, index) {
       return { svg: s, height: ctH };
     }
 
+    case 'step-indicator': {
+      const props = child.props || {};
+      const currentStep = props.currentStep || 1;
+      const totalSteps = props.totalSteps || 3;
+      const stepLabels = Array.isArray(props.stepLabels) ? props.stepLabels : ['Account', 'Details', 'Verification'];
+      const stepW = Math.min(width / totalSteps, 160);
+      const startX = (width - stepW * totalSteps) / 2;
+      const circleR = 18;
+      const siH = 70;
+      let s = '';
+      for (let i = 0; i < totalSteps; i++) {
+        const cx = startX + stepW * i + stepW / 2;
+        const cy = 22;
+        const isCurrent = (i + 1) === currentStep;
+        const isPast = (i + 1) < currentStep;
+        const fillCol = (isCurrent || isPast) ? '#2563eb' : 'transparent';
+        const strokeCol = (isCurrent || isPast) ? 'transparent' : (border || '#d1d5db');
+        const numCol = (isCurrent || isPast) ? '#ffffff' : (textM || '#6b7280');
+        s += `<circle cx="${cx}" cy="${cy}" r="${circleR}" fill="${fillCol}" stroke="${strokeCol}" stroke-width="2"/>`;
+        s += `<text x="${cx}" y="${cy + 5}" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="${numCol}" text-anchor="middle">${isPast ? '&#x2713;' : (i + 1)}</text>`;
+        const label = stepLabels[i] || `Step ${i + 1}`;
+        const labelCol = isCurrent ? (textP || '#1f2937') : (textM || '#6b7280');
+        const labelW = isCurrent ? '600' : '400';
+        s += `<text x="${cx}" y="${cy + circleR + 18}" font-family="Inter,sans-serif" font-size="12" font-weight="${labelW}" fill="${labelCol}" text-anchor="middle">${esc(label)}</text>`;
+        if (i < totalSteps - 1) {
+          const lx1 = cx + circleR + 4;
+          const lx2 = startX + stepW * (i + 1) + stepW / 2 - circleR - 4;
+          const lineCol = isPast ? '#2563eb' : (border || '#d1d5db');
+          s += `<line x1="${lx1}" y1="${cy}" x2="${lx2}" y2="${cy}" stroke="${lineCol}" stroke-width="2"/>`;
+        }
+      }
+      return { svg: s, height: siH };
+    }
+
+    case 'trust-badge-row': {
+      const props = child.props || {};
+      const badges = Array.isArray(props.badges) ? props.badges : [
+        { icon: '\u{1F512}', label: '256-bit Encrypted' },
+        { icon: '\u2713', label: 'GDPR Compliant' },
+        { icon: '\u{1F6AB}', label: 'No Spam' }
+      ];
+      const tbH = 36;
+      const badgeGap = 12;
+      let s = '';
+      let bx = (width - badges.length * 150) / 2;
+      if (bx < 0) bx = 8;
+      badges.forEach((b) => {
+        const label = (b && b.label) || 'Badge';
+        const icon = (b && b.icon) || '\u2713';
+        const bw = label.length * 8 + 40;
+        s += `<rect x="${bx}" y="0" width="${bw}" height="${tbH}" rx="18" fill="#dcfce7"/>`;
+        s += `<text x="${bx + 12}" y="23" font-family="Inter,sans-serif" font-size="13" fill="#166534">${esc(icon)} ${esc(label)}</text>`;
+        bx += bw + badgeGap;
+      });
+      return { svg: s, height: tbH };
+    }
+
+    case 'consent-checkbox-group': {
+      const props = child.props || {};
+      const items = Array.isArray(props.items) ? props.items : [
+        { label: 'I accept the', linkText: 'Terms of Service', required: true },
+        { label: 'I accept the', linkText: 'Privacy Policy', required: true },
+        { label: "I'd like to receive helpful tips via email", linkText: null, required: false }
+      ];
+      const lineH = 28;
+      const gap = 8;
+      const ccH = items.length * lineH + (items.length - 1) * gap;
+      let s = '';
+      let iy = 0;
+      items.forEach((item) => {
+        const lbl = (item && item.label) || 'Consent item';
+        const linkTxt = (item && item.linkText) || '';
+        const req = item && item.required;
+        s += `<rect x="0" y="${iy}" width="18" height="18" rx="3" fill="white" stroke="${border || '#d1d5db'}" stroke-width="2"/>`;
+        let tx = 26;
+        s += `<text x="${tx}" y="${iy + 14}" font-family="Inter,sans-serif" font-size="14" fill="${textP || '#1f2937'}">${esc(lbl)}`;
+        if (linkTxt) {
+          s += ` <tspan fill="#2563eb" text-decoration="underline">${esc(linkTxt)}</tspan>`;
+        }
+        if (req) {
+          s += ` <tspan fill="#dc2626">*</tspan>`;
+        }
+        s += `</text>`;
+        iy += lineH + gap;
+      });
+      return { svg: s, height: ccH };
+    }
+
+    case 'verification-code-input': {
+      const props = child.props || {};
+      const digits = props.digits || 6;
+      const boxSize = isMobile() ? 44 : 52;
+      const gap = 10;
+      const totalW = digits * boxSize + (digits - 1) * gap;
+      const startX = (width - totalW) / 2;
+      const labelText = props.label || 'Enter verification code';
+      const vcH = boxSize + 28;
+      let s = '';
+      s += `<text x="${width / 2}" y="14" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="${textP || '#1f2937'}" text-anchor="middle">${esc(labelText)}</text>`;
+      for (let i = 0; i < digits; i++) {
+        const bx = startX + i * (boxSize + gap);
+        s += `<rect x="${bx}" y="22" width="${boxSize}" height="${boxSize}" rx="8" fill="white" stroke="${border || '#d1d5db'}" stroke-width="2"/>`;
+        if (i === 0) {
+          s += `<line x1="${bx + boxSize / 2}" y1="${28}" x2="${bx + boxSize / 2}" y2="${22 + boxSize - 6}" stroke="${textP || '#1f2937'}" stroke-width="2" opacity="0.4"/>`;
+        }
+      }
+      return { svg: s, height: vcH };
+    }
+
+    case 'password-strength-meter': {
+      const props = child.props || {};
+      const strength = props.strength || 'fair';
+      const segCount = 4;
+      const segGap = 4;
+      const segW = (width - (segCount - 1) * segGap) / segCount;
+      const segH = 8;
+      const psH = 28;
+      const levels = { weak: 1, fair: 2, strong: 3, 'very-strong': 4 };
+      const filled = levels[strength] || 0;
+      const colMap = { weak: '#dc2626', fair: '#f59e0b', strong: '#16a34a', 'very-strong': '#16a34a' };
+      const fillColor = colMap[strength] || '#d1d5db';
+      let s = '';
+      for (let i = 0; i < segCount; i++) {
+        const sx = i * (segW + segGap);
+        const col = i < filled ? fillColor : '#e5e7eb';
+        s += `<rect x="${sx}" y="0" width="${segW}" height="${segH}" rx="4" fill="${col}"/>`;
+      }
+      const labelCol = colMap[strength] || '#6b7280';
+      const labelText = strength.charAt(0).toUpperCase() + strength.slice(1).replace('-', ' ');
+      s += `<text x="0" y="${segH + 16}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="${labelCol}">${esc(labelText)}</text>`;
+      return { svg: s, height: psH };
+    }
+
     default: {
       // Generic component placeholder
       const H = 48;
@@ -1675,6 +1833,8 @@ function generateScreenSvg(screen, R) {
 
     if (section.component === 'navigation-header') {
       result = renderNavHeader(section, R, W);
+    } else if (section.component === 'navigation-header-public') {
+      result = renderNavHeaderPublic(section, R, W);
     } else if (section.component === 'footer-global') {
       result = renderFooter(section, R, W);
     } else if (section.component === 'alert-banner') {

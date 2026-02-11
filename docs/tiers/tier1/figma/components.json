@@ -74,7 +74,11 @@
         {
           "name": "role",
           "type": "enum",
-          "options": ["care-receiver", "caregiver", "admin"],
+          "options": [
+            "care-receiver",
+            "caregiver",
+            "admin"
+          ],
           "default": "care-receiver"
         },
         {
@@ -102,8 +106,14 @@
         {
           "name": "background",
           "type": "rectangle",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "64px" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "64px"
+          },
           "tokens": {
             "fill": "{colors.brand.primary}",
             "borderBottom": "1px solid {colors.border.soft}"
@@ -112,8 +122,14 @@
         {
           "name": "container",
           "type": "frame",
-          "position": { "x": "{spacing.4}", "y": 0 },
-          "size": { "width": "auto", "height": "64px" },
+          "position": {
+            "x": "{spacing.4}",
+            "y": 0
+          },
+          "size": {
+            "width": "auto",
+            "height": "64px"
+          },
           "tokens": {
             "paddingHorizontal": "{spacing.4}",
             "paddingVertical": "{spacing.3}",
@@ -123,14 +139,26 @@
             {
               "name": "logo",
               "type": "instance",
-              "position": { "x": 0, "y": 0 },
-              "size": { "width": "auto", "height": "36px" }
+              "position": {
+                "x": 0,
+                "y": 0
+              },
+              "size": {
+                "width": "auto",
+                "height": "36px"
+              }
             },
             {
               "name": "navigation-items",
               "type": "frame",
-              "position": { "x": "auto", "y": 0 },
-              "size": { "width": "auto", "height": "100%" },
+              "position": {
+                "x": "auto",
+                "y": 0
+              },
+              "size": {
+                "width": "auto",
+                "height": "100%"
+              },
               "tokens": {
                 "gap": "{spacing.6}"
               },
@@ -150,20 +178,35 @@
             {
               "name": "search-bar",
               "type": "instance",
-              "position": { "x": "auto", "y": 0 },
-              "size": { "width": "240px", "height": "40px" },
+              "position": {
+                "x": "auto",
+                "y": 0
+              },
+              "size": {
+                "width": "240px",
+                "height": "40px"
+              },
               "visible": "hasSearch === true"
             },
             {
               "name": "notification-bell",
               "type": "frame",
-              "position": { "x": "auto", "y": 0 },
-              "size": { "width": "40px", "height": "40px" },
+              "position": {
+                "x": "auto",
+                "y": 0
+              },
+              "size": {
+                "width": "40px",
+                "height": "40px"
+              },
               "children": [
                 {
                   "name": "icon",
                   "type": "icon",
-                  "size": { "width": "24px", "height": "24px" }
+                  "size": {
+                    "width": "24px",
+                    "height": "24px"
+                  }
                 },
                 {
                   "name": "badge",
@@ -175,8 +218,14 @@
             {
               "name": "user-menu",
               "type": "frame",
-              "position": { "x": "auto", "y": 0 },
-              "size": { "width": "auto", "height": "40px" },
+              "position": {
+                "x": "auto",
+                "y": 0
+              },
+              "size": {
+                "width": "auto",
+                "height": "40px"
+              },
               "tokens": {
                 "gap": "{spacing.2}"
               },
@@ -184,7 +233,10 @@
                 {
                   "name": "avatar",
                   "type": "instance",
-                  "size": { "width": "32px", "height": "32px" }
+                  "size": {
+                    "width": "32px",
+                    "height": "32px"
+                  }
                 },
                 {
                   "name": "name",
@@ -246,13 +298,17 @@
         {
           "name": "layout",
           "type": "enum",
-          "options": ["horizontal", "two-line", "vertical"],
+          "options": [
+            "horizontal",
+            "two-line",
+            "vertical"
+          ],
           "default": "horizontal"
         },
         {
           "name": "copyrightText",
           "type": "text",
-          "default": "© 2026 Platform Name. All rights reserved."
+          "default": "\u00a9 2026 Platform Name. All rights reserved."
         },
         {
           "name": "version",
@@ -264,8 +320,14 @@
         {
           "name": "container",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "auto" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "auto"
+          },
           "tokens": {
             "borderTop": "1px solid {colors.border.soft}",
             "paddingVertical": "{spacing.8}",
@@ -302,7 +364,10 @@
           ]
         }
       ],
-      "states": ["default", "link-hover"],
+      "states": [
+        "default",
+        "link-hover"
+      ],
       "accessibility": {
         "role": "contentinfo",
         "linkText": "Clear descriptive text, not 'click here'",
@@ -322,11 +387,15 @@
       "variants": [
         {
           "name": "Hidden",
-          "properties": { "visible": false }
+          "properties": {
+            "visible": false
+          }
         },
         {
           "name": "Focused",
-          "properties": { "visible": true }
+          "properties": {
+            "visible": true
+          }
         }
       ],
       "props": [
@@ -340,8 +409,14 @@
         {
           "name": "link",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "auto", "height": "auto" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "auto",
+            "height": "auto"
+          },
           "tokens": {
             "fill": "{colors.brand.secondary}",
             "paddingVertical": "{spacing.2}",
@@ -352,7 +427,10 @@
           }
         }
       ],
-      "states": ["hidden", "focused"],
+      "states": [
+        "hidden",
+        "focused"
+      ],
       "accessibility": {
         "requirement": "WCAG 2.1 AA bypass blocks",
         "tabOrder": "First focusable element on page"
@@ -377,7 +455,11 @@
         {
           "name": "maxWidth",
           "type": "enum",
-          "options": ["1200px", "1440px", "none"],
+          "options": [
+            "1200px",
+            "1440px",
+            "none"
+          ],
           "default": "1200px"
         }
       ],
@@ -385,8 +467,14 @@
         {
           "name": "page",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "100vh" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "100vh"
+          },
           "tokens": {
             "fill": "{colors.background.base}"
           },
@@ -394,13 +482,22 @@
             {
               "name": "header",
               "type": "instance",
-              "position": { "x": 0, "y": 0 }
+              "position": {
+                "x": 0,
+                "y": 0
+              }
             },
             {
               "name": "main",
               "type": "frame",
-              "position": { "x": 0, "y": "64px" },
-              "size": { "width": "100%", "height": "auto" },
+              "position": {
+                "x": 0,
+                "y": "64px"
+              },
+              "size": {
+                "width": "100%",
+                "height": "auto"
+              },
               "tokens": {
                 "paddingHorizontal": "{spacing.6}",
                 "paddingVertical": "{spacing.8}"
@@ -409,12 +506,17 @@
             {
               "name": "footer",
               "type": "instance",
-              "position": { "x": 0, "y": "auto" }
+              "position": {
+                "x": 0,
+                "y": "auto"
+              }
             }
           ]
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {
         "mainLandmark": "role='main' with id='main-content'"
       },
@@ -432,22 +534,32 @@
       "variants": [
         {
           "name": "1 Column",
-          "properties": { "columns": 1 }
+          "properties": {
+            "columns": 1
+          }
         },
         {
           "name": "2 Columns",
-          "properties": { "columns": 2 }
+          "properties": {
+            "columns": 2
+          }
         },
         {
           "name": "3 Columns",
-          "properties": { "columns": 3 }
+          "properties": {
+            "columns": 3
+          }
         }
       ],
       "props": [
         {
           "name": "columns",
           "type": "enum",
-          "options": [1, 2, 3],
+          "options": [
+            1,
+            2,
+            3
+          ],
           "default": 1
         }
       ],
@@ -455,15 +567,23 @@
         {
           "name": "grid",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "auto" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "auto"
+          },
           "tokens": {
             "gap": "clamp(26px, 3.4vw, 52px)",
             "display": "grid"
           }
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {},
       "figmaNotes": "Auto Layout Frame with variants. Mobile (320-767px): 1 column forced. Tablet (768-1023px): 2 columns. Desktop (1024+): Specified column count."
     },
@@ -479,19 +599,31 @@
       "variants": [
         {
           "name": "With Header Action",
-          "properties": { "hasHeaderAction": true, "hasFooterAction": false }
+          "properties": {
+            "hasHeaderAction": true,
+            "hasFooterAction": false
+          }
         },
         {
           "name": "With Footer Action",
-          "properties": { "hasHeaderAction": false, "hasFooterAction": true }
+          "properties": {
+            "hasHeaderAction": false,
+            "hasFooterAction": true
+          }
         },
         {
           "name": "With Both Actions",
-          "properties": { "hasHeaderAction": true, "hasFooterAction": true }
+          "properties": {
+            "hasHeaderAction": true,
+            "hasFooterAction": true
+          }
         },
         {
           "name": "No Actions",
-          "properties": { "hasHeaderAction": false, "hasFooterAction": false }
+          "properties": {
+            "hasHeaderAction": false,
+            "hasFooterAction": false
+          }
         }
       ],
       "props": [
@@ -530,8 +662,14 @@
         {
           "name": "card",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "auto" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "auto"
+          },
           "tokens": {
             "fill": "{colors.background.card-glass}",
             "stroke": "{colors.border.card}",
@@ -596,7 +734,12 @@
           ]
         }
       ],
-      "states": ["default", "loading", "empty", "error"],
+      "states": [
+        "default",
+        "loading",
+        "empty",
+        "error"
+      ],
       "accessibility": {
         "semanticHTML": "<section> or <article>",
         "heading": "H2 for title"
@@ -636,19 +779,27 @@
             {
               "name": "main-content",
               "type": "frame",
-              "size": { "width": "70%", "height": "auto" }
+              "size": {
+                "width": "70%",
+                "height": "auto"
+              }
             },
             {
               "name": "sidebar",
               "type": "frame",
-              "size": { "width": "30%", "height": "auto" }
+              "size": {
+                "width": "30%",
+                "height": "auto"
+              }
             }
           ]
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {},
-      "figmaNotes": "Auto Layout Frame (horizontal → vertical on mobile). Desktop: Side-by-side. Tablet/Mobile: Stacked (sidebar below main)."
+      "figmaNotes": "Auto Layout Frame (horizontal \u2192 vertical on mobile). Desktop: Side-by-side. Tablet/Mobile: Stacked (sidebar below main)."
     },
     {
       "id": "divider",
@@ -662,28 +813,43 @@
       "variants": [
         {
           "name": "Horizontal Solid",
-          "properties": { "orientation": "horizontal", "style": "solid" }
+          "properties": {
+            "orientation": "horizontal",
+            "style": "solid"
+          }
         },
         {
           "name": "Horizontal Dashed",
-          "properties": { "orientation": "horizontal", "style": "dashed" }
+          "properties": {
+            "orientation": "horizontal",
+            "style": "dashed"
+          }
         },
         {
           "name": "Vertical",
-          "properties": { "orientation": "vertical", "style": "solid" }
+          "properties": {
+            "orientation": "vertical",
+            "style": "solid"
+          }
         }
       ],
       "props": [
         {
           "name": "orientation",
           "type": "enum",
-          "options": ["horizontal", "vertical"],
+          "options": [
+            "horizontal",
+            "vertical"
+          ],
           "default": "horizontal"
         },
         {
           "name": "style",
           "type": "enum",
-          "options": ["solid", "dashed"],
+          "options": [
+            "solid",
+            "dashed"
+          ],
           "default": "solid"
         }
       ],
@@ -697,7 +863,9 @@
           }
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {
         "role": "separator"
       },
@@ -715,38 +883,74 @@
       "variants": [
         {
           "name": "Pending Request (CR)",
-          "properties": { "type": "pending-request-cr", "showCountdown": true, "showEarnings": false }
+          "properties": {
+            "type": "pending-request-cr",
+            "showCountdown": true,
+            "showEarnings": false
+          }
         },
         {
           "name": "Pending Request (CG)",
-          "properties": { "type": "pending-request-cg", "showCountdown": true, "showEarnings": true }
+          "properties": {
+            "type": "pending-request-cg",
+            "showCountdown": true,
+            "showEarnings": true
+          }
         },
         {
           "name": "Upcoming (CR)",
-          "properties": { "type": "upcoming-cr", "showCountdown": false, "showEarnings": false }
+          "properties": {
+            "type": "upcoming-cr",
+            "showCountdown": false,
+            "showEarnings": false
+          }
         },
         {
           "name": "Upcoming (CG)",
-          "properties": { "type": "upcoming-cg", "showCountdown": false, "showEarnings": true }
+          "properties": {
+            "type": "upcoming-cg",
+            "showCountdown": false,
+            "showEarnings": true
+          }
         },
         {
           "name": "In Progress",
-          "properties": { "type": "in-progress", "showCountdown": false, "showEarnings": false }
+          "properties": {
+            "type": "in-progress",
+            "showCountdown": false,
+            "showEarnings": false
+          }
         },
         {
           "name": "Completed",
-          "properties": { "type": "completed", "showCountdown": false, "showEarnings": false }
+          "properties": {
+            "type": "completed",
+            "showCountdown": false,
+            "showEarnings": false
+          }
         },
         {
           "name": "Search Result",
-          "properties": { "type": "search-result", "showCountdown": false, "showEarnings": false }
+          "properties": {
+            "type": "search-result",
+            "showCountdown": false,
+            "showEarnings": false
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["pending-request-cr", "pending-request-cg", "upcoming-cr", "upcoming-cg", "in-progress", "completed", "search-result"],
+          "options": [
+            "pending-request-cr",
+            "pending-request-cg",
+            "upcoming-cr",
+            "upcoming-cg",
+            "in-progress",
+            "completed",
+            "search-result"
+          ],
           "default": "upcoming-cr"
         },
         {
@@ -782,7 +986,13 @@
         {
           "name": "status",
           "type": "enum",
-          "options": ["requested", "accepted", "in_progress", "completed", "cancelled"],
+          "options": [
+            "requested",
+            "accepted",
+            "in_progress",
+            "completed",
+            "cancelled"
+          ],
           "default": "requested"
         },
         {
@@ -798,7 +1008,11 @@
         {
           "name": "countdownUrgency",
           "type": "enum",
-          "options": ["ok", "warning", "urgent"],
+          "options": [
+            "ok",
+            "warning",
+            "urgent"
+          ],
           "default": "ok"
         },
         {
@@ -809,7 +1023,7 @@
         {
           "name": "earnings",
           "type": "text",
-          "default": "£51.00"
+          "default": "\u00a351.00"
         },
         {
           "name": "primaryActionLabel",
@@ -826,8 +1040,14 @@
         {
           "name": "card",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "100%", "height": "auto" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "100%",
+            "height": "auto"
+          },
           "tokens": {
             "fill": "{colors.background.card-glass}",
             "stroke": "{colors.border.card}",
@@ -849,7 +1069,10 @@
                 {
                   "name": "avatar",
                   "type": "instance",
-                  "size": { "width": "56px", "height": "56px" },
+                  "size": {
+                    "width": "56px",
+                    "height": "56px"
+                  },
                   "tokens": {
                     "borderRadius": "{borderRadius.pill}"
                   }
@@ -964,7 +1187,14 @@
           ]
         }
       ],
-      "states": ["default", "hover", "loading", "countdown-ok", "countdown-warning", "countdown-urgent"],
+      "states": [
+        "default",
+        "hover",
+        "loading",
+        "countdown-ok",
+        "countdown-warning",
+        "countdown-urgent"
+      ],
       "accessibility": {
         "role": "article",
         "ariaLabelledby": "booking-[id]-title",
@@ -986,46 +1216,74 @@
       "variants": [
         {
           "name": "Requested",
-          "properties": { "status": "requested" }
+          "properties": {
+            "status": "requested"
+          }
         },
         {
           "name": "Accepted",
-          "properties": { "status": "accepted" }
+          "properties": {
+            "status": "accepted"
+          }
         },
         {
           "name": "In Progress",
-          "properties": { "status": "in_progress" }
+          "properties": {
+            "status": "in_progress"
+          }
         },
         {
           "name": "Completed",
-          "properties": { "status": "completed" }
+          "properties": {
+            "status": "completed"
+          }
         },
         {
           "name": "Cancelled",
-          "properties": { "status": "cancelled" }
+          "properties": {
+            "status": "cancelled"
+          }
         },
         {
           "name": "Disputed",
-          "properties": { "status": "disputed" }
+          "properties": {
+            "status": "disputed"
+          }
         },
         {
           "name": "Verified",
-          "properties": { "status": "verified" }
+          "properties": {
+            "status": "verified"
+          }
         },
         {
           "name": "Pending Review",
-          "properties": { "status": "pending" }
+          "properties": {
+            "status": "pending"
+          }
         },
         {
           "name": "Rejected",
-          "properties": { "status": "rejected" }
+          "properties": {
+            "status": "rejected"
+          }
         }
       ],
       "props": [
         {
           "name": "status",
           "type": "enum",
-          "options": ["requested", "accepted", "in_progress", "completed", "cancelled", "disputed", "verified", "pending", "rejected"],
+          "options": [
+            "requested",
+            "accepted",
+            "in_progress",
+            "completed",
+            "cancelled",
+            "disputed",
+            "verified",
+            "pending",
+            "rejected"
+          ],
           "default": "accepted"
         },
         {
@@ -1036,12 +1294,16 @@
         {
           "name": "icon",
           "type": "text",
-          "default": "✓"
+          "default": "\u2713"
         },
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         }
       ],
@@ -1049,8 +1311,14 @@
         {
           "name": "badge",
           "type": "frame",
-          "position": { "x": 0, "y": 0 },
-          "size": { "width": "auto", "height": "28px" },
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": "auto",
+            "height": "28px"
+          },
           "tokens": {
             "paddingHorizontal": "{spacing.3}",
             "paddingVertical": "{spacing.1}",
@@ -1076,7 +1344,11 @@
           ]
         }
       ],
-      "states": ["default", "hover", "disabled"],
+      "states": [
+        "default",
+        "hover",
+        "disabled"
+      ],
       "accessibility": {
         "ariaLabel": "Booking status: [status]",
         "colorNotOnly": "Icon + text both present",
@@ -1096,15 +1368,21 @@
       "variants": [
         {
           "name": "OK (>6h)",
-          "properties": { "urgency": "ok" }
+          "properties": {
+            "urgency": "ok"
+          }
         },
         {
           "name": "Warning (2-6h)",
-          "properties": { "urgency": "warning" }
+          "properties": {
+            "urgency": "warning"
+          }
         },
         {
           "name": "Urgent (<2h)",
-          "properties": { "urgency": "urgent" }
+          "properties": {
+            "urgency": "urgent"
+          }
         }
       ],
       "props": [
@@ -1116,13 +1394,20 @@
         {
           "name": "urgency",
           "type": "enum",
-          "options": ["ok", "warning", "urgent"],
+          "options": [
+            "ok",
+            "warning",
+            "urgent"
+          ],
           "default": "ok"
         },
         {
           "name": "format",
           "type": "enum",
-          "options": ["long", "short"],
+          "options": [
+            "long",
+            "short"
+          ],
           "default": "long"
         },
         {
@@ -1158,7 +1443,12 @@
           ]
         }
       ],
-      "states": ["ok", "warning", "urgent", "expired"],
+      "states": [
+        "ok",
+        "warning",
+        "urgent",
+        "expired"
+      ],
       "accessibility": {
         "ariaLive": "polite",
         "updateFrequency": "Every 30 minutes (not every second)",
@@ -1178,36 +1468,57 @@
       "variants": [
         {
           "name": "No Bookings",
-          "properties": { "type": "no-bookings", "showCTA": true }
+          "properties": {
+            "type": "no-bookings",
+            "showCTA": true
+          }
         },
         {
           "name": "No Requests",
-          "properties": { "type": "no-requests", "showCTA": false }
+          "properties": {
+            "type": "no-requests",
+            "showCTA": false
+          }
         },
         {
           "name": "No Activity",
-          "properties": { "type": "no-activity", "showCTA": false }
+          "properties": {
+            "type": "no-activity",
+            "showCTA": false
+          }
         },
         {
           "name": "No Results",
-          "properties": { "type": "no-results", "showCTA": true }
+          "properties": {
+            "type": "no-results",
+            "showCTA": true
+          }
         },
         {
           "name": "No Messages",
-          "properties": { "type": "no-messages", "showCTA": false }
+          "properties": {
+            "type": "no-messages",
+            "showCTA": false
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["no-bookings", "no-requests", "no-activity", "no-results", "no-messages"],
+          "options": [
+            "no-bookings",
+            "no-requests",
+            "no-activity",
+            "no-results",
+            "no-messages"
+          ],
           "default": "no-bookings"
         },
         {
           "name": "icon",
           "type": "text",
-          "default": "📅"
+          "default": "\ud83d\udcc5"
         },
         {
           "name": "heading",
@@ -1279,7 +1590,9 @@
           ]
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {
         "heading": "H3 or H4",
         "screenReader": "Announces empty state when list loads empty"
@@ -1298,26 +1611,39 @@
       "variants": [
         {
           "name": "Info",
-          "properties": { "severity": "info" }
+          "properties": {
+            "severity": "info"
+          }
         },
         {
           "name": "Warning",
-          "properties": { "severity": "warning" }
+          "properties": {
+            "severity": "warning"
+          }
         },
         {
           "name": "Error",
-          "properties": { "severity": "error" }
+          "properties": {
+            "severity": "error"
+          }
         },
         {
           "name": "Success",
-          "properties": { "severity": "success" }
+          "properties": {
+            "severity": "success"
+          }
         }
       ],
       "props": [
         {
           "name": "severity",
           "type": "enum",
-          "options": ["info", "warning", "error", "success"],
+          "options": [
+            "info",
+            "warning",
+            "error",
+            "success"
+          ],
           "default": "info"
         },
         {
@@ -1407,7 +1733,10 @@
           ]
         }
       ],
-      "states": ["default", "dismissed"],
+      "states": [
+        "default",
+        "dismissed"
+      ],
       "accessibility": {
         "role": "alert (critical) or status (info)",
         "ariaLive": "assertive (error/warning) or polite (info/success)",
@@ -1427,30 +1756,46 @@
       "variants": [
         {
           "name": "Small (32px)",
-          "properties": { "size": "sm" }
+          "properties": {
+            "size": "sm"
+          }
         },
         {
           "name": "Medium (48px)",
-          "properties": { "size": "md" }
+          "properties": {
+            "size": "md"
+          }
         },
         {
           "name": "Large (56px)",
-          "properties": { "size": "lg" }
+          "properties": {
+            "size": "lg"
+          }
         },
         {
           "name": "XL (80px)",
-          "properties": { "size": "xl" }
+          "properties": {
+            "size": "xl"
+          }
         },
         {
           "name": "2XL (120px)",
-          "properties": { "size": "2xl" }
+          "properties": {
+            "size": "2xl"
+          }
         }
       ],
       "props": [
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg", "xl", "2xl"],
+          "options": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ],
           "default": "md"
         },
         {
@@ -1514,7 +1859,12 @@
           ]
         }
       ],
-      "states": ["with-photo", "without-photo", "loading", "error"],
+      "states": [
+        "with-photo",
+        "without-photo",
+        "loading",
+        "error"
+      ],
       "accessibility": {
         "altText": "[User name] profile photo (if photo exists)",
         "altTextInitials": "[User initials] (if initials shown)"
@@ -1533,22 +1883,38 @@
       "variants": [
         {
           "name": "Simple",
-          "properties": { "type": "simple", "showTrend": false, "showLink": false }
+          "properties": {
+            "type": "simple",
+            "showTrend": false,
+            "showLink": false
+          }
         },
         {
           "name": "With Trend",
-          "properties": { "type": "trend", "showTrend": true, "showLink": false }
+          "properties": {
+            "type": "trend",
+            "showTrend": true,
+            "showLink": false
+          }
         },
         {
           "name": "Detailed",
-          "properties": { "type": "detailed", "showTrend": false, "showLink": true }
+          "properties": {
+            "type": "detailed",
+            "showTrend": false,
+            "showLink": true
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["simple", "trend", "detailed"],
+          "options": [
+            "simple",
+            "trend",
+            "detailed"
+          ],
           "default": "simple"
         },
         {
@@ -1569,7 +1935,11 @@
         {
           "name": "trendDirection",
           "type": "enum",
-          "options": ["up", "down", "neutral"],
+          "options": [
+            "up",
+            "down",
+            "neutral"
+          ],
           "default": "up"
         },
         {
@@ -1668,12 +2038,16 @@
           ]
         }
       ],
-      "states": ["default", "loading", "link-hover"],
+      "states": [
+        "default",
+        "loading",
+        "link-hover"
+      ],
       "accessibility": {
         "semanticHTML": "<article> or <section>",
         "label": "H3 or <dt>",
         "value": "<dd> or emphasized text",
-        "trendLabel": "Up 5% from last month (not just ↑5%)"
+        "trendLabel": "Up 5% from last month (not just \u21915%)"
       },
       "figmaNotes": "Master Component with type variants. Property: type (simple, trend, detailed). Boolean: show_icon. Boolean: show_trend. Boolean: show_link."
     },
@@ -1689,30 +2063,46 @@
       "variants": [
         {
           "name": "Booking Activity",
-          "properties": { "type": "booking" }
+          "properties": {
+            "type": "booking"
+          }
         },
         {
           "name": "Verification Activity",
-          "properties": { "type": "verification" }
+          "properties": {
+            "type": "verification"
+          }
         },
         {
           "name": "Safeguarding Activity",
-          "properties": { "type": "safeguarding" }
+          "properties": {
+            "type": "safeguarding"
+          }
         },
         {
           "name": "Admin Activity",
-          "properties": { "type": "admin" }
+          "properties": {
+            "type": "admin"
+          }
         },
         {
           "name": "User Activity",
-          "properties": { "type": "user" }
+          "properties": {
+            "type": "user"
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["booking", "verification", "safeguarding", "admin", "user"],
+          "options": [
+            "booking",
+            "verification",
+            "safeguarding",
+            "admin",
+            "user"
+          ],
           "default": "booking"
         },
         {
@@ -1812,7 +2202,11 @@
           ]
         }
       ],
-      "states": ["default", "hover", "unread"],
+      "states": [
+        "default",
+        "hover",
+        "unread"
+      ],
       "accessibility": {
         "listItem": "<li> in <ul> or <ol>",
         "timestamp": "<time> element with datetime attribute",
@@ -1832,27 +2226,45 @@
       "variants": [
         {
           "name": "Primary Medium",
-          "properties": { "variant": "primary", "size": "md" }
+          "properties": {
+            "variant": "primary",
+            "size": "md"
+          }
         },
         {
           "name": "Secondary Medium",
-          "properties": { "variant": "secondary", "size": "md" }
+          "properties": {
+            "variant": "secondary",
+            "size": "md"
+          }
         },
         {
           "name": "Destructive Medium",
-          "properties": { "variant": "destructive", "size": "md" }
+          "properties": {
+            "variant": "destructive",
+            "size": "md"
+          }
         },
         {
           "name": "Ghost Medium",
-          "properties": { "variant": "ghost", "size": "md" }
+          "properties": {
+            "variant": "ghost",
+            "size": "md"
+          }
         },
         {
           "name": "Primary Small",
-          "properties": { "variant": "primary", "size": "sm" }
+          "properties": {
+            "variant": "primary",
+            "size": "sm"
+          }
         },
         {
           "name": "Primary Large",
-          "properties": { "variant": "primary", "size": "lg" }
+          "properties": {
+            "variant": "primary",
+            "size": "lg"
+          }
         }
       ],
       "props": [
@@ -1864,13 +2276,23 @@
         {
           "name": "variant",
           "type": "enum",
-          "options": ["primary", "secondary", "destructive", "ghost", "link"],
+          "options": [
+            "primary",
+            "secondary",
+            "destructive",
+            "ghost",
+            "link"
+          ],
           "default": "primary"
         },
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         },
         {
@@ -1943,7 +2365,14 @@
           ]
         }
       ],
-      "states": ["default", "hover", "active", "focused", "disabled", "loading"],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "focused",
+        "disabled",
+        "loading"
+      ],
       "accessibility": {
         "touchTarget": "48x48px minimum (mobile)",
         "focusIndicator": "3px solid border",
@@ -1965,15 +2394,21 @@
       "variants": [
         {
           "name": "Inline",
-          "properties": { "variant": "inline" }
+          "properties": {
+            "variant": "inline"
+          }
         },
         {
           "name": "Standalone",
-          "properties": { "variant": "standalone" }
+          "properties": {
+            "variant": "standalone"
+          }
         },
         {
           "name": "Nav",
-          "properties": { "variant": "nav" }
+          "properties": {
+            "variant": "nav"
+          }
         }
       ],
       "props": [
@@ -1985,7 +2420,12 @@
         {
           "name": "variant",
           "type": "enum",
-          "options": ["inline", "standalone", "nav", "card"],
+          "options": [
+            "inline",
+            "standalone",
+            "nav",
+            "card"
+          ],
           "default": "inline"
         },
         {
@@ -2023,7 +2463,13 @@
           ]
         }
       ],
-      "states": ["default", "hover", "visited", "focused", "active"],
+      "states": [
+        "default",
+        "hover",
+        "visited",
+        "focused",
+        "active"
+      ],
       "accessibility": {
         "linkText": "Clear descriptive text, not 'click here'",
         "external": "rel='noopener noreferrer', icon or text indicates new tab"
@@ -2042,32 +2488,53 @@
       "variants": [
         {
           "name": "Default Medium",
-          "properties": { "variant": "default", "size": "md" }
+          "properties": {
+            "variant": "default",
+            "size": "md"
+          }
         },
         {
           "name": "Close Medium",
-          "properties": { "variant": "close", "size": "md" }
+          "properties": {
+            "variant": "close",
+            "size": "md"
+          }
         },
         {
           "name": "Menu Medium",
-          "properties": { "variant": "menu", "size": "md" }
+          "properties": {
+            "variant": "menu",
+            "size": "md"
+          }
         },
         {
           "name": "Notification",
-          "properties": { "variant": "notification", "size": "md" }
+          "properties": {
+            "variant": "notification",
+            "size": "md"
+          }
         }
       ],
       "props": [
         {
           "name": "variant",
           "type": "enum",
-          "options": ["default", "close", "menu", "notification"],
+          "options": [
+            "default",
+            "close",
+            "menu",
+            "notification"
+          ],
           "default": "default"
         },
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         },
         {
@@ -2106,7 +2573,13 @@
           ]
         }
       ],
-      "states": ["default", "hover", "active", "focused", "disabled"],
+      "states": [
+        "default",
+        "hover",
+        "active",
+        "focused",
+        "disabled"
+      ],
       "accessibility": {
         "ariaLabel": "Required (describes action, e.g., 'Close modal')",
         "touchTarget": "48x48px minimum (mobile)"
@@ -2125,19 +2598,31 @@
       "variants": [
         {
           "name": "Off Medium",
-          "properties": { "checked": false, "size": "md" }
+          "properties": {
+            "checked": false,
+            "size": "md"
+          }
         },
         {
           "name": "On Medium",
-          "properties": { "checked": true, "size": "md" }
+          "properties": {
+            "checked": true,
+            "size": "md"
+          }
         },
         {
           "name": "Off Small",
-          "properties": { "checked": false, "size": "sm" }
+          "properties": {
+            "checked": false,
+            "size": "sm"
+          }
         },
         {
           "name": "On Large",
-          "properties": { "checked": true, "size": "lg" }
+          "properties": {
+            "checked": true,
+            "size": "lg"
+          }
         }
       ],
       "props": [
@@ -2149,7 +2634,11 @@
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         },
         {
@@ -2189,7 +2678,12 @@
           ]
         }
       ],
-      "states": ["off", "on", "disabled", "focused"],
+      "states": [
+        "off",
+        "on",
+        "disabled",
+        "focused"
+      ],
       "accessibility": {
         "role": "switch",
         "ariaChecked": "true/false",
@@ -2209,26 +2703,42 @@
       "variants": [
         {
           "name": "User Menu Closed",
-          "properties": { "type": "user-menu", "open": false }
+          "properties": {
+            "type": "user-menu",
+            "open": false
+          }
         },
         {
           "name": "User Menu Open",
-          "properties": { "type": "user-menu", "open": true }
+          "properties": {
+            "type": "user-menu",
+            "open": true
+          }
         },
         {
           "name": "Filter Closed",
-          "properties": { "type": "filter", "open": false }
+          "properties": {
+            "type": "filter",
+            "open": false
+          }
         },
         {
           "name": "Filter Open",
-          "properties": { "type": "filter", "open": true }
+          "properties": {
+            "type": "filter",
+            "open": true
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["user-menu", "filter", "actions"],
+          "options": [
+            "user-menu",
+            "filter",
+            "actions"
+          ],
           "default": "user-menu"
         },
         {
@@ -2239,7 +2749,11 @@
         {
           "name": "position",
           "type": "enum",
-          "options": ["left", "right", "center"],
+          "options": [
+            "left",
+            "right",
+            "center"
+          ],
           "default": "right"
         }
       ],
@@ -2293,7 +2807,12 @@
           ]
         }
       ],
-      "states": ["closed", "open", "item-hover", "item-focused"],
+      "states": [
+        "closed",
+        "open",
+        "item-hover",
+        "item-focused"
+      ],
       "accessibility": {
         "trigger": "aria-haspopup='true', aria-expanded",
         "dropdown": "role='menu'",
@@ -2314,32 +2833,53 @@
       "variants": [
         {
           "name": "Confirmation Medium",
-          "properties": { "type": "confirmation", "size": "md" }
+          "properties": {
+            "type": "confirmation",
+            "size": "md"
+          }
         },
         {
           "name": "Form Medium",
-          "properties": { "type": "form", "size": "md" }
+          "properties": {
+            "type": "form",
+            "size": "md"
+          }
         },
         {
           "name": "Alert Small",
-          "properties": { "type": "alert", "size": "sm" }
+          "properties": {
+            "type": "alert",
+            "size": "sm"
+          }
         },
         {
           "name": "Lightbox Large",
-          "properties": { "type": "lightbox", "size": "lg" }
+          "properties": {
+            "type": "lightbox",
+            "size": "lg"
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["confirmation", "form", "alert", "lightbox"],
+          "options": [
+            "confirmation",
+            "form",
+            "alert",
+            "lightbox"
+          ],
           "default": "confirmation"
         },
         {
           "name": "size",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         },
         {
@@ -2415,7 +2955,12 @@
           ]
         }
       ],
-      "states": ["opening", "open", "closing", "closed"],
+      "states": [
+        "opening",
+        "open",
+        "closing",
+        "closed"
+      ],
       "accessibility": {
         "role": "dialog",
         "ariaModal": "true",
@@ -2437,38 +2982,66 @@
       "variants": [
         {
           "name": "Text Empty",
-          "properties": { "type": "text", "state": "empty" }
+          "properties": {
+            "type": "text",
+            "state": "empty"
+          }
         },
         {
           "name": "Text Filled",
-          "properties": { "type": "text", "state": "filled" }
+          "properties": {
+            "type": "text",
+            "state": "filled"
+          }
         },
         {
           "name": "Text Focused",
-          "properties": { "type": "text", "state": "focused" }
+          "properties": {
+            "type": "text",
+            "state": "focused"
+          }
         },
         {
           "name": "Text Error",
-          "properties": { "type": "text", "state": "error" }
+          "properties": {
+            "type": "text",
+            "state": "error"
+          }
         },
         {
           "name": "Email",
-          "properties": { "type": "email", "state": "empty" }
+          "properties": {
+            "type": "email",
+            "state": "empty"
+          }
         },
         {
           "name": "Password",
-          "properties": { "type": "password", "state": "empty" }
+          "properties": {
+            "type": "password",
+            "state": "empty"
+          }
         },
         {
           "name": "Search",
-          "properties": { "type": "search", "state": "empty" }
+          "properties": {
+            "type": "search",
+            "state": "empty"
+          }
         }
       ],
       "props": [
         {
           "name": "type",
           "type": "enum",
-          "options": ["text", "email", "password", "search", "number", "tel"],
+          "options": [
+            "text",
+            "email",
+            "password",
+            "search",
+            "number",
+            "tel"
+          ],
           "default": "text"
         },
         {
@@ -2580,7 +3153,13 @@
           ]
         }
       ],
-      "states": ["empty", "filled", "focused", "error", "disabled"],
+      "states": [
+        "empty",
+        "filled",
+        "focused",
+        "error",
+        "disabled"
+      ],
       "accessibility": {
         "label": "Associated with input via <label for='input-id'>",
         "required": "aria-required='true', asterisk in label",
@@ -2683,7 +3262,13 @@
           ]
         }
       ],
-      "states": ["empty", "filled", "focused", "error", "disabled"],
+      "states": [
+        "empty",
+        "filled",
+        "focused",
+        "error",
+        "disabled"
+      ],
       "accessibility": {
         "label": "Associated with textarea",
         "characterCounter": "aria-live='polite' announces remaining characters"
@@ -2702,19 +3287,29 @@
       "variants": [
         {
           "name": "Unchecked",
-          "properties": { "checked": false }
+          "properties": {
+            "checked": false
+          }
         },
         {
           "name": "Checked",
-          "properties": { "checked": true }
+          "properties": {
+            "checked": true
+          }
         },
         {
           "name": "Disabled Unchecked",
-          "properties": { "checked": false, "disabled": true }
+          "properties": {
+            "checked": false,
+            "disabled": true
+          }
         },
         {
           "name": "Disabled Checked",
-          "properties": { "checked": true, "disabled": true }
+          "properties": {
+            "checked": true,
+            "disabled": true
+          }
         }
       ],
       "props": [
@@ -2780,7 +3375,12 @@
           ]
         }
       ],
-      "states": ["unchecked", "checked", "focused", "disabled"],
+      "states": [
+        "unchecked",
+        "checked",
+        "focused",
+        "disabled"
+      ],
       "accessibility": {
         "checkbox": "type='checkbox', aria-checked",
         "label": "Associated via <label for='checkbox-id'>",
@@ -2800,23 +3400,38 @@
       "variants": [
         {
           "name": "0% Medium",
-          "properties": { "percentage": 0, "height": "md" }
+          "properties": {
+            "percentage": 0,
+            "height": "md"
+          }
         },
         {
           "name": "50% Medium",
-          "properties": { "percentage": 50, "height": "md" }
+          "properties": {
+            "percentage": 50,
+            "height": "md"
+          }
         },
         {
           "name": "100% Medium",
-          "properties": { "percentage": 100, "height": "md" }
+          "properties": {
+            "percentage": 100,
+            "height": "md"
+          }
         },
         {
           "name": "50% Small",
-          "properties": { "percentage": 50, "height": "sm" }
+          "properties": {
+            "percentage": 50,
+            "height": "sm"
+          }
         },
         {
           "name": "50% Large",
-          "properties": { "percentage": 50, "height": "lg" }
+          "properties": {
+            "percentage": 50,
+            "height": "lg"
+          }
         }
       ],
       "props": [
@@ -2838,7 +3453,11 @@
         {
           "name": "height",
           "type": "enum",
-          "options": ["sm", "md", "lg"],
+          "options": [
+            "sm",
+            "md",
+            "lg"
+          ],
           "default": "md"
         }
       ],
@@ -2884,7 +3503,11 @@
           ]
         }
       ],
-      "states": ["0-percent", "1-99-percent", "100-percent"],
+      "states": [
+        "0-percent",
+        "1-99-percent",
+        "100-percent"
+      ],
       "accessibility": {
         "role": "progressbar",
         "ariaValuenow": "percentage",
@@ -2905,15 +3528,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "variant": "default" }
+          "properties": {
+            "variant": "default"
+          }
         },
         {
           "name": "Primary",
-          "properties": { "variant": "primary" }
+          "properties": {
+            "variant": "primary"
+          }
         },
         {
           "name": "Error",
-          "properties": { "variant": "error" }
+          "properties": {
+            "variant": "error"
+          }
         }
       ],
       "props": [
@@ -2925,7 +3554,11 @@
         {
           "name": "variant",
           "type": "enum",
-          "options": ["default", "primary", "error"],
+          "options": [
+            "default",
+            "primary",
+            "error"
+          ],
           "default": "default"
         }
       ],
@@ -2950,7 +3583,9 @@
           ]
         }
       ],
-      "states": ["default"],
+      "states": [
+        "default"
+      ],
       "accessibility": {
         "screenReader": "3 unread messages (not just 3)",
         "decorative": "aria-hidden='true' if decorative"
@@ -2969,11 +3604,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "removable": false }
+          "properties": {
+            "removable": false
+          }
         },
         {
           "name": "Removable",
-          "properties": { "removable": true }
+          "properties": {
+            "removable": true
+          }
         }
       ],
       "props": [
@@ -3021,7 +3660,10 @@
           ]
         }
       ],
-      "states": ["default", "hover-remove"],
+      "states": [
+        "default",
+        "hover-remove"
+      ],
       "accessibility": {
         "removableButton": "aria-label='Remove [label]'"
       },
@@ -3039,11 +3681,15 @@
       "variants": [
         {
           "name": "Without Divider",
-          "properties": { "divider": false }
+          "properties": {
+            "divider": false
+          }
         },
         {
           "name": "With Divider",
-          "properties": { "divider": true }
+          "properties": {
+            "divider": true
+          }
         }
       ],
       "props": [
@@ -3124,7 +3770,10 @@
           ]
         }
       ],
-      "states": ["default", "hover"],
+      "states": [
+        "default",
+        "hover"
+      ],
       "accessibility": {},
       "figmaNotes": "Component with divider boolean. Hover background: {colors.background.base}."
     },
@@ -3140,15 +3789,24 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "striped": false, "clickable": false }
+          "properties": {
+            "striped": false,
+            "clickable": false
+          }
         },
         {
           "name": "Striped",
-          "properties": { "striped": true, "clickable": false }
+          "properties": {
+            "striped": true,
+            "clickable": false
+          }
         },
         {
           "name": "Clickable",
-          "properties": { "striped": false, "clickable": true }
+          "properties": {
+            "striped": false,
+            "clickable": true
+          }
         }
       ],
       "props": [
@@ -3185,7 +3843,10 @@
           ]
         }
       ],
-      "states": ["default", "hover"],
+      "states": [
+        "default",
+        "hover"
+      ],
       "accessibility": {
         "table": "<table> with <thead>, <tbody>",
         "row": "<tr>",
@@ -3206,15 +3867,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "state": "default" }
+          "properties": {
+            "state": "default"
+          }
         },
         {
           "name": "Focused",
-          "properties": { "state": "focused" }
+          "properties": {
+            "state": "focused"
+          }
         },
         {
           "name": "With Results",
-          "properties": { "state": "with-results" }
+          "properties": {
+            "state": "with-results"
+          }
         }
       ],
       "props": [
@@ -3226,7 +3893,13 @@
         {
           "name": "radius",
           "type": "enum",
-          "options": ["5", "10", "15", "20", "30"],
+          "options": [
+            "5",
+            "10",
+            "15",
+            "20",
+            "30"
+          ],
           "default": "10"
         },
         {
@@ -3313,15 +3986,24 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isFavorited": false, "isLoading": false }
+          "properties": {
+            "isFavorited": false,
+            "isLoading": false
+          }
         },
         {
           "name": "Favorited",
-          "properties": { "isFavorited": true, "isLoading": false }
+          "properties": {
+            "isFavorited": true,
+            "isLoading": false
+          }
         },
         {
           "name": "Loading Skeleton",
-          "properties": { "isFavorited": false, "isLoading": true }
+          "properties": {
+            "isFavorited": false,
+            "isLoading": true
+          }
         }
       ],
       "props": [
@@ -3529,15 +4211,21 @@
       "variants": [
         {
           "name": "Expanded",
-          "properties": { "collapsed": false }
+          "properties": {
+            "collapsed": false
+          }
         },
         {
           "name": "Collapsed",
-          "properties": { "collapsed": true }
+          "properties": {
+            "collapsed": true
+          }
         },
         {
           "name": "Mobile Drawer",
-          "properties": { "mode": "mobile" }
+          "properties": {
+            "mode": "mobile"
+          }
         }
       ],
       "props": [
@@ -3736,15 +4424,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "state": "default" }
+          "properties": {
+            "state": "default"
+          }
         },
         {
           "name": "Active",
-          "properties": { "state": "active" }
+          "properties": {
+            "state": "active"
+          }
         },
         {
           "name": "Disabled",
-          "properties": { "state": "disabled" }
+          "properties": {
+            "state": "disabled"
+          }
         }
       ],
       "props": [
@@ -3776,7 +4470,7 @@
         {
           "name": "unit",
           "type": "text",
-          "default": "£/hr"
+          "default": "\u00a3/hr"
         }
       ],
       "layers": [
@@ -3901,15 +4595,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "totalPages": "10" }
+          "properties": {
+            "totalPages": "10"
+          }
         },
         {
           "name": "Single Page",
-          "properties": { "totalPages": "1" }
+          "properties": {
+            "totalPages": "1"
+          }
         },
         {
           "name": "Many Pages",
-          "properties": { "totalPages": "25" }
+          "properties": {
+            "totalPages": "25"
+          }
         }
       ],
       "props": [
@@ -4045,11 +4745,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "state": "default" }
+          "properties": {
+            "state": "default"
+          }
         },
         {
           "name": "Hover",
-          "properties": { "state": "hover" }
+          "properties": {
+            "state": "hover"
+          }
         }
       ],
       "props": [
@@ -4130,11 +4834,15 @@
       "variants": [
         {
           "name": "Small",
-          "properties": { "size": "small" }
+          "properties": {
+            "size": "small"
+          }
         },
         {
           "name": "Medium",
-          "properties": { "size": "medium" }
+          "properties": {
+            "size": "medium"
+          }
         }
       ],
       "props": [
@@ -4151,7 +4859,10 @@
         {
           "name": "size",
           "type": "enum",
-          "options": ["small", "medium"],
+          "options": [
+            "small",
+            "medium"
+          ],
           "default": "medium"
         }
       ],
@@ -4250,15 +4961,24 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isOwnProfile": false, "isVerified": true }
+          "properties": {
+            "isOwnProfile": false,
+            "isVerified": true
+          }
         },
         {
           "name": "Own Profile",
-          "properties": { "isOwnProfile": true, "isVerified": true }
+          "properties": {
+            "isOwnProfile": true,
+            "isVerified": true
+          }
         },
         {
           "name": "Unverified Caregiver",
-          "properties": { "isOwnProfile": false, "isVerified": false }
+          "properties": {
+            "isOwnProfile": false,
+            "isVerified": false
+          }
         }
       ],
       "props": [
@@ -4295,12 +5015,16 @@
         {
           "name": "hourlyRate",
           "type": "text",
-          "default": "£20.00"
+          "default": "\u00a320.00"
         },
         {
           "name": "verificationBadges",
           "type": "array",
-          "default": ["ID Verified", "DBS Verified", "Right to Work Verified"]
+          "default": [
+            "ID Verified",
+            "DBS Verified",
+            "Right to Work Verified"
+          ]
         },
         {
           "name": "isOwnProfile",
@@ -4545,15 +5269,22 @@
       "variants": [
         {
           "name": "Month View",
-          "properties": { "view": "month" }
+          "properties": {
+            "view": "month"
+          }
         },
         {
           "name": "Week View",
-          "properties": { "view": "week" }
+          "properties": {
+            "view": "week"
+          }
         },
         {
           "name": "Date Selected",
-          "properties": { "view": "month", "hasSelection": true }
+          "properties": {
+            "view": "month",
+            "hasSelection": true
+          }
         }
       ],
       "props": [
@@ -4739,15 +5470,22 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isExpanded": false }
+          "properties": {
+            "isExpanded": false
+          }
         },
         {
           "name": "Truncated",
-          "properties": { "isExpanded": false, "hasLongText": true }
+          "properties": {
+            "isExpanded": false,
+            "hasLongText": true
+          }
         },
         {
           "name": "Expanded",
-          "properties": { "isExpanded": true }
+          "properties": {
+            "isExpanded": true
+          }
         }
       ],
       "props": [
@@ -4938,18 +5676,28 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "hasReviews": true }
+          "properties": {
+            "hasReviews": true
+          }
         },
         {
           "name": "No Reviews",
-          "properties": { "hasReviews": false }
+          "properties": {
+            "hasReviews": false
+          }
         }
       ],
       "props": [
         {
           "name": "distribution",
           "type": "object",
-          "default": { "5": 20, "4": 3, "3": 1, "2": 0, "1": 0 }
+          "default": {
+            "5": 20,
+            "4": 3,
+            "3": 1,
+            "2": 0,
+            "1": 0
+          }
         },
         {
           "name": "totalReviews",
@@ -5083,11 +5831,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "allVerified": false }
+          "properties": {
+            "allVerified": false
+          }
         },
         {
           "name": "All Verified",
-          "properties": { "allVerified": true }
+          "properties": {
+            "allVerified": true
+          }
         }
       ],
       "props": [
@@ -5095,10 +5847,26 @@
           "name": "verificationItems",
           "type": "array",
           "default": [
-            { "name": "DBS Check", "status": "passed", "completedDate": "15 Jan 2026" },
-            { "name": "ID Verification", "status": "passed", "completedDate": "10 Jan 2026" },
-            { "name": "Right to Work", "status": "passed", "completedDate": "10 Jan 2026" },
-            { "name": "Phone Verification", "status": "passed", "completedDate": "10 Jan 2026" }
+            {
+              "name": "DBS Check",
+              "status": "passed",
+              "completedDate": "15 Jan 2026"
+            },
+            {
+              "name": "ID Verification",
+              "status": "passed",
+              "completedDate": "10 Jan 2026"
+            },
+            {
+              "name": "Right to Work",
+              "status": "passed",
+              "completedDate": "10 Jan 2026"
+            },
+            {
+              "name": "Phone Verification",
+              "status": "passed",
+              "completedDate": "10 Jan 2026"
+            }
           ]
         }
       ],
@@ -5217,11 +5985,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isLoading": false }
+          "properties": {
+            "isLoading": false
+          }
         },
         {
           "name": "Loading",
-          "properties": { "isLoading": true }
+          "properties": {
+            "isLoading": true
+          }
         }
       ],
       "props": [
@@ -5248,7 +6020,7 @@
         {
           "name": "hourlyRate",
           "type": "text",
-          "default": "£18.00"
+          "default": "\u00a318.00"
         },
         {
           "name": "isVerified",
@@ -5371,15 +6143,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "hasSelection": false }
+          "properties": {
+            "hasSelection": false
+          }
         },
         {
           "name": "Date Selected",
-          "properties": { "hasSelection": true }
+          "properties": {
+            "hasSelection": true
+          }
         },
         {
           "name": "Month Navigation",
-          "properties": { "hasSelection": false }
+          "properties": {
+            "hasSelection": false
+          }
         }
       ],
       "props": [
@@ -5544,22 +6322,31 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isCalculating": false, "hasError": false }
+          "properties": {
+            "isCalculating": false,
+            "hasError": false
+          }
         },
         {
           "name": "Calculating",
-          "properties": { "isCalculating": true, "hasError": false }
+          "properties": {
+            "isCalculating": true,
+            "hasError": false
+          }
         },
         {
           "name": "Error",
-          "properties": { "isCalculating": false, "hasError": true }
+          "properties": {
+            "isCalculating": false,
+            "hasError": true
+          }
         }
       ],
       "props": [
         {
           "name": "hourlyRate",
           "type": "text",
-          "default": "£18.00"
+          "default": "\u00a318.00"
         },
         {
           "name": "duration",
@@ -5574,7 +6361,7 @@
         {
           "name": "total",
           "type": "text",
-          "default": "£75.60"
+          "default": "\u00a375.60"
         },
         {
           "name": "isCalculating",
@@ -5792,18 +6579,27 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "customSelected": false }
+          "properties": {
+            "customSelected": false
+          }
         },
         {
           "name": "Custom Selected",
-          "properties": { "customSelected": true }
+          "properties": {
+            "customSelected": true
+          }
         }
       ],
       "props": [
         {
           "name": "options",
           "type": "array",
-          "default": ["2h", "3h", "4h", "Custom"]
+          "default": [
+            "2h",
+            "3h",
+            "4h",
+            "Custom"
+          ]
         },
         {
           "name": "selectedDuration",
@@ -5906,11 +6702,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isTruncated": false }
+          "properties": {
+            "isTruncated": false
+          }
         },
         {
           "name": "Truncated Mobile",
-          "properties": { "isTruncated": true }
+          "properties": {
+            "isTruncated": true
+          }
         }
       ],
       "props": [
@@ -5918,10 +6718,22 @@
           "name": "items",
           "type": "array",
           "default": [
-            { "label": "Home", "href": "/" },
-            { "label": "Search", "href": "/search" },
-            { "label": "Sarah K.", "href": "/caregivers/123" },
-            { "label": "Request Booking", "href": null }
+            {
+              "label": "Home",
+              "href": "/"
+            },
+            {
+              "label": "Search",
+              "href": "/search"
+            },
+            {
+              "label": "Sarah K.",
+              "href": "/caregivers/123"
+            },
+            {
+              "label": "Request Booking",
+              "href": null
+            }
           ]
         },
         {
@@ -5995,11 +6807,15 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "isMinimal": false }
+          "properties": {
+            "isMinimal": false
+          }
         },
         {
           "name": "Minimal",
-          "properties": { "isMinimal": true }
+          "properties": {
+            "isMinimal": true
+          }
         }
       ],
       "props": [
@@ -6205,26 +7021,34 @@
       "variants": [
         {
           "name": "Held",
-          "properties": { "paymentStatus": "held" }
+          "properties": {
+            "paymentStatus": "held"
+          }
         },
         {
           "name": "Released",
-          "properties": { "paymentStatus": "released" }
+          "properties": {
+            "paymentStatus": "released"
+          }
         },
         {
           "name": "Refunded",
-          "properties": { "paymentStatus": "refunded" }
+          "properties": {
+            "paymentStatus": "refunded"
+          }
         },
         {
           "name": "Pending",
-          "properties": { "paymentStatus": "pending" }
+          "properties": {
+            "paymentStatus": "pending"
+          }
         }
       ],
       "props": [
         {
           "name": "hourlyRate",
           "type": "text",
-          "default": "£18.00"
+          "default": "\u00a318.00"
         },
         {
           "name": "duration",
@@ -6234,23 +7058,28 @@
         {
           "name": "serviceFee",
           "type": "text",
-          "default": "£3.60"
+          "default": "\u00a33.60"
         },
         {
           "name": "total",
           "type": "text",
-          "default": "£75.60"
+          "default": "\u00a375.60"
         },
         {
           "name": "paymentStatus",
           "type": "enum",
-          "options": ["held", "released", "refunded", "pending"],
+          "options": [
+            "held",
+            "released",
+            "refunded",
+            "pending"
+          ],
           "default": "held"
         },
         {
           "name": "paymentMethod",
           "type": "text",
-          "default": "•••• 4242"
+          "default": "\u2022\u2022\u2022\u2022 4242"
         }
       ],
       "layers": [
@@ -6436,15 +7265,21 @@
       "variants": [
         {
           "name": "Default",
-          "properties": { "eventCount": "medium" }
+          "properties": {
+            "eventCount": "medium"
+          }
         },
         {
           "name": "Short",
-          "properties": { "eventCount": "short" }
+          "properties": {
+            "eventCount": "short"
+          }
         },
         {
           "name": "Long",
-          "properties": { "eventCount": "long" }
+          "properties": {
+            "eventCount": "long"
+          }
         }
       ],
       "props": [
@@ -6452,10 +7287,30 @@
           "name": "events",
           "type": "array",
           "default": [
-            { "timestamp": "2026-03-01 10:30", "title": "Booking requested", "description": "", "isActive": false },
-            { "timestamp": "2026-03-01 14:15", "title": "Booking accepted", "description": "Sarah accepted your request", "isActive": false },
-            { "timestamp": "2026-03-06 10:00", "title": "Session started", "description": "", "isActive": false },
-            { "timestamp": "2026-03-06 14:00", "title": "Session completed", "description": "", "isActive": true }
+            {
+              "timestamp": "2026-03-01 10:30",
+              "title": "Booking requested",
+              "description": "",
+              "isActive": false
+            },
+            {
+              "timestamp": "2026-03-01 14:15",
+              "title": "Booking accepted",
+              "description": "Sarah accepted your request",
+              "isActive": false
+            },
+            {
+              "timestamp": "2026-03-06 10:00",
+              "title": "Session started",
+              "description": "",
+              "isActive": false
+            },
+            {
+              "timestamp": "2026-03-06 14:00",
+              "title": "Session completed",
+              "description": "",
+              "isActive": true
+            }
           ]
         }
       ],
@@ -6574,22 +7429,28 @@
       "variants": [
         {
           "name": "Pending",
-          "properties": { "payoutStatus": "pending" }
+          "properties": {
+            "payoutStatus": "pending"
+          }
         },
         {
           "name": "Confirmed",
-          "properties": { "payoutStatus": "confirmed" }
+          "properties": {
+            "payoutStatus": "confirmed"
+          }
         },
         {
           "name": "Paid",
-          "properties": { "payoutStatus": "paid" }
+          "properties": {
+            "payoutStatus": "paid"
+          }
         }
       ],
       "props": [
         {
           "name": "grossAmount",
           "type": "text",
-          "default": "£72.00"
+          "default": "\u00a372.00"
         },
         {
           "name": "commissionPercent",
@@ -6599,17 +7460,21 @@
         {
           "name": "commissionAmount",
           "type": "text",
-          "default": "£10.80"
+          "default": "\u00a310.80"
         },
         {
           "name": "netAmount",
           "type": "text",
-          "default": "£61.20"
+          "default": "\u00a361.20"
         },
         {
           "name": "payoutStatus",
           "type": "enum",
-          "options": ["pending", "confirmed", "paid"],
+          "options": [
+            "pending",
+            "confirmed",
+            "paid"
+          ],
           "default": "pending"
         },
         {
@@ -6775,11 +7640,15 @@
       "variants": [
         {
           "name": "Full",
-          "properties": { "privacyLevel": "full" }
+          "properties": {
+            "privacyLevel": "full"
+          }
         },
         {
           "name": "Privacy Limited",
-          "properties": { "privacyLevel": "limited" }
+          "properties": {
+            "privacyLevel": "limited"
+          }
         }
       ],
       "props": [
@@ -6821,7 +7690,10 @@
         {
           "name": "privacyLevel",
           "type": "enum",
-          "options": ["full", "limited"],
+          "options": [
+            "full",
+            "limited"
+          ],
           "default": "limited"
         }
       ],
@@ -7054,6 +7926,712 @@
         "privacyNotice": "Privacy-limited variant does not expose personal data, aria-label reflects privacy state"
       },
       "figmaNotes": "Two-variant card for care receiver info. Privacy-limited: Initial avatar (circle with letter), 'Care Receiver' label, general area, privacy notice ('Full details available after acceptance'). Full: Photo (60x60px), full name, location, contact phone, contact email (conditional), 'Message' button. Height varies by variant."
+    },
+    {
+      "id": "navigation-header-public",
+      "name": "Navigation Header (Public/Unauthenticated)",
+      "category": "navigation",
+      "description": "Minimal header for unauthenticated pages (auth screens, public pages). Logo left, 'Log In' link right.",
+      "dimensions": {
+        "width": "100%",
+        "height": "64px"
+      },
+      "variants": [
+        {
+          "name": "Default",
+          "properties": {
+            "ctaLabel": "Log In"
+          }
+        },
+        {
+          "name": "Sign Up CTA",
+          "properties": {
+            "ctaLabel": "Sign Up"
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "logoLink",
+          "type": "text",
+          "default": "/"
+        },
+        {
+          "name": "ctaLabel",
+          "type": "text",
+          "default": "Log In"
+        },
+        {
+          "name": "ctaLink",
+          "type": "text",
+          "default": "/login"
+        }
+      ],
+      "layers": [
+        {
+          "name": "background",
+          "type": "rectangle",
+          "tokens": {
+            "width": "100%",
+            "height": "64px",
+            "fill": "{colors.brand.primary}",
+            "borderBottom": "1px solid {colors.border.soft}"
+          }
+        },
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "paddingHorizontal": "{spacing.6}",
+            "paddingVertical": "0",
+            "width": "100%",
+            "height": "64px"
+          },
+          "children": [
+            {
+              "name": "logo",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.lg}",
+                "fontWeight": "{fontWeights.bold}",
+                "fill": "{colors.text.primary}"
+              }
+            },
+            {
+              "name": "cta-link",
+              "type": "text",
+              "tokens": {
+                "fontSize": "{fontSizes.base}",
+                "fontWeight": "{fontWeights.normal}",
+                "fill": "{colors.brand.link-bg}"
+              }
+            }
+          ]
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "accessibility": {
+        "role": "banner",
+        "logoClickable": "Link to homepage",
+        "ctaClickable": "Link to login or sign up"
+      },
+      "figmaNotes": "Minimal public header. White background, logo left, CTA link right. Mobile: Reduce padding to 16px. Reusable across all auth screens."
+    },
+    {
+      "id": "step-indicator",
+      "name": "Step Indicator (Multi-step Progress)",
+      "category": "navigation",
+      "description": "Multi-step progress indicator for registration flows. Shows current step, total steps, and step labels. Numbered circles with connecting lines.",
+      "dimensions": {
+        "width": "100%",
+        "height": "80px"
+      },
+      "variants": [
+        {
+          "name": "2 Steps",
+          "properties": {
+            "totalSteps": 2
+          }
+        },
+        {
+          "name": "3 Steps",
+          "properties": {
+            "totalSteps": 3
+          }
+        },
+        {
+          "name": "4 Steps",
+          "properties": {
+            "totalSteps": 4
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "currentStep",
+          "type": "number",
+          "default": 1
+        },
+        {
+          "name": "totalSteps",
+          "type": "number",
+          "default": 3
+        },
+        {
+          "name": "stepLabels",
+          "type": "array",
+          "default": [
+            "Account",
+            "Details",
+            "Verification"
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "gap": "{spacing.4}",
+            "width": "100%"
+          },
+          "children": [
+            {
+              "name": "step-item",
+              "type": "frame",
+              "repeat": "totalSteps",
+              "tokens": {
+                "layoutMode": "vertical",
+                "alignItems": "center",
+                "gap": "{spacing.2}"
+              },
+              "children": [
+                {
+                  "name": "step-circle",
+                  "type": "circle",
+                  "tokens": {
+                    "width": "40px",
+                    "height": "40px",
+                    "fill": "stepIndex <= currentStep ? {colors.brand.link-bg} : transparent",
+                    "stroke": "stepIndex <= currentStep ? transparent : {colors.border.form}",
+                    "strokeWidth": "2px"
+                  },
+                  "children": [
+                    {
+                      "name": "step-number",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fontWeight": "{fontWeights.bold}",
+                        "fill": "stepIndex <= currentStep ? white : {colors.text.muted}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "step-label",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xs}",
+                    "fontWeight": "stepIndex === currentStep ? {fontWeights.semibold} : {fontWeights.normal}",
+                    "fill": "stepIndex === currentStep ? {colors.text.primary} : {colors.text.muted}"
+                  }
+                },
+                {
+                  "name": "connecting-line",
+                  "type": "line",
+                  "visible": "stepIndex < totalSteps",
+                  "tokens": {
+                    "stroke": "stepIndex < currentStep ? {colors.brand.link-bg} : {colors.border.soft}",
+                    "strokeWidth": "2px"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [
+        "step-1",
+        "step-2",
+        "step-3",
+        "step-4"
+      ],
+      "accessibility": {
+        "role": "progressbar",
+        "ariaValueNow": "{currentStep}",
+        "ariaValueMin": "1",
+        "ariaValueMax": "{totalSteps}",
+        "ariaLabel": "Registration progress: Step {currentStep} of {totalSteps}"
+      },
+      "figmaNotes": "Horizontal step indicator. Current step: filled circle (brand link color), bold label. Future steps: outline circle, gray label. Past steps: filled circle. Connecting lines between steps. Mobile: Reduce circle size to 32px, stack labels below circles."
+    },
+    {
+      "id": "trust-badge-row",
+      "name": "Trust/Security Badge Row",
+      "category": "data-display",
+      "description": "Row of trust/security badges (e.g., '256-bit Encrypted', 'GDPR Compliant', 'No Spam'). Used on registration screens to build trust.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default (3 badges)",
+          "properties": {
+            "badges": [
+              {
+                "icon": "\ud83d\udd12",
+                "label": "256-bit Encrypted"
+              },
+              {
+                "icon": "\u2713",
+                "label": "GDPR Compliant"
+              },
+              {
+                "icon": "\ud83d\udeab",
+                "label": "No Spam"
+              }
+            ]
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "badges",
+          "type": "array",
+          "default": [
+            {
+              "icon": "\ud83d\udd12",
+              "label": "256-bit Encrypted"
+            },
+            {
+              "icon": "\u2713",
+              "label": "GDPR Compliant"
+            },
+            {
+              "icon": "\ud83d\udeab",
+              "label": "No Spam"
+            }
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "horizontal",
+            "gap": "{spacing.3}",
+            "justifyContent": "center",
+            "alignItems": "center",
+            "flexWrap": "wrap"
+          },
+          "children": [
+            {
+              "name": "badge",
+              "type": "frame",
+              "repeat": "badges.length",
+              "tokens": {
+                "layoutMode": "horizontal",
+                "gap": "{spacing.2}",
+                "paddingHorizontal": "{spacing.3}",
+                "paddingVertical": "{spacing.2}",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "{colors.status.in-progress-bg}",
+                "border": "1px solid {colors.status.in-progress-text}"
+              },
+              "children": [
+                {
+                  "name": "icon",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.base}"
+                  }
+                },
+                {
+                  "name": "label",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.xs}",
+                    "fontWeight": "{fontWeights.semibold}",
+                    "fill": "{colors.status.in-progress-text}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "accessibility": {
+        "role": "list",
+        "badgeRole": "listitem"
+      },
+      "figmaNotes": "Horizontal row of pill-shaped badges. Green background (in-progress-bg), green text. Icon + label per badge. Used on auth screens to reassure users. Mobile: Allow badges to wrap to multiple rows."
+    },
+    {
+      "id": "consent-checkbox-group",
+      "name": "Consent Checkbox Group (GDPR)",
+      "category": "form",
+      "description": "Group of consent checkboxes for GDPR compliance. Each checkbox has a label, optional link text, optional link URL, and required flag.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto"
+      },
+      "variants": [
+        {
+          "name": "Default (3 checkboxes)",
+          "properties": {
+            "items": [
+              {
+                "label": "I accept the",
+                "linkText": "Terms of Service",
+                "linkUrl": "/terms",
+                "required": true
+              },
+              {
+                "label": "I accept the",
+                "linkText": "Privacy Policy",
+                "linkUrl": "/privacy",
+                "required": true
+              },
+              {
+                "label": "I'd like to receive helpful tips and updates via email",
+                "linkText": null,
+                "linkUrl": null,
+                "required": false
+              }
+            ]
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "items",
+          "type": "array",
+          "default": [
+            {
+              "label": "I accept the",
+              "linkText": "Terms of Service",
+              "linkUrl": "/terms",
+              "required": true
+            },
+            {
+              "label": "I accept the",
+              "linkText": "Privacy Policy",
+              "linkUrl": "/privacy",
+              "required": true
+            }
+          ]
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "vertical",
+            "gap": "{spacing.3}",
+            "width": "100%"
+          },
+          "children": [
+            {
+              "name": "consent-item",
+              "type": "frame",
+              "repeat": "items.length",
+              "tokens": {
+                "layoutMode": "horizontal",
+                "gap": "{spacing.2}",
+                "alignItems": "start"
+              },
+              "children": [
+                {
+                  "name": "checkbox",
+                  "type": "instance",
+                  "componentRef": "checkbox",
+                  "tokens": {
+                    "width": "20px",
+                    "height": "20px"
+                  }
+                },
+                {
+                  "name": "label-with-link",
+                  "type": "frame",
+                  "tokens": {
+                    "layoutMode": "horizontal",
+                    "gap": "{spacing.1}",
+                    "flexWrap": "wrap"
+                  },
+                  "children": [
+                    {
+                      "name": "label-text",
+                      "type": "text",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fill": "{colors.text.primary}"
+                      }
+                    },
+                    {
+                      "name": "link-text",
+                      "type": "text",
+                      "visible": "linkText !== null",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fill": "{colors.brand.link-bg}",
+                        "textDecoration": "underline"
+                      }
+                    },
+                    {
+                      "name": "required-indicator",
+                      "type": "text",
+                      "visible": "required === true",
+                      "tokens": {
+                        "fontSize": "{fontSizes.base}",
+                        "fill": "{colors.semantic.error}",
+                        "content": "*"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [
+        "default"
+      ],
+      "accessibility": {
+        "role": "group",
+        "ariaLabel": "Consent and terms",
+        "checkboxAccessibility": "Each checkbox has aria-required if required",
+        "linkAccessibility": "Link text opens in new tab, aria-label includes context"
+      },
+      "figmaNotes": "Vertical stack of consent checkboxes. Each row: checkbox + label + optional link + optional asterisk (required). Link text underlined and brand color. Used on all registration forms. Helper text below group (e.g., 'You can unsubscribe anytime')."
+    },
+    {
+      "id": "verification-code-input",
+      "name": "Verification Code Input (6-digit OTP)",
+      "category": "form",
+      "description": "6-digit code entry for phone verification. Row of 6 individual digit boxes. Auto-advances to next box when digit entered.",
+      "dimensions": {
+        "width": "384px",
+        "height": "64px"
+      },
+      "variants": [
+        {
+          "name": "Desktop (6 boxes)",
+          "properties": {
+            "digits": 6,
+            "boxSize": "56px"
+          }
+        },
+        {
+          "name": "Mobile (6 boxes 2x3 grid)",
+          "properties": {
+            "digits": 6,
+            "boxSize": "48px",
+            "layout": "grid"
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "digits",
+          "type": "number",
+          "default": 6
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": "Enter verification code"
+        },
+        {
+          "name": "layout",
+          "type": "enum",
+          "options": [
+            "row",
+            "grid"
+          ],
+          "default": "row"
+        }
+      ],
+      "layers": [
+        {
+          "name": "label",
+          "type": "text",
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "{colors.text.primary}",
+            "marginBottom": "{spacing.2}"
+          }
+        },
+        {
+          "name": "input-container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "layout === 'row' ? 'horizontal' : 'grid'",
+            "gap": "{spacing.2}",
+            "gridColumns": "layout === 'grid' ? 3 : 6"
+          },
+          "children": [
+            {
+              "name": "digit-box",
+              "type": "rectangle",
+              "repeat": "digits",
+              "tokens": {
+                "width": "56px",
+                "height": "56px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "{colors.brand.primary}",
+                "stroke": "{colors.border.form}",
+                "strokeWidth": "2px"
+              },
+              "children": [
+                {
+                  "name": "digit-text",
+                  "type": "text",
+                  "tokens": {
+                    "fontSize": "{fontSizes.2xl}",
+                    "fontWeight": "{fontWeights.bold}",
+                    "fill": "{colors.text.primary}",
+                    "textAlign": "center"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "states": [
+        "empty",
+        "partial",
+        "complete",
+        "error"
+      ],
+      "accessibility": {
+        "role": "group",
+        "ariaLabel": "Enter 6-digit verification code",
+        "inputMode": "numeric",
+        "keyboard": "Arrow keys navigate, Backspace deletes and moves back, Paste auto-fills all boxes"
+      },
+      "figmaNotes": "6 boxes in a row (desktop) or 2x3 grid (mobile). Each box: 56x56px (desktop), 48x48px (mobile). White background, gray border, centered digit text (24px). Auto-advance on digit entry. Error state: red border on all boxes. Empty state: show placeholder circle or dash."
+    },
+    {
+      "id": "password-strength-meter",
+      "name": "Password Strength Meter",
+      "category": "form",
+      "description": "Visual password strength indicator. 4-segment bar with color-coded strength levels (weak, fair, strong, very-strong). Real-time updates as user types.",
+      "dimensions": {
+        "width": "100%",
+        "height": "24px"
+      },
+      "variants": [
+        {
+          "name": "Weak",
+          "properties": {
+            "strength": "weak"
+          }
+        },
+        {
+          "name": "Fair",
+          "properties": {
+            "strength": "fair"
+          }
+        },
+        {
+          "name": "Strong",
+          "properties": {
+            "strength": "strong"
+          }
+        },
+        {
+          "name": "Very Strong",
+          "properties": {
+            "strength": "very-strong"
+          }
+        }
+      ],
+      "props": [
+        {
+          "name": "strength",
+          "type": "enum",
+          "options": [
+            "weak",
+            "fair",
+            "strong",
+            "very-strong"
+          ],
+          "default": "weak"
+        }
+      ],
+      "layers": [
+        {
+          "name": "container",
+          "type": "frame",
+          "tokens": {
+            "layoutMode": "horizontal",
+            "gap": "{spacing.1}",
+            "width": "100%"
+          },
+          "children": [
+            {
+              "name": "segment-1",
+              "type": "rectangle",
+              "tokens": {
+                "width": "25%",
+                "height": "8px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "strength === 'weak' ? {colors.semantic.error} : (strength === 'fair' ? {colors.semantic.warning} : (strength === 'strong' || strength === 'very-strong' ? {colors.semantic.success} : {colors.border.soft}))"
+              }
+            },
+            {
+              "name": "segment-2",
+              "type": "rectangle",
+              "tokens": {
+                "width": "25%",
+                "height": "8px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "strength === 'fair' ? {colors.semantic.warning} : (strength === 'strong' || strength === 'very-strong' ? {colors.semantic.success} : {colors.border.soft})"
+              }
+            },
+            {
+              "name": "segment-3",
+              "type": "rectangle",
+              "tokens": {
+                "width": "25%",
+                "height": "8px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "strength === 'strong' || strength === 'very-strong' ? {colors.semantic.success} : {colors.border.soft}"
+              }
+            },
+            {
+              "name": "segment-4",
+              "type": "rectangle",
+              "tokens": {
+                "width": "25%",
+                "height": "8px",
+                "borderRadius": "{borderRadius.sm}",
+                "fill": "strength === 'very-strong' ? {colors.semantic.success} : {colors.border.soft}"
+              }
+            }
+          ]
+        },
+        {
+          "name": "strength-label",
+          "type": "text",
+          "tokens": {
+            "fontSize": "{fontSizes.xs}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fill": "strength === 'weak' ? {colors.semantic.error} : (strength === 'fair' ? {colors.semantic.warning} : {colors.semantic.success})",
+            "marginTop": "{spacing.1}"
+          }
+        }
+      ],
+      "states": [
+        "weak",
+        "fair",
+        "strong",
+        "very-strong"
+      ],
+      "accessibility": {
+        "role": "status",
+        "ariaLive": "polite",
+        "ariaLabel": "Password strength: {strength}"
+      },
+      "figmaNotes": "4-segment horizontal bar. Weak: 1 red segment. Fair: 2 amber segments. Strong: 3 green segments. Very strong: 4 green segments. Unfilled segments: light gray. Label below bar shows strength text. Updates in real-time as user types. Place directly below password input field."
     }
   ]
 }

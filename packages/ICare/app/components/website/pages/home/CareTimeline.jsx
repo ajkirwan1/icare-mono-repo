@@ -57,17 +57,17 @@ export default function HowItWorksThreeSteps() {
                     </p>
                 </div>
 
-                <div className={styles.hiwGrid}>
+                <ol className={styles.hiwGrid}>
                     {steps.map((x) => (
-                        <div key={x.t} className={styles.hiwCard}>
+                        <li key={x.t} className={styles.hiwCard}>
                             <div className={styles.hiwCardTop}>
-                                <span className={styles.stepNumber}>{x.n}</span>
+                                <span className={styles.stepNumber} aria-hidden="true">{x.n}</span>
                                 <h3 className={styles.hiwH3}>{x.t}</h3>
                             </div>
                             <p className={styles.hiwP}>{x.d}</p>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ol>
 
                 <div className={styles.ctaWrap}>
                     <p className={styles.ctaText}>

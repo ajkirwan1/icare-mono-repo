@@ -1,0 +1,114 @@
+$text: #0F172A;
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  padding-top: calc(var(--navbar-height) + 5vh);
+  padding-bottom: 7rem;
+  display: grid;
+  gap: 3.8rem;
+  color: $text;
+}
+
+.hero {
+  display: grid;
+  gap: 1.4rem;
+  max-width: 92ch;
+}
+
+.section {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 92ch;
+}
+
+.separator {
+  height: 1px;
+  background: rgba(15, 23, 42, 0.10);
+  width: 100%;
+  max-width: 92ch;
+  margin: 0.2rem 0;
+}
+
+.h1 {
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: $text;
+  font-size: 2.4rem;
+  font-weight: 500;
+}
+
+.h2 {
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  padding-top: 0.2rem;
+  color: $text;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.h3 {
+  margin: 0;
+  line-height: 1.2;
+  color: $text;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.p {
+  margin: 0;
+  line-height: 1.75;
+  font-size: 1.2rem;
+  color: $text;
+  font-weight: 400;
+}
+
+.lead {
+  margin: 0;
+  line-height: 1.75;
+  font-size: 1.2rem;
+  color: $text;
+  font-weight: 400;
+}
+
+.spacer {
+  height: 1rem;
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+  font-size: 1.2rem;
+  line-height: 1.65;
+  color: $text;
+}
+
+.checklistItem {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.tick {
+  width: 12px;
+  height: 7px;
+  border-left: 1.8px solid rgba(15, 23, 42, 0.85);
+  border-bottom: 1.8px solid rgba(15, 23, 42, 0.85);
+  transform: rotate(-45deg);
+  margin-top: 0.45rem;
+  box-sizing: border-box;
+}
+
+.inlineLink {
+  color: $text;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.22);
+  padding-bottom: 1px;
+}

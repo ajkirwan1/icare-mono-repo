@@ -534,4 +534,175 @@ Flag and escalate when:
 - Compliance requirements unclear → compliance-specialist
 - Multiple valid approaches and no guidance → product-director
 
+---
+
+## Phase 3: Screen JSON and SVG Generation (Figma Automation Pipeline)
+
+### Overview
+
+In addition to markdown wireframes, you produce structured JSON screen definitions that feed the SVG wireframe generator. This pipeline converts your JSON into SVG files that can be imported directly into Figma.
+
+**Pipeline**: Markdown wireframe (source of truth) --> Screen JSON --> SVG generator --> SVG output --> Figma import
+
+### File Locations
+
+| Artifact | Path |
+|----------|------|
+| Design tokens | `/docs/tiers/tier1/figma/tokens.json` |
+| Component schemas | `/docs/tiers/tier1/figma/components.json` |
+| Screen JSONs | `/docs/tiers/tier1/figma/screens/[screen-name].json` |
+| SVG generator | `/packages/svg-wireframes/generate.js` |
+| SVG output (desktop) | `/docs/tiers/tier1/figma/svg-output/` |
+| SVG output (mobile) | `/docs/tiers/tier1/figma/svg-output/mobile/` |
+| SVG output (tablet) | `/docs/tiers/tier1/figma/svg-output/tablet/` |
+
+### Existing Screen JSONs (Reference for Schema)
+
+Read at least 2-3 of these before creating new ones:
+- `/docs/tiers/tier1/figma/screens/booking-detail.json` (two-column with sampleData)
+- `/docs/tiers/tier1/figma/screens/booking-request-form.json` (form-heavy)
+- `/docs/tiers/tier1/figma/screens/search-caregiver-search.json` (two-column with filter sidebar)
+- `/docs/tiers/tier1/figma/screens/search-caregiver-profile.json` (profile layout)
+- `/docs/tiers/tier1/figma/screens/dashboard-care-receiver.json` (widget-container pattern)
+- `/docs/tiers/tier1/figma/screens/dashboard-caregiver.json` (widget-container pattern)
+- `/docs/tiers/tier1/figma/screens/dashboard-admin.json` (admin two-column)
+
+### Screen JSON Schema
+
+Every screen JSON must follow this top-level structure:
+
+```json
+{
+  "_metadata": {
+    "screenId": "SCR-XX-NNN",
+    "screenName": "Human Readable Name",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/[category]/scr-xx-nnn-name.md",
+    "generatedDate": "YYYY-MM-DD",
+    "role": "care_receiver|caregiver|admin|public",
+    "route": "/path/:param",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["state1", "state2"],
+    "description": "Brief description"
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": { ... },
+  "sections": [ ... ],
+  "responsiveBehavior": { ... },
+  "stateVariations": { ... }
+}
+```
+
+### Section Structure
+
+Each section in the `sections` array:
+
+```json
+{
+  "id": "section-unique-id",
+  "name": "Human Readable Section Name",
+  "order": 1,
+  "component": "component-type-name",
+  "layout": "vertical|horizontal|two-column|horizontal-grid",
+  "position": { "x": 0, "y": "auto" },
+  "size": { "width": "100%|fill", "height": "auto|64px" },
+  "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.4}" },
+  "gap": "{spacing.4}",
+  "props": { ... },
+  "children": [ ... ],
+  "tokens": { ... },
+  "accessibility": { "role": "...", "ariaLabel": "..." },
+  "visibility": { "desktop": true, "tablet": true, "mobile": true }
+}
+```
+
+### Template Strings (sampleData Interpolation)
+
+Use `${path.to.data}` in string values to reference sampleData. **CRITICAL**: If the entire string is `"${variable}"`, it resolves to the raw type (preserving arrays/objects). Always use `Array.isArray()` guards before `.forEach()` calls on props data in renderers.
+
+### SVG Generator -- Supported Component Types (as of 2026-02-11)
+
+#### Section-Level Renderers
+
+| Component / Layout | Notes |
+|---|---|
+| `component: "navigation-header"` | Global auth header with role variants |
+| `component: "navigation-header-public"` | Minimal public header (logo + login link) |
+| `component: "footer-global"` | Global footer with links |
+| `component: "alert-banner"` | State-dependent alert banners |
+| `component: "breadcrumb"` | Breadcrumb trail |
+| `component: "search-bar"` | Postcode + radius search |
+| `component: "pagination-controls"` | Page pagination |
+| `component: "profile-header"` | Caregiver profile hero |
+| `component: "widget-container"` (top-level) | Dashboard widget cards |
+| `layout: "two-column"` | Two-column layout with columnRatio |
+| `layout: "horizontal-grid"` | Action card grid |
+| `layout: "horizontal"` | Horizontal layout for children |
+
+#### Child-Level Renderers
+
+| Component Name | Description |
+|---|---|
+| `booking-card` / `booking-request-card` | Booking list items |
+| `activity-card` | Activity feed items |
+| `empty-state` | Empty state placeholder |
+| `metric-display` / `metric-row` / `metric-item` | Metric displays |
+| `metric-breakdown` / `metric-list` / `metric-card` | Metric containers |
+| `profile-completion-bar` | Progress bar |
+| `verification-badges` / `verification-badge-row` | Badge rows |
+| `user-avatar` | Avatar circle with initials |
+| `frame` | Empty layout container |
+| `button` | Standard button (primary/secondary) |
+| `input-field` | Form input with label/help text |
+| `textarea` | Multiline text input |
+| `checkbox` | Checkbox with label |
+| `dropdown` / `dropdown-menu` | Dropdowns |
+| `text` / `text-link` | Text and links |
+| `divider` | Horizontal line |
+| `status-badge` / `countdown-timer` | Status indicators |
+| `alert-banner` (child) | Inline alert variant |
+| `star-rating` | 5-star rating display |
+| `caregiver-card` | Search result card |
+| `filter-sidebar` | Filter panel with groups |
+| `care-receiver-card` | Care receiver info card |
+| `earnings-breakdown-card` | Caregiver earnings breakdown |
+| `booking-detail-card` | Booking reference/details |
+| `payment-summary` | Payment breakdown |
+| `booking-timeline` | Timeline with events |
+| `availability-calendar` / `date-picker` | Calendar grid |
+| `review-card` | Review with stars |
+| `loading-skeleton` / `loading-spinner` | Loading placeholders |
+| `step-indicator` | Multi-step progress (1 of N) |
+| `trust-badge-row` | Security/trust badge pills |
+| `consent-checkbox-group` | GDPR consent checkboxes |
+| `verification-code-input` | 6-digit OTP input |
+| `password-strength-meter` | Password strength bar |
+
+**Any unrecognized component renders as a dashed-outline placeholder showing `[component-name]`.**
+
+### Running the SVG Generator
+
+```bash
+node packages/svg-wireframes/generate.js                    # desktop only
+node packages/svg-wireframes/generate.js --viewport all     # all viewports
+```
+
+### Quality Checklist for Screen JSON Production
+
+- [ ] _metadata.screenId matches the canonical screen ID from tier1-route-map.md
+- [ ] _metadata.wireframeSource points to the correct markdown wireframe file
+- [ ] _metadata.role and _metadata.route match tier1-route-map.md
+- [ ] All component names match supported renderers (or document new renderers needed)
+- [ ] Token references use `{token.path}` syntax matching tokens.json
+- [ ] sampleData provides values for all `${template}` references
+- [ ] sections ordered by `order` field (1, 2, 3, ...)
+- [ ] Two-column layouts use `layout: "two-column"` with `columnRatio`
+- [ ] Generator runs without errors
+
+---
+
 Your role is to bridge product vision and implementable, accessible, trust-building interfaces. Work within documented boundaries, advocate for elderly users, and produce specifications that enable high-fidelity Figma design.

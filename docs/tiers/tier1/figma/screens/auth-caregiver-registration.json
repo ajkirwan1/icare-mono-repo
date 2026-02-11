@@ -1,0 +1,148 @@
+{
+  "_metadata": {
+    "screenId": "SCR-AUTH-003",
+    "screenName": "Caregiver Registration",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-003-caregiver-registration.md",
+    "generatedDate": "2026-02-11",
+    "role": "public",
+    "route": "/register/caregiver",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default", "validation-errors", "email-taken", "submitting"]
+  },
+  "frame": {
+    "width": 1440, "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "caregiver": {
+      "name": "", "email": "", "phone": "", "postcode": ""
+    },
+    "selfEmployedAcknowledged": false,
+    "commissionRate": "15%"
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header (Public)",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": { "ctaLabel": "Already have an account? Log in" },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Caregiver Registration Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.5}",
+      "padding": { "horizontal": "{spacing.6}", "vertical": "{spacing.8}" },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text", "variant": "h1", "content": "Become a Caregiver",
+          "tokens": { "fontSize": "{fontSizes.3xl}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.primary}", "textAlign": "center", "marginBottom": "{spacing.2}" }
+        },
+        {
+          "component": "text", "variant": "subtitle", "content": "Join our community and provide companionship to those who need it",
+          "tokens": { "fontSize": "{fontSizes.lg}", "fill": "{colors.text.muted}", "textAlign": "center", "marginBottom": "{spacing.4}" }
+        },
+        {
+          "component": "trust-badge-row",
+          "props": { "badges": [{ "icon": "\ud83d\udd12", "label": "256-bit Encrypted" }, { "icon": "\u2713", "label": "GDPR Compliant" }, { "icon": "\ud83d\udeab", "label": "No Spam" }] }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": { "icon": "\u2139\ufe0f", "heading": "Companionship Services Only", "message": "At Tier 1, caregivers offer companionship, light housework, shopping, and meal preparation. Personal care services are not available yet." }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "YOUR DETAILS",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.4}" }
+        },
+        { "component": "input-field", "props": { "label": "Full name", "placeholder": "e.g., Emma Wilson", "required": true } },
+        { "component": "input-field", "variant": "email", "props": { "label": "Email address", "placeholder": "your.email@example.com", "required": true } },
+        {
+          "component": "input-field", "variant": "password",
+          "props": { "label": "Password", "placeholder": "Create a strong password", "required": true, "showToggle": true, "helpText": "At least 8 characters, including 1 uppercase letter and 1 number" }
+        },
+        { "component": "password-strength-meter", "props": { "strength": "fair" } },
+        {
+          "component": "input-field", "variant": "tel",
+          "props": { "label": "Mobile number", "placeholder": "07xxx xxxxxx", "required": true, "helpText": "We'll send you a verification code" }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "WHERE DO YOU WORK?",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "input-field",
+          "props": { "label": "Postcode", "placeholder": "e.g., SW1A 1AA", "required": true, "helpText": "We'll show you care receivers in your area" }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "EMPLOYMENT STATUS",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text", "content": "Legal requirement: You must acknowledge your status as a self-employed professional",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.text.muted}", "marginBottom": "{spacing.3}" }
+        },
+        {
+          "component": "checkbox",
+          "props": {
+            "label": "I understand I am registering as a self-employed professional, not an employee",
+            "required": true,
+            "helpText": "You will be responsible for your own tax, National Insurance, and insurance. You set your own rates and availability."
+          }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "\u2139\ufe0f",
+            "heading": "Platform commission: 15% of your hourly rate",
+            "message": "This covers payment processing, insurance, and platform services. You'll set your hourly rate during onboarding."
+          }
+        },
+        {
+          "component": "text", "variant": "h2", "content": "TERMS AND CONSENT",
+          "tokens": { "fontSize": "{fontSizes.sm}", "fontWeight": "{fontWeights.bold}", "fill": "{colors.text.muted}", "letterSpacing": "0.05em", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "consent-checkbox-group",
+          "props": {
+            "items": [
+              { "label": "I accept the", "linkText": "Terms of Service for Caregivers", "linkUrl": "/terms/caregiver", "required": true },
+              { "label": "I accept the", "linkText": "Privacy Policy", "linkUrl": "/privacy", "required": true },
+              { "label": "I'd like to receive tips for caregivers and updates via email", "linkText": null, "linkUrl": null, "required": false }
+            ]
+          }
+        },
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Create Account", "action": "submitCaregiverRegistration" },
+          "tokens": { "width": "100%", "height": "56px", "marginTop": "{spacing.6}" }
+        },
+        {
+          "component": "text-link", "props": { "label": "Already have an account? Log in", "href": "/login" },
+          "tokens": { "fontSize": "{fontSizes.base}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.4}" }
+        },
+        {
+          "component": "text-link", "props": { "label": "Looking for care? Register here", "href": "/register/care-receiver" },
+          "tokens": { "fontSize": "{fontSizes.sm}", "fill": "{colors.brand.link-bg}", "textAlign": "center", "marginTop": "{spacing.2}" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer", "name": "Footer", "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "responsiveBehavior": {
+    "desktop": { "breakpoint": "1440px+", "layout": "centered form, max-width 600px" },
+    "tablet": { "breakpoint": "768px-1439px", "layout": "centered form, max-width 600px" },
+    "mobile": { "breakpoint": "320px-767px", "layout": "full-width with 16px padding, stacked sections" }
+  }
+}

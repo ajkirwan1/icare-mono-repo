@@ -9,55 +9,54 @@ import { buildSeo } from "../utils/seo/seo";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
 import HeroCaregiversTicker from "../components/website/pages/home/sections/HeroCaregiversTicker";
-import ICareWaitlistFinal from "../components/website/pages/home/sections/ICareWaitlistFinal";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
 import AiChat from "../components/website/common/modals/AiChat";
 
 
 export function meta() {
-    const seo = buildSeo({
-        title: "Companionship & home support platform",
-        description:
-            "Find trusted companionship and everyday support at home. ICare connects families and independent carers directly, without agencies or intermediaries.",
-        imagePath: "/images/og/home.png"
-    });
+  const seo = buildSeo({
+    title: "Companionship & home support platform",
+    description:
+      "Find trusted companionship and everyday support at home. ICare connects families and independent carers directly, without agencies or intermediaries.",
+    imagePath: "/images/og/home.png"
+  });
 
-    return [
-        { title: seo.title },
-        { name: "description", content: seo.description },
+  return [
+    { title: seo.title },
+    { name: "description", content: seo.description },
 
-        { property: "og:title", content: seo.title },
-        { property: "og:description", content: seo.description },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: seo.url },
-        { property: "og:image", content: seo.image }
+    { property: "og:title", content: seo.title },
+    { property: "og:description", content: seo.description },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: seo.url },
+    { property: "og:image", content: seo.image }
 
-        // { name: "twitter:card", content: "summary_large_image" },
-        // { name: "twitter:title", content: seo.title },
-        // { name: "twitter:description", content: seo.description },
-        // { name: "twitter:image", content: seo.image },
-    ];
+    // { name: "twitter:card", content: "summary_large_image" },
+    // { name: "twitter:title", content: seo.title },
+    // { name: "twitter:description", content: seo.description },
+    // { name: "twitter:image", content: seo.image },
+  ];
 }
 
 export default function Home() {
 
-    return (
-        <>
-            <HomePageHero imgSrc={heroImage} />
-            <AboutICareSection />
-            <CareTimeline />
-            {/* <TrustIntroSection /> */}
-            <TrustValuesSection />
-            <HomePageCareCTA />
-            <IcareSafetyBlock />
-            <ICareCostEstimator />
-            <ICareTypesOfCareSEO />
-            <HeroCaregiversTicker />
-            {/* <ICareWaitlistFinal /> */}
-            <ICareEarlyAccessHomeSection />
-            <ICareFooter />
-            <AiChat />
-        </>
-    );
+  return (
+    <>
+      <HomePageHero imgSrc={heroImage} />
+      <main>
+        <AboutICareSection />
+        <CareTimeline />
+        <TrustValuesSection />
+        <HomePageCareCTA />
+        <IcareSafetyBlock />
+        <ICareCostEstimator />
+        <ICareTypesOfCareSEO />
+        <HeroCaregiversTicker />
+        <ICareEarlyAccessHomeSection />
+      </main>
+      <ICareFooter />
+      <AiChat />
+    </>
+  );
 }

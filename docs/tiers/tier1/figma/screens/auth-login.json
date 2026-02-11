@@ -1,0 +1,301 @@
+{
+  "_metadata": {
+    "screenId": "SCR-AUTH-005",
+    "screenName": "Login",
+    "wireframeSource": "/docs/tiers/tier1/draft-design-specs/wireframes/auth/scr-auth-005-login.md",
+    "generatedDate": "2026-02-11",
+    "role": "public",
+    "route": "/login",
+    "breakpoints": {
+      "desktop": 1440,
+      "tablet": 768,
+      "mobile": 375
+    },
+    "states": [
+      "default",
+      "validation-errors",
+      "invalid-credentials",
+      "account-locked",
+      "account-suspended"
+    ]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sampleData": {
+    "user": {
+      "email": "",
+      "rememberMe": false
+    },
+    "failedAttempts": 0,
+    "maxAttempts": 5,
+    "isLocked": false,
+    "isSuspended": false
+  },
+  "sections": [
+    {
+      "id": "section-header",
+      "name": "Navigation Header (Public)",
+      "order": 1,
+      "component": "navigation-header-public",
+      "props": {
+        "ctaLabel": "Don't have an account? Sign up",
+        "ctaUrl": "/register/care-receiver"
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "100%", "height": "64px" }
+    },
+    {
+      "id": "section-form",
+      "name": "Login Form",
+      "order": 2,
+      "layout": "vertical",
+      "gap": "{spacing.6}",
+      "padding": {
+        "horizontal": "{spacing.6}",
+        "vertical": "{spacing.8}"
+      },
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" },
+      "children": [
+        {
+          "component": "text",
+          "variant": "h1",
+          "content": "Welcome Back",
+          "tokens": {
+            "fontSize": "{fontSizes.3xl}",
+            "fontWeight": "{fontWeights.bold}",
+            "fill": "{colors.text.primary}",
+            "lineHeight": "{lineHeights.tight}",
+            "textAlign": "center",
+            "marginBottom": "{spacing.2}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Log in to your account",
+          "tokens": {
+            "fontSize": "{fontSizes.lg}",
+            "fontWeight": "{fontWeights.normal}",
+            "fill": "{colors.text.muted}",
+            "lineHeight": "{lineHeights.normal}",
+            "textAlign": "center",
+            "marginBottom": "{spacing.8}"
+          }
+        },
+        {
+          "id": "login-form-card",
+          "layout": "vertical",
+          "gap": "{spacing.4}",
+          "tokens": {
+            "fill": "{colors.background.card-glass}",
+            "borderRadius": "{borderRadius.lg}",
+            "boxShadow": "{boxShadow.card-soft}",
+            "padding": "{spacing.6}",
+            "maxWidth": "500px",
+            "margin": "0 auto"
+          },
+          "children": [
+            {
+              "component": "input-field",
+              "variant": "email",
+              "props": {
+                "label": "Email address",
+                "placeholder": "your.email@example.com",
+                "required": true,
+                "autocomplete": "email"
+              },
+              "tokens": {
+                "marginBottom": "{spacing.4}"
+              }
+            },
+            {
+              "component": "input-field",
+              "variant": "password",
+              "props": {
+                "label": "Password",
+                "placeholder": "Enter your password",
+                "required": true,
+                "autocomplete": "current-password",
+                "showToggle": true
+              },
+              "tokens": {
+                "marginBottom": "{spacing.4}"
+              }
+            },
+            {
+              "id": "remember-forgot-row",
+              "layout": "horizontal",
+              "justify": "space-between",
+              "align": "center",
+              "children": [
+                {
+                  "component": "checkbox",
+                  "props": {
+                    "label": "Remember me on this device",
+                    "helpText": "Stay logged in for 30 days"
+                  }
+                },
+                {
+                  "component": "text-link",
+                  "props": {
+                    "label": "Forgot password?",
+                    "href": "/forgot-password"
+                  },
+                  "tokens": {
+                    "fontSize": "{fontSizes.sm}",
+                    "fill": "{colors.brand.link-bg}"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "component": "button",
+          "variant": "primary",
+          "size": "lg",
+          "props": {
+            "label": "Log In",
+            "action": "submitLogin",
+            "type": "submit"
+          },
+          "tokens": {
+            "width": "500px",
+            "maxWidth": "100%",
+            "height": "56px",
+            "margin": "0 auto",
+            "marginTop": "{spacing.6}"
+          }
+        },
+        {
+          "component": "text",
+          "variant": "link",
+          "content": "Don't have an account? Sign up",
+          "props": {
+            "href": "/register/care-receiver"
+          },
+          "tokens": {
+            "fontSize": "{fontSizes.base}",
+            "fill": "{colors.brand.link-bg}",
+            "textAlign": "center",
+            "marginTop": "{spacing.4}"
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 3,
+      "component": "footer-global",
+      "position": { "x": 0, "y": "auto" },
+      "size": { "width": "100%", "height": "auto" }
+    }
+  ],
+  "stateVariations": {
+    "default": {
+      "description": "Clean login form ready for input"
+    },
+    "invalid-credentials": {
+      "description": "User entered wrong email or password",
+      "sections": {
+        "section-form": {
+          "children": {
+            "alert-banner": {
+              "visible": true,
+              "severity": "warning",
+              "message": "Invalid email or password. 4 attempts remaining."
+            }
+          }
+        }
+      }
+    },
+    "account-locked": {
+      "description": "Too many failed login attempts",
+      "sections": {
+        "section-form": {
+          "children": {
+            "alert-banner": {
+              "visible": true,
+              "severity": "error",
+              "message": "Too many failed login attempts. Account locked for 10 minutes."
+            },
+            "login-form-card": {
+              "disabled": true
+            },
+            "submit-button": {
+              "disabled": true
+            }
+          }
+        }
+      }
+    },
+    "account-suspended": {
+      "description": "Account has been suspended by admin",
+      "sections": {
+        "section-form": {
+          "children": {
+            "alert-banner": {
+              "visible": true,
+              "severity": "error",
+              "message": "Your account has been suspended. Contact support for assistance."
+            },
+            "login-form-card": {
+              "disabled": true
+            },
+            "submit-button": {
+              "disabled": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "responsiveBehavior": {
+    "desktop": {
+      "breakpoint": "1440px+",
+      "layout": "centered form, max-width 500px",
+      "rememberForgot": "horizontal row"
+    },
+    "tablet": {
+      "breakpoint": "768px-1439px",
+      "layout": "centered form, max-width 500px",
+      "rememberForgot": "horizontal row"
+    },
+    "mobile": {
+      "breakpoint": "320px-767px",
+      "layout": "full-width form with padding",
+      "rememberForgot": "stacked vertically"
+    }
+  },
+  "accessibilityNotes": {
+    "focusOrder": [
+      "skip-link",
+      "logo",
+      "sign-up-link",
+      "email-input",
+      "password-input",
+      "password-toggle",
+      "remember-me-checkbox",
+      "forgot-password-link",
+      "login-button",
+      "sign-up-link-duplicate",
+      "footer"
+    ],
+    "ariaLabels": {
+      "email-input": "Email address, required",
+      "password-input": "Password, required",
+      "login-button": "Log in to your account"
+    },
+    "screenReaderAnnouncements": {
+      "pageLoad": "Welcome back page. Log in to your account.",
+      "invalidCredentials": "Error: Invalid email or password. 4 attempts remaining.",
+      "accountLocked": "Error: Too many failed login attempts. Account locked for 10 minutes."
+    }
+  }
+}
