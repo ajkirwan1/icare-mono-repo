@@ -1,0 +1,159 @@
+@use "@styles/tokens" as *;
+
+.section {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 4rem 0;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.headerBlock {
+    max-width: 1000px;
+    margin-bottom: 3.6rem;
+}
+
+.heading {
+    margin: 0;
+    font-weight: $fw-semibold;
+    font-size: 2.8rem;
+    color: $txt;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+}
+
+.leadStrong {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: $link-bg;
+    font-weight: $fw-bold;
+    font-size: 1.5rem;
+}
+
+.leadText {
+    margin: 1.2rem 0 0;
+    font-size: 1.25rem;
+    color: $txt;
+    line-height: $lh-copy;
+}
+
+/* Steps list */
+.stepsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.stepItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.stepImageWrap {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.stepImageFrame {
+    width: 100%;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #f3f4f6;
+}
+
+.stepImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.stepContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stepTitle {
+    margin: 0;
+    font-size: $font-xl;
+    font-weight: $fw-semibold;
+    color: $txt;
+}
+
+.stepNumber {
+    margin-right: 10px;
+}
+
+.stepDescription {
+    margin: 0;
+    color: #000;
+    line-height: 1.55;
+    font-size: 1.1rem;
+}
+
+/* CTA */
+.ctaWrap {
+    margin-top: 4.2rem;
+}
+
+.ctaLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1.1rem 1.8rem;
+    border-radius: $radius-pill;
+    background: $link-bg;
+    color: $on-dark;
+    font-weight: $fw-heavy;
+    font-size: $font-base;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease;
+}
+
+.ctaLink:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+/* Card animation */
+.stepItem {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+        opacity 1.1s ease,
+        transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    will-change: opacity, transform;
+}
+
+.stepItem:global(.is-visible) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.stepItem:nth-child(1):global(.is-visible) { transition-delay: 0ms; }
+.stepItem:nth-child(2):global(.is-visible) { transition-delay: 200ms; }
+.stepItem:nth-child(3):global(.is-visible) { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    .stepItem {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

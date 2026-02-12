@@ -1,13 +1,13 @@
-$text: #0f172a;
+@use "@styles/tokens" as *;
+
 $icon: #dd8b4f;
-$border: rgba(15, 23, 42, 0.10);
 $bg: #fff9ef;
 
 .section {
     width: 100%;
     padding: clamp(4.2rem, 6.2vw, 5.6rem) 0;
     background: $bg;
-    color: $text;
+    color: $txt;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     position: relative;
 }
@@ -18,7 +18,7 @@ $bg: #fff9ef;
     left: 0;
     right: 0;
     height: 1px;
-    background: $border;
+    background: $card-border;
 }
 
 .dividerTop {
@@ -48,11 +48,11 @@ $bg: #fff9ef;
 .h2 {
     margin: 0;
     padding: 0;
-    font-weight: 500;
-    letter-spacing: -0.6px;
-    line-height: 1.14;
+    font-weight: $fw-semibold;
+    letter-spacing: $tracking-tight;
+    line-height: $lh-tight;
     font-size: 2.6rem;
-    color: $text;
+    color: $txt;
 
     @media (max-width:600px) {
         font-size: 2rem;
@@ -62,9 +62,9 @@ $bg: #fff9ef;
 .lead {
     margin: 12px 0 0;
     padding: 0;
-    color: $text;
-    font-weight: 500;
-    line-height: 1.65;
+    color: $txt;
+    font-weight: $fw-semibold;
+    line-height: $lh-copy;
     font-size: 1.25rem;
     max-width: 78ch;
 }
@@ -77,6 +77,8 @@ $bg: #fff9ef;
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(18px, 2.2vw, 26px);
     align-items: stretch;
+    list-style: none;
+    padding: 0;
 }
 
 /* item style */
@@ -121,9 +123,9 @@ $bg: #fff9ef;
 .title {
     margin: 0;
     padding: 0;
-    font-weight: 600;
-    letter-spacing: -0.15px;
-    color: $text;
+    font-weight: $fw-bold;
+    letter-spacing: $tracking-normal;
+    color: $txt;
     font-size: 1.12rem;
     line-height: 1.4;
     white-space: normal;
@@ -132,9 +134,9 @@ $bg: #fff9ef;
 
 .desc {
     margin: 0;
-    color: $text;
-    font-weight: 400;
-    line-height: 1.6;
+    color: $txt;
+    font-weight: $fw-normal;
+    line-height: $lh-body;
     font-size: 1.02rem;
     white-space: normal;
     overflow: visible;
@@ -145,25 +147,25 @@ $bg: #fff9ef;
 .note {
     margin-top: clamp(26px, 4vw, 44px);
     padding-top: clamp(14px, 2vw, 18px);
-    border-top: 1px solid $border;
-    color: $text;
+    border-top: 1px solid $card-border;
+    color: $txt;
     max-width: 78ch;
 }
 
 .noteTitle {
     margin: 0;
     font-size: 1.15rem;
-    font-weight: 600;
+    font-weight: $fw-bold;
     letter-spacing: -0.1px;
-    color: $text;
+    color: $txt;
 }
 
 .noteText {
     margin: 0.55rem 0 0;
-    font-size: 1.05rem;
-    line-height: 1.65;
-    font-weight: 400;
-    color: $text;
+    font-size: $font-base;
+    line-height: $lh-copy;
+    font-weight: $fw-normal;
+    color: $txt;
 }
 
 /* ---------- RESPONSIVE ---------- */

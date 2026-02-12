@@ -54,8 +54,8 @@ This route map covers **Tier 1 (Companionship Only)** features:
 
 This route map is derived from:
 - `/docs/ROADMAP.md` - Tier definitions (FDR-003)
-- `/docs/tiers/tier1/planning/r0-launch-scope.md` - R0 launch-critical screens (30 screens)
-- `/docs/tiers/tier1/planning/r1-launch-scope.md` - Full Tier 1 MVP (45 screens)
+- `/docs/tiers/tier1/planning/r0-launch-scope.md` - R0 launch-critical screens (34 screens)
+- `/docs/tiers/tier1/planning/r1-launch-scope.md` - Full Tier 1 MVP (50 screens)
 - `/docs/product/features/tier1-booking-specification.md` - Booking system
 - `/docs/product/features/tier1-verification-specification.md` - Verification workflows
 - `/docs/product/features/tier1-search-specification.md` - Search and discovery
@@ -68,8 +68,8 @@ This route map is derived from:
 
 | Release | Screen Count | Purpose |
 |---------|--------------|---------|
-| **R0** | 30 screens | Launch-critical minimum |
-| **R1** | 47 screens | Full Tier 1 MVP |
+| **R0** | 34 screens | Launch-critical minimum |
+| **R1** | 50 screens | Full Tier 1 MVP |
 
 ---
 
@@ -164,10 +164,12 @@ This route map is derived from:
 | Screen ID | Screen Name | Route | Access | R0/R1 | Feature Reference |
 |-----------|-------------|-------|--------|-------|-------------------|
 | **SCR-CR-006** | Booking Request Form | `/bookings/new/:caregiverId` | Family | R0 | Booking spec 3.1 |
+| **SCR-CR-007** | My Bookings (Care Receiver) | `/dashboard/bookings` | Family | R0 | Booking spec, Dashboard "View All" |
 | **SCR-CR-008** | Booking Detail | `/bookings/:bookingId` | Family/Caregiver | R0 | Booking spec 3.3 |
 | **SCR-CR-009** | Booking Cancellation | `/bookings/:bookingId/cancel` | Family/Caregiver | R1 | Booking spec 3.5 |
 | **SCR-CR-015** | Leave Review | `/bookings/:bookingId/review` | Family | R0 | Booking spec, Review system |
 | **SCR-CG-013** | Booking Request Detail (Caregiver) | `/caregiver/bookings/:bookingId` | Caregiver | R0 | Booking spec 3.2 |
+| **SCR-CG-014** | My Bookings (Caregiver) | `/caregiver/bookings` | Caregiver | R0 | Booking spec, Route map 9.3 |
 
 ### 3.4 Payment Routes (R0)
 
@@ -181,7 +183,7 @@ This route map is derived from:
 | Screen ID | Screen Name | Route | Access | R0/R1 | Feature Reference |
 |-----------|-------------|-------|--------|-------|-------------------|
 | **SCR-CR-011** | Message Thread | `/messages/:conversationId` | Family/Caregiver | R0 | Messaging spec 4.4-4.6 |
-| **SCR-CR-012** | Message Inbox | `/messages` | Family/Caregiver | R1 | Messaging spec 4.1-4.3 |
+| **SCR-CR-012** | Message Inbox | `/messages` | Family/Caregiver | R0 | Messaging spec 4.1-4.3 |
 
 ### 3.6 Care Receiver Dashboard Routes (R0/R1)
 
@@ -206,7 +208,7 @@ This route map is derived from:
 | Screen ID | Screen Name | Route | Access | R0/R1 | Feature Reference |
 |-----------|-------------|-------|--------|-------|-------------------|
 | **SCR-CG-001** | Caregiver Dashboard | `/caregiver/dashboard` | Caregiver | R0 | Feature map 17 |
-| **SCR-CG-003** | Profile Management | `/caregiver/profile/edit` | Caregiver | R1 | Verification spec 7.3 |
+| **SCR-CG-003** | Profile Management | `/caregiver/profile/edit` | Caregiver | R0 | Verification spec 7.3 |
 | **SCR-CG-011** | Availability Calendar | `/caregiver/availability` | Caregiver | R1 | Feature map 15.2 |
 | **SCR-CG-015** | Earnings Dashboard | `/caregiver/earnings` | Caregiver | R1 | Feature map 7.5 |
 | **SCR-CG-016** | Payout History | `/caregiver/earnings/history` | Caregiver | R1 | Feature map 7.5 |
@@ -227,6 +229,9 @@ This route map is derived from:
 | **SCR-ADM-019** | Incident Reports | `/admin/incidents` | Admin | R1 | Admin spec 2.4 |
 | **SCR-ADM-020** | Analytics Dashboard | `/admin/analytics` | Admin | R1 | Admin spec 9 |
 | **SCR-ADM-023** | Audit Log | `/admin/audit` | Admin | R1 | Admin spec 10 |
+| **SCR-ADM-025** | User Management Dashboard | `/admin/users` | Admin | R0 | Admin spec 2.2 |
+| **SCR-ADM-026** | Verification Queue | `/admin/verifications` | Admin | R0 | Admin spec 2.1 |
+| **SCR-ADM-028** | System Settings | `/admin/settings` | Admin | R0 | Admin spec 10 |
 
 ---
 
@@ -626,11 +631,11 @@ This route map is derived from:
 - **Feature Reference**: Feature map 17
 - **Data Sensitivity**: Medium (personal dashboard)
 
-#### SCR-CG-003: Profile Management (R1)
+#### SCR-CG-003: Profile Management (R0)
 - **Route**: `/caregiver/profile/edit`
 - **Access**: Authenticated (Caregiver)
 - **Purpose**: Self-service profile updates
-- **R0/R1**: R1 (support handles edits at R0)
+- **R0/R1**: R0 (elevated from R1 — "My Profile" nav link in all caregiver screens requires this)
 - **Key States**: Editing profile, profile saved, profile changes pending admin review (if significant changes)
 - **Components**: Profile photo upload/change, bio textarea (max 500 chars), services offered checkboxes (companionship only at T1), hourly rate input (10-100 GBP), languages spoken selector, interests/hobbies textarea, transportation checkbox (has vehicle), save profile button
 - **Navigation**: → Dashboard, → Preview public profile

@@ -4,8 +4,8 @@
 
 **Document Owner**: Product Team
 **Document Status**: CANONICAL - All design and development references this document
-**Last Updated**: 2026-02-06
-**Version**: 1.0
+**Last Updated**: 2026-02-12
+**Version**: 1.1
 
 **Tier Scope**: This inventory covers **Tier 1 (Minimal)** launch features only. Screens requiring Tier 2+ (personal care, care skills, mandatory DBS) or Tier 3+ (medical conditions, risk assessment) are explicitly excluded.
 
@@ -13,13 +13,24 @@
 
 ## Executive Summary
 
-**Total Screens Documented**: 30 screens (R0 Launch-Critical)
+**Total Screens Documented**: 34 screens (R0 Launch-Critical)
 **Screen Categories**:
 - Authentication & Registration: 6 screens
 - Public/Compliance: 4 screens
-- Care Receiver Flows: 8 screens (includes Dashboard, Message Thread, Leave Review)
-- Caregiver Flows: 8 screens (includes Dashboard)
-- Admin Operations: 4 screens
+- Care Receiver Flows: 10 screens (includes Dashboard, Message Thread, Message Inbox, My Bookings, Leave Review)
+- Caregiver Flows: 8 screens (includes Dashboard, My Bookings, Profile Management)
+- Admin Operations: 6 screens (list screens only; 4 detail screens wireframe-pending)
+
+> **v1.2 Changes (2026-02-12)**: Profile Management elevated to R0:
+> - SCR-CG-003 (Profile Management) elevated from R1 to R0 — "My Profile" nav link requires destination
+> See GAP-005 in `/docs/tiers/tier1/decision-impact-log.md` for details.
+
+> **v1.1 Changes (2026-02-12)**: Screen Gap Analysis added 3 screens to R0:
+> - SCR-CR-012 (Message Inbox) elevated from R1 to R0
+> - SCR-CR-007 (My Bookings - Care Receiver) new R0 screen
+> - SCR-CG-014 (My Bookings - Caregiver) new R0 screen
+> Admin ID reconciliation: 5 admin screen IDs reassigned to match route map.
+> See `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` for details.
 
 **Tier 1 Constraints**:
 - Services: Companionship only (NO personal care, NO condition matching)
@@ -27,7 +38,7 @@
 - Verification: ID + Right to Work + Voluntary DBS (NO mandatory DBS, NO qualifications)
 
 **Source Documents**:
-- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 30 R0 launch-critical screens (updated 2026-02-06)
+- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 34 R0 launch-critical screens (updated 2026-02-12)
 - `/docs/tiers/tier1/features.md` - 77 Tier 1 features across 11 systems
 - `/docs/tiers/common/spec/feature-map.md` - Complete feature definitions with tier tags
 - `/docs/tiers/common/spec/state-maps.md` - 7 critical state machine flows
@@ -38,9 +49,9 @@
 
 1. [Authentication & Registration](#category-1-authentication--registration) (6 screens)
 2. [Public & Compliance](#category-2-public--compliance) (4 screens)
-3. [Care Receiver Flows](#category-3-care-receiver-flows) (8 screens)
+3. [Care Receiver Flows](#category-3-care-receiver-flows) (10 screens)
 4. [Caregiver Flows](#category-4-caregiver-flows) (8 screens)
-5. [Admin Operations](#category-5-admin-operations) (4 screens)
+5. [Admin Operations](#category-5-admin-operations) (6 screens)
 6. [Route Index](#route-index)
 7. [Cross-Reference Matrix](#cross-reference-matrix)
 8. [Gaps and Open Questions](#gaps-and-open-questions)
@@ -2035,3 +2046,13 @@ This is correctly documented. No gap.
 - Source: `/docs/tiers/common/spec/state-maps.md`
 - Source: `/docs/tiers/common/spec/marketplace-spec.md`
 - Source: `/docs/tiers/tier1/planning/build-sequence.md`
+
+---
+
+## Document History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2026-02-02 | Product Team (AI-assisted) | Initial canonical screen inventory for Tier 1 R0 launch (26 screens) |
+| 1.1 | 2026-02-12 | Product Director (Agent) | **Screen Gap Analysis**: R0 count 30→33. Added SCR-CR-007 (My Bookings CR), SCR-CR-012 (Message Inbox, elevated from R1), SCR-CG-014 (My Bookings CG). Admin IDs reassigned per route map reconciliation. |
+| 1.2 | 2026-02-12 | Product Director (Agent) | **GAP-005**: SCR-CG-003 (Profile Management) elevated from R1 to R0. R0 count 33→34. Caregiver flows 7→8. |

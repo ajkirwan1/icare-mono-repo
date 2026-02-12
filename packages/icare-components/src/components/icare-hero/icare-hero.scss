@@ -2,7 +2,7 @@
   font-family: var(--icare-font-family);
   display: block;
   height: 100vh;         /* full viewport height */
-  width: 100vw;          /* full viewport width */
+  width: 100%;           /* full viewport width */
   position: relative;     /* for overlay positioning */
   overflow: hidden;       /* prevents scrolling */
   margin: 0;

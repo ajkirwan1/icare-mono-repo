@@ -31,8 +31,6 @@ export default [
   // Auth
   route("login", "routes/auth/login.jsx"),
 
-  route("register", "routes/register.jsx"),
-
   // SEC
   route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
 

@@ -103,6 +103,100 @@ Please update /docs/tiers/tier1/decision-impact-log.md immediately.
 
 ---
 
+### GAP-001: Message Inbox Elevated to R0
+
+**Date**: 2026-02-12
+**Decision**: Message Inbox (SCR-CR-012) elevated from R1 to R0
+**Rationale**: Dashboard and main nav "Messages" links point to `/messages` which is a dead link without this screen. Booking-scoped message threads (SCR-CR-011) accessible but no centralized inbox.
+**Source**: `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` (GAP 1, Option C)
+
+**Affected Deliverables**:
+
+| Deliverable | Path | Change Required | Status | Updated Date |
+|-------------|------|----------------|--------|--------------|
+| tier1-route-map.md | `/docs/product/tier1-route-map.md` | Change SCR-CR-012 from R1 to R0, update counts 30→33, 47→50 | ✅ COMPLETE | 2026-02-12 |
+| r0-launch-scope.md | `/docs/tiers/tier1/planning/r0-launch-scope.md` | Update R0 count 30→33, add GAP-001 to change log | ✅ COMPLETE | 2026-02-12 |
+| r1-launch-scope.md | `/docs/tiers/tier1/planning/r1-launch-scope.md` | Update R0/R1 counts, add GAP elevation note | ✅ COMPLETE | 2026-02-12 |
+| Screen JSON | `/docs/tiers/tier1/figma/screens/message-inbox.json` | Created new screen JSON (SCR-CR-012) | ✅ COMPLETE | 2026-02-12 |
+| SVG wireframes | `svg-output/care-receiver/message-inbox.svg` | Generated desktop, tablet, mobile SVGs | ✅ COMPLETE | 2026-02-12 |
+
+---
+
+### GAP-002: My Bookings (Care Receiver) Added to R0
+
+**Date**: 2026-02-12
+**Decision**: New screen SCR-CR-007 (My Bookings - Care Receiver) added to R0 at `/dashboard/bookings`
+**Rationale**: Dashboard "View All" links for bookings and main nav "My Bookings" point to a route that doesn't exist. At R0 volumes most users have 0-3 bookings, but navigation is broken without this screen.
+**Source**: `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` (GAP 2, Option B)
+
+**Affected Deliverables**:
+
+| Deliverable | Path | Change Required | Status | Updated Date |
+|-------------|------|----------------|--------|--------------|
+| tier1-route-map.md | `/docs/product/tier1-route-map.md` | Add SCR-CR-007 to booking routes | ✅ COMPLETE | 2026-02-12 |
+| r0-launch-scope.md | `/docs/tiers/tier1/planning/r0-launch-scope.md` | Add GAP-002 to change log | ✅ COMPLETE | 2026-02-12 |
+| Screen JSON | `/docs/tiers/tier1/figma/screens/bookings-list-care-receiver.json` | Created new screen JSON (SCR-CR-007) | ✅ COMPLETE | 2026-02-12 |
+| SVG wireframes | `svg-output/care-receiver/bookings-list-care-receiver.svg` | Generated desktop, tablet, mobile SVGs | ✅ COMPLETE | 2026-02-12 |
+
+---
+
+### GAP-003: My Bookings (Caregiver) Added to R0
+
+**Date**: 2026-02-12
+**Decision**: New screen SCR-CG-014 (My Bookings - Caregiver) added to R0 at `/caregiver/bookings`
+**Rationale**: Route map defines query parameters for `/caregiver/bookings` but no screen exists. Caregiver nav "Booking Requests" and "My Bookings" links are broken.
+**Source**: `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` (GAP 3, Option B)
+
+**Affected Deliverables**:
+
+| Deliverable | Path | Change Required | Status | Updated Date |
+|-------------|------|----------------|--------|--------------|
+| tier1-route-map.md | `/docs/product/tier1-route-map.md` | Add SCR-CG-014 to booking routes | ✅ COMPLETE | 2026-02-12 |
+| r0-launch-scope.md | `/docs/tiers/tier1/planning/r0-launch-scope.md` | Add GAP-003 to change log | ✅ COMPLETE | 2026-02-12 |
+| Screen JSON | `/docs/tiers/tier1/figma/screens/bookings-list-caregiver.json` | Created new screen JSON (SCR-CG-014) | ✅ COMPLETE | 2026-02-12 |
+| SVG wireframes | `svg-output/caregiver/bookings-list-caregiver.svg` | Generated desktop, tablet, mobile SVGs | ✅ COMPLETE | 2026-02-12 |
+
+---
+
+### GAP-004: Admin Screen ID Reconciliation
+
+**Date**: 2026-02-12
+**Decision**: Hybrid approach — reassign list screen IDs to new numbers, flag displaced detail screens as wireframe-pending
+**Rationale**: Admin wireframes built correct LIST screens but used IDs the route map assigns to DETAIL screens, causing ID collisions
+**Source**: `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` (GAP 4, Option C)
+
+**Affected Deliverables**:
+
+| Deliverable | Path | Change Required | Status | Updated Date |
+|-------------|------|----------------|--------|--------------|
+| Admin wireframes (5 files) | `wireframes/admin/scr-adm-*` | Renamed files with corrected IDs | ✅ COMPLETE | 2026-02-12 |
+| Admin screen JSONs (4 files) | `figma/screens/adm-*.json` | Updated internal screenId fields | ✅ COMPLETE | 2026-02-12 |
+| tier1-route-map.md | `/docs/product/tier1-route-map.md` | Added SCR-ADM-025, SCR-ADM-026, SCR-ADM-028 entries | ✅ COMPLETE | 2026-02-12 |
+| SVG wireframes (15 files) | `svg-output/admin/` | Regenerated all admin SVGs | ✅ COMPLETE | 2026-02-12 |
+
+---
+
+### GAP-005: Profile Management Elevated to R0
+
+**Date**: 2026-02-12
+**Decision**: Elevate SCR-CG-003 (Caregiver Profile Management) from R1 to R0
+**Rationale**: "My Profile" nav link in all caregiver screens points to `/caregiver/profile/edit`, which has no destination screen at R0. Caregivers also need self-service profile editing for bio, services, rate, availability, languages, interests.
+**Source**: Navigation audit of SVG wireframes — Profile link in caregiver nav bar has no destination
+
+**Affected Deliverables**:
+
+| Deliverable | Path | Change Required | Status | Updated Date |
+|-------------|------|----------------|--------|--------------|
+| tier1-route-map.md | `/docs/product/tier1-route-map.md` | SCR-CG-003 changed from R1 to R0; R0 count 33→34 | COMPLETE | 2026-02-12 |
+| r0-launch-scope.md | `planning/r0-launch-scope.md` | Added GAP-005 to change log; added SCR-CG-003 entry; count 33→34 | COMPLETE | 2026-02-12 |
+| r1-launch-scope.md | `planning/r1-launch-scope.md` | Removed SCR-CG-003 from R1 additions; updated counts; updated build priorities | COMPLETE | 2026-02-12 |
+| Screen JSON | `figma/screens/caregiver-profile-edit.json` | Created screen JSON for SCR-CG-003 | COMPLETE | 2026-02-12 |
+| SVG wireframes | `svg-output/caregiver/` | Generated desktop + tablet + mobile SVGs | COMPLETE | 2026-02-12 |
+| components.json | `figma/components.json` | Added multi-select-tags component (85→86) | COMPLETE | 2026-02-12 |
+| generate.js | `packages/svg-wireframes/generate.js` | Fixed navItems to read from screen JSON; added multi-select-tags renderer | COMPLETE | 2026-02-12 |
+
+---
+
 ## Impact Analysis Matrix
 
 **Purpose**: Quick reference for which types of decisions affect which artifacts.
@@ -124,6 +218,8 @@ Please update /docs/tiers/tier1/decision-impact-log.md immediately.
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-02-07 | Product Director (Agent) | Initial decision impact log created; documented CB-001, CB-002, CB-005, CB-006 with full artifact impact tracking |
+| 1.1 | 2026-02-12 | Product Director (Agent) | Added GAP-001 through GAP-004 decisions from Screen Gap Analysis; all affected deliverables marked COMPLETE |
+| 1.2 | 2026-02-12 | Product Director (Agent) | Added GAP-005 (Profile Management elevated to R0); all deliverables COMPLETE |
 
 ---
 

@@ -1,0 +1,203 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-014",
+    "screenName": "My Bookings (Caregiver)",
+    "wireframeSource": null,
+    "generatedDate": "2026-02-12",
+    "role": "caregiver",
+    "route": "/caregiver/bookings",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["all", "pending_requests", "upcoming", "in_progress", "completed", "declined", "empty"],
+    "description": "Filterable list of all bookings for the caregiver. Pending requests tab is primary with 24h countdown and inline accept/decline. Shows booking cards with care receiver info, date/time, location, earnings, status badge, and action buttons. Supports query param ?status=requested to pre-filter."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "component": "navigation-header",
+      "props": {
+        "variant": "caregiver",
+        "logo": "iCare",
+        "navItems": ["Dashboard", "My Bookings", "Messages", "Availability"],
+        "activeItem": "My Bookings",
+        "userName": "Sarah Johnson",
+        "notificationCount": 2
+      }
+    },
+    {
+      "id": "breadcrumb",
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "link": "SCR-CG-001" },
+          { "label": "My Bookings", "active": true }
+        ]
+      }
+    },
+    {
+      "id": "page-header",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "My Bookings", "size": "heading-1" } },
+        { "component": "text", "props": { "content": "Manage your booking requests and scheduled sessions", "size": "body", "muted": true } }
+      ]
+    },
+    {
+      "id": "tabs",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "tab-bar",
+          "props": {
+            "tabs": [
+              { "label": "All", "count": 14 },
+              { "label": "Pending Requests", "count": 3 },
+              { "label": "Upcoming", "count": 4 },
+              { "label": "Completed", "count": 5 },
+              { "label": "Declined", "count": 2 }
+            ],
+            "activeTab": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "sort-bar",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "3 pending requests", "size": "small", "muted": true } },
+        { "component": "dropdown", "props": { "label": "Sort by", "options": ["Date (newest)", "Date (oldest)", "Earnings (highest)", "Distance (nearest)"], "value": "Date (newest)" } }
+      ]
+    },
+    {
+      "id": "booking-list",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "booking-list-card",
+          "props": {
+            "bookings": [
+              {
+                "name": "Margaret Thompson",
+                "status": "Pending",
+                "date": "Sat 22 Feb 2026",
+                "time": "2:00 PM - 5:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship, Shopping assistance",
+                "location": "Kensington, London (1.2 mi)",
+                "earnings": "£48.60",
+                "earningsNote": "after 15% commission",
+                "countdown": "18h 32m to respond",
+                "actions": ["Accept", "Decline", "Message"]
+              },
+              {
+                "name": "Dorothy Williams",
+                "status": "Pending",
+                "date": "Sun 23 Feb 2026",
+                "time": "10:00 AM - 1:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship",
+                "location": "Chelsea, London (2.1 mi)",
+                "earnings": "£48.60",
+                "earningsNote": "after 15% commission",
+                "countdown": "22h 15m to respond",
+                "actions": ["Accept", "Decline", "Message"]
+              },
+              {
+                "name": "Robert Hughes",
+                "status": "Pending",
+                "date": "Mon 24 Feb 2026",
+                "time": "1:00 PM - 4:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship, Light housework",
+                "location": "Fulham, London (3.4 mi)",
+                "earnings": "£48.60",
+                "earningsNote": "after 15% commission",
+                "countdown": "1d 6h to respond",
+                "actions": ["Accept", "Decline", "Message"]
+              },
+              {
+                "name": "Margaret Thompson",
+                "status": "Confirmed",
+                "date": "Thu 20 Feb 2026",
+                "time": "10:00 AM - 2:00 PM",
+                "duration": "4 hours",
+                "services": "Companionship, Light housework",
+                "location": "Kensington, London (1.2 mi)",
+                "earnings": "£64.26",
+                "earningsNote": "after 15% commission",
+                "actions": ["View Details", "Message", "Cancel"]
+              },
+              {
+                "name": "Margaret Thompson",
+                "status": "Confirmed",
+                "date": "Thu 27 Feb 2026",
+                "time": "10:00 AM - 1:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship",
+                "location": "Kensington, London (1.2 mi)",
+                "earnings": "£48.20",
+                "earningsNote": "after 15% commission",
+                "actions": ["View Details", "Message", "Cancel"]
+              },
+              {
+                "name": "Dorothy Williams",
+                "status": "Completed",
+                "date": "Mon 10 Feb 2026",
+                "time": "11:00 AM - 3:00 PM",
+                "duration": "4 hours",
+                "services": "Companionship, Meal preparation",
+                "location": "Chelsea, London (2.1 mi)",
+                "earnings": "£64.26",
+                "earningsNote": "after 15% commission",
+                "actions": ["View Details"]
+              },
+              {
+                "name": "Edward Brown",
+                "status": "Completed",
+                "date": "Fri 7 Feb 2026",
+                "time": "9:00 AM - 12:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship",
+                "location": "Notting Hill, London (0.8 mi)",
+                "earnings": "£48.20",
+                "earningsNote": "after 15% commission",
+                "actions": ["View Details"]
+              },
+              {
+                "name": "Patricia Green",
+                "status": "Declined",
+                "date": "Wed 5 Feb 2026",
+                "time": "1:00 PM - 4:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship, Meal preparation",
+                "location": "Hammersmith, London (4.5 mi)",
+                "earnings": "£48.20",
+                "earningsNote": "after 15% commission",
+                "actions": ["View Details"]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pagination",
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 2,
+        "resultsText": "Showing 1-8 of 14 bookings"
+      }
+    },
+    {
+      "id": "footer",
+      "component": "footer-global",
+      "props": {}
+    }
+  ]
+}

@@ -1,13 +1,11 @@
-import React from "react";
 import styles from "./care-that-fits-real-life-section.module.scss";
-import NavigationButton from "../../common/buttons/navigation-buttons/navigation-button";
 import { Link } from "react-router";
 
 export default function CareThatFitsRealLifeSection() {
     return (
         <section
+            aria-labelledby="care-fits-real-life-heading"
             className={styles.section}
-            style={{ display: "flex", justifyContent: "center" }}
         >
             <div className={styles.gridSplit}>
                 <img
@@ -17,7 +15,7 @@ export default function CareThatFitsRealLifeSection() {
                 />
 
                 <div>
-                    <h2 className={styles.title}>
+                    <h2 id="care-fits-real-life-heading" className={styles.title}>
                         Care that fits real life
                     </h2>
 

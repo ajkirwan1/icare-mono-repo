@@ -16,8 +16,6 @@
 
 .content {
     @include motifs.hero-content;
-    transform: translateY(6%);
-    animation: fadeSlide 1.1s ease forwards;
 
     @media (max-width:600px) {
         padding-top: 1rem;
@@ -39,15 +37,15 @@
 /* Title */
 .title {
     margin: 0 0 1.2rem;
-    font-weight: 500;
+    font-weight: $fw-semibold;
     line-height: 1.04;
     letter-spacing: -0.55px;
     font-size: 2.8rem;
-    color: #fff;
+    color: $on-dark;
     text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 
     @media (max-width:600px) {
-        font-size: 2.4rem;
+        font-size: $font-3xl;
         color: black;
         text-shadow: none;
     }
@@ -57,14 +55,14 @@
 .lead {
     margin: 0;
     line-height: 1.72;
-    font-size: 1.3rem;
+    font-size: $font-xl;
     max-width: 62ch;
     color: rgba(255, 255, 255, 0.95);
-    font-weight: 400;
+    font-weight: $fw-normal;
     text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 
     @media (max-width:600px) {
-        font-size: 1.3rem;
+        font-size: $font-xl;
         color: black;
         text-shadow: none;
     }
@@ -72,7 +70,7 @@
 
 .leadStrong {
     display: inline-block;
-    font-weight: 400;
+    font-weight: $fw-normal;
     font-size: 1.6rem;
     margin-bottom: 1rem;
 
@@ -115,7 +113,7 @@
     font-size: 1.5rem;
     line-height: 1.15;
     letter-spacing: -0.3px;
-    color: #fff;
+    color: $on-dark;
     margin: 0;
 
     width: fit-content;
@@ -124,7 +122,7 @@
 
 .subheading span {
     display: inline-block;
-    font-weight: 400;
+    font-weight: $fw-normal;
     white-space: nowrap;
 }
 
@@ -146,15 +144,3 @@
     }
 }
 
-/* Animation */
-@keyframes fadeSlide {
-    0% {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(6%);
-    }
-}

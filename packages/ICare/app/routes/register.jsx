@@ -1152,26 +1152,15 @@ export default function Register() {
                                             key: "c_terms",
                                             label: (
                                                 <>
-                                                    I accept the{" "}
-                                                    <Link to="/terms" style={{ color: "#1FAB1F", fontWeight: 700 }}>
-                                                        Terms & Conditions
-                                                    </Link>{" "}
-                                                    (required)
-                                                </>
-                                            ),
-                                        },
-                                        {
-                                            key: "c_privacy",
-                                            label: (
-                                                <>
                                                     I have read the{" "}
-                                                    <Link
-                                                        to="/privacy"
-                                                        style={{ color: "#1FAB1F", fontWeight: 700 }}
-                                                    >
+                                                    <Link to="/privacy" style={{ color: "#1FAB1F", fontWeight: 700 }}>
                                                         Privacy Policy
                                                     </Link>{" "}
-                                                    (required)
+                                                    and{" "}
+                                                    <Link to="/trust-and-safety" style={{ color: "#1FAB1F", fontWeight: 700 }}>
+                                                        Trust & Safety
+                                                    </Link>{" "}
+                                                    commitments (required)
                                                 </>
                                             ),
                                         },

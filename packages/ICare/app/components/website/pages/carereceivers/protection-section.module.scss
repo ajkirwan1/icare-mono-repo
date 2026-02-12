@@ -13,8 +13,7 @@
 }
 
 .wrap {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+    width: 100%;
     background: #e8e7d7;
 
     /* ✅ 10% smaller section (layout-safe) */
@@ -87,6 +86,14 @@
     display: grid;
     gap: 14px;
     margin-top: $space-4;
+    list-style: none;
+    padding: 0;
+}
+
+.proofIcon {
+    font-size: 20px;
+    color: #000;
+    line-height: 1;
 }
 
 .card {

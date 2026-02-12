@@ -1,8 +1,8 @@
-# System Settings Wireframe (SCR-ADM-014)
+# System Settings Wireframe (SCR-ADM-028)
 
 **Document Purpose**: Complete wireframe specification and element inventory for the Admin System Settings screen, enabling super admins to configure platform-wide settings including commission rates, verification requirements, notification templates, and feature flags.
 
-**Screen ID**: SCR-ADM-014
+**Screen ID**: SCR-ADM-028
 **Screen Name**: System Settings
 **Route**: `/admin/settings`
 **User Roles**: Admin (Super Admin only)
@@ -107,17 +107,17 @@ The System Settings screen provides super admins with a centralized interface to
 |---------|------------|-----------|
 | Admin Dashboard link (breadcrumb) | Admin Dashboard | SCR-ADM-001 |
 | "Discard Changes" button | Returns to previous page | Previous screen or SCR-ADM-001 |
-| "Save Changes" button (success) | Remains on settings page with success toast | SCR-ADM-014 (refresh) |
+| "Save Changes" button (success) | Remains on settings page with success toast | SCR-ADM-028 (refresh) |
 | Verification Review link (sidebar) | Verification Queue | SCR-ADM-007 |
 | Analytics link (sidebar) | Platform Analytics | SCR-ADM-015 (future) |
 | Logout (user menu) | Login | SCR-AUTH-005 |
 
 **Global Admin Navigation** (sidebar):
 - Dashboard (SCR-ADM-001)
-- Users (SCR-ADM-005)
-- Verifications (SCR-ADM-007)
-- Safeguarding (SCR-ADM-014 - different screen)
-- Settings (this screen - super admin only)
+- Users (SCR-ADM-025)
+- Verifications (SCR-ADM-026)
+- Safeguarding (SCR-ADM-014)
+- Settings (this screen, SCR-ADM-028 - super admin only)
 - Audit Log (future)
 
 ---
@@ -1495,7 +1495,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 - **Type**: Organism
 - **Props**: `categories: Array<{id, label, icon, badge, isActive}>`, `onSelectCategory: function`
 - **Variants**: Desktop (vertical sidebar), Mobile (horizontal dropdown)
-- **Used In**: This screen (SCR-ADM-014)
+- **Used In**: This screen (SCR-ADM-028)
 
 **Password Confirmation Input**:
 - **Component ID**: `PASSWORD-CONFIRM-INPUT`
@@ -1625,7 +1625,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 ### 10.6 Figma Layer Structure (Recommended)
 
 ```
-📁 SCR-ADM-014 System Settings
+📁 SCR-ADM-028 System Settings
 ├── 🖼️ Frame: Desktop (1440x900+)
 │   ├── 📦 Component Instance: NAV-HEADER-AUTH (admin variant)
 │   ├── 📦 Component: Breadcrumb
@@ -1682,7 +1682,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 
 **Product Specifications**:
 - `/docs/product/tier1-route-map.md` - Route definition for `/admin/settings`
-- `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` - Screen definition (SCR-ADM-014 note: This screen ID is actually for Safeguarding Reports Queue; System Settings appears to be un-numbered in current docs. Recommend assigning SCR-ADM-020 or similar.)
+- `/docs/tiers/tier1/draft-design-specs/screen-inventory.md` - Screen definition (SCR-ADM-028)
 - `/docs/product/features/tier1-admin-specification.md` - Admin analytics dashboard (section 9.1)
 
 **Design System**:
@@ -1691,16 +1691,16 @@ Date/Time          | Admin User            | Category      | Field Changed      
 
 **Related Wireframes**:
 - `/docs/tiers/tier1/draft-design-specs/wireframes/dashboards/adm-dashboard-scr-adm-001.md` - Admin Dashboard
-- `/docs/tiers/tier1/draft-design-specs/wireframes/admin/scr-adm-005-user-management.md` - User Management (admin screen format reference)
-- `/docs/tiers/tier1/draft-design-specs/wireframes/admin/scr-adm-015-platform-analytics.md` - Platform Analytics (next screen to produce)
+- `/docs/tiers/tier1/draft-design-specs/wireframes/admin/scr-adm-025-user-management.md` - User Management (admin screen format reference)
+- `/docs/tiers/tier1/draft-design-specs/wireframes/admin/scr-adm-020-platform-analytics.md` - Platform Analytics
 
 ### 11.2 Related Screens
 
 **Admin Screens**:
 - **SCR-ADM-001** (Admin Dashboard): Entry point via user menu
-- **SCR-ADM-005** (User Management): Uses verification requirements defined here
-- **SCR-ADM-007** (Verification Review): Uses verification expiry periods defined here
-- **SCR-ADM-015** (Platform Analytics): Displays effects of commission rate changes
+- **SCR-ADM-025** (User Management): Uses verification requirements defined here
+- **SCR-ADM-026** (Verification Queue): Uses verification expiry periods defined here
+- **SCR-ADM-020** (Platform Analytics): Displays effects of commission rate changes
 - **SCR-ADM-023** (Audit Log, R1): Full audit log viewer
 
 **Feature Screens**:
@@ -1724,7 +1724,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 ### 11.4 Open Questions / Design Gaps
 
 **Product Gaps**:
-1. **Screen ID Assignment**: Current screen inventory lists SCR-ADM-014 as "Safeguarding Reports Queue", but this wireframe is for "System Settings". Recommend assigning new screen ID (e.g., SCR-ADM-020 based on route-map.md).
+1. **Screen ID Assignment**: RESOLVED -- Assigned SCR-ADM-028 (2026-02-12 gap analysis reconciliation).
 
 2. **Commission Rate Final Decision**: FDR-008 pending from founder. Current placeholder (15% caregiver commission + 5% service fee) may change before R0 launch. Settings interface designed to accommodate easy changes.
 
@@ -1746,7 +1746,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 **DOCUMENT STATUS**: READY FOR FIGMA HANDOFF
 
 **Next Steps**:
-1. Assign correct screen ID (confirm SCR-ADM-020 or similar, not SCR-ADM-014)
+1. ~~Assign correct screen ID~~ DONE -- SCR-ADM-028 assigned (2026-02-12)
 2. Figma designer: Create low-fidelity mockups for all 5 settings categories (General, Payments, Verification, Notifications, Features)
 3. Finalize commission rate decision (FDR-008) and update placeholder badges
 4. Implement audit logging backend (capture all settings changes with old/new values)

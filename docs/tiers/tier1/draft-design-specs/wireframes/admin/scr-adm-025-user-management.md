@@ -1,8 +1,8 @@
-# User Management Dashboard Wireframe (SCR-ADM-005)
+# User Management Dashboard Wireframe (SCR-ADM-025)
 
 **Document Purpose**: Complete wireframe specification and element inventory for the Admin User Management Dashboard, enabling admins to search, filter, view, and manage all platform users.
 
-**Screen ID**: SCR-ADM-005
+**Screen ID**: SCR-ADM-025
 **Screen Name**: User Management Dashboard
 **Route**: `/admin/users`
 **User Roles**: Admin (Operations Manager, Super Admin)
@@ -1353,7 +1353,7 @@ Body: { "reason": "Investigation complete, no breach found" }
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe and element inventory for SCR-ADM-005 |
+| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe and element inventory for SCR-ADM-025 |
 
 ---
 

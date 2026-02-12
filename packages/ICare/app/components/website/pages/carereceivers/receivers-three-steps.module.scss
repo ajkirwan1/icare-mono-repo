@@ -1,3 +1,5 @@
+@use "@styles/tokens" as *;
+
 /* receivers-three-steps.module.scss */
 
 .section {
@@ -33,24 +35,24 @@
 }
 
 .subtitleStrong {
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 1.4rem;
 }
 
 .subtitleText {
     display: block;
-    font-size: 1.3rem;
+    font-size: $font-xl;
 }
 
 .bold {
-    font-weight: 600;
+    font-weight: $fw-bold;
 }
 
-/* ----- Twoje istniejące ----- */
+/* ----- existing ----- */
 
 .content {
     max-width: 640px;
-    color: #0f172a;
+    color: $txt;
 }
 
 .header {
@@ -60,9 +62,9 @@
 .title {
     margin: 0 0 12px;
     font-size: 2.6rem;
-    font-weight: 500;
+    font-weight: $fw-semibold;
     letter-spacing: -0.4px;
-    line-height: 1.2;
+    line-height: $lh-title;
 
     @media (max-width: 600px) {
         font-size: 2rem;
@@ -72,8 +74,8 @@
 .subtitle {
     margin: 0;
     font-size: 1.2rem;
-    line-height: 1.6;
-    font-weight: 400;
+    line-height: $lh-body;
+    font-weight: $fw-normal;
     opacity: 0.95;
     max-width: 62ch;
 }
@@ -90,7 +92,7 @@
     align-items: flex-start;
     padding: 18px 0;
     background: transparent;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+    border-bottom: 1px solid $form-border;
 }
 
 .step:last-child {
@@ -100,13 +102,13 @@
 .badge {
     width: 34px;
     height: 34px;
-    border-radius: 999px;
+    border-radius: $radius-pill;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: #0f172a;
+    font-weight: $fw-bold;
+    font-size: $font-xs;
+    color: $txt;
     background: rgba(15, 23, 42, 0.06);
     flex: 0 0 auto;
     margin-top: 2px;
@@ -118,16 +120,16 @@
 }
 
 .stepTitle {
-    font-weight: 500;
-    letter-spacing: -0.15px;
+    font-weight: $fw-semibold;
+    letter-spacing: $tracking-normal;
     font-size: 1.4rem;
     line-height: 1.25;
 }
 
 .stepDesc {
-    font-weight: 400;
+    font-weight: $fw-normal;
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: $lh-body;
     max-width: 62ch;
 }
 
@@ -135,11 +137,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
-    /* było 12px u Ciebie, ale inline miał 14px */
     margin-top: 3.6rem;
-    /* inline */
     align-items: center;
-    /* inline */
 }
 
 /* ===== BUTTONS ===== */
@@ -149,10 +148,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
+    border-radius: $radius-pill;
     padding: 14px 18px;
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: $fw-bold;
+    font-size: $font-sm;
     letter-spacing: -0.1px;
     text-decoration: none;
     transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
@@ -166,13 +165,13 @@
 }
 
 .primaryBtn {
-    background: rgb(119, 141, 67);
-    color: #ffffff;
+    background: $link-bg;
+    color: $on-dark;
 }
 
 .secondaryBtn {
     background: rgba(15, 23, 42, 0.06);
-    color: #0f172a;
+    color: $txt;
 
     @media (max-width:600px) {
         padding: 1.1rem 30px;
@@ -180,12 +179,15 @@
     }
 }
 
-/* ----- NOWE: steps układ jak w JSX ----- */
+/* ----- steps layout ----- */
 
 .stepsGrid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .stepCard {
@@ -201,10 +203,10 @@
     gap: 1.4rem;
 }
 
-/* nadpisujemy tylko to, co było inline */
+/* override for inline styles */
 .stepTitle {
     margin: 0;
-    color: #0f172a;
+    color: $txt;
 }
 
 .stepNo {

@@ -1,82 +1,105 @@
-.section {
-  max-width: 1100px;
-  margin: clamp(6rem, 8vw, 8.5rem) auto 0;
-  padding: 0 clamp(20px, 5vw, 40px);
-}
+@use "@styles/tokens" as *;
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(340px, 1fr));
-  gap: clamp(26px, 3.5vw, 36px);
-  align-items: start;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: $txt;
 }
 
-/* === Shared paragraph styles === */
+.colLeft {
+    background: #f2f2f2;
+    padding: 3rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.colRight {
+    background: $txt-white;
+    padding: 3rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.colInner {
+    max-width: 500px;
+}
+
+.heading {
+    font-size: $font-3xl;
+    font-weight: $fw-semibold;
+    line-height: 1.22;
+    letter-spacing: -0.3px;
+    margin-bottom: 1rem;
+}
+
+.headingMission {
+    composes: heading;
+    margin-bottom: 1.4rem;
+}
+
 .paragraph {
-  margin-top: 0;
-  line-height: 1.75;
-  color: #334155;
-  font-size: clamp(1rem, 1.05vw, 1.06rem);
+    font-size: $font-lg;
+    line-height: $lh-copy;
+    margin-bottom: 1rem;
+    font-weight: $fw-normal;
 }
 
-.paragraphLead {
-  display: block;
-  font-weight: 800;
-  color: #475569;
-  margin-bottom: 0.5rem;
+.paragraphSpaced {
+    composes: paragraph;
+    margin-bottom: 1.6rem;
 }
 
-/* === List block === */
-.block {
-  margin-top: 1.2rem;
-  line-height: 1.75;
-  color: #334155;
-  font-size: clamp(1rem, 1.05vw, 1.06rem);
+.paragraphContinued {
+    margin-top: 1rem;
+    font-size: $font-lg;
+    line-height: $lh-body;
 }
 
-.blockTitle {
-  display: block;
-  font-weight: 800;
-  color: #475569;
-  margin-bottom: 0.6rem;
+.paragraphLast {
+    composes: paragraph;
+    margin-bottom: 0;
 }
 
-/* === List === */
-.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 0.6rem;
+/* What we're building */
+.buildingSection {
+    width: 100%;
+    background: #fff9ef;
+    padding: 3rem;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: $txt;
+    display: flex;
+    justify-content: center;
 }
 
-/* === Bullet items === */
-.listItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
+.buildingInner {
+    width: 100%;
+    max-width: 800px;
+    text-align: justify;
 }
 
-.bullet {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  border: 2px solid var(--brand, #1FAB1F);
-  display: inline-grid;
-  place-items: center;
-  margin-top: 2px;
-}
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 
-.bulletInner {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--brand, #1FAB1F);
-  display: block;
-}
+    .colLeft,
+    .colRight {
+        justify-content: center;
+        padding: 2rem 1.5rem;
+    }
 
-/* === Closing text === */
-.closingText {
-  margin: 1.2rem 0 0 0;
+    .colInner {
+        max-width: 100%;
+    }
+
+    .heading,
+    .headingMission {
+        font-size: $font-2xl;
+    }
+
+    .buildingInner {
+        text-align: left;
+    }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faComments, faRotate } from "@fortawesome/free-solid-svg-icons";
 import LayoutSection from "../../common/layout/layout-section";
@@ -24,13 +23,6 @@ export default function ProtectionSection() {
         },
     ];
 
-    // ✅ ICON STYLE — black + 15% bigger
-    const iconStyle = {
-        fontSize: "20px",
-        color: "#000",
-        lineHeight: 1,
-    };
-
     return (
         <LayoutSection background="#fff9ef">
             <div className={`${styles.container} ${styles.compact}`}>
@@ -45,19 +37,19 @@ export default function ProtectionSection() {
                 </div>
 
                 <div className={styles.grid}>
-                    <div className={styles.proofGrid}>
+                    <ul className={styles.proofGrid}>
                         {Proof.map((p) => (
-                            <div key={p.t} className={styles.card}>
+                            <li key={p.t} className={styles.card}>
                                 <div className={styles.cardTop}>
                                     <div className={styles.iconWrap} aria-hidden="true">
-                                        <FontAwesomeIcon icon={p.icon} style={iconStyle} />
+                                        <FontAwesomeIcon icon={p.icon} className={styles.proofIcon} />
                                     </div>
                                     <h3 className={styles.proofTitle}>{p.t}</h3>
                                 </div>
                                 <p className={styles.proofDesc}>{p.d}</p>
-                            </div>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
 
                     {/* IMAGE — moved slightly lower so it doesn't collide with text */}
                     <div className={styles.photoWrap}>

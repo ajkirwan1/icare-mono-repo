@@ -1,0 +1,165 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-007",
+    "screenName": "My Bookings (Care Receiver)",
+    "wireframeSource": null,
+    "generatedDate": "2026-02-12",
+    "role": "care-receiver",
+    "route": "/dashboard/bookings",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["all", "upcoming", "pending", "in_progress", "completed", "cancelled", "empty"],
+    "description": "Filterable list of all bookings for the care receiver across all statuses. Shows booking cards with caregiver info, date/time, status badge, amount, and action buttons."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "component": "navigation-header",
+      "props": {
+        "variant": "care-receiver",
+        "logo": "iCare",
+        "navItems": ["Dashboard", "My Bookings", "Messages", "Search"],
+        "activeItem": "My Bookings",
+        "userName": "Margaret Thompson",
+        "notificationCount": 1
+      }
+    },
+    {
+      "id": "breadcrumb",
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "link": "SCR-CR-001" },
+          { "label": "My Bookings", "active": true }
+        ]
+      }
+    },
+    {
+      "id": "page-header",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "My Bookings", "size": "heading-1" } },
+        { "component": "text", "props": { "content": "View and manage all your bookings", "size": "body", "muted": true } }
+      ]
+    },
+    {
+      "id": "tabs",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "tab-bar",
+          "props": {
+            "tabs": [
+              { "label": "All", "count": 12 },
+              { "label": "Upcoming", "count": 2 },
+              { "label": "Pending", "count": 1 },
+              { "label": "Completed", "count": 7 },
+              { "label": "Cancelled", "count": 2 }
+            ],
+            "activeTab": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sort-bar",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "12 bookings", "size": "small", "muted": true } },
+        { "component": "dropdown", "props": { "label": "Sort by", "options": ["Date (newest)", "Date (oldest)", "Amount (highest)"], "value": "Date (newest)" } }
+      ]
+    },
+    {
+      "id": "booking-list",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "booking-list-card",
+          "props": {
+            "bookings": [
+              {
+                "name": "Sarah Johnson",
+                "status": "Confirmed",
+                "date": "Thu 20 Feb 2026",
+                "time": "10:00 AM - 2:00 PM",
+                "duration": "4 hours",
+                "services": "Companionship, Light housework",
+                "amount": "£75.60",
+                "actions": ["View Details", "Message", "Cancel"]
+              },
+              {
+                "name": "Anna Chen",
+                "status": "Pending",
+                "date": "Sat 22 Feb 2026",
+                "time": "2:00 PM - 5:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship, Shopping assistance",
+                "amount": "£56.70",
+                "countdown": "18h 32m remaining",
+                "actions": ["View Details", "Cancel Request"]
+              },
+              {
+                "name": "Sarah Johnson",
+                "status": "Confirmed",
+                "date": "Thu 27 Feb 2026",
+                "time": "10:00 AM - 1:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship",
+                "amount": "£56.70",
+                "actions": ["View Details", "Message", "Cancel"]
+              },
+              {
+                "name": "Mary Kelly",
+                "status": "Completed",
+                "date": "Mon 10 Feb 2026",
+                "time": "11:00 AM - 3:00 PM",
+                "duration": "4 hours",
+                "services": "Companionship, Meal preparation",
+                "amount": "£75.60",
+                "actions": ["Leave Review", "Book Again", "View Details"]
+              },
+              {
+                "name": "Tom Richards",
+                "status": "Completed",
+                "date": "Fri 7 Feb 2026",
+                "time": "9:00 AM - 12:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship",
+                "amount": "£56.70",
+                "actions": ["View Details"]
+              },
+              {
+                "name": "Lisa Park",
+                "status": "Cancelled",
+                "date": "Wed 5 Feb 2026",
+                "time": "1:00 PM - 4:00 PM",
+                "duration": "3 hours",
+                "services": "Companionship, Meal preparation",
+                "amount": "£56.70",
+                "actions": ["View Details"]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pagination",
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 2,
+        "resultsText": "Showing 1-6 of 12 bookings"
+      }
+    },
+    {
+      "id": "footer",
+      "component": "footer-global",
+      "props": {}
+    }
+  ]
+}

@@ -1,15 +1,15 @@
+@use "@styles/tokens" as *;
+
 .header {
     position: fixed;
     inset: 0 0 auto 0;
-    z-index: 10000; // ✅ zawsze nad mobile overlay
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.8rem clamp(20px, 4vw, 48px);
     min-height: 92px;
-    width: 100vw;
 
-    /* ✅ ważne: NIE nadpisuj height auto, bo top overlay liczy się z navbar-height */
     height: var(--navbar-height);
 
     background: rgba(100, 100, 100, 0.8);
@@ -20,7 +20,7 @@
 }
 
 .slogan {
-    font-weight: 600;
+    font-weight: $fw-bold;
 }
 
 .brand {
@@ -36,7 +36,7 @@
 
     span {
         font-size: 12px;
-        color: white;
+        color: $on-dark;
         margin-left: 1px;
     }
 }
@@ -51,15 +51,18 @@
 }
 
 .link {
-    color: white;
-    font-size: 1.3rem;
-    font-weight: 400;
+    color: $on-dark;
+    font-size: $font-xl;
+    font-weight: $fw-normal;
     text-decoration: none;
     transition: 0.2s;
 
-    &:hover,
-    &[aria-current="page"] {
+    &:hover {
         color: #ffa967;
+    }
+
+    &[aria-current="page"] {
+        color: #dd8b4f;
     }
 }
 
@@ -101,7 +104,7 @@
 }
 
 .dropdownLink {
-    color: white;
+    color: $on-dark;
     text-decoration: none;
     padding: 0.55rem 0.7rem;
     border-radius: 10px;
@@ -116,10 +119,14 @@
     transition: opacity 220ms ease, transform 260ms ease;
     transition-delay: calc(var(--i, 0) * 70ms);
 
-    &:hover,
-    &[aria-current="page"] {
+    &:hover {
         background: rgba(255, 255, 255, 0.12);
         color: #ffa967;
+    }
+
+    &[aria-current="page"] {
+        background: rgba(255, 255, 255, 0.12);
+        color: #dd8b4f;
     }
 }
 
@@ -160,8 +167,8 @@
 .burgerLine {
     height: 3px;
     width: 100%;
-    background: white;
-    border-radius: 999px;
+    background: $on-dark;
+    border-radius: $radius-pill;
     transition: transform 0.3s ease, opacity 0.3s ease;
     transform-origin: center;
 }
@@ -181,7 +188,6 @@
 
 /* =========================================================
    MOBILE MENU (overlay + panel slide-in)
-   ✅ Overlay zaczyna się POD headerem, więc brand/toggle są nad nim
 ========================================================= */
 
 .mobileOverlay {
@@ -189,11 +195,10 @@
     left: 0;
     right: 0;
 
-    /* ✅ klucz: nie przykrywa headera */
     top: var(--navbar-height);
     bottom: 0;
 
-    z-index: 9998; // ✅ niżej niż header
+    z-index: 9998;
 
     background: rgba(15, 23, 42, 0.34);
     opacity: 0;
@@ -212,12 +217,10 @@
     right: 0;
     left: 0;
 
-    /* ✅ panel wypełnia tylko przestrzeń POD headerem */
     height: calc(100vh - var(--navbar-height));
-    width: 100vw;
 
-    background: #fff;
-    color: #0f172a;
+    background: $txt-white;
+    color: $txt;
 
     display: flex;
     align-items: center;
@@ -242,13 +245,16 @@
 
 .mobileLink {
     text-decoration: none;
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 1.5rem;
     padding: 10px 8px;
 
-    &:hover,
-    &[aria-current="page"] {
+    &:hover {
         color: #ffa967;
+    }
+
+    &[aria-current="page"] {
+        color: #dd8b4f;
     }
 }
 
@@ -258,10 +264,10 @@
 }
 
 .mobileGroupTitle {
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 1.5rem;
     padding: 10px 8px;
-    color: #0f172a;
+    color: $txt;
 }
 
 .mobileSub {
@@ -271,15 +277,18 @@
 }
 
 .mobileSublink {
-    color: #0f172a;
+    color: $txt;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 1.2rem;
     padding: 8px 8px;
 
-    &:hover,
-    &[aria-current="page"] {
+    &:hover {
         color: #ffa967;
+    }
+
+    &[aria-current="page"] {
+        color: #dd8b4f;
     }
 }
 
@@ -292,7 +301,7 @@
     display: none;
 }
 
-/* gdy mobile menu otwarte */
+/* when mobile menu is open */
 :global(body.icare-mobile-open) .logoNormal {
     display: none;
 }
@@ -321,7 +330,7 @@
     }
 
     :global(body.icare-mobile-open) .header {
-        background: white;
+        background: $txt-white;
     }
 
     :global(body.icare-mobile-open) .burgerLine {

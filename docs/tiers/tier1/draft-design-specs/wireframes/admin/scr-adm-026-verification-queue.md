@@ -1,8 +1,8 @@
-# Caregiver Verification Queue Wireframe (SCR-ADM-007)
+# Caregiver Verification Queue Wireframe (SCR-ADM-026)
 
 **Document Purpose**: Complete wireframe specification and element inventory for the Admin Caregiver Verification Queue, enabling admins to review and process pending caregiver identity, right to work, and DBS verifications.
 
-**Screen ID**: SCR-ADM-007
+**Screen ID**: SCR-ADM-026
 **Screen Name**: Caregiver Verification Queue
 **Route**: `/admin/verifications`
 **User Roles**: Admin (Operations Manager, Verification Officer)
@@ -1142,7 +1142,7 @@ Same as User Management screen. All status badges use text + icon, not color alo
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe for SCR-ADM-007 |
+| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe for SCR-ADM-026 |
 
 ---
 

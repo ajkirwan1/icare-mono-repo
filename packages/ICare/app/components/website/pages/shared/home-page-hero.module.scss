@@ -12,10 +12,8 @@
 }
 
 .section {
-    width: 100vw;
+    width: 100%;
     padding: 2rem 8rem 2rem 8rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
 }
 
 .mobileOnly {
@@ -25,7 +23,7 @@
 .title {
     @include motifs.title;
     letter-spacing: normal;
-    font-weight: 400;
+    font-weight: $fw-normal;
     font-size: 30px;
 }
 
@@ -57,6 +55,20 @@
     width: min($container-hero-gutter, $container-hero-max);
     margin: 0 auto;
     padding-top: $space-6;
+
+    animation: heroFadeSlide 1.1s ease forwards;
+}
+
+@keyframes heroFadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .textWrapper {
@@ -95,7 +107,7 @@
 .heading {
     font-size: $fs-hero-title;
     line-height: $lh-hero-title;
-    font-weight: 600;
+    font-weight: $fw-bold;
     color: $on-dark;
     margin: 0;
     letter-spacing: $tracking-hero-title;
@@ -121,7 +133,7 @@
 .subheading span {
     margin-right: 20px;
     display: inline-block;
-    font-weight: 400;
+    font-weight: $fw-normal;
 }
 
 .features {
@@ -135,12 +147,12 @@
 .homeLead {
     margin: 2rem 0 2rem;
     font-size: 1.2rem;
-    color: white;
+    color: $on-dark;
     max-width: 600px;
 }
 
 .homeLead b {
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 1.4rem;
     display: inline-block;
     margin-bottom: 0.6rem;

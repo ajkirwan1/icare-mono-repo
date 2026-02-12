@@ -1,7 +1,7 @@
+@use "@styles/tokens" as *;
+
 .section {
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    width: 100vw;
+    width: 100%;
     background: rgba(255, 249, 239, 0.85);
     padding: 4rem 0;
     scroll-margin-top: 110px;
@@ -21,32 +21,32 @@
 
 .heading {
     margin: 0;
-    font-weight: 500;
-    letter-spacing: -0.6px;
-    line-height: 1.14;
+    font-weight: $fw-semibold;
+    letter-spacing: $tracking-tight;
+    line-height: $lh-tight;
     font-size: 2.6rem;
-    color: #0f172a;
+    color: $txt;
 
     @media (max-width:600px) {
-        font-size: 1.8rem;
+        font-size: $font-2xl;
     }
 }
 
 .lead {
     margin: 18px 0 0;
-    color: #0f172a;
-    font-weight: 400;
-    line-height: 1.65;
-    font-size: 1.3rem;
+    color: $txt;
+    font-weight: $fw-normal;
+    line-height: $lh-copy;
+    font-size: $font-xl;
     max-width: 78ch;
 
     @media (max-width:600px) {
-        font-size: 1.3rem;
+        font-size: $font-xl;
     }
 }
 
 .brandAccent {
-    color: rgb(119, 141, 67);
+    color: $link-bg;
 }
 
 .grid {
@@ -63,9 +63,9 @@
 
 .subheading {
     margin: 0 0 1.2rem 0;
-    font-weight: 600;
+    font-weight: $fw-bold;
     font-size: 1.35rem;
-    color: #0f172a;
+    color: $txt;
 }
 
 .list {
@@ -76,8 +76,8 @@
     flex-direction: column;
     gap: 1.2rem;
     font-size: 1.25rem;
-    line-height: 1.6;
-    color: #0f172a;
+    line-height: $lh-body;
+    color: $txt;
 }
 
 .listItem {
@@ -104,13 +104,13 @@
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    color: #fff;
-    background: #778d43;
+    color: $on-dark;
+    background: $link-bg;
     padding: 0.95rem 1.8rem;
-    border-radius: 999px;
+    border-radius: $radius-pill;
     font-weight: 850;
     letter-spacing: 0.01em;
-    font-size: 1rem;
+    font-size: $font-sm;
     border: 1px solid rgba(0, 0, 0, 0.08);
     transition: transform 0.18s ease, filter 0.18s ease;
 }

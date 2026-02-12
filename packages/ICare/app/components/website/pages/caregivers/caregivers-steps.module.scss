@@ -1,12 +1,11 @@
+@use "@styles/tokens" as *;
+
 $bg: #ecddd18c;
-$text: #0f172a;
 $icon: rgb(221, 139, 79);
 $iconGrey: rgba(0, 0, 0, 0.7);
 
 .section {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100%;
     background: $bg;
     padding: 4rem 0;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -30,10 +29,10 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 
 .h2 {
     margin: 0;
-    font-weight: 500;
+    font-weight: $fw-semibold;
     font-size: 2.6rem;
-    letter-spacing: -0.35px;
-    color: $text;
+    letter-spacing: $tracking-snug;
+    color: $txt;
     line-height: 1.15;
 
     @media (max-width:600px) {
@@ -44,7 +43,7 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 .lead {
     margin-top: 0.75rem;
     margin-bottom: 0;
-    color: $text;
+    color: $txt;
     font-size: 1.4rem;
     line-height: 1.55;
     max-width: 70ch;
@@ -68,20 +67,20 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 
 .whyTitle {
     margin: 0;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: $text;
+    font-size: $font-2xl;
+    font-weight: $fw-bold;
+    color: $txt;
     letter-spacing: -0.2px;
-    line-height: 1.2;
+    line-height: $lh-title;
 }
 
 .whyText {
     margin-top: 0.85rem;
     margin-bottom: 0;
-    font-size: 1.22rem;
+    font-size: $font-lg;
     line-height: 1.5;
-    color: $text;
-    font-weight: 400;
+    color: $txt;
+    font-weight: $fw-normal;
     max-width: 66ch;
 }
 
@@ -89,9 +88,9 @@ $iconGrey: rgba(0, 0, 0, 0.7);
     margin-top: 1.05rem;
     margin-bottom: 0;
     font-size: 1.01rem;
-    line-height: 1.6;
-    color: $text;
-    font-weight: 600;
+    line-height: $lh-body;
+    color: $txt;
+    font-weight: $fw-bold;
     opacity: 0.9;
     max-width: 72ch;
 }
@@ -103,6 +102,8 @@ $iconGrey: rgba(0, 0, 0, 0.7);
     gap: clamp(18px, 2.2vw, 26px);
     align-items: stretch;
     padding: 0;
+    margin: 0;
+    list-style: none;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -144,9 +145,9 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 .highlightTitle {
     margin: 0;
     padding: 0;
-    font-weight: 700;
-    letter-spacing: -0.15px;
-    color: $text;
+    font-weight: $fw-extrabold;
+    letter-spacing: $tracking-normal;
+    color: $txt;
     font-size: 1.2rem;
     line-height: 1.4;
     white-space: normal;
@@ -155,9 +156,9 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 
 .highlightDesc {
     margin: 0;
-    color: $text;
-    font-weight: 500;
-    line-height: 1.65;
+    color: $txt;
+    font-weight: $fw-semibold;
+    line-height: $lh-copy;
     font-size: 1.1rem;
     white-space: normal;
     overflow: visible;
@@ -175,10 +176,11 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 
 /* image */
 .figure {
+    position: relative;
     margin: 0;
     width: 100%;
     height: 460px;
-    border-radius: 22px;
+    border-radius: $radius-xxl;
     overflow: hidden;
     border: 1px solid rgba(0, 0, 0, 0.06);
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
@@ -192,10 +194,25 @@ $iconGrey: rgba(0, 0, 0, 0.7);
     display: block;
 }
 
+.figcaption {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* modules */
 .modules {
     display: grid;
     gap: 0.75rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .moduleItem {
@@ -233,9 +250,9 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 .moduleTitle {
     margin: 0;
     padding: 0;
-    font-weight: 600;
-    letter-spacing: -0.15px;
-    color: $text;
+    font-weight: $fw-bold;
+    letter-spacing: $tracking-normal;
+    color: $txt;
     font-size: 1.1rem;
     line-height: 1.4;
     white-space: normal;
@@ -244,9 +261,9 @@ $iconGrey: rgba(0, 0, 0, 0.7);
 
 .moduleDesc {
     margin: 0;
-    color: $text;
-    font-weight: 400;
-    line-height: 1.65;
+    color: $txt;
+    font-weight: $fw-normal;
+    line-height: $lh-copy;
     font-size: 1.1rem;
     white-space: normal;
     overflow: visible;

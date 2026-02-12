@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHandsHolding,
@@ -6,176 +5,82 @@ import {
     faScaleBalanced,
     faShieldHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./our-values-section.module.scss";
+
+const faIconStyle = {
+    fontSize: 23,
+    color: "#000",
+    opacity: 0.85,
+    lineHeight: 1,
+};
+
+const cards = [
+    {
+        key: "dignity",
+        title: "Dignity & Respect",
+        description: "Care is organised around people, not transactions.",
+        icon: faHandsHolding,
+    },
+    {
+        key: "privacy",
+        title: "Privacy by Design",
+        description: "Data protection and security are built into the platform from the start.",
+        icon: faUserShield,
+    },
+    {
+        key: "fair",
+        title: "Fair & Transparent",
+        description: "No hidden fees. Clear agreements and upfront expectations.",
+        icon: faScaleBalanced,
+    },
+    {
+        key: "trust",
+        title: "Trust & Safety",
+        description: "Identity verification, secure messaging and clear documentation where required.",
+        icon: faShieldHeart,
+    },
+];
 
 export function OurValuesSection() {
-    const faIconStyle = {
-        fontSize: 23,
-        color: "#000",
-        opacity: 0.85,
-        lineHeight: 1,
-        flexShrink: 0,
-    };
-
-    const ValuesCard = ({ icon, title, description, bg }) => (
-        <div
-            style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "1.4rem",
-                padding: "1.1rem 1.6rem",
-
-            }}
-        >
-            <div style={{ display: "flex", alignItems: "flex-start", paddingTop: 2 }}>
-                {icon}
-            </div>
-
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    gap: ".4rem",
-                }}
-            >
-                {/* ✅ h3 — 1.5rem / 600 */}
-                <h3
-                    style={{
-                        margin: 0,
-                        fontSize: "1.35rem",
-                        fontWeight: 600,
-                        lineHeight: 1.25,
-                        color: "#000",
-                    }}
-                >
-                    {title}
-                </h3>
-
-                {/* ✅ p — 1.22rem / 400 */}
-                <p
-                    style={{
-                        margin: 0,
-                        fontSize: "1.15rem",
-                        fontWeight: 400,
-                        lineHeight: 1.6,
-                        color: "#0f172a",
-                    }}
-                >
-                    {description}
-                </p>
-            </div>
-        </div>
-    );
-
-    const cards = [
-        {
-            key: "dignity",
-            title: "Dignity & Respect",
-            description:
-                "Care is organised around people, not transactions.",
-            bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faHandsHolding} style={faIconStyle} />,
-        },
-        {
-            key: "privacy",
-            title: "Privacy by Design",
-            description:
-                "Data protection and security are built into the platform from the start.",
-            bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faUserShield} style={faIconStyle} />,
-        },
-        {
-            key: "fair",
-            title: "Fair & Transparent",
-            description:
-                "No hidden fees. Clear agreements and upfront expectations.",
-            bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faScaleBalanced} style={faIconStyle} />,
-        },
-        {
-            key: "trust",
-            title: "Trust & Safety",
-            description:
-                "Identity verification, secure messaging and clear documentation where required.",
-            bg: "#fff9ef",
-            icon: <FontAwesomeIcon icon={faShieldHeart} style={faIconStyle} />,
-        },
-    ];
-
     return (
         <section
             id="standards"
-            aria-label="ICare values"
-            style={{
-                width: "100%",
-                padding: "4rem 0",
-                background: "#FFFFFF",
-            }}
+            aria-labelledby="standards-heading"
+            className={styles.section}
         >
-            <div
-                style={{
-                    maxWidth: "1200px",
-                    margin: "0 auto",
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "4rem",
-                    padding: "0 2rem",
-                }}
-            >
-                {/* LEFT CONTENT */}
-                <header>
-                    <h2
-                        style={{
-                            fontSize: "2.8rem",
-                            margin: 0,
-                            fontWeight: 500,
-                            color: "#0f172a",
-                        }}
-                    >
+            <div className={styles.layout}>
+                <div className={styles.intro}>
+                    <h2 id="standards-heading" className={styles.heading}>
                         Our standards
                     </h2>
 
-                    <p
-                        style={{
-                            fontSize: "1.3rem",
-                            marginTop: "1rem",
-                            color: "#0f172a",
-                            fontWeight: 400,
-                        }}
-                    >
+                    <p className={styles.lead}>
                         Care is built on trust, responsibility and mutual respect.
                         ICare supports arrangements that treat families and caregivers as equals.
-
                     </p>
 
-
-                    <div
-                        style={{
-                            marginTop: "2rem",
-                            borderRadius: "18px",
-                            overflow: "hidden",
-                        }}
-                    >
+                    <div className={styles.imageWrap}>
                         <img
                             src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
                             alt="Kind caregiver supporting an elderly person"
-                            style={{ width: "100%", display: "block" }}
+                            className={styles.image}
                         />
                     </div>
-                </header>
-
-                {/* RIGHT CARDS */}
-                <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr",
-                        gap: "1.6rem",
-                    }}
-                >
-                    {cards.map((card) => (
-                        <ValuesCard key={card.key} {...card} />
-                    ))}
                 </div>
+
+                <ul className={styles.valuesList}>
+                    {cards.map((card) => (
+                        <li key={card.key} className={styles.valuesItem}>
+                            <div className={styles.iconWrap}>
+                                <FontAwesomeIcon icon={card.icon} style={faIconStyle} />
+                            </div>
+                            <div className={styles.itemContent}>
+                                <h3 className={styles.itemTitle}>{card.title}</h3>
+                                <p className={styles.itemDescription}>{card.description}</p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </section>
     );

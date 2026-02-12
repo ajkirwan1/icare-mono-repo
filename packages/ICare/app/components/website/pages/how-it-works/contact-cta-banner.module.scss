@@ -1,9 +1,9 @@
-.section {
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    width: 100vw;
+@use "@styles/tokens" as *;
 
-    background: #fff;
+.section {
+    width: 100%;
+
+    background: $txt-white;
     border-top: 1px solid rgba(0, 0, 0, 0.04);
     padding: clamp(2.8rem, 4.4vw, 3.8rem) 0;
 }
@@ -25,11 +25,11 @@
 
 .heading {
     margin: 0;
-    color: #0f172a;
-    font-weight: 500;
-    font-size: 2.4rem;
+    color: $txt;
+    font-weight: $fw-semibold;
+    font-size: $font-3xl;
     line-height: 1.12;
-    letter-spacing: -0.35px;
+    letter-spacing: $tracking-snug;
 }
 
 .text {
@@ -37,7 +37,7 @@
     color: #1f2a37;
     font-size: 1.25rem;
     line-height: 1.7;
-    font-weight: 400;
+    font-weight: $fw-normal;
     max-width: 60ch;
 }
 
@@ -48,14 +48,14 @@
     text-decoration: none;
 
     padding: 0.9rem 2rem;
-    border-radius: 999px;
+    border-radius: $radius-pill;
 
-    font-weight: 800;
+    font-weight: $fw-heavy;
     letter-spacing: 0.02em;
-    font-size: 1rem;
+    font-size: $font-sm;
 
-    background: #778d43;
-    color: #ffffff;
+    background: $link-bg;
+    color: $on-dark;
 
     transition: all 0.22s ease;
     white-space: nowrap;

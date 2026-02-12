@@ -1,8 +1,8 @@
-# Platform Analytics Wireframe (SCR-ADM-015)
+# Platform Analytics Wireframe (SCR-ADM-020)
 
 **Document Purpose**: Complete wireframe specification and element inventory for the Admin Platform Analytics screen, enabling admins to view platform-wide metrics, growth trends, revenue analysis, and operational KPIs with date range filtering and export capabilities.
 
-**Screen ID**: SCR-ADM-015
+**Screen ID**: SCR-ADM-020
 **Screen Name**: Platform Analytics
 **Route**: `/admin/analytics`
 **User Roles**: Admin (all admin roles)
@@ -1553,7 +1553,7 @@ Rank,Name,Rating,Reviews,Bookings
 ### 10.7 Figma Layer Structure (Recommended)
 
 ```
-📁 SCR-ADM-015 Platform Analytics
+📁 SCR-ADM-020 Platform Analytics
 ├── 🖼️ Frame: Desktop (1440x900+)
 │   ├── 📦 Component Instance: NAV-HEADER-AUTH (admin)
 │   ├── 📦 Component: Breadcrumb

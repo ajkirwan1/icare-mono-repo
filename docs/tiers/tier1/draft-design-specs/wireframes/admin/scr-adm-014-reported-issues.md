@@ -1,8 +1,8 @@
-# Reported Issues Dashboard Wireframe (SCR-ADM-008)
+# Reported Issues Dashboard Wireframe (SCR-ADM-014)
 
 **Document Purpose**: Complete wireframe specification and element inventory for the Admin Reported Issues Dashboard (also known as Safeguarding Reports Queue), enabling admins to view, triage, investigate, and manage all safeguarding concerns and platform issues.
 
-**Screen ID**: SCR-ADM-008
+**Screen ID**: SCR-ADM-014
 **Screen Name**: Reported Issues Dashboard (Safeguarding Reports Queue)
 **Route**: `/admin/safeguarding`
 **User Roles**: Admin (Safeguarding Officer, Safeguarding Lead, Operations Manager)
@@ -1123,7 +1123,7 @@ Same WCAG 2.1 AA compliance requirements, focus order, and screen reader annotat
 
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe for SCR-ADM-008 (Safeguarding Reports Queue) |
+| 1.0 | 2026-02-11 | elderly-care-ux-ui-designer | Initial wireframe for SCR-ADM-014 (Safeguarding Reports Queue) |
 
 ---
 

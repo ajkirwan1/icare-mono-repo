@@ -1,18 +1,16 @@
-$bg: #fff;
-$text: #0f172a;
-$muted: rgba(15, 23, 42, 0.72);
-$border: rgba(221, 139, 79, 0.5);
-$border-strong: rgba(15, 23, 42, 0.14);
+@use "@styles/tokens" as *;
+
 $accent: #61674d;
 $accent-soft: rgba(97, 103, 77, 0.14);
+$border-accent: rgba(221, 139, 79, 0.5);
 
 .section {
     position: relative;
     width: 100%;
     padding: 4rem 0;
-    background: $bg;
+    background: $txt-white;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: $text;
+    color: $txt;
 
     @media (max-width:600px) {
         padding: 2rem 0;
@@ -25,7 +23,7 @@ $accent-soft: rgba(97, 103, 77, 0.14);
     left: 0;
     right: 0;
     height: 1px;
-    background: $border;
+    background: $border-accent;
 }
 
 .dividerTop {
@@ -55,16 +53,16 @@ $accent-soft: rgba(97, 103, 77, 0.14);
 
 .h2 {
     margin: 0;
-    font-weight: 500;
-    letter-spacing: -0.6px;
-    line-height: 1.14;
+    font-weight: $fw-semibold;
+    letter-spacing: $tracking-tight;
+    line-height: $lh-tight;
     font-size: clamp(2.05rem, 2.8vw, 2.45rem);
 }
 
 .lead {
     margin-top: 0.85rem;
     font-size: 1.18rem;
-    line-height: 1.65;
+    line-height: $lh-copy;
     max-width: 86ch;
 }
 
@@ -86,8 +84,8 @@ $accent-soft: rgba(97, 103, 77, 0.14);
     display: inline-flex;
     align-items: center;
     padding: 0.55rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid $border;
+    border-radius: $radius-pill;
+    border: 1px solid $border-accent;
     background: rgba(255, 255, 255, 0.72);
     font-size: 0.98rem;
     font-weight: 520;
@@ -114,7 +112,7 @@ $accent-soft: rgba(97, 103, 77, 0.14);
     height: auto;
     display: block;
     object-fit: contain;
-    border-radius: 22px;
+    border-radius: $radius-xxl;
 }
 
 
@@ -133,23 +131,23 @@ $accent-soft: rgba(97, 103, 77, 0.14);
 
 .sectionTitle {
     margin: 0;
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: $font-2xl;
+    font-weight: $fw-semibold;
     line-height: 1.25;
     letter-spacing: -0.25px;
 }
 
 .p {
     margin-top: 0.85rem;
-    font-size: 1.22rem;
-    line-height: 1.65;
+    font-size: $font-lg;
+    line-height: $lh-copy;
 }
 
 .highlight {
     margin-top: 1.05rem;
     font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.6;
+    font-weight: $fw-semibold;
+    line-height: $lh-body;
 }
 
 

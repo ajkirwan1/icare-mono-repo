@@ -1,8 +1,8 @@
 {
   "_metadata": {
-    "screenId": "scr-adm-007",
+    "screenId": "SCR-ADM-026",
     "screenName": "Admin Verification Queue",
-    "wireframeSource": "scr-adm-007-verification-queue.md",
+    "wireframeSource": "scr-adm-026-verification-queue.md",
     "generatedDate": "2026-02-11",
     "role": "admin",
     "breakpoints": {

@@ -201,12 +201,12 @@ export default function ContactContent() {
                     <h2 className={styles.h2}>Quick links</h2>
 
                     <p className={styles.paragraph}>
-                        <NavLink to="/waitlist" className={styles.inlineLink}>
+                        <NavLink to="/#waitlist" className={styles.inlineLink}>
                             Join the Waitlist
                         </NavLink>{" "}
                         <span className={styles.muted}>|</span>{" "}
-                        <NavLink to="/care-guidance" className={styles.inlineLink}>
-                            Subscribe to Care Guidance
+                        <NavLink to="/care-knowledge" className={styles.inlineLink}>
+                            Care Guidance
                         </NavLink>{" "}
                         <span className={styles.muted}>|</span>{" "}
                         <NavLink to="/privacy" className={styles.inlineLink}>

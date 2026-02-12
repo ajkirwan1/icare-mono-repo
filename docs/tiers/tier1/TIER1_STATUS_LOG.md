@@ -70,8 +70,8 @@
 |------|------|--------|--------------|---------------|
 | `build-sequence.md` | `/docs/tiers/tier1/planning/build-sequence.md` | Complete | 2026-02-01 | None |
 | `launch-checklist.md` | `/docs/tiers/tier1/planning/launch-checklist.md` | Complete | 2026-02-01 | Track checkbox completion |
-| `r0-launch-scope.md` | `/docs/tiers/tier1/planning/r0-launch-scope.md` | Complete | 2026-02-06 | Tier 1 aligned - v1.2 (30 screens) |
-| `r1-launch-scope.md` | `/docs/tiers/tier1/planning/r1-launch-scope.md` | Complete | 2026-02-06 | Full MVP screens (47) |
+| `r0-launch-scope.md` | `/docs/tiers/tier1/planning/r0-launch-scope.md` | Complete | 2026-02-12 | Tier 1 aligned - v1.3 (33 screens, +3 from Gap Analysis) |
+| `r1-launch-scope.md` | `/docs/tiers/tier1/planning/r1-launch-scope.md` | Complete | 2026-02-12 | Full MVP screens (50) |
 
 ### Status Documents
 
@@ -251,6 +251,49 @@ Legal Counsel Engagement
 ---
 
 ## Section 5: Change Log
+
+### 2026-02-12: Profile Management Elevation (GAP-005)
+
+**Changes Made**:
+- **SCR-CG-003 (Profile Management)** elevated from R1 to R0 — "My Profile" nav link in all caregiver screens requires a destination
+- **Screen JSON created**: `figma/screens/caregiver-profile-edit.json` — 11 sections (nav, breadcrumb, header, photo, about, services, rate, availability, location, actions, footer), 14 editable fields
+- **Component library updated**: Added `multi-select-tags` component to components.json (85→86) + SVG renderer in generate.js
+- **SVG generator fix**: `renderNavHeader()` now reads `navItems` and `activeItem` from screen JSON props; updated canonical defaults for all 3 roles; active item gets visual highlighting (bold + underline)
+- **Screen count changes**: R0: 33→34, Screen JSONs: 29→30, SVGs: 87→90 (30 screens x 3 viewports)
+- **Documents updated**: tier1-route-map.md, r0-launch-scope.md, r1-launch-scope.md, decision-impact-log.md, screen-inventory.md, TIER1_STATUS_LOG.md
+
+**Deliverables**:
+- 1 new screen JSON + 1 new component + 1 SVG renderer + navItems fix
+- 90 SVGs (30 screens x 3 viewports) regenerated with corrected navigation bars
+- 6 document updates
+
+---
+
+### 2026-02-12: Screen Gap Analysis Resolution (JOBs 0-6)
+
+**Changes Made**:
+- **Gap Analysis Report**: Created `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` identifying 4 actionable gaps + 1 admin ID collision
+- **JOB 0 - Admin ID Reconciliation**: Reassigned 5 admin screen IDs to match route map:
+  - SCR-ADM-005→SCR-ADM-025 (User Management list), SCR-ADM-007→SCR-ADM-026 (Verification Queue list)
+  - SCR-ADM-008→SCR-ADM-014 (Reported Issues), SCR-ADM-014→SCR-ADM-028 (System Settings)
+  - SCR-ADM-015→SCR-ADM-020 (Platform Analytics)
+  - Renamed 5 wireframe files, updated 4 screen JSONs
+- **JOBs 1-3 - New Screen JSONs**: Created 3 missing list screens directly as screen JSONs:
+  - SCR-CR-012: Message Inbox (`/messages`) — elevated from R1 to R0
+  - SCR-CR-007: My Bookings Care Receiver (`/dashboard/bookings`) — new R0 screen
+  - SCR-CG-014: My Bookings Caregiver (`/caregiver/bookings`) — new R0 screen
+- **JOB 4 - Component Library**: Added 3 new components (tab-bar, conversation-row, booking-list-card) to components.json (82→85 total) and 3 new SVG renderers to generate.js
+- **JOB 5 - SVG Generation**: Generated 87 SVGs (29 screens x 3 viewports) across role-based subfolders
+- **JOB 6 - Documentation Sync**: Updated route map, R0 scope, R1 scope, status log, decision log, consistency audit
+- **Screen count changes**: R0: 30→33 (+3), R1: 47→50 (+3), Screen JSONs: 26→29, SVGs: 78→87
+- **4 admin detail screens flagged as WIREFRAME PENDING**: SCR-ADM-005, SCR-ADM-007, SCR-ADM-008, SCR-ADM-015
+
+**Deliverables**:
+- 3 new screen JSONs + 3 new SVG renderers + 87 SVGs
+- Admin wireframe file renames (5 files)
+- 7 document updates (route map, R0/R1 scope, status log, decision log, consistency audit, gap analysis)
+
+---
 
 ### 2026-02-07: Phase 0 Dashboard Wireframes Complete (Jobs 1-4)
 
@@ -521,6 +564,11 @@ All paths verified as correct within tier1/ directory structure.
 
 | Deliverable | Reason | Completed Date | Updated By |
 |-------------|--------|----------------|------------|
+| tier1-route-map.md | Gap Analysis: R0 30→33, R1 47→50, +3 new screens, +3 admin list screens, SCR-CR-012 R1→R0 | 2026-02-12 | JOB 6 doc sync |
+| r0-launch-scope.md | Gap Analysis: R0 count 30→33, added GAP-001/002/003 change log entries | 2026-02-12 | JOB 6 doc sync |
+| r1-launch-scope.md | Gap Analysis: R0 33, R1 50, updated category counts, added GAP elevation notes | 2026-02-12 | JOB 6 doc sync |
+| decision-impact-log.md | Added GAP-001/002/003 decisions with affected deliverables | 2026-02-12 | JOB 6 doc sync |
+| CONSISTENCY_AUDIT.md | Added INC-028 (Gap Analysis screen additions) | 2026-02-12 | JOB 6 doc sync |
 | tier1-route-map.md | CB decisions changed R0 scope from 26→30 screens | 2026-02-07 | QA-1 fix |
 | screen-inventory.md | ToC counts inconsistent with executive summary | 2026-02-07 | QA-2 fix |
 | FIGMA_PRODUCTION_PLAN.md | Navigation reference SCR-CG-020 → SCR-CG-015 | 2026-02-07 | QA-3 fix |
@@ -568,6 +616,8 @@ All paths verified as correct within tier1/ directory structure.
 | 1.8 | 2026-02-07 | Product Director (Agent) | **React Router v7 Integration**: Updated METADATA_SPECIFICATION.md to v1.1 with React Router v7.7.1 patterns (meta/links exports, JSON-LD integration, analytics hooks, TypeScript types); added REACT_ROUTER_EXAMPLE.tsx (complete working route implementation) |
 | 1.9 | 2026-02-07 | Product Director (Agent) | **SEO Keyword Strategy**: Added KEYWORD_STRATEGY.md (500+ keywords researched) covering all 13 pages with primary, secondary, long-tail keywords; search intent analysis; difficulty ratings; optimization recommendations; competitive analysis |
 | 2.0 | 2026-02-07 | Product Director (Agent) | **JavaScript Conversion**: Updated METADATA_SPECIFICATION.md to v1.2 - converted all code examples from TypeScript (.tsx) to JavaScript (.jsx); updated route file extensions; removed type imports and annotations; renamed REACT_ROUTER_EXAMPLE.tsx → REACT_ROUTER_EXAMPLE.jsx with full JavaScript syntax |
+| 2.1 | 2026-02-12 | Product Director (Agent) | **Screen Gap Analysis Resolution**: R0 30→33, R1 47→50; admin ID reconciliation (5 renames); 3 new screens (Message Inbox, My Bookings CR, My Bookings CG); 29 screen JSONs, 87 SVGs; all 7 documents synced |
+| 2.2 | 2026-02-12 | Product Director (Agent) | **GAP-005 Profile Management Elevation**: SCR-CG-003 elevated R1→R0; R0 33→34; 30 screen JSONs, 90 SVGs; navItems fix in generate.js; multi-select-tags component added |
 
 ---
 
