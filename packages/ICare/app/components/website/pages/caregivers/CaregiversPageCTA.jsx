@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPenNib,
@@ -35,16 +34,16 @@ export default function WhatMakesAGreatProfile() {
             <div className={styles.dividerBottom} />
 
             <div className={styles.container}>
-                <div className={styles.header}>
+                <header className={styles.header}>
                     <h2 className={styles.h2}>What makes a great profile</h2>
                     <p className={styles.lead}>
                         A clear profile helps families understand fit quickly and contact you with confidence.
                     </p>
-                </div>
+                </header>
 
-                <div className={styles.grid}>
+                <ul className={styles.grid}>
                     {items.map((x) => (
-                        <div key={x.title} className={styles.item}>
+                        <li key={x.title} className={styles.item}>
                             <span className={styles.iconWrap} aria-hidden="true">
                                 <FontAwesomeIcon icon={x.icon} className={styles.icon} />
                             </span>
@@ -52,9 +51,9 @@ export default function WhatMakesAGreatProfile() {
                                 <h3 className={styles.title}>{x.title}</h3>
                                 <p className={styles.desc}>{x.desc}</p>
                             </div>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
 
                 <div className={styles.note}>
                     <p className={styles.noteTitle}>Why this works?</p>

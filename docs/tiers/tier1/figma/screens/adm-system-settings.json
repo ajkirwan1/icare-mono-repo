@@ -1,8 +1,8 @@
 {
   "_metadata": {
-    "screenId": "scr-adm-014",
+    "screenId": "SCR-ADM-028",
     "screenName": "Admin System Settings",
-    "wireframeSource": "scr-adm-014-system-settings.md",
+    "wireframeSource": "scr-adm-028-system-settings.md",
     "generatedDate": "2026-02-11",
     "role": "admin",
     "breakpoints": {

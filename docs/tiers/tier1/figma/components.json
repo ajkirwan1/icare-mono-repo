@@ -4,9 +4,9 @@
     "generatedDate": "2026-02-10",
     "lastUpdated": "2026-02-11",
     "tokenSource": "tokens.json",
-    "totalComponents": 82,
-    "scope": "dashboard-screens + search-screens + booking-screens + profile-screens + auth-screens + payment-screens + onboarding-screens + messaging-screens + review-screens + admin-screens",
-    "description": "Component schemas for programmatic Figma component generation via local development plugin. Includes 33 dashboard components + 7 search/discovery components + 15 profile/booking components + 3 auth components + 4 payment components + 4 onboarding components + 4 messaging components + 2 review components + 10 admin components.",
+    "totalComponents": 86,
+    "scope": "dashboard-screens + search-screens + booking-screens + profile-screens + auth-screens + payment-screens + onboarding-screens + messaging-screens + review-screens + admin-screens + list-screens + profile-edit-screens",
+    "description": "Component schemas for programmatic Figma component generation via local development plugin. Includes 33 dashboard components + 7 search/discovery components + 15 profile/booking components + 3 auth components + 4 payment components + 4 onboarding components + 4 messaging components + 2 review components + 10 admin components + 3 list screen components + 1 profile edit component.",
     "newComponents": [
       "search-bar",
       "caregiver-card",
@@ -47,7 +47,10 @@
       "super-admin-badge",
       "placeholder-badge",
       "filter-tag-row",
-      "bulk-actions-toolbar"
+      "bulk-actions-toolbar",
+      "tab-bar",
+      "conversation-row",
+      "booking-list-card"
     ]
   },
   "components": [
@@ -9306,6 +9309,204 @@
         "fontSize": "13px"
       },
       "figmaNotes": "Dark toolbar (#1E293B) with white text. Left side shows '3 users selected' count. Right side has action buttons (outlined white for secondary, solid white-on-blue for primary). 8px border-radius. Appears at the bottom of the table area when rows are checkbox-selected."
+    },
+    {
+      "id": "tab-bar",
+      "name": "Tab Bar",
+      "category": "navigation",
+      "description": "Horizontal tab navigation with active state indicator and optional count badges. Used for filtering content on list screens (bookings, messages).",
+      "dimensions": {
+        "width": "100%",
+        "height": "48px"
+      },
+      "props": [
+        { "name": "tabs", "type": "array", "description": "Array of { label, count? } objects defining each tab" },
+        { "name": "activeTab", "type": "number", "description": "Zero-based index of the currently active tab" }
+      ],
+      "styling": {
+        "background": "white",
+        "borderBottom": "1px solid #E2E8F0",
+        "tabPadding": "12px 20px",
+        "activeColor": "#2563EB",
+        "inactiveColor": "#64748B",
+        "activeIndicator": "2px solid #2563EB bottom border",
+        "fontSize": "14px",
+        "fontWeight": "500 (active), 400 (inactive)",
+        "countBadge": {
+          "background": "#F1F5F9 (inactive), #EFF6FF (active)",
+          "fontSize": "12px",
+          "borderRadius": "10px",
+          "padding": "2px 8px"
+        }
+      },
+      "figmaNotes": "Full-width horizontal bar with evenly spaced tab labels. Active tab has brand-blue (#2563EB) text and a 2px bottom border indicator. Inactive tabs are muted (#64748B). Count badges appear as small rounded pills next to each label. On mobile, tabs scroll horizontally if they overflow."
+    },
+    {
+      "id": "conversation-row",
+      "name": "Conversation Row",
+      "category": "messaging",
+      "description": "Single row in the message inbox list. Displays participant avatar, name, thread context, message preview, timestamp, and unread badge.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto (min 80px)"
+      },
+      "props": [
+        { "name": "conversations", "type": "array", "description": "Array of conversation objects with: name, threadType, preview, time, unread (number)" }
+      ],
+      "styling": {
+        "background": "white (read), #F8FAFC (unread)",
+        "borderBottom": "1px solid #E2E8F0",
+        "padding": "16px 24px",
+        "avatarSize": "44px",
+        "avatarBackground": "#2563EB",
+        "avatarTextColor": "white",
+        "nameFont": "14px, weight 600 (unread) / 500 (read)",
+        "nameColor": "#1E293B",
+        "threadTypeFont": "13px",
+        "threadTypeColor": "#64748B",
+        "previewFont": "13px",
+        "previewColor": "#64748B (read), #334155 (unread)",
+        "previewMaxLines": 1,
+        "timeFont": "12px",
+        "timeColor": "#94A3B8",
+        "unreadBadge": {
+          "background": "#DC2626",
+          "textColor": "white",
+          "size": "20px",
+          "fontSize": "11px",
+          "borderRadius": "50%"
+        }
+      },
+      "states": [
+        { "name": "read", "description": "Normal weight text, white background" },
+        { "name": "unread", "description": "Bold name, darker preview text, light blue-gray background, red unread count badge" },
+        { "name": "empty", "description": "Empty state with illustration and 'No conversations yet' message" }
+      ],
+      "figmaNotes": "Each row has a circular avatar (initials) on the left, then a two-line content area (name + thread type on line 1, preview on line 2), and timestamp + unread badge on the right. Unread rows have a subtle #F8FAFC background tint and bolder text. The red unread badge is a small circle with white count text. Rows are clickable (hover shows #F1F5F9 background). On mobile, preview text is truncated to one line."
+    },
+    {
+      "id": "booking-list-card",
+      "name": "Booking List Card",
+      "category": "booking",
+      "description": "Card displaying a single booking in a list view. Shows participant info, status badge, date/time, services, amount/earnings, and contextual action buttons.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto (min 120px)"
+      },
+      "props": [
+        { "name": "bookings", "type": "array", "description": "Array of booking objects with: name, status, date, time, duration, services, amount, earnings?, earningsNote?, location?, countdown?, actions[]" }
+      ],
+      "styling": {
+        "background": "white",
+        "border": "1px solid #E2E8F0",
+        "borderRadius": "12px",
+        "padding": "20px 24px",
+        "gap": "16px between cards",
+        "avatarSize": "44px",
+        "avatarBackground": "#2563EB",
+        "avatarTextColor": "white",
+        "nameFont": "16px, weight 600",
+        "nameColor": "#1E293B",
+        "statusBadge": {
+          "fontSize": "12px",
+          "fontWeight": "500",
+          "borderRadius": "12px",
+          "padding": "4px 12px",
+          "colors": {
+            "Confirmed": { "background": "#DCFCE7", "text": "#166534" },
+            "Pending": { "background": "#FEF3C7", "text": "#92400E" },
+            "Completed": { "background": "#F1F5F9", "text": "#475569" },
+            "Cancelled": { "background": "#FEE2E2", "text": "#991B1B" },
+            "Declined": { "background": "#FEE2E2", "text": "#991B1B" },
+            "In Progress": { "background": "#DBEAFE", "text": "#1E40AF" }
+          }
+        },
+        "detailFont": "13px",
+        "detailColor": "#64748B",
+        "amountFont": "18px, weight 600",
+        "amountColor": "#1E293B",
+        "earningsNoteFont": "11px",
+        "earningsNoteColor": "#94A3B8",
+        "countdownBadge": {
+          "background": "#FEF3C7",
+          "textColor": "#92400E",
+          "fontSize": "12px",
+          "borderRadius": "6px",
+          "padding": "4px 8px"
+        },
+        "actionButtons": {
+          "primaryVariant": "Accept, Confirm, Mark Complete",
+          "secondaryVariant": "View Details, Message, Cancel, Decline, Cancel Request, Book Again, Leave Review"
+        }
+      },
+      "states": [
+        { "name": "confirmed", "description": "Green status badge, View Details + Message + Cancel actions" },
+        { "name": "pending", "description": "Amber status badge with countdown timer, Accept + Decline + Message actions (caregiver), View Details + Cancel Request actions (care receiver)" },
+        { "name": "completed", "description": "Gray status badge, View Details + optional Leave Review + Book Again actions" },
+        { "name": "cancelled", "description": "Red status badge, View Details only" },
+        { "name": "declined", "description": "Red status badge, View Details only" },
+        { "name": "empty", "description": "Empty state illustration with contextual message and CTA button" }
+      ],
+      "figmaNotes": "Each card is a white rounded rectangle with subtle border. Left side has avatar circle (initials), name in bold, and status badge pill. Center has date/time line, duration, and services. Right side has amount (or earnings + commission note for caregivers) right-aligned. Action buttons are at the bottom-right of each card. Pending bookings show an amber countdown badge below the status. Cards have a subtle hover shadow. On mobile, layout stacks vertically with amount moving below details."
+    },
+    {
+      "id": "multi-select-tags",
+      "name": "Multi-Select Tags",
+      "category": "form",
+      "description": "Tag-based multi-select input for choosing multiple options from a predefined list. Displays selected items as removable pills/tags and provides a dropdown or autocomplete for adding more.",
+      "dimensions": {
+        "width": "100%",
+        "height": "auto (min 44px)"
+      },
+      "props": [
+        { "name": "label", "type": "text", "description": "Field label displayed above the tags area" },
+        { "name": "selected", "type": "array", "description": "Array of currently selected tag strings" },
+        { "name": "options", "type": "array", "description": "Array of all available option strings" },
+        { "name": "helpText", "type": "text", "description": "Helper text displayed below the tags area" },
+        { "name": "required", "type": "boolean", "default": false }
+      ],
+      "styling": {
+        "container": {
+          "border": "1px solid #E2E8F0",
+          "borderRadius": "8px",
+          "padding": "8px 12px",
+          "minHeight": "44px",
+          "background": "white"
+        },
+        "tag": {
+          "background": "#EFF6FF",
+          "textColor": "#1E40AF",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "borderRadius": "16px",
+          "padding": "4px 10px",
+          "gap": "6px",
+          "removeIcon": "x (8px, hover: red)"
+        },
+        "addButton": {
+          "fontSize": "13px",
+          "color": "#2563EB",
+          "label": "+ Add"
+        },
+        "dropdown": {
+          "maxHeight": "200px",
+          "itemPadding": "8px 12px",
+          "hoverBackground": "#F1F5F9"
+        },
+        "label": {
+          "fontSize": "14px",
+          "fontWeight": "500",
+          "color": "#374151",
+          "marginBottom": "6px"
+        }
+      },
+      "states": [
+        { "name": "default", "description": "Shows selected tags with add button" },
+        { "name": "dropdown-open", "description": "Dropdown visible showing unselected options" },
+        { "name": "empty", "description": "No tags selected, placeholder text shown" },
+        { "name": "disabled", "description": "All tags shown but not removable, no add button" }
+      ],
+      "figmaNotes": "Renders as a bordered container with tag pills inside. Each tag is a rounded pill with text and an X remove button. An '+ Add' link at the end opens a dropdown of available options (filtering out already-selected items). On mobile, tags wrap to multiple lines. Use for languages, interests, and similar multi-value profile fields."
     }
   ]
 }

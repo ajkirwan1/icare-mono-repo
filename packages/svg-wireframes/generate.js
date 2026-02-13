@@ -174,7 +174,7 @@ function renderNavHeader(section, R, W) {
   const txt = c(R, '{colors.text.primary}');
   const brand = c(R, '{colors.brand.secondary}');
   const userName = (section.props && section.props.userName) || 'User';
-  const role = (section.props && section.props.role) || 'care-receiver';
+  const role = (section.props && section.props.role) || (section.props && section.props.variant) || section.variant || 'care-receiver';
   const hasSearch = section.props && section.props.hasSearch;
   const notifCount = (section.props && section.props.notificationCount) || '0';
 
@@ -206,15 +206,23 @@ function renderNavHeader(section, R, W) {
   s += `<rect x="24" y="14" width="100" height="36" rx="8" fill="${brand}" opacity="0.25"/>`;
   s += `<text x="46" y="38" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="${txt}">iCare</text>`;
 
-  // Nav links
-  const items =
+  // Nav links — read from screen JSON props, fall back to canonical defaults
+  const activeItem = (section.props && section.props.activeItem) || null;
+  const items = (section.props && Array.isArray(section.props.navItems) && section.props.navItems) || (
     role === 'admin'
-      ? ['Dashboard', 'Users', 'Bookings', 'Reports']
+      ? ['Dashboard', 'Verifications', 'Users', 'Safeguarding']
       : role === 'caregiver'
-        ? ['Dashboard', 'Bookings', 'Calendar', 'Profile']
-        : ['Dashboard', 'Bookings', 'Messages', 'Profile'];
+        ? ['Dashboard', 'My Bookings', 'Messages', 'My Profile']
+        : ['Dashboard', 'My Bookings', 'Messages', 'Search']);
   items.forEach((item, i) => {
-    s += `<text x="${160 + i * 105}" y="38" font-family="Inter,sans-serif" font-size="14" fill="${txt}" opacity="0.65">${item}</text>`;
+    const isActive = activeItem ? item === activeItem : i === 0;
+    const weight = isActive ? ' font-weight="600"' : '';
+    const op = isActive ? '1.0' : '0.65';
+    s += `<text x="${160 + i * 105}" y="38" font-family="Inter,sans-serif" font-size="14" fill="${txt}" opacity="${op}"${weight}>${item}</text>`;
+    if (isActive) {
+      const approxW = item.length * 8;
+      s += `<rect x="${160 + i * 105}" y="52" width="${approxW}" height="2" rx="1" fill="${brand}"/>`;
+    }
   });
 
   // Search bar (admin)
@@ -2419,6 +2427,208 @@ function renderSingleChild(child, R, width, index) {
       s += `<rect x="0" y="0" width="${bw}" height="20" rx="4" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>`;
       s += `<text x="8" y="14" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#92400E">${esc(label)}</text>`;
       return { svg: s, height: 20 };
+    }
+
+    case 'tab-bar': {
+      const p = child.props || {};
+      const tabs = Array.isArray(p.tabs) ? p.tabs : ['All', 'Active', 'Completed'];
+      const activeTab = p.activeTab || 0;
+      const tabH = 44;
+      let s = '';
+      s += `<rect x="0" y="0" width="${width}" height="${tabH}" rx="0" fill="white"/>`;
+      s += `<line x1="0" y1="${tabH - 1}" x2="${width}" y2="${tabH - 1}" stroke="${border}" stroke-width="1"/>`;
+      const isMobile = width < 500;
+      const tabW = isMobile ? Math.floor(width / tabs.length) : Math.max(100, Math.floor(Math.min(width, tabs.length * 140) / tabs.length));
+      let tx = isMobile ? 0 : 0;
+      tabs.forEach((tab, i) => {
+        const label = typeof tab === 'string' ? tab : tab.label || 'Tab';
+        const count = typeof tab === 'object' && tab.count !== undefined ? ` (${tab.count})` : '';
+        const isActive = i === activeTab;
+        if (isActive) {
+          s += `<rect x="${tx}" y="${tabH - 3}" width="${tabW}" height="3" fill="${brand}"/>`;
+          s += `<text x="${tx + tabW / 2}" y="${tabH / 2 + 5}" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="${brand}" text-anchor="middle">${esc(label)}${esc(count)}</text>`;
+        } else {
+          s += `<text x="${tx + tabW / 2}" y="${tabH / 2 + 5}" font-family="Inter,sans-serif" font-size="13" font-weight="400" fill="${textM}" text-anchor="middle">${esc(label)}${esc(count)}</text>`;
+        }
+        tx += tabW;
+      });
+      return { svg: s, height: tabH };
+    }
+
+    case 'conversation-row': {
+      const p = child.props || {};
+      const rows = Array.isArray(p.conversations) ? p.conversations : [];
+      const rowH = 80;
+      const gap = 1;
+      let s = '';
+      let y = 0;
+
+      if (rows.length === 0) {
+        s += `<rect x="0" y="0" width="${width}" height="200" rx="8" fill="${textP}" opacity="0.02"/>`;
+        s += `<text x="${width / 2}" y="90" font-family="Inter,sans-serif" font-size="16" fill="${textM}" text-anchor="middle">${esc(p.emptyTitle || 'No messages yet')}</text>`;
+        s += `<text x="${width / 2}" y="115" font-family="Inter,sans-serif" font-size="13" fill="${textM}" text-anchor="middle">${esc(p.emptySubtitle || 'Start a conversation from a caregiver profile or booking.')}</text>`;
+        return { svg: s, height: 200 };
+      }
+
+      rows.forEach((row, i) => {
+        const isUnread = row.unread && row.unread > 0;
+        const bgFill = isUnread ? '#F0F9FF' : (i % 2 === 1 ? '#FAFAFA' : 'white');
+        const avatarR = 22;
+        const isMob = width < 500;
+        s += `<rect x="0" y="${y}" width="${width}" height="${rowH}" fill="${bgFill}"/>`;
+        s += `<line x1="0" y1="${y + rowH}" x2="${width}" y2="${y + rowH}" stroke="${border}" stroke-width="0.5"/>`;
+        // Avatar
+        s += `<circle cx="${(isMob ? 16 : 24) + avatarR}" cy="${y + rowH / 2}" r="${avatarR}" fill="${brand}" opacity="0.2"/>`;
+        s += `<text x="${(isMob ? 16 : 24) + avatarR}" y="${y + rowH / 2 + 4}" font-family="Inter,sans-serif" font-size="14" fill="${brand}" text-anchor="middle" font-weight="600">${esc((row.name || 'U').charAt(0))}</text>`;
+        // Name
+        const nameX = (isMob ? 16 : 24) + avatarR * 2 + 12;
+        const fw = isUnread ? '600' : '400';
+        s += `<text x="${nameX}" y="${y + 26}" font-family="Inter,sans-serif" font-size="14" font-weight="${fw}" fill="${textP}">${esc(row.name || 'Unknown')}</text>`;
+        // Thread type
+        s += `<text x="${nameX}" y="${y + 42}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(row.threadType || 'Pre-booking inquiry')}</text>`;
+        // Last message preview
+        const preview = (row.preview || '').substring(0, isMob ? 30 : 60);
+        s += `<text x="${nameX}" y="${y + 60}" font-family="Inter,sans-serif" font-size="12" fill="${textM}" opacity="0.7">${esc(preview)}${row.preview && row.preview.length > (isMob ? 30 : 60) ? '...' : ''}</text>`;
+        // Time (right side)
+        s += `<text x="${width - 16}" y="${y + 26}" font-family="Inter,sans-serif" font-size="11" fill="${textM}" text-anchor="end">${esc(row.time || '')}</text>`;
+        // Unread badge
+        if (isUnread) {
+          s += `<circle cx="${width - 20}" cy="${y + 50}" r="10" fill="#DC2626"/>`;
+          s += `<text x="${width - 20}" y="${y + 54}" font-family="Inter,sans-serif" font-size="10" fill="white" font-weight="700" text-anchor="middle">${row.unread}</text>`;
+        }
+        y += rowH + gap;
+      });
+      return { svg: s, height: y };
+    }
+
+    case 'booking-list-card': {
+      const p = child.props || {};
+      const bookings = Array.isArray(p.bookings) ? p.bookings : [];
+      const cardH = 120;
+      const gap = 12;
+      let s = '';
+      let y = 0;
+
+      if (bookings.length === 0) {
+        s += `<rect x="0" y="0" width="${width}" height="180" rx="8" fill="${textP}" opacity="0.02"/>`;
+        s += `<text x="${width / 2}" y="75" font-family="Inter,sans-serif" font-size="16" fill="${textM}" text-anchor="middle">${esc(p.emptyTitle || 'No bookings yet')}</text>`;
+        s += `<text x="${width / 2}" y="100" font-family="Inter,sans-serif" font-size="13" fill="${textM}" text-anchor="middle">${esc(p.emptySubtitle || '')}</text>`;
+        if (p.emptyCta) {
+          s += `<rect x="${width / 2 - 80}" y="120" width="160" height="36" rx="8" fill="${brand}"/>`;
+          s += `<text x="${width / 2}" y="143" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">${esc(p.emptyCta)}</text>`;
+        }
+        return { svg: s, height: 180 };
+      }
+
+      const isMob = width < 500;
+      bookings.forEach((bk) => {
+        s += `<rect x="0" y="${y}" width="${width}" height="${cardH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+        // Avatar
+        const avR = isMob ? 18 : 22;
+        s += `<circle cx="${16 + avR}" cy="${y + cardH / 2}" r="${avR}" fill="${brand}" opacity="0.2"/>`;
+        s += `<text x="${16 + avR}" y="${y + cardH / 2 + 4}" font-family="Inter,sans-serif" font-size="13" fill="${brand}" text-anchor="middle" font-weight="600">${esc((bk.name || 'U').charAt(0))}</text>`;
+        // Name + badges
+        const nx = 16 + avR * 2 + 12;
+        s += `<text x="${nx}" y="${y + 28}" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="${textP}">${esc(bk.name || 'Unknown')}</text>`;
+        // Status badge
+        const statusColors = {
+          'Pending': { bg: '#FEF3C7', text: '#92400E' },
+          'Confirmed': { bg: '#DCFCE7', text: '#166534' },
+          'In Progress': { bg: '#DBEAFE', text: '#1D4ED8' },
+          'Completed': { bg: '#DCFCE7', text: '#166534' },
+          'Cancelled': { bg: '#F3F4F6', text: '#6B7280' },
+          'Declined': { bg: '#F3F4F6', text: '#6B7280' },
+          'Disputed': { bg: '#FED7AA', text: '#C2410C' },
+          'New Request': { bg: '#FEF3C7', text: '#92400E' },
+          'Upcoming': { bg: '#DCFCE7', text: '#166534' },
+          'Paid': { bg: '#DCFCE7', text: '#166534' }
+        };
+        const statusLabel = bk.status || 'Pending';
+        const sc = statusColors[statusLabel] || { bg: '#F3F4F6', text: '#6B7280' };
+        const badgeW = statusLabel.length * 7 + 16;
+        const badgeX = isMob ? nx : nx + (bk.name || '').length * 8 + 12;
+        s += `<rect x="${Math.min(badgeX, width - badgeW - 16)}" y="${y + 16}" width="${badgeW}" height="20" rx="10" fill="${sc.bg}"/>`;
+        s += `<text x="${Math.min(badgeX, width - badgeW - 16) + 8}" y="${y + 30}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="${sc.text}">${esc(statusLabel)}</text>`;
+        // Date & time
+        s += `<text x="${nx}" y="${y + 50}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">📅 ${esc(bk.date || '')}  ⏰ ${esc(bk.time || '')}  ⏱ ${esc(bk.duration || '')}</text>`;
+        // Services
+        if (bk.services) {
+          s += `<text x="${nx}" y="${y + 68}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(bk.services)}</text>`;
+        }
+        // Amount (right side)
+        const amountLabel = bk.earnings || bk.amount || '';
+        if (amountLabel) {
+          s += `<text x="${width - 16}" y="${y + 28}" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="${textP}" text-anchor="end">${esc(amountLabel)}</text>`;
+          if (bk.earningsNote) {
+            s += `<text x="${width - 16}" y="${y + 44}" font-family="Inter,sans-serif" font-size="10" fill="${textM}" text-anchor="end">${esc(bk.earningsNote)}</text>`;
+          }
+        }
+        // Actions row
+        let ax = nx;
+        const actions = Array.isArray(bk.actions) ? bk.actions : [];
+        actions.forEach((action, ai) => {
+          const isPrimary = ai === 0 && (action === 'Accept' || action === 'Confirm Completion' || action === 'Mark Complete');
+          const actW = action.length * 7 + 20;
+          if (isPrimary) {
+            s += `<rect x="${ax}" y="${y + cardH - 36}" width="${actW}" height="26" rx="6" fill="${brand}"/>`;
+            s += `<text x="${ax + actW / 2}" y="${y + cardH - 19}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="white" text-anchor="middle">${esc(action)}</text>`;
+          } else {
+            s += `<rect x="${ax}" y="${y + cardH - 36}" width="${actW}" height="26" rx="6" fill="white" stroke="${border}" stroke-width="1"/>`;
+            s += `<text x="${ax + actW / 2}" y="${y + cardH - 19}" font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="${textP}" text-anchor="middle">${esc(action)}</text>`;
+          }
+          ax += actW + 8;
+        });
+        // Countdown timer (for pending)
+        if (bk.countdown) {
+          s += `<text x="${width - 16}" y="${y + cardH - 20}" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#F59E0B" text-anchor="end">⏳ ${esc(bk.countdown)}</text>`;
+        }
+        y += cardH + gap;
+      });
+      return { svg: s, height: y };
+    }
+
+    case 'multi-select-tags': {
+      const p = child.props || {};
+      const label = p.label || 'Select options';
+      const selected = Array.isArray(p.selected) ? p.selected : [];
+      const helpText = p.helpText || '';
+      const tagH = 28;
+      const tagGap = 6;
+      const tagPadX = 10;
+      const tagFontSize = 13;
+      let s = '';
+      let y = 0;
+      // Label
+      s += `<text x="0" y="${y + 14}" font-family="Inter,sans-serif" font-size="14" font-weight="500" fill="${textP}">${esc(label)}</text>`;
+      y += 24;
+      // Tag container border
+      const isMob = width < 500;
+      const maxTagsPerRow = isMob ? 2 : 4;
+      const rows = Math.ceil((selected.length + 1) / maxTagsPerRow) || 1;
+      const containerH = rows * (tagH + tagGap) + tagGap * 2;
+      s += `<rect x="0" y="${y}" width="${width}" height="${containerH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
+      // Tags
+      let tx = 8;
+      let ty = y + tagGap;
+      selected.forEach((tag) => {
+        const tagW = tag.length * tagFontSize * 0.6 + tagPadX * 2 + 18;
+        if (tx + tagW > width - 8) { tx = 8; ty += tagH + tagGap; }
+        s += `<rect x="${tx}" y="${ty}" width="${tagW}" height="${tagH}" rx="14" fill="#EFF6FF"/>`;
+        s += `<text x="${tx + tagPadX}" y="${ty + 18}" font-family="Inter,sans-serif" font-size="${tagFontSize}" font-weight="500" fill="#1E40AF">${esc(tag)}</text>`;
+        s += `<text x="${tx + tagW - 14}" y="${ty + 18}" font-family="Inter,sans-serif" font-size="11" fill="#1E40AF" opacity="0.6">x</text>`;
+        tx += tagW + tagGap;
+      });
+      // "+ Add" button
+      if (tx + 50 > width - 8) { tx = 8; ty += tagH + tagGap; }
+      s += `<text x="${tx + 4}" y="${ty + 18}" font-family="Inter,sans-serif" font-size="${tagFontSize}" fill="${brand}" font-weight="500">+ Add</text>`;
+      y += containerH;
+      // Help text
+      if (helpText) {
+        y += 4;
+        s += `<text x="0" y="${y + 12}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(helpText)}</text>`;
+        y += 18;
+      }
+      return { svg: s, height: y };
     }
 
     default: {

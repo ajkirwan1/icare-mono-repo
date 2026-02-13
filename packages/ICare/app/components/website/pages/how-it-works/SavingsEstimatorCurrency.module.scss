@@ -1,0 +1,408 @@
+@use "@styles/tokens" as *;
+
+$accent: rgb(221, 139, 79);
+$text-muted: rgba(15, 23, 42, 0.92);
+$text-soft: rgba(15, 23, 42, 0.88);
+$border-med: rgba(15, 23, 42, 0.16);
+$glass: rgba(255, 255, 255, 0.5);
+$glass-strong: rgba(255, 255, 255, 0.70);
+$glass-card: rgba(255, 255, 255, 0.75);
+
+.section {
+    width: 100%;
+    padding: 4rem 0;
+    color: $txt;
+    background: rgb(242, 242, 242);
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: clamp(22px, 3vw, 40px);
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Cards */
+.card {
+    height: 100%;
+    border-radius: $radius-xl;
+    border: 1px solid $card-border;
+    box-shadow: $shadow-xl;
+    background: $glass-card;
+    backdrop-filter: blur(10px);
+    padding: clamp(18px, 2.4vw, 26px);
+    display: flex;
+    flex-direction: column;
+}
+
+.cardTitle {
+    margin: 0;
+    font-weight: $fw-extrabold;
+    letter-spacing: $tracking-normal;
+    color: $text-muted;
+    font-size: $font-base;
+}
+
+/* Info cards (left column) */
+.infoGrid {
+    display: grid;
+    gap: $sp-3;
+}
+
+.infoCard {
+    border-radius: $radius-xxl;
+    border: 1px solid $form-border;
+    background: $glass-strong;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.06);
+    padding: clamp(16px, 2vw, 22px);
+}
+
+.infoHead {
+    font-weight: 320;
+    font-size: $font-lg;
+    letter-spacing: -0.2px;
+    border-bottom: 1px solid $card-border;
+    padding-bottom: 0.55rem;
+    text-align: center;
+    margin: 0 0 1.1rem;
+    color: $text-muted;
+}
+
+.subHead {
+    margin: 0;
+    font-weight: 520;
+    color: rgba(15, 23, 42, 0.90);
+    font-size: $font-sm;
+    letter-spacing: -0.05px;
+}
+
+.infoP {
+    margin: 0;
+    color: $text-muted;
+    font-weight: 420;
+    font-size: 0.98rem;
+    line-height: 1.55;
+}
+
+.infoPDisclaimer {
+    composes: infoP;
+    margin-top: 14px;
+    opacity: 0.88;
+}
+
+.infoPNote {
+    composes: infoP;
+    margin-top: 10px;
+    opacity: 0.78;
+}
+
+/* Pills */
+.pills {
+    display: grid;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.pillRow {
+    display: flex;
+    justify-content: space-between;
+    gap: $sp-3;
+    padding: 10px $sp-3;
+    border-radius: 16px;
+    border: 1px solid $form-border;
+    background: $glass;
+    color: $text-muted;
+    font-weight: 520;
+    font-size: 0.98rem;
+    letter-spacing: -0.05px;
+}
+
+.pillLabel {
+    font-weight: $fw-normal;
+}
+
+/* Bullets */
+.bullets {
+    margin: 0;
+    padding-left: 1.05rem;
+    display: grid;
+    gap: 10px;
+    color: $text-muted;
+    line-height: 1.55;
+    font-size: 0.98rem;
+    font-weight: 420;
+    list-style: decimal;
+}
+
+/* Right column cards stack */
+.cardsStack {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(14px, 2.2vw, 22px);
+    align-items: stretch;
+}
+
+/* Form elements */
+.label {
+    font-weight: 520;
+    color: rgba(15, 23, 42, 0.9);
+    font-size: $font-sm;
+    letter-spacing: -0.05px;
+}
+
+.helper {
+    margin-top: $sp-2;
+    color: $text-muted;
+    font-weight: 420;
+    font-size: 0.98rem;
+    line-height: 1.55;
+}
+
+.helperTight {
+    composes: helper;
+    margin-top: 1px;
+}
+
+.helperSmall {
+    composes: helper;
+    margin-top: 2px;
+}
+
+.fieldMini {
+    width: fit-content;
+    min-width: 92px;
+    border: 1px solid $form-border;
+    border-radius: $radius-pill;
+    padding: $sp-2 10px;
+    background: $glass;
+    font-size: 0.98rem;
+    color: $txt;
+    outline: none;
+    text-align: center;
+}
+
+.selectLike {
+    border: 1px solid $form-border;
+    border-radius: $radius-pill;
+    padding: 9px $sp-3;
+    background: $glass;
+    font-size: 0.98rem;
+    color: $txt;
+    outline: none;
+    font-weight: 520;
+}
+
+/* Currency toggle */
+.currWrap {
+    display: inline-flex;
+    gap: $sp-2;
+    padding: $sp-1;
+    border-radius: $radius-pill;
+    border: 1px solid $form-border;
+    background: rgba(255, 255, 255, 0.40);
+}
+
+.currBtn {
+    border: none;
+    cursor: pointer;
+    padding: $sp-2 $sp-3;
+    border-radius: $radius-pill;
+    font-size: 0.96rem;
+    font-weight: 650;
+    letter-spacing: -0.05px;
+    color: rgba(15, 23, 42, 0.82);
+    background: transparent;
+}
+
+.currBtnActive {
+    composes: currBtn;
+    color: rgba(255, 255, 255, 0.96);
+    background: $link-bg;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+}
+
+/* Input grid layouts */
+.inputsGrid {
+    display: grid;
+    gap: $sp-3;
+    margin-top: 10px;
+}
+
+.fieldRow {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: $sp-3;
+}
+
+.fieldRowFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $sp-3;
+}
+
+.fieldGroup {
+    display: grid;
+    gap: 7px;
+}
+
+.fieldGroupWide {
+    display: grid;
+    gap: $sp-2;
+}
+
+.rangeInput {
+    width: 100%;
+    accent-color: $link-bg;
+    cursor: pointer;
+}
+
+.rangeLabels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+    color: rgba(15, 23, 42, 0.62);
+    font-weight: 450;
+    font-size: 0.94rem;
+}
+
+/* Results grid */
+.resultGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $sp-3;
+    margin-top: 10px;
+}
+
+.resultBox {
+    border-radius: 16px;
+    padding: $sp-3;
+    border: 1px solid $border-med;
+    background: $glass;
+}
+
+.resultBoxAccent {
+    composes: resultBox;
+    border: 1px solid rgba(221, 139, 79, 0.28);
+    background: rgba(221, 139, 79, 0.06);
+}
+
+.resultKey {
+    font-size: 0.97rem;
+    font-weight: 420;
+    color: $text-soft;
+    margin-bottom: $sp-1;
+    display: flex;
+    align-items: center;
+    gap: $sp-2;
+}
+
+.resultVal {
+    font-weight: 620;
+    font-size: 1.1rem;
+    color: $txt;
+    letter-spacing: -0.2px;
+}
+
+.resultValAccent {
+    composes: resultVal;
+    color: $link-bg;
+}
+
+/* Tooltip */
+.tooltipWrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.infoIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: $radius-pill;
+    border: 1px solid rgba(15, 23, 42, 0.22);
+    font-size: 12px;
+    font-weight: $fw-ultra;
+    line-height: 1;
+    color: rgba(15, 23, 42, 0.7);
+    cursor: help;
+    user-select: none;
+    transform: translateY(-0.5px);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 0;
+}
+
+/* Progress bar */
+.bar {
+    margin-top: 14px;
+    height: $sp-2;
+    border-radius: $radius-pill;
+    background: $card-border;
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    background: $link-bg;
+}
+
+/* Disclaimer */
+.disclaimer {
+    margin-top: 14px;
+    border-radius: 16px;
+    padding: $sp-3;
+    border: 1px solid $form-border;
+    background: $glass;
+    color: rgba(15, 23, 42, 0.86);
+    font-weight: 420;
+    font-size: $font-xs;
+    line-height: 1.55;
+}
+
+/* Savings text */
+.savingsText {
+    composes: helper;
+    margin-top: $sp-3;
+}
+
+.savingsHighlight {
+    color: $link-bg;
+    font-weight: 650;
+}
+
+/* Funding section */
+.fundingContent {
+    margin-top: 14px;
+}
+
+.divider {
+    height: 1px;
+    background: $card-border;
+    margin: 14px 0;
+}
+
+/* Chevron button */
+.chevronBtn {
+    width: 34px;
+    height: 34px;
+    border-radius: $radius-pill;
+    background: $link-bg;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .row {
+        grid-template-columns: 1fr;
+    }
+}

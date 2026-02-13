@@ -1,6 +1,6 @@
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
-import styles from "./safety-commitment.module.scss";
+import styles from "~/styles/pages/safety-commitment.module.scss";
 
 export const meta = () => {
   return [

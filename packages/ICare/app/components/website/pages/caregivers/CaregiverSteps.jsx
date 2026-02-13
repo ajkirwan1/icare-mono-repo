@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCircleCheck,
@@ -58,12 +58,12 @@ export default function CaregiverStepsWithProfileGuide() {
                     </div>
 
                     {/* RIGHT */}
-                    <div
+                    <ul
                         aria-label="Caregiver benefits highlights"
                         className={styles.highlights}
                     >
                         {highlights.map((h) => (
-                            <div key={h.t} className={styles.highlightItem}>
+                            <li key={h.t} className={styles.highlightItem}>
                                 <span aria-hidden="true" className={styles.highlightIcon}>
                                     <FontAwesomeIcon icon={h.icon} className={styles.iconLg} />
                                 </span>
@@ -72,9 +72,9 @@ export default function CaregiverStepsWithProfileGuide() {
                                     <h3 className={styles.highlightTitle}>{h.t}</h3>
                                     <p className={styles.highlightDesc}>{h.d}</p>
                                 </div>
-                            </div>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 </div>
 
                 {/* MAIN GRID */}
@@ -86,12 +86,15 @@ export default function CaregiverStepsWithProfileGuide() {
                             alt="Caregiver registering on a mobile phone"
                             className={styles.figureImg}
                         />
+                        <figcaption className={styles.figcaption}>
+                            Caregiver registration on iCare
+                        </figcaption>
                     </figure>
 
                     {/* RIGHT — MODULES */}
-                    <div className={styles.modules}>
+                    <ol className={styles.modules}>
                         {modules.map((s) => (
-                            <div key={s.t} className={styles.moduleItem}>
+                            <li key={s.t} className={styles.moduleItem}>
                                 <span aria-hidden="true" className={styles.moduleIcon}>
                                     <FontAwesomeIcon icon={faCircleCheck} className={styles.iconMd} />
                                 </span>
@@ -100,9 +103,9 @@ export default function CaregiverStepsWithProfileGuide() {
                                     <h3 className={styles.moduleTitle}>{s.t}</h3>
                                     <p className={styles.moduleDesc}>{s.d}</p>
                                 </div>
-                            </div>
+                            </li>
                         ))}
-                    </div>
+                    </ol>
                 </div>
 
                 {/* CTA */}

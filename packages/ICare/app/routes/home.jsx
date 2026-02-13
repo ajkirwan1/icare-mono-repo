@@ -23,16 +23,16 @@ export const meta = () => {
     { property: "og:title", content: "iCare - Trusted Companionship for Elderly Adults" },
     { property: "og:description", content: "Find trusted companions for elderly relatives or join our community of caregivers. Be among the first when we launch." },
     { property: "og:url", content: "https://icare-app.co.uk/" },
-    { property: "og:image", content: "https://icare-app.co.uk/images/og/home.png" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og/home.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "Elderly adult and caregiver sharing tea and conversation" },
+    { property: "og:image:alt", content: "Caregiver greeting an elderly person at the door with a warm handshake" },
 
     // Twitter Card
     { name: "twitter:title", content: "iCare - Trusted Companionship for Elderly Adults" },
     { name: "twitter:description", content: "We're building a better way to find trusted companionship care. Join the waitlist today." },
-    { name: "twitter:image", content: "https://icare-app.co.uk/images/og/home.png" },
-    { name: "twitter:image:alt", content: "Elderly adult and caregiver sharing tea and conversation" }
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/og/home.jpg" },
+    { name: "twitter:image:alt", content: "Caregiver greeting an elderly person at the door with a warm handshake" }
   ];
 };
 

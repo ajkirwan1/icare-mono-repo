@@ -21,6 +21,7 @@ This audit examined 11 key Tier 1 documents for internal consistency. **27 incon
 | Route/Screen Name Misalignments | LOW | 4 | **1** |
 | API/Database Schema Gaps | LOW | 3 | **1** |
 | R0/R1 Classification Conflicts | MEDIUM | 2 | **2** |
+| Screen Gap Analysis (2026-02-12) | HIGH | 1 | **1** |
 
 **Resolution Status (2026-02-06)**: 12 of 27 inconsistencies resolved. All HIGH severity and all MEDIUM severity issues resolved.
 
@@ -576,6 +577,29 @@ Several internal document links use relative paths that may break if files move:
 
 ---
 
+## Recent Additions
+
+### INC-028: Screen Gap Analysis — Missing List Screens and Admin ID Collisions [HIGH] - **RESOLVED**
+
+**Date Identified**: 2026-02-11
+**Date Resolved**: 2026-02-12
+
+**Issues Found**:
+1. **Missing Message Inbox** (SCR-CR-012): Dashboard and nav "Messages" links pointed to `/messages` which had no screen at R0. Message Thread (SCR-CR-011) existed but no list/inbox view.
+2. **Missing Bookings List (Care Receiver)**: Dashboard "View All" and nav "My Bookings" pointed to `/dashboard/bookings` which had no screen at any release.
+3. **Missing Bookings List (Caregiver)**: Route map defined `/caregiver/bookings` with query params but no screen existed. Caregiver nav links broken.
+4. **Admin Screen ID Collisions**: 5 admin wireframes used IDs that the route map assigned to different detail screens (e.g., SCR-ADM-005 was built as User Management list, but route map defines it as Caregiver Application Review detail).
+
+**Resolution (2026-02-12)**:
+- SCR-CR-012 elevated from R1 to R0 (Option C)
+- SCR-CR-007 (My Bookings CR) and SCR-CG-014 (My Bookings CG) created as new R0 screens (Option B)
+- Admin IDs reassigned: 5 wireframes renamed, 4 screen JSONs updated, 4 detail screens flagged as WIREFRAME PENDING
+- R0 count: 30→33, R1 count: 47→50
+- All documents synchronized (route map, R0/R1 scope, status log, decision log)
+- See `/docs/tiers/tier1/planning/SCREEN_GAP_ANALYSIS_2026-02-11.md` for full report
+
+---
+
 ## Document History
 
 | Version | Date | Author | Changes |
@@ -583,6 +607,7 @@ Several internal document links use relative paths that may break if files move:
 | 1.0 | 2026-02-06 | Product Director (Agent) | Initial consistency audit |
 | 1.1 | 2026-02-06 | Product Director (Agent) | Marked 7 issues as RESOLVED (INC-001, INC-002, INC-003, INC-005, INC-012, INC-022, INC-023). Added Resolution Summary section. |
 | 1.2 | 2026-02-06 | Product Director (Agent) | Resolved remaining 4 MEDIUM priority issues (INC-014, INC-015, INC-016, INC-019). All MEDIUM+ issues now resolved. |
+| 1.3 | 2026-02-12 | Product Director (Agent) | Added INC-028 (Screen Gap Analysis). Resolved: 3 missing list screens added, admin ID collisions fixed, all documents synced. |
 
 ---
 

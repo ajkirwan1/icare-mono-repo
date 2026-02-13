@@ -1,9 +1,14 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/mixins" as m;
+@use "@styles/abstracts/motifs" as motifs;
+
 .hero {
     @include motifs.hero;
 }
 
 .image {
     @include motifs.hero-image;
+    filter: brightness(0.78) contrast(1.06);
 }
 
 .overlay {
@@ -12,48 +17,34 @@
 
 .content {
     @include motifs.hero-content;
-    transform: translateY(6%);
-    animation: fadeSlide 1.1s ease forwards;
 }
 
-.heroImg {
-    transform: scale(1.12);
-    object-fit: cover;
-}
-
-.heroOverlay {
-    background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.45) 0%,
-            rgba(0, 0, 0, 0.55) 70%,
-            rgba(0, 0, 0, 0.65) 100%);
-}
-
-/* =========================================
-   Shared content blocks
-========================================= */
-
-.block {
-    display: block;
-    width: min(92vw, 1100px);
-    text-align: left;
-    transform: translateX(-25%) scale(1.1);
-    transform-origin: top left;
+.inner {
+    width: 100%;
+    max-width: 1800px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 50px);
 }
 
 /* Heading block */
 .headingBlock {
-    margin-top: 6rem;
-    color: #fff;
+    color: $on-dark;
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
 }
 
 .title {
-    margin: 0.35rem 0 0;
-    font-weight: 900;
-    letter-spacing: -0.35px;
+    margin: 0;
+    font-weight: $fw-semibold;
+    letter-spacing: $tracking-snug;
     line-height: 1.05;
     font-size: 2.8rem;
-    color: #fdfdfd;
+    color: $on-dark;
+
+    @media (max-width: 600px) {
+        font-size: $font-3xl;
+        color: black;
+        text-shadow: none;
+    }
 }
 
 /* Copy block */
@@ -65,23 +56,30 @@
     letter-spacing: -0.25px;
 }
 
-.leadWrap {
-    display: block;
-    max-width: 600px;
-}
+.lead {
+    margin: 0 0 0.35rem;
+    line-height: $lh-body;
+    font-size: $font-xl;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
 
-.leadStrong {
-    display: block;
-    margin-bottom: 0.35rem;
-    font-size: 1.55rem;
-    font-weight: 800;
-    color: #fff;
+    @media (max-width: 600px) {
+        font-size: $font-xl;
+        color: black;
+        text-shadow: none;
+    }
 }
 
 .copy {
     margin-top: 0.4rem;
     max-width: 650px;
     color: rgba(255, 255, 255, 0.95);
+    font-size: $font-xl;
+    line-height: 1.72;
+
+    @media (max-width: 600px) {
+        color: black;
+    }
 }
 
 /* CTA row */

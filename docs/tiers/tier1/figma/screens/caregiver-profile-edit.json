@@ -1,0 +1,238 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CG-003",
+    "screenName": "Profile Management (Caregiver)",
+    "wireframeSource": null,
+    "generatedDate": "2026-02-12",
+    "role": "caregiver",
+    "route": "/caregiver/profile/edit",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["editing", "saving", "saved", "validation_errors", "photo_uploading"],
+    "description": "Self-service profile editor for caregivers. Allows editing all public-facing profile fields: photo, bio, services, rate, languages, interests, vehicle, availability, and postcode. Changes save immediately except for significant changes which may trigger admin review."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "component": "navigation-header",
+      "props": {
+        "variant": "caregiver",
+        "logo": "iCare",
+        "navItems": ["Dashboard", "My Bookings", "Messages", "My Profile"],
+        "activeItem": "My Profile",
+        "userName": "Sarah Johnson",
+        "notificationCount": 1
+      }
+    },
+    {
+      "id": "breadcrumb",
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "link": "SCR-CG-001" },
+          { "label": "My Profile", "active": true }
+        ]
+      }
+    },
+    {
+      "id": "page-header",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Edit Your Profile", "size": "heading-1" } },
+        { "component": "text", "props": { "content": "Update your profile information. Changes are visible to care receivers browsing your profile.", "size": "body", "muted": true } },
+        {
+          "component": "button", "variant": "secondary-outline",
+          "props": { "label": "Preview Public Profile", "action": "previewProfile", "icon": "eye" }
+        }
+      ]
+    },
+    {
+      "id": "photo-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Profile Photo", "size": "heading-3" } },
+        {
+          "component": "file-upload",
+          "props": {
+            "label": "Profile Photo",
+            "acceptedFormats": "JPG, PNG",
+            "maxSize": "5MB",
+            "shape": "circle",
+            "previewSize": 120,
+            "currentImage": "/uploads/photos/sarah-johnson.jpg",
+            "helpText": "Upload a clear, friendly photo. This is the first thing care receivers see."
+          }
+        }
+      ]
+    },
+    {
+      "id": "about-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "About You", "size": "heading-3" } },
+        {
+          "component": "textarea",
+          "props": {
+            "label": "Bio",
+            "value": "I'm a friendly and experienced companion with over 5 years of caring experience. I love chatting, going for walks, and helping with everyday tasks. I have a special interest in gardening and board games!",
+            "placeholder": "Tell care receivers about yourself, your experience, and why you enjoy caregiving...",
+            "required": true,
+            "minLength": 100,
+            "maxLength": 500,
+            "helpText": "Minimum 100 characters. Share your personality and approach to care.",
+            "charCount": "208/500"
+          }
+        },
+        {
+          "component": "input-field",
+          "props": {
+            "label": "Years of experience in care",
+            "value": "5",
+            "type": "number",
+            "required": true,
+            "helpText": "How many years have you been providing care or companionship?"
+          }
+        },
+        {
+          "component": "multi-select-tags",
+          "props": {
+            "label": "Languages spoken",
+            "selected": ["English", "Polish"],
+            "options": ["English", "Welsh", "Polish", "Urdu", "Hindi", "Bengali", "Gujarati", "Punjabi", "Arabic", "French", "Spanish", "Portuguese", "Mandarin", "Cantonese", "Somali", "Romanian", "Turkish", "Italian", "German"],
+            "helpText": "Select all languages you can communicate in",
+            "required": true
+          }
+        },
+        {
+          "component": "multi-select-tags",
+          "props": {
+            "label": "Interests and hobbies",
+            "selected": ["Gardening", "Reading", "Walking", "Cooking", "Board games"],
+            "options": ["Gardening", "Reading", "Walking", "Cooking", "Board games", "Knitting", "Music", "Art", "Puzzles", "Bird watching", "Photography", "Cinema", "Theatre", "Baking", "Card games", "Swimming", "Yoga", "Dancing", "History", "Travel stories"],
+            "helpText": "Care receivers often look for shared interests. Select hobbies you enjoy.",
+            "required": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "services-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Services You Offer", "size": "heading-3" } },
+        { "component": "text", "props": { "content": "Tier 1 services only — companionship and light support.", "size": "small", "muted": true } },
+        { "component": "checkbox", "props": { "label": "Companionship (conversation, activities, outings)", "checked": true } },
+        { "component": "checkbox", "props": { "label": "Light housework and cleaning", "checked": true } },
+        { "component": "checkbox", "props": { "label": "Shopping and errands", "checked": true } },
+        { "component": "checkbox", "props": { "label": "Meal preparation (no feeding assistance)", "checked": true } },
+        { "component": "checkbox", "props": { "label": "Transportation (requires own vehicle)", "checked": true } },
+        {
+          "component": "checkbox",
+          "props": {
+            "label": "I have my own vehicle (insured for passenger transport)",
+            "checked": true,
+            "helpText": "Required if you offer transportation services"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rate-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Hourly Rate", "size": "heading-3" } },
+        {
+          "component": "input-field",
+          "props": {
+            "label": "Your hourly rate",
+            "value": "18",
+            "prefix": "\u00a3",
+            "type": "number",
+            "required": true,
+            "helpText": "Rate must be between \u00a310 and \u00a3100 per hour"
+          }
+        },
+        {
+          "component": "alert-banner", "variant": "info",
+          "props": {
+            "icon": "info",
+            "heading": "Platform commission: 15%",
+            "message": "At \u00a318/hour, you earn \u00a315.30 per hour after commission. Typical companionship rates in your area: \u00a312-\u00a318/hour."
+          }
+        }
+      ]
+    },
+    {
+      "id": "availability-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Availability", "size": "heading-3" } },
+        { "component": "text", "props": { "content": "Set your recurring weekly schedule. You can update this anytime.", "size": "small", "muted": true } },
+        {
+          "component": "availability-grid",
+          "props": {
+            "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "periods": ["Morning (6am-12pm)", "Afternoon (12-5pm)", "Evening (5-9pm)"],
+            "selected": {
+              "Monday": ["morning", "afternoon"],
+              "Tuesday": ["morning", "afternoon"],
+              "Wednesday": ["afternoon"],
+              "Thursday": ["morning", "afternoon"],
+              "Friday": ["morning"],
+              "Saturday": [],
+              "Sunday": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "location-section",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Location & Travel", "size": "heading-3" } },
+        {
+          "component": "input-field",
+          "props": {
+            "label": "Postcode",
+            "value": "SW1A 1AA",
+            "required": true,
+            "helpText": "Used to show you to care receivers in your area"
+          }
+        },
+        {
+          "component": "dropdown",
+          "props": {
+            "label": "How far are you willing to travel?",
+            "options": ["5 miles", "10 miles", "15 miles", "20 miles", "30 miles"],
+            "value": "10 miles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "actions",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "button", "variant": "primary",
+          "props": { "label": "Save Changes", "action": "saveProfile" }
+        },
+        {
+          "component": "button", "variant": "secondary-outline",
+          "props": { "label": "Discard Changes", "action": "discardChanges" }
+        },
+        { "component": "text", "props": { "content": "Last saved: Today at 2:15 PM", "size": "small", "muted": true } }
+      ]
+    },
+    {
+      "id": "footer",
+      "component": "footer-global",
+      "props": {}
+    }
+  ]
+}

@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "react-router";
 import styles from "./receivers-three-steps.module.scss";
 
 export default function ReceiversThreeStepsStyledLikeHowWeWork() {
@@ -60,9 +58,9 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 </div>
 
                 {/* STEPS GRID */}
-                <div className={styles.stepsGrid}>
+                <ol className={styles.stepsGrid}>
                     {steps.map((s) => (
-                        <div key={s.step} className={styles.stepCard}>
+                        <li key={s.step} className={styles.stepCard}>
                             <div className={styles.stepCardInner}>
                                 <h3 className={styles.stepTitle}>
                                     <span className={styles.stepNo}>{s.step}.</span>
@@ -84,9 +82,9 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                                     />
                                 </div>
                             </div>
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ol>
 
 
                 {/* reassurance */}

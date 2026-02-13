@@ -54,7 +54,7 @@ export default function MobileMockupSection() {
                             className={styles.listItem}
                             style={{ animationDelay: `${i * 60}ms` }}
                         >
-                            <span className={styles.dot} aria-hidden />
+                            <span className={styles.dot} aria-hidden="true" />
                             <span>{text}</span>
                         </li>
                     ))}

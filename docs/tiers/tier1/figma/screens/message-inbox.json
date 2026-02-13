@@ -1,0 +1,160 @@
+{
+  "_metadata": {
+    "screenId": "SCR-CR-012",
+    "screenName": "Message Inbox",
+    "wireframeSource": null,
+    "generatedDate": "2026-02-12",
+    "role": "care-receiver",
+    "route": "/messages",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["messages_loaded", "no_messages", "unread_highlighted", "loading"],
+    "description": "Centralized messaging inbox showing all conversations sorted by most recent message. Each row shows participant photo, name, thread type, last message preview, timestamp, and unread badge."
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}"
+  },
+  "sections": [
+    {
+      "id": "nav",
+      "component": "navigation-header",
+      "props": {
+        "variant": "care-receiver",
+        "logo": "iCare",
+        "navItems": ["Dashboard", "My Bookings", "Messages", "Search"],
+        "activeItem": "Messages",
+        "userName": "Margaret Thompson",
+        "notificationCount": 3
+      }
+    },
+    {
+      "id": "breadcrumb",
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "link": "SCR-CR-001" },
+          { "label": "Messages", "active": true }
+        ]
+      }
+    },
+    {
+      "id": "page-header",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "Messages", "size": "heading-1" } },
+        { "component": "text", "props": { "content": "View and manage your conversations with caregivers", "size": "body", "muted": true } }
+      ]
+    },
+    {
+      "id": "toolbar",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "tab-bar",
+          "props": {
+            "tabs": [
+              { "label": "All", "count": 8 },
+              { "label": "Unread", "count": 3 },
+              { "label": "Booking-linked", "count": 5 },
+              { "label": "Inquiries", "count": 3 },
+              { "label": "Archived", "count": 0 }
+            ],
+            "activeTab": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "sort-bar",
+      "component": "page-header",
+      "children": [
+        { "component": "text", "props": { "content": "8 conversations", "size": "small", "muted": true } },
+        { "component": "dropdown", "props": { "label": "Sort by", "options": ["Most Recent", "Unread First", "Upcoming Booking", "Alphabetical"], "value": "Most Recent" } }
+      ]
+    },
+    {
+      "id": "conversation-list",
+      "component": "page-header",
+      "children": [
+        {
+          "component": "conversation-row",
+          "props": {
+            "conversations": [
+              {
+                "name": "Sarah Johnson",
+                "threadType": "Booking #1042 - Confirmed for Thu 20 Feb",
+                "preview": "Looking forward to seeing you on Thursday! I'll bring the board games we discussed.",
+                "time": "2 hours ago",
+                "unread": 2
+              },
+              {
+                "name": "Mary Kelly",
+                "threadType": "Booking #1038 - Completed",
+                "preview": "Thank you for the lovely review, Margaret! It was wonderful spending the afternoon with you.",
+                "time": "Yesterday",
+                "unread": 1
+              },
+              {
+                "name": "Anna Chen",
+                "threadType": "Pre-booking inquiry",
+                "preview": "Hi Margaret, I'd be happy to help with your shopping needs. My availability is quite flexible.",
+                "time": "2 days ago",
+                "unread": 0
+              },
+              {
+                "name": "Sarah Johnson",
+                "threadType": "Pre-booking inquiry",
+                "preview": "Yes, I'm available on Saturdays as well. Would you like to book a regular weekly session?",
+                "time": "3 days ago",
+                "unread": 0
+              },
+              {
+                "name": "Tom Richards",
+                "threadType": "Booking #1035 - Completed",
+                "preview": "It was great meeting you today. Hope you enjoyed our walk in the park!",
+                "time": "5 days ago",
+                "unread": 0
+              },
+              {
+                "name": "Lisa Park",
+                "threadType": "Booking #1029 - Completed",
+                "preview": "I've sent you the recipe for the soup we made together. Let me know if you have questions!",
+                "time": "1 week ago",
+                "unread": 0
+              },
+              {
+                "name": "James O'Brien",
+                "threadType": "Pre-booking inquiry",
+                "preview": "Thanks for your interest! I specialise in companionship and light housework in your area.",
+                "time": "2 weeks ago",
+                "unread": 0
+              },
+              {
+                "name": "Emma Wright",
+                "threadType": "Booking #1020 - Completed",
+                "preview": "Glad you enjoyed the afternoon. Take care and I hope to hear from you again soon.",
+                "time": "3 weeks ago",
+                "unread": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pagination",
+      "component": "pagination-controls",
+      "props": {
+        "currentPage": 1,
+        "totalPages": 1,
+        "resultsText": "Showing 1-8 of 8 conversations"
+      }
+    },
+    {
+      "id": "footer",
+      "component": "footer-global",
+      "props": {}
+    }
+  ]
+}

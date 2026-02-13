@@ -23,7 +23,7 @@
     @include motifs.title;
     font-size: 2.8rem;
     color: $on-dark; // ✅ white
-    font-weight: 500; // jak w caregivers
+    font-weight: $fw-semibold;
 
     @media (max-width:600px) {
         font-size: 2rem;
@@ -35,7 +35,7 @@
 .subtitle {
     margin-top: $space-14;
     font-size: 1.6rem; // ✅ exact
-    font-weight: 400; // ✅ exact
+    font-weight: $fw-normal;
     line-height: 1.45;
     color: rgba($on-dark, 0.92);
     max-width: 48ch;
@@ -51,6 +51,9 @@
     margin-top: $space-22;
     display: grid;
     gap: $space-11;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
 }
 
 .copyList {

@@ -7,7 +7,6 @@ export default function AboutICareSection() {
     return (
         <section
             className={styles.section}
-            style={{ display: "flex", justifyContent: "center" }}
             aria-labelledby="about-icare-heading"
         >
             <div className={styles.gridThreeQuarter}>

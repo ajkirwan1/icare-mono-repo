@@ -1,8 +1,8 @@
 {
   "_metadata": {
-    "screenId": "scr-adm-005",
+    "screenId": "SCR-ADM-025",
     "screenName": "Admin User Management",
-    "wireframeSource": "scr-adm-005-user-management.md",
+    "wireframeSource": "scr-adm-025-user-management.md",
     "generatedDate": "2026-02-11",
     "role": "admin",
     "breakpoints": {

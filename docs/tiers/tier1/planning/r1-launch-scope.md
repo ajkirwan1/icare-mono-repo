@@ -6,9 +6,9 @@
 **Last Updated**: 2026-02-06
 **Status**: Canonical - R1 Full MVP Definition
 
-> **Relationship to R0**: R0 defines the 30 launch-critical screens (updated from 26 following CB decisions).
+> **Relationship to R0**: R0 defines the 34 launch-critical screens (updated from 26→30→33→34 following CB and Gap Analysis decisions).
 > R1 adds screens that improve UX but can be handled manually at low volume.
-> R1 represents the complete Tier 1 MVP with **47 screens** (canonical count per tier1-route-map.md).
+> R1 represents the complete Tier 1 MVP with **50 screens** (canonical count per tier1-route-map.md).
 > See [r0-launch-scope.md](r0-launch-scope.md) for R0 screen definitions.
 
 ---
@@ -17,8 +17,8 @@
 
 | Release | Screens | Purpose | Volume Target |
 |---------|---------|---------|---------------|
-| **R0** | 30 | Minimum viable launch (updated from 26 via CB decisions) | 5-50 bookings/month |
-| **R1** | 47 | Full Tier 1 MVP (self-service, scalable) - canonical count per tier1-route-map.md | 50-500 bookings/month |
+| **R0** | 34 | Minimum viable launch (updated from 26→30→33→34 via CB + Gap Analysis decisions) | 5-50 bookings/month |
+| **R1** | 50 | Full Tier 1 MVP (self-service, scalable) - canonical count per tier1-route-map.md | 50-500 bookings/month |
 | **Tier 2** | TBD | Personal care services added | 500+ bookings/month |
 
 ---
@@ -31,21 +31,27 @@
 |----------|------------|--------------|----------|
 | Authentication | 6 | 0 | 6 |
 | Public/Compliance | 4 | 2 | 6 |
-| Care Receiver | 8 | 3 | 11 |
-| Caregiver | 6 | 4 | 10 |
-| Admin | 6 | 8 | 14 |
-| **TOTAL** | **30** | **17** | **47** |
+| Care Receiver | 10 | 2 | 12 |
+| Caregiver | 8 | 3 | 11 |
+| Admin | 6 | 9 | 15 |
+| **TOTAL** | **34** | **16** | **50** |
 
 > **Note on CB Elevations**: The following screens were initially planned for R1 but elevated to R0 via Critical Blocker decisions:
 > - **CB-001**: SCR-CR-001 (Care Receiver Dashboard) - elevated to R0
 > - **CB-002**: SCR-CG-001 (Caregiver Dashboard) - elevated to R0
-> - **CB-005**: SCR-CR-011, SCR-CR-012 (Messaging) - elevated to R0
+> - **CB-005**: SCR-CR-011 (Message Thread) - elevated to R0
 > - **CB-006**: SCR-CR-015 (Leave Review) - elevated to R0
+>
+> **Note on Gap Analysis Elevations (2026-02-12)**: The following screens were elevated or added via Screen Gap Analysis:
+> - **GAP-001**: SCR-CR-012 (Message Inbox) - elevated from R1 to R0 (dashboard nav links broken without it)
+> - **GAP-002**: SCR-CR-007 (My Bookings - Care Receiver) - NEW screen added to R0 (dashboard "View All" links broken without it)
+> - **GAP-003**: SCR-CG-014 (My Bookings - Caregiver) - NEW screen added to R0 (caregiver nav "My Bookings" link broken without it)
+> - **GAP-005**: SCR-CG-003 (Profile Management) - elevated from R1 to R0 ("My Profile" nav link in all caregiver screens requires this)
 >
 > These screens are documented in [r0-launch-scope.md](r0-launch-scope.md) and are **not** included in the R1 additions sections below.
 
-> **Note**: R0 screen count updated from 26 to 30 following CB decisions (CB-001, CB-002, CB-005, CB-006).
-> R1 total count of 47 is canonical per `/docs/product/tier1-route-map.md`.
+> **Note**: R0 screen count updated from 26 to 30 to 33 to 34 following CB decisions (CB-001, CB-002, CB-005, CB-006) and Gap Analysis decisions (GAP-001, GAP-002, GAP-003, GAP-005).
+> R1 total count of 50 is canonical per `/docs/product/tier1-route-map.md`.
 
 ---
 
@@ -69,7 +75,7 @@
 
 ### Care Receiver Screens (3 screens)
 
-> **Note**: SCR-CR-001 (Dashboard), SCR-CR-011 (Message Inbox), SCR-CR-012 (Message Thread), and SCR-CR-015 (Leave Review) were elevated to R0 via CB decisions and are documented in r0-launch-scope.md.
+> **Note**: SCR-CR-001 (Dashboard), SCR-CR-007 (My Bookings), SCR-CR-011 (Message Thread), SCR-CR-012 (Message Inbox), and SCR-CR-015 (Leave Review) were elevated to R0 via CB/Gap Analysis decisions and are documented in r0-launch-scope.md. SCR-CG-014 (My Bookings - Caregiver) was also added to R0.
 
 #### SCR-CR-002: Care Needs Profile
 **Route**: `/profile/care-needs`
@@ -114,23 +120,10 @@
 
 ---
 
-### Caregiver Screens (4 screens)
+### Caregiver Screens (3 screens)
 
 > **Note**: SCR-CG-001 (Caregiver Dashboard) was elevated to R0 via CB-002 and is documented in r0-launch-scope.md.
-
-#### SCR-CG-003: Profile Management
-**Route**: `/caregiver/profile/edit`
-**Why R1**: Self-service profile updates
-**R0 Workaround**: Support handles profile edits
-**R1 Trigger**: >20 active caregivers
-
-**Editable Fields**:
-- Bio
-- Profile photo
-- Hourly rate
-- Service radius
-- Services offered
-- Availability calendar link
+> **Note**: SCR-CG-003 (Profile Management) was elevated to R0 via GAP-005 and is documented in r0-launch-scope.md.
 
 ---
 
@@ -292,9 +285,9 @@
 ### Priority 2: Self-Service (Weeks 11-12)
 4. SCR-CR-009: Booking Cancellation
 5. SCR-CR-017: Account Settings
-6. SCR-CG-003: Profile Management
 
 **Rationale**: Enables users to manage their own accounts without support intervention.
+> **Note**: SCR-CG-003 (Profile Management) was removed from this priority as it was elevated to R0 via GAP-005.
 
 ### Priority 3: Admin Scale (Weeks 13-14)
 9. SCR-ADM-010: Booking Management
@@ -355,6 +348,7 @@
 | 1.0 | 2026-02-01 | Product Team | Initial R1 scope definition |
 | 1.1 | 2026-02-06 | Product Director | Reconciled screen counts: R0 updated to 30 (from 26), R1 updated to 47 (from ~45) to match tier1-route-map.md canonical count |
 | 1.2 | 2026-02-07 | Product Director | **CB Elevation Reconciliation**: Removed screens elevated to R0 (SCR-CR-001, SCR-CG-001, SCR-CR-011/012, SCR-CR-015) from R1 additions sections and build priorities; added CB decision notes throughout document |
+| 1.3 | 2026-02-12 | Product Director | **GAP-005 Elevation**: SCR-CG-003 (Profile Management) elevated from R1 to R0. R0 count 33→34. Caregiver R0 screens 7→8, R1 additions 4→3. Updated build priorities. |
 
 ---
 

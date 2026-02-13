@@ -1,7 +1,7 @@
 import { sanity } from "../lib/sanity.server";
 
 export async function loader() {
-  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://icare.com").replace(/\/$/, "");
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://icare-app.co.uk").replace(/\/$/, "");
 
   const staticPages = [
     { loc: "/", changefreq: "weekly", priority: "1.0" },
@@ -13,8 +13,7 @@ export async function loader() {
     { loc: "/contact-us", changefreq: "monthly", priority: "0.6" },
     { loc: "/trust-and-safety", changefreq: "monthly", priority: "0.6" },
     { loc: "/privacy", changefreq: "monthly", priority: "0.4" },
-    { loc: "/terms-of-service", changefreq: "monthly", priority: "0.4" },
-    { loc: "/register-interest", changefreq: "monthly", priority: "0.7" },
+    { loc: "/safety-commitment", changefreq: "monthly", priority: "0.4" },
     { loc: "/care-knowledge", changefreq: "weekly", priority: "0.8" }
   ];
 

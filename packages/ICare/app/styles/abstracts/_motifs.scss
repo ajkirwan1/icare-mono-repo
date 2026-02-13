@@ -1,16 +1,12 @@
 @use "@styles/tokens" as t;
 
 @mixin section {
-    width: 100vw;
+    width: 100%;
     padding: 4rem 2rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    // background: var(--section-bg, transparent);
 
     @media (max-width: 600px) {
         padding: 40px 20px;
     }
-
 }
 
 @mixin title {
@@ -115,9 +111,23 @@
     align-items: center;
     min-width: 600px;
 
+    animation: heroFadeSlide 1.1s ease forwards;
+
     @media(max-width:600px) {
         grid-template-columns: 1fr;
         padding-top: 2rem;
         min-width: auto;
+    }
+}
+
+@keyframes heroFadeSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

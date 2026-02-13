@@ -1,6 +1,7 @@
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
-import styles from "./trust-and-safety.module.scss";
+import styles from "~/styles/pages/trust-and-safety.module.scss";
+import { NavLink } from "react-router";
 
 export const meta = () => {
   return [
@@ -267,12 +268,11 @@ export default function TrustAndSafetyPage() {
             what is necessary, use it to operate the platform and support safety, and
             restrict access to authorised systems and staff.
           </p>
-
           <p className={styles.p}>
             For more details, please see our{" "}
-            <a href="/privacy" className={styles.inlineLink}>
+            <NavLink to="/privacy" className={styles.inlineLink}>
               Privacy Policy
-            </a>
+            </NavLink>
             .
           </p>
         </section>

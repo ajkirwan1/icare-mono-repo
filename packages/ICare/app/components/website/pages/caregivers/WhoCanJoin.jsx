@@ -4,20 +4,27 @@ import styles from "./who-can-join.module.scss";
 export default function WhoCanJoin() {
     const [openIndex, setOpenIndex] = React.useState(0);
 
-    function AccordionHeader({ title, isOpen, onClick }) {
+    function AccordionHeader({ index, title, isOpen, onClick }) {
+        const headerId = `acc-header-${index}`;
+        const panelId = `acc-panel-${index}`;
+
         return (
-            <button
-                type="button"
-                onClick={onClick}
-                aria-expanded={isOpen}
-                className={styles.accHeader}
-            >
-                <h3 className={styles.accTitle}>{title}</h3>
-                <span
-                    aria-hidden="true"
-                    className={`${styles.plus} ${isOpen ? styles.open : ""}`}
-                />
-            </button>
+            <h3 className={styles.accTitle}>
+                <button
+                    type="button"
+                    id={headerId}
+                    onClick={onClick}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    className={styles.accHeader}
+                >
+                    {title}
+                    <span
+                        aria-hidden="true"
+                        className={`${styles.plus} ${isOpen ? styles.open : ""}`}
+                    />
+                </button>
+            </h3>
         );
     }
 
@@ -25,6 +32,8 @@ export default function WhoCanJoin() {
         const isOpen = openIndex === index;
         const innerRef = React.useRef(null);
         const [h, setH] = React.useState(0);
+        const headerId = `acc-header-${index}`;
+        const panelId = `acc-panel-${index}`;
 
         React.useEffect(() => {
             const el = innerRef.current;
@@ -43,14 +52,19 @@ export default function WhoCanJoin() {
         return (
             <div>
                 <AccordionHeader
+                    index={index}
                     title={title}
                     isOpen={isOpen}
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                 />
 
                 <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={headerId}
+                    hidden={!isOpen}
                     className={`${styles.accContent} ${isOpen ? styles.open : ""}`}
-                    style={{ maxHeight: isOpen ? `${h}px` : "0px" }} // ⬅️ jedyny inline (techniczny)
+                    style={{ maxHeight: isOpen ? `${h}px` : "0px" }}
                 >
                     <div ref={innerRef} className={styles.accInner}>
                         {children}
@@ -62,11 +76,11 @@ export default function WhoCanJoin() {
 
     return (
         <section
-            aria-label="How ICare supports caregivers"
+            aria-labelledby="who-can-join-heading"
             className={styles.section}
         >
             <div className={styles.container}>
-                <h2 className={styles.h2}>How ICare supports caregivers</h2>
+                <h2 id="who-can-join-heading" className={styles.h2}>How ICare supports caregivers</h2>
 
                 <div className={styles.grid}>
                     {/* IMAGE */}

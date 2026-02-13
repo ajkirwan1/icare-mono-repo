@@ -396,20 +396,20 @@ export default function WaitinglistForm({
                             aria-describedby={describedBy("agreeTerms")}
                             disabled={isSubmitting}
                         />
-                        I agree to the terms and conditions
+                        I agree to the Privacy Policy and Trust & Safety commitments
 
                         <Tooltip
                             content={
                                 <>
                                     By joining, you agree to our{" "}
-                                    <NavLink to="/terms" target="_blank" rel="noopener noreferrer">
-                                        Terms & Conditions
+                                    <NavLink to="/privacy">
+                                        Privacy Policy
                                     </NavLink>{" "}
                                     and{" "}
-                                    <NavLink to="/privacy" target="_blank" rel="noopener noreferrer">
-                                        Privacy Policy
+                                    <NavLink to="/trust-and-safety">
+                                        Trust & Safety
                                     </NavLink>
-                                    . We’ll only use your data to notify you about ICare.
+                                    {" "}commitments. We'll only use your data to notify you about ICare.
                                 </>
                             }
                         >

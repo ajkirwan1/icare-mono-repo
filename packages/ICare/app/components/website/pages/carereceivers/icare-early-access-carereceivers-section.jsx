@@ -3,7 +3,7 @@ import styles from "./icare-early-access.module.scss";
 
 export default function ICareEarlyAccessHomeSection() {
     return (
-        <section id="waitlist" aria-label="Cost estimator" className={styles.wrap}>
+        <section id="waitlist" aria-label="Join the waiting list" className={styles.wrap}>
             <div className={styles.estimatorHeader}>
                 <h2 className={styles.h1}>Be among the first when ICare opens near you</h2>
 

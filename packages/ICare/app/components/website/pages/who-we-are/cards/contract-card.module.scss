@@ -1,0 +1,61 @@
+@use "@styles/tokens" as *;
+
+.section {
+    width: 100%;
+    background: #F7F4EF;
+    padding: 5.5rem 0;
+}
+
+.wrap {
+    width: min(760px, 92%);
+    margin: 0 auto;
+    display: grid;
+    gap: 1.6rem;
+    text-align: left;
+    font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.heading {
+    margin: 0;
+    font-weight: $fw-ultra;
+    font-size: clamp(1.6rem, 2.3vw, 1.9rem);
+    letter-spacing: -0.4px;
+    color: $txt;
+    line-height: 1.18;
+}
+
+.text {
+    margin: 0;
+    color: $txt;
+    line-height: 1.62;
+    font-size: 1.15rem;
+    max-width: 60ch;
+    font-weight: 450;
+}
+
+.ctaWrap {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.ctaLink {
+    padding: 0.9rem 2.1rem;
+    border-radius: $radius-pill;
+    background: rgb(185, 122, 87);
+    color: $on-dark;
+    text-decoration: none;
+    font-weight: $fw-heavy;
+    font-size: $font-sm;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+}
+
+.ctaLink:hover,
+.ctaLink:focus-visible {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}

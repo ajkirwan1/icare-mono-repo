@@ -25,13 +25,17 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 
 ---
 
-## R0 Launch Screens (30 screens)
+## R0 Launch Screens (34 screens)
 
-> **Change Log**: R0 screen count updated from 26 to 30 following Change Board decisions:
+> **Change Log**: R0 screen count updated from 26 to 30 to 33 to 34 following Change Board and Gap Analysis decisions:
 > - CB-001 (2026-02-02): SCR-CR-001 (Care Receiver Dashboard) elevated to R0
 > - CB-002 (2026-02-02): SCR-CG-001 (Caregiver Dashboard) elevated to R0
 > - CB-005 (2026-02-03): SCR-CR-011 (Message Thread) elevated to R0
 > - CB-006 (2026-02-03): SCR-CR-015 (Leave Review) elevated to R0
+> - GAP-001 (2026-02-12): SCR-CR-012 (Message Inbox) elevated from R1 to R0 — navigation links from dashboard broken without it
+> - GAP-002 (2026-02-12): SCR-CR-007 (My Bookings - Care Receiver) added to R0 — new screen, "View All" links broken without it
+> - GAP-003 (2026-02-12): SCR-CG-014 (My Bookings - Caregiver) added to R0 — new screen, "My Bookings" nav link broken without it
+> - GAP-005 (2026-02-12): SCR-CG-003 (Profile Management) elevated from R1 to R0 — "My Profile" nav link in all caregiver screens requires this
 
 > **Tier 1 Alignment Note**: This R0 scope is specifically for Tier 1 (Companionship Only) launch.
 > Medical condition experience profiles and care skills profiles are deferred to Tier 3 and Tier 2
@@ -150,7 +154,7 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 
 ---
 
-### Caregiver Onboarding & Verification (4 screens) - SAFEGUARDING CRITICAL
+### Caregiver Onboarding, Verification & Profile (5 screens) - SAFEGUARDING CRITICAL
 
 #### SCR-CG-002: Caregiver Onboarding
 **Route**: `/caregiver/onboarding`
@@ -176,6 +180,13 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 **Without This**: Caregivers cannot demonstrate existing DBS status; reduced trust signal
 **Manual Alternative**: NONE - DBS certificate upload must be self-service
 **Tier 1 Note**: DBS is VOLUNTARY at Tier 1 (companionship is not a regulated activity under SVGA 2006). Caregivers with existing DBS certificates can upload for verification. Becomes MANDATORY at Tier 2 (personal care services).
+
+#### SCR-CG-003: Profile Management
+**Route**: `/caregiver/profile/edit`
+**Why R0**: Navigation integrity - "My Profile" link in all caregiver navigation bars requires a destination screen
+**Without This**: "My Profile" nav link is dead; caregivers cannot edit their public profile (bio, services, rate, availability, languages, interests)
+**Manual Alternative**: Support handles edits, but this requires caregiver-to-support contact for every profile change, which does not scale
+**Elevation Note**: Elevated from R1 to R0 via GAP-005 (2026-02-12)
 
 > **Deferred to Tier 2+**: SCR-CG-005 Care Skills Profile (Tier 2), SCR-CG-004 Medical Condition Experience (Tier 3).
 > At Tier 1, caregivers offer companionship only - no personal care skills or condition-specific matching required.
@@ -228,7 +239,7 @@ These screens are MVP but can be handled manually or via workarounds at low volu
 
 ### Can Be Email/Phone at Low Volume
 - **SCR-CR-011: Message Thread** - R0 Status: INCLUDED (Decision CB-005 - 2026-02-03). Note: Simplified booking-scoped messaging only at R0.
-- **SCR-CR-012: Message Inbox** - R1 (centralized inbox not required at R0; booking-scoped messaging sufficient)
+- **SCR-CR-012: Message Inbox** - R0 Status: INCLUDED (Decision GAP-001 - 2026-02-12). Note: Dashboard and nav "Messages" links require this screen.
 - **SCR-CR-015: Leave Review** - R0 Status: INCLUDED (Decision CB-006 - 2026-02-03)
 - **SCR-CR-020: Safeguarding Report** - Email/phone reporting works initially
 - **SCR-CG-011: Availability Calendar** - Manual coordination via email for R0
@@ -242,7 +253,7 @@ These screens are MVP but can be handled manually or via workarounds at low volu
 ### Profile Management (Post-First-Booking)
 - **SCR-CR-002: Care Needs Profile** - Captured in booking form, separate profile not critical for R0
 - **SCR-CR-017: Account Settings** - Support handles setting changes in R0
-- **SCR-CG-003: Profile Management** - Initial profile sufficient, edits via support
+- **SCR-CG-003: Profile Management** - R0 Status: INCLUDED (Decision GAP-005 - 2026-02-12) — "My Profile" nav link requires this
 
 ### Dashboards (Elevated to R0 via CB Decisions)
 - **SCR-CR-001: Care Receiver Dashboard** - R0 Status: INCLUDED (Decision CB-001 - 2026-02-02)

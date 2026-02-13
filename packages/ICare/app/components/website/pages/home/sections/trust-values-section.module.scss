@@ -14,9 +14,7 @@
 
 /* full-bleed wrappers */
 .fullBleed {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: 100%;
     padding-left: clamp(#{$space-18}, 4vw, 70px);
     padding-right: clamp(#{$space-18}, 4vw, 70px);
     box-sizing: border-box;
@@ -35,12 +33,12 @@
 
 .title {
     @include motifs.title;
-    color: rgb(15, 23, 42);
+    color: $txt;
     margin: 0px;
-    font-weight: 600;
-    font-size: 2.4rem;
-    letter-spacing: -0.6px;
-    line-height: 1.14;
+    font-weight: $fw-bold;
+    font-size: $font-3xl;
+    letter-spacing: $tracking-tight;
+    line-height: $lh-tight;
 }
 
 .subtitle {
@@ -79,10 +77,10 @@
 
 .ctaLink {
     display: inline-flex;
-    font-weight: 700;
+    font-weight: $fw-extrabold;
     font-size: 1.5rem;
     text-decoration: none;
-    color: rgb(119, 141, 67);
+    color: $link-bg;
     opacity: 1;
     transition: opacity .14s ease;
 }
@@ -96,7 +94,7 @@
     display: inline-flex;
     font-weight: 850;
     text-decoration: none;
-    color: #0f172a;
+    color: $txt;
     opacity: 0.9;
     transition: opacity .14s ease;
 }
@@ -229,7 +227,7 @@
     margin: 0;
     font-size: $fs-xl;
     line-height: $lh-loose;
-    font-weight: 500
+    font-weight: $fw-semibold;
 }
 
 .learnMore {
@@ -268,7 +266,7 @@
 .expandText {
     margin: 0;
     font-size: $fs-md;
-    font-weight: 400;
+    font-weight: $fw-normal;
     line-height: $lh-card-full;
 }
 
@@ -289,7 +287,7 @@
     .cardContent {
         position: relative;
         padding: 24px;
-        background: rgba(119, 141, 67, 1);
+        background: $link-bg;
     }
 
     .expandWrapper {

@@ -5,19 +5,6 @@
     @include motifs.hero;
 }
 
-.section {
-    width: 100vw;
-    padding: 2rem 8rem 2rem 8rem;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-}
-
-.title {
-    @include motifs.title;
-    letter-spacing: normal;
-    font-weight: 300;
-}
-
 .image {
     @include motifs.hero-image;
     object-position: 50% 20%;
@@ -33,12 +20,12 @@
 
 .cta {
     border-radius: 36px;
-    color: white;
+    color: $on-dark;
 
     border: 3px solid rgb(221, 139, 79);
     background-color: rgb(221, 139, 79);
 
-    font-weight: 400;
+    font-weight: $fw-normal;
     font-size: 1.1rem;
 
     padding: 10px;
@@ -57,7 +44,7 @@
     @media (max-width:600px) {
         padding: 16px 2.2rem;
         font-size: 1.1rem;
-        font-weight: 500;
+        font-weight: $fw-semibold;
         min-width: 320px;
     }
 
@@ -65,7 +52,7 @@
 
 
 .heading {
-    font-size: 2.4rem; // no token
+    font-size: $font-3xl;
     margin: 0;
     font-weight: $fw-semibold;
     line-height: 1.05; // no token
@@ -81,11 +68,17 @@
     margin-top: $space-26; // 1.6rem
     max-width: $maxw-copy-lg; // 60ch
     line-height: $lh-body; // 1.6
-    color: #fff;
+    color: $on-dark;
 
     @media (max-width:600px) {
         color: black;
     }
+}
+
+.benefitsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 /* individual copy lines */
@@ -93,7 +86,7 @@
     font-size: $fs-hero-lead-p;
     font-weight: $fw-normal;
     margin-bottom: 1.3rem;
-    color: #fff;
+    color: $on-dark;
 
     @media (max-width:600px) {
         color: black;
@@ -107,7 +100,7 @@
     font-size: $fs-hero-list;
     font-weight: $fw-normal;
     margin-bottom: 0.5rem;
-    color: #fff;
+    color: $on-dark;
     align-items: center;
 
     @media (max-width:600px) {
@@ -125,7 +118,7 @@
 
 .copySecondaryLast {
     font-size: $fs-md; // 1.2rem
-    color: #fff;
+    color: $on-dark;
 
     @media (max-width:600px) {
         color: black;
@@ -137,7 +130,7 @@
     bottom: 40px;
     right: -20px;
     margin-top: 1.6rem;
-    font-size: 1.3rem;
+    font-size: $font-xl;
     line-height: $lh-outro;
     color: $on-dark;
     z-index: 2;
@@ -150,5 +143,5 @@
 .subheading span {
     margin-right: 20px;
     display: inline-block;
-    font-weight: 400;
+    font-weight: $fw-normal;
 }

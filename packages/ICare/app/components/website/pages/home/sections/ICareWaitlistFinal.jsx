@@ -5,8 +5,7 @@ export default function ICareEarlyAccessHomeSection() {
 
     const OLIVE = "#778d43";
     const wrap = {
-        width: "100vw",
-        marginLeft: "calc(50% - 50vw)",
+        width: "100%",
         padding: "clamp(3.2rem, 5vw, 4rem) 0",
         borderTop: "1px solid rgba(15,23,42,0.06)",
         borderBottom: "1px solid rgba(15,23,42,0.06)",

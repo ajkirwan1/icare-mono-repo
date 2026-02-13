@@ -1,28 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import styles from "./SavingsEstimatorCurrency.module.scss";
 
-/**
- * ICare — Expanded cost estimator (2 columns)
- * LEFT: info cards + funding accordion
- * RIGHT: 2 cards (inputs + monthly estimate) — styled close to your reference
- */
 export default function ICareCostEstimatorExpanded() {
-    const BRAND = "rgb(119, 141, 67)"; // template green
-    const ACCENT = "rgb(221, 139, 79)"; // orange
-    const TEXT = "rgb(15, 23, 42)";
+    const BRAND = "rgb(119, 141, 67)";
 
-    const [currency, setCurrency] = useState("GBP"); // GBP | EUR | PLN
+    const [currency, setCurrency] = useState("GBP");
     const [hourly, setHourly] = useState(13);
     const [hoursWeek, setHoursWeek] = useState(30);
-    const [icareFeePct, setIcareFeePct] = useState(10); // example fee for "Estimated with ICare"
+    const [icareFeePct, setIcareFeePct] = useState(10);
     const [agencyMarkupPct, setAgencyMarkupPct] = useState(35);
 
     const range = useMemo(() => {
         if (currency === "PLN") return { min: 35, max: 120, step: 1, default: 55 };
         if (currency === "EUR") return { min: 10, max: 40, step: 0.5, default: 16 };
-        return { min: 12.21, max: 35, step: 0.1, default: 13 }; // GBP
+        return { min: 12.21, max: 35, step: 0.1, default: 13 };
     }, [currency]);
 
-    // keep hourly within range on currency change
     useEffect(() => {
         setHourly((v) => {
             const next = Number.isFinite(v) ? v : range.default;
@@ -35,7 +28,6 @@ export default function ICareCostEstimatorExpanded() {
     const agencyTotal = baseCost * (1 + agencyMarkupPct / 100);
     const icareTotal = baseCost * (1 + icareFeePct / 100);
     const youSave = agencyTotal - icareTotal;
-
     const savePct = agencyTotal > 0 ? (youSave / agencyTotal) * 100 : 0;
 
     const nf = useMemo(() => {
@@ -46,384 +38,89 @@ export default function ICareCostEstimatorExpanded() {
         });
     }, [currency]);
 
-    // ====== STYLES (aligned to your reference) ======
-    const page = {
-        width: "100%",
-        padding: "4rem 0",
-        color: TEXT,
-        background: "rgb(242, 242, 242)",
-        fontFamily:
-            "Poppins, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    };
-
-    // 2 columns max
-    const row = {
-        display: "grid",
-        gridTemplateColumns: "1fr 1.05fr",
-        gap: "clamp(22px, 3vw, 40px)",
-        alignItems: "start",
-        maxWidth: "1000px",
-        margin: "0 auto"
-
-    };
-
-    // shared card look (same vibe as your 2 boxes)
-    const card = {
-        height: "100%",
-        borderRadius: 24,
-        border: "1px solid rgba(15, 23, 42, 0.10)",
-        boxShadow: "0 18px 44px rgba(15, 23, 42, 0.08)",
-        background: "rgba(255, 255, 255, 0.75)",
-        backdropFilter: "blur(10px)",
-        padding: "clamp(18px, 2.4vw, 26px)",
-        display: "flex",
-        flexDirection: "column",
-    };
-
-    const cardTitle = {
-        margin: 0,
-        fontWeight: 700,
-        letterSpacing: "-0.15px",
-        color: "rgba(15, 23, 42, 0.92)",
-        fontSize: "1.05rem",
-    };
-
-    // left side info cards
-    const infoGrid = { display: "grid", gap: 12 };
-
-    const infoCard = {
-        borderRadius: 22,
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        background: "rgba(255, 255, 255, 0.70)",
-        boxShadow: "0 16px 36px rgba(15, 23, 42, 0.06)",
-        padding: "clamp(16px, 2vw, 22px)",
-    };
-
-    const infoHead = {
-        fontWeight: 320,
-        fontSize: "1.22rem",
-        letterSpacing: "-0.2px",
-        borderBottom: "1px solid rgba(15, 23, 42, 0.1)",
-        paddingBottom: "0.55rem",
-        textAlign: "center",
-        margin: "0px 0px 1.1rem",
-        color: "rgba(15, 23, 42, 0.92)",
-    };
-
-    const subHead = {
-        margin: 0,
-        fontWeight: 520,
-        color: "rgba(15, 23, 42, 0.90)",
-        fontSize: "1rem",
-        letterSpacing: "-0.05px",
-    };
-
-    const infoP = {
-        margin: 0,
-        color: "rgba(15, 23, 42, 0.92)",
-        fontWeight: 420,
-        fontSize: "0.98rem",
-        lineHeight: 1.55,
-    };
-
-    const pills = {
-        display: "grid",
-        gap: 10,
-        marginTop: 14,
-    };
-
-    const pillRow = {
-        display: "flex",
-        justifyContent: "space-between",
-        gap: 12,
-        padding: "10px 12px",
-        borderRadius: 16,
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        background: "rgba(255, 255, 255, 0.5)",
-        color: "rgba(15, 23, 42, 0.92)",
-        fontWeight: 520,
-        fontSize: "0.98rem",
-        letterSpacing: "-0.05px",
-    };
-
-    const bullets = {
-        margin: 0,
-        paddingLeft: "1.05rem",
-        display: "grid",
-        gap: 10,
-        color: "rgba(15, 23, 42, 0.92)",
-        lineHeight: 1.55,
-        fontSize: "0.98rem",
-        fontWeight: 420,
-        listStyle: "decimal"
-    };
-
-    const cardsRow = {
-        display: "grid",
-        gridTemplateColumns: "1fr", // ✅ stack
-        gap: "clamp(14px, 2.2vw, 22px)",
-        alignItems: "stretch",
-    };
-
-    // labels like your reference
-    const label = {
-        fontWeight: 520,
-        color: "rgba(15, 23, 42, 0.9)",
-        fontSize: "1rem",
-        letterSpacing: "-0.05px",
-    };
-
-    const helper = {
-        marginTop: 8,
-        color: "rgba(15, 23, 42, 0.92)",
-        fontWeight: 420,
-        fontSize: "0.98rem",
-        lineHeight: 1.55,
-    };
-
-    // small pill input like your reference
-    const fieldMini = {
-        width: "fit-content",
-        minWidth: 92,
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        borderRadius: 999,
-        padding: "8px 10px",
-        background: "rgba(255, 255, 255, 0.5)",
-        fontSize: "0.98rem",
-        color: TEXT,
-        outline: "none",
-        textAlign: "center",
-    };
-
-    const selectLike = {
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        borderRadius: 999,
-        padding: "9px 12px",
-        background: "rgba(255, 255, 255, 0.5)",
-        fontSize: "0.98rem",
-        color: TEXT,
-        outline: "none",
-        fontWeight: 520,
-    };
-
-    // Currency Toggle (button group)
-    const currWrap = {
-        display: "inline-flex",
-        gap: 8,
-        padding: 4,
-        borderRadius: 999,
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        background: "rgba(255,255,255,0.40)",
-    };
-
-    const currBtn = (active) => ({
-        border: "none",
-        cursor: "pointer",
-        padding: "8px 12px",
-        borderRadius: 999,
-        fontSize: "0.96rem",
-        fontWeight: 650,
-        letterSpacing: "-0.05px",
-        color: active ? "rgba(255,255,255,0.96)" : "rgba(15,23,42,0.82)",
-        background: active ? BRAND : "transparent",
-        boxShadow: active ? "0 10px 24px rgba(15,23,42,0.12)" : "none",
-    });
-
-    // Results grid 2x2 (like your reference)
-    const resultGrid = {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: 12,
-        marginTop: 10,
-    };
-
-    const resultBox = (accent) => ({
-        borderRadius: 16,
-        padding: 12,
-        border: accent
-            ? "1px solid rgba(221, 139, 79, 0.28)"
-            : "1px solid rgba(15, 23, 42, 0.16)",
-        background: accent ? "rgba(221, 139, 79, 0.06)" : "rgba(255, 255, 255, 0.5)",
-    });
-
-    const resultK = {
-        fontSize: "0.97rem",
-        fontWeight: 420,
-        color: "rgba(15, 23, 42, 0.88)",
-        marginBottom: 4,
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-    };
-
-    const resultV = (accent) => ({
-        fontWeight: 620,
-        fontSize: "1.1rem",
-        color: accent ? BRAND : TEXT,
-        letterSpacing: "-0.2px",
-    });
-
-    const tooltipWrap = {
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-    };
-
-    const infoIcon = {
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: 18,
-        height: 18,
-        borderRadius: 999,
-        border: "1px solid rgba(15, 23, 42, 0.22)",
-        fontSize: 12,
-        fontWeight: 900,
-        lineHeight: 1,
-        color: "rgba(15, 23, 42, 0.7)",
-        cursor: "help",
-        userSelect: "none",
-        transform: "translateY(-0.5px)",
-        background: "rgba(255, 255, 255, 0.85)",
-    };
-
-    const disclaimer = {
-        marginTop: 14,
-        borderRadius: 16,
-        padding: 12,
-        border: "1px solid rgba(15, 23, 42, 0.12)",
-        background: "rgba(255, 255, 255, 0.5)",
-        color: "rgba(15, 23, 42, 0.86)",
-        fontWeight: 420,
-        fontSize: "0.95rem",
-        lineHeight: 1.55,
-    };
-
-    // bar
-    const bar = {
-        marginTop: 14,
-        height: 8,
-        borderRadius: 999,
-        background: "rgba(15,23,42,0.10)",
-        overflow: "hidden",
-    };
-
-    const barFill = {
-        width: `${Math.max(0, Math.min(100, savePct))}%`,
-        height: "100%",
-        background: BRAND,
-    };
-
-    // Accordion chevron button (big, green, white arrow, max 2px lines)
-    const chevronBtn = {
-        width: 34,
-        height: 34,
-        borderRadius: 999,
-        background: BRAND,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flex: "0 0 auto",
-    };
-
     return (
-        <section style={page} aria-label="ICare cost estimator expanded">
-            <div className="icare-est-row" style={row}>
+        <section className={styles.section} aria-label="ICare cost estimator expanded">
+            <div className={styles.row}>
                 {/* LEFT */}
-                <div style={infoGrid}>
-                    <div style={infoCard}>
-                        <h3 style={infoHead}>Live-in care: typical weekly range (UK)</h3>
+                <div className={styles.infoGrid}>
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoHead}>Live-in care: typical weekly range (UK)</h3>
 
-                        <p style={infoP}>
+                        <p className={styles.infoP}>
                             Live-in care is usually priced as a <strong>weekly rate</strong>.{" "}
                             A common UK guide range is <strong>£950–£1,400/week</strong>, depending on needs and area.
                         </p>
 
-                        <div style={pills}>
-                            <div style={pillRow}>
-                                <span style={{ fontWeight: 400 }}>Everyday support</span>
+                        <div className={styles.pills}>
+                            <div className={styles.pillRow}>
+                                <span className={styles.pillLabel}>Everyday support</span>
                                 <span>~£950–£1,100</span>
                             </div>
-                            <div style={pillRow}>
-                                <span style={{ fontWeight: 400 }}>Higher needs</span>
+                            <div className={styles.pillRow}>
+                                <span className={styles.pillLabel}>Higher needs</span>
                                 <span>~£1,100–£1,350</span>
                             </div>
-                            <div style={pillRow}>
-                                <span style={{ fontWeight: 400 }}>Extra night support</span>
+                            <div className={styles.pillRow}>
+                                <span className={styles.pillLabel}>Extra night support</span>
                                 <span>~£1,250–£1,400</span>
                             </div>
-                            <div style={pillRow}>
-                                <span style={{ fontWeight: 400 }}>Couples (one carer)</span>
+                            <div className={styles.pillRow}>
+                                <span className={styles.pillLabel}>Couples (one carer)</span>
                                 <span>~£1,350–£1,600</span>
                             </div>
                         </div>
                     </div>
 
-                    <div style={infoCard}>
-                        <h3 style={infoHead}>What affects cost most</h3>
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoHead}>What affects cost most</h3>
 
-                        <ul style={bullets}>
-                            <li>
-                                <strong>Level of support:</strong> dementia, mobility, complex routines
-                            </li>
-                            <li>
-                                <strong>Nights:</strong> sleeping vs waking nights
-                            </li>
-                            <li>
-                                <strong>Location:</strong> London / South East often higher
-                            </li>
-                            <li>
-                                <strong>Experience:</strong> specialist skills and proven experience
-                            </li>
+                        <ul className={styles.bullets}>
+                            <li><strong>Level of support:</strong> dementia, mobility, complex routines</li>
+                            <li><strong>Nights:</strong> sleeping vs waking nights</li>
+                            <li><strong>Location:</strong> London / South East often higher</li>
+                            <li><strong>Experience:</strong> specialist skills and proven experience</li>
                         </ul>
                     </div>
 
                     {/* Funding accordion */}
-                    <details className="icare-funding-details" style={infoCard}>
+                    <details className="icare-funding-details">
                         <summary className="icare-funding-summary">
-                            <span style={subHead}>Funding options (UK) — general guidance</span>
-
-                            <span className="icare-chevronBtn" aria-hidden="true" style={chevronBtn}>
+                            <span className={styles.subHead}>Funding options (UK) — general guidance</span>
+                            <span className={`icare-chevronBtn ${styles.chevronBtn}`} aria-hidden="true">
                                 <span className="icare-chevronArrow" />
                             </span>
                         </summary>
 
-                        <div style={{ marginTop: 14 }}>
-                            <p style={infoP}>
+                        <div className={styles.fundingContent}>
+                            <p className={styles.infoP}>
                                 Depending on your circumstances, you may be able to access support through the routes below.
                             </p>
 
-                            <div
-                                style={{
-                                    height: 1,
-                                    background: "rgba(15, 23, 42, 0.10)",
-                                    margin: "14px 0",
-                                }}
-                            />
+                            <div className={styles.divider} />
 
-                            <ul style={bullets}>
+                            <ul className={styles.bullets}>
                                 <li>Local authority assessment and personal budget (if eligible)</li>
                                 <li>NHS Continuing Healthcare (for complex health needs; sometimes fully funded)</li>
                                 <li>Direct payments / personal budgets (where available)</li>
                                 <li>Benefits and allowances that may support costs (eligibility varies)</li>
                             </ul>
 
-                            <p style={{ ...infoP, marginTop: 14, opacity: 0.88 }}>
-                                We can’t assess eligibility or provide financial advice. Funding information is general guidance only.
+                            <p className={styles.infoPDisclaimer}>
+                                We can't assess eligibility or provide financial advice. Funding information is general guidance only.
                                 Eligibility and availability depend on individual circumstances and local authority decisions.
                             </p>
                         </div>
                     </details>
 
-                    <div style={infoCard}>
-                        <h3 style={infoHead}>Note</h3>
+                    <div className={styles.infoCard}>
+                        <h3 className={styles.infoHead}>Note</h3>
 
-                        <p style={infoP}>
+                        <p className={styles.infoP}>
                             Estimates are based on your selected rate and weekly hours.
-                            Final pricing depends on care needs and the caregiver’s rate.
+                            Final pricing depends on care needs and the caregiver's rate.
                         </p>
 
-                        <p style={{ ...infoP, marginTop: 10, opacity: 0.78 }}>
+                        <p className={styles.infoPNote}>
                             Ranges are indicative and based on publicly available UK care cost guides and industry summaries.
                             Figures vary by region and needs.
                         </p>
@@ -431,30 +128,22 @@ export default function ICareCostEstimatorExpanded() {
                 </div>
 
                 {/* RIGHT */}
-                <div className="icare-est-cards" style={cardsRow}>
+                <div className={styles.cardsStack}>
                     {/* INPUTS */}
-                    <div style={card}>
-                        <h3 style={infoHead}>Your inputs</h3>
+                    <div className={styles.card}>
+                        <h3 className={styles.infoHead}>Your inputs</h3>
 
-                        <div style={{ display: "grid", gap: 12, marginTop: 10 }}>
-                            {/* Currency row — EXACT layout you asked */}
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "1fr auto",
-                                    alignItems: "center",
-                                    gap: 12,
-                                }}
-                            >
-                                <span id="currency-label" style={label}>Currency</span>
+                        <div className={styles.inputsGrid}>
+                            {/* Currency row */}
+                            <div className={styles.fieldRow}>
+                                <span id="currency-label" className={styles.label}>Currency</span>
 
-                                <div className="icare-curr" role="radiogroup" aria-labelledby="currency-label" style={currWrap}>
+                                <div className={styles.currWrap} role="radiogroup" aria-labelledby="currency-label">
                                     <button
                                         type="button"
                                         role="radio"
                                         aria-checked={currency === "GBP"}
-                                        className={`icare-curr-btn ${currency === "GBP" ? "is-active" : ""}`}
-                                        style={currBtn(currency === "GBP")}
+                                        className={currency === "GBP" ? styles.currBtnActive : styles.currBtn}
                                         onClick={() => setCurrency("GBP")}
                                     >
                                         GBP £
@@ -463,8 +152,7 @@ export default function ICareCostEstimatorExpanded() {
                                         type="button"
                                         role="radio"
                                         aria-checked={currency === "EUR"}
-                                        className={`icare-curr-btn ${currency === "EUR" ? "is-active" : ""}`}
-                                        style={currBtn(currency === "EUR")}
+                                        className={currency === "EUR" ? styles.currBtnActive : styles.currBtn}
                                         onClick={() => setCurrency("EUR")}
                                     >
                                         EUR €
@@ -472,28 +160,19 @@ export default function ICareCostEstimatorExpanded() {
                                 </div>
                             </div>
 
-                            {/* Hourly rate — EXACT vibe you pasted */}
-                            <div style={{ display: "grid", gap: 7 }}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: 12,
-                                    }}
-                                >
-                                    <label htmlFor="hourly-rate" style={label}>Hourly rate</label>
-
+                            {/* Hourly rate */}
+                            <div className={styles.fieldGroup}>
+                                <div className={styles.fieldRowFlex}>
+                                    <label htmlFor="hourly-rate" className={styles.label}>Hourly rate</label>
                                     <input
                                         id="hourly-rate"
-                                        className="icare-est-input"
                                         min={range.min}
                                         max={range.max}
                                         step={range.step}
                                         type="number"
                                         value={hourly}
                                         onChange={(e) => setHourly(Number(e.target.value))}
-                                        style={fieldMini}
+                                        className={styles.fieldMini}
                                     />
                                 </div>
 
@@ -504,79 +183,49 @@ export default function ICareCostEstimatorExpanded() {
                                     type="range"
                                     value={hourly}
                                     onChange={(e) => setHourly(Number(e.target.value))}
-                                    style={{
-                                        width: "100%",
-                                        accentColor: BRAND,
-                                        cursor: "pointer",
-                                    }}
+                                    className={styles.rangeInput}
+                                    style={{ accentColor: BRAND }}
                                 />
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        marginTop: 2,
-                                        color: "rgba(15, 23, 42, 0.62)",
-                                        fontWeight: 450,
-                                        fontSize: "0.94rem",
-                                    }}
-                                >
+                                <div className={styles.rangeLabels}>
                                     <span>{range.min}</span>
                                     <span>{range.max}</span>
                                 </div>
 
-                                <p style={helper}>
+                                <p className={styles.helper}>
                                     Tip: choose a rate that's fair and sustainable for the carer.
                                 </p>
                             </div>
 
                             {/* Hours per week */}
-                            <div style={{ display: "grid", gap: 7 }}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "space-between",
-                                        gap: 12,
-                                    }}
-                                >
-                                    <label htmlFor="hours-week" style={label}>Hours per week</label>
-
+                            <div className={styles.fieldGroup}>
+                                <div className={styles.fieldRowFlex}>
+                                    <label htmlFor="hours-week" className={styles.label}>Hours per week</label>
                                     <input
                                         id="hours-week"
-                                        className="icare-est-input"
                                         type="number"
                                         value={hoursWeek}
                                         min={1}
                                         max={168}
                                         onChange={(e) => setHoursWeek(Number(e.target.value))}
-                                        style={fieldMini}
+                                        className={styles.fieldMini}
                                     />
                                 </div>
 
-                                <p style={{ ...helper, marginTop: 1 }}>
+                                <p className={styles.helperTight}>
                                     A helpful starting point is 20–40 hours/week.
                                 </p>
                             </div>
 
                             {/* Agency markup */}
-                            <div style={{ display: "grid", gap: 8 }}>
-                                <div
-                                    style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "1fr auto",
-                                        alignItems: "center",
-                                        gap: 12,
-                                    }}
-                                >
-                                    <label htmlFor="agency-markup" style={label}>Agency markup</label>
-
+                            <div className={styles.fieldGroupWide}>
+                                <div className={styles.fieldRow}>
+                                    <label htmlFor="agency-markup" className={styles.label}>Agency markup</label>
                                     <select
                                         id="agency-markup"
-                                        className="icare-est-input"
                                         value={agencyMarkupPct}
                                         onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
-                                        style={selectLike}
+                                        className={styles.selectLike}
                                     >
                                         <option value={25}>25%</option>
                                         <option value={30}>30%</option>
@@ -585,29 +234,20 @@ export default function ICareCostEstimatorExpanded() {
                                     </select>
                                 </div>
 
-                                <p style={{ ...helper, marginTop: 2 }}>
+                                <p className={styles.helperSmall}>
                                     Used for an illustrative &ldquo;typical agency total&rdquo;.
                                 </p>
                             </div>
 
-                            {/* ICare fee (optional, but matches your 2x2 reference) */}
-                            <div style={{ display: "grid", gap: 8 }}>
-                                <div
-                                    style={{
-                                        display: "grid",
-                                        gridTemplateColumns: "1fr auto",
-                                        alignItems: "center",
-                                        gap: 12,
-                                    }}
-                                >
-                                    <label htmlFor="icare-fee" style={label}>ICare service fee</label>
-
+                            {/* ICare fee */}
+                            <div className={styles.fieldGroupWide}>
+                                <div className={styles.fieldRow}>
+                                    <label htmlFor="icare-fee" className={styles.label}>ICare service fee</label>
                                     <select
                                         id="icare-fee"
-                                        className="icare-est-input"
                                         value={icareFeePct}
                                         onChange={(e) => setIcareFeePct(Number(e.target.value))}
-                                        style={selectLike}
+                                        className={styles.selectLike}
                                     >
                                         <option value={5}>5%</option>
                                         <option value={10}>10%</option>
@@ -616,73 +256,68 @@ export default function ICareCostEstimatorExpanded() {
                                     </select>
                                 </div>
 
-                                <p style={{ ...helper, marginTop: 2 }}>
+                                <p className={styles.helperSmall}>
                                     Used only to show &ldquo;Estimated with ICare&rdquo; (illustrative).
                                 </p>
                             </div>
                         </div>
-
                     </div>
 
                     {/* RESULTS */}
-                    <div style={card}>
-                        <h3 style={infoHead}>Monthly estimate</h3>
+                    <div className={styles.card}>
+                        <h3 className={styles.infoHead}>Monthly estimate</h3>
 
-                        <div style={resultGrid}>
-                            <div style={resultBox(false)}>
-                                <div style={resultK}>Care cost (no fees)</div>
-                                <div style={resultV(false)}>{nf.format(baseCost)}</div>
+                        <div className={styles.resultGrid}>
+                            <div className={styles.resultBox}>
+                                <div className={styles.resultKey}>Care cost (no fees)</div>
+                                <div className={styles.resultVal}>{nf.format(baseCost)}</div>
                             </div>
 
-                            <div style={resultBox(false)}>
-                                <div style={resultK}>
+                            <div className={styles.resultBox}>
+                                <div className={styles.resultKey}>
                                     Typical agency total
-                                    <span className="icare-tip" style={tooltipWrap}>
-                                        <button type="button" style={{ ...infoIcon, border: "1px solid rgba(15, 23, 42, 0.22)", padding: 0 }} aria-label="Agency total info">
-                                            i
-                                        </button>
+                                    <span className="icare-tip">
+                                        <button type="button" className={styles.infoIcon} aria-label="Agency total info">i</button>
                                         <span className="icare-tip-bubble" role="tooltip">
                                             A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs.
                                         </span>
                                     </span>
                                 </div>
-                                <div style={resultV(false)}>{nf.format(agencyTotal)}</div>
+                                <div className={styles.resultVal}>{nf.format(agencyTotal)}</div>
                             </div>
 
-                            <div style={resultBox(false)}>
-                                <div style={resultK}>
+                            <div className={styles.resultBox}>
+                                <div className={styles.resultKey}>
                                     Estimated with ICare
-                                    <span className="icare-tip" style={tooltipWrap}>
-                                        <button type="button" style={{ ...infoIcon, border: "1px solid rgba(15, 23, 42, 0.22)", padding: 0 }} aria-label="ICare estimate info">
-                                            i
-                                        </button>
+                                    <span className="icare-tip">
+                                        <button type="button" className={styles.infoIcon} aria-label="ICare estimate info">i</button>
                                         <span className="icare-tip-bubble" role="tooltip">
                                             Includes an estimated ICare service fee based on your inputs. This is not a quote and does not include any optional extras you may agree separately.
                                         </span>
                                     </span>
                                 </div>
-                                <div style={resultV(false)}>{nf.format(icareTotal)}</div>
+                                <div className={styles.resultVal}>{nf.format(icareTotal)}</div>
                             </div>
 
-                            <div style={resultBox(true)}>
-                                <div style={resultK}>Estimated savings</div>
-                                <div style={resultV(true)}>{nf.format(youSave)}</div>
+                            <div className={styles.resultBoxAccent}>
+                                <div className={styles.resultKey}>Estimated savings</div>
+                                <div className={styles.resultValAccent}>{nf.format(youSave)}</div>
                             </div>
                         </div>
 
-                        <div style={bar} role="progressbar" aria-valuenow={Math.round(savePct)} aria-valuemin={0} aria-valuemax={100} aria-label="Estimated savings percentage">
-                            <div style={barFill} />
+                        <div className={styles.bar} role="progressbar" aria-valuenow={Math.round(savePct)} aria-valuemin={0} aria-valuemax={100} aria-label="Estimated savings percentage">
+                            <div className={styles.barFill} style={{ width: `${Math.max(0, Math.min(100, savePct))}%` }} />
                         </div>
 
-                        <p style={{ ...helper, marginTop: 12 }}>
+                        <p className={styles.savingsText}>
                             You may save around{" "}
-                            <span style={{ color: BRAND, fontWeight: 650 }}>
+                            <span className={styles.savingsHighlight}>
                                 {Math.round(savePct)}%
                             </span>{" "}
                             compared with a typical agency.
                         </p>
 
-                        <p style={disclaimer}>
+                        <p className={styles.disclaimer}>
                             This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
                             Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
                         </p>
@@ -690,9 +325,8 @@ export default function ICareCostEstimatorExpanded() {
                 </div>
             </div>
 
-            {/* minimal CSS: tooltip bubble + details summary + chevron arrow */}
+            {/* Global CSS for tooltip, details, chevron */}
             <style>{`
-        /* Details summary reset */
         .icare-funding-summary{
           list-style:none;
           display:flex;
@@ -706,7 +340,6 @@ export default function ICareCostEstimatorExpanded() {
         }
         .icare-funding-summary::-webkit-details-marker{ display:none; }
 
-        /* Chevron arrow (max 2px) */
         .icare-chevronArrow{
           width: 10px;
           height: 10px;
@@ -721,7 +354,6 @@ export default function ICareCostEstimatorExpanded() {
           margin-top: 2px;
         }
 
-        /* Tooltip bubble (same as your earlier pattern) */
         .icare-tip { position: relative; display: inline-flex; align-items: center; }
         .icare-tip-bubble {
           position: absolute;
@@ -756,14 +388,6 @@ export default function ICareCostEstimatorExpanded() {
           opacity: 1;
           pointer-events: auto;
           transform: translateX(-50%) translateY(-2px);
-        }
-
-        /* Responsive */
-        @media (max-width: 980px){
-          .icare-est-row{ grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 860px){
-          .icare-est-cards{ grid-template-columns: 1fr !important; }
         }
       `}</style>
         </section>
