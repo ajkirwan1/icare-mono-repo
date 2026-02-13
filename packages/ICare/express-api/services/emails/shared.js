@@ -156,7 +156,7 @@ export function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids, footer = "ne
         </style>
       </head>
       <body>
-        <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;max-width:640px;margin:0 auto;padding:24px;">
+        <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0 auto;padding:24px;">
           ${logoHtml}
           ${bodyHtml}
           ${footerHtml}

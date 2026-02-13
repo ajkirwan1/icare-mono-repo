@@ -2,38 +2,25 @@
 
 
 .link {
-    padding: $space-16 $space-22;
+    padding: $space-12 $space-22;
     border-radius: $radius-pill;
 
-    /* border: 2px solid $secondary-colour; */
-    background: $link-bg;
-    color: $on-dark;
-
-    font-weight: $fw-semibold;
-    letter-spacing: -0.2px;
-    font-size: 1.1rem;
+    font-weight: $fw-normal;
+    font-size: 1rem;
     text-decoration: none;
 
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: $space-055;
-
-    transition: $transition-ui;
-    box-shadow: $shadow-elev;
-
     max-width: 240px;
 
     flex: 1 1 200px;
     white-space: nowrap;
 
-    &:hover {
-        background: darken($link-bg, 3%);
-    }
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
     &:active {
-        transform: translateY(0);
-        box-shadow: $shadow-elev-active;
+        transform: translateY(1px);
     }
 
     svg {
@@ -41,6 +28,60 @@
         width: 20px;
         height: 20px;
         flex-shrink: 0;
+    }
+}
+
+.primary {
+    background: #dd8b4f;
+    color: #fff;
+
+    &:hover {
+        background: darken(#dd8b4f, 5%);
+    }
+}
+
+.secondary {
+    background: $secondary-colour;
+    color: #111;
+
+    &:hover {
+        background: darken($secondary-colour, 5%);
+    }
+}
+
+.tertiary {
+    background: $tertiary-colour;
+    color: $txt-white;
+
+    &:hover {
+        background: darken($tertiary-colour, 5%);
+    }
+}
+
+.default {
+    background: $link-bg;
+    color: $on-dark;
+
+    &:hover {
+        background: darken($link-bg, 3%);
+    }
+}
+
+.outline {
+    border: 1.5px solid #0f172a;
+    color: #0f172a;
+    background: transparent;
+
+    &:hover {
+        background: rgba(15, 23, 42, 0.05);
+    }
+}
+
+@media (max-width: 600px) {
+    .outline {
+        background: #dd8b4f;
+        color: #fff;
+        border: 0;
     }
 }
 

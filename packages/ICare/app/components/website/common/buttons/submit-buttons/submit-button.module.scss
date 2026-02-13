@@ -4,7 +4,6 @@
     padding: $space-12 $space-22;
     border-radius: $radius-pill;
 
-
     border: none;
 
     font-weight: $fw-normal;
@@ -15,18 +14,11 @@
     white-space: nowrap;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
     max-width: fit-content;
-    transition: background-color 0.2s ease, transform 0.1s ease;
 
-    /*
-    &:hover {
-        background: darken($primary-colour, 5%);
-    }
-    */
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
     &:active {
         transform: translateY(1px);
@@ -59,6 +51,28 @@
 .tertiary {
     background: $tertiary-colour;
     color: $txt-white;
+}
+
+.spinnerWrap {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: rgba(255, 255, 255, 0.95);
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width:600px) {

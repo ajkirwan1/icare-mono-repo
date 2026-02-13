@@ -10,6 +10,8 @@ import clsx from "clsx";
  * @property {React.ReactNode} children
  * @property {ButtonVariant} [variant]
  * @property {boolean} [disabled]
+ * @property {boolean} [loading]
+ * @property {string} [loadingText]
  * @property {() => void} [onClick]
  * @property {"submit" | "button"} [type]
  */
@@ -17,6 +19,8 @@ import clsx from "clsx";
 export default function SubmitButton({
   children,
   disabled,
+  loading,
+  loadingText = "Submitting\u2026",
   onClick,
   type = "submit",
   variant = "primary"
@@ -25,10 +29,15 @@ export default function SubmitButton({
     <button
       type={type}
       className={clsx(styles.button, styles[variant])}
-      disabled={disabled}
+      disabled={disabled || loading}
       onClick={onClick}
     >
-      {children}
+      {loading ? (
+        <span className={styles.spinnerWrap}>
+          <span className={styles.spinner} aria-hidden="true" />
+          {loadingText}
+        </span>
+      ) : children}
     </button>
   );
 }

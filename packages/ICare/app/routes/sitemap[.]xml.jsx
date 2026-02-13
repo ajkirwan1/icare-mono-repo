@@ -1,7 +1,7 @@
 import { sanity } from "../lib/sanity.server";
 
 export async function loader() {
-  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://icare.com").replace(/\/$/, "");
+  const siteUrl = (import.meta.env.VITE_SITE_URL || "https://icare-app.co.uk").replace(/\/$/, "");
 
   const staticPages = [
     { loc: "/", changefreq: "weekly", priority: "1.0" },
