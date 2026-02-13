@@ -111,23 +111,9 @@
     align-items: center;
     min-width: 600px;
 
-    animation: heroFadeSlide 1.1s ease forwards;
-
     @media(max-width:600px) {
         grid-template-columns: 1fr;
         padding-top: 2rem;
         min-width: auto;
-    }
-}
-
-@keyframes heroFadeSlide {
-    0% {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
