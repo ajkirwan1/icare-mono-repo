@@ -66,11 +66,15 @@
 .buildingSection {
     width: 100%;
     background: #fff9ef;
-    padding: 3rem;
+    padding: 4rem 20px;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: $txt;
     display: flex;
     justify-content: center;
+
+    @media (max-width:600px) {
+        padding: 40px 20px;
+    }
 }
 
 .buildingInner {

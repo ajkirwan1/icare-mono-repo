@@ -92,8 +92,8 @@ export default function AiChat() {
                 aria-label="Open ICare chat"
                 style={{
                     position: "fixed",
-                    right: 24,
-                    bottom: 24,
+                    right: 20,
+                    bottom: 20,
                     width: 56,
                     height: 56,
                     borderRadius: "50%",

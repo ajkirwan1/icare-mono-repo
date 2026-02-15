@@ -27,9 +27,6 @@ export default function HowICareWorksForCaregiversSystem() {
             aria-label="How ICare works for caregivers"
             className={styles.section}
         >
-            <div className={styles.dividerTop} />
-            <div className={styles.dividerBottom} />
-
             <div className={styles.container}>
                 {/* HEADER */}
                 <header className={styles.header}>

@@ -30,9 +30,6 @@ export default function WhatMakesAGreatProfile() {
             aria-label="What makes a great caregiver profile"
             className={styles.section}
         >
-            <div className={styles.dividerTop} />
-            <div className={styles.dividerBottom} />
-
             <div className={styles.container}>
                 <header className={styles.header}>
                     <h2 className={styles.h2}>What makes a great profile</h2>

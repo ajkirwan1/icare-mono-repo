@@ -56,6 +56,10 @@
     margin: 0 auto;
     padding-top: $space-6;
 
+    @media (max-width:600px) {
+        width: 100%;
+        padding: 30px 20px;
+    }
 }
 
 .textWrapper {
@@ -189,7 +193,7 @@
     .textWrapper {
         text-align: left;
         text-shadow: none;
-        margin-top: 1.5rem;
+        margin-top: 0;
     }
 
     .form {
@@ -208,9 +212,5 @@
 
     .mobileOnly {
         display: block
-    }
-
-    .content {
-        padding: 0;
     }
 }
