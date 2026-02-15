@@ -78,7 +78,7 @@ export default function ICareTypesOfCareSEO() {
 
                     <p className={styles.lead}>
                         ICare helps families connect with independent companions for{" "}
-                        <strong className={styles.strong}>everyday support</strong> — friendly presence,
+                        <strong className={styles.strong}>everyday support</strong> - friendly presence,
                         routines and practical help agreed directly between you.
                     </p>
                 </div>
@@ -97,118 +97,6 @@ export default function ICareTypesOfCareSEO() {
                         </li>
                     ))}
                 </ul>
-
-                {/* Disclaimer — flat, no cards */}
-                {/*    <div className={styles.infoBox}>
-                    <div className={styles.callout}>
-                        <span className={styles.calloutIcon} aria-hidden="true">
-                            <FontAwesomeIcon icon={faShieldHalved} />
-                        </span>
-
-                        <div className={styles.calloutTextWrap}>
-                            <p className={styles.calloutTitle}>Important information</p>
-                            <p className={styles.calloutText}>
-                                ICare is a matching platform. We do not provide regulated care services,
-                                and any support is agreed directly between users.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className={styles.keyGrid} aria-label="Key terms summary">
-                        <div className={styles.keyItem}>
-                            <p className={styles.keyTitle}>Direct agreement</p>
-                            <p className={styles.keyBody}>
-                                Families/care receivers and companions agree details directly between
-                                themselves.
-                            </p>
-                        </div>
-
-                        <div className={styles.keyItem}>
-                            <p className={styles.keyTitle}>Not an employer</p>
-                            <p className={styles.keyBody}>
-                                ICare is not the employer of companions and does not supervise their work.
-                            </p>
-                        </div>
-
-                        <div className={styles.keyItem}>
-                            <p className={styles.keyTitle}>Non-clinical focus</p>
-                            <p className={styles.keyBody}>
-                                We focus on companionship and everyday support — not clinical or nursing care.
-                            </p>
-                        </div>
-                    </div>
-
-                    <button
-                        type="button"
-                        className={styles.disclaimerBtn}
-                        onClick={() => setIsDisclaimerOpen((v) => !v)}
-                        aria-expanded={isDisclaimerOpen}
-                        aria-controls="icare-disclaimer-panel"
-                    >
-                        <span className={styles.infoLeft}>
-                            <span className={styles.infoIconWrap} aria-hidden="true">
-                                <FontAwesomeIcon icon={faCircleInfo} />
-                            </span>
-
-                            <span className={styles.infoText}>
-                                <p className={styles.infoTitle}>Disclaimer details</p>
-                                <p className={styles.infoIntro}>
-                                    Verification, privacy and how we describe support.
-                                    {isDisclaimerOpen ? "" : " Read more."}
-                                </p>
-                            </span>
-                        </span>
-
-                        <span className={styles.infoChevron} aria-hidden="true">
-                            <FontAwesomeIcon
-                                icon={faChevronDown}
-                                className={`${styles.chevron} ${isDisclaimerOpen ? styles.chevronOpen : ""}`}
-                            />
-                        </span>
-                    </button>
-
-                    {isDisclaimerOpen ? (
-                        <div id="icare-disclaimer-panel" className={styles.infoPanel}>
-                            <p className={styles.infoSectionTitle}>Verification documents (ID/DBS)</p>
-                            <ul className={styles.infoList}>
-                                <li className={styles.infoItem}>
-                                    We collect and store only the minimum needed to complete verification.
-                                </li>
-                                <li className={styles.infoItem}>
-                                    Verification documents are <strong>not displayed publicly</strong> and access is
-                                    restricted to authorised administrators only.
-                                </li>
-                                <li className={styles.infoItem}>
-                                    Where possible, documents are removed after verification is completed in line with
-                                    our retention policy.
-                                </li>
-                            </ul>
-
-                            <p className={styles.infoSectionTitle}>Health information</p>
-                            <ul className={styles.infoList}>
-                                <li className={styles.infoItem}>ICare does not request medical diagnoses in forms by default.</li>
-                                <li className={styles.infoItem}>
-                                    Families should describe needs in <strong>functional language</strong>{" "}
-                                    (e.g. “needs help with meals and routines”), not clinical details.
-                                </li>
-                            </ul>
-
-                            <p className={styles.infoSectionTitle}>How we describe support</p>
-                            <ul className={styles.infoList}>
-                                <li className={styles.infoItem}>
-                                    We focus on everyday support — routines, practical help and agreed tasks.
-                                </li>
-                                <li className={styles.infoItem}>
-                                    If you need clinical or nursing care (for example, treatment or medical procedures),
-                                    please speak to an appropriately qualified healthcare professional.
-                                </li>
-                            </ul>
-                        </div>
-
-                    ) : null}
-                     
-            </div>
-                        */}
                 <div
                     id="care-at-home"
                     ref={careAtHomeRef}
@@ -230,7 +118,7 @@ export default function ICareTypesOfCareSEO() {
                             <p className={styles.sectionText}>
                                 Staying at home can help people keep familiar routines, comfort and independence, with
                                 the right everyday support in place. Instead of adjusting to a new environment, support
-                                fits around everyday life — at home, on their terms.
+                                fits around everyday life at home, on their terms.
                             </p>
 
                             <p className={styles.sectionText}>
@@ -240,7 +128,7 @@ export default function ICareTypesOfCareSEO() {
 
                             <p className={styles.sectionText}>
                                 Support at home is flexible by nature. You can start small with occasional visits and adjust
-                                over time — without forcing difficult moves or long-term commitments.
+                                over time without forcing difficult moves or long-term commitments.
                             </p>
                         </div>
                     </div>
