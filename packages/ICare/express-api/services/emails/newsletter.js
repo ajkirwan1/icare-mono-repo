@@ -1,5 +1,5 @@
 import {
-  getResend,
+  sendEmail,
   getSiteUrl,
   loadLogoPngBase64,
   loadLogoPngBase64White,
@@ -7,8 +7,6 @@ import {
 } from "./shared.js";
 
 export async function sendConfirmationEmail(email, confirmUrl) {
-  const resend = getResend();
-
   const [blackBase64, whiteBase64] = await Promise.all([
     loadLogoPngBase64(),
     loadLogoPngBase64White()
@@ -40,7 +38,7 @@ export async function sendConfirmationEmail(email, confirmUrl) {
     }
   );
 
-  const result = await resend.emails.send({
+  return await sendEmail({
     from: process.env.EMAIL_FROM,
     to: email,
     subject: "Confirm your ICare newsletter subscription",
@@ -60,15 +58,9 @@ export async function sendConfirmationEmail(email, confirmUrl) {
       }
     ]
   });
-
-  if (result?.error) {
-    throw new Error(result.error.message || "Email failed");
-  }
-  return result;
 }
 
 export async function sendWelcomeEmail(email, { unsubscribeUrl }) {
-  const resend = getResend();
   const siteUrl = getSiteUrl();
 
   const [blackBase64, whiteBase64] = await Promise.all([
@@ -95,7 +87,7 @@ export async function sendWelcomeEmail(email, { unsubscribeUrl }) {
     }
   );
 
-  const result = await resend.emails.send({
+  return await sendEmail({
     from: process.env.EMAIL_FROM,
     to: email,
     subject: "Welcome to ICare — subscription confirmed",
@@ -115,9 +107,4 @@ export async function sendWelcomeEmail(email, { unsubscribeUrl }) {
       }
     ]
   });
-
-  if (result?.error) {
-    throw new Error(result.error.message || "Email failed");
-  }
-  return result;
 }
