@@ -4,6 +4,10 @@
     width: 100%;
     padding: 4rem 0;
     background: $txt-white;
+
+    @media (max-width:600px) {
+        padding: 40px 0;
+    }
 }
 
 .layout {
@@ -12,7 +16,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    padding: 0 2rem;
+    padding: 0 40px;
+
+    @media (max-width:600px) {
+        padding: 0 20px;
+    }
 }
 
 .intro {
@@ -61,6 +69,10 @@
     align-items: flex-start;
     gap: 1.4rem;
     padding: 1.1rem 1.6rem;
+
+    @media (max-width:600px) {
+        padding: 1rem 0;
+    }
 }
 
 .iconWrap {

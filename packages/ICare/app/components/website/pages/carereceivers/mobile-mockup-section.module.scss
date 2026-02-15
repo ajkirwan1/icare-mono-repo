@@ -23,15 +23,27 @@
 .myicare span {
     position: relative;
     top: 15px;
+
+    @media (max-width:600px) {
+        top: 5px;
+    }
 }
 
 .myicare span:last-child {
     top: 15px;
+
+    @media (max-width:600px) {
+        top: 7px;
+    }
 }
 
 .myicare img {
     width: 102px;
     margin: 0 8px;
+
+    @media (max-width:600px) {
+        width: 80px;
+    }
 }
 
 /* LIST */

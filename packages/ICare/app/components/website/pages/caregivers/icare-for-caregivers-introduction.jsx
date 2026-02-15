@@ -8,8 +8,6 @@ export default function ICareForCaregiversIntroduction() {
             aria-label="Caregivers introduction"
             className={styles.section}
         >
-            <div className={styles.dividerTop} />
-            <div className={styles.dividerBottom} />
 
             <div className={styles.container}>
                 {/* HEADER */}

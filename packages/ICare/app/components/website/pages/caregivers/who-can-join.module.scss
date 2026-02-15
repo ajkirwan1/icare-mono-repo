@@ -60,6 +60,10 @@ $bg: #f2eee6;
     background: rgba(255, 255, 255, 0.7);
     padding: 2rem 2.5rem;
     border-radius: $radius-xxl;
+
+    @media (max-width:600px) {
+        padding: 30px 26px;
+    }
 }
 
 .separator {

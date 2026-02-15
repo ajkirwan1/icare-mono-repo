@@ -18,6 +18,10 @@
     padding-left: clamp(#{$space-18}, 4vw, 70px);
     padding-right: clamp(#{$space-18}, 4vw, 70px);
     box-sizing: border-box;
+
+    @media (max-width:600px) {
+        padding: 0;
+    }
 }
 
 .headerSection {
@@ -185,6 +189,10 @@
     height: $h-card-media;
     object-fit: cover;
     display: block;
+
+    @media (max-width:600px) {
+        height: 100vw;
+    }
 }
 
 .gradient {
@@ -214,6 +222,13 @@
     strong {
         color: inherit;
     }
+
+
+    @media (max-width:1000px) {
+        margin: 0 0 6px;
+        padding: 20px 20px 40px;
+    }
+
 }
 
 .cardTitle {
@@ -236,6 +251,10 @@
     bottom: 1rem;
     left: 2.2rem;
     border-bottom: 1px solid;
+
+    @media (max-width:1000px) {
+        left: 20px;
+    }
 }
 
 /* expandable content */
@@ -268,6 +287,10 @@
     font-size: $fs-md;
     font-weight: $fw-normal;
     line-height: $lh-card-full;
+
+    @media (max-width:1000px) {
+        font-size: 1.1rem;
+    }
 }
 
 .subsubtitle span {

@@ -5,11 +5,15 @@ $bg: #fff9ef;
 
 .section {
     width: 100%;
-    padding: clamp(4.2rem, 6.2vw, 5.6rem) 0;
+    padding: 4rem 0;
     background: $bg;
     color: $txt;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     position: relative;
+
+    @media (max-width:600px) {
+        padding: 40px 0;
+    }
 }
 
 .dividerTop,

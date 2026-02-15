@@ -89,7 +89,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
 
                 {/* reassurance */}
                 <p className={styles.reassurance}>
-                    Need support?
+                    <strong>Need support?</strong>
                     <br />
                     ICare is a matching platform — we can help you use the tools, update your search, or change a match,
                     without agency pressure.

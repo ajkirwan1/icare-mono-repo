@@ -29,30 +29,18 @@ export default function ICareForCaregiversHero() {
 
                         <ul className={styles.benefitsList}>
                             <li className={styles.copyList}>
-                                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
                                 Work directly with families
                             </li>
 
                             <li className={styles.copyList}>
-                                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
                                 Set your own availability and rates
                             </li>
 
                             <li className={styles.copyList}>
-                                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
                                 Keep more of what you earn
                             </li>
 
                             <li className={styles.copyList}>
-                                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
                                 You choose who you work with
                             </li>
                         </ul>
