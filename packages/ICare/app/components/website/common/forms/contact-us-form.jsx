@@ -27,7 +27,7 @@ export default function ContactUsForm({
     return (
         <div className={classes.card}>
             <p className={classes.subtitle}>
-                Send us a message about care needs, availability, pricing, or anything else we’ll reply as soon as possible.
+                Send us a message about care needs, availability, pricing, or anything else and we will reply as soon as possible.
             </p>
 
             <fetcher.Form method={method} action={action} className={classes.form} noValidate>

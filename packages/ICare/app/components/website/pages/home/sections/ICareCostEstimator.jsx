@@ -2,41 +2,31 @@ import React from "react";
 import styles from "./cost-estimator.module.scss";
 
 /**
- * ICare — Budget Estimator (refined UI + compact inputs)
- * ✅ Hourly rate: small number pill + slider underneath
- * ✅ Inputs have same "soft" background as result pills (Care cost)
- * ✅ Same treatment for Hours per week
+ * ICare — Budget Estimator (MVP: companionship only, no ICare fee shown)
  *
- * Copy goals (legal-safe):
- * ✅ show what families may pay (total estimates)
- * ✅ explain what agency pricing can include (neutral, factual)
- * ✅ avoid blame/accusations; use "estimate / varies / comparison only"
- *
- * Logic update:
- * ✅ show "carer share of total" (agency vs ICare) so families understand where the budget goes
- * ✅ agency margin is an adjustable assumption (default chosen for day/week style pricing)
+ * ✅ Only companionship defaults (UK)
+ * ✅ Direct (family budget) = Care pay (no ICare/platform fee displayed)
+ * ✅ Agency overhead default: 10% (editable 10–100)
+ * ✅ Very scan-friendly copy + bigger, colored tooltips
+ * ✅ Short explainer toggle (readable + clear)
+ * ✅ Guards: no negatives, max 2 decimals, clamps
  */
 export default function ICareCostEstimator({
-    icareFeePct = 10,
-    agencyMarginPct = 170,
+    // kept for compatibility but NOT used in MVP
+    icareFeePct = 0,
+    agencyMarginPct: agencyMarginPctProp = 10,
     waitlistHref = "#waitlist",
 }) {
     const TEXT = "#0F172A";
+    const ACCENT = "rgb(119, 141, 67)";
+    const ACCENT2 = "rgb(221, 139, 79)";
 
-    const ACCENT = "rgb(119, 141, 67)"; // green
-    const ACCENT2 = "rgb(221, 139, 79)"; // peach
-
-    // Live-in average (UK) used as default for GBP (editable)
-    const UK_LIVE_IN_AVG_HOURLY_GBP = 13;
-
-    const hourlyRanges = React.useMemo(
-        () => ({
-            PLN: { min: 30.5, max: 60, step: 0.5 },
-            EUR: { min: 12.82, max: 30, step: 0.1 },
-            GBP: { min: 12.21, max: 35, step: 0.1 },
-        }),
-        []
-    );
+    const to2 = (n) => Number(Number(n).toFixed(2));
+    const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+    const safeNumber = (raw, fallback) => {
+        const n = typeof raw === "number" ? raw : Number(raw);
+        return Number.isFinite(n) ? n : fallback;
+    };
 
     const snapToStep = (value, step) => {
         const decimals = (step.toString().split(".")[1] || "").length;
@@ -44,19 +34,42 @@ export default function ICareCostEstimator({
         return Number(snapped.toFixed(decimals));
     };
 
-    const [currency, setCurrency] = React.useState("GBP");
-    const [hourly, setHourly] = React.useState(UK_LIVE_IN_AVG_HOURLY_GBP);
-    const [hoursWeek, setHoursWeek] = React.useState(30);
+    const hourlyRanges = React.useMemo(
+        () => ({
+            EUR: { min: 12.82, max: 30, step: 0.1 },
+            GBP: { min: 10.5, max: 30, step: 0.1 },
+        }),
+        []
+    );
 
-    // kept but unused (future lead capture)
-    const [emailOptIn, setEmailOptIn] = React.useState(false);
-    const [email, setEmail] = React.useState("");
+    const [currency, setCurrency] = React.useState("GBP");
+
+    // Companionship default (UK midpoint)
+    const COMPANIONSHIP_DEFAULT_GBP = 12.5;
 
     const range = hourlyRanges[currency] ?? hourlyRanges.GBP;
 
+    const [hourly, setHourly] = React.useState(() => {
+        const d = currency === "GBP" ? COMPANIONSHIP_DEFAULT_GBP : (range.min + range.max) / 2;
+        return snapToStep(d, range.step);
+    });
+
+    const [hoursWeek, setHoursWeek] = React.useState(30);
+
+    // Agency overhead (editable)
+    const [agencyMarginPct, setAgencyMarginPct] = React.useState(() =>
+        clamp(safeNumber(agencyMarginPctProp, 10), 10, 100)
+    );
+
+    // Friendly explainer toggle
+    const [showExplainer, setShowExplainer] = React.useState(false);
+
     React.useEffect(() => {
         if (currency === "GBP") {
-            setHourly(snapToStep(UK_LIVE_IN_AVG_HOURLY_GBP, range.step));
+            setHourly((prev) => {
+                const next = clamp(safeNumber(prev, COMPANIONSHIP_DEFAULT_GBP), range.min, range.max);
+                return snapToStep(next, range.step);
+            });
             return;
         }
         const mid = (range.min + range.max) / 2;
@@ -76,43 +89,44 @@ export default function ICareCostEstimator({
     const {
         baseCost,
         agencyTotal,
-        icareTotal,
-        youSave,
-        savePct,
-        agencyCarerSharePct,
-        icareCarerSharePct,
+        diff,
+        diffPct,
+        diffPctRounded,
+        diffPctClamped,
+        agencyCarerShareRounded,
     } = React.useMemo(() => {
         const weeksPerMonth = 4.33;
-        const base = hourly * hoursWeek * weeksPerMonth;
 
-        // Agency total = care pay base + estimated overhead/margin (assumption for comparison)
-        const agency = base * (1 + agencyMarginPct / 100);
+        const h = clamp(to2(safeNumber(hourly, 0)), range.min, range.max);
+        const hw = clamp(to2(safeNumber(hoursWeek, 0)), 0, 168);
+        const m = clamp(to2(safeNumber(agencyMarginPct, 10)), 10, 100);
 
-        // ICare total = care pay base + platform service fee (assumption)
-        const icare = base * (1 + icareFeePct / 100);
+        const base = h * hw * weeksPerMonth;
 
-        const save = Math.max(0, agency - icare);
-        const pct = agency > 0 ? (save / agency) * 100 : 0;
+        // Agency total = base + overhead (comparison only)
+        const agency = base * (1 + m / 100);
+
+        // MVP: "direct" = base (no ICare fee shown)
+        const direct = base;
+
+        const d = Math.max(0, agency - direct);
+        const p = agency > 0 ? (d / agency) * 100 : 0;
 
         const agencyShare = agency > 0 ? (base / agency) * 100 : 0;
-        const icareShare = icare > 0 ? (base / icare) * 100 : 0;
+
+        const pctClamped = Math.max(0, Math.min(100, p));
+        const pctRounded = Math.round(p);
 
         return {
             baseCost: base,
             agencyTotal: agency,
-            icareTotal: icare,
-            youSave: save,
-            savePct: pct,
-            agencyCarerSharePct: agencyShare,
-            icareCarerSharePct: icareShare,
+            diff: d,
+            diffPct: p,
+            diffPctClamped: pctClamped,
+            diffPctRounded: pctRounded,
+            agencyCarerShareRounded: Math.max(0, Math.min(100, Math.round(agencyShare))),
         };
-    }, [hourly, hoursWeek, agencyMarginPct, icareFeePct]);
-
-    const savePctClamped = Math.max(0, Math.min(100, savePct));
-    const savePctRounded = Math.round(savePct);
-
-    const agencyCarerShareRounded = Math.max(0, Math.min(100, Math.round(agencyCarerSharePct)));
-    const icareCarerShareRounded = Math.max(0, Math.min(100, Math.round(icareCarerSharePct)));
+    }, [hourly, hoursWeek, agencyMarginPct, range.min, range.max]);
 
     const CurrencyToggle = () => (
         <div className={styles.curr} role="radiogroup" aria-labelledby="currency-label-home">
@@ -137,6 +151,17 @@ export default function ICareCostEstimator({
         </div>
     );
 
+    const InfoTip = ({ label, children }) => (
+        <span className={styles.tip}>
+            <button type="button" className={styles.infoIcon} aria-label={label}>
+                i
+            </button>
+            <span className={styles.tipBubble} role="tooltip">
+                {children}
+            </span>
+        </span>
+    );
+
     return (
         <section
             aria-label="Cost estimator"
@@ -145,8 +170,8 @@ export default function ICareCostEstimator({
                 ["--accent"]: ACCENT,
                 ["--accent2"]: ACCENT2,
                 ["--text"]: TEXT,
-                ["--savePct"]: `${savePctClamped.toFixed(0)}%`,
-                ["--savePctRounded"]: savePctRounded,
+                ["--savePct"]: `${diffPctClamped.toFixed(0)}%`,
+                ["--savePctRounded"]: diffPctRounded,
             }}
         >
             <div className={styles.container}>
@@ -159,37 +184,44 @@ export default function ICareCostEstimator({
                     <h3 className={styles.h2Mini}>Budget clarity in under a minute</h3>
                     <p className={styles.lead}>
                         Caring is emotional — money shouldn’t add extra stress. <br />
-                        Adjust rate and hours/week to see an illustrative monthly family budget estimate.
+                        Adjust rate and hours/week to see an illustrative monthly estimate.
                     </p>
                 </div>
 
-                {/* 2 BOXES */}
                 <div className={styles.cardsRow}>
-                    {/* LEFT = controls */}
+                    {/* LEFT */}
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>Your inputs</h3>
 
                         <div className={styles.inputsGrid}>
-                            {/* Currency row */}
+                            {/* Currency */}
                             <div className={styles.currencyRow}>
-                                <span id="currency-label-home" className={styles.label}>Currency</span>
+                                <span id="currency-label-home" className={styles.label}>
+                                    Currency
+                                </span>
                                 <CurrencyToggle />
                             </div>
 
-                            {/* 1) Hourly rate */}
+                            {/* Hourly */}
                             <div className={styles.block}>
                                 <div className={styles.blockTop}>
-                                    <label htmlFor="hourly-rate-home" className={styles.label}>Hourly rate</label>
+                                    <label htmlFor="hourly-rate-home" className={styles.label}>
+                                        Hourly rate (companionship)
+                                    </label>
 
                                     <input
                                         id="hourly-rate-home"
                                         className={`${styles.inputMini} ${styles.estInput}`}
                                         type="number"
+                                        inputMode="decimal"
                                         value={hourly}
                                         min={range.min}
                                         max={range.max}
                                         step={range.step}
-                                        onChange={(e) => setHourly(Number(e.target.value))}
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, hourly);
+                                            setHourly(clamp(to2(next), range.min, range.max));
+                                        }}
                                     />
                                 </div>
 
@@ -200,7 +232,10 @@ export default function ICareCostEstimator({
                                     max={range.max}
                                     step={range.step}
                                     value={hourly}
-                                    onChange={(e) => setHourly(Number(e.target.value))}
+                                    onChange={(e) => {
+                                        const next = safeNumber(e.target.value, hourly);
+                                        setHourly(clamp(to2(next), range.min, range.max));
+                                    }}
                                     aria-label="Hourly rate slider"
                                 />
 
@@ -210,151 +245,200 @@ export default function ICareCostEstimator({
                                 </div>
 
                                 <p className={styles.helper}>
-                                    Tip: choose a rate that's fair, sustainable — and clear for both sides.
+                                    Typical UK companionship pay is often roughly £11–£14/hr (varies by area and experience).
                                 </p>
                             </div>
 
-                            {/* 2) Hours per week */}
+                            {/* Hours/week */}
                             <div className={styles.block}>
                                 <div className={styles.blockTop}>
-                                    <label htmlFor="hours-week-home" className={styles.label}>Hours per week</label>
+                                    <label htmlFor="hours-week-home" className={styles.label}>
+                                        Hours per week
+                                    </label>
 
                                     <input
                                         id="hours-week-home"
                                         className={`${styles.inputMini} ${styles.estInput}`}
                                         type="number"
+                                        inputMode="numeric"
                                         value={hoursWeek}
-                                        onChange={(e) => setHoursWeek(Number(e.target.value))}
+                                        min={0}
+                                        max={168}
+                                        step={1}
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, hoursWeek);
+                                            setHoursWeek(clamp(Math.round(next), 0, 168));
+                                        }}
                                     />
                                 </div>
 
                                 <p className={styles.helper}>
-                                    A helpful starting point is 20–40 hours/week (adjust to your family's routine).
+                                    A helpful starting point is 20–40 hours/week (adjust to your family’s routine).
+                                </p>
+                            </div>
+
+                            {/* Agency overhead */}
+                            <div className={styles.block}>
+                                <div className={styles.blockTop}>
+                                    <label htmlFor="agency-markup-home" className={styles.label}>
+                                        Agency overhead (estimate)
+                                    </label>
+
+                                    <input
+                                        id="agency-markup-home"
+                                        className={`${styles.inputMini} ${styles.estInput}`}
+                                        type="number"
+                                        inputMode="numeric"
+                                        value={agencyMarginPct}
+                                        min={10}
+                                        max={100}
+                                        step={1}
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, agencyMarginPct);
+                                            setAgencyMarginPct(clamp(Math.round(next), 10, 100));
+                                        }}
+                                    />
+                                </div>
+
+                                <input
+                                    className={styles.range}
+                                    type="range"
+                                    min={10}
+                                    max={100}
+                                    step={1}
+                                    value={agencyMarginPct}
+                                    onChange={(e) => {
+                                        const next = safeNumber(e.target.value, agencyMarginPct);
+                                        setAgencyMarginPct(clamp(Math.round(next), 10, 100));
+                                    }}
+                                    aria-label="Agency overhead slider"
+                                />
+
+                                <div className={styles.rangeMinMax}>
+                                    <span>10%</span>
+                                    <span>100%</span>
+                                </div>
+
+                                <p className={styles.helper}>
+                                    For comparison only. This overhead can reflect coordination, recruitment checks, ongoing support,
+                                    compliance, training and operating costs — and varies by provider and needs.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* RIGHT = results */}
+                    {/* RIGHT */}
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>Monthly estimate</h3>
 
                         <div className={styles.resultGrid}>
                             <div className={styles.pill}>
                                 <div className={styles.k}>
-                                    Care pay (carer earnings, no fees)
-                                    <span className={styles.tip}>
-                                        <button type="button" className={styles.infoIcon} aria-label="Care pay info">
-                                            i
-                                        </button>
-                                        <span className={styles.tipBubble} role="tooltip">
-                                            Estimated amount going to the carer for the hours and rate you selected
-                                            (before any third-party fees). Shown to help families understand the "care
-                                            pay" portion of the monthly budget.
-                                        </span>
-                                    </span>
+                                    Carer take-home pay
+                                    <InfoTip label="Care pay info">
+                                        The estimated amount the carer earns for your selected hours and rate.
+                                    </InfoTip>
                                 </div>
                                 <div className={styles.v}>{nf.format(baseCost)}</div>
                             </div>
 
                             <div className={styles.pill}>
                                 <div className={styles.k}>
-                                    Agency estimate (family pays)
-                                    <span className={styles.tip}>
-                                        <button type="button" className={styles.infoIcon} aria-label="Agency total info">
-                                            i
-                                        </button>
-                                        <span className={styles.tipBubble} role="tooltip">
-                                            Illustrative estimate for comparison only (not a market survey and not a
-                                            quote). Agency pricing often includes the carer's pay plus overheads (e.g.
-                                            recruitment, admin, support, compliance) and a business margin. Totals can
-                                            vary by provider, location and care needs.
-                                            <br />
-                                            <br />
-                                            Based on the assumptions used in this calculator, "care pay" is about{" "}
-                                            <strong>{agencyCarerShareRounded}%</strong> of this agency estimate.
-                                        </span>
-                                    </span>
+                                    Typical agency price for the same care
+                                    <InfoTip label="Agency estimate info">
+                                        An illustrative agency price for the same care. Often includes coordination, support and operating
+                                        costs. In this scenario, care pay is about <strong>{agencyCarerShareRounded}%</strong> of the agency
+                                        estimate.
+                                    </InfoTip>
                                 </div>
                                 <div className={styles.v}>{nf.format(agencyTotal)}</div>
                             </div>
 
-                            <div className={styles.pill}>
+                            <div className={`${styles.pill} ${styles.pillHighlight} ${styles.pillLarge}`}>
                                 <div className={styles.k}>
-                                    Estimated via ICare (family budget)
-                                    <span className={styles.tip}>
-                                        <button type="button" className={styles.infoIcon} aria-label="ICare estimate info">
-                                            i
-                                        </button>
-                                        <span className={styles.tipBubble} role="tooltip">
-                                            Includes an estimated ICare service fee based on your inputs. This is an
-                                            estimate (not a quote). Any optional extras are agreed separately between
-                                            families and carers.
-                                            <br />
-                                            <br />
-                                            Based on the assumptions used in this calculator, "care pay" is about{" "}
-                                            <strong>{icareCarerShareRounded}%</strong> of the estimated ICare total.
-                                        </span>
-                                    </span>
+                                    Your estimated monthly saving
+                                    <InfoTip label="Comparison info">
+                                        The difference between the agency estimate and the direct care budget in this scenario.
+                                    </InfoTip>
                                 </div>
-                                <div className={styles.v}>{nf.format(icareTotal)}</div>
-                            </div>
-
-                            <div className={`${styles.pill} ${styles.pillHighlight}`}>
-                                <div className={styles.k}>Estimated comparison</div>
-                                <div className={`${styles.v} ${styles.vHighlight}`}>{nf.format(youSave)}</div>
+                                <div className={`${styles.v} ${styles.vHighlight}`}>{nf.format(diff)}</div>
                             </div>
                         </div>
 
-                        <div className={styles.bar} role="progressbar" aria-valuenow={savePctRounded} aria-valuemin={0} aria-valuemax={100} aria-label="Estimated savings percentage">
+                        <div
+                            className={styles.bar}
+                            role="progressbar"
+                            aria-valuenow={diffPctRounded}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                            aria-label="Estimated difference percentage"
+                        >
                             <div className={styles.barFill} />
                         </div>
 
                         <p className={styles.saveLine}>
-                            Illustrative difference of{" "}
-                            <span className={styles.savePct}>{savePctRounded}%</span>{" "}
-                            versus the agency estimate (for comparison only).
+                            Difference: <span className={styles.savePct}>{diffPctRounded}%</span> vs agency estimate{" "}
+                            <span className={styles.mutedInline}>(comparison only)</span>.
+                        </p>
+
+                        <p className={styles.microLine}>
+                            With agencies, a significant part of the budget typically covers coordination and operating costs, not direct care.
                         </p>
 
                         <p className={styles.helper}>
-                            Estimates vary — care needs, schedules, location and experience can change rates and totals.
+                            These figures are illustrative only and not a formal quote, offer, or contract. Final costs may vary based on care
+                            needs, schedule, location, experience, and any agreed terms.
                         </p>
 
-                        <p className={styles.microNote}>
-                            Families are often quoted a day or week rate (especially for live-in care). We show an
-                            hourly/monthly equivalent here to make comparisons easier. This tool is illustrative and not
-                            a quote.
-                        </p>
+                        <button
+                            type="button"
+                            className={styles.explainerToggle}
+                            onClick={() => setShowExplainer((v) => !v)}
+                            aria-expanded={showExplainer}
+                        >
+
+                        </button>
+
+                        {showExplainer ? (
+                            <div className={styles.explainerBox}>
+                                <ul className={styles.explainerList}>
+                                    <li>
+                                        <strong>Care pay</strong> = what the carer earns.
+                                    </li>
+                                    <li>
+                                        <strong>Agency estimate</strong> = care pay + agency operating costs (illustrative).
+                                    </li>
+                                    <li>
+                                        <strong>Direct budget</strong> = the same care cost without agency overhead.
+                                    </li>
+                                    <li>
+                                        <strong>Comparison</strong> = the estimated difference in this scenario.
+                                    </li>
+                                </ul>
+                                <p className={styles.explainerNote}>
+                                    This tool is for general information and comparison. It does not provide legal, financial, or contractual
+                                    advice, and final pricing should always be confirmed directly with your chosen provider.
+                                </p>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
 
                 {/* Reference note */}
                 <div className={styles.avgPayBox}>
-                    <strong className={styles.avgStrong}>UK pay reference (live-in):</strong>{" "}
-                    Hourly equivalents can vary because many live-in roles are described per day/week and include
-                    different expectations around “active” hours. As a rough benchmark, Glassdoor estimates about{" "}
-                    <strong className={styles.avgStrong}>~£11/hour average</strong> for “Live-in Carer” (UK) and shows
-                    higher reports around <strong className={styles.avgStrong}>~£13/hour</strong>. The UK National Living
-                    Wage from <strong className={styles.avgStrong}>1 April 2026</strong> is{" "}
-                    <strong className={styles.avgStrong}>£12.71/hour</strong> (21+){" "}
-                    <strong className={styles.avgStrong}>(for reference only)</strong>. Some market guides also describe
-                    live-in as <strong className={styles.avgStrong}>~£120/day or ~£800/week</strong> (example guidance).
+                    <strong className={styles.avgStrong}>UK pay reference (companionship):</strong>{" "}
+                    Many basic home-care / companionship roles are commonly advertised around{" "}
+                    <strong className={styles.avgStrong}>£11–£14/hr</strong> (varies by region and experience). From{" "}
+                    <strong className={styles.avgStrong}>1 April 2026</strong>, the UK National Living Wage is{" "}
+                    <strong className={styles.avgStrong}>£12.71/hr</strong> (age 21+).
                     <div className={styles.sourcesRow}>
                         <a
-                            href="https://www.glassdoor.co.uk/Salaries/live-in-carer-salary-SRCH_KO0%2C13.htm"
+                            href="https://www.gov.uk/national-minimum-wage-rates"
                             target="_blank"
                             rel="noreferrer"
                             className={styles.sourceLink}
                         >
-                            Glassdoor
-                        </a>
-                        <a
-                            href="https://www.gov.uk/government/publications/minimum-wage-rates-for-2026"
-                            target="_blank"
-                            rel="noreferrer"
-                            className={styles.sourceLink}
-                        >
-                            GOV.UK (2026 rates)
+                            GOV.UK (NMW/NLW)
                         </a>
                     </div>
                 </div>

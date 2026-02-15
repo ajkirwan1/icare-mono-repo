@@ -7,7 +7,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
             title: "Browse or get matched with verified caregiver profiles",
             description:
                 "Review key details upfront - experience, availability, and the checks or documents a caregiver chooses to share on their profile.",
-            img: "images/web/icare-for-carereceivers/browsing.png",
+            img: "images/web/icare-for-carereceivers/newpic.webp",
             alt: "Browsing caregiver profiles",
         },
         {
@@ -49,7 +49,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                         </span>
 
                         <span className={styles.subtitleText}>
-                            Choose to browse yourself or get matched — then arrange support directly with{" "}
+                            Choose to browse yourself or get matched - then arrange support directly with{" "}
                             <strong className={styles.bold}>clear information</strong>,{" "}
                             <strong className={styles.bold}>simple agreements</strong> and{" "}
                             <strong className={styles.bold}>safety-first tools.</strong>
@@ -91,7 +91,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 <p className={styles.reassurance}>
                     Need support?
                     <br />
-                    ICare is a matching platform — we can help you use the tools, update your search, or change a match,
+                    ICare is a matching platform - we can help you use the tools, update your search, or change a match,
                     without agency pressure.
                 </p>
             </div>
