@@ -1,4 +1,4 @@
-import heroImage from "/images/heros/who-we-are.jpg";
+import heroImage from "/images/heros/who-we-are-2.jpg";
 import styles from "./who-we-are-hero.module.scss";
 import NavigationButton from "../../../common/buttons/navigation-buttons/navigation-button";
 
