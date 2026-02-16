@@ -196,8 +196,8 @@ export default function ICareAppNavbar() {
         <>
             <header className={styles.header} ref={navDropdownAnchor}>
                 <NavLink to="/" className={styles.brand} onClick={closeAll}>
-                    <img className={styles.logoNormal} src="/images/logo/icarelogo20.svg" alt="ICare" />
-                    <img className={styles.logoBlack} src="/images/logo/icareblack.svg" alt="ICare" />
+                    <img className={styles.logoNormal} src="/images/logo/icarelogo20.svg" alt="ICare" width={121} height={48} />
+                    <img className={styles.logoBlack} src="/images/logo/icareblack.svg" alt="ICare" width={121} height={48} />
                     <span className={styles.brandTagline}>Care made human</span>
                 </NavLink>
 

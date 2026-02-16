@@ -62,7 +62,7 @@ export default function ICareFooter() {
           {/* BRAND */}
           <div className={styles.col}>
             <NavLink to="/" aria-label="ICare home" className={styles.brandLink}>
-              <img src={LOGO_SRC} alt="ICare" className={styles.logo} />
+              <img src={LOGO_SRC} alt="ICare" className={styles.logo} width={89} height={35} />
               <span className={styles.slogan}>Care made human</span>
             </NavLink>
 
