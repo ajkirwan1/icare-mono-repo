@@ -33,7 +33,7 @@ export default function ReceiversFAQ() {
         },
         {
             q: "Can support change over time?",
-            a: "Yes. Needs evolve, and arrangements can be adjusted. You can revisit schedules or look for a different caregiver if circumstances change.",
+            a: "Yes. Needs evolve, and arrangements can be adjusted. You can revisit schedules or look for a different caregiver if circumstances change.We’ll support you in next steps.",
         },
     ];
 

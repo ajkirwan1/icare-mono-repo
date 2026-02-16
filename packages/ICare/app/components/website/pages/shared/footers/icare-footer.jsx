@@ -2,10 +2,9 @@ import React from "react";
 import { NavLink } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faInstagram,
   faLinkedin,
   faFacebook,
-  faXTwitter
+  faWhatsapp
 } from "@fortawesome/free-brands-svg-icons";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import styles from "./icare-footer.module.scss";
@@ -62,7 +61,13 @@ export default function ICareFooter() {
           {/* BRAND */}
           <div className={styles.col}>
             <NavLink to="/" aria-label="ICare home" className={styles.brandLink}>
-              <img src={LOGO_SRC} alt="ICare" className={styles.logo} width={89} height={35} />
+              <img
+                src={LOGO_SRC}
+                alt="ICare"
+                width="89"
+                height="35"
+                className={styles.logo}
+              />
               <span className={styles.slogan}>Care made human</span>
             </NavLink>
 
@@ -119,6 +124,19 @@ export default function ICareFooter() {
               </div>
 
               <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
+
+              <div className={styles.contactSupport}>
+                <a
+                  href="https://wa.me/?text=Hi%20ICare%2C%20I%20need%20support"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Write to us on Whatsapp"
+                  className={styles.whatsappLink}
+                >
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                </a>
+                <span className={styles.supportBubble}>Write to us on Whatsapp</span>
+              </div>
             </div>
           </div>
 

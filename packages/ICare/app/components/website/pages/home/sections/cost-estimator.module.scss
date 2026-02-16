@@ -340,6 +340,31 @@
     margin-top: 14px;
 }
 
+.explainerStatic {
+    margin-top: 14px;
+    padding: 0;
+    color: rgba(15, 23, 42, 0.9);
+    text-align: left;
+}
+
+.explainerList {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+.explainerList li {
+    line-height: 1.65;
+}
+
+.explainerNote {
+    margin: 16px 0 0;
+    color: rgba(15, 23, 42, 0.86);
+    line-height: 1.72;
+}
+
 /* avg pay box */
 .avgPayBox {
     margin-top: 12px;

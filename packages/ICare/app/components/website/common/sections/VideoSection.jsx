@@ -4,6 +4,8 @@ import styles from "./video-section.module.scss";
 export default function VideoSection({
   videoSrc,
   poster,
+  posterWidth,
+  posterHeight,
   imageSide = "left", // "left" | "right"
   children
 }) {
@@ -79,6 +81,8 @@ export default function VideoSection({
                 <img
                   src={poster}
                   alt=""
+                  width={posterWidth}
+                  height={posterHeight}
                   className={styles.poster}
                 />
               )}
