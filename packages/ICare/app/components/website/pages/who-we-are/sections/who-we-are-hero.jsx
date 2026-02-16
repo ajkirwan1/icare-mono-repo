@@ -13,6 +13,8 @@ export function WhoWeAreHero() {
                 src={heroImage}
                 alt=""
                 role="presentation"
+                width="3862"
+                height="2578"
                 className={styles.image}
             />
             <div className={styles.overlay} aria-hidden="true" />

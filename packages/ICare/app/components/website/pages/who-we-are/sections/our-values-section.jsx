@@ -61,8 +61,10 @@ export function OurValuesSection() {
 
                     <div className={styles.imageWrap}>
                         <img
-                            src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
+                            src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&h=800&q=80"
                             alt="Kind caregiver supporting an elderly person"
+                            width="1200"
+                            height="800"
                             className={styles.image}
                         />
                     </div>

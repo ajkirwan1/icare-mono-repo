@@ -15,7 +15,6 @@ export default function ICareCostEstimator({
     // kept for compatibility but NOT used in MVP
     icareFeePct = 0,
     agencyMarginPct: agencyMarginPctProp = 10,
-    waitlistHref = "#waitlist",
 }) {
     const TEXT = "#221002";
     const ACCENT = "rgb(119, 141, 67)";
@@ -60,9 +59,6 @@ export default function ICareCostEstimator({
     const [agencyMarginPct, setAgencyMarginPct] = React.useState(() =>
         clamp(safeNumber(agencyMarginPctProp, 10), 10, 100)
     );
-
-    // Friendly explainer toggle
-    const [showExplainer, setShowExplainer] = React.useState(false);
 
     React.useEffect(() => {
         if (currency === "GBP") {
@@ -390,37 +386,26 @@ export default function ICareCostEstimator({
                             needs, schedule, location, experience, and any agreed terms.
                         </p>
 
-                        <button
-                            type="button"
-                            className={styles.explainerToggle}
-                            onClick={() => setShowExplainer((v) => !v)}
-                            aria-expanded={showExplainer}
-                        >
-
-                        </button>
-
-                        {showExplainer ? (
-                            <div className={styles.explainerBox}>
-                                <ul className={styles.explainerList}>
-                                    <li>
-                                        <strong>Care pay</strong> = what the carer earns.
-                                    </li>
-                                    <li>
-                                        <strong>Agency estimate</strong> = care pay + agency operating costs (illustrative).
-                                    </li>
-                                    <li>
-                                        <strong>Direct budget</strong> = the same care cost without agency overhead.
-                                    </li>
-                                    <li>
-                                        <strong>Comparison</strong> = the estimated difference in this scenario.
-                                    </li>
-                                </ul>
-                                <p className={styles.explainerNote}>
-                                    This tool is for general information and comparison. It does not provide legal, financial, or contractual
-                                    advice, and final pricing should always be confirmed directly with your chosen provider.
-                                </p>
-                            </div>
-                        ) : null}
+                        <div className={styles.explainerStatic}>
+                            <ul className={styles.explainerList}>
+                                <li>
+                                    <strong>Care pay</strong> = what the carer earns.
+                                </li>
+                                <li>
+                                    <strong>Agency estimate</strong> = care pay + agency operating costs (illustrative).
+                                </li>
+                                <li>
+                                    <strong>Direct budget</strong> = the same care cost without agency overhead.
+                                </li>
+                                <li>
+                                    <strong>Comparison</strong> = the estimated difference in this scenario.
+                                </li>
+                            </ul>
+                            <p className={styles.explainerNote}>
+                                This tool is for general information and comparison. It does not provide legal, financial, or contractual
+                                advice, and final pricing should always be confirmed directly with your chosen provider.
+                            </p>
+                        </div>
                     </div>
                 </div>
 

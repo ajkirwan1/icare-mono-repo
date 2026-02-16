@@ -54,6 +54,8 @@ export function OurImpactSection() {
                             <VideoSection
                                 poster="images/web/who-we-are/who-we-are-placeholder.webp"
                                 videoSrc="images/web/who-we-are/who-we-are.mp4"
+                                posterWidth={1600}
+                                posterHeight={900}
                             />
                         </div>
                     </div>

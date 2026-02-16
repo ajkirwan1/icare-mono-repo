@@ -167,6 +167,56 @@
     }
 }
 
+.contactSupport {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-8;
+    width: fit-content;
+    margin-top: $space-8;
+    align-self: flex-start;
+}
+
+.whatsappLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.85rem;
+    height: 1.85rem;
+    min-width: 1.85rem;
+    min-height: 1.85rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #fff;
+    background: #25d366;
+    font-size: 0.95rem;
+    line-height: 1;
+    transition: $transition-ui;
+
+    &:hover {
+        filter: brightness(0.95);
+    }
+
+    &:focus-visible {
+        outline: $space-2 solid $focus-border;
+        outline-offset: $space-2;
+        box-shadow: 0 0 0 $space-4 $focus-ring;
+    }
+}
+
+.supportBubble {
+    display: inline-flex;
+    align-items: center;
+    font-size: $fs-sm;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: $radius-pill;
+    padding: $space-4 $space-8;
+    background: #fff;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 /* DIVIDER */
 .divider {
     height: 1px;

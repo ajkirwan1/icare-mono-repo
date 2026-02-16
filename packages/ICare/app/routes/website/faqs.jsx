@@ -5,33 +5,33 @@ import { NavLink } from "react-router";
 import styles from "~/styles/pages/faqs.module.scss";
 
 export const meta = () => {
-  return [
-    { title: "FAQ - Your Questions About iCare Answered" },
-    { name: "description", content: "Get answers about iCare's companionship platform. Learn how we connect families with trusted caregivers, what services we offer, and how to join our waitlist." },
-    { name: "keywords", content: "iCare FAQ, companionship care questions, how does iCare work, caregiver platform FAQ" },
+    return [
+        { title: "FAQ - Your Questions About iCare Answered" },
+        { name: "description", content: "Get answers about iCare's companionship platform. Learn how we connect families with trusted caregivers, what services we offer, and how to join our waitlist." },
+        { name: "keywords", content: "iCare FAQ, companionship care questions, how does iCare work, caregiver platform FAQ" },
 
-    // Open Graph
-    { property: "og:type", content: "website" },
-    { property: "og:title", content: "Frequently Asked Questions - iCare" },
-    { property: "og:description", content: "Get answers about iCare's companionship platform, services, safety, and how to join the waitlist." },
-    { property: "og:url", content: "https://icare-app.co.uk/faq" },
-    { property: "og:image", content: "https://icare-app.co.uk/images/og-faq.jpg" },
-    { property: "og:image:width", content: "1200" },
-    { property: "og:image:height", content: "630" },
-    { property: "og:image:alt", content: "FAQ: Your questions about iCare answered" },
+        // Open Graph
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: "Frequently Asked Questions - iCare" },
+        { property: "og:description", content: "Get answers about iCare's companionship platform, services, safety, and how to join the waitlist." },
+        { property: "og:url", content: "https://icare-app.co.uk/faq" },
+        { property: "og:image", content: "https://icare-app.co.uk/images/og-faq.jpg" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: "FAQ: Your questions about iCare answered" },
 
-    // Twitter Card
-    { name: "twitter:title", content: "FAQ - Your Questions About iCare Answered" },
-    { name: "twitter:description", content: "Find answers about companionship care, safety, pricing, and more. Your questions answered." },
-    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-faq.jpg" },
-    { name: "twitter:image:alt", content: "Frequently asked questions about iCare" }
-  ];
+        // Twitter Card
+        { name: "twitter:title", content: "FAQ - Your Questions About iCare Answered" },
+        { name: "twitter:description", content: "Find answers about companionship care, safety, pricing, and more. Your questions answered." },
+        { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-faq.jpg" },
+        { name: "twitter:image:alt", content: "Frequently asked questions about iCare" }
+    ];
 };
 
 export const links = () => {
-  return [
-    { rel: "canonical", href: "https://icare-app.co.uk/faq" }
-  ];
+    return [
+        { rel: "canonical", href: "https://icare-app.co.uk/faq" }
+    ];
 };
 
 const faqsCaregivers = [
@@ -92,7 +92,7 @@ const faqsFamilies = [
     },
     {
         q: "Can support change over time?",
-        a: "Yes. Needs evolve, and arrangements can be adjusted. You can revisit schedules or look for a different caregiver if circumstances change."
+        a: "Yes. Needs evolve, and arrangements can be adjusted. You can revisit schedules or look for a different caregiver if circumstances change.We’ll support you in next steps."
     }
 ];
 

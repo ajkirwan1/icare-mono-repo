@@ -10,6 +10,8 @@ const steps = [
             "Share your needs, schedule and preferred skills. We only ask for information that helps you find the right match.",
         image: "images/web/who-we-are/brief.jpg",
         imageAlt: "Family filling out care preferences form",
+        width: 3712,
+        height: 5568,
     },
     {
         step: 2,
@@ -18,6 +20,8 @@ const steps = [
             "View caregiver profiles and message people directly when you feel ready.",
         image: "images/web/who-we-are/directmatching.jpg",
         imageAlt: "Browsing caregiver profiles on the platform",
+        width: 3840,
+        height: 5760,
     },
     {
         step: 3,
@@ -26,6 +30,8 @@ const steps = [
             "Discuss tasks, hours and start date directly with the caregiver. We share simple guidance to help you set clear expectations.",
         image: "images/web/who-we-are/icare-agree-and-start.webp",
         imageAlt: "Family and caregiver agreeing on care arrangements",
+        width: 1284,
+        height: 817,
     },
 ];
 
@@ -82,6 +88,8 @@ export function HowWeWorkSection() {
                                     <img
                                         src={s.image}
                                         alt={s.imageAlt}
+                                        width={s.width}
+                                        height={s.height}
                                         className={styles.stepImage}
                                     />
                                 </div>
