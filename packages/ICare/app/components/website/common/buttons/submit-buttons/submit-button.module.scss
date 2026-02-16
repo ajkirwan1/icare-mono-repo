@@ -1,5 +1,7 @@
 @use "@styles/tokens" as *;
 
+
+
 .button {
     padding: $space-12 $space-22;
     border-radius: $radius-pill;
@@ -7,21 +9,24 @@
     border: none;
 
     font-weight: $fw-normal;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
 
     flex: 1 1 200px;
     white-space: nowrap;
-
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: fit-content;
 
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: filter 0.14s ease, background-color 0.14s ease;
 
     &:active {
-        transform: translateY(1px);
+        filter: brightness(0.95);
+    }
+
+    &:hover {
+        filter: brightness(0.95);
     }
 
     &:disabled {
@@ -39,7 +44,7 @@
 }
 
 .primary {
-    background: #dd8b4f;
+    background: rgb(221, 139, 79);
     color: #fff;
 }
 

@@ -1,0 +1,140 @@
+@use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
+
+.content {
+    @include motifs.hero-content;
+
+    @media (max-width:600px) {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+.textWrapper {
+    text-shadow: $shadow-text-hero;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: twFadeUp 600ms ease forwards;
+    animation-delay: 120ms;
+    will-change: opacity, transform;
+
+    @media (max-width:600px) {
+        text-shadow: none;
+    }
+}
+
+@keyframes twFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .textWrapper {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+.heading {
+    font-size: $font-3xl;
+    margin: 0;
+    font-weight: $fw-bold;
+    line-height: 1.05; // no token
+    color: $on-dark;
+
+    @media (max-width:600px) {
+        font-size: 2rem;
+        color: black;
+    }
+}
+
+.copy {
+    margin-top: $space-16;
+    max-width: 430px;
+    line-height: $lh-body;
+    color: $on-dark;
+    font-weight: 400;
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-bottom: 0.6rem;
+
+    @media (max-width:600px) {
+        color: black;
+    }
+}
+
+
+.list {
+    list-style: none;
+    padding-left: 1.2rem;
+}
+
+.list li {
+    position: relative;
+    font-size: 1.2rem;
+    font-weight: $fw-normal;
+    margin-bottom: 0.5rem;
+    color: $on-dark;
+    align-items: center;
+
+    @media (max-width:600px) {
+        color: black;
+    }
+}
+
+.list li::before {
+    content: '•';
+    position: absolute;
+    left: -1rem;
+    top: 0;
+    color: #fff;
+
+    @media (max-width:600px) {
+        color: black;
+    }
+}
+
+
+.copyPrimary {
+    font-size: $fs-hero-lead-p;
+    font-weight: $fw-semibold;
+    margin-bottom: 1rem;
+    color: $on-dark;
+
+    @media (max-width:600px) {
+        color: black;
+        font-size: 1.4rem;
+        line-height: 1.4;
+    }
+}
+
+
+.cta {
+    border-radius: 36px;
+    color: $on-dark;
+    background-color: rgb(221, 139, 79);
+    font-weight: $fw-normal;
+    font-size: 1.1rem;
+    padding: 10px;
+    width: min(300px, 88vw);
+    cursor: pointer;
+    align-self: center;
+    transition: filter 0.14s ease, background-color 0.14s ease;
+    margin-top: 1rem;
+
+    &:hover {
+        filter: brightness(0.95);
+    }
+
+    @media (max-width:600px) {
+        padding: 16px 2.2rem;
+        font-size: 1.1rem;
+        font-weight: $fw-semibold;
+        min-width: 320px;
+    }
+
+}

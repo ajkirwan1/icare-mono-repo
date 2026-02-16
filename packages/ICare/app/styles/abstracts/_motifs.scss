@@ -26,7 +26,6 @@
     margin-top: t.$space-16;
     font-size: t.$fs-xl;
     color: t.$txt;
-    max-width: 50ch;
     line-height: t.$lh-relaxed;
 
     @media (max-width:600px) {
@@ -39,6 +38,10 @@
     grid-template-columns: 1fr 1fr;
     gap: t.$space-32;
     align-items: start;
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
 }
 
 @mixin grid-three-3-4 {
@@ -92,7 +95,7 @@
 @mixin hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.32); // no token
+    background: rgba(0, 0, 0, 0.4);
     z-index: 1;
 
     @media(max-width:600px) {

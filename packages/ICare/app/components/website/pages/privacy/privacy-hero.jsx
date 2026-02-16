@@ -1,6 +1,7 @@
 import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
 import privacySrc from "/images/heros/privacy.jpg";
 import styles from "./privacy-hero.module.scss";
+import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
 
 export default function PrivacyHero() {
     return (
@@ -14,13 +15,17 @@ export default function PrivacyHero() {
                 />
                 <div className={styles.overlay} />
                 <div className={styles.headerLayer} />
-                <div className={styles.copy}>
-                    <h1 className={styles.title}>Privacy</h1>
-                    <p className={styles.lead}>
-                        Your privacy matters to us. <br />This page explains what personal data we
-                        collect, <br />why we collect it, and how you can exercise your rights.
-                    </p>
+
+                <div className={heroCopyStyles.content}>
+                    <div className={heroCopyStyles.textWrapper}>
+                        <h1 className={heroCopyStyles.heading}>Privacy</h1>
+                        <div className={heroCopyStyles.copy}>
+                            <p className={heroCopyStyles.copyPrimary}>Your privacy matters to us.</p>
+                            <span>This page explains what personal data we collect, why we collect it, and how you can exercise your rights.</span>
+                        </div>
+                    </div>
                 </div>
+
             </section>
         </>
     );

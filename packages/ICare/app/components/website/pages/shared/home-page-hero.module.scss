@@ -35,7 +35,6 @@
     object-fit: cover;
     transition: $transition-fast;
     z-index: 0;
-    filter: brightness(0.8);
     object-position: 50% 40%;
     aspect-ratio: 4 / 3;
 }
@@ -43,10 +42,12 @@
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0.1),
-            rgba(0, 0, 0, 0.2));
+    background: rgba(0, 0, 0, 0.25);
     z-index: 1;
+
+    @media (max-width:600px) {
+        display: none;
+    }
 }
 
 .content {
@@ -58,20 +59,18 @@
 
     @media (max-width:600px) {
         width: 100%;
-        padding: 30px 20px;
+        padding: 30px 20px 0;
     }
 }
 
-.textWrapper {
+.homeTextWrapper {
     display: flex;
     justify-content: flex-end;
-    margin-top: $space-25;
     text-align: right;
-    color: rgba($on-dark, 0.94);
-    font-size: $fs-hero-lead-fluid;
-    line-height: $lh-outro;
-    letter-spacing: $tracking-tight-2;
-    text-shadow: $shadow-text-hero;
+
+    @media (max-width:600px) {
+        text-align: left;
+    }
 }
 
 .badgeWrapper {

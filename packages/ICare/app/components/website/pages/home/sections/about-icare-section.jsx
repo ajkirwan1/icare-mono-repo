@@ -9,7 +9,7 @@ export default function AboutICareSection() {
             className={styles.section}
             aria-labelledby="about-icare-heading"
         >
-            <div className={styles.gridThreeQuarter}>
+            <div className={styles.gridSplit}>
                 <img
                     src="images/web/homepage/oldwoman.png"
                     alt="Person receiving care at home"

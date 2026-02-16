@@ -53,7 +53,7 @@ $text-muted: rgba(15, 23, 42, 0.6);
 
 .h2 {
     margin: 0;
-    font-weight: $fw-semibold;
+    font-weight: $fw-bold;
     letter-spacing: $tracking-tight;
     line-height: $lh-tight;
     font-size: 2rem;
@@ -68,6 +68,7 @@ $text-muted: rgba(15, 23, 42, 0.6);
     font-size: 1.35rem;
     line-height: $lh-copy;
     font-weight: $fw-normal;
+    max-width: 500px;
 
     @media (max-width:600px) {
         font-size: $font-lg;
