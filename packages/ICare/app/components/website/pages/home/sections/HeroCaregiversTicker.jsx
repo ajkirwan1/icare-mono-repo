@@ -10,11 +10,11 @@ const people = [
 ];
 
 const AVATAR_BY_GENDER = {
-    female: "/images/avatars/female.png",
-    male: "/images/avatars/male.png",
+    female: "/images/avatars/female.webp",
+    male: "/images/avatars/male.webp",
 };
 
-const DEFAULT_AVATAR = "/images/avatars/male.png";
+const DEFAULT_AVATAR = "/images/avatars/male.webp";
 
 function getAvatarSrc(gender) {
     const key = String(gender || "").toLowerCase();

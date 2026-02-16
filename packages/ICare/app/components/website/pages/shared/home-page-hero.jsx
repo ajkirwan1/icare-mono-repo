@@ -1,6 +1,7 @@
 import ICareNavbar from "./icare-navbar";
 import SubmitButton from "../../common/buttons/submit-buttons/submit-button";
 import styles from "./home-page-hero.module.scss";
+import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
 
 export default function HomePageHero({ imgSrc }) {
 
@@ -18,8 +19,10 @@ export default function HomePageHero({ imgSrc }) {
                     className={styles.backgroundImage}
                 />
 
+                <div aria-hidden="true" className={styles.overlay} />
+
                 <div className={styles.content}>
-                    <div className={styles.textWrapper}>
+                    <div className={`${styles.homeTextWrapper} ${heroCopyStyles.textWrapper}`}>
                         <div className={styles.copyBlock}>
 
                             {/* HEADLINE */}

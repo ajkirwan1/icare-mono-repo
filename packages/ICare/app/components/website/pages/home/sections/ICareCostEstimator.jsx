@@ -17,7 +17,7 @@ export default function ICareCostEstimator({
     agencyMarginPct: agencyMarginPctProp = 10,
     waitlistHref = "#waitlist",
 }) {
-    const TEXT = "#0F172A";
+    const TEXT = "#221002";
     const ACCENT = "rgb(119, 141, 67)";
     const ACCENT2 = "rgb(221, 139, 79)";
 

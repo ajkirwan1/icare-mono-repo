@@ -1,6 +1,7 @@
 import whoWeAreHeroSrc from "/images/heros/who-we-are.jpg";
 import ICareNavbar from "../shared/icare-navbar";
 import styles from "./how-it-works-hero.module.scss";
+import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
 
 export default function HowItWorksHero() {
     return (
@@ -15,16 +16,13 @@ export default function HowItWorksHero() {
                 <div className={styles.overlay} />
 
                 <div className={styles.content}>
-                    <div>
-                        <h1 className={styles.title}>How ICare works</h1>
-                        <p className={styles.lead}>
-                            <b className={styles.leadStrong}>A simple way to find care locally.</b>
-                            <br />
-                            Browse profiles, message, and agree terms directly.
-                        </p>
+                    <div className={heroCopyStyles.textWrapper}>
+                        <h1 className={heroCopyStyles.heading}>How ICare works</h1>
+                        <div className={heroCopyStyles.copy}>
+                            <p className={heroCopyStyles.copyPrimary}>A simple way to find care locally.<br />Browse profiles, message, and agree terms directly.</p>
+                        </div>
                     </div>
                 </div>
-
 
             </header>
         </>

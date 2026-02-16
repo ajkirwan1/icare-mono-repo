@@ -10,143 +10,18 @@
     object-position: 50% 20%;
 }
 
+.textWrapper {
+    margin-top: $space-25;
+    font-size: $fs-hero-lead-fluid;
+    line-height: $lh-outro;
+    letter-spacing: $tracking-tight-2;
+    text-shadow: $shadow-text-hero;
+}
+
 .overlay {
     @include motifs.hero-overlay;
 }
 
 .content {
     @include motifs.hero-content;
-}
-
-.cta {
-    border-radius: 36px;
-    color: $on-dark;
-
-    border: 3px solid rgb(221, 139, 79);
-    background-color: rgb(221, 139, 79);
-
-    font-weight: $fw-normal;
-    font-size: 1.1rem;
-
-    padding: 10px;
-    width: min(300px, 88vw);
-
-    cursor: pointer;
-    align-self: center;
-
-    transition: filter 0.14s ease, background-color 0.14s ease;
-    margin-top: 1rem;
-
-    &:hover {
-        filter: brightness(0.95);
-    }
-
-    @media (max-width:600px) {
-        padding: 16px 2.2rem;
-        font-size: 1.1rem;
-        font-weight: $fw-semibold;
-        min-width: 320px;
-    }
-
-}
-
-
-.heading {
-    font-size: $font-3xl;
-    margin: 0;
-    font-weight: $fw-bold;
-    line-height: 1.05; // no token
-    color: $on-dark;
-
-    @media (max-width:600px) {
-        font-size: 2rem;
-        color: black;
-    }
-}
-
-.copy {
-    margin-top: $space-26; // 1.6rem
-    max-width: $maxw-copy-lg; // 60ch
-    line-height: $lh-body; // 1.6
-    color: $on-dark;
-
-    @media (max-width:600px) {
-        color: black;
-    }
-}
-
-.benefitsList {
-    margin: 0;
-    padding: 0;
-    list-style: disc;
-    padding-left: 1.2rem;
-}
-
-.benefitsList li::marker {
-    color: rgba(255, 255, 255, 1);
-    font-size: 1rem;
-}
-
-/* individual copy lines */
-.copyPrimary {
-    font-size: $fs-hero-lead-p;
-    font-weight: $fw-normal;
-    margin-bottom: 1.3rem;
-    color: $on-dark;
-
-    @media (max-width:600px) {
-        color: black;
-        font-size: 1.4rem;
-        line-height: 1.4;
-    }
-}
-
-.copyList {
-    font-size: 1.2rem;
-    font-weight: $fw-normal;
-    margin-bottom: 0.5rem;
-    color: $on-dark;
-    align-items: center;
-
-    @media (max-width:600px) {
-        color: black;
-    }
-}
-
-.copyList svg {
-    margin-right: 10px;
-
-    @media (max-width:600px) {
-        fill: black;
-    }
-}
-
-.copySecondaryLast {
-    font-size: $fs-md; // 1.2rem
-    color: $on-dark;
-
-    @media (max-width:600px) {
-        color: black;
-    }
-}
-
-.subheading {
-    position: absolute;
-    bottom: 40px;
-    right: -20px;
-    margin-top: 1.6rem;
-    font-size: $font-xl;
-    line-height: $lh-outro;
-    color: $on-dark;
-    z-index: 2;
-    backdrop-filter: blur(10px);
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 28px;
-    padding: 20px;
-}
-
-.subheading span {
-    margin-right: 20px;
-    display: inline-block;
-    font-weight: $fw-normal;
 }
