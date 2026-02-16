@@ -77,6 +77,10 @@ These are the PRIMARY status and tracking documents (created 2026-02-06/07):
 - **Route Map**: `/docs/product/tier1-route-map.md` - CANONICAL 47-screen definition
 - **Feature Specs**: `/docs/product/features/tier1-*.md` (6 files: booking, admin, verification, search, messaging, safeguarding)
 - **Technical Specs**: `/docs/technical/*.md` (3 files: database-schema, api-specification, stripe-integration)
+- **DDD Decisions Register**: `/docs/technical/ddd-decisions.md` - LOCKED domain model decisions (owned by dotnet-ddd-architect)
+- **Domain Analysis**: `/docs/tiers/tier1/domain-analysis.md` - Comprehensive domain reference
+- **Backend Architecture**: `/docs/tiers/tier1/backend-architecture-discussion.md` - .NET 10 + DDD architecture discussion
+- **DDD Reference Guide**: `/docs/tiers/tier1/ddd-reference-guide.md` - DDD patterns reference with C# examples
 
 ### Archive Convention
 
@@ -103,7 +107,8 @@ docs/
 ├── technical/
 │   ├── database-schema-tier1.md
 │   ├── api-specification-tier1.md
-│   └── stripe-integration-spec.md
+│   ├── stripe-integration-spec.md
+│   └── ddd-decisions.md (LOCKED domain model decisions - owned by dotnet-ddd-architect)
 └── tiers/tier1/
     ├── TIER1_STATUS_LOG.md (PRIMARY status)
     ├── FIGMA_PRODUCTION_PLAN.md

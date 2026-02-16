@@ -15,7 +15,8 @@
 | **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/, docs/tiers/tier1/draft-design-specs/components/, docs/tiers/tier1/figma/ | docs/tiers/tier1/, docs/product/, packages/ICare/app/styles/ | docs/governance/ |
 | **content-architect** | docs/tiers/tier1/website-content/ | docs/tiers/common/spec/, docs/tiers/tier1/ | docs/compliance/, docs/governance/ |
 | **compliance-specialist** | docs/compliance/ | docs/governance/, docs/tiers/*/compliance.md, docs/product/features/ | docs/tiers/common/spec/ |
-| **technical-architect** | docs/technical/ | docs/tiers/common/spec/, docs/tiers/tier1/planning/, docs/product/features/ | docs/governance/ |
+| **technical-architect** | docs/technical/ (excluding ddd-decisions.md) | docs/tiers/common/spec/, docs/tiers/tier1/planning/, docs/product/features/ | docs/governance/ |
+| **dotnet-ddd-architect** | docs/technical/ddd-decisions.md, backend/** | docs/technical/, docs/product/features/, docs/tiers/tier1/domain-analysis.md, docs/tiers/tier1/backend-architecture-discussion.md, docs/tiers/tier1/ddd-reference-guide.md | docs/governance/ |
 
 ---
 
@@ -74,6 +75,18 @@
 **Contains:** Custom Figma plugin for importing design tokens, components, and screen layouts
 **Who Reads:** All agents
 **Who Writes:** Technical Architect (plugin code), manual builds only
+
+### docs/technical/ddd-decisions.md
+**Owner:** dotnet-ddd-architect
+**Contains:** Locked DDD design decisions (aggregate boundaries, solution structure, technology stack, CQRS approach, etc.)
+**Who Reads:** All agents (MANDATORY before any domain model work)
+**Who Writes:** dotnet-ddd-architect only
+
+### backend/
+**Owner:** dotnet-ddd-architect
+**Contains:** .NET 10 solution (ICare.sln), Domain/Application/Infrastructure/WebApi projects, tests
+**Who Reads:** All agents
+**Who Writes:** dotnet-ddd-architect only
 
 ### docs/tiers/tier1/ (Current Status - 2026-02-07)
 **Owner:** Product Director (status files), Various specialists (content)
@@ -154,7 +167,8 @@ docs/tiers/
 | **elderly-care-ux-ui-designer** | docs/tiers/tier1/draft-design-specs/wireframes/ (14 wireframes across dashboards/, auth/, search/, booking/), docs/tiers/tier1/draft-design-specs/components/ (shared component inventory), docs/tiers/tier1/figma/ (tokens.json, components.json, screens/*.json) |
 | **content-architect** | docs/tiers/tier1/website-content/* (13 pages including legal/) |
 | **compliance-specialist** | compliance/*, docs/product/features/tier1-safeguarding-specification.md, tiers/*/compliance.md (advisory) |
-| **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md, figma-plugin-specification.md) |
+| **technical-architect** | docs/technical/* (database-schema-tier1.md, api-specification-tier1.md, stripe-integration-spec.md, figma-plugin-specification.md) — excludes ddd-decisions.md |
+| **dotnet-ddd-architect** | docs/technical/ddd-decisions.md (locked decisions register), backend/** (all .NET source code), docs/technical/dotnet-implementation-guide.md, docs/technical/ddd-domain-model.md |
 
 ---
 

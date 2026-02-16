@@ -1,5 +1,5 @@
 import {
-  getResend,
+  sendEmail,
   getSiteUrl,
   escapeHtml,
   loadLogoPngBase64,
@@ -19,7 +19,6 @@ import {
  * }} meta
  */
 export async function sendWaitinglistConfirmationEmail(email, meta = {}) {
-  const resend = getResend();
   const siteUrl = getSiteUrl();
 
   const [blackBase64, whiteBase64] = await Promise.all([
@@ -83,7 +82,7 @@ export async function sendWaitinglistConfirmationEmail(email, meta = {}) {
     }
   );
 
-  const result = await resend.emails.send({
+  return await sendEmail({
     from: process.env.EMAIL_FROM,
     to: email,
     subject: "You're on the ICare waiting list",
@@ -103,9 +102,4 @@ export async function sendWaitinglistConfirmationEmail(email, meta = {}) {
       }
     ]
   });
-
-  if (result?.error) {
-    throw new Error(result.error.message || "Email failed");
-  }
-  return result;
 }

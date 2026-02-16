@@ -211,6 +211,8 @@ export default function NewsPostPage() {
                                     .url()}
                                 alt={post.heroImage?.alt || post.title}
                                 className={classes.heroImage}
+                                width={1400}
+                                height={700}
                             />
                         )}
                         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
@@ -291,6 +293,8 @@ export default function NewsPostPage() {
                                                         alt={r.heroImage?.alt || r.title}
                                                         className={classes.relatedImage}
                                                         loading="lazy"
+                                                        width={800}
+                                                        height={450}
                                                     />
                                                 )}
 
