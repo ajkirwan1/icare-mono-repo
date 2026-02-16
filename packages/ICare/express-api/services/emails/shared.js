@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { ImapFlow } from "imapflow";
 import fs from "fs/promises";
 import path from "path";
 
@@ -105,6 +106,67 @@ function waitinglistFooterHtml() {
       ICare · London, UK
     </p>
   `;
+}
+
+/**
+ * Sends an email via Resend, then appends it to the IONOS IMAP Sent folder.
+ * IMAP failures are logged but never fail the send.
+ */
+export async function sendEmail(config) {
+  const resend = getResend();
+  const result = await resend.emails.send(config);
+
+  if (result?.error) {
+    throw new Error(result.error.message || "Email failed");
+  }
+
+  // Fire-and-forget: save to IMAP Sent folder
+  appendToImapSent(config).catch(err => {
+    console.error("[imap] Failed to save to Sent folder:", err.message || err);
+  });
+
+  return result;
+}
+
+async function appendToImapSent({ from, to, subject, html, reply_to }) {
+  const host = process.env.IMAP_HOST;
+  const pass = process.env.IMAP_PASS;
+  const user = process.env.IMAP_USER;
+  if (!host || !pass || !user) {
+    console.warn("[imap] IMAP credentials not configured, skipping Sent folder save");
+    return;
+  }
+
+  // Don't save internal notifications (sent to our own inbox) to Sent Items
+  const toAddr = Array.isArray(to) ? to.join(", ") : to;
+  if (toAddr === user) { return; }
+
+  const date = new Date().toUTCString();
+
+  let raw = `From: ${from}\r\n`;
+  raw += `To: ${toAddr}\r\n`;
+  if (reply_to) { raw += `Reply-To: ${reply_to}\r\n`; }
+  raw += `Subject: ${subject}\r\n`;
+  raw += `Date: ${date}\r\n`;
+  raw += `MIME-Version: 1.0\r\n`;
+  raw += `Content-Type: text/html; charset=UTF-8\r\n`;
+  raw += `\r\n`;
+  raw += html || "";
+
+  const client = new ImapFlow({
+    host,
+    port: Number(process.env.IMAP_PORT) || 993,
+    secure: true,
+    auth: { user, pass },
+    logger: false
+  });
+
+  try {
+    await client.connect();
+    await client.append("Sent Items", Buffer.from(raw), ["\\Seen"]);
+  } finally {
+    await client.logout().catch(() => {});
+  }
 }
 
 export function wrapEmailHtml(bodyHtml, { unsubscribeUrl, logoCids, footer = "newsletter" } = {}) {

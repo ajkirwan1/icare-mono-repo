@@ -1,5 +1,5 @@
 import {
-  getResend,
+  sendEmail,
   getSiteUrl,
   escapeHtml,
   topicLabel,
@@ -19,7 +19,6 @@ import {
  * }} meta
  */
 export async function sendContactReceiptEmail(toEmail, meta = {}) {
-  const resend = getResend();
   const siteUrl = getSiteUrl();
 
   const [blackBase64, whiteBase64] = await Promise.all([
@@ -58,7 +57,7 @@ export async function sendContactReceiptEmail(toEmail, meta = {}) {
     }
   );
 
-  const result = await resend.emails.send({
+  return await sendEmail({
     from: process.env.EMAIL_FROM,
     to: toEmail,
     subject: "We received your message — ICare",
@@ -78,11 +77,6 @@ export async function sendContactReceiptEmail(toEmail, meta = {}) {
       }
     ]
   });
-
-  if (result?.error) {
-    throw new Error(result.error.message || "Email failed");
-  }
-  return result;
 }
 
 /**
@@ -96,11 +90,9 @@ export async function sendContactReceiptEmail(toEmail, meta = {}) {
  * }} payload
  */
 export async function sendContactInternalEmail(payload) {
-  const resend = getResend();
-
-  const inbox = process.env.CONTACT_INBOX_EMAIL;
+  const inbox = process.env.HELLO_INBOX_EMAIL;
   if (!inbox) {
-    throw new Error("Missing CONTACT_INBOX_EMAIL env var");
+    throw new Error("Missing HELLO_INBOX_EMAIL env var");
   }
 
   const [blackBase64, whiteBase64] = await Promise.all([
@@ -137,7 +129,7 @@ export async function sendContactInternalEmail(payload) {
     }
   );
 
-  const result = await resend.emails.send({
+  return await sendEmail({
     from: process.env.EMAIL_FROM,
     to: inbox,
     reply_to: payload.email,
@@ -158,9 +150,4 @@ export async function sendContactInternalEmail(payload) {
       }
     ]
   });
-
-  if (result?.error) {
-    throw new Error(result.error.message || "Email failed");
-  }
-  return result;
 }
