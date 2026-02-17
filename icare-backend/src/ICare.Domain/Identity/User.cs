@@ -1,6 +1,7 @@
 using ICare.Domain.Identity.Enums;
 using ICare.Domain.Identity.ValueObjects;
 using ICare.Domain.Common;
+using ICare.Domain.Identity.Events;
 
 namespace ICare.Domain.Identity;
 
