@@ -56,24 +56,25 @@ export default function AboutICareSection() {
                         Transparent arrangements
                     </p>
                     <p className={styles.badgeText}>
-                        Clear expectations, direct conversations and no hidden layers.
-                    </p>
-                </div>
-                <div className={styles.badge}>
-                    <p className={styles.badgeTitle}>
-                        <span className={styles.badgeIcon} aria-hidden="true">
-                            <FontAwesomeIcon icon={faClock} />
-                        </span>
-                        Care on your terms
-                    </p>
-                    <p className={styles.badgeText}>
-                        Support that adjusts as life changes.
+                        Clear expectations, direct conversations and no extra layers.
                     </p>
                 </div>
                 <div className={styles.badge}>
                     <p className={styles.badgeTitle}>
                         <span className={styles.badgeIcon} aria-hidden="true">
                             <FontAwesomeIcon icon={faSliders} />
+                        </span>
+                        Care on your terms
+                    </p>
+                    <p className={styles.badgeText}>
+                        Support that adapts as life changes.
+                    </p>
+                </div>
+                <div className={styles.badge}>
+                    <p className={styles.badgeTitle}>
+                        <span className={styles.badgeIcon} aria-hidden="true">
+
+                            <FontAwesomeIcon icon={faClock} />
                         </span>
                         Time to choose
                     </p>
@@ -89,7 +90,7 @@ export default function AboutICareSection() {
                         Support that feels human
                     </p>
                     <p className={styles.badgeText}>
-                        A real point of contact when you need reassurance.
+                        A real person to speak to, when you need reassurance.
                     </p>
                 </div>
             </div>
