@@ -24,7 +24,7 @@
 
 @mixin subtitle {
     margin-top: t.$space-16;
-    font-size: t.$fs-xl;
+    font-size: t.$font-lg;
     color: t.$txt;
     line-height: t.$lh-relaxed;
 
@@ -116,7 +116,7 @@
 
     @media(max-width:600px) {
         grid-template-columns: 1fr;
-        padding: 40px 20px;
+        padding: 30px 20px;
         min-width: auto;
     }
 }

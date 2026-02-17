@@ -4,6 +4,7 @@ import classes from "./forms.module.scss";
 import SubmitButton from "../buttons/submit-buttons/submit-button";
 import Tooltip from "../tooltip/tooltip";
 import WaitinglistSuccessModal from "../modals/waitinglist-modal";
+import CustomSelect from "../../../../forms/inputs/CustomSelect";
 
 export default function WaitinglistForm({
     action = "/waitinglist",
@@ -23,6 +24,16 @@ export default function WaitinglistForm({
     useEffect(() => {
         setTab(defaultUserType);
     }, [defaultUserType]);
+
+    // Receiver selects
+    const [careFor, setCareFor] = useState("");
+    const [needWhen, setNeedWhen] = useState("");
+    const [typeOfCare, setTypeOfCare] = useState("");
+
+    // Caregiver selects
+    const [yearsOfExperience, setYearsOfExperience] = useState("");
+    const [caregiverRole, setCaregiverRole] = useState("");
+    const [hoursPerWeek, setHoursPerWeek] = useState("");
 
     const [agreeTerms, setAgreeTerms] = useState(false);
 
@@ -57,7 +68,7 @@ export default function WaitinglistForm({
     const closeSuccess = () => setSuccessOpen(false);
 
     // ✅ tiny “thinner label” without touching SCSS
-    const labelThin = { fontWeight: 500, opacity: 0.9 };
+    const labelThin = { fontWeight: 600 };
 
     // ✅ bigger, clearer role selector (cards)
     const roleWrap = {
@@ -182,7 +193,7 @@ export default function WaitinglistForm({
                             autoComplete="email"
                             placeholder="email"
                         />
-                        <FieldError name="Email" />
+                        <FieldError name="email" />
                     </div>
 
                     <div className={classes.field}>
@@ -247,67 +258,102 @@ export default function WaitinglistForm({
                         </div>
                     </fieldset>
                 ) : null}
-
                 {/* Receiver */}
                 {isReceiver && (
                     <div className={classes.row3}>
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="careFor" style={labelThin}>Who is the care for?</label>
-                            <select
-                                id="careFor"
-                                name="careFor"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.careFor ? "true" : "false"}
-                                aria-describedby={describedBy("careFor")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="careForLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="self">Myself</option>
-                                <option value="family">Family member</option>
-                                <option value="friend">Friend</option>
-                            </select>
+                                Who is the care for?
+                            </label>
+
+                            <CustomSelect
+                                name="careFor"
+                                labelId="careForLabel"
+                                value={careFor}
+                                onChange={setCareFor}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.careFor}
+                                describedBy={describedBy("careFor")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "self", label: "Myself" },
+                                    { value: "family", label: "Family member" },
+                                    { value: "friend", label: "Friend" },
+                                ]}
+                            />
+
                             <FieldError name="careFor" />
                         </div>
 
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="needWhen" style={labelThin}>When do you need care?</label>
-                            <select
-                                id="needWhen"
-                                name="needWhen"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.needWhen ? "true" : "false"}
-                                aria-describedby={describedBy("needWhen")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="needWhenLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="soon">Soon</option>
-                                <option value="1_3m">1–3 months</option>
-                                <option value="3m_plus">3+ months</option>
-                                <option value="not_sure">Not sure</option>
-                            </select>
+                                When do you need care?
+                            </label>
+
+                            <CustomSelect
+                                name="needWhen"
+                                labelId="needWhenLabel"
+                                value={needWhen}
+                                onChange={setNeedWhen}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.needWhen}
+                                describedBy={describedBy("needWhen")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "soon", label: "Soon" },
+                                    { value: "1_3m", label: "1–3 months" },
+                                    { value: "3m_plus", label: "3+ months" },
+                                    { value: "not_sure", label: "Not sure" },
+                                ]}
+                            />
+
                             <FieldError name="needWhen" />
                         </div>
 
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="typeOfCare" style={labelThin}>Type of care</label>
-                            <select
-                                id="typeOfCare"
-                                name="typeOfCare"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.typeOfCare ? "true" : "false"}
-                                aria-describedby={describedBy("typeOfCare")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="typeOfCareLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="hourly">Hourly</option>
-                                <option value="live_in">Live-in</option>
-                                <option value="night">Night</option>
-                                <option value="dementia">Dementia</option>
-                                <option value="companion">Companion</option>
-                            </select>
+                                Type of care
+                            </label>
+
+                            <CustomSelect
+                                name="typeOfCare"
+                                labelId="typeOfCareLabel"
+                                value={typeOfCare}
+                                onChange={setTypeOfCare}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.typeOfCare}
+                                describedBy={describedBy("typeOfCare")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "hourly", label: "Hourly" },
+                                    { value: "live_in", label: "Live-in" },
+                                    { value: "night", label: "Night" },
+                                    { value: "dementia", label: "Dementia" },
+                                    { value: "companion", label: "Companion" },
+                                ]}
+                            />
+
                             <FieldError name="typeOfCare" />
                         </div>
                     </div>
@@ -317,69 +363,106 @@ export default function WaitinglistForm({
                 {isCaregiver && (
                     <div className={classes.row3}>
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="yearsOfExperience" style={labelThin}>Years of experience</label>
-                            <select
-                                id="yearsOfExperience"
-                                name="yearsOfExperience"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.yearsOfExperience ? "true" : "false"}
-                                aria-describedby={describedBy("yearsOfExperience")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="yearsOfExperienceLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="0_1">0–1</option>
-                                <option value="1_3">1–3</option>
-                                <option value="3_5">3–5</option>
-                                <option value="5_plus">5+</option>
-                            </select>
+                                Years of experience
+                            </label>
+
+                            <CustomSelect
+                                name="yearsOfExperience"
+                                labelId="yearsOfExperienceLabel"
+                                value={yearsOfExperience}
+                                onChange={setYearsOfExperience}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.yearsOfExperience}
+                                describedBy={describedBy("yearsOfExperience")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "0_1", label: "0–1" },
+                                    { value: "1_3", label: "1–3" },
+                                    { value: "3_5", label: "3–5" },
+                                    { value: "5_plus", label: "5+" },
+                                ]}
+                            />
+
                             <FieldError name="yearsOfExperience" />
                         </div>
 
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="caregiverRole" style={labelThin}>Caregiving role</label>
-                            <select
-                                id="caregiverRole"
-                                name="caregiverRole"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.caregiverRole ? "true" : "false"}
-                                aria-describedby={describedBy("caregiverRole")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="caregiverRoleLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="care_assistant">Care assistant</option>
-                                <option value="support_worker">Support worker</option>
-                                <option value="live_in_carer">Live-in carer</option>
-                                <option value="home_carer">Home carer</option>
-                                <option value="nurse">Nurse</option>
-                                <option value="companion">Companion</option>
-                                <option value="other">Other</option>
-                            </select>
+                                Caregiving role
+                            </label>
+
+                            <CustomSelect
+                                name="caregiverRole"
+                                labelId="caregiverRoleLabel"
+                                value={caregiverRole}
+                                onChange={setCaregiverRole}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.caregiverRole}
+                                describedBy={describedBy("caregiverRole")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "care_assistant", label: "Care assistant" },
+                                    { value: "support_worker", label: "Support worker" },
+                                    { value: "live_in_carer", label: "Live-in carer" },
+                                    { value: "home_carer", label: "Home carer" },
+                                    { value: "nurse", label: "Nurse" },
+                                    { value: "companion", label: "Companion" },
+                                    { value: "other", label: "Other" },
+                                ]}
+                            />
+
                             <FieldError name="caregiverRole" />
                         </div>
 
                         <div className={classes.field}>
-                            <label className={classes.label} htmlFor="hoursPerWeek" style={labelThin}>Hours per week available</label>
-                            <select
-                                id="hoursPerWeek"
-                                name="hoursPerWeek"
-                                required
-                                className={classes.control}
-                                aria-invalid={fieldErrors.hoursPerWeek ? "true" : "false"}
-                                aria-describedby={describedBy("hoursPerWeek")}
-                                disabled={isSubmitting}
+                            <label
+                                className={classes.label}
+                                id="hoursPerWeekLabel"
+                                style={labelThin}
                             >
-                                <option value="">Select</option>
-                                <option value="lt_10">Less than 10</option>
-                                <option value="10_20">10–20</option>
-                                <option value="20_35">20–35</option>
-                                <option value="35_plus">35+</option>
-                            </select>
+                                Hours per week available
+                            </label>
+
+                            <CustomSelect
+                                name="hoursPerWeek"
+                                labelId="hoursPerWeekLabel"
+                                value={hoursPerWeek}
+                                onChange={setHoursPerWeek}
+                                disabled={isSubmitting}
+                                invalid={!!fieldErrors.hoursPerWeek}
+                                describedBy={describedBy("hoursPerWeek")}
+                                className={classes.customSelect}
+                                controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                                placeholder="Select"
+                                options={[
+                                    { value: "", label: "Select" },
+                                    { value: "lt_10", label: "Less than 10" },
+                                    { value: "10_20", label: "10–20" },
+                                    { value: "20_35", label: "20–35" },
+                                    { value: "35_plus", label: "35+" },
+                                ]}
+                            />
+
                             <FieldError name="hoursPerWeek" />
                         </div>
                     </div>
                 )}
+
 
                 {/* Consents */}
                 <div className={classes.field}>
@@ -441,11 +524,37 @@ export default function WaitinglistForm({
                 </div>
 
                 {/* tiny responsive for role selector only */}
+
                 <style>{`
-          @media (max-width: 760px){
-            .${classes.form} fieldset > div { max-width: 100%; }
-          }
-        `}</style>
+            @media (max-width: 760px){
+                .${classes.form} fieldset > div { max-width: 100%; }
+            }
+
+            /* --- Tooltip safety: never overflow viewport --- */
+            [role="tooltip"]{
+                max-width: min(92vw, 360px);
+                box-sizing: border-box;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            /* jeśli tooltip ma bardzo długie linki/teksty */
+            [role="tooltip"] a{
+                overflow-wrap: anywhere;
+                word-break: break-word;
+            }
+
+            /* jeśli tooltip jest pozycjonowany absolute/fixed i ma left ustawiany */
+            @media (max-width: 760px){
+                [role="tooltip"]{
+                left: max(12px, var(--tooltip-left, 12px)) !important;
+                right: 12px !important;
+                transform: none !important;
+                }
+            }
+            `}</style>
+
+
             </fetcher.Form>
         </>
     );

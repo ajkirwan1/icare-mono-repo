@@ -38,7 +38,7 @@ export default function ReceiversThreeStepsStyledLikeHowWeWork() {
                 {/* HEADING BLOCK */}
                 <div className={styles.headingBlock}>
                     <h2 className={styles.title}>
-                        Care arranged simply <br /> with built-in safety
+                        Care arranged simply with built-in safety
                     </h2>
 
                     <p className={styles.subtitle}>

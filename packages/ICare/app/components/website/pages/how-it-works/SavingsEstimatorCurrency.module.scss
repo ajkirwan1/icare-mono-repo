@@ -69,6 +69,7 @@ $glass-card: rgba(255, 255, 255, 0.75);
     text-align: center;
     margin: 0 0 1.1rem;
     color: $text-muted;
+    line-height: 1.4;
 }
 
 .subHead {
@@ -121,7 +122,7 @@ $glass-card: rgba(255, 255, 255, 0.75);
 }
 
 .pillLabel {
-    font-weight: $fw-normal;
+    font-weight: $fw-semibold;
 }
 
 /* Bullets */

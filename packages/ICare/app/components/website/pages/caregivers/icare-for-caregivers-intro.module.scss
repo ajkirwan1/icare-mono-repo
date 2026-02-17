@@ -49,6 +49,10 @@ $border-accent: rgba(221, 139, 79, 0.5);
 .header {
     max-width: 760px;
     margin-bottom: clamp(1.6rem, 2.8vw, 2.4rem);
+
+    @media (max-width:900px) {
+        flex-direction: column !important;
+    }
 }
 
 .h2 {
@@ -91,7 +95,7 @@ $border-accent: rgba(221, 139, 79, 0.5);
     padding: 0.55rem 0.85rem;
     border-radius: $radius-pill;
     border: 1px solid $border-accent;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(243, 140, 67, 0.14);
     font-size: 0.98rem;
     font-weight: 520;
     letter-spacing: -0.01em;
