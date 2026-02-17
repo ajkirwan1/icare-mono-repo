@@ -8,8 +8,8 @@
 
     border: none;
 
-    font-weight: $fw-normal;
-    font-size: 1.1rem;
+    font-weight: $fw-extrabold;
+    font-size: 1.17rem;
     cursor: pointer;
 
     flex: 1 1 200px;
@@ -30,7 +30,6 @@
     }
 
     &:disabled {
-        opacity: 0.6;
         cursor: not-allowed;
     }
 }
@@ -44,7 +43,8 @@
 }
 
 .primary {
-    background: rgb(221, 139, 79);
+    background: #BF5A18;
+    // background: #5F7136;
     color: #fff;
 }
 

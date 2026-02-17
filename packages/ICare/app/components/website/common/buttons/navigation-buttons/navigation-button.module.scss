@@ -5,8 +5,8 @@
     padding: $space-12 $space-22;
     border-radius: $radius-pill;
 
-    font-weight: $fw-normal;
-    font-size: 1rem;
+    font-weight: $fw-extrabold;
+    font-size: 1.17rem;
     text-decoration: none;
 
     display: flex;
@@ -59,7 +59,7 @@
 }
 
 .default {
-    background: $link-bg;
+    background: #5F7136;
     color: $on-dark;
 
     &:hover {
@@ -68,9 +68,8 @@
 }
 
 .outline {
-    border: 1.5px solid #221002;
-    color: #221002;
-    background: transparent;
+    color: white;
+    background: #BF5A18;
 
     &:hover {
         background: rgba(15, 23, 42, 0.05);

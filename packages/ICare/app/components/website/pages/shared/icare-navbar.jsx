@@ -100,24 +100,31 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
     if (!mountEl) return null;
 
     // ✅ keep in DOM always (for opacity transition)
+    if (!open) return null;
+
     return createPortal(
         <div
-            className={`${styles.mobileOverlay} ${open ? styles.mobileOverlayOpen : ""}`}
+            className={`${styles.mobileOverlay} ${styles.mobileOverlayOpen}`}
             onMouseDown={(e) => {
                 // close only when clicking overlay, not panel
                 if (e.target === e.currentTarget) onClose();
             }}
-            aria-hidden={!open}
         >
             <div
-                className={`${styles.mobilePanel} ${open ? styles.mobilePanelOpen : ""}`}
+                className={`${styles.mobilePanel} ${styles.mobilePanelOpen}`}
                 role="dialog"
                 aria-modal="true"
+                aria-label="Mobile navigation"
             >
                 <nav className={styles.mobileNav} aria-label="Mobile navigation">
                     {items.map((item) =>
                         !item.children ? (
-                            <NavLink key={item.to} to={item.to} className={styles.mobileLink} onClick={onClose}>
+                            <NavLink
+                                key={item.to}
+                                to={item.to}
+                                className={styles.mobileLink}
+                                onClick={onClose}
+                            >
                                 {item.label}
                             </NavLink>
                         ) : (
@@ -145,6 +152,7 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
         </div>,
         mountEl
     );
+
 }
 
 /* ---------------------------------- Navbar -------------------------------- */

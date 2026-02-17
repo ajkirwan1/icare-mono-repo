@@ -17,8 +17,8 @@ export default function ICareCostEstimator({
     agencyMarginPct: agencyMarginPctProp = 10,
 }) {
     const TEXT = "#221002";
-    const ACCENT = "rgb(119, 141, 67)";
-    const ACCENT2 = "rgb(221, 139, 79)";
+    const ACCENT = "#6a7d3c";
+    const ACCENT2 = "#dd8b4f";
 
     const to2 = (n) => Number(Number(n).toFixed(2));
     const clamp = (n, min, max) => Math.min(max, Math.max(min, n));

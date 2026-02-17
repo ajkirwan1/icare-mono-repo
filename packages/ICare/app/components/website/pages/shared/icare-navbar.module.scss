@@ -219,7 +219,7 @@
 
     height: calc(100vh - var(--navbar-height));
 
-    background: $txt-white;
+    background: rgba(255, 249, 239, 0.9);
     color: $txt;
 
     display: flex;
@@ -327,10 +327,6 @@
 @media (max-width: 900px) {
     .backgroundImage {
         background-position: 38% 50%;
-    }
-
-    :global(body.icare-mobile-open) .header {
-        background: $txt-white;
     }
 
     :global(body.icare-mobile-open) .burgerLine {
