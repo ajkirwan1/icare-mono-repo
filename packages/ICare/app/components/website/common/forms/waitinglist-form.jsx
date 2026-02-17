@@ -91,7 +91,7 @@ export default function WaitinglistForm({
     const roleCard = (active) => ({
         borderRadius: 18,
         border: active ? "1px solid rgba(119,141,67,0.55)" : "1px solid rgba(15,23,42,0.14)",
-        background: active ? "rgba(119,141,67,0.10)" : "rgba(255,255,255,0.70)",
+        background: "white",
         padding: "16px 16px",
         cursor: isSubmitting ? "not-allowed" : "pointer",
         display: "grid",
@@ -106,7 +106,7 @@ export default function WaitinglistForm({
 
     const roleTitle = (active) => ({
         margin: 0,
-        fontSize: "1.08rem",
+        fontSize: "1.12rem",
         fontWeight: 750,
         letterSpacing: "-0.15px",
         color: active ? "#778d43" : "rgba(15,23,42,0.92)",
@@ -117,7 +117,7 @@ export default function WaitinglistForm({
         marginTop: 6,
         fontSize: "0.92rem",
         fontWeight: 520,
-        color: "rgba(15,23,42,0.62)",
+        color: "rgba(15,23,42,0.75)",
         lineHeight: 1.25
     };
 

@@ -7,7 +7,7 @@ export default function AiChat() {
         {
             role: "assistant",
             content:
-                "Hi.Welcome to ICare. I can help you understand how it works and guide you step by step. Just ask anything.",
+                "Hi! Welcome to ICare. I can help you understand how it works and guide you step by step. Just ask anything.",
         },
     ]);
     const [loading, setLoading] = useState(false);
