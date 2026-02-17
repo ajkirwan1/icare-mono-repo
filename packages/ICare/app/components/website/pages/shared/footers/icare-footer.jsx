@@ -19,7 +19,7 @@ export default function ICareFooter() {
     location: "Cheltenham, United Kingdom",
     email: "customershelp@icare.com",
     socials: {
-      linkedin: "https://www.linkedin.com/company/icare",
+      linkedin: "https://www.linkedin.com/company/icare-platform/?viewAsMember=true",
       facebook: "https://www.facebook.com/profile.php?id=61587936540417"
     }
   };

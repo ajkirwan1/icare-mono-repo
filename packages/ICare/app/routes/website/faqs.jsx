@@ -110,6 +110,10 @@ const generalQuestions = [
         a: "We're launching across the UK. We're building a national platform designed to serve families and caregivers throughout England, Scotland, Wales, and Northern Ireland. As we grow, we'll work to ensure strong caregiver availability in communities across the country."
     },
     {
+        q: "Will the caregiver speak English?",
+        a: "Caregivers on iCare need to communicate clearly with families and care recipients in everyday situations. During our onboarding process, we check that caregivers are able to communicate in spoken English to a level that allows for day-to-day conversation and understanding. Families can also discuss communication preferences directly with caregivers before starting, to make sure everyone feels comfortable and understood."
+    },
+    {
         q: "How is iCare different from care agencies?",
         a: "Traditional care agencies typically assign whoever is available on their rota without giving you real choice. They often feel rushed and transactional. iCare is fundamentally different. We give families genuine choice over who spends time with their loved one. We enable caregivers to build their own practices with flexibility and control. We focus on relationships, not transactions, and we build trust and safety into everything from the ground up."
     },
