@@ -25,7 +25,7 @@
 
 /* heading wrapper z JSX (maxWidth 720 + marginBottom 3.6rem) */
 .headingBlock {
-    max-width: 720px;
+    max-width: 800px;
     margin-bottom: 3.6rem;
 }
 
@@ -35,8 +35,9 @@
 }
 
 .subtitleStrong {
-    font-weight: $fw-semibold;
+    font-weight: $fw-bold;
     font-size: 1.4rem;
+    color: rgb(119, 141, 67);
 
     @media (max-width:600px) {
         font-size: 1.3rem;
@@ -45,7 +46,7 @@
 
 .subtitleText {
     display: block;
-    font-size: $font-xl;
+    font-size: 1.2rem;
 
     @media (max-width:600px) {
         font-size: 1.1rem;
@@ -53,7 +54,7 @@
 }
 
 .bold {
-    font-weight: $fw-bold;
+    font-weight: $fw-semibold;
 }
 
 /* ----- existing ----- */
@@ -84,7 +85,6 @@
     font-size: 1.2rem;
     line-height: $lh-body;
     font-weight: $fw-normal;
-    opacity: 0.95;
     max-width: 62ch;
 }
 
@@ -128,9 +128,9 @@
 }
 
 .stepTitle {
-    font-weight: $fw-semibold;
+    font-weight: $fw-bold;
     letter-spacing: $tracking-normal;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     line-height: 1.25;
 }
 
@@ -208,13 +208,13 @@
 .stepCardInner {
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1rem;
 }
 
 /* override for inline styles */
 .stepTitle {
     margin: 0;
-    color: $txt;
+    color: rgb(119, 141, 67);
 }
 
 .stepNo {

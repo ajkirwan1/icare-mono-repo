@@ -70,7 +70,7 @@ $bg: #fff9ef;
     font-weight: $fw-semibold;
     line-height: $lh-copy;
     font-size: 1.25rem;
-    max-width: 78ch;
+    max-width: 440px;
 }
 
 /* ---------- GRID ---------- */
@@ -151,14 +151,13 @@ $bg: #fff9ef;
 .note {
     margin-top: clamp(26px, 4vw, 44px);
     padding-top: clamp(14px, 2vw, 18px);
-    border-top: 1px solid $card-border;
     color: $txt;
     max-width: 78ch;
 }
 
 .noteTitle {
     margin: 0;
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-weight: $fw-bold;
     letter-spacing: -0.1px;
     color: $txt;
@@ -166,7 +165,7 @@ $bg: #fff9ef;
 
 .noteText {
     margin: 0.55rem 0 0;
-    font-size: $font-base;
+    font-size: 1.2rem;
     line-height: $lh-copy;
     font-weight: $fw-normal;
     color: $txt;

@@ -9,10 +9,14 @@
 }
 
 .colLeft {
-    background: #f2f2f2;
+    background: #fff9ef;
     padding: 3rem;
     display: flex;
     justify-content: flex-end;
+}
+
+strong {
+    font-weight: 500;
 }
 
 .colRight {
@@ -27,8 +31,8 @@
 }
 
 .heading {
-    font-size: $font-3xl;
-    font-weight: $fw-semibold;
+    font-size: 2rem;
+    font-weight: $fw-bold;
     line-height: 1.22;
     letter-spacing: -0.3px;
     margin-bottom: 1rem;
@@ -36,11 +40,11 @@
 
 .headingMission {
     composes: heading;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1rem;
 }
 
 .paragraph {
-    font-size: $font-lg;
+    font-size: 1.15rem;
     line-height: $lh-copy;
     margin-bottom: 1rem;
     font-weight: $fw-normal;
@@ -65,7 +69,7 @@
 /* What we're building */
 .buildingSection {
     width: 100%;
-    background: #fff9ef;
+    background: #f8f8f8;
     padding: 4rem 20px;
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: $txt;

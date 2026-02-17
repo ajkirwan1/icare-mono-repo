@@ -193,7 +193,7 @@ export default function NewsPostPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
             />
 
-            <main id="icare-main">
+            <main className={classes.articleMain} id="icare-main">
                 <nav aria-label="Breadcrumb" className={classes.breadcrumbs}>
                     <ol className={classes.breadcrumbList}>
                         <li className={classes.crumb}><NavLink to="/care-knowledge">care knowledge</NavLink></li>
@@ -201,7 +201,7 @@ export default function NewsPostPage() {
                     </ol>
                 </nav>
                 <article className={classes.article}>
-                    <header style={{ display: "flex", paddingTop: "2vh", paddingBottom: "2vh", gap: "2vw" }}>
+                    <header className={classes.articleHeader} style={{ display: "flex", paddingTop: "2vh", paddingBottom: "2vh", gap: "2vw" }}>
                         {post.heroImage && (
                             <img
                                 src={urlFor(post.heroImage)

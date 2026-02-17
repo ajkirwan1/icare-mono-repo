@@ -174,8 +174,7 @@ export default function ICareCostEstimator({
                 {/* HEADER */}
                 <div className={styles.header}>
                     <h2 className={styles.h1}>
-                        A simple estimate to support <br />
-                        your care decisions
+                        A simple estimate to support your care decisions
                     </h2>
                     <h3 className={styles.h2Mini}>Budget clarity in under a minute</h3>
                     <p className={styles.lead}>

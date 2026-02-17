@@ -71,7 +71,7 @@
 
 .copy {
     margin-top: 0.4rem;
-    max-width: 650px;
+    max-width: 530px;
     color: rgba(255, 255, 255, 0.95);
     font-size: $font-xl;
     line-height: 1.72;
@@ -81,9 +81,13 @@
     }
 }
 
+.copyWide {
+    max-width: 530px !important;
+}
+
 /* CTA row */
 .ctaRow {
     display: flex;
     gap: 1rem;
-    margin-top: 2.2rem;
+    margin-top: 1rem;
 }

@@ -1,0 +1,86 @@
+.wrap {
+    position: relative;
+}
+
+/* Trigger: to jest tylko dopalacz, baza i tak idzie z classes.control */
+.trigger {
+    /* usuń typowe buttonowe rzeczy, ale nie ruszaj border/padding z control */
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-align: left;
+}
+
+.value {
+    /* żeby długie nie rozwalało */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chev {
+    margin-left: auto;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Dropdown list */
+.list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 40;
+
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+
+    max-height: min(260px, 40vh);
+    overflow: auto;
+
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+}
+
+.item {
+    margin: 0;
+    padding: 0;
+}
+
+/* Option button */
+.option {
+    width: 100%;
+    display: block;
+
+    text-align: left;
+    padding: 12px 12px;
+    border-radius: 12px;
+
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(15, 23, 42, 0.92);
+}
+
+.option:hover {
+    background: rgba(243, 140, 67, 0.10);
+}
+
+.optionActive {
+    background: rgba(243, 140, 67, 0.14);
+}
+
+.field:has([data-open="1"]) {
+    z-index: 999;
+}
