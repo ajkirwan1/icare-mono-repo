@@ -263,7 +263,7 @@
 .tipBubble {
     position: absolute;
     left: 50%;
-    bottom: calc(100% + 10px);
+    bottom: calc(100% + 6px);
     transform: translateX(-50%);
     width: min(320px, 78vw);
     background: rgba(9, 12, 18, 0.98);
@@ -292,7 +292,8 @@
 }
 
 .tip:hover .tipBubble,
-.tip:focus-within .tipBubble {
+.tip:focus-within .tipBubble,
+.tipOpen .tipBubble {
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(-2px);
@@ -300,11 +301,11 @@
 
 @media (max-width: 720px) {
     .tipBubble {
-        position: fixed;
-        left: 12px;
-        right: 12px;
-        bottom: 14px;
-        width: auto;
+        position: absolute;
+        left: auto;
+        right: 0;
+        bottom: calc(100% + 6px);
+        width: min(300px, calc(100vw - 24px));
         max-width: none;
         transform: translateY(8px);
         border-radius: 14px;
@@ -313,7 +314,31 @@
     }
 
     .tipBubble::after {
+        left: auto;
+        right: 10px;
+        transform: none;
+        display: block;
+    }
+
+    /* First result tooltip: anchor from left so it doesn't get cut off */
+    .resultGrid .pill:first-child .tipBubble {
+        position: fixed;
+        left: 50%;
+        right: auto;
+        top: 42%;
+        bottom: auto;
+        width: min(320px, calc(100vw - 24px));
+        transform: translate(-50%, -50%);
+    }
+
+    .resultGrid .pill:first-child .tipBubble::after {
         display: none;
+    }
+
+    .resultGrid .pill:first-child .tip:hover .tipBubble,
+    .resultGrid .pill:first-child .tip:focus-within .tipBubble,
+    .resultGrid .pill:first-child .tipOpen .tipBubble {
+        transform: translate(-50%, -50%);
     }
 
     .tip:hover .tipBubble,
@@ -426,6 +451,11 @@
     color: var(--text);
     font-weight: 600;
     text-decoration: underline;
+}
+
+.sourceMeta {
+    color: rgba(15, 23, 42, 0.72);
+    font-weight: 500;
 }
 
 /* currency toggle */

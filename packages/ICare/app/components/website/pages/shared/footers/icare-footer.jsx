@@ -124,6 +124,18 @@ export default function ICareFooter() {
               </div>
 
               <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
+              <a
+                href="https://wa.me/?text=Hi.Welcome%20in%20ICare.%20How%20can%20we%20help%20you%3F%0APlease%20write%20us%20a%20message%20and%20we%20will%20get%20back%20to%20you%20as%20soon%20as%20possible."
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Write to us on Whatsapp"
+                className={styles.whatsappCta}
+              >
+                <span className={styles.whatsappLink}>
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                </span>
+                <span className={styles.supportBubble}>Chat on WhatsApp</span>
+              </a>
             </div>
           </div>
 
@@ -134,27 +146,13 @@ export default function ICareFooter() {
                 <NavLink to="/" className={styles.navLink}>Home</NavLink>
                 <NavLink to="/who-we-are" className={styles.navLink}>Who we are</NavLink>
                 <NavLink to="/trust-and-safety" className={styles.navLink}>Trust & safety</NavLink>
-                <NavLink to="/frequently-asked-questions" className={styles.navLink}>FAQ</NavLink>
+                <NavLink to="/frequently-asked-questions" className={`${styles.navLink} ${styles.faqLink}`}>FAQ</NavLink>
               </div>
 
               <div className={styles.linksCol}>
                 <NavLink to="/how-it-works" className={styles.navLink}>How it works</NavLink>
                 <NavLink to="/care-knowledge" className={styles.navLink}>Care guidance</NavLink>
-                <div className={styles.contactGroup}>
-                  <NavLink to="/contact-us" className={styles.navLink}>Contact us</NavLink>
-                  <a
-                    href="https://wa.me/?text=Hi.Welcome%20in%20ICare.%20How%20can%20we%20help%20you%3F%0APlease%20write%20us%20a%20message%20and%20we%20will%20get%20back%20to%20you%20as%20soon%20as%20possible."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Write to us on Whatsapp"
-                    className={styles.whatsappCta}
-                  >
-                    <span className={styles.whatsappLink}>
-                      <FontAwesomeIcon icon={faWhatsapp} />
-                    </span>
-                    <span className={styles.supportBubble}>Chat on WhatsApp</span>
-                  </a>
-                </div>
+                <NavLink to="/contact-us" className={styles.navLink}>Contact us</NavLink>
               </div>
             </nav>
           </div>

@@ -84,11 +84,11 @@ export default function CompareAgencyVsICare() {
 
                         <ul className={styles.list}>
                             {[
-                                "Clear flat platform fee",
+                                "Independent care often costs less",
                                 "Choose your preferred caregiver",
                                 "Transparent terms",
                                 "Direct family-caregiver agreements",
-                                "Fairer pay for caregivers"
+                                "Fairer pay for caregivers-better continuity of care"
                             ].map((item) => (
                                 <li key={item} className={styles.listItem}>
                                     <svg

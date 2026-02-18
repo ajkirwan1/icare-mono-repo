@@ -367,6 +367,24 @@ $glass-card: rgba(255, 255, 255, 0.75);
     line-height: 1.55;
 }
 
+.sourcesRow {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.sourceLink {
+    color: rgba(15, 23, 42, 0.88);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.sourceMeta {
+    color: rgba(15, 23, 42, 0.7);
+    font-weight: 500;
+}
+
 /* Savings text */
 .savingsText {
     composes: helper;

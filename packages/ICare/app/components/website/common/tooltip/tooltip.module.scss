@@ -2,6 +2,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
+    isolation: isolate;
 }
 
 .trigger {
@@ -17,22 +18,16 @@
 
 .tooltip {
     position: absolute;
-    top: 120%;
-    left: 0;
+    right: 0;
+    bottom: calc(100% + 8px);
     background: #0F172A;
     color: #fff;
     padding: 8px 10px;
     border-radius: 8px;
     font-size: 0.9rem;
-
-    max-width: 400px;
-    /* set what you want */
-    width: max-content;
-    /* makes it size to content up to max-width */
+    width: min(360px, calc(100vw - 24px));
     white-space: normal;
-    /* allow wrapping */
     overflow-wrap: anywhere;
-    /* allow long strings to wrap */
 
     z-index: 10;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
