@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ContactUsForm from "~/components/website/common/forms/contact-us-form";
@@ -54,6 +55,16 @@ const jsonLd = {
 };
 
 export default function ContactUsPage() {
+  useEffect(() => {
+    if (window.location.hash !== "#form-heading") return;
+    const el = document.getElementById("form-heading");
+    if (!el) return;
+    requestAnimationFrame(() => {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    });
+  }, []);
+
   return (
     <>
       <script
