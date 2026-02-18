@@ -147,6 +147,7 @@
     display: grid;
     row-gap: $space-12;
     align-content: start;
+    justify-items: start;
 }
 
 .navLink {
@@ -156,11 +157,11 @@
     font-size: $fs-m;
     border-radius: $radius-pill;
 
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
+    display: block;
+    width: 100%;
     line-height: 1.4;
     padding: 2px 0;
+    text-align: left;
 
     transition: $transition-ui;
 
@@ -174,6 +175,10 @@
         outline-offset: $space-2;
         box-shadow: 0 0 0 $space-4 $focus-ring;
     }
+}
+
+.faqLink {
+    margin-left: 3px;
 }
 
 .contactGroup {
@@ -333,7 +338,7 @@
 
     font-size: 1.6rem; // ~15% większe
     line-height: 1;
-    color: #4b5563;
+    color: #47515e;
 
     background: none;
     border: none;

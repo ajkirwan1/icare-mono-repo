@@ -62,7 +62,7 @@
     }
 
     &[aria-current="page"] {
-        color: #ffa967;
+        color: #dd8b4f;
     }
 }
 
@@ -125,7 +125,7 @@
 
     &[aria-current="page"] {
         background: rgba(255, 255, 255, 0.12);
-        color: #ffa967;
+        color: #dd8b4f;
     }
 }
 
@@ -152,6 +152,15 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+    }
+
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+        background: transparent;
     }
 }
 
@@ -253,7 +262,7 @@
     }
 
     &[aria-current="page"] {
-        color: #ffa967;
+        color: #dd8b4f;
     }
 }
 
@@ -287,7 +296,7 @@
     }
 
     &[aria-current="page"] {
-        color: #ffa967;
+        color: #dd8b4f;
     }
 }
 
@@ -328,10 +337,6 @@
 @media (max-width: 900px) {
     .backgroundImage {
         background-position: 38% 50%;
-    }
-
-    :global(body.icare-mobile-open) .header {
-        background: rgb(58, 58, 58);
     }
 
     :global(body.icare-mobile-open) .burgerLine {

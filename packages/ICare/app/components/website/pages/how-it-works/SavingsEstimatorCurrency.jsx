@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./SavingsEstimatorCurrency.module.scss";
 
 export default function ICareCostEstimatorExpanded() {
@@ -16,19 +16,21 @@ export default function ICareCostEstimatorExpanded() {
     };
 
     const [currency, setCurrency] = useState("GBP");
-    const [hourly, setHourly] = useState(12.5);
+    const [hourly, setHourly] = useState(18);
     const [hoursWeek, setHoursWeek] = useState(30);
-    const [agencyMarkupPct, setAgencyMarkupPct] = useState(10);
+    const [agencyMarkupPct, setAgencyMarkupPct] = useState(40);
+    const [agencyTipOpen, setAgencyTipOpen] = useState(false);
+    const agencyTipRef = useRef(null);
 
     const range = useMemo(() => {
         if (currency === "EUR") return { min: 12.82, max: 30, step: 0.1, default: 21.4 };
-        return { min: 10.5, max: 30, step: 0.1, default: 12.5 };
+        return { min: 12.21, max: 30, step: 0.1, default: 18 };
     }, [currency]);
 
     useEffect(() => {
         if (currency === "GBP") {
             setHourly((prev) => {
-                const next = clamp(safeNumber(prev, 12.5), range.min, range.max);
+                const next = clamp(safeNumber(prev, 18), range.min, range.max);
                 return snapToStep(next, range.step);
             });
             return;
@@ -37,10 +39,34 @@ export default function ICareCostEstimatorExpanded() {
         setHourly(snapToStep(mid, range.step));
     }, [currency, range.min, range.max, range.step]);
 
+    useEffect(() => {
+        if (!agencyTipOpen) return;
+
+        const closeOnOutside = (e) => {
+            const root = agencyTipRef.current;
+            if (!root) return;
+            if (!root.contains(e.target)) setAgencyTipOpen(false);
+        };
+
+        const closeOnEscape = (e) => {
+            if (e.key === "Escape") setAgencyTipOpen(false);
+        };
+
+        document.addEventListener("mousedown", closeOnOutside);
+        document.addEventListener("touchstart", closeOnOutside, { passive: true });
+        document.addEventListener("keydown", closeOnEscape);
+
+        return () => {
+            document.removeEventListener("mousedown", closeOnOutside);
+            document.removeEventListener("touchstart", closeOnOutside);
+            document.removeEventListener("keydown", closeOnEscape);
+        };
+    }, [agencyTipOpen]);
+
     const weeksPerMonth = 4.33;
     const h = clamp(to2(safeNumber(hourly, 0)), range.min, range.max);
-    const hw = clamp(to2(safeNumber(hoursWeek, 1)), 1, 168);
-    const m = clamp(to2(safeNumber(agencyMarkupPct, 10)), 10, 100);
+    const hw = clamp(to2(safeNumber(hoursWeek, 0)), 0, 168);
+    const m = clamp(to2(safeNumber(agencyMarkupPct, 40)), 15, 100);
     const baseCost = h * hw * weeksPerMonth;
     const agencyTotal = baseCost * (1 + m / 100);
     const youSave = Math.max(0, agencyTotal - baseCost);
@@ -65,25 +91,25 @@ export default function ICareCostEstimatorExpanded() {
 
                         <p className={styles.infoP}>
                             Live-in care is usually priced as a <strong>weekly rate</strong>.{" "}
-                            A common UK guide range is <strong>£950–£1,400/week</strong>, depending on needs and area.
+                            A neutral UK guide range is often around <strong>£800–£1,600/week</strong>, depending on needs and area.
                         </p>
 
                         <div className={styles.pills}>
                             <div className={styles.pillRow}>
                                 <span className={styles.pillLabel}>Everyday support</span>
-                                <span>~£950–£1,100</span>
+                                <span>~£800–£1,050</span>
                             </div>
                             <div className={styles.pillRow}>
                                 <span className={styles.pillLabel}>Higher needs</span>
-                                <span>~£1,100–£1,350</span>
+                                <span>~£1,050–£1,350</span>
                             </div>
                             <div className={styles.pillRow}>
                                 <span className={styles.pillLabel}>Extra night support</span>
-                                <span>~£1,250–£1,400</span>
+                                <span>~£1,250–£1,600</span>
                             </div>
                             <div className={styles.pillRow}>
-                                <span className={styles.pillLabel}>Couples (one carer)</span>
-                                <span>~£1,350–£1,600</span>
+                                <span className={styles.pillLabel}>Complex care can be higher</span>
+                                <span>~£1,800–£2,000</span>
                             </div>
                         </div>
                     </div>
@@ -138,9 +164,45 @@ export default function ICareCostEstimatorExpanded() {
                         </p>
 
                         <p className={styles.infoPNote}>
-                            Ranges are indicative and based on publicly available UK care cost guides and industry summaries.
+                            Market references used here: NHS homecare/live-in guides, Age UK homecare benchmark,
+                            Homecare Association minimum-price benchmark, and GOV.UK NLW rates.
                             Figures vary by region and needs.
                         </p>
+                        <div className={styles.sourcesRow}>
+                            <span className={styles.sourceMeta}>Last updated: 18 Feb 2026</span>
+                            <a
+                                href="https://www.nhs.uk/social-care-and-support/care-services-equipment-and-care-homes/homecare/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.sourceLink}
+                            >
+                                NHS
+                            </a>
+                            <a
+                                href="https://www.ageuk.org.uk/information-advice/care/paying-for-care/paying-for-homecare/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.sourceLink}
+                            >
+                                Age UK
+                            </a>
+                            <a
+                                href="https://www.homecareassociation.org.uk/static/3a39caec-73af-428f-a261647e5a309c2f/Homecare-Association-Minimum-Price-for-Homecare-England-2025-2026.pdf"
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.sourceLink}
+                            >
+                                Homecare Association
+                            </a>
+                            <a
+                                href="https://www.gov.uk/national-minimum-wage-rates"
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.sourceLink}
+                            >
+                                GOV.UK (NMW/NLW)
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -216,7 +278,8 @@ export default function ICareCostEstimatorExpanded() {
                                 </div>
 
                                 <p className={styles.helper}>
-                                    Tip: choose a rate that's fair and sustainable for the carer.
+                                    Tip: choose a rate that's fair and sustainable for the carer. Independent rates often
+                                    sit around £14-£30/hr, and NLW (21+) is £12.21 until 31 Mar 2026, then £12.71 from 1 Apr 2026.
                                 </p>
                             </div>
 
@@ -228,11 +291,11 @@ export default function ICareCostEstimatorExpanded() {
                                         id="hours-week"
                                         type="number"
                                         value={hoursWeek}
-                                        min={1}
+                                        min={0}
                                         max={168}
                                         onChange={(e) => {
                                             const next = safeNumber(e.target.value, hoursWeek);
-                                            setHoursWeek(clamp(Math.round(next), 1, 168));
+                                            setHoursWeek(clamp(Math.round(next), 0, 168));
                                         }}
                                         className={styles.fieldMini}
                                     />
@@ -249,42 +312,45 @@ export default function ICareCostEstimatorExpanded() {
                                     <label htmlFor="agency-markup" className={styles.label}>Agency overhead</label>
                                     <input
                                         id="agency-markup"
-                                        min={10}
+                                        min={15}
                                         max={100}
                                         step={1}
                                         type="number"
                                         value={agencyMarkupPct}
                                         onChange={(e) => {
                                             const next = safeNumber(e.target.value, agencyMarkupPct);
-                                            setAgencyMarkupPct(clamp(Math.round(next), 10, 100));
+                                            setAgencyMarkupPct(clamp(Math.round(next), 15, 100));
                                         }}
                                         className={styles.fieldMini}
                                     />
                                 </div>
 
                                 <input
-                                    min={10}
+                                    min={15}
                                     max={100}
                                     step={1}
                                     type="range"
                                     value={agencyMarkupPct}
                                     onChange={(e) => {
                                         const next = safeNumber(e.target.value, agencyMarkupPct);
-                                        setAgencyMarkupPct(clamp(Math.round(next), 10, 100));
+                                        setAgencyMarkupPct(clamp(Math.round(next), 15, 100));
                                     }}
                                     className={styles.rangeInput}
                                     style={{ accentColor: BRAND }}
                                 />
 
                                 <div className={styles.rangeLabels}>
-                                    <span>10%</span>
+                                    <span>15%</span>
                                     <span>100%</span>
                                 </div>
 
                                 <p className={styles.helperSmall}>
-                                    Used for an illustrative &ldquo;typical agency total&rdquo;.
+                                    Used for an illustrative &ldquo;typical agency total&rdquo;. UK references often cited are
+                                    ~£15-£30/hr (NHS), ~£25/hr as a common benchmark (Age UK), and £32.14/hr as a 2025-26 England
+                                    minimum-price benchmark for compliant homecare delivery (Homecare Association).
                                 </p>
                             </div>
+
                         </div>
                     </div>
 
@@ -301,9 +367,29 @@ export default function ICareCostEstimatorExpanded() {
                             <div className={styles.resultBox}>
                                 <div className={styles.resultKey}>
                                     Typical agency total
-                                    <span className="icare-tip">
-                                        <button type="button" className={styles.infoIcon} aria-label="Agency total info">i</button>
-                                        <span className="icare-tip-bubble" role="tooltip">
+                                    <span
+                                        ref={agencyTipRef}
+                                        className="icare-tip"
+                                        onBlurCapture={(e) => {
+                                            const next = e.relatedTarget;
+                                            if (!agencyTipRef.current) return;
+                                            if (next && agencyTipRef.current.contains(next)) return;
+                                            setAgencyTipOpen(false);
+                                        }}
+                                    >
+                                        <button
+                                            type="button"
+                                            className={styles.infoIcon}
+                                            aria-label="Agency total info"
+                                            aria-expanded={agencyTipOpen ? "true" : "false"}
+                                            onClick={() => setAgencyTipOpen((v) => !v)}
+                                        >
+                                            i
+                                        </button>
+                                        <span
+                                            className={`icare-tip-bubble ${agencyTipOpen ? "is-open" : ""}`}
+                                            role="tooltip"
+                                        >
                                             A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs. In this scenario, care pay is about {agencyCarerShareRounded}% of the agency estimate.
                                         </span>
                                     </span>
@@ -331,7 +417,10 @@ export default function ICareCostEstimatorExpanded() {
 
                         <p className={styles.disclaimer}>
                             This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
-                            Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs. ICare is currently in early access across the UK and final pricing is not yet published.
+                            Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
+                            Agency pricing can include coordination, cover/replacements, compliance and operating costs. In some local markets
+                            or complex-care cases, actual prices can fall outside the ranges shown. ICare is currently in early access across the UK
+                            and final pricing is not yet published.
                         </p>
                     </div>
                 </div>
@@ -400,6 +489,29 @@ export default function ICareCostEstimatorExpanded() {
           opacity: 1;
           pointer-events: auto;
           transform: translateX(-50%) translateY(-2px);
+        }
+        .icare-tip-bubble.is-open{
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateX(-50%) translateY(-2px);
+        }
+        @media (max-width: 700px){
+          .icare-tip-bubble{
+            left: auto;
+            right: 0;
+            transform: translateX(0);
+            width: min(300px, calc(100vw - 24px));
+          }
+          .icare-tip-bubble::after{
+            left: auto;
+            right: 10px;
+            transform: none;
+          }
+          .icare-tip:hover .icare-tip-bubble,
+          .icare-tip:focus-within .icare-tip-bubble,
+          .icare-tip-bubble.is-open{
+            transform: translateY(-2px);
+          }
         }
       `}</style>
         </section>

@@ -6,7 +6,7 @@ import styles from "./cost-estimator.module.scss";
  *
  * ✅ Only companionship defaults (UK)
  * ✅ Direct (family budget) = Care pay (no ICare/platform fee displayed)
- * ✅ Agency overhead default: 10% (editable 10–100)
+ * ✅ Agency overhead default: 40% (editable 15–100)
  * ✅ Very scan-friendly copy + bigger, colored tooltips
  * ✅ Short explainer toggle (readable + clear)
  * ✅ Guards: no negatives, max 2 decimals, clamps
@@ -14,8 +14,11 @@ import styles from "./cost-estimator.module.scss";
 export default function ICareCostEstimator({
     // kept for compatibility but NOT used in MVP
     icareFeePct = 0,
-    agencyMarginPct: agencyMarginPctProp = 10,
+    agencyMarginPct: agencyMarginPctProp = 40,
 }) {
+    const [openTip, setOpenTip] = React.useState(null);
+    const tipsRootRef = React.useRef(null);
+
     const TEXT = "#221002";
     const ACCENT = "#6a7d3c";
     const ACCENT2 = "#dd8b4f";
@@ -36,7 +39,7 @@ export default function ICareCostEstimator({
     const hourlyRanges = React.useMemo(
         () => ({
             EUR: { min: 12.82, max: 30, step: 0.1 },
-            GBP: { min: 10.5, max: 30, step: 0.1 },
+            GBP: { min: 12.21, max: 30, step: 0.1 },
         }),
         []
     );
@@ -44,7 +47,7 @@ export default function ICareCostEstimator({
     const [currency, setCurrency] = React.useState("GBP");
 
     // Companionship default (UK midpoint)
-    const COMPANIONSHIP_DEFAULT_GBP = 12.5;
+    const COMPANIONSHIP_DEFAULT_GBP = 18;
 
     const range = hourlyRanges[currency] ?? hourlyRanges.GBP;
 
@@ -57,7 +60,7 @@ export default function ICareCostEstimator({
 
     // Agency overhead (editable)
     const [agencyMarginPct, setAgencyMarginPct] = React.useState(() =>
-        clamp(safeNumber(agencyMarginPctProp, 10), 10, 100)
+        clamp(safeNumber(agencyMarginPctProp, 40), 15, 100)
     );
 
     React.useEffect(() => {
@@ -86,7 +89,6 @@ export default function ICareCostEstimator({
         baseCost,
         agencyTotal,
         diff,
-        diffPct,
         diffPctRounded,
         diffPctClamped,
         agencyCarerShareRounded,
@@ -95,31 +97,24 @@ export default function ICareCostEstimator({
 
         const h = clamp(to2(safeNumber(hourly, 0)), range.min, range.max);
         const hw = clamp(to2(safeNumber(hoursWeek, 0)), 0, 168);
-        const m = clamp(to2(safeNumber(agencyMarginPct, 10)), 10, 100);
-
+        const m = clamp(to2(safeNumber(agencyMarginPct, 40)), 15, 100);
         const base = h * hw * weeksPerMonth;
 
         // Agency total = base + overhead (comparison only)
         const agency = base * (1 + m / 100);
-
-        // MVP: "direct" = base (no ICare fee shown)
-        const direct = base;
-
-        const d = Math.max(0, agency - direct);
-        const p = agency > 0 ? (d / agency) * 100 : 0;
+        const diff = Math.max(0, agency - base);
+        const diffPct = agency > 0 ? (diff / agency) * 100 : 0;
 
         const agencyShare = agency > 0 ? (base / agency) * 100 : 0;
 
-        const pctClamped = Math.max(0, Math.min(100, p));
-        const pctRounded = Math.round(p);
+        const diffClamped = Math.max(0, Math.min(100, diffPct));
 
         return {
             baseCost: base,
             agencyTotal: agency,
-            diff: d,
-            diffPct: p,
-            diffPctClamped: pctClamped,
-            diffPctRounded: pctRounded,
+            diff,
+            diffPctRounded: Math.round(diffPct),
+            diffPctClamped: diffClamped,
             agencyCarerShareRounded: Math.max(0, Math.min(100, Math.round(agencyShare))),
         };
     }, [hourly, hoursWeek, agencyMarginPct, range.min, range.max]);
@@ -147,16 +142,55 @@ export default function ICareCostEstimator({
         </div>
     );
 
-    const InfoTip = ({ label, children }) => (
-        <span className={styles.tip}>
-            <button type="button" className={styles.infoIcon} aria-label={label}>
-                i
-            </button>
-            <span className={styles.tipBubble} role="tooltip">
-                {children}
+    React.useEffect(() => {
+        if (!openTip) return;
+
+        const handleOutside = (e) => {
+            const root = tipsRootRef.current;
+            if (!root) return;
+            if (!root.contains(e.target)) setOpenTip(null);
+        };
+
+        const handleEsc = (e) => {
+            if (e.key === "Escape") setOpenTip(null);
+        };
+
+        document.addEventListener("mousedown", handleOutside);
+        document.addEventListener("touchstart", handleOutside, { passive: true });
+        document.addEventListener("keydown", handleEsc);
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutside);
+            document.removeEventListener("touchstart", handleOutside);
+            document.removeEventListener("keydown", handleEsc);
+        };
+    }, [openTip]);
+
+    const InfoTip = ({ id, label, children }) => {
+        const isOpen = openTip === id;
+        return (
+            <span
+                className={`${styles.tip} ${isOpen ? styles.tipOpen : ""}`}
+                onBlurCapture={(e) => {
+                    const next = e.relatedTarget;
+                    if (!e.currentTarget.contains(next)) setOpenTip((prev) => (prev === id ? null : prev));
+                }}
+            >
+                <button
+                    type="button"
+                    className={styles.infoIcon}
+                    aria-label={label}
+                    aria-expanded={isOpen ? "true" : "false"}
+                    onClick={() => setOpenTip((prev) => (prev === id ? null : id))}
+                >
+                    i
+                </button>
+                <span className={styles.tipBubble} role="tooltip">
+                    {children}
+                </span>
             </span>
-        </span>
-    );
+        );
+    };
 
     return (
         <section
@@ -169,6 +203,7 @@ export default function ICareCostEstimator({
                 ["--savePct"]: `${diffPctClamped.toFixed(0)}%`,
                 ["--savePctRounded"]: diffPctRounded,
             }}
+            ref={tipsRootRef}
         >
             <div className={styles.container}>
                 {/* HEADER */}
@@ -240,7 +275,8 @@ export default function ICareCostEstimator({
                                 </div>
 
                                 <p className={styles.helper}>
-                                    Typical UK companionship pay is often roughly £11–£14/hr (varies by area and experience).
+                                    Typical independent rates can vary widely by area and needs (often around £14–£30/hr).
+                                    Legal minimum (age 21+) is £12.21 until 31 Mar 2026, then £12.71 from 1 Apr 2026.
                                 </p>
                             </div>
 
@@ -285,12 +321,12 @@ export default function ICareCostEstimator({
                                         type="number"
                                         inputMode="numeric"
                                         value={agencyMarginPct}
-                                        min={10}
+                                        min={15}
                                         max={100}
                                         step={1}
                                         onChange={(e) => {
                                             const next = safeNumber(e.target.value, agencyMarginPct);
-                                            setAgencyMarginPct(clamp(Math.round(next), 10, 100));
+                                            setAgencyMarginPct(clamp(Math.round(next), 15, 100));
                                         }}
                                     />
                                 </div>
@@ -298,27 +334,29 @@ export default function ICareCostEstimator({
                                 <input
                                     className={styles.range}
                                     type="range"
-                                    min={10}
+                                    min={15}
                                     max={100}
                                     step={1}
                                     value={agencyMarginPct}
                                     onChange={(e) => {
                                         const next = safeNumber(e.target.value, agencyMarginPct);
-                                        setAgencyMarginPct(clamp(Math.round(next), 10, 100));
+                                        setAgencyMarginPct(clamp(Math.round(next), 15, 100));
                                     }}
                                     aria-label="Agency overhead slider"
                                 />
 
                                 <div className={styles.rangeMinMax}>
-                                    <span>10%</span>
+                                    <span>15%</span>
                                     <span>100%</span>
                                 </div>
 
                                 <p className={styles.helper}>
-                                    For comparison only. This overhead can reflect coordination, recruitment checks, ongoing support,
-                                    compliance, training and operating costs — and varies by provider and needs.
+                                    For comparison only. UK references often cited are ~£15-£30/hr (NHS), ~£25/hr as a common
+                                    benchmark (Age UK), and ~£32.14/hr as a 2025-26 England minimum-price benchmark for compliant
+                                    homecare delivery (Homecare Association).
                                 </p>
                             </div>
+
                         </div>
                     </div>
 
@@ -330,7 +368,7 @@ export default function ICareCostEstimator({
                             <div className={styles.pill}>
                                 <div className={styles.k}>
                                     Carer take-home pay
-                                    <InfoTip label="Care pay info">
+                                    <InfoTip id="care-pay" label="Care pay info">
                                         The estimated amount the carer earns for your selected hours and rate.
                                     </InfoTip>
                                 </div>
@@ -340,7 +378,7 @@ export default function ICareCostEstimator({
                             <div className={styles.pill}>
                                 <div className={styles.k}>
                                     Typical agency price for the same care
-                                    <InfoTip label="Agency estimate info">
+                                    <InfoTip id="agency-estimate" label="Agency estimate info">
                                         An illustrative agency price for the same care. Often includes coordination, support and operating
                                         costs. In this scenario, care pay is about <strong>{agencyCarerShareRounded}%</strong> of the agency
                                         estimate.
@@ -352,8 +390,8 @@ export default function ICareCostEstimator({
                             <div className={`${styles.pill} ${styles.pillHighlight} ${styles.pillLarge}`}>
                                 <div className={styles.k}>
                                     Your estimated monthly saving
-                                    <InfoTip label="Comparison info">
-                                        The difference between the agency estimate and the direct care budget in this scenario.
+                                    <InfoTip id="comparison" label="Comparison info">
+                                        The difference between the agency estimate and direct care cost in this scenario.
                                     </InfoTip>
                                 </div>
                                 <div className={`${styles.v} ${styles.vHighlight}`}>{nf.format(diff)}</div>
@@ -376,13 +414,14 @@ export default function ICareCostEstimator({
                             <span className={styles.mutedInline}>(comparison only)</span>.
                         </p>
 
-                        <p className={styles.microLine}>
+                        <p className={styles.microNote}>
                             With agencies, a significant part of the budget typically covers coordination and operating costs, not direct care.
                         </p>
 
                         <p className={styles.helper}>
                             These figures are illustrative only and not a formal quote, offer, or contract. Final costs may vary based on care
-                            needs, schedule, location, experience, and any agreed terms.
+                            needs, schedule, location, experience, and any agreed terms. In some local markets or complex-care cases,
+                            actual prices can fall outside the ranges shown.
                         </p>
 
                         <div className={styles.explainerStatic}>
@@ -411,11 +450,42 @@ export default function ICareCostEstimator({
                 {/* Reference note */}
                 <div className={styles.avgPayBox}>
                     <strong className={styles.avgStrong}>UK pay reference (companionship):</strong>{" "}
-                    Many basic home-care / companionship roles are commonly advertised around{" "}
-                    <strong className={styles.avgStrong}>£11–£14/hr</strong> (varies by region and experience). From{" "}
-                    <strong className={styles.avgStrong}>1 April 2026</strong>, the UK National Living Wage is{" "}
-                    <strong className={styles.avgStrong}>£12.71/hr</strong> (age 21+).
+                    Typical agency homecare often sits around <strong className={styles.avgStrong}>£15–£30/hr</strong>{" "}
+                    (with ~£25/hr commonly used as a reference point), while independent carer rates often sit around{" "}
+                    <strong className={styles.avgStrong}>£14-£30/hr</strong> depending on needs and location.
+                    Homecare Association's benchmark for compliant delivery in England (Apr 2025-Mar 2026) is{" "}
+                    <strong className={styles.avgStrong}>£32.14/hr</strong>. For live-in, UK guidance commonly cited is{" "}
+                    <strong className={styles.avgStrong}>~£800-£1,600/week</strong>, with complex care sometimes higher (~£1,800-£2,000/week).
+                    NLW (21+) is <strong className={styles.avgStrong}>£12.21/hr</strong> until{" "}
+                    <strong className={styles.avgStrong}>31 March 2026</strong>, and{" "}
+                    <strong className={styles.avgStrong}>£12.71/hr</strong> from{" "}
+                    <strong className={styles.avgStrong}>1 April 2026</strong>.
                     <div className={styles.sourcesRow}>
+                        <span className={styles.sourceMeta}>Last updated: 18 Feb 2026</span>
+                        <a
+                            href="https://www.nhs.uk/social-care-and-support/care-services-equipment-and-care-homes/homecare/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.sourceLink}
+                        >
+                            NHS
+                        </a>
+                        <a
+                            href="https://www.ageuk.org.uk/information-advice/care/paying-for-care/paying-for-homecare/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.sourceLink}
+                        >
+                            Age UK
+                        </a>
+                        <a
+                            href="https://www.homecareassociation.org.uk/static/3a39caec-73af-428f-a261647e5a309c2f/Homecare-Association-Minimum-Price-for-Homecare-England-2025-2026.pdf"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.sourceLink}
+                        >
+                            Homecare Association
+                        </a>
                         <a
                             href="https://www.gov.uk/national-minimum-wage-rates"
                             target="_blank"
