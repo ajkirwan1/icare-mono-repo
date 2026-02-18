@@ -224,7 +224,7 @@ export default function FaqsPage() {
                         If your question wasn&apos;t answered here, we&apos;d love to hear from you. Contact us and we&apos;ll get back to you as
                         soon as we can.
                     </p>
-                    <NavLink to="/contact-us" className={styles.link}>Contact us</NavLink>
+                    <NavLink to="/contact-us" className={styles.contactCta}>Contact us</NavLink>
                 </section>
             </main>
             <ICareFooter />

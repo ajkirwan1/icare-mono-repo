@@ -10,7 +10,6 @@ import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICare
 import HeroCaregiversTicker from "../components/website/pages/home/sections/HeroCaregiversTicker";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
-import AiChat from "../components/website/common/modals/AiChat";
 
 export const meta = () => {
   return [
@@ -72,7 +71,6 @@ export default function Home() {
         <ICareEarlyAccessHomeSection />
       </main>
       <ICareFooter />
-      <AiChat />
     </>
   );
 }

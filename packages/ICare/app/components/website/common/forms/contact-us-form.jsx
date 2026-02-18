@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useFetcher } from "react-router";
 import classes from "./forms.module.scss";
 import SubmitButton from "../buttons/submit-buttons/submit-button";
+import CustomSelect from "../../../../forms/inputs/CustomSelect";
 
 export default function ContactUsForm({
     action = "/contact",
@@ -11,6 +12,8 @@ export default function ContactUsForm({
     const fetcher = useFetcher();
     const isSubmitting = fetcher.state === "submitting";
     const result = fetcher.data;
+
+    const [topic, setTopic] = useState("general");
 
     const fieldErrors = result?.ok === false && result?.errors ? result.errors : {};
     const hasErrors = useMemo(() => Object.keys(fieldErrors || {}).length > 0, [fieldErrors]);
@@ -23,6 +26,15 @@ export default function ContactUsForm({
                 {fieldErrors[name]}
             </div>
         ) : null;
+
+    const topicOptions = [
+        { value: "general", label: "General question" },
+        { value: "care", label: "Care needs" },
+        { value: "caregiver", label: "Caregiver onboarding" },
+        { value: "safety", label: "Trust & safety" },
+        { value: "billing", label: "Billing / payments" },
+        { value: "other", label: "Other" },
+    ];
 
     return (
         <div className={classes.card}>
@@ -74,23 +86,21 @@ export default function ContactUsForm({
                 </div>
 
                 <div className={classes.field}>
-                    <label className={classes.label} htmlFor="contact-topic">Topic</label>
-                    <select
+                    <label className={classes.label} id="contact-topic-label">Topic</label>
+                    <CustomSelect
                         id="contact-topic"
-                        className={classes.control}
                         name="topic"
-                        defaultValue="general"
+                        labelId="contact-topic-label"
+                        value={topic}
+                        onChange={setTopic}
+                        options={topicOptions}
+                        placeholder="Select topic"
                         disabled={isSubmitting}
-                        aria-invalid={fieldErrors.topic ? "true" : "false"}
-                        aria-describedby={describedBy("topic")}
-                    >
-                        <option value="general">General question</option>
-                        <option value="care">Care needs</option>
-                        <option value="caregiver">Caregiver onboarding</option>
-                        <option value="safety">Trust & safety</option>
-                        <option value="billing">Billing / payments</option>
-                        <option value="other">Other</option>
-                    </select>
+                        invalid={Boolean(fieldErrors.topic)}
+                        describedBy={describedBy("topic")}
+                        className={classes.customSelect}
+                        controlClassName={`${classes.control} ${classes.customSelectControl}`}
+                    />
                     <FieldError name="topic" />
                 </div>
 

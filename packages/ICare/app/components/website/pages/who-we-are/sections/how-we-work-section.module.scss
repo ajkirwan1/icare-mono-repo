@@ -41,6 +41,10 @@
     font-weight: $fw-bold;
     font-size: 1.5rem;
     line-height: 1.3;
+
+    @media (max-width:600px) {
+        font-size: 1.3rem;
+    }
 }
 
 .leadText {
@@ -99,7 +103,7 @@
 .stepTitle {
     margin: 0;
     font-size: $font-xl;
-    font-weight: $fw-semibold;
+    font-weight: $fw-bold;
     color: $txt;
 }
 
