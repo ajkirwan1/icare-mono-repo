@@ -8,7 +8,7 @@ export default function AiChat() {
     const quickActions = [
         { label: "View FAQs", href: "/frequently-asked-questions" },
         { label: "Join waiting list", href: "/#waitlist" },
-        { label: "Contact form", href: "/contact-us" },
+        { label: "Contact form", href: "/contact-us#form-heading" },
     ];
 
     const starterQuestions = [
