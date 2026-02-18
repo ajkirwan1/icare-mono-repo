@@ -27,22 +27,23 @@ export default function AboutICareSection() {
                     </p>
 
                     <p className={styles.subtitle}>
-                        That's why ICare focuses on companionship and everyday support that fits naturally into daily life.
+                        That&apos;s why ICare focuses on companionship and everyday support that fits naturally into daily life.
                     </p>
 
                     <p className={styles.subtitle}>
                         We bring families and independent caregivers together, making it easier to talk openly and agree
-                        arrangements that feel right.
+                        arrangements that feel right - with flexible support and real people available when questions
+                        arise.
                     </p>
 
                     <p className={styles.subtitle}>
-                        Caregivers on ICare work directly with families, offer flexible arrangements, and are supported by real
-                        people when questions arise.
+                        Every caregiver on ICare completes a basic verification process, including{" "}
+                        <span className={styles.verificationAccent}>DBS checks, references and experience shortlisting</span>.
                     </p>
 
                     <p className={styles.subtitle}>
-                        Before appearing on ICare, every caregiver completes a basic verification process, helping families
-                        explore care options with greater confidence.
+                        Built-in safeguards help families explore care options with confidence and a greater sense of
+                        control.
                     </p>
                 </div>
             </div>

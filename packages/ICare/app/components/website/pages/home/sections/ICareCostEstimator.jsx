@@ -17,6 +17,7 @@ export default function ICareCostEstimator({
     agencyMarginPct: agencyMarginPctProp = 40,
 }) {
     const [openTip, setOpenTip] = React.useState(null);
+    const [tipAnchor, setTipAnchor] = React.useState({ x: null, y: null });
     const tipsRootRef = React.useRef(null);
 
     const TEXT = "#221002";
@@ -155,14 +156,32 @@ export default function ICareCostEstimator({
             if (e.key === "Escape") setOpenTip(null);
         };
 
+        let rafId = null;
+        const closeOnScroll = () => {
+            if (rafId !== null) return;
+            rafId = window.requestAnimationFrame(() => {
+                setOpenTip(null);
+                rafId = null;
+            });
+        };
+
         document.addEventListener("mousedown", handleOutside);
         document.addEventListener("touchstart", handleOutside, { passive: true });
         document.addEventListener("keydown", handleEsc);
+        window.addEventListener("scroll", closeOnScroll, { passive: true });
+        window.addEventListener("wheel", closeOnScroll, { passive: true });
+        window.addEventListener("touchmove", closeOnScroll, { passive: true });
+        document.addEventListener("scroll", closeOnScroll, true);
 
         return () => {
             document.removeEventListener("mousedown", handleOutside);
             document.removeEventListener("touchstart", handleOutside);
             document.removeEventListener("keydown", handleEsc);
+            window.removeEventListener("scroll", closeOnScroll);
+            window.removeEventListener("wheel", closeOnScroll);
+            window.removeEventListener("touchmove", closeOnScroll);
+            document.removeEventListener("scroll", closeOnScroll, true);
+            if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
     }, [openTip]);
 
@@ -181,7 +200,19 @@ export default function ICareCostEstimator({
                     className={styles.infoIcon}
                     aria-label={label}
                     aria-expanded={isOpen ? "true" : "false"}
-                    onClick={() => setOpenTip((prev) => (prev === id ? null : id))}
+                    onClick={(e) => {
+                        setOpenTip((prev) => (prev === id ? null : id));
+                        if (window.matchMedia("(max-width: 720px)").matches) {
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            const bubbleWidth = Math.min(300, window.innerWidth - 24);
+                            const half = bubbleWidth / 2;
+                            const minX = 12 + half;
+                            const maxX = window.innerWidth - 12 - half;
+                            const x = Math.max(minX, Math.min(maxX, rect.left + rect.width / 2));
+                            const y = rect.bottom + 8;
+                            setTipAnchor({ x, y });
+                        }
+                    }}
                 >
                     i
                 </button>
@@ -202,6 +233,8 @@ export default function ICareCostEstimator({
                 ["--text"]: TEXT,
                 ["--savePct"]: `${diffPctClamped.toFixed(0)}%`,
                 ["--savePctRounded"]: diffPctRounded,
+                ["--tip-x"]: tipAnchor.x ? `${tipAnchor.x}px` : "50vw",
+                ["--tip-y"]: tipAnchor.y ? `${tipAnchor.y}px` : "50vh",
             }}
             ref={tipsRootRef}
         >

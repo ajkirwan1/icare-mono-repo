@@ -1,31 +1,18 @@
 @use "@styles/tokens" as *;
+@use "@styles/abstracts/motifs" as motifs;
 
 .hero {
-    position: relative;
-    min-height: clamp(640px, 78vh, 920px);
-    width: 100%;
-    overflow: hidden;
-    display: grid;
-    place-items: center left;
-    color: $on-dark;
-    background: $txt;
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-        Arial, sans-serif;
+    @include motifs.hero;
 }
 
 .bgImage {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    @include motifs.hero-image;
     filter: brightness(0.75) contrast(1.05);
 }
 
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.58));
+    @include motifs.hero-overlay;
+    background: rgba(0, 0, 0, 0.48);
 }
 
 .headerLayer {
@@ -43,29 +30,15 @@
     height: 0;
 }
 
-.copy {
-    position: relative;
-    z-index: 2;
-    width: min(92vw, 1100px);
-    padding-left: clamp(18px, 4vw, 60px);
-    padding-right: clamp(18px, 4vw, 60px);
+.content {
+    @include motifs.hero-content;
 
+    @media (max-width:600px) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
 }
 
-.title {
-    margin: 0 0 1.2rem;
-    font-weight: $fw-bold;
-    font-size: clamp(2.6rem, 4.6vw, 3.2rem);
-    color: $on-dark;
-    letter-spacing: $tracking-tight;
-    line-height: 1.05;
-}
-
-.lead {
-    margin: 0;
-    font-size: clamp(1.4rem, 1.4vw, 1.6rem);
-    color: $on-dark;
-    max-width: 55ch;
-    line-height: 1.8;
-    font-weight: $fw-semibold;
+.breakDesktop {
+    display: inline;
 }
