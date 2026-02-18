@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+import { Resend } from "resend";
 
 dotenv.config({ path: ".env.development" });
 
@@ -37,6 +38,9 @@ if (!process.env.OPENAI_API_KEY) {
 }
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const resend = new Resend(process.env.RESEND_API_KEY);
+const CONTACT_RATE_LIMIT = { windowMs: 60_000, max: 5 };
+const contactAttemptsByIp = new Map();
 
 /** -----------------------------
  *  Prompts
@@ -128,6 +132,32 @@ function isGeneralPricingQuestion(message = "") {
 function isOfficialQuoteQuestion(message = "") {
     const m = String(message).toLowerCase();
     return /\b(quote|contract|offer|exact|official|final|guarantee)\b/.test(m);
+}
+
+function wantsHuman(message = "") {
+    const m = String(message).toLowerCase();
+    return /\b(human|agent|representative|talk to someone|contact|email|call me|support|someone real|person)\b/.test(m);
+}
+
+function isValidEmail(email = "") {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim());
+}
+
+function sanitize(s = "", max = 2000) {
+    return String(s).replace(/\0/g, "").trim().slice(0, max);
+}
+
+function hitRateLimit(ip = "unknown") {
+    const now = Date.now();
+    const prev = contactAttemptsByIp.get(ip) || [];
+    const recent = prev.filter((ts) => now - ts < CONTACT_RATE_LIMIT.windowMs);
+    if (recent.length >= CONTACT_RATE_LIMIT.max) {
+        contactAttemptsByIp.set(ip, recent);
+        return true;
+    }
+    recent.push(now);
+    contactAttemptsByIp.set(ip, recent);
+    return false;
 }
 
 /**
@@ -452,10 +482,85 @@ app.get("/api/health", (req, res) => {
     res.json({ ok: true });
 });
 
+app.post("/api/contact", async (req, res) => {
+    try {
+        const clientIp = String(req.ip || req.headers["x-forwarded-for"] || "unknown");
+        if (hitRateLimit(clientIp)) {
+            return res.status(429).json({ error: "rate_limited" });
+        }
+
+        const website = sanitize(req.body?.website, 200);
+        if (website) {
+            return res.json({ ok: true });
+        }
+
+        const name = sanitize(req.body?.name, 120);
+        const email = sanitize(req.body?.email, 160);
+        const phone = sanitize(req.body?.phone, 80);
+        const postcode = sanitize(req.body?.postcode, 24);
+        const message = sanitize(req.body?.message, 4000);
+
+        if (!message) return res.status(400).json({ error: "missing_message" });
+        if (!email && !phone) return res.status(400).json({ error: "missing_contact_method" });
+        if (email && !isValidEmail(email)) return res.status(400).json({ error: "invalid_email" });
+
+        const to = process.env.CONTACT_TO_EMAIL;
+        const from = process.env.EMAIL_FROM || "ICare <no-reply@icare.com>";
+        if (!to) return res.status(500).json({ error: "missing_contact_to_email" });
+        if (!process.env.RESEND_API_KEY) return res.status(500).json({ error: "missing_resend_api_key" });
+
+        const subject = `ICare chat -> human request${postcode ? ` (${postcode})` : ""}`;
+        const text =
+            "New human-help request from chat\n\n" +
+            `Name: ${name || "-"}\n` +
+            `Email: ${email || "-"}\n` +
+            `Phone: ${phone || "-"}\n` +
+            `Postcode: ${postcode || "-"}\n\n` +
+            `Message:\n${message}\n`;
+
+        await resend.emails.send({
+            from,
+            to: [to],
+            subject,
+            text,
+            replyTo: email ? [email] : undefined,
+        });
+
+        if (email) {
+            await resend.emails.send({
+                from,
+                to: [email],
+                subject: "We received your message",
+                text:
+                    "Thanks for contacting ICare. Our team will get back to you shortly.\n\n" +
+                    `You can also read how ICare works here: ${HOW_IT_WORKS_URL}`,
+            });
+        }
+
+        return res.json({ ok: true });
+    } catch (e) {
+        console.error("contact error:", e);
+        return res.status(500).json({ error: "contact_error" });
+    }
+});
+
 app.post("/api/chat", async (req, res) => {
     try {
         const message = typeof req.body?.message === "string" ? req.body.message.trim() : "";
         if (!message) return res.status(400).json({ error: "missing_message" });
+
+        if (wantsHuman(message)) {
+            return res.json({
+                reply:
+                    "Sure - I can pass this to our team. Please share:\n" +
+                    "• your name\n" +
+                    "• email or phone\n" +
+                    "• postcode (optional)\n" +
+                    "• one sentence on what you need\n\n" +
+                    "You can also use the contact form below.",
+                flags: { human_handoff: true },
+            });
+        }
 
         // 1) Block specific competitors/URLs
         if (looksLikeCompetitorMention(message)) {

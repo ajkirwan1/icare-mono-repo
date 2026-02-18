@@ -1,6 +1,5 @@
 import { useFetcher } from "react-router";
 import SubmitButton from "~/components/website/common/buttons/submit-buttons/submit-button";
-import NavigationButton from "~/components/website/common/buttons/navigation-buttons/navigation-button";
 import classes from "./engagement-section.module.scss";
 
 export default function EngagementSection({
@@ -15,14 +14,21 @@ export default function EngagementSection({
     return (
         <section className={classes.engagement}>
             <div className={classes.engagementInner}>
-                {/* LEFT: Newsletter */}
                 <div className={classes.card}>
                     <div className={classes.cardTop}>
+                        <span className={classes.kicker}>ICare Newsletter</span>
+
                         <h2 className={classes.cardTitle}>Get monthly care insights</h2>
 
                         <p className={classes.cardText}>
                             Evidence-led updates on ageing, home care, workforce pressure, and care costs in the UK & Europe.
                         </p>
+
+                        <ul className={classes.bullets}>
+                            <li>Clear monthly briefing for families and caregivers</li>
+                            <li>Practical guidance, not generic marketing noise</li>
+                            <li>Useful links to trusted UK and EU data sources</li>
+                        </ul>
 
                         <fetcher.Form
                             className={classes.form}
@@ -87,7 +93,7 @@ export default function EngagementSection({
                                 </SubmitButton>
                             </div>
                         </fetcher.Form>
-                        <p className={classes.finePrint}>No spam. Unsubscribe anytime.</p>
+                        <p className={classes.finePrint}>No spam. Unsubscribe anytime. Your inbox stays in your control.</p>
                     </div>
                 </div>
             </div>

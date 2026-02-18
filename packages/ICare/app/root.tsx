@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import { buildSeo } from "./utils/seo/seo";
 import NotFoundPage from "./routes/not-found";
+import AiChat from "./components/website/common/modals/AiChat";
 import "./app.css";
 import "./styles/main.scss";
 import "../../icare-components/src/globals/styles/_globals.scss";
@@ -91,7 +92,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <AiChat />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
