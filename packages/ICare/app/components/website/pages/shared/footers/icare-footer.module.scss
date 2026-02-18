@@ -140,6 +140,7 @@
 
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
+        row-gap: $space-12;
     }
 }
 
@@ -362,5 +363,11 @@
 @media (max-width:600px) {
     .footer .inner {
         padding-top: 2rem;
+    }
+
+    .faqLink {
+        margin-left: 0;
+        padding-top: 2px;
+        padding-bottom: 2px;
     }
 }

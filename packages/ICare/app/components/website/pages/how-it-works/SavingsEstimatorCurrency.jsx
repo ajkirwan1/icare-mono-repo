@@ -432,12 +432,13 @@ export default function ICareCostEstimatorExpanded() {
           list-style:none;
           display:flex;
           align-items:center;
-          justify-content:space-between;
-          gap:14px;
+          justify-content:center;
+          gap:8px;
           cursor:pointer;
           user-select:none;
           padding:0;
-          margin:0;
+          margin:0 auto;
+          width: fit-content;
         }
         .icare-funding-summary::-webkit-details-marker{ display:none; }
 
@@ -496,6 +497,12 @@ export default function ICareCostEstimatorExpanded() {
           transform: translateX(-50%) translateY(-2px);
         }
         @media (max-width: 700px){
+          .icare-funding-summary{
+            gap:6px;
+            justify-content:center;
+            margin:0 auto;
+            width: fit-content;
+          }
           .icare-tip-bubble{
             left: auto;
             right: 0;

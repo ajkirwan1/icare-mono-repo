@@ -32,7 +32,7 @@
 
 .badgeGrid {
     width: min(90vw, 1180px);
-    margin-top: 4.8rem;
+    margin-top: 3.45rem;
     margin-bottom: 6rem;
     padding-top: 0;
     padding-right: 1rem;
@@ -148,7 +148,7 @@
         grid-template-columns: 1fr;
         width: min(92vw, 1180px);
         gap: 0.7rem;
-        margin-top: calc(4.8rem * 0.85);
+        margin-top: calc(3.45rem * 0.85);
     }
 
     .badge:not(:first-child) {
