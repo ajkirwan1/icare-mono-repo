@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function AiChat() {
-    const API_BASE = (import.meta.env.VITE_CHAT_API_URL || import.meta.env.VITE_API_URL || "http://localhost:4001").replace(/\/$/, "");
-    const CHAT_URL = `${API_BASE}/api/chat`;
+    const rawChatBase = import.meta.env.VITE_CHAT_API_URL || import.meta.env.VITE_API_URL || "http://localhost:4001";
+    const API_BASE = rawChatBase.replace(/\/$/, "");
+    const CHAT_URL = API_BASE.endsWith("/api") ? `${API_BASE}/chat` : `${API_BASE}/api/chat`;
     const CONTACT_ACTION_URL = "/contact";
+    const PRIVACY_POLICY_PATH = "/privacy";
+    const PRIVACY_CONTACT_EMAIL = "hello@icare-app.co.uk";
     const POP_SOUND_SRC = "/sounds/pop-sound.mp3";
     const POP_SOUND_START_AT = 0;
     const POP_SOUND_GAIN = 1.25;
@@ -19,9 +22,9 @@ export default function AiChat() {
 
     const starterQuestions = [
         "What is ICare and how does it work?",
-        "How do I join the waiting list?",
-        "How do I contact your team?",
-        "Is ICare a care agency?",
+        "How is ICare different from a care agency?",
+        "Is ICare available across the UK?",
+        "Can I withdraw or delete my data?",
     ];
 
     const [open, setOpen] = useState(false);
@@ -324,8 +327,23 @@ export default function AiChat() {
             return "You can contact our team here: /contact-us. We’ll get back to you as soon as possible.";
         }
 
+        if (/\b(withdraw|delete|remove|erase)\b.*\b(data|account|information)\b|\bright to be forgotten\b|\bdata deletion\b/i.test(text)) {
+            return (
+                "Yes - you can ask us to access, correct, or delete your personal data.\n\n" +
+                `Email ${PRIVACY_CONTACT_EMAIL} with subject \"Data request\" and we’ll process it under UK GDPR timeframes. ` +
+                `Privacy policy: ${PRIVACY_POLICY_PATH}`
+            );
+        }
+
         if (/\b(what is icare|how does icare work|how it works)\b/i.test(text)) {
-            return "ICare helps families connect with independent caregivers through clear profiles, direct communication, and a guided process.";
+            return (
+                "ICare is a UK platform that helps families connect with independent companion caregivers.\n\n" +
+                "How it works:\n" +
+                "• Create a request (needs, schedule, location)\n" +
+                "• Browse verified companion profiles\n" +
+                "• Message and arrange a quick call\n" +
+                "• Agree hours, tasks, rate, and start date"
+            );
         }
 
         return "Thanks for your question. I can help with how ICare works, joining the waiting list, trust and safety, or contacting our team.";

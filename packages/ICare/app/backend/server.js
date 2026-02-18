@@ -20,10 +20,10 @@ dotenv.config({ path: ".env.development" });
 
 const app = express();
 
-const HOW_IT_WORKS_URL =
-    process.env.PUBLIC_SITE_URL
-        ? `${process.env.PUBLIC_SITE_URL}/how-it-works`
-        : "http://localhost:5173/how-it-works";
+const SITE_URL = (process.env.PUBLIC_SITE_URL || "http://localhost:5173").replace(/\/$/, "");
+const HOW_IT_WORKS_URL = `${SITE_URL}/how-it-works`;
+const PRIVACY_URL = `${SITE_URL}/privacy`;
+const PRIVACY_CONTACT_EMAIL = process.env.PRIVACY_CONTACT_EMAIL || process.env.CONTACT_TO_EMAIL || "hello@icare-app.co.uk";
 
 app.use(
     cors({
@@ -118,7 +118,7 @@ function competitorRefusal() {
 // Simple intent detectors
 function isFeesSavingsQuestion(message = "") {
     const m = String(message).toLowerCase();
-    return /\b(fees?|fee|save|saving|cheaper|cost|price|pricing|compare|comparison|agency|agencies|overhead|markup)\b/.test(
+    return /\b(fees?|fee|save|saving|cheaper|cost|price|pricing|compare|comparison|overhead|markup)\b/.test(
         m
     );
 }
@@ -132,6 +132,13 @@ function isGeneralPricingQuestion(message = "") {
 function isOfficialQuoteQuestion(message = "") {
     const m = String(message).toLowerCase();
     return /\b(quote|contract|offer|exact|official|final|guarantee)\b/.test(m);
+}
+
+function asksDataDeletion(message = "") {
+    const m = String(message).toLowerCase();
+    return /\b(withdraw|delete|remove|erase)\b.*\b(data|account|information)\b|\bright to be forgotten\b|\bdata deletion\b|\bdelete my account\b/.test(
+        m
+    );
 }
 
 function wantsHuman(message = "") {
@@ -178,10 +185,23 @@ function feesSavingsExampleReply(message = "") {
 
 }
 
+function dataRightsReply() {
+    return (
+        "Yes - you can ask us to access, correct, or delete your personal data.\n\n" +
+        `To submit a data request, email ${PRIVACY_CONTACT_EMAIL} with the subject "Data request". ` +
+        "We may need to verify your identity first, and we respond in line with UK GDPR timeframes. " +
+        `You can also read our privacy policy here: ${PRIVACY_URL}`
+    );
+}
+
 
 
 function fallbackByIntent(message) {
     const m = (message || "").toLowerCase();
+
+    if (asksDataDeletion(m)) {
+        return dataRightsReply();
+    }
 
     if (/\b(what is|what's|whats)\b.*\b(i\s*care|icare)\b/.test(m)) {
         return "ICare is a UK platform that helps families find and connect with independent companion caregivers.";
@@ -252,9 +272,14 @@ function fastFaq(message) {
     const m = (message || "").toLowerCase();
 
     const asksWhat = /\bwhat\s+is\s+i\s*care\b|\bwhat\s+is\s+icare\b/.test(m);
+    const asksHowWorks = /\bhow\b.*\b(work|works)\b/.test(m) || /\bhow does i\s*care work\b|\bhow does icare work\b/.test(m);
     const asksHire = /\bhow\b.*\b(hire|hiring|book|find)\b/.test(m);
 
-    if (asksWhat && asksHire) {
+    if (asksDataDeletion(m)) {
+        return dataRightsReply();
+    }
+
+    if (asksWhat && (asksHire || asksHowWorks)) {
         return (
             "ICare is a UK platform that helps families find and connect with independent companion caregivers.\n\n" +
             "How it works:\n" +
@@ -269,7 +294,7 @@ function fastFaq(message) {
         return "ICare is a UK platform that helps families find and connect with independent companion caregivers.";
     }
 
-    if (asksHire) {
+    if (asksHire || asksHowWorks) {
         return (
             "How it works:\n" +
             "• Create a request (needs, schedule, location)\n" +
@@ -400,11 +425,25 @@ const FAQ = [
             "After immediate safety is addressed, you can notify iCare so the incident can be documented and reviewed.",
     },
     {
+        id: "data_withdrawal",
+        q: [
+            "can i withdraw my data",
+            "withdraw my data",
+            "delete my data",
+            "remove my data",
+            "erase my data",
+            "delete my account",
+            "right to be forgotten",
+            "data deletion",
+        ],
+        a: dataRightsReply(),
+    },
+    {
         id: "data_gdpr",
-        q: ["gdpr", "data", "privacy", "is my data safe", "data protection"],
+        q: ["gdpr", "privacy", "is my data safe", "data protection", "how is my data protected"],
         a:
             "Yes — we comply with GDPR and UK data protection law. We collect only the minimum information needed and don’t share personal details without consent. " +
-            "At launch, we’ll collect standard personal data only — no medical or health information.",
+            `At launch, we’ll collect standard personal data only — no medical or health information. Privacy policy: ${PRIVACY_URL}`,
     },
     {
         id: "waitlist_why",
@@ -571,17 +610,16 @@ app.post("/api/chat", async (req, res) => {
         const canned = fastFaq(message);
         if (canned) return res.json({ reply: canned, flags: { canned: true } });
 
-        // 3) Fees / savings example with numbers (human + short)
-        //    This is the key change you asked for.
-        const feesExample = feesSavingsExampleReply(message);
-        if (feesExample && !isOfficialQuoteQuestion(message)) {
-            return res.json({ reply: feesExample, flags: { fees_example: true } });
-        }
-
-        // 4) Your FAQ (when you fill it)
+        // 3) FAQ answers should beat generic intents
         const fromFaq = faqAnswer(message);
         if (fromFaq) {
             return res.json({ reply: fromFaq, flags: { faq: true } });
+        }
+
+        // 4) Fees / savings example with numbers (human + short)
+        const feesExample = feesSavingsExampleReply(message);
+        if (feesExample && !isOfficialQuoteQuestion(message)) {
+            return res.json({ reply: feesExample, flags: { fees_example: true } });
         }
 
         // 5) Model fallback for everything else
@@ -607,6 +645,8 @@ app.post("/api/chat", async (req, res) => {
     }
 });
 
-app.listen(4001, () => {
-    console.log("API on http://localhost:4001");
+const CHAT_API_PORT = Number(process.env.CHAT_API_PORT || 4002);
+
+app.listen(CHAT_API_PORT, () => {
+    console.log(`API on http://localhost:${CHAT_API_PORT}`);
 });
