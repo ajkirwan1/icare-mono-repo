@@ -81,8 +81,43 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
     // body class (scroll lock etc.)
     useEffect(() => {
         if (!mounted) return;
-        document.body.classList.toggle("icare-mobile-open", open);
-        return () => document.body.classList.remove("icare-mobile-open");
+        const body = document.body;
+        const html = document.documentElement;
+
+        const clearFixedLock = () => {
+            const saved = body.dataset.icareScrollY;
+            const scrollY = saved ? parseInt(saved, 10) : 0;
+
+            body.style.position = "";
+            body.style.top = "";
+            body.style.left = "";
+            body.style.right = "";
+            body.style.width = "";
+            delete body.dataset.icareScrollY;
+
+            if (saved) window.scrollTo(0, scrollY);
+        };
+
+        body.classList.toggle("icare-mobile-open", open);
+        html.classList.toggle("icare-mobile-open", open);
+
+        if (open) {
+            const scrollY = window.scrollY || window.pageYOffset || 0;
+            body.dataset.icareScrollY = String(scrollY);
+            body.style.position = "fixed";
+            body.style.top = `-${scrollY}px`;
+            body.style.left = "0";
+            body.style.right = "0";
+            body.style.width = "100%";
+        } else {
+            clearFixedLock();
+        }
+
+        return () => {
+            body.classList.remove("icare-mobile-open");
+            html.classList.remove("icare-mobile-open");
+            clearFixedLock();
+        };
     }, [open, mounted]);
 
     // ESC closes

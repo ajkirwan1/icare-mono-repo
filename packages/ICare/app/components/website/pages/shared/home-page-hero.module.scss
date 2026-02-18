@@ -170,6 +170,10 @@
     justify-content: flex-end;
 }
 
+.waitlistButton {
+    font-weight: 500;
+}
+
 @media(max-width:600px) {
     .hero {
         min-height: auto;

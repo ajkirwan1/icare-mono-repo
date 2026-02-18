@@ -1,19 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function AiChat() {
+    const API_BASE = (import.meta.env.VITE_CHAT_API_URL || import.meta.env.VITE_API_URL || "http://localhost:4001").replace(/\/$/, "");
+    const CHAT_URL = `${API_BASE}/api/chat`;
+    const BRAND_GREEN = "rgb(119, 141, 67)";
+
+    const quickActions = [
+        { label: "View FAQs", href: "/frequently-asked-questions" },
+        { label: "Join waiting list", href: "/#waitlist" },
+        { label: "Contact form", href: "/contact-us#form-heading" },
+    ];
+
+    const starterQuestions = [
+        "What is ICare and how does it work?",
+        "How do I join the waiting list?",
+        "How do I contact your team?",
+        "Is ICare a care agency?",
+    ];
+
     const [open, setOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([
         {
             role: "assistant",
             content:
-                "Hi! Welcome to ICare. I can help you understand how it works and guide you step by step. Just ask anything.",
+                "Hi! Welcome to ICare.\n\nI can help you understand how it works and guide you step by step.\n\nJust ask anything.",
         },
     ]);
     const [loading, setLoading] = useState(false);
 
     const listRef = useRef(null);
     const inputRef = useRef(null);
+    const dialogRef = useRef(null);
+    const launcherRef = useRef(null);
 
     useEffect(() => {
         if (!listRef.current) return;
@@ -24,8 +44,73 @@ export default function AiChat() {
         if (open) setTimeout(() => inputRef.current?.focus(), 0);
     }, [open]);
 
-    async function send() {
-        const text = input.trim();
+    useEffect(() => {
+        if (!open) return;
+        const onKeyDown = (e) => {
+            if (e.key === "Escape") {
+                setOpen(false);
+                return;
+            }
+            if (e.key !== "Tab" || !dialogRef.current) return;
+            const nodes = dialogRef.current.querySelectorAll(
+                'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+            );
+            if (!nodes.length) return;
+            const first = nodes[0];
+            const last = nodes[nodes.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        };
+        document.addEventListener("keydown", onKeyDown);
+        return () => document.removeEventListener("keydown", onKeyDown);
+    }, [open]);
+
+    useEffect(() => {
+        if (!open) {
+            launcherRef.current?.focus();
+        }
+    }, [open]);
+
+    useEffect(() => {
+        const syncMobile = () => setIsMobile(window.innerWidth <= 760);
+        syncMobile();
+        window.addEventListener("resize", syncMobile);
+        return () => window.removeEventListener("resize", syncMobile);
+    }, []);
+
+    function localFallbackReply(raw) {
+        const text = String(raw || "").toLowerCase();
+
+        if (/(https?:\/\/|www\.|elder\.org|curam|homeinstead|bluebird care|right at home)/i.test(text)) {
+            return "I can’t compare specific companies. I can explain general differences and what to look for in a safe care arrangement.";
+        }
+
+        if (/\b(price|pricing|cost|fees?|cheap|cheaper|compare)\b/i.test(text)) {
+            return "ICare is currently in early access across the UK, so final pricing and fees are not published yet. Please join the waiting list and we’ll share updates at launch.";
+        }
+
+        if (/\b(waiting list|waitlist|join)\b/i.test(text)) {
+            return "You can join here: /#waitlist. If you want, I can also direct you to our contact form.";
+        }
+
+        if (/\b(contact|phone|email|speak|team)\b/i.test(text)) {
+            return "You can contact our team here: /contact-us. We’ll get back to you as soon as possible.";
+        }
+
+        if (/\b(what is icare|how does icare work|how it works)\b/i.test(text)) {
+            return "ICare helps families connect with independent caregivers through clear profiles, direct communication, and a guided process.";
+        }
+
+        return "Thanks for your question. I can help with how ICare works, joining the waiting list, trust and safety, or contacting our team.";
+    }
+
+    async function send(prefilledText = "") {
+        const text = (prefilledText || input).trim();
         if (!text || loading) return;
 
         // optimistic append user
@@ -37,7 +122,7 @@ export default function AiChat() {
         const timeout = setTimeout(() => controller.abort(), 15000);
 
         try {
-            const r = await fetch("http://localhost:4001/api/chat", {
+            const r = await fetch(CHAT_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 // ✅ pass recent history (excluding the new user msg, which backend also gets via "message")
@@ -50,7 +135,7 @@ export default function AiChat() {
             if (!r.ok) {
                 setMessages((m) => [
                     ...m,
-                    { role: "assistant", content: "Something went wrong. Please try again." },
+                    { role: "assistant", content: localFallbackReply(text) },
                 ]);
                 return;
             }
@@ -68,8 +153,8 @@ export default function AiChat() {
                     role: "assistant",
                     content:
                         err?.name === "AbortError"
-                            ? "It’s taking longer than expected. Please try again."
-                            : "Something went wrong. Please try again.",
+                            ? localFallbackReply(text)
+                            : localFallbackReply(text),
                 },
             ]);
         } finally {
@@ -88,18 +173,22 @@ export default function AiChat() {
     return (
         <>
             <button
+                ref={launcherRef}
                 onClick={() => setOpen((v) => !v)}
                 aria-label="Open ICare chat"
+                aria-expanded={open}
+                aria-controls="icare-chat-dialog"
+                className="icare-chat-launcher"
                 style={{
                     position: "fixed",
                     right: 20,
                     bottom: 20,
-                    width: 56,
-                    height: 56,
+                    width: 64.4,
+                    height: 64.4,
                     borderRadius: "50%",
-                    background: "rgb(119, 141, 67)",
+                    background: BRAND_GREEN,
                     color: "#fff",
-                    fontSize: 22,
+                    fontSize: 25.3,
                     border: "none",
                     cursor: "pointer",
                     zIndex: 1000,
@@ -110,12 +199,17 @@ export default function AiChat() {
 
             {open && (
                 <div
+                    ref={dialogRef}
+                    id="icare-chat-dialog"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="icare-chat-title"
                     style={{
                         position: "fixed",
-                        right: 24,
-                        bottom: 96,
-                        width: 360,
-                        height: 520,
+                        right: isMobile ? 12 : 24,
+                        bottom: isMobile ? 92 : 96,
+                        width: isMobile ? "min(360px, calc(100vw - 24px))" : 360,
+                        height: isMobile ? "min(72vh, 520px)" : 520,
                         background: "#fff",
                         borderRadius: 26,
                         boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
@@ -130,11 +224,61 @@ export default function AiChat() {
                             padding: "14px 18px",
                             fontWeight: 500,
                             color: "#fff",
-                            background: "rgb(119, 141, 67)",
+                            background: BRAND_GREEN,
                             fontSize: 16,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
                         }}
                     >
-                        How can we help you today?
+                        <span id="icare-chat-title">How can we help you today?</span>
+                        <button
+                            type="button"
+                            onClick={() => setOpen(false)}
+                            aria-label="Close chat"
+                            style={{
+                                border: "none",
+                                background: "transparent",
+                                color: "#fff",
+                                fontSize: 20,
+                                lineHeight: 1,
+                                cursor: "pointer",
+                                padding: 0,
+                                marginLeft: 12,
+                            }}
+                        >
+                            ×
+                        </button>
+                    </div>
+
+                    <div
+                        style={{
+                            padding: "10px 12px",
+                            borderBottom: "1px solid rgba(15,23,42,0.08)",
+                            display: "flex",
+                            gap: 8,
+                            flexWrap: "wrap",
+                            background: "#fff",
+                        }}
+                    >
+                        {quickActions.map((item) => (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                style={{
+                                    textDecoration: "none",
+                                    background: "#F1F5F9",
+                                    color: "#0F172A",
+                                    borderRadius: 999,
+                                    padding: "7px 11px",
+                                    fontSize: 12,
+                                    fontWeight: 500,
+                                    lineHeight: 1.2,
+                                }}
+                            >
+                                {item.label}
+                            </a>
+                        ))}
                     </div>
 
                     <div
@@ -147,6 +291,43 @@ export default function AiChat() {
                             lineHeight: 1.35,
                         }}
                     >
+                        {messages.length === 1 && (
+                            <div style={{ marginBottom: 14 }}>
+                                <div
+                                    style={{
+                                        marginBottom: 8,
+                                        color: "rgba(15,23,42,0.7)",
+                                        fontSize: 13,
+                                        fontWeight: 500,
+                                    }}
+                                >
+                                    Popular questions
+                                </div>
+                                <div style={{ display: "grid", gap: 8 }}>
+                                    {starterQuestions.map((q) => (
+                                        <button
+                                            key={q}
+                                            type="button"
+                                            onClick={() => send(q)}
+                                            style={{
+                                                textAlign: "left",
+                                                border: "1px solid rgba(15,23,42,0.12)",
+                                                borderRadius: 12,
+                                                background: "#fff",
+                                                color: "#0F172A",
+                                                padding: "10px 12px",
+                                                cursor: "pointer",
+                                                fontSize: 14,
+                                                lineHeight: 1.3,
+                                            }}
+                                        >
+                                            {q}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         {messages.map((m, i) => (
                             <div
                                 key={i}
@@ -193,7 +374,7 @@ export default function AiChat() {
                                 padding: "12px 12px",
                                 fontSize: 18,
                                 borderRadius: 10,
-                                border: "2px solid #2563EB",
+                                border: "2px solid #94A3B8",
                                 outline: "none",
                             }}
                         />
@@ -207,7 +388,7 @@ export default function AiChat() {
                                 height: 54,
                                 borderRadius: 10,
                                 border: "none",
-                                background: "rgb(119, 141, 67)",
+                                background: BRAND_GREEN,
                                 color: "#fff",
                                 cursor: "pointer",
                                 opacity: loading || !input.trim() ? 0.6 : 1,
@@ -221,6 +402,23 @@ export default function AiChat() {
                     </div>
                 </div>
             )}
+
+            <style>{`
+                @keyframes icareChatPulse {
+                    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(119, 141, 67, 0.18); }
+                    50% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(119, 141, 67, 0.06); }
+                }
+
+                .icare-chat-launcher {
+                    animation: icareChatPulse 2.8s ease-in-out infinite;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .icare-chat-launcher {
+                        animation: none;
+                    }
+                }
+            `}</style>
         </>
     );
 }

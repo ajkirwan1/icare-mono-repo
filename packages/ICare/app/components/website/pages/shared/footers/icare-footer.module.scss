@@ -135,11 +135,18 @@
 .links {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $space-10 $space-24;
+    column-gap: $space-26px;
+    align-items: start;
 
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
     }
+}
+
+.linksCol {
+    display: grid;
+    row-gap: $space-12;
+    align-content: start;
 }
 
 .navLink {
@@ -152,6 +159,8 @@
     display: inline-flex;
     align-items: center;
     width: fit-content;
+    line-height: 1.4;
+    padding: 2px 0;
 
     transition: $transition-ui;
 
@@ -167,29 +176,50 @@
     }
 }
 
-.contactSupport {
+.contactGroup {
+    display: grid;
+    gap: $space-8;
+    align-items: start;
+}
+
+.whatsappCta {
     display: inline-flex;
     align-items: center;
-    gap: $space-8;
+    gap: 6px;
     width: fit-content;
-    margin-top: $space-8;
+    margin-top: 2px;
     align-self: flex-start;
+    text-decoration: none;
+    border-radius: $radius-pill;
+    padding: 3px 7px 3px 3px;
+    background: rgba(15, 23, 42, 0.05);
+    transition: $transition-ui;
+
+    &:hover {
+        background: rgba(15, 23, 42, 0.08);
+    }
+
+    &:focus-visible {
+        outline: $space-2 solid $focus-border;
+        outline-offset: $space-2;
+        box-shadow: 0 0 0 $space-4 $focus-ring;
+    }
 }
 
 .whatsappLink {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.85rem;
-    height: 1.85rem;
-    min-width: 1.85rem;
-    min-height: 1.85rem;
+    width: 1.83rem;
+    height: 1.83rem;
+    min-width: 1.83rem;
+    min-height: 1.83rem;
     flex-shrink: 0;
     border-radius: 50%;
     text-decoration: none;
     color: #fff;
     background: #25d366;
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     line-height: 1;
     transition: $transition-ui;
 
@@ -207,15 +237,17 @@
 .supportBubble {
     display: inline-flex;
     align-items: center;
-    font-size: $fs-sm;
-    color: #000;
-    border: 1px solid #000;
+    font-size: 0.9rem;
+    color: $txt;
+    border: none;
     border-radius: $radius-pill;
-    padding: $space-4 $space-8;
-    background: #fff;
+    padding: 0 5px 0 2px;
+    background: transparent;
     line-height: 1.2;
     white-space: nowrap;
+    max-width: none;
 }
+
 
 /* DIVIDER */
 .divider {
@@ -301,7 +333,7 @@
 
     font-size: 1.6rem; // ~15% większe
     line-height: 1;
-    color: #221002; // czarne, spójne z tekstem
+    color: #4b5563;
 
     background: none;
     border: none;

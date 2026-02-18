@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ContactUsForm from "~/components/website/common/forms/contact-us-form";
@@ -15,7 +16,7 @@ export const meta = () => {
     { property: "og:type", content: "website" },
     { property: "og:title", content: "Contact Us - iCare" },
     { property: "og:description", content: "Get in touch with iCare. Whether you're a family, caregiver, or partner, we'd love to hear from you." },
-    { property: "og:url", content: "https://icare-app.co.uk/contact" },
+    { property: "og:url", content: "https://icare-app.co.uk/contact-us" },
     { property: "og:image", content: "https://icare-app.co.uk/images/og/default.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
@@ -31,7 +32,7 @@ export const meta = () => {
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare-app.co.uk/contact" }
+    { rel: "canonical", href: "https://icare-app.co.uk/contact-us" }
   ];
 };
 
@@ -40,7 +41,7 @@ const jsonLd = {
   "@type": "ContactPage",
   "name": "Contact Us",
   "description": "Contact iCare for enquiries about companionship care in the UK.",
-  "url": "https://icare-app.co.uk/contact",
+  "url": "https://icare-app.co.uk/contact-us",
   "mainEntity": {
     "@type": "Organization",
     "name": "iCare",
@@ -54,6 +55,16 @@ const jsonLd = {
 };
 
 export default function ContactUsPage() {
+  useEffect(() => {
+    if (window.location.hash !== "#form-heading") return;
+    const el = document.getElementById("form-heading");
+    if (!el) return;
+    requestAnimationFrame(() => {
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 110;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    });
+  }, []);
+
   return (
     <>
       <script

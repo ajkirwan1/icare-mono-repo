@@ -41,7 +41,7 @@
 .badge {
     border: 0;
     border-radius: 0;
-    padding: 0.4rem 0.5rem 0.20rem 0;
+    padding: 0.55rem 0.7rem 0.35rem 0;
     background: transparent;
     max-width: none;
     display: flex;
@@ -51,8 +51,19 @@
 }
 
 .badge:not(:first-child) {
-    border-left: 1px solid #778d43;
-    padding-left: 3rem;
+    position: relative;
+    padding-left: 3.35rem;
+}
+
+.badge:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.65px;
+    height: 81%;
+    background: #778d43;
 }
 
 .badgeTitle {
@@ -73,7 +84,7 @@
     width: 1.4rem;
     height: 1.4rem;
     flex-shrink: 0;
-    color: #000;
+    color: #778d43;
     font-size: 1.25rem;
 }
 
@@ -132,10 +143,13 @@
         grid-template-columns: 1fr;
         width: min(92vw, 1180px);
         gap: 0.7rem;
+        margin-top: calc(6rem * 0.85);
     }
 
     .badge:not(:first-child) {
-        border-left: 0;
+        &::before {
+            content: none;
+        }
         padding-left: 0;
     }
 }

@@ -18,6 +18,7 @@ import clsx from "clsx";
 
 export default function SubmitButton({
     children,
+    className,
     disabled,
     loading,
     loadingText = "Submitting\u2026",
@@ -28,7 +29,7 @@ export default function SubmitButton({
     return (
         <button
             type={type}
-            className={clsx(styles.button, styles[variant])}
+            className={clsx(styles.button, styles[variant], className)}
             disabled={disabled || loading}
             onClick={onClick}
         >

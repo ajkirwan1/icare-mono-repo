@@ -14,7 +14,7 @@ import AiChat from "../components/website/common/modals/AiChat";
 
 export const meta = () => {
   return [
-    { title: "iCare - Trusted Companionship for Elderly Adults Across the UK" },
+    { title: "ICare | Trusted Home Companionship Across the UK" },
     { name: "description", content: "Find trusted companions for elderly relatives or join our community of caregivers. iCare connects families with caring professionals directly, without agencies or intermediaries." },
     { name: "keywords", content: "elderly companionship UK, companionship care for elderly, companion for elderly parent, caregiver jobs UK, trusted caregivers" },
 
@@ -29,6 +29,7 @@ export const meta = () => {
     { property: "og:image:alt", content: "Caregiver greeting an elderly person at the door with a warm handshake" },
 
     // Twitter Card
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: "iCare - Trusted Companionship for Elderly Adults" },
     { name: "twitter:description", content: "We're building a better way to find trusted companionship care. Join the waitlist today." },
     { name: "twitter:image", content: "https://icare-app.co.uk/images/og/home.jpg" },
@@ -47,12 +48,7 @@ const jsonLd = {
   "@type": "WebSite",
   "name": "iCare",
   "url": "https://icare-app.co.uk",
-  "description": "Trusted companionship care connecting families with caring professionals across the UK.",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://icare-app.co.uk/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "description": "Trusted companionship care connecting families with caring professionals across the UK."
 };
 
 export default function Home() {

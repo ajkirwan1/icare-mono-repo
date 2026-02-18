@@ -34,6 +34,7 @@ export default function ThreeStepGuide() {
                     <VideoSection
                         poster="images/web/how-it-works/3-simple-steps.webp"
                         videoSrc="images/web/how-it-works/howitworks.mp4"
+                        captionTrackSrc="/captions/how-it-works-steps.vtt"
                     />
 
                     {/* RIGHT COLUMN */}

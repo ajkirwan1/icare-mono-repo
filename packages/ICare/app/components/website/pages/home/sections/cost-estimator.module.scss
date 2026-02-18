@@ -239,19 +239,25 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     padding: 0;
     border-radius: 999px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgba(15, 23, 42, 0.9);
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 800;
     line-height: 1;
-    color: rgba(0, 0, 0, 0.7);
+    color: #fff;
     cursor: help;
     user-select: none;
     transform: translateY(-0.5px);
-    background: rgba(236, 105, 105, 0.368);
+    background: rgba(15, 23, 42, 0.92);
+}
+
+.infoIcon:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(221, 139, 79, 0.35);
+    border-color: rgba(221, 139, 79, 0.95);
 }
 
 .tipBubble {
@@ -259,19 +265,20 @@
     left: 50%;
     bottom: calc(100% + 10px);
     transform: translateX(-50%);
-    width: min(320px, 74vw);
-    background: rgba(15, 23, 42, 0.96);
-    color: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    width: min(320px, 78vw);
+    background: rgba(9, 12, 18, 0.98);
+    color: #fff;
+    border: 1px solid rgba(221, 139, 79, 0.55);
     border-radius: 12px;
-    padding: 10px 12px;
-    font-size: 0.92rem;
-    line-height: 1.35;
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.22);
+    padding: 11px 13px;
+    font-size: 0.94rem;
+    line-height: 1.45;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.14s ease, transform 0.14s ease;
     transform-origin: bottom center;
+    z-index: 30;
 }
 
 .tipBubble::after {
@@ -289,6 +296,30 @@
     opacity: 1;
     pointer-events: auto;
     transform: translateX(-50%) translateY(-2px);
+}
+
+@media (max-width: 720px) {
+    .tipBubble {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: 14px;
+        width: auto;
+        max-width: none;
+        transform: translateY(8px);
+        border-radius: 14px;
+        padding: 12px 14px;
+        z-index: 1200;
+    }
+
+    .tipBubble::after {
+        display: none;
+    }
+
+    .tip:hover .tipBubble,
+    .tip:focus-within .tipBubble {
+        transform: translateY(0);
+    }
 }
 
 /* bar */

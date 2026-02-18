@@ -110,7 +110,7 @@ export default function ContactUsForm({
                 </div>
 
                 <div className={classes.actions}>
-                    <SubmitButton disabled={isSubmitting || result?.ok} className={classes.button}>
+                    <SubmitButton disabled={isSubmitting || result?.ok} className={`${classes.button} ${classes.contactButton}`}>
                         {isSubmitting ? (
                             <span className={classes.spinnerWrap}>
                                 <span className={classes.spinner} aria-hidden="true" />

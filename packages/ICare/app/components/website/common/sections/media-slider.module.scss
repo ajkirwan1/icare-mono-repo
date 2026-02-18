@@ -77,12 +77,31 @@
 }
 
 .playTriangle {
+    position: relative;
+    width: 74px;
+    height: 74px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.58);
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.28);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.playTriangle::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    transform: translate(-50%, -50%);
     width: 0;
     height: 0;
-    border-left: 44px solid #fff;
-    border-top: 28px solid transparent;
-    border-bottom: 28px solid transparent;
-    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.28));
+    border-left: 20px solid #fff;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+}
+
+.playOverlay:hover .playTriangle {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.72);
 }
 
 .video {
@@ -99,8 +118,8 @@
 }
 
 .dot {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 999px;
     border: 0;
     background: rgba(60, 60, 60, 0.4);
@@ -166,4 +185,25 @@
 
 .arrowRight {
     right: -55px;
+}
+
+@media (max-width: 900px), (pointer: coarse) {
+    .arrow {
+        width: 56px;
+        height: 56px;
+        margin-top: -10px;
+    }
+
+    .arrowLeft {
+        left: -18px;
+    }
+
+    .arrowRight {
+        right: -18px;
+    }
+
+    .playTriangle {
+        width: 82px;
+        height: 82px;
+    }
 }

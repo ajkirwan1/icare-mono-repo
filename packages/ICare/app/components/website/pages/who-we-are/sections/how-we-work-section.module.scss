@@ -127,17 +127,16 @@
     border-radius: $radius-pill;
     background: $link-bg;
     color: $on-dark;
-    font-weight: $fw-normal;
+    font-weight: 500;
     font-size: $font-base;
     letter-spacing: 0.02em;
     text-decoration: none;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-    transition: all 0.25s ease;
+    transition: filter 0.25s ease;
 }
 
 .ctaLink:hover {
     filter: brightness(1.08);
-    transform: translateY(-1px);
 }
 
 /* Card animation */

@@ -6,6 +6,9 @@ export default function VideoSection({
   poster,
   posterWidth,
   posterHeight,
+  captionTrackSrc,
+  captionTrackLabel = "English",
+  captionTrackLang = "en",
   imageSide = "left", // "left" | "right"
   children
 }) {
@@ -102,7 +105,17 @@ export default function VideoSection({
             playsInline
             preload="metadata"
             onEnded={onEnded}
-          />
+          >
+            {captionTrackSrc && (
+              <track
+                kind="captions"
+                src={captionTrackSrc}
+                srcLang={captionTrackLang}
+                label={captionTrackLabel}
+                default
+              />
+            )}
+          </video>
 
           {isPlaying && (
             <div className={styles.controls}>
