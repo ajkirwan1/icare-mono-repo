@@ -39,6 +39,7 @@ export default function HomePageHero({ imgSrc }) {
                             <div className={styles.form}>
                                 <SubmitButton
                                     type="button"
+                                    className={styles.waitlistButton}
                                     onClick={() => {
                                         const el = document.getElementById("waitlist");
                                         if (!el) { return; }

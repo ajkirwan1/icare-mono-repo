@@ -28,11 +28,13 @@ export default function MobileMockupSection() {
                     {
                         type: "video",
                         src: "images/web/icare-for-carereceivers/voice-call.mp4",
+                        captionTrackSrc: "/captions/carereceivers-voice-call.vtt",
                     },
                     {
                         type: "video",
                         src: "images/web/icare-for-carereceivers/senior1.mp4",
-                        poster: "images/web/icare-for-carereceivers/senior-placeholder.webp"
+                        poster: "images/web/icare-for-carereceivers/senior-placeholder.webp",
+                        captionTrackSrc: "/captions/carereceivers-senior1.vtt",
                     },
                 ]}
             >

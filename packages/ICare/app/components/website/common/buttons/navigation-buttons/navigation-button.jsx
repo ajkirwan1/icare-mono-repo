@@ -11,18 +11,19 @@ import styles from "./navigation-button.module.scss";
  * @property {string} [to]
  * @property {ButtonVariant} [variant]
  * @property {(e: React.MouseEvent) => void} [onClick]
+ * @property {string} [className]
  */
 
 /**
  * @param {NavigationButtonProps} props
  */
-export default function NavigationButton({ children, to, variant = "default", onClick }) {
+export default function NavigationButton({ children, to, variant = "default", onClick, className = "" }) {
     return (
         <NavLink
             to={to}
             onClick={onClick}
             className={({ isActive }) =>
-                `${styles.link} ${styles[variant]} ${isActive ? styles.active : ""}`
+                `${styles.link} ${styles[variant]} ${className || ""} ${isActive ? styles.active : ""}`
             }
         >
             {children}

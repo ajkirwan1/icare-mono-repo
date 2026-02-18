@@ -102,6 +102,21 @@
     font-size: 0.95rem;
 }
 
+.ctaButton {
+    font-weight: 500;
+}
+
+.ctaButtonOutline:hover {
+    background: #c56a2f !important;
+    border-color: #c56a2f !important;
+    color: #fff !important;
+}
+
+.ctaButtonFill:hover {
+    background: #6f7f4a !important;
+    color: #fff !important;
+}
+
 /* BUTTON BASE (połączone 1:1) */
 .btn {
     display: inline-flex;
@@ -150,6 +165,12 @@
         background: #dd8b4f;
         color: #fff;
         border: 0;
+    }
+
+    .ctaButtonOutline {
+        background: #BF5A18 !important;
+        border-color: #BF5A18 !important;
+        color: #fff !important;
     }
 
     .btnFill {

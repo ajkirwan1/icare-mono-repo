@@ -20,6 +20,7 @@
     cursor: pointer;
     transition: $transition-ui;
     box-shadow: $shadow-elev;
+    max-width: 100%;
 }
 
 .item:hover {
@@ -28,12 +29,14 @@
 
 .summary {
     list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: flex-start;
     gap: $space-12;
     padding: $space-4 0;
     border-radius: $radius-lg;
+    width: 100%;
+    min-width: 0;
 
     &::-webkit-details-marker {
         display: none;
@@ -51,14 +54,19 @@
 }
 
 .question {
+    display: block;
+    min-width: 0;
     font-size: $fs-lg;
     font-weight: $fw-semibold;
     color: #1f2a37;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .arrow {
     flex: 0 0 auto;
     margin-left: $space-12;
+    margin-top: 2px;
     width: 34px;
     height: 34px;
     border-radius: 999px;
@@ -85,6 +93,8 @@
 .panel {
     margin-top: $space-12;
     padding-right: $space-8;
+    width: 100%;
+    min-width: 0;
 }
 
 .answer {
@@ -93,4 +103,6 @@
     font-weight: 400;
     font-size: $fs-lg-2;
     line-height: $lh-copy;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }

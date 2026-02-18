@@ -31,7 +31,9 @@ export function WhoWeAreHero() {
                     </div>
 
                     <div className={styles.ctaRow}>
-                        <NavigationButton to="/how-it-works">How ICare works</NavigationButton>
+                        <NavigationButton to="/how-it-works" className={styles.howItWorksBtn}>
+                            How ICare works
+                        </NavigationButton>
                     </div>
 
                 </div>

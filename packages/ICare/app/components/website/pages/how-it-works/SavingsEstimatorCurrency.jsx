@@ -3,32 +3,49 @@ import styles from "./SavingsEstimatorCurrency.module.scss";
 
 export default function ICareCostEstimatorExpanded() {
     const BRAND = "rgb(119, 141, 67)";
+    const to2 = (n) => Number(Number(n).toFixed(2));
+    const clamp = (n, min, max) => Math.min(max, Math.max(min, n));
+    const safeNumber = (raw, fallback) => {
+        const n = typeof raw === "number" ? raw : Number(raw);
+        return Number.isFinite(n) ? n : fallback;
+    };
+    const snapToStep = (value, step) => {
+        const decimals = (step.toString().split(".")[1] || "").length;
+        const snapped = Math.round(value / step) * step;
+        return Number(snapped.toFixed(decimals));
+    };
 
     const [currency, setCurrency] = useState("GBP");
-    const [hourly, setHourly] = useState(13);
+    const [hourly, setHourly] = useState(12.5);
     const [hoursWeek, setHoursWeek] = useState(30);
-    const [icareFeePct, setIcareFeePct] = useState(10);
-    const [agencyMarkupPct, setAgencyMarkupPct] = useState(35);
+    const [agencyMarkupPct, setAgencyMarkupPct] = useState(10);
 
     const range = useMemo(() => {
-        if (currency === "PLN") return { min: 35, max: 120, step: 1, default: 55 };
-        if (currency === "EUR") return { min: 10, max: 40, step: 0.5, default: 16 };
-        return { min: 12.21, max: 35, step: 0.1, default: 13 };
+        if (currency === "EUR") return { min: 12.82, max: 30, step: 0.1, default: 21.4 };
+        return { min: 10.5, max: 30, step: 0.1, default: 12.5 };
     }, [currency]);
 
     useEffect(() => {
-        setHourly((v) => {
-            const next = Number.isFinite(v) ? v : range.default;
-            return Math.min(range.max, Math.max(range.min, next));
-        });
-    }, [range.min, range.max, range.default]);
+        if (currency === "GBP") {
+            setHourly((prev) => {
+                const next = clamp(safeNumber(prev, 12.5), range.min, range.max);
+                return snapToStep(next, range.step);
+            });
+            return;
+        }
+        const mid = (range.min + range.max) / 2;
+        setHourly(snapToStep(mid, range.step));
+    }, [currency, range.min, range.max, range.step]);
 
-    const weeksPerMonth = 52 / 12;
-    const baseCost = hourly * hoursWeek * weeksPerMonth;
-    const agencyTotal = baseCost * (1 + agencyMarkupPct / 100);
-    const icareTotal = baseCost * (1 + icareFeePct / 100);
-    const youSave = agencyTotal - icareTotal;
+    const weeksPerMonth = 4.33;
+    const h = clamp(to2(safeNumber(hourly, 0)), range.min, range.max);
+    const hw = clamp(to2(safeNumber(hoursWeek, 1)), 1, 168);
+    const m = clamp(to2(safeNumber(agencyMarkupPct, 10)), 10, 100);
+    const baseCost = h * hw * weeksPerMonth;
+    const agencyTotal = baseCost * (1 + m / 100);
+    const youSave = Math.max(0, agencyTotal - baseCost);
     const savePct = agencyTotal > 0 ? (youSave / agencyTotal) * 100 : 0;
+    const agencyCarerShareRounded = agencyTotal > 0 ? Math.max(0, Math.min(100, Math.round((baseCost / agencyTotal) * 100))) : 0;
 
     const nf = useMemo(() => {
         return new Intl.NumberFormat(undefined, {
@@ -171,7 +188,10 @@ export default function ICareCostEstimatorExpanded() {
                                         step={range.step}
                                         type="number"
                                         value={hourly}
-                                        onChange={(e) => setHourly(Number(e.target.value))}
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, hourly);
+                                            setHourly(clamp(to2(next), range.min, range.max));
+                                        }}
                                         className={styles.fieldMini}
                                     />
                                 </div>
@@ -182,7 +202,10 @@ export default function ICareCostEstimatorExpanded() {
                                     step={range.step}
                                     type="range"
                                     value={hourly}
-                                    onChange={(e) => setHourly(Number(e.target.value))}
+                                    onChange={(e) => {
+                                        const next = safeNumber(e.target.value, hourly);
+                                        setHourly(clamp(to2(next), range.min, range.max));
+                                    }}
                                     className={styles.rangeInput}
                                     style={{ accentColor: BRAND }}
                                 />
@@ -207,7 +230,10 @@ export default function ICareCostEstimatorExpanded() {
                                         value={hoursWeek}
                                         min={1}
                                         max={168}
-                                        onChange={(e) => setHoursWeek(Number(e.target.value))}
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, hoursWeek);
+                                            setHoursWeek(clamp(Math.round(next), 1, 168));
+                                        }}
                                         className={styles.fieldMini}
                                     />
                                 </div>
@@ -217,47 +243,46 @@ export default function ICareCostEstimatorExpanded() {
                                 </p>
                             </div>
 
-                            {/* Agency markup */}
-                            <div className={styles.fieldGroupWide}>
-                                <div className={styles.fieldRow}>
-                                    <label htmlFor="agency-markup" className={styles.label}>Agency markup</label>
-                                    <select
+                            {/* Agency overhead */}
+                            <div className={styles.fieldGroup}>
+                                <div className={styles.fieldRowFlex}>
+                                    <label htmlFor="agency-markup" className={styles.label}>Agency overhead</label>
+                                    <input
                                         id="agency-markup"
+                                        min={10}
+                                        max={100}
+                                        step={1}
+                                        type="number"
                                         value={agencyMarkupPct}
-                                        onChange={(e) => setAgencyMarkupPct(Number(e.target.value))}
-                                        className={styles.selectLike}
-                                    >
-                                        <option value={25}>25%</option>
-                                        <option value={30}>30%</option>
-                                        <option value={35}>35%</option>
-                                        <option value={40}>40%</option>
-                                    </select>
+                                        onChange={(e) => {
+                                            const next = safeNumber(e.target.value, agencyMarkupPct);
+                                            setAgencyMarkupPct(clamp(Math.round(next), 10, 100));
+                                        }}
+                                        className={styles.fieldMini}
+                                    />
+                                </div>
+
+                                <input
+                                    min={10}
+                                    max={100}
+                                    step={1}
+                                    type="range"
+                                    value={agencyMarkupPct}
+                                    onChange={(e) => {
+                                        const next = safeNumber(e.target.value, agencyMarkupPct);
+                                        setAgencyMarkupPct(clamp(Math.round(next), 10, 100));
+                                    }}
+                                    className={styles.rangeInput}
+                                    style={{ accentColor: BRAND }}
+                                />
+
+                                <div className={styles.rangeLabels}>
+                                    <span>10%</span>
+                                    <span>100%</span>
                                 </div>
 
                                 <p className={styles.helperSmall}>
                                     Used for an illustrative &ldquo;typical agency total&rdquo;.
-                                </p>
-                            </div>
-
-                            {/* ICare fee */}
-                            <div className={styles.fieldGroupWide}>
-                                <div className={styles.fieldRow}>
-                                    <label htmlFor="icare-fee" className={styles.label}>ICare service fee</label>
-                                    <select
-                                        id="icare-fee"
-                                        value={icareFeePct}
-                                        onChange={(e) => setIcareFeePct(Number(e.target.value))}
-                                        className={styles.selectLike}
-                                    >
-                                        <option value={5}>5%</option>
-                                        <option value={10}>10%</option>
-                                        <option value={12}>12%</option>
-                                        <option value={15}>15%</option>
-                                    </select>
-                                </div>
-
-                                <p className={styles.helperSmall}>
-                                    Used only to show &ldquo;Estimated with ICare&rdquo; (illustrative).
                                 </p>
                             </div>
                         </div>
@@ -279,28 +304,15 @@ export default function ICareCostEstimatorExpanded() {
                                     <span className="icare-tip">
                                         <button type="button" className={styles.infoIcon} aria-label="Agency total info">i</button>
                                         <span className="icare-tip-bubble" role="tooltip">
-                                            A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs.
+                                            A market estimate for comparison only. Agency totals can include overheads and margins and may vary by provider, location and care needs. In this scenario, care pay is about {agencyCarerShareRounded}% of the agency estimate.
                                         </span>
                                     </span>
                                 </div>
                                 <div className={styles.resultVal}>{nf.format(agencyTotal)}</div>
                             </div>
 
-                            <div className={styles.resultBox}>
-                                <div className={styles.resultKey}>
-                                    Estimated with ICare
-                                    <span className="icare-tip">
-                                        <button type="button" className={styles.infoIcon} aria-label="ICare estimate info">i</button>
-                                        <span className="icare-tip-bubble" role="tooltip">
-                                            Includes an estimated ICare service fee based on your inputs. This is not a quote and does not include any optional extras you may agree separately.
-                                        </span>
-                                    </span>
-                                </div>
-                                <div className={styles.resultVal}>{nf.format(icareTotal)}</div>
-                            </div>
-
                             <div className={styles.resultBoxAccent}>
-                                <div className={styles.resultKey}>Estimated savings</div>
+                                <div className={styles.resultKey}>Estimated monthly saving</div>
                                 <div className={styles.resultValAccent}>{nf.format(youSave)}</div>
                             </div>
                         </div>
@@ -310,16 +322,16 @@ export default function ICareCostEstimatorExpanded() {
                         </div>
 
                         <p className={styles.savingsText}>
-                            You may save around{" "}
+                            Difference:{" "}
                             <span className={styles.savingsHighlight}>
                                 {Math.round(savePct)}%
                             </span>{" "}
-                            compared with a typical agency.
+                            vs agency estimate (comparison only).
                         </p>
 
                         <p className={styles.disclaimer}>
                             This calculator provides indicative estimates only. ICare is a matching platform and does not provide care services, set rates, or employ caregivers.
-                            Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs.
+                            Final rates and arrangements are agreed directly between families and caregivers. Agency figures are illustrative and vary by provider, region and care needs. ICare is currently in early access across the UK and final pricing is not yet published.
                         </p>
                     </div>
                 </div>

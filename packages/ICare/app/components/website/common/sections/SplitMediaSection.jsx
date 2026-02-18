@@ -168,7 +168,17 @@ export default function SplitMediaSection({
                                                     } catch { }
                                                     setVideoStarted(false);
                                                 }}
-                                            />
+                                            >
+                                                {item.captionTrackSrc && (
+                                                    <track
+                                                        kind="captions"
+                                                        src={item.captionTrackSrc}
+                                                        srcLang={item.captionTrackLang || "en"}
+                                                        label={item.captionTrackLabel || "English"}
+                                                        default
+                                                    />
+                                                )}
+                                            </video>
 
                                             {i === index && isActiveVideo && !videoStarted && (
                                                 <button

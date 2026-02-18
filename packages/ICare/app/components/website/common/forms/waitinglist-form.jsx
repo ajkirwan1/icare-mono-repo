@@ -503,7 +503,7 @@ export default function WaitinglistForm({
                 </div>
 
                 <div className={classes.actions}>
-                    <SubmitButton disabled={!canSubmit} className={classes.button}>
+                    <SubmitButton disabled={!canSubmit} className={`${classes.button} ${classes.waitinglistButton}`}>
                         {isSubmitting ? (
                             <span className={classes.spinnerWrap}>
                                 <span className={classes.spinner} aria-hidden="true" />
@@ -544,14 +544,7 @@ export default function WaitinglistForm({
                 word-break: break-word;
             }
 
-            /* jeśli tooltip jest pozycjonowany absolute/fixed i ma left ustawiany */
-            @media (max-width: 760px){
-                [role="tooltip"]{
-                left: max(12px, var(--tooltip-left, 12px)) !important;
-                right: 12px !important;
-                transform: none !important;
-                }
-            }
+            /* Tooltip position is handled in Tooltip component (fixed + viewport clamped). */
             `}</style>
 
 

@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useLayoutEffect, useId, useRef, useState } from "react";
 import classes from "./tooltip.module.scss";
 
 export default function Tooltip({ content, children }) {
@@ -16,46 +16,51 @@ export default function Tooltip({ content, children }) {
         setOpen(false);
     };
 
-    // 🔥 Clamp positioning logic
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (!open) return;
         if (!triggerRef.current || !tooltipRef.current) return;
 
-        const triggerRect = triggerRef.current.getBoundingClientRect();
         const tooltipEl = tooltipRef.current;
-
         const pad = 12;
+        const positionTooltip = () => {
+            if (!triggerRef.current || !tooltipRef.current) return;
+            const triggerRect = triggerRef.current.getBoundingClientRect();
 
-        // reset styles first
-        tooltipEl.style.left = "";
-        tooltipEl.style.top = "";
-        tooltipEl.style.transform = "";
+            // Set final sizing first so measurements are stable on every open.
+            tooltipEl.style.position = "fixed";
+            tooltipEl.style.maxWidth = "min(92vw, 360px)";
+            tooltipEl.style.left = "0px";
+            tooltipEl.style.top = "0px";
+            tooltipEl.style.transform = "none";
+            tooltipEl.style.visibility = "hidden";
 
-        const tooltipRect = tooltipEl.getBoundingClientRect();
+            const tooltipRect = tooltipEl.getBoundingClientRect();
 
-        // center horizontally relative to trigger
-        let left =
-            triggerRect.left +
-            triggerRect.width / 2 -
-            tooltipRect.width / 2;
+            let left =
+                triggerRect.left +
+                triggerRect.width / 2 -
+                tooltipRect.width / 2 -
+                5;
+            left = Math.max(pad, left);
+            left = Math.min(window.innerWidth - tooltipRect.width - pad, left);
 
-        // clamp to viewport
-        left = Math.max(pad, left);
-        left = Math.min(
-            window.innerWidth - tooltipRect.width - pad,
-            left
-        );
+            const top = triggerRect.top - tooltipRect.height - 1.5;
 
-        // position above trigger
-        const top =
-            triggerRect.top -
-            tooltipRect.height -
-            8;
+            tooltipEl.style.left = `${left}px`;
+            tooltipEl.style.top = `${Math.max(pad, top)}px`;
+            tooltipEl.style.visibility = "visible";
+        };
 
-        tooltipEl.style.position = "fixed";
-        tooltipEl.style.left = `${left}px`;
-        tooltipEl.style.top = `${Math.max(pad, top)}px`;
-        tooltipEl.style.maxWidth = "min(92vw, 360px)";
+        positionTooltip();
+        const rafId = window.requestAnimationFrame(positionTooltip);
+        window.addEventListener("resize", positionTooltip);
+        window.addEventListener("scroll", positionTooltip, true);
+
+        return () => {
+            window.cancelAnimationFrame(rafId);
+            window.removeEventListener("resize", positionTooltip);
+            window.removeEventListener("scroll", positionTooltip, true);
+        };
     }, [open]);
 
     return (

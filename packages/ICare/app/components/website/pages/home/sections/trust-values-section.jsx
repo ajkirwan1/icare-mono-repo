@@ -24,7 +24,7 @@ export default function TrustValuesSection() {
             descShort: "Human support, not bureaucracy.",
             descFull:
                 "Care is a relationship. We prioritise dignity, consistency and real presence  - from companionship visits to live-in continuity, matched to your needs.",
-            img: "/images/web/homepage/care.jpg",
+            img: "/images/web/homepage/secondpic.jpg",
             alt: "Caregiver providing compassionate support at home",
         },
         {

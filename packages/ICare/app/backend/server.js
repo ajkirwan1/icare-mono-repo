@@ -65,6 +65,7 @@ STYLE (MANDATORY)
 - If asked "how to hire": provide a clear 4-step list.
 - Never reply with “What would you like to know?” if the question is clear.
 - Never return an empty response.
+- If asked about pricing/fees/costs: state clearly that ICare is currently in early access and pricing will be shared at launch.
 `.trim();
 
 /** -----------------------------
@@ -137,26 +138,12 @@ function isOfficialQuoteQuestion(message = "") {
  * We keep it short and human, and clearly say it’s illustrative.
  */
 function feesSavingsExampleReply(message = "") {
-    // You can branch tone slightly depending on phrasing, but keep it simple.
-    // Example numbers from screenshot:
-    const hourly = 12.5;
-    const hours = 30;
-    const overheadPct = 10;
-    const savingMonthly = 162.38;
-    const savingPct = 9;
-
-    // If they asked specifically "fees" or "save", give the example
+    // If asked about pricing/fees/costs, keep it aligned with early-access status.
     if (!isFeesSavingsQuestion(message)) return null;
 
     return (
-        `As a simple real-world example: at £${hourly.toFixed(
-            2
-        )}/hour for ${hours} hours/week, agencies often work out about ~${savingPct}% more because of overhead. ` +
-        `That’s roughly £${savingMonthly.toFixed(
-            2
-        )}/month difference in that scenario.\n\n` +
-        `You can explore this in more detail using our calculator here: ${HOW_IT_WORKS_URL} — just adjust the sliders to match your situation.\n\n` +
-        `Figures are illustrative, not a formal quote.`
+        "ICare is currently in early access across the UK, so final pricing and fees are not published yet.\n\n" +
+        "If you join the waiting list, we’ll share pricing updates as soon as launch details are confirmed."
     );
 
 }
@@ -183,8 +170,8 @@ function fallbackByIntent(message) {
     // If it’s a general pricing question but we didn’t match the fees example (edge case)
     if (isGeneralPricingQuestion(m)) {
         return (
-            "If you tell me roughly how many hours per week you need and your area, I can give you a simple ballpark example. " +
-            "As a guide, agencies are often higher because part of the budget covers coordination and operating overhead."
+            "ICare is currently in early access across the UK, so we’re not sharing final pricing yet. " +
+            "Please join the waiting list and we’ll send pricing updates as soon as they are confirmed."
         );
     }
 
@@ -337,8 +324,8 @@ const FAQ = [
         id: "how_much_cost",
         q: ["how much", "cost", "pricing", "price", "how much will it cost", "rates"],
         a:
-            "We’re focused on making quality companionship accessible while ensuring caregivers are fairly compensated. " +
-            "We’re finalising pricing and will share transparent information closer to launch. Waitlist members will be among the first to know.",
+            "ICare is currently in early access across the UK, so final pricing is not published yet. " +
+            "Join the waiting list and you’ll be among the first to receive pricing updates at launch.",
     },
     {
         id: "caregiver_qualifications",

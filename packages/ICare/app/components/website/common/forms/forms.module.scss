@@ -170,6 +170,10 @@
     transition: filter 0.14s ease, background 0.14s ease;
 }
 
+.waitinglistButton {
+    font-weight: 500 !important;
+}
+
 .button:hover {
     filter: brightness(1.06);
 }
