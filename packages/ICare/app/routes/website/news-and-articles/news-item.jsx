@@ -253,33 +253,6 @@ export default function NewsPostPage() {
                         <section className={classes.related} aria-label="Related articles">
                             <div className={classes.relatedHeader}>
                                 <h2 className={classes.relatedTitle}>Related articles</h2>
-
-                                <div className={classes.carouselControls}>
-                                    <button
-                                        type="button"
-                                        className={classes.carouselButton}
-                                        onClick={() => {
-                                            const el = document.getElementById("related-carousel");
-                                            if (!el) { return; }
-                                            el.scrollBy({ left: -(el.clientWidth * 0.9), behavior: "smooth" });
-                                        }}
-                                        aria-label="Scroll left"
-                                    >
-                                        ‹
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className={classes.carouselButton}
-                                        onClick={() => {
-                                            const el = document.getElementById("related-carousel");
-                                            if (!el) { return; }
-                                            el.scrollBy({ left: el.clientWidth * 0.9, behavior: "smooth" });
-                                        }}
-                                        aria-label="Scroll right"
-                                    >
-                                        ›
-                                    </button>
-                                </div>
                             </div>
 
                             <ul id="related-carousel" className={classes.relatedCarousel}>

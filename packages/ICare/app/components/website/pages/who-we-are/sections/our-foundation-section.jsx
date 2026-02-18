@@ -28,7 +28,7 @@ export function OurFoundationSection() {
 
                         <p className={styles.paragraphContinued}>
                             That experience led us to build ICare: a platform that brings structure and clarity to care arrangements, while keeping relationships direct and respectful.
-                            Caregivers remain independent. Families gain confidence. Expectations stay clear from the start
+                            Caregivers remain independent. Families gain confidence. Expectations stay clear from the start.
                         </p>
                     </div>
                 </div>
