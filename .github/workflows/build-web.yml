@@ -13,6 +13,10 @@ env:
   VITE_SITE_URL: https://icare-app.co.uk
   VITE_API_URL: /api
   VITE_SITE_NAME: ICare
+  VITE_SANITY_PROJECT_ID: 08fr3nyq
+  VITE_SANITY_DATASET: production
+  VITE_SANITY_API_VERSION: 2025-01-01
+  VITE_CF_BEACON_TOKEN: fa10eedd07274e7fad97b2f6e9a2f683
 
 jobs:
   build-and-push:

@@ -6,7 +6,8 @@
       "Write(/docs/tiers/tier1/draft-design-specs/wireframes/**)",
       "Edit(/docs/tiers/tier1/draft-design-specs/wireframes/**)",
       "Write(/docs/tiers/tier1/figma/**)",
-      "Edit(/docs/tiers/tier1/figma/**)"
+      "Edit(/docs/tiers/tier1/figma/**)",
+      "Bash(ls:*)"
     ]
   }
 }

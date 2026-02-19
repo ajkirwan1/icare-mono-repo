@@ -72,7 +72,7 @@ const faqsFamilies = [
     },
     {
         q: "How will I know caregivers are trustworthy?",
-        a: "Safety is a foundation of iCare. All caregivers complete our verification process before connecting with families, including identity and eligibility checks where appropriate. Profiles also show experience and supporting details, so you can make informed decisions. We're building this with your peace of mind at the centre, and will share more details at launch."
+        a: "Safety is a foundation of iCare. All caregivers complete mandatory ID verification, right to work checks, and admin approval before connecting with families. Voluntary DBS certificates are verified and displayed as a trust badge. Profiles also show experience and supporting details, so you can make informed decisions."
     },
     {
         q: "Can I choose my own caregiver?",
@@ -80,11 +80,11 @@ const faqsFamilies = [
     },
     {
         q: "What if I need personal care, not just companionship?",
-        a: "We're starting with companionship services because connection is at the heart of good care. Personal care support is part of our future roadmap. If you join the waitlist, we'll keep you informed as additional services become available. For many families, companionship alone already makes a meaningful difference."
+        a: "We're starting with companionship because meaningful connection is where care begins. Personal care services are something we're working towards as we grow. If you join the waitlist, we'll keep you informed as additional services become available. For many families, companionship alone already makes a meaningful difference."
     },
     {
         q: "How much will it cost?",
-        a: "We're working to make quality companionship accessible for families while ensuring caregivers are paid fairly. Pricing details are being finalised and will be shared transparently closer to launch. Families on our waitlist will be among the first to receive updates."
+        a: "You agree rates directly with your caregiver — there are no hidden agency markups. Use our cost estimator on the homepage to see how direct care compares to agency pricing."
     },
     {
         q: "How do arrangements get agreed?",
@@ -122,7 +122,7 @@ const generalQuestions = [
 const faqsSafety = [
     {
         q: "How will iCare protect vulnerable adults?",
-        a: "Safety is built into every layer of iCare. All caregivers must complete identity verification, eligibility checks, and admin approval before their profile goes live. We're designing safeguarding policies aligned with the Care Act 2014 and building reporting tools directly into the platform. Every decision we make is guided by the safety and wellbeing of the people who use iCare."
+        a: "Safety is built into every layer of iCare. All caregivers must complete identity verification, right to work checks, and admin approval before their profile goes live. Our safeguarding policies are informed by the principles of the Care Act 2014, and we are building reporting tools directly into the platform. Every decision we make is guided by the safety and wellbeing of the people who use iCare."
     },
     {
         q: "What if there is an emergency during a visit?",

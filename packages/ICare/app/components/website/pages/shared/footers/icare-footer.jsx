@@ -20,7 +20,6 @@ export default function ICareFooter() {
     operatorLabel: "ICare (sole trader, UK)",
     tradingAs: "ICare",
     location: "Cheltenham, United Kingdom",
-    email: "customershelp@icare.com",
     socials: {
       linkedin: "https://www.linkedin.com/company/icare-platform/?viewAsMember=true",
       facebook: "https://www.facebook.com/profile.php?id=61587936540417"
@@ -155,7 +154,7 @@ export default function ICareFooter() {
             </NavLink>
 
             <p className={styles.tagline}>
-              A transparent marketplace connecting families with independent caregivers without agency markups.
+              A transparent platform connecting families with independent caregivers without agency markups.
             </p>
 
             {/* SOCIAL ICONS + SHARE */}

@@ -349,7 +349,6 @@ export default function WaitinglistForm({
                                     { value: "hourly", label: "Hourly" },
                                     { value: "live_in", label: "Live-in" },
                                     { value: "night", label: "Night" },
-                                    { value: "dementia", label: "Dementia" },
                                     { value: "companion", label: "Companion" },
                                 ]}
                             />

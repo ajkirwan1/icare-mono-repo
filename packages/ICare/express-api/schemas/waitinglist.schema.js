@@ -35,7 +35,7 @@ export const WaitinglistSchema = z.discriminatedUnion("userType", [
     ),
 
     typeOfCare: requiredSelect(
-      z.enum(["hourly", "live_in", "night", "dementia", "companion", "not_sure"]),
+      z.enum(["hourly", "live_in", "night", "companion", "not_sure"]),
       "Please select a type of care"
     )
   }),

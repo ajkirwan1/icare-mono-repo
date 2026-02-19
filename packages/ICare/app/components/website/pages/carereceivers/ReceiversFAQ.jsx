@@ -9,7 +9,7 @@ export default function ReceiversFAQ() {
         },
         {
             q: "How will I know caregivers are trustworthy?",
-            a: "Safety is a foundation of ICare. All caregivers complete our verification process before connecting with families, including identity and eligibility checks where appropriate. Profiles also show experience and supporting details, so you can make informed decisions. We're building this with your peace of mind at the centre, and will share more details at launch.",
+            a: "Safety is a foundation of ICare. All caregivers complete mandatory ID verification, right to work checks, and admin approval before connecting with families. Voluntary DBS certificates are verified and displayed as a trust badge. Profiles also show experience and supporting details, so you can make informed decisions.",
         },
         {
             q: "Can I choose my own caregiver?",
@@ -17,11 +17,11 @@ export default function ReceiversFAQ() {
         },
         {
             q: "What if I need personal care, not just companionship?",
-            a: "We're starting with companionship services because connection is at the heart of good care. Personal care support is part of our future roadmap. If you join the waitlist, we'll keep you informed as additional services become available. For many families, companionship alone already makes a meaningful difference.",
+            a: "We're starting with companionship because meaningful connection is where care begins. Personal care services are something we're working towards as we grow. If you join the waitlist, we'll keep you informed as additional services become available. For many families, companionship alone already makes a meaningful difference.",
         },
         {
             q: "How much will it cost?",
-            a: "We're working to make quality companionship accessible for families while ensuring caregivers are paid fairly. Pricing details are being finalised and will be shared transparently closer to launch. Families on our waitlist will be among the first to receive updates.",
+            a: "You agree rates directly with your caregiver — there are no hidden agency markups. Use our cost estimator on the homepage to see how direct care compares to agency pricing.",
         },
         {
             q: "Is ICare a care agency?",

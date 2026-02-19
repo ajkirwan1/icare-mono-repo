@@ -414,8 +414,8 @@ const FAQ = [
         id: "safeguarding",
         q: ["safeguarding", "protect vulnerable adults", "care act", "report concern", "safeguard"],
         a:
-            "Safety is built into every layer of iCare. Caregivers must complete identity and eligibility checks before profiles go live. " +
-            "We’re designing safeguarding policies aligned with the Care Act 2014 and building reporting tools into the platform.",
+            "Safety is built into every layer of iCare. Caregivers must complete identity verification, right to work checks, and admin approval before profiles go live. " +
+            "Our safeguarding policies are informed by the principles of the Care Act 2014, and we are building reporting tools into the platform.",
     },
     {
         id: "emergency",

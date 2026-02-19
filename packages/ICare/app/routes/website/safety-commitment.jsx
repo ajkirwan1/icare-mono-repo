@@ -46,7 +46,7 @@ const jsonLd = {
         "@type": "ListItem",
         "position": 1,
         "name": "Identity First",
-        "description": "We verify who people are through thorough verification processes."
+        "description": "Every caregiver completes mandatory ID verification, right to work checks, and admin approval before connecting with families."
       },
       {
         "@type": "ListItem",
@@ -129,10 +129,10 @@ export default function SafetyCommitment() {
             <li className={styles.principleItem}>
               <h3 className={styles.h3}>Identity First</h3>
               <p className={styles.p}>
-                You deserve to know who you&apos;re working with. We&apos;re building
-                thorough verification into our platform from day one. Before anyone can
-                connect through ICare, we take steps to confirm their identity and ensure
-                they&apos;re who they say they are.
+                You deserve to know who you&apos;re working with. Every caregiver
+                completes mandatory ID verification, right to work checks, and admin
+                approval before they can connect with families through ICare. Voluntary
+                DBS certificates are verified and displayed as a trust badge.
               </p>
             </li>
 
