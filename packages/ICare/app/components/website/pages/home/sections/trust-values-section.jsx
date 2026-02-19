@@ -50,7 +50,7 @@ export default function TrustValuesSection() {
                 </p>
 
                 <p className={styles.subinfo}>
-                    We are a transparent marketplace not a care agency.<br />
+                    We are a transparent platform, not a care agency.<br />
                     Families connect directly with independent caregivers, talk openly, agree companionship, everyday support and costs upfront, and stay in control of the care relationship at every stage.
                     <br /><br />
                     ICare supports the process with structure, tools and&nbsp;guidance - but the care arrangement is always between the family and the caregiver.

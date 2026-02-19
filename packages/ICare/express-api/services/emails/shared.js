@@ -86,7 +86,7 @@ function newsletterFooterHtml({ unsubscribeUrl } = {}) {
       <a href="${siteUrl}/privacy">Privacy</a> · <a href="${siteUrl}/contact-us">Contact</a>
     </p>
     <p style="margin:8px 0 0;font-size:12px;line-height:1.5;color:#666;">
-      ICare · London, UK
+      ICare · UK
     </p>
   `;
 }
@@ -103,7 +103,7 @@ function waitinglistFooterHtml() {
       <a href="${siteUrl}/privacy">Privacy</a> · <a href="${siteUrl}/terms">Terms</a> · <a href="${siteUrl}/contact-us">Contact</a>
     </p>
     <p style="margin:8px 0 0;font-size:12px;line-height:1.5;color:#666;">
-      ICare · London, UK
+      ICare · UK
     </p>
   `;
 }
@@ -165,7 +165,7 @@ async function appendToImapSent({ from, to, subject, html, reply_to }) {
     await client.connect();
     await client.append("Sent Items", Buffer.from(raw), ["\\Seen"]);
   } finally {
-    await client.logout().catch(() => {});
+    await client.logout().catch(() => { });
   }
 }
 

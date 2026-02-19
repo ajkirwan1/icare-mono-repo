@@ -37,8 +37,8 @@ export default function AboutICareSection() {
                     </p>
 
                     <p className={styles.subtitle}>
-                        Every caregiver on ICare completes a basic verification process, including{" "}
-                        <span className={styles.verificationAccent}>DBS checks, references and experience shortlisting</span>.
+                        Every caregiver on ICare completes a verification process, including{" "}
+                        <span className={styles.verificationAccent}>ID verification, right to work checks, and admin approval</span>. Voluntary DBS certificates are verified and displayed as a trust badge.
                     </p>
 
                     <p className={styles.subtitle}>

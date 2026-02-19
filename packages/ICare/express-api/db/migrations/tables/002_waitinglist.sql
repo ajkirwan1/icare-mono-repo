@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS waitinglist (
   -- Receiver-only fields (nullable for caregivers)
   care_for     TEXT NULL CHECK (care_for IS NULL OR care_for IN ('self', 'family', 'friend')),
   need_when    TEXT NULL CHECK (need_when IS NULL OR need_when IN ('soon', '1_3m', '3m_plus', 'not_sure')),
-  type_of_care TEXT NULL CHECK (type_of_care IS NULL OR type_of_care IN ('hourly', 'live_in', 'night', 'dementia', 'companion')),
+  type_of_care TEXT NULL CHECK (type_of_care IS NULL OR type_of_care IN ('hourly', 'live_in', 'night', 'companion')),
 
   -- Caregiver-only fields (nullable for receivers)
   years_of_experience TEXT NULL CHECK (years_of_experience IS NULL OR years_of_experience IN ('0_1', '1_3', '3_5', '5_plus')),

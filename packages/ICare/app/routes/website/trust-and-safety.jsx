@@ -67,7 +67,7 @@ export default function TrustAndSafetyPage() {
 
           <p className={styles.lead}>
             ICare is a platform designed to help caregivers and care receivers connect
-            with confidence, clarity, and respect. While no online marketplace can
+            with confidence, clarity, and respect. While no online platform can
             eliminate all risks, our goal is to provide tools and information that help
             people make informed decisions.
           </p>
@@ -85,7 +85,7 @@ export default function TrustAndSafetyPage() {
           <h2 className={styles.h2}>Our Promise to You</h2>
 
           <p className={styles.p}>
-            ICare is a marketplace, not a care provider. We do not employ caregivers,
+            ICare is a platform, not a care provider. We do not employ caregivers,
             arrange care on your behalf, or deliver care services directly. Instead,
             we focus on providing a clear environment where individuals can connect,
             communicate, and decide what works best for their needs.
@@ -190,7 +190,7 @@ export default function TrustAndSafetyPage() {
 
           <p className={styles.p}>
             Small steps can make a big difference. Below are practical recommendations
-            commonly used across trusted care marketplaces.
+            commonly used across trusted care platforms.
           </p>
 
           <p className={styles.p}>
