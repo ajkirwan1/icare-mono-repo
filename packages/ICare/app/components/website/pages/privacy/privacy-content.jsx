@@ -47,7 +47,7 @@ export default function PrivacyContent() {
               <tbody>
                 <tr>
                   <th scope="row">Data Controller</th>
-                  <td>iCare Ltd</td>
+                  <td>ICare Sole trader (UK)</td>
                 </tr>
                 <tr>
                   <th scope="row">Privacy contact</th>
@@ -139,7 +139,11 @@ export default function PrivacyContent() {
           </div>
 
           <p className={styles.paragraph}>
-            <strong>Optional information</strong> (name and role preference) helps us personalise
+            <br />
+            <strong>Optional information</strong>
+            <br />
+            <br />
+            (Name and role preference) helps us personalise
             our emails and send you content that&apos;s more relevant to you.
           </p>
 
@@ -332,7 +336,9 @@ export default function PrivacyContent() {
             <a className={styles.inlineLink} href={`mailto:${company.privacyEmail}`}>
               {company.privacyEmail}
             </a>
-            . We&apos;ll respond within 30 days.
+            .
+            <br />
+            We will respond within 30 days.
           </p>
 
           <p className={styles.paragraph}>
