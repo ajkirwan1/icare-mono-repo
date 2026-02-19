@@ -330,6 +330,13 @@
     gap: 0.8rem;
     margin-top: 3rem; // bliżej tagline
     align-items: center;
+    position: relative;
+}
+
+.shareMenuWrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
 .socialLink {
@@ -358,6 +365,48 @@
         box-shadow: 0 0 0 $space-4 $focus-ring;
         border-radius: $radius-pill;
     }
+}
+
+.shareMenu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    z-index: 4;
+    min-width: 168px;
+    display: grid;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+}
+
+.shareMenuItem,
+.shareMenuButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-height: 34px;
+    border-radius: 9px;
+    padding: 6px 10px;
+    color: $txt;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    background: rgba(15, 23, 42, 0.04);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+        background: rgba(15, 23, 42, 0.08);
+    }
+}
+
+.shareMenuButton {
+    background: rgba(119, 141, 67, 0.14);
 }
 
 @media (max-width:600px) {

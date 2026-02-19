@@ -14,7 +14,7 @@ export const meta = () => {
     { property: "og:title", content: "Trust and Safety - iCare" },
     { property: "og:description", content: "Learn how iCare helps families and caregivers connect with confidence through platform safeguards, verification, and practical safety guidance." },
     { property: "og:url", content: "https://icare-app.co.uk/trust-and-safety" },
-    { property: "og:image", content: "https://icare-app.co.uk/images/og-trust-safety.jpg" },
+    { property: "og:image", content: "https://icare-app.co.uk/images/og/default.jpg" },
     { property: "og:image:width", content: "1200" },
     { property: "og:image:height", content: "630" },
     { property: "og:image:alt", content: "Trust and Safety at iCare: Connecting with confidence" },
@@ -22,7 +22,7 @@ export const meta = () => {
     // Twitter Card
     { name: "twitter:title", content: "Trust and Safety - iCare" },
     { name: "twitter:description", content: "Platform safeguards, caregiver verification, and practical safety guidance for families and caregivers." },
-    { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-trust-safety.jpg" },
+    { name: "twitter:image", content: "https://icare-app.co.uk/images/og/default.jpg" },
     { name: "twitter:image:alt", content: "iCare Trust and Safety" }
   ];
 };

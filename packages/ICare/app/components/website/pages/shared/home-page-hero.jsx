@@ -7,7 +7,7 @@ export default function HomePageHero({ imgSrc }) {
 
     return (
         <>
-            <ICareNavbar />
+            <ICareNavbar noShadow />
 
             <header
                 aria-label="ICare homepage hero"

@@ -14,8 +14,8 @@ export const meta = () => {
         { property: "og:type", content: "website" },
         { property: "og:title", content: "Frequently Asked Questions - iCare" },
         { property: "og:description", content: "Get answers about iCare's companionship platform, services, safety, and how to join the waitlist." },
-        { property: "og:url", content: "https://icare-app.co.uk/faq" },
-        { property: "og:image", content: "https://icare-app.co.uk/images/og-faq.jpg" },
+        { property: "og:url", content: "https://icare-app.co.uk/frequently-asked-questions" },
+        { property: "og:image", content: "https://icare-app.co.uk/images/og/default.jpg" },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         { property: "og:image:alt", content: "FAQ: Your questions about iCare answered" },
@@ -23,14 +23,14 @@ export const meta = () => {
         // Twitter Card
         { name: "twitter:title", content: "FAQ - Your Questions About iCare Answered" },
         { name: "twitter:description", content: "Find answers about companionship care, safety, pricing, and more. Your questions answered." },
-        { name: "twitter:image", content: "https://icare-app.co.uk/images/twitter-faq.jpg" },
+        { name: "twitter:image", content: "https://icare-app.co.uk/images/og/default.jpg" },
         { name: "twitter:image:alt", content: "Frequently asked questions about iCare" }
     ];
 };
 
 export const links = () => {
     return [
-        { rel: "canonical", href: "https://icare-app.co.uk/faq" }
+        { rel: "canonical", href: "https://icare-app.co.uk/frequently-asked-questions" }
     ];
 };
 
@@ -184,7 +184,7 @@ export default function FaqsPage() {
             <ICareNavbar />
             <main className={styles.page}>
                 <section className={styles.section}>
-                    <h1>Frequently Asked Questions</h1>
+                    <h1 className={styles.h1}>Frequently Asked Questions</h1>
                     <p>
                         We know you have questions about iCare, what we're building, and how it will work.<br />This page answers the
                         most common questions we hear from families and caregivers interested in joining our community.

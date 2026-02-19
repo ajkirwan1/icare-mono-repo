@@ -48,8 +48,8 @@ const jsonLd = {
     "email": "hello@icare-app.co.uk",
     "url": "https://icare-app.co.uk",
     "sameAs": [
-      "https://www.linkedin.com/company/icare",
-      "https://www.facebook.com/icare"
+      "https://www.linkedin.com/company/icare-platform/?viewAsMember=true",
+      "https://www.facebook.com/profile.php?id=61587936540417"
     ]
   }
 };
@@ -139,7 +139,7 @@ export default function ContactUsPage() {
 
                 <nav aria-label="Social media" className={styles.socialNav}>
                   <a
-                    href="https://www.linkedin.com/company/icare"
+                    href="https://www.linkedin.com/company/icare-platform/?viewAsMember=true"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="ICare on LinkedIn"
@@ -149,7 +149,7 @@ export default function ContactUsPage() {
                   </a>
 
                   <a
-                    href="https://www.facebook.com/icare"
+                    href="https://www.facebook.com/profile.php?id=61587936540417"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="ICare on Facebook"

@@ -192,7 +192,7 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
 
 /* ---------------------------------- Navbar -------------------------------- */
 
-export default function ICareAppNavbar() {
+export default function ICareAppNavbar({ noShadow = false }) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
 
@@ -237,7 +237,10 @@ export default function ICareAppNavbar() {
 
     return (
         <>
-            <header className={styles.header} ref={navDropdownAnchor}>
+            <header
+                className={`${styles.header} ${noShadow ? styles.headerNoShadow : ""}`}
+                ref={navDropdownAnchor}
+            >
                 <NavLink to="/" className={styles.brand} onClick={closeAll}>
                     <img className={styles.logoNormal} src="/images/logo/icarelogo20.svg" alt="ICare" width={121} height={48} />
                     <img className={styles.logoBlack} src="/images/logo/icareblack.svg" alt="ICare" width={121} height={48} />

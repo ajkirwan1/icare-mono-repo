@@ -1,29 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import styles from "./care-timeline.module.scss";
 
 export default function HowItWorksThreeSteps() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const cards = section.querySelectorAll(`.${styles.hiwCard}`);
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    cards.forEach((card) => card.classList.add(styles.isVisible));
-                    observer.disconnect(); // animacja tylko raz
-                }
-            },
-            { threshold: 0.25 }
-        );
-
-        observer.observe(section);
-        return () => observer.disconnect();
-    }, []);
-
     const steps = [
         {
             n: "1",
@@ -47,7 +25,6 @@ export default function HowItWorksThreeSteps() {
             id="how-it-works"
             aria-label="How ICare works"
             className={styles.hiwSection}
-            ref={sectionRef}
         >
             <div className={styles.hiwContainer}>
                 <div className={styles.hiwHeader}>

@@ -11,6 +11,7 @@ export default function SplitMediaSection({
     const isRight = imageSide === "right";
     const [index, setIndex] = useState(0);
     const videoRef = useRef(null);
+    const swipeStartRef = useRef({ x: 0, y: 0, fromVideo: false });
 
     const timerRef = useRef(null);
     const [autoEnabled, setAutoEnabled] = useState(true);
@@ -98,6 +99,36 @@ export default function SplitMediaSection({
     };
 
     const isActiveVideo = media[index]?.type === "video";
+    const swipeEnabled = media.length > 1 && !(isActiveVideo && videoStarted);
+
+    const onTouchStart = useCallback(
+        (e) => {
+            if (!swipeEnabled) return;
+            const touch = e.touches?.[0];
+            if (!touch) return;
+            const fromVideo = e.target instanceof Element ? Boolean(e.target.closest("video")) : false;
+            swipeStartRef.current = { x: touch.clientX, y: touch.clientY, fromVideo };
+        },
+        [swipeEnabled]
+    );
+
+    const onTouchEnd = useCallback(
+        (e) => {
+            if (!swipeEnabled) return;
+            if (swipeStartRef.current.fromVideo) return;
+            const touch = e.changedTouches?.[0];
+            if (!touch) return;
+
+            const dx = touch.clientX - swipeStartRef.current.x;
+            const dy = touch.clientY - swipeStartRef.current.y;
+            const isHorizontalSwipe = Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy);
+            if (!isHorizontalSwipe) return;
+
+            if (dx > 0) goPrev();
+            else goNext();
+        },
+        [goNext, goPrev, swipeEnabled]
+    );
 
     return (
         <div className={styles.container}>
@@ -134,6 +165,8 @@ export default function SplitMediaSection({
                                 goNext();
                             }
                         }}
+                        onTouchStart={onTouchStart}
+                        onTouchEnd={onTouchEnd}
                     >
                         <div
                             className={slider.track}

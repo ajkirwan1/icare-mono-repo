@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,6 +11,9 @@ import styles from "./icare-footer.module.scss";
 
 export default function ICareFooter() {
   const year = new Date().getFullYear();
+  const [shareMenuOpen, setShareMenuOpen] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
+  const shareMenuRef = useRef(null);
 
   const COMPANY = {
     brand: "ICare",
@@ -31,27 +34,107 @@ export default function ICareFooter() {
     lineHeight: 1
   };
 
+  const getShareData = () => ({
+    title: "ICare",
+    text: "A transparent way to arrange home care - without agency markups.",
+    url: typeof window !== "undefined" ? window.location.href : ""
+  });
+
+  const copyUrlWithFallback = async (url) => {
+    if (navigator.clipboard?.writeText && window.isSecureContext) {
+      await navigator.clipboard.writeText(url);
+      return true;
+    }
+
+    const tempInput = document.createElement("textarea");
+    tempInput.value = url;
+    tempInput.setAttribute("readonly", "");
+    tempInput.style.position = "fixed";
+    tempInput.style.left = "-9999px";
+    document.body.appendChild(tempInput);
+    tempInput.select();
+
+    let copied = false;
+    try {
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    }
+
+    document.body.removeChild(tempInput);
+    return copied;
+  };
+
   const handleShare = async () => {
-    const shareData = {
-      title: "ICare",
-      text: "A transparent way to arrange home care — without agency markups.",
-      url: window.location.origin
-    };
+    const shareData = getShareData();
+    if (!shareData.url) return;
+
+    setShareCopied(false);
 
     if (navigator.share) {
       try {
         await navigator.share(shareData);
-      } catch {
-        // user cancelled — silent
-      }
-    } else {
-      try {
-        await navigator.clipboard.writeText(shareData.url);
-      } catch {
-        // silent fail
+        return;
+      } catch (err) {
+        if (err?.name === "AbortError") return;
+        try {
+          await navigator.share({ title: shareData.title, url: shareData.url });
+          return;
+        } catch (retryErr) {
+          if (retryErr?.name === "AbortError") return;
+        }
       }
     }
+
+    setShareMenuOpen(true);
   };
+
+  const handleCopyLink = async () => {
+    const shareData = getShareData();
+    if (!shareData.url) return;
+
+    try {
+      const copied = await copyUrlWithFallback(shareData.url);
+      setShareCopied(copied);
+      if (copied) {
+        window.setTimeout(() => setShareCopied(false), 1600);
+      }
+    } catch {
+      setShareCopied(false);
+    }
+  };
+
+  const shareData = getShareData();
+  const shareMessage = `${shareData.title} - ${shareData.url}`;
+  const facebookShareHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`;
+  const whatsappShareHref = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+  const emailShareHref = `mailto:?subject=${encodeURIComponent(shareData.title)}&body=${encodeURIComponent(shareMessage)}`;
+
+  useEffect(() => {
+    if (!shareMenuOpen) return;
+
+    const handlePointerDown = (event) => {
+      if (!shareMenuRef.current?.contains(event.target)) {
+        setShareMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setShareMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [shareMenuOpen]);
 
   return (
     <footer aria-label="Site footer" className={styles.footer}>
@@ -97,14 +180,61 @@ export default function ICareFooter() {
                 <FontAwesomeIcon icon={faFacebook} style={iconStyle} />
               </a>
 
-              <button
-                type="button"
-                onClick={handleShare}
-                aria-label="Share ICare"
-                className={styles.socialLink}
-              >
-                <FontAwesomeIcon icon={faShareNodes} style={iconStyle} />
-              </button>
+              <div ref={shareMenuRef} className={styles.shareMenuWrap}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (shareMenuOpen) {
+                      setShareMenuOpen(false);
+                      return;
+                    }
+                    handleShare();
+                  }}
+                  aria-label="Share ICare"
+                  aria-expanded={shareMenuOpen}
+                  aria-haspopup="menu"
+                  className={styles.socialLink}
+                >
+                  <FontAwesomeIcon icon={faShareNodes} style={iconStyle} />
+                </button>
+
+                {shareMenuOpen && (
+                  <div className={styles.shareMenu} role="menu" aria-label="Share options">
+                    <a
+                      href={facebookShareHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareMenuItem}
+                      onClick={() => setShareMenuOpen(false)}
+                    >
+                      Facebook
+                    </a>
+                    <a
+                      href={whatsappShareHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareMenuItem}
+                      onClick={() => setShareMenuOpen(false)}
+                    >
+                      WhatsApp
+                    </a>
+                    <a
+                      href={emailShareHref}
+                      className={styles.shareMenuItem}
+                      onClick={() => setShareMenuOpen(false)}
+                    >
+                      Email
+                    </a>
+                    <button
+                      type="button"
+                      className={styles.shareMenuButton}
+                      onClick={handleCopyLink}
+                    >
+                      {shareCopied ? "Copied" : "Copy link"}
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

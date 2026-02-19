@@ -136,70 +136,83 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 72px; // ⬅️ większy click area
-    height: 72px;
-    margin-top: -24px;
+    width: 54px;
+    height: 54px;
     border: 0;
-    background: transparent;
+    border-radius: 999px;
+    background: rgb(119, 141, 67);
     padding: 0;
     cursor: pointer;
     z-index: 5;
-    opacity: 0.85;
+    opacity: 0.95;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
 
-    // jeszcze większy hit-area
+    // większy hit-area
     &::before {
         content: "";
         position: absolute;
-        inset: -20px;
+        inset: -12px;
     }
 
-    // sam znak ">" z linii
+    // glyph strzałki
     &::after {
         content: "";
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 26px; // ⬅️ rozmiar strzałki
-        height: 26px;
-        border-right: 3px solid rgba(15, 23, 42, 0.9);
-        border-bottom: 3px solid rgba(15, 23, 42, 0.9);
+        width: 12px;
+        height: 12px;
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
         transform: translate(-50%, -50%) rotate(-45deg);
     }
 
     &:hover {
         opacity: 1;
+        background: rgb(102, 122, 57);
     }
 
     &:focus-visible {
-        outline: none;
+        outline: 3px solid rgba(255, 255, 255, 0.95);
+        outline-offset: 2px;
     }
 }
 
 .arrowLeft {
-    left: -55px;
+    left: -26px;
 
     &::after {
-        transform: translate(-50%, -50%) rotate(135deg);
+        transform: translate(calc(-50% + 2px), -50%) rotate(135deg);
     }
 }
 
 .arrowRight {
-    right: -55px;
+    right: -26px;
+
+    &::after {
+        transform: translate(calc(-50% - 2px), -50%) rotate(-45deg);
+    }
 }
 
 @media (max-width: 900px), (pointer: coarse) {
     .arrow {
-        width: 56px;
-        height: 56px;
-        margin-top: -10px;
+        width: 46px;
+        height: 46px;
+
+        &::after {
+            width: 10px;
+            height: 10px;
+            border-right-width: 2.5px;
+            border-bottom-width: 2.5px;
+        }
     }
 
     .arrowLeft {
-        left: -18px;
+        left: 6px;
     }
 
     .arrowRight {
-        right: -18px;
+        right: 6px;
     }
 
     .playTriangle {
