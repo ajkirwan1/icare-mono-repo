@@ -38,7 +38,7 @@ export default function HowItWorksThreeSteps() {
         {
             n: "3",
             t: "Start care with clarity",
-            d: "Begin support knowing what’s agreed. No agency pressure — just a clear arrangement.",
+            d: "Begin support knowing what’s agreed. No agency pressure - just a clear arrangement.",
         },
     ];
 

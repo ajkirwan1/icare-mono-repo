@@ -18,16 +18,21 @@
 .title {
     @include motifs.title;
     font-weight: $fw-bold;
+    max-width: 640px;
 }
 
 .subtitle {
     @include motifs.subtitle;
-    max-width: 670px;
+    max-width: 640px;
+}
+
+.verificationAccent {
+    font-weight: 520;
 }
 
 .badgeGrid {
     width: min(90vw, 1180px);
-    margin-top: 6rem;
+    margin-top: 3.45rem;
     margin-bottom: 6rem;
     padding-top: 0;
     padding-right: 1rem;
@@ -143,7 +148,7 @@
         grid-template-columns: 1fr;
         width: min(92vw, 1180px);
         gap: 0.7rem;
-        margin-top: calc(6rem * 0.85);
+        margin-top: calc(3.45rem * 0.85);
     }
 
     .badge:not(:first-child) {

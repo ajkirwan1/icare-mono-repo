@@ -320,25 +320,35 @@
         display: block;
     }
 
-    /* First result tooltip: anchor from left so it doesn't get cut off */
-    .resultGrid .pill:first-child .tipBubble {
+    /* Result tooltips: always under icon and centered */
+    .resultGrid .tipBubble {
         position: fixed;
+        left: var(--tip-x, 50vw);
+        right: auto;
+        top: var(--tip-y, 50vh);
+        bottom: auto;
+        width: min(300px, calc(100vw - 24px));
+        max-height: none;
+        overflow: visible;
+        transform: translate(-50%, 8px);
+        z-index: 1400;
+    }
+
+    .resultGrid .tipBubble::after {
+        display: block;
         left: 50%;
         right: auto;
-        top: 42%;
-        bottom: auto;
-        width: min(320px, calc(100vw - 24px));
-        transform: translate(-50%, -50%);
+        top: auto;
+        bottom: 100%;
+        transform: translateX(-50%);
+        border-top-color: transparent;
+        border-bottom-color: rgba(15, 23, 42, 0.96);
     }
 
-    .resultGrid .pill:first-child .tipBubble::after {
-        display: none;
-    }
-
-    .resultGrid .pill:first-child .tip:hover .tipBubble,
-    .resultGrid .pill:first-child .tip:focus-within .tipBubble,
-    .resultGrid .pill:first-child .tipOpen .tipBubble {
-        transform: translate(-50%, -50%);
+    .resultGrid .tip:hover .tipBubble,
+    .resultGrid .tip:focus-within .tipBubble,
+    .resultGrid .tipOpen .tipBubble {
+        transform: translate(-50%, 0);
     }
 
     .tip:hover .tipBubble,

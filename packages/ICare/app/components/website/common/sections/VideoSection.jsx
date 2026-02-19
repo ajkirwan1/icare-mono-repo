@@ -116,7 +116,6 @@ export default function VideoSection({
               />
             )}
           </video>
-
           {isPlaying && (
             <div className={styles.controls}>
               <button

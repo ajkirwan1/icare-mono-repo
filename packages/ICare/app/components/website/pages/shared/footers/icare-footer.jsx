@@ -125,7 +125,7 @@ export default function ICareFooter() {
 
               <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
               <a
-                href="https://wa.me/?text=Hi.Welcome%20in%20ICare.%20How%20can%20we%20help%20you%3F%0APlease%20write%20us%20a%20message%20and%20we%20will%20get%20back%20to%20you%20as%20soon%20as%20possible."
+                href="https://wa.me/447448016876?text=Hi.Welcome%20in%20ICare.%20How%20can%20we%20help%20you%3F%0APlease%20write%20us%20a%20message%20and%20we%20will%20get%20back%20to%20you%20as%20soon%20as%20possible."
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Write to us on Whatsapp"
