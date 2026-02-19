@@ -8,7 +8,7 @@ export function meta() {
     title: "Privacy Policy",
     description:
       "Learn how iCare collects, uses, and protects your personal information. Our commitment to data privacy and GDPR compliance.",
-    imagePath: "/images/og/og-default.jpg"
+    imagePath: "/images/og/default.jpg"
   });
 
   return [

@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import styles from "./how-we-work-section.module.scss";
 
@@ -36,33 +35,10 @@ const steps = [
 ];
 
 export function HowWeWorkSection() {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const cards = section.querySelectorAll(`.${styles.stepItem}`);
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    cards.forEach((card) => card.classList.add("is-visible"));
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.25 }
-        );
-
-        observer.observe(section);
-        return () => observer.disconnect();
-    }, []);
-
     return (
         <section
             id="howwework"
             aria-labelledby="howwework-heading"
-            ref={sectionRef}
             className={styles.section}
         >
             <div className={styles.wrap}>

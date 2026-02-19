@@ -4,11 +4,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 4rem 1rem;
-  padding-top: calc(var(--navbar-height) + 5vh);
+  padding-top: 160px;
   padding-bottom: 7rem;
   display: grid;
   gap: 3.8rem;
   color: $txt;
+
+  @media (max-width: 600px) {
+    padding-top: calc(var(--navbar-height) + 5vh);
+  }
 }
 
 .hero {
@@ -38,7 +42,7 @@
   letter-spacing: -0.02em;
   color: $txt;
   font-size: $font-3xl;
-  font-weight: $fw-semibold;
+  font-weight: $fw-bold;
 }
 
 .h2 {

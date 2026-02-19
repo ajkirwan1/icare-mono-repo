@@ -3,7 +3,12 @@
 
 .page {
   @include page-shell;
+  padding-top: 160px;
   padding-bottom: 7rem;
+
+  @media (max-width: 600px) {
+    padding-top: calc(var(--navbar-height) + 5vh);
+  }
 }
 
 .section {
@@ -24,6 +29,15 @@
   color: $txt;
   font-size: 1.4rem;
   font-weight: $fw-extrabold;
+}
+
+.h1 {
+  margin: 0;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: $txt;
+  font-size: $font-3xl;
+  font-weight: $fw-bold;
 }
 
 .link {

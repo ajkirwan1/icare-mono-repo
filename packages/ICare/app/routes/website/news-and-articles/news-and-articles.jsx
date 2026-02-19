@@ -6,6 +6,33 @@ import classes from "~/styles/pages/news-and-articles/news-and-articles.module.s
 import Tag from "~/components/website/common/tags/tag";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 
+export const meta = () => {
+  const title = "Care guidance | ICare";
+  const description = "Expert articles and practical guidance on home care in the UK for families and caregivers.";
+  const url = "https://icare-app.co.uk/care-knowledge";
+  const image = "https://icare-app.co.uk/images/og/default.jpg";
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:url", content: url },
+    { property: "og:image", content: image },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image }
+  ];
+};
+
+export const links = () => {
+  return [
+    { rel: "canonical", href: "https://icare-app.co.uk/care-knowledge" }
+  ];
+};
+
 function formatDate(dateString) {
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",

@@ -24,13 +24,28 @@ export async function loader({ params }) {
 export function meta({ data }) {
     const tag = data?.tag;
     const pretty = tag ? prettifyTag(tag) : "Tag";
+    const encodedTag = tag ? encodeURIComponent(tag) : "";
+    const url = tag
+        ? `https://icare-app.co.uk/care-knowledge/tags/${encodedTag}`
+        : "https://icare-app.co.uk/care-knowledge";
+    const image = "https://icare-app.co.uk/images/og/default.jpg";
 
     const title = `${pretty} articles | ICare`;
     const description = `Read updates and research on ${pretty}, including insights on in-home care, workforce challenges, and care costs.`;
 
     return [
         { title },
-        { name: "description", content: description }
+        { name: "description", content: description },
+        { tagName: "link", rel: "canonical", href: url },
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+        { property: "og:image", content: image },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: image }
     ];
 }
 

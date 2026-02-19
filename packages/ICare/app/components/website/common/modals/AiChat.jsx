@@ -13,6 +13,9 @@ export default function AiChat() {
     const POP_SOUND_FALLBACK_VOLUME = 1;
     const CHAT_Z_INDEX = 12000;
     const BRAND_GREEN = "rgb(119, 141, 67)";
+    const MOBILE_LAUNCHER_BOTTOM = "calc(26px + env(safe-area-inset-bottom, 0px))";
+    const MOBILE_CHAT_TOP = "calc(var(--navbar-height, 92px) + 8px)";
+    const MOBILE_CHAT_BOTTOM = "calc(8px + env(safe-area-inset-bottom, 0px))";
 
     const quickActions = [
         { label: "View FAQs", href: "/frequently-asked-questions", type: "link" },
@@ -513,9 +516,9 @@ export default function AiChat() {
                 style={{
                     position: "fixed",
                     right: 20,
-                    bottom: 20,
+                    bottom: isMobile ? MOBILE_LAUNCHER_BOTTOM : 20,
                     zIndex: CHAT_Z_INDEX,
-                    display: isMobile && mobileMenuOpen ? "none" : undefined,
+                    display: open || (isMobile && mobileMenuOpen) ? "none" : undefined,
                 }}
             >
                 <button
@@ -563,15 +566,15 @@ export default function AiChat() {
                     aria-labelledby="icare-chat-title"
                     style={{
                         position: "fixed",
-                        right: expanded ? "auto" : (isMobile ? 12 : 24),
-                        bottom: expanded ? "auto" : (isMobile ? 92 : 96),
-                        left: expanded ? "50%" : "auto",
-                        top: expanded ? "50%" : "auto",
+                        right: expanded ? "auto" : (isMobile ? 8 : 24),
+                        bottom: expanded ? "auto" : (isMobile ? MOBILE_CHAT_BOTTOM : 96),
+                        left: expanded ? "50%" : (isMobile ? 8 : "auto"),
+                        top: expanded ? "50%" : (isMobile ? MOBILE_CHAT_TOP : "auto"),
                         transform: expanded ? "translate(-50%, -50%)" : "none",
-                        width: expanded ? "min(800px, calc(100vw - 40px))" : (isMobile ? "min(360px, calc(100vw - 24px))" : 360),
-                        height: expanded ? "min(86vh, 780px)" : (isMobile ? "min(72vh, 520px)" : 520),
+                        width: expanded ? "min(800px, calc(100vw - 40px))" : (isMobile ? "auto" : 360),
+                        height: expanded ? "min(86vh, 780px)" : (isMobile ? "auto" : 520),
                         background: "#fff",
-                        borderRadius: expanded ? 28 : 26,
+                        borderRadius: expanded ? 28 : (isMobile ? 18 : 26),
                         boxShadow: expanded ? "0 26px 60px rgba(15,23,42,0.28)" : "0 20px 40px rgba(0,0,0,0.2)",
                         display: "flex",
                         flexDirection: "column",
@@ -630,6 +633,7 @@ export default function AiChat() {
                                     type="button"
                                     onClick={() => {
                                         setHandoff(true);
+                                        setPopularOpen(false);
                                         setHandoffError("");
                                         setTimeout(() => handoffNameRef.current?.focus(), 0);
                                     }}
@@ -673,6 +677,8 @@ export default function AiChat() {
                         ref={listRef}
                         style={{
                             flex: 1,
+                            minHeight: 0,
+                            display: isMobile && handoff ? "none" : "block",
                             padding: 16,
                             overflowY: "auto",
                             fontSize: 18,
@@ -758,7 +764,10 @@ export default function AiChat() {
                         <form
                             onSubmit={submitHandoff}
                             style={{
-                                padding: 14,
+                                flex: isMobile ? 1 : undefined,
+                                minHeight: 0,
+                                overflowY: isMobile ? "auto" : "visible",
+                                padding: isMobile ? "12px 12px calc(10px + env(safe-area-inset-bottom, 0px))" : 14,
                                 borderTop: "1px solid rgba(15,23,42,0.08)",
                                 display: "grid",
                                 gap: 8,
@@ -832,7 +841,7 @@ export default function AiChat() {
                                 rows={3}
                                 style={{
                                     resize: "vertical",
-                                    minHeight: 72,
+                                    minHeight: isMobile ? 60 : 72,
                                     padding: "10px 11px",
                                     fontSize: 14,
                                     borderRadius: 10,

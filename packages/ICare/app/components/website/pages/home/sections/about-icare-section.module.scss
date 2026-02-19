@@ -82,6 +82,12 @@
     color: #000;
 }
 
+@media (min-width:601px) {
+    .badgeTitle {
+        min-height: 46px;
+    }
+}
+
 .badgeIcon {
     display: inline-flex;
     align-items: center;
