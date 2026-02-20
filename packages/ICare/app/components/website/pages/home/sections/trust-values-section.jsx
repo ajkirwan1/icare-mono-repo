@@ -17,6 +17,7 @@ export default function TrustValuesSection() {
             descFull:
                 "See who you’re speaking with, what support is offered, and what it costs - without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
             img: "/images/web/homepage/icare-trust.webp",
+            imgMobile: "/images/web/homepage/icare-trust-1000.webp",
             alt: "Caregiver and elderly person reviewing a clear profile together",
         },
         {
@@ -24,7 +25,8 @@ export default function TrustValuesSection() {
             descShort: "Human support, not bureaucracy.",
             descFull:
                 "Care is a relationship. We prioritise dignity, consistency and real presence  - from companionship visits to live-in continuity, matched to your needs.",
-            img: "/images/web/homepage/secondpic.jpg",
+            img: "/images/web/homepage/secondpic-1400.webp",
+            imgMobile: "/images/web/homepage/secondpic-1000.webp",
             alt: "Caregiver providing compassionate support at home",
         },
         {
@@ -32,7 +34,8 @@ export default function TrustValuesSection() {
             descShort: "Support that scales locally.",
             descFull:
                 "Families and caregivers benefit from shared clarity and better matching over time. Early access helps us prioritise the right towns first - starting with your area.",
-            img: "/images/web/homepage/community.jpg",
+            img: "/images/web/homepage/community-1400.webp",
+            imgMobile: "/images/web/homepage/community-1000.webp",
             alt: "Families and caregivers connecting in a local community",
         },
     ];
@@ -70,7 +73,26 @@ export default function TrustValuesSection() {
                                 onMouseLeave={() => setHoverIndex(null)}
                             >
                                 {/* ✅ keep existing images */}
-                                <img src={item.img} alt={item.alt} className={styles.image} />
+                                {item.imgMobile ? (
+                                    <picture>
+                                        <source media="(max-width: 600px)" srcSet={item.imgMobile} />
+                                        <img
+                                            src={item.img}
+                                            alt={item.alt}
+                                            className={styles.image}
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </picture>
+                                ) : (
+                                    <img
+                                        src={item.img}
+                                        alt={item.alt}
+                                        className={styles.image}
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                )}
 
                                 <div className={styles.gradient} />
 
