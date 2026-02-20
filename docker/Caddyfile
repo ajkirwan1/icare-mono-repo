@@ -1,9 +1,8 @@
-icare-app.co.uk {
-    # Basic auth - remove this block to make site public
-    basicauth * {
-        admin REPLACE_WITH_CADDY_HASH_PASSWORD
-    }
+www.icare-app.co.uk {
+    redir https://icare-app.co.uk{uri} permanent
+}
 
+icare-app.co.uk {
     # API routes
     handle /api/* {
         reverse_proxy api:4001
