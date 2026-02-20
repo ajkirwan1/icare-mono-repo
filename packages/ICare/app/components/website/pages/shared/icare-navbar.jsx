@@ -13,11 +13,13 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
   // body class (scroll lock)
   useEffect(() => {
     if (!mounted) { return; }
+    if (!mounted) { return; }
     const body = document.body;
     const html = document.documentElement;
 
     const clearFixedLock = () => {
       const saved = body.dataset.icareScrollY;
+      if (!saved) { return; }          // nothing to restore
       if (!saved) { return; }          // nothing to restore
 
       const scrollY = parseInt(saved, 10);
