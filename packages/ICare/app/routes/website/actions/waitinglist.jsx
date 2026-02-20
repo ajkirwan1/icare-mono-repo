@@ -30,8 +30,9 @@ export async function action({ request }) {
   // Remove non-business fields before sending
   const { _delay, company, ...payload } = values;
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-  if (!apiUrl) {
+  // Server-side: use API_INTERNAL_URL (Docker internal), fallback to VITE_API_URL (local dev)
+  const apiBase = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
+  if (!apiBase) {
     return new Response(JSON.stringify({ ok: false, error: "Server misconfigured." }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
@@ -40,7 +41,7 @@ export async function action({ request }) {
 
   let resp;
   try {
-    resp = await fetch(`${apiUrl}/api/waitinglist`, {
+    resp = await fetch(`${apiBase}/api/waitinglist`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
