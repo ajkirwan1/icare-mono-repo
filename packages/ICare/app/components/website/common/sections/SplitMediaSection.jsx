@@ -16,6 +16,7 @@ export default function SplitMediaSection({
     const timerRef = useRef(null);
     const [autoEnabled, setAutoEnabled] = useState(true);
     const [videoStarted, setVideoStarted] = useState(false);
+    const [isCoarsePointer, setIsCoarsePointer] = useState(false);
 
     const clearTimer = useCallback(() => {
         if (timerRef.current) {
@@ -59,6 +60,22 @@ export default function SplitMediaSection({
         scheduleNext();
         return () => clearTimer();
     }, [index, scheduleNext, clearTimer]);
+
+    useEffect(() => {
+        if (typeof window === "undefined" || typeof window.matchMedia !== "function") return;
+
+        const mq = window.matchMedia("(pointer: coarse)");
+        const sync = () => setIsCoarsePointer(mq.matches);
+        sync();
+
+        if (typeof mq.addEventListener === "function") {
+            mq.addEventListener("change", sync);
+            return () => mq.removeEventListener("change", sync);
+        }
+
+        mq.addListener(sync);
+        return () => mq.removeListener(sync);
+    }, []);
 
     // on slide change: reset video + overlay
     useEffect(() => {
@@ -189,7 +206,7 @@ export default function SplitMediaSection({
                                                 playsInline
                                                 preload="none"
                                                 muted // ✅ start w stanie muted; odmutowujemy po kliknięciu
-                                                controls={i === index && videoStarted}
+                                                controls={i === index && videoStarted && !isCoarsePointer}
                                                 className={slider.video}
                                                 onEnded={() => {
                                                     const v = videoRef.current;

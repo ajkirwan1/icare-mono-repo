@@ -156,13 +156,11 @@ export default function ICareCostEstimator({
             if (e.key === "Escape") setOpenTip(null);
         };
 
-        let rafId = null;
         const closeOnScroll = () => {
-            if (rafId !== null) return;
-            rafId = window.requestAnimationFrame(() => {
-                setOpenTip(null);
-                rafId = null;
-            });
+            setOpenTip(null);
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
         };
 
         document.addEventListener("mousedown", handleOutside);
@@ -181,7 +179,6 @@ export default function ICareCostEstimator({
             window.removeEventListener("wheel", closeOnScroll);
             window.removeEventListener("touchmove", closeOnScroll);
             document.removeEventListener("scroll", closeOnScroll, true);
-            if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
     }, [openTip]);
 

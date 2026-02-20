@@ -2,8 +2,14 @@ import ICareNavbar from "./icare-navbar";
 import SubmitButton from "../../common/buttons/submit-buttons/submit-button";
 import styles from "./home-page-hero.module.scss";
 import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
+import HeroImage from "../../common/media/HeroImage";
 
-export default function HomePageHero({ imgSrc }) {
+export default function HomePageHero({
+    imgSrc,
+    imgMobileSrc,
+    imgWidth = 2560,
+    imgHeight = 1707,
+}) {
 
     return (
         <>
@@ -13,8 +19,11 @@ export default function HomePageHero({ imgSrc }) {
                 aria-label="ICare homepage hero"
                 className={styles.hero}
             >
-                <img
+                <HeroImage
                     src={imgSrc}
+                    mobileSrc={imgMobileSrc}
+                    width={imgWidth}
+                    height={imgHeight}
                     alt="Care support background"
                     className={styles.backgroundImage}
                 />

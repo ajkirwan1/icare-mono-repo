@@ -1,4 +1,5 @@
 import heroImage from "/images/heros/icare-companionship.webp";
+import heroImageMobile from "/images/heros/icare-companionship-1200.webp";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
@@ -58,7 +59,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <HomePageHero imgSrc={heroImage} />
+      <HomePageHero
+        imgSrc={heroImage}
+        imgMobileSrc={heroImageMobile}
+        imgWidth={2560}
+        imgHeight={1707}
+      />
       <main>
         <AboutICareSection />
         <CareTimeline />
