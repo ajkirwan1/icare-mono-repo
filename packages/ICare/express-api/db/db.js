@@ -11,9 +11,8 @@ if (!process.env.DATABASE_URL) {
 }
 
 const connectionString = process.env.DATABASE_URL;
+const useSSL = connectionString?.includes('sslmode=require');
 export const pool = new pg.Pool({
-  connectionString,
-  ssl: connectionString?.includes('sslmode=require')
-    ? { rejectUnauthorized: false }
-    : undefined
+  connectionString: useSSL ? connectionString.replace(/[?&]sslmode=require/, '') : connectionString,
+  ssl: useSSL ? { rejectUnauthorized: false } : undefined
 });
