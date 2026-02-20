@@ -19,6 +19,10 @@ $focusRing: rgba(231, 153, 97, 0.16);
     padding-top: calc(var(--navbar-height) + 5vh);
 }
 
+.wrapConfirmed {
+    background-image: url("/images/heros/newsl2-compressed.jpg");
+}
+
 .overlay {
     pointer-events: none;
     position: absolute;
@@ -134,15 +138,29 @@ $focusRing: rgba(231, 153, 97, 0.16);
 .statusCard {
     composes: card;
     text-align: center;
-    padding: clamp(32px, 4vw, 48px) clamp(24px, 3vw, 40px);
-    max-width: 520px;
+    padding: clamp(26px, 3.2vw, 38px) clamp(20px, 2.4vw, 32px);
+    max-width: 416px;
     margin: 0 auto;
 }
 
 .statusIcon {
-    font-size: 3rem;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 14px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #f7fcf9, #eefaf2);
+    border: 1px solid #ccefd8;
+    box-shadow: 0 6px 14px rgba(22, 101, 52, 0.08);
+}
+
+.statusIconGlyph {
+    font-size: 1.5rem;
+    font-weight: 600;
     line-height: 1;
-    margin-bottom: 12px;
+    color: #1f7a48;
+    transform: translateY(-1px);
 }
 
 .heading {
@@ -165,6 +183,13 @@ $focusRing: rgba(231, 153, 97, 0.16);
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
+    margin-top: 8px;
+    padding-inline: 6px;
+}
+
+.statusActionBtn {
+    padding: 14px 28px !important;
+    font-weight: 500 !important;
 }
 
 .successMsg {
