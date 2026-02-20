@@ -20,6 +20,8 @@ services:
       PUBLIC_API_URL: ${PUBLIC_API_URL}
       PUBLIC_SITE_URL: ${PUBLIC_SITE_URL}
       RESEND_API_KEY: ${RESEND_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-hello@icare-app.co.uk}
     depends_on:
       migrate:
         condition: service_completed_successfully

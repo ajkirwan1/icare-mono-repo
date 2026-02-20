@@ -9,8 +9,9 @@ export async function action({ request }) {
     );
   }
 
-  const apiUrl = import.meta.env.VITE_API_URL;
-  if (!apiUrl) {
+  // Server-side: use API_INTERNAL_URL (Docker internal), fallback to VITE_API_URL (local dev)
+  const apiBase = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
+  if (!apiBase) {
     return new Response(
       JSON.stringify({ ok: false, error: "Server misconfigured." }),
       { status: 500, headers: { "Content-Type": "application/json" } }
@@ -19,7 +20,7 @@ export async function action({ request }) {
 
   let resp;
   try {
-    resp = await fetch(`${apiUrl}/api/newsletter/resend`, {
+    resp = await fetch(`${apiBase}/api/newsletter/resend`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email })
