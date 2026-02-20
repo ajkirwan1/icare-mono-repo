@@ -22,6 +22,7 @@ services:
       RESEND_API_KEY: ${RESEND_API_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       CONTACT_TO_EMAIL: ${CONTACT_TO_EMAIL:-hello@icare-app.co.uk}
+      EMAIL_FROM: ${EMAIL_FROM:-ICare <hello@icare-app.co.uk>}
     depends_on:
       migrate:
         condition: service_completed_successfully
