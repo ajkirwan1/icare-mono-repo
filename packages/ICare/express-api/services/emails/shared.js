@@ -6,7 +6,6 @@ import path from "path";
 export async function loadLogoPngBase64() {
   const filePath = path.join(
     process.cwd(),
-    "..",
     "public",
     "images",
     "logo",
@@ -19,7 +18,6 @@ export async function loadLogoPngBase64() {
 export async function loadLogoPngBase64White() {
   const filePath = path.join(
     process.cwd(),
-    "..",
     "public",
     "images",
     "logo",
