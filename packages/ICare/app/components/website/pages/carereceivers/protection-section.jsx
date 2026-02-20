@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faComments, faRotate } from "@fortawesome/free-solid-svg-icons";
 import LayoutSection from "../../common/layout/layout-section";
-import imageSrc from "/images/web/icare-for-carereceivers/calmprocess2.png";
+import imageSrc from "/images/web/icare-for-carereceivers/calmprocess2.webp";
 import styles from "./protection-section.module.scss";
 
 export default function ProtectionSection() {

@@ -1,15 +1,20 @@
 import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
 import privacySrc from "/images/heros/privacy.webp";
+import privacyMobileSrc from "/images/heros/privacy-1200.webp";
 import styles from "./privacy-hero.module.scss";
 import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
+import HeroImage from "../../common/media/HeroImage";
 
 export default function PrivacyHero() {
     return (
         <>
             <ICareNavbar />
             <section aria-label="Privacy policy introduction" className={styles.hero}>
-                <img
+                <HeroImage
                     src={privacySrc}
+                    mobileSrc={privacyMobileSrc}
+                    width={2560}
+                    height={1707}
                     alt=""
                     className={styles.bgImage}
                 />

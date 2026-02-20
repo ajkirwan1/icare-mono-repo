@@ -1,6 +1,8 @@
 import heroImage from "/images/heros/icare-for-caregivers.webp";
+import heroImageMobile from "/images/heros/icare-for-caregivers-1200.webp";
 import styles from "./icare-for-caregivers-hero.module.scss";
 import heroCopyStyles from "../../common/sections/hero-copy.module.scss";
+import HeroImage from "../../common/media/HeroImage";
 
 export default function ICareForCaregiversHero() {
     return (
@@ -8,8 +10,11 @@ export default function ICareForCaregiversHero() {
             aria-label="ICare for Caregivers hero"
             className={styles.hero}
         >
-            <img
+            <HeroImage
                 src={heroImage}
+                mobileSrc={heroImageMobile}
+                width={2560}
+                height={1707}
                 alt=""
                 role="presentation"
                 className={styles.image}
