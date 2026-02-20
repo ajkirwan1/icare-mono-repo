@@ -15,23 +15,25 @@ export default function NewsletterConfirmed() {
     <>
       <ICareNavbar />
 
-      <section aria-label="Subscription confirmed" className={styles.wrap}>
+      <section aria-label="Subscription confirmed" className={`${styles.wrap} ${styles.wrapConfirmed}`}>
         <div className={styles.overlay} />
 
         <div className={styles.container}>
           <div className={styles.statusCard}>
-            <div className={styles.statusIcon} aria-hidden="true">&#10003;</div>
-            <h1 className={styles.heading}>You&apos;re subscribed</h1>
+            <div className={styles.statusIcon} aria-hidden="true">
+              <span className={styles.statusIconGlyph}>&#10003;</span>
+            </div>
+            <h1 className={styles.heading}>You are now subscribed</h1>
             <p className={styles.subtitle}>
               Thanks for confirming your email. You&apos;ll receive monthly care
               insights, industry updates, and helpful resources from ICare
               straight to your inbox.
             </p>
             <div className={styles.actions}>
-              <NavigationButton to="/care-knowledge">
+              <NavigationButton to="/care-knowledge" className={styles.statusActionBtn}>
                 Read our latest articles
               </NavigationButton>
-              <NavigationButton to="/">
+              <NavigationButton to="/" className={styles.statusActionBtn}>
                 Back to home
               </NavigationButton>
             </div>
