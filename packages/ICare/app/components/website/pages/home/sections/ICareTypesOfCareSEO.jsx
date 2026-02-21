@@ -7,9 +7,6 @@ import {
     faClock,
     faMoon,
     faBrain,
-    faCircleInfo,
-    faChevronDown,
-    faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function ICareTypesOfCareSEO() {

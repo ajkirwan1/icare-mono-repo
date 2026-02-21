@@ -18,7 +18,6 @@ export default function ICareCostEstimator({
 }) {
     const [openTip, setOpenTip] = React.useState(null);
     const [tipAnchor, setTipAnchor] = React.useState({ x: null, y: null });
-    const tipsRootRef = React.useRef(null);
 
     const TEXT = "#221002";
     const ACCENT = "#6a7d3c";
@@ -147,9 +146,10 @@ export default function ICareCostEstimator({
         if (!openTip) return;
 
         const handleOutside = (e) => {
-            const root = tipsRootRef.current;
-            if (!root) return;
-            if (!root.contains(e.target)) setOpenTip(null);
+            if (!(e.target instanceof Element)) return;
+            if (!e.target.closest("[data-tip-root='true']")) {
+                setOpenTip(null);
+            }
         };
 
         const handleEsc = (e) => {
@@ -186,6 +186,7 @@ export default function ICareCostEstimator({
         const isOpen = openTip === id;
         return (
             <span
+                data-tip-root="true"
                 className={`${styles.tip} ${isOpen ? styles.tipOpen : ""}`}
                 onBlurCapture={(e) => {
                     const next = e.relatedTarget;
@@ -233,7 +234,6 @@ export default function ICareCostEstimator({
                 ["--tip-x"]: tipAnchor.x ? `${tipAnchor.x}px` : "50vw",
                 ["--tip-y"]: tipAnchor.y ? `${tipAnchor.y}px` : "50vh",
             }}
-            ref={tipsRootRef}
         >
             <div className={styles.container}>
                 {/* HEADER */}

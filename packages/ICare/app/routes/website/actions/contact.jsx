@@ -1,11 +1,35 @@
-// Server-side: use API_INTERNAL_URL (Docker internal), fallback to VITE_API_URL (local dev)
-const API = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
-
 import { ContactSchema } from "~/utils/validation/schemas/contact.schema";
 import { formDataToObject, parseWithZod } from "~/utils/validation/validation";
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
+}
+
+function normalizeApiBase(base) {
+  if (!base) { return null; }
+  const trimmed = String(base).trim().replace(/\/$/, "");
+  return trimmed || null;
+}
+
+function buildContactApiUrl(base, request) {
+  const origin = new URL(request.url).origin;
+
+  // Absolute URL
+  if (/^https?:\/\//i.test(base)) {
+    const apiPrefix = base.endsWith("/api") ? base : `${base}/api`;
+    return `${apiPrefix}/contact`;
+  }
+
+  // Relative URL prefix (e.g. "/api")
+  if (base.startsWith("/")) {
+    const apiPrefix = base.endsWith("/api") ? base : `${base}/api`;
+    return `${origin}${apiPrefix}/contact`;
+  }
+
+  // Host without protocol fallback (rare)
+  const withProtocol = `http://${base}`;
+  const apiPrefix = withProtocol.endsWith("/api") ? withProtocol : `${withProtocol}/api`;
+  return `${apiPrefix}/contact`;
 }
 
 /** @param {import("react-router-dom").ActionFunctionArgs} args */
@@ -31,24 +55,38 @@ export async function action({ request }) {
   const { values, response } = parseWithZod(ContactSchema, raw);
   if (response) { return response; }
 
-  if (!API) {
+  // Remove non-business fields
+  const { company, _delay, ...payload } = values;
+
+  const apiBases = [
+    normalizeApiBase(globalThis.process?.env?.API_INTERNAL_URL),
+    normalizeApiBase(import.meta.env.VITE_API_URL),
+    normalizeApiBase(new URL(request.url).origin)
+  ].filter(Boolean);
+
+  if (!apiBases.length) {
     return new Response(JSON.stringify({ ok: false, error: "Server misconfigured." }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
     });
   }
 
-  // Remove non-business fields
-  const { company, _delay, ...payload } = values;
+  let resp = null;
+  for (const base of [...new Set(apiBases)]) {
+    const apiUrl = buildContactApiUrl(base, request);
+    try {
+      resp = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      break;
+    } catch {
+      // try next candidate
+    }
+  }
 
-  let resp;
-  try {
-    resp = await fetch(`${API}/api/contact`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-  } catch {
+  if (!resp) {
     return new Response(JSON.stringify({ ok: false, error: "Cannot reach server." }), {
       status: 500,
       headers: { "Content-Type": "application/json" }

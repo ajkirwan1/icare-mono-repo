@@ -8,7 +8,10 @@
   $debug: false
 ) {
   /* Capture the selector where mixin is included (e.g. :root) */
-  $scope: if(& == null or & == '', ':root', &);
+  $scope: ':root';
+  @if & != null and & != '' {
+    $scope: &;
+  }
 
   /* Base tokens (non‑responsive) */
   --#{$prefix}-font-family: #{vars.$font-family};
@@ -118,6 +121,5 @@
 ) {
   cursor: pointer;
 }
-
 
 

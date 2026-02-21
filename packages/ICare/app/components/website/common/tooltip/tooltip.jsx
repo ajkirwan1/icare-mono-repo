@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import classes from "./tooltip.module.scss";
 
 export default function Tooltip({ content, children }) {
@@ -13,6 +13,45 @@ export default function Tooltip({ content, children }) {
         if (next && rootRef.current.contains(next)) return;
         setOpen(false);
     };
+
+    useEffect(() => {
+        if (!open) return;
+
+        const closeOnOutside = (e) => {
+            const root = rootRef.current;
+            if (!root) return;
+            if (!root.contains(e.target)) setOpen(false);
+        };
+
+        const closeOnEscape = (e) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+
+        const closeOnScroll = () => {
+            setOpen(false);
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+        };
+
+        document.addEventListener("mousedown", closeOnOutside);
+        document.addEventListener("touchstart", closeOnOutside, { passive: true });
+        document.addEventListener("keydown", closeOnEscape);
+        window.addEventListener("scroll", closeOnScroll, { passive: true });
+        window.addEventListener("wheel", closeOnScroll, { passive: true });
+        window.addEventListener("touchmove", closeOnScroll, { passive: true });
+        document.addEventListener("scroll", closeOnScroll, true);
+
+        return () => {
+            document.removeEventListener("mousedown", closeOnOutside);
+            document.removeEventListener("touchstart", closeOnOutside);
+            document.removeEventListener("keydown", closeOnEscape);
+            window.removeEventListener("scroll", closeOnScroll);
+            window.removeEventListener("wheel", closeOnScroll);
+            window.removeEventListener("touchmove", closeOnScroll);
+            document.removeEventListener("scroll", closeOnScroll, true);
+        };
+    }, [open]);
 
     return (
         <span

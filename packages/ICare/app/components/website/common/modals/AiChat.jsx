@@ -29,6 +29,14 @@ export default function AiChat() {
         "Is ICare available across the UK?",
         "Can I withdraw or delete my data?",
     ];
+    const topicOptions = [
+        { value: "general", label: "General question" },
+        { value: "care", label: "Care needs" },
+        { value: "caregiver", label: "Caregiver onboarding" },
+        { value: "safety", label: "Trust & safety" },
+        { value: "billing", label: "Billing / payments" },
+        { value: "other", label: "Other" },
+    ];
 
     const [open, setOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
@@ -42,10 +50,9 @@ export default function AiChat() {
     const [handoffSending, setHandoffSending] = useState(false);
     const [handoffError, setHandoffError] = useState("");
     const [handoffForm, setHandoffForm] = useState({
-        name: "",
         email: "",
-        phone: "",
-        postcode: "",
+        subject: "",
+        topic: "general",
         message: "",
         website: "",
     });
@@ -62,7 +69,7 @@ export default function AiChat() {
     const inputRef = useRef(null);
     const dialogRef = useRef(null);
     const launcherRef = useRef(null);
-    const handoffNameRef = useRef(null);
+    const handoffEmailRef = useRef(null);
     const wasOpenRef = useRef(false);
     const popAudioRef = useRef(null);
     const popAudioCtxRef = useRef(null);
@@ -84,7 +91,7 @@ export default function AiChat() {
         if (!open) return;
         setTimeout(() => {
             if (handoff) {
-                handoffNameRef.current?.focus();
+                handoffEmailRef.current?.focus();
                 return;
             }
             inputRef.current?.focus();
@@ -313,7 +320,7 @@ export default function AiChat() {
 
         if (wantsHumanIntent(text)) {
             return (
-                "Sure - I can pass this to our team. Please share your name, email or phone, and a short note about what you need."
+                "Sure - I can pass this to our team. Please share your email and a short note about what you need."
             );
         }
 
@@ -424,16 +431,15 @@ export default function AiChat() {
         if (handoffSending) return;
 
         const payload = {
-            name: handoffForm.name.trim(),
             email: handoffForm.email.trim(),
-            phone: handoffForm.phone.trim(),
-            postcode: handoffForm.postcode.trim(),
+            subject: handoffForm.subject.trim(),
+            topic: handoffForm.topic,
             message: handoffForm.message.trim(),
             website: handoffForm.website.trim(),
         };
 
-        if (!payload.message) {
-            setHandoffError("Please add a short message.");
+        if (!payload.subject) {
+            setHandoffError("Please add a subject.");
             return;
         }
         if (payload.email && !isValidEmail(payload.email)) {
@@ -444,26 +450,20 @@ export default function AiChat() {
             setHandoffError("Please add an email address.");
             return;
         }
+        if (!payload.message || payload.message.length < 10) {
+            setHandoffError("Message must be at least 10 characters.");
+            return;
+        }
 
         setHandoffError("");
         setHandoffSending(true);
 
         try {
-            const subjectBits = ["Chat request"];
-            if (payload.name) subjectBits.push(payload.name);
-            if (payload.postcode) subjectBits.push(payload.postcode);
-
-            const composedMessage =
-                `Name: ${payload.name || "-"}\n` +
-                `Phone: ${payload.phone || "-"}\n` +
-                `Postcode: ${payload.postcode || "-"}\n\n` +
-                `${payload.message}`;
-
             const formData = new FormData();
             formData.set("email", payload.email);
-            formData.set("subject", subjectBits.join(" - "));
-            formData.set("topic", "general");
-            formData.set("message", composedMessage);
+            formData.set("subject", payload.subject);
+            formData.set("topic", payload.topic || "general");
+            formData.set("message", payload.message);
             formData.set("company", payload.website);
             formData.set("_delay", "0");
 
@@ -475,6 +475,8 @@ export default function AiChat() {
             const data = await r.json().catch(() => null);
             if (!r.ok) {
                 if (data?.errors?.email) setHandoffError(String(data.errors.email));
+                else if (data?.errors?.subject) setHandoffError(String(data.errors.subject));
+                else if (data?.errors?.topic) setHandoffError(String(data.errors.topic));
                 else if (data?.errors?.message) setHandoffError(String(data.errors.message));
                 else setHandoffError(data?.error || "Couldn’t send right now. Please try again.");
                 return;
@@ -488,16 +490,15 @@ export default function AiChat() {
                 ...m,
                 {
                     role: "assistant",
-                    content: "Thanks - I’ve passed this to the team. We’ll get back to you by email or phone.",
+                    content: "Thanks - I’ve passed this to the team. We’ll get back to you by email.",
                 },
             ]);
             setHandoff(false);
             setHandoffSuggested(false);
             setHandoffForm({
-                name: "",
                 email: "",
-                phone: "",
-                postcode: "",
+                subject: "",
+                topic: "general",
                 message: "",
                 website: "",
             });
@@ -641,7 +642,7 @@ export default function AiChat() {
                                         setHandoff(true);
                                         setPopularOpen(false);
                                         setHandoffError("");
-                                        setTimeout(() => handoffNameRef.current?.focus(), 0);
+                                        setTimeout(() => handoffEmailRef.current?.focus(), 0);
                                     }}
                                     style={{
                                         textDecoration: "none",
@@ -770,7 +771,7 @@ export default function AiChat() {
                                     onClick={() => {
                                         setHandoff(true);
                                         setHandoffError("");
-                                        setTimeout(() => handoffNameRef.current?.focus(), 0);
+                                        setTimeout(() => handoffEmailRef.current?.focus(), 0);
                                     }}
                                     style={{
                                         border: "none",
@@ -807,64 +808,87 @@ export default function AiChat() {
                             <div style={{ fontSize: 12, color: "rgba(15,23,42,0.7)", fontWeight: 600 }}>
                                 Contact our team
                             </div>
-                            <input
-                                ref={handoffNameRef}
-                                value={handoffForm.name}
-                                onChange={(e) => updateHandoffField("name", e.target.value)}
-                                placeholder="Name"
-                                autoComplete="name"
-                                style={{
-                                    padding: "10px 11px",
-                                    fontSize: 14,
-                                    borderRadius: 10,
-                                    border: "1px solid #94A3B8",
-                                    outline: "none",
-                                }}
-                            />
                             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 8 }}>
-                                <input
-                                    value={handoffForm.email}
-                                    onChange={(e) => updateHandoffField("email", e.target.value)}
-                                    placeholder="Email (required)"
-                                    autoComplete="email"
-                                    style={{
-                                        minWidth: 0,
-                                        padding: "10px 11px",
-                                        fontSize: 14,
-                                        borderRadius: 10,
-                                        border: "1px solid #94A3B8",
-                                        outline: "none",
-                                    }}
-                                />
-                                <input
-                                    value={handoffForm.phone}
-                                    onChange={(e) => updateHandoffField("phone", e.target.value)}
-                                    placeholder="Phone"
-                                    autoComplete="tel"
-                                    style={{
-                                        minWidth: 0,
-                                        padding: "10px 11px",
-                                        fontSize: 14,
-                                        borderRadius: 10,
-                                        border: "1px solid #94A3B8",
-                                        outline: "none",
-                                    }}
-                                />
+                                <div style={{ display: "grid", gap: 4 }}>
+                                    <label
+                                        htmlFor="chat-handoff-email"
+                                        style={{ fontSize: 12, fontWeight: 600, color: "#0F172A" }}
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        id="chat-handoff-email"
+                                        ref={handoffEmailRef}
+                                        value={handoffForm.email}
+                                        onChange={(e) => updateHandoffField("email", e.target.value)}
+                                        placeholder="Email (required)"
+                                        autoComplete="email"
+                                        style={{
+                                            minWidth: 0,
+                                            padding: "10px 11px",
+                                            fontSize: 14,
+                                            borderRadius: 10,
+                                            border: "1px solid #94A3B8",
+                                            outline: "none",
+                                        }}
+                                    />
+                                </div>
+                                <div style={{ display: "grid", gap: 4 }}>
+                                    <label
+                                        htmlFor="chat-handoff-subject"
+                                        style={{ fontSize: 12, fontWeight: 600, color: "#0F172A" }}
+                                    >
+                                        Subject
+                                    </label>
+                                    <input
+                                        id="chat-handoff-subject"
+                                        value={handoffForm.subject}
+                                        onChange={(e) => updateHandoffField("subject", e.target.value)}
+                                        placeholder="Subject"
+                                        style={{
+                                            minWidth: 0,
+                                            padding: "10px 11px",
+                                            fontSize: 14,
+                                            borderRadius: 10,
+                                            border: "1px solid #94A3B8",
+                                            outline: "none",
+                                        }}
+                                    />
+                                </div>
                             </div>
-                            <input
-                                value={handoffForm.postcode}
-                                onChange={(e) => updateHandoffField("postcode", e.target.value)}
-                                placeholder="Postcode (optional)"
-                                autoComplete="postal-code"
+                            <label
+                                htmlFor="chat-handoff-topic"
+                                style={{ marginTop: 2, fontSize: 12, fontWeight: 600, color: "#0F172A" }}
+                            >
+                                Topic
+                            </label>
+                            <select
+                                id="chat-handoff-topic"
+                                value={handoffForm.topic}
+                                onChange={(e) => updateHandoffField("topic", e.target.value)}
                                 style={{
                                     padding: "10px 11px",
                                     fontSize: 14,
                                     borderRadius: 10,
                                     border: "1px solid #94A3B8",
                                     outline: "none",
+                                    background: "#fff",
                                 }}
-                            />
+                            >
+                                {topicOptions.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                            <label
+                                htmlFor="chat-handoff-message"
+                                style={{ marginTop: 2, fontSize: 12, fontWeight: 600, color: "#0F172A" }}
+                            >
+                                Message
+                            </label>
                             <textarea
+                                id="chat-handoff-message"
                                 value={handoffForm.message}
                                 onChange={(e) => updateHandoffField("message", e.target.value)}
                                 placeholder="How can we help?"
@@ -905,7 +929,7 @@ export default function AiChat() {
                                         fontWeight: 600,
                                     }}
                                 >
-                                    {handoffSending ? "Sending..." : "Send to team"}
+                                    {handoffSending ? "Sending..." : "Send message"}
                                 </button>
                                 <button
                                     type="button"

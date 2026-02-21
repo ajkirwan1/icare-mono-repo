@@ -52,14 +52,29 @@ export default function ICareCostEstimatorExpanded() {
             if (e.key === "Escape") setAgencyTipOpen(false);
         };
 
+        const closeOnScroll = () => {
+            setAgencyTipOpen(false);
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+        };
+
         document.addEventListener("mousedown", closeOnOutside);
         document.addEventListener("touchstart", closeOnOutside, { passive: true });
         document.addEventListener("keydown", closeOnEscape);
+        window.addEventListener("scroll", closeOnScroll, { passive: true });
+        window.addEventListener("wheel", closeOnScroll, { passive: true });
+        window.addEventListener("touchmove", closeOnScroll, { passive: true });
+        document.addEventListener("scroll", closeOnScroll, true);
 
         return () => {
             document.removeEventListener("mousedown", closeOnOutside);
             document.removeEventListener("touchstart", closeOnOutside);
             document.removeEventListener("keydown", closeOnEscape);
+            window.removeEventListener("scroll", closeOnScroll);
+            window.removeEventListener("wheel", closeOnScroll);
+            window.removeEventListener("touchmove", closeOnScroll);
+            document.removeEventListener("scroll", closeOnScroll, true);
         };
     }, [agencyTipOpen]);
 
@@ -485,7 +500,13 @@ export default function ICareCostEstimatorExpanded() {
           border-top-color: rgba(15,23,42,0.96);
         }
         .icare-tip button{ cursor: help; }
-        .icare-tip:hover .icare-tip-bubble,
+        @media (hover: hover) and (pointer: fine){
+          .icare-tip:hover .icare-tip-bubble{
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(-2px);
+          }
+        }
         .icare-tip:focus-within .icare-tip-bubble{
           opacity: 1;
           pointer-events: auto;
@@ -514,9 +535,15 @@ export default function ICareCostEstimatorExpanded() {
             right: 10px;
             transform: none;
           }
-          .icare-tip:hover .icare-tip-bubble,
-          .icare-tip:focus-within .icare-tip-bubble,
-          .icare-tip-bubble.is-open{
+          .icare-tip:hover .icare-tip-bubble:not(.is-open),
+          .icare-tip:focus-within .icare-tip-bubble:not(.is-open){
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0);
+          }
+          .icare-tip .icare-tip-bubble.is-open{
+            opacity: 1;
+            pointer-events: auto;
             transform: translateY(-2px);
           }
         }
