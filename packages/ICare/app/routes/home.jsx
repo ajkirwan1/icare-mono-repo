@@ -8,7 +8,6 @@ import IcareSafetyBlock from "../components/website/pages/home/sections/IcareSaf
 import ICareFooter from "../components/website/pages/shared/footers/icare-footer";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
-import HeroCaregiversTicker from "../components/website/pages/home/sections/HeroCaregiversTicker";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
 
@@ -73,7 +72,6 @@ export default function Home() {
         <IcareSafetyBlock />
         <ICareCostEstimator />
         <ICareTypesOfCareSEO />
-        <HeroCaregiversTicker />
         <ICareEarlyAccessHomeSection />
       </main>
       <ICareFooter />
