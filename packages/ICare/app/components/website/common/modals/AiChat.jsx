@@ -38,6 +38,7 @@ export default function AiChat() {
     const [popularOpen, setPopularOpen] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [handoff, setHandoff] = useState(false);
+    const [handoffSuggested, setHandoffSuggested] = useState(false);
     const [handoffSending, setHandoffSending] = useState(false);
     const [handoffError, setHandoffError] = useState("");
     const [handoffForm, setHandoffForm] = useState({
@@ -298,7 +299,9 @@ export default function AiChat() {
 
     function wantsHumanIntent(message = "") {
         const m = String(message).toLowerCase();
-        return /\b(human|agent|representative|talk to someone|contact|email|call me|support|someone real|person)\b/.test(m);
+        return /\b(human|agent|representative|talk to someone|someone real|contact us|contact support|support team|customer support|speak to someone|speak to an agent|call me|email me|person)\b/.test(
+            m
+        );
     }
 
     function isValidEmail(email = "") {
@@ -388,11 +391,13 @@ export default function AiChat() {
 
             setMessages((m) => [...m, { role: "assistant", content: reply }]);
             if (data?.flags?.human_handoff) {
-                setHandoff(true);
+                setHandoffSuggested(true);
+            } else {
+                setHandoffSuggested(false);
             }
         } catch (err) {
             if (wantsHumanIntent(text)) {
-                setHandoff(true);
+                setHandoffSuggested(true);
             }
             setMessages((m) => [
                 ...m,
@@ -487,6 +492,7 @@ export default function AiChat() {
                 },
             ]);
             setHandoff(false);
+            setHandoffSuggested(false);
             setHandoffForm({
                 name: "",
                 email: "",
@@ -757,6 +763,30 @@ export default function AiChat() {
                                 </span>
                             </div>
                         ))}
+                        {!handoff && handoffSuggested && (
+                            <div style={{ marginBottom: 12 }}>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setHandoff(true);
+                                        setHandoffError("");
+                                        setTimeout(() => handoffNameRef.current?.focus(), 0);
+                                    }}
+                                    style={{
+                                        border: "none",
+                                        borderRadius: 999,
+                                        background: BRAND_GREEN,
+                                        color: "#fff",
+                                        fontSize: 13,
+                                        fontWeight: 600,
+                                        padding: "9px 14px",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    Contact form
+                                </button>
+                            </div>
+                        )}
                         {loading && <div style={{ color: "rgba(15,23,42,0.6)" }}>…</div>}
                     </div>
 
@@ -927,7 +957,7 @@ export default function AiChat() {
                             />
                             <button
                                 type="button"
-                                onClick={send}
+                                onClick={() => send()}
                                 disabled={loading || !input.trim()}
                                 aria-label="Send message"
                                 style={{
