@@ -20,6 +20,7 @@ const path = require('path');
 // ── Viewport State ─────────────────────────────────────────────────────────
 const VIEWPORT_WIDTHS = { desktop: 1440, tablet: 768, mobile: 375 };
 let VIEWPORT = 'desktop';
+let SCREEN_SAMPLE_DATA = null;
 function isMobile() { return VIEWPORT === 'mobile'; }
 function isTablet() { return VIEWPORT === 'tablet'; }
 function padH() { return isMobile() ? 16 : 24; }
@@ -481,13 +482,27 @@ function renderWidgetChild(child, R, width) {
   const comp = child.component;
   const gap = n(R, child.gap, 12);
   const repeat = child.repeat;
-  const maxVisible = child.maxVisible || 1;
 
   // For repeating items
   if (repeat) {
-    const count = Math.min(maxVisible, 6);
+    // Resolve repeat array from sampleData if available
+    const repeatArray = (SCREEN_SAMPLE_DATA && Array.isArray(SCREEN_SAMPLE_DATA[repeat]))
+      ? SCREEN_SAMPLE_DATA[repeat] : null;
+    const count = child.maxVisible
+      ? Math.min(child.maxVisible, 6)
+      : (repeatArray ? Math.min(repeatArray.length, 6) : 1);
     const isGrid = child.layout === 'grid';
     const columns = isMobile() ? 1 : ((isGrid && child.columns && child.columns.desktop) || 1);
+
+    // Helper: resolve ${item.xxx} against a specific array element
+    function resolveRepeatItem(childDef, itemData) {
+      if (!itemData) return childDef;
+      const json = JSON.stringify(childDef);
+      const resolved = json.replace(/\$\{item\.([^}]+)\}/g, function (match, key) {
+        return itemData[key] !== undefined ? String(itemData[key]) : match;
+      });
+      return JSON.parse(resolved);
+    }
 
     if (isGrid && columns > 1) {
       let s = '';
@@ -498,7 +513,8 @@ function renderWidgetChild(child, R, width) {
       for (let i = 0; i < count; i++) {
         const col = i % columns;
         const row = Math.floor(i / columns);
-        const result = renderSingleChild(child, R, colWidth, i);
+        const resolvedChild = repeatArray ? resolveRepeatItem(child, repeatArray[i]) : child;
+        const result = renderSingleChild(resolvedChild, R, colWidth, i);
         s += `<g transform="translate(${col * (colWidth + colGap)}, ${row * (sampleH + rowGap)})">${result.svg}</g>`;
       }
       const totalRows = Math.ceil(count / columns);
@@ -508,7 +524,8 @@ function renderWidgetChild(child, R, width) {
     let s = '';
     let y = 0;
     for (let i = 0; i < count; i++) {
-      const result = renderSingleChild(child, R, width, i);
+      const resolvedChild = repeatArray ? resolveRepeatItem(child, repeatArray[i]) : child;
+      const result = renderSingleChild(resolvedChild, R, width, i);
       s += `<g transform="translate(0, ${y})">${result.svg}</g>`;
       y += result.height + gap;
     }
@@ -670,13 +687,24 @@ function renderSingleChild(child, R, width, index) {
     case 'metric-card':
     case 'metric-card-grid': {
       if (child.children) return renderChildContainer(child, R, width);
-      const H = 80;
-      const label = (child.props && child.props.label) || 'Metric';
-      const value = (child.props && child.props.value) || '—';
+      const mcp = child.props || {};
+      const mcLabel = mcp.label || 'Metric';
+      const mcValue = mcp.value || '—';
+      const mcSubtext = mcp.subtext || '';
+      const mcTrend = mcp.trend || '';
+      const mcTrendDir = mcp.trendDirection || '';
+      const hasExtra = mcSubtext || mcTrend;
+      const H = hasExtra ? 100 : 80;
       let s = '';
       s += `<rect x="0" y="0" width="${width}" height="${H}" rx="12" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
-      s += `<text x="16" y="28" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(label)}</text>`;
-      s += `<text x="16" y="56" font-family="Inter,sans-serif" font-size="24" font-weight="700" fill="${textP}">${esc(value)}</text>`;
+      s += `<text x="16" y="28" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(mcLabel)}</text>`;
+      s += `<text x="16" y="56" font-family="Inter,sans-serif" font-size="24" font-weight="700" fill="${textP}">${esc(mcValue)}</text>`;
+      if (mcTrend) {
+        const trendColor = mcTrendDir === 'up' ? '#16a34a' : mcTrendDir === 'down' ? '#ef4444' : textM;
+        s += `<text x="16" y="76" font-family="Inter,sans-serif" font-size="12" fill="${trendColor}">${esc(mcTrend)}</text>`;
+      } else if (mcSubtext) {
+        s += `<text x="16" y="76" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(mcSubtext)}</text>`;
+      }
       return { svg: s, height: H };
     }
 
@@ -767,10 +795,18 @@ function renderSingleChild(child, R, width, index) {
     case 'sla-indicator':
     case 'urgent-indicator': {
       const H = 28;
-      const label = (child.props && child.props.label) || 'SLA Status';
+      const sip = child.props || {};
+      const siLabel = sip.text || sip.label || 'SLA Status';
+      const siStatus = sip.status || 'warning';
+      const siValue = sip.value || '';
+      const statusColors = { breached: '#ef4444', error: '#ef4444', warning: '#f59e0b', ok: '#22c55e', 'on-track': '#22c55e', 'on_track': '#22c55e' };
+      const siFill = statusColors[siStatus] || '#f59e0b';
       let s = '';
-      s += `<circle cx="8" cy="14" r="6" fill="#f59e0b"/>`;
-      s += `<text x="22" y="18" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(label)}</text>`;
+      s += `<circle cx="8" cy="14" r="6" fill="${siFill}"/>`;
+      s += `<text x="22" y="18" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(siLabel)}</text>`;
+      if (siValue) {
+        s += `<text x="${width}" y="18" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="${siFill}" text-anchor="end">${esc(siValue)}</text>`;
+      }
       return { svg: s, height: H };
     }
 
@@ -810,16 +846,48 @@ function renderSingleChild(child, R, width, index) {
 
     case 'activity-timeline':
     case 'activity-feed': {
-      const H = 120;
+      const afp = child.props || {};
+      const afItems = Array.isArray(afp.items) ? afp.items : [];
+      const isTimeline = comp === 'activity-timeline';
       let s = '';
-      for (let i = 0; i < 3; i++) {
-        const fy = i * 36;
-        s += `<circle cx="8" cy="${fy + 14}" r="5" fill="${brand}" opacity="0.4"/>`;
-        if (i < 2) s += `<line x1="8" y1="${fy + 22}" x2="8" y2="${fy + 45}" stroke="${brand}" stroke-width="1" opacity="0.2"/>`;
-        s += `<text x="24" y="${fy + 12}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">Activity entry ${i + 1}</text>`;
-        s += `<text x="24" y="${fy + 28}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">Today, ${10 + i}:${30 + i * 5} AM</text>`;
+
+      if (afItems.length > 0) {
+        const maxItems = afp.maxVisible || afItems.length;
+        const visibleItems = afItems.slice(0, maxItems);
+        for (let i = 0; i < visibleItems.length; i++) {
+          const item = visibleItems[i];
+          const fy = i * 36;
+          s += `<circle cx="8" cy="${fy + 14}" r="5" fill="${brand}" opacity="0.4"/>`;
+          if (i < visibleItems.length - 1) s += `<line x1="8" y1="${fy + 22}" x2="8" y2="${fy + 45}" stroke="${brand}" stroke-width="1" opacity="0.2"/>`;
+          if (isTimeline) {
+            // activity-timeline: { date, text }
+            const tlText = item.text || '';
+            const tlDate = item.date || '';
+            s += `<text x="24" y="${fy + 12}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${esc(tlText)}</text>`;
+            s += `<text x="24" y="${fy + 28}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(tlDate)}</text>`;
+          } else {
+            // activity-feed: { timestamp, actor, action, subject }
+            const afActor = item.actor ? item.actor + ' ' : '';
+            const afAction = item.action || '';
+            const afSubject = item.subject || '';
+            const afTime = item.timestamp || '';
+            s += `<text x="24" y="${fy + 12}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${esc((afActor + afAction).substring(0, 80))}</text>`;
+            s += `<text x="24" y="${fy + 28}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">${esc(afSubject + (afTime ? ' \u2014 ' + afTime : ''))}</text>`;
+          }
+        }
+        var afH = visibleItems.length * 36;
+      } else {
+        // Fallback: generic placeholders
+        for (let i = 0; i < 3; i++) {
+          const fy = i * 36;
+          s += `<circle cx="8" cy="${fy + 14}" r="5" fill="${brand}" opacity="0.4"/>`;
+          if (i < 2) s += `<line x1="8" y1="${fy + 22}" x2="8" y2="${fy + 45}" stroke="${brand}" stroke-width="1" opacity="0.2"/>`;
+          s += `<text x="24" y="${fy + 12}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">Activity entry ${i + 1}</text>`;
+          s += `<text x="24" y="${fy + 28}" font-family="Inter,sans-serif" font-size="11" fill="${textM}">Today, ${10 + i}:${30 + i * 5} AM</text>`;
+        }
+        var afH = 120;
       }
-      return { svg: s, height: H };
+      return { svg: s, height: afH };
     }
 
     case 'filter-dropdown': {
@@ -2964,6 +3032,7 @@ function generateScreenSvg(screen, R) {
   const W = VIEWPORT_WIDTHS[VIEWPORT] || 1440;
   const bg = c(R, screen.frame.fill);
   const sampleData = screen.sampleData || null;
+  SCREEN_SAMPLE_DATA = sampleData;
   const rawSorted = [...screen.sections].sort((a, b) => a.order - b.order);
   const sorted = sampleData ? resolveTemplateStrings(rawSorted, sampleData) : rawSorted;
 
@@ -3060,6 +3129,10 @@ function main() {
     ? ['desktop', 'mobile', 'tablet']
     : [vpArg];
 
+  // Parse --role filter (e.g. --role admin)
+  const roleIdx = args.indexOf('--role');
+  const roleFilter = roleIdx !== -1 ? args[roleIdx + 1] : null;
+
   // Load tokens
   const tokens = JSON.parse(fs.readFileSync(path.join(baseDir, 'tokens.json'), 'utf8'));
   const R = new TokenResolver(tokens);
@@ -3084,6 +3157,7 @@ function main() {
       const screen = JSON.parse(fs.readFileSync(path.join(screensDir, file), 'utf8'));
       const name = screen._metadata.screenName;
       const role = screen._metadata.role || 'public';
+      if (roleFilter && role !== roleFilter) continue;
       console.log(`  Generating: ${name}`);
 
       const svg = generateScreenSvg(screen, R);

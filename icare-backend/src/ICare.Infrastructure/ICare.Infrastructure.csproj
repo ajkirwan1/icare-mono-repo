@@ -21,4 +21,15 @@
     <PackageReference Include="Stripe.net" Version="50.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExternalServices\BackgroundJobs\" />
+    <Folder Include="ExternalServices\Communication\" />
+    <Folder Include="ExternalServices\Geocodings\" />
+    <Folder Include="ExternalServices\Identity\" />
+    <Folder Include="ExternalServices\Stripe\" />
+    <Folder Include="Persistence\Interceptors\" />
+    <Folder Include="Persistence\Migrations\" />
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
 </Project>

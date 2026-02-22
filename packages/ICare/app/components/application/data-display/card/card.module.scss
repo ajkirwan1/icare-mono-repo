@@ -4,15 +4,16 @@
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(2, 8, 23, 0.04);
   padding: 14px 14px 12px;
+  // width: clamp(280px, 800px, 800px);
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  // gap: 12px;
   padding: 6px 4px 10px;
-  margin-bottom: 6px;
+  margin-bottom: 16px;
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
 }
 

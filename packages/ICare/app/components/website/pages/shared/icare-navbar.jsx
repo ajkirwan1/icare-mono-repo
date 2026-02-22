@@ -12,13 +12,13 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
 
   // body class (scroll lock)
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted) { return; }
     const body = document.body;
     const html = document.documentElement;
 
     const clearFixedLock = () => {
       const saved = body.dataset.icareScrollY;
-      if (!saved) return;          // nothing to restore
+      if (!saved) { return; }          // nothing to restore
 
       const scrollY = parseInt(saved, 10);
       body.style.position = "";
@@ -55,22 +55,22 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
 
   // ESC closes
   useEffect(() => {
-    if (!open || !mounted) return;
+    if (!open || !mounted) { return; }
     const onKey = (e) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose, mounted]);
 
-  if (!mounted || typeof document === "undefined") return null;
+  if (!mounted || typeof document === "undefined") { return null; }
 
   const mountEl = mountElRef?.current;
-  if (!mountEl || !open) return null;
+  if (!mountEl || !open) { return null; }
 
   return createPortal(
     <div
       className={`${styles.mobileOverlay} ${styles.mobileOverlayOpen}`}
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) { onClose(); }
       }}
     >
       <div
@@ -119,8 +119,6 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
 
 const CLOSE_DELAY = 120; // ms grace period when moving between trigger and menu
 
-const CLOSE_DELAY = 120; // ms grace period when moving between trigger and menu
-
 export default function ICareAppNavbar({ noShadow = false }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -136,13 +134,14 @@ export default function ICareAppNavbar({ noShadow = false }) {
         label: "ICare",
         children: [
           { to: "/icare-for-caregivers", label: "For caregivers" },
-          { to: "/icare-for-carereceivers", label: "For care receivers" },
-        ],
+          { to: "/icare-for-carereceivers", label: "For care receivers" }
+        ]
       },
       { to: "/how-it-works", label: "How it works" },
       { to: "/who-we-are", label: "Who we are" },
       { to: "/care-knowledge", label: "Care guidance" },
       { to: "/trust-and-safety", label: "Trust and safety" },
+      { to: "/login", label: "Login" }
     ],
     []
   );
@@ -187,9 +186,9 @@ export default function ICareAppNavbar({ noShadow = false }) {
 
   // ESC closes dropdown on desktop
   useEffect(() => {
-    if (!openDropdown) return;
+    if (!openDropdown) { return; }
     const onKey = (e) => {
-      if (e.key === "Escape") setOpenDropdown(null);
+      if (e.key === "Escape") { setOpenDropdown(null); }
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Breadcrumbs from "../../../components/bread-crumbs/bread-crumbs";
-import ICareAppNavbar from "../../../components/application/app-nav-bar/icare-app-navbar";
+import ICareAppNavbar from "../../../components/application/app-navbar/icare-app-navbar";
 import ICareFooter from "../../../components/website/pages/shared/footers/icare-footer";
 
 const carerecipientNavItems = [

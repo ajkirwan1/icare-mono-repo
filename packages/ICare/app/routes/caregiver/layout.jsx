@@ -1,32 +1,16 @@
-import { Outlet, NavLink } from "react-router";
-// import { IcarePage, IcareHeader, IcareSection, IcareButton, IcareAvatar } from "react-library";
+import { Outlet } from "react-router";
+import ICareAppNavbar from "~/components/application/app-navbar/icare-app-navbar";
+import { caregiverNavItems } from "~/components/application/app-navbar/nav-items";
+import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
 
-export default function SomeParent() {
+export default function CaregiverLayout() {
   return (
-    // <IcarePage>
-    //   <IcareHeader>
-    //     <li slot="nav-links"><NavLink to="/#" style={{ "color": "black" }}>Link</NavLink></li>
-    //     <li slot="nav-links"><NavLink to="#" style={{ "color": "black" }}>Link</NavLink></li>
-    //     <li slot="nav-links"><NavLink to="#" style={{ "color": "black" }}>Link</NavLink></li>
-    //     <li slot="header-buttons"><IcareButton href='/'>Logout</IcareButton></li>
-    //     <li slot="header-avatar"><IcareAvatar /></li>
-    //   </IcareHeader>
-    //   <IcareSection>
-    //     Breadcrumb
-    //   </IcareSection>
-    //   <Outlet />
-    // </IcarePage>
-    <div>
-      <nav>
-        <ul>
-          <li><NavLink to="/#" style={{ "color": "black" }}>Link</NavLink></li>
-          <li><NavLink to="#" style={{ "color": "black" }}>Link</NavLink></li>
-          <li><NavLink to="#" style={{ "color": "black" }}>Link</NavLink></li>
-          <li><a href='/'>Logout</a></li>
-        </ul>
-      </nav>
-      <div>Breadcrumb</div>
-      <Outlet />
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <ICareAppNavbar navItems={caregiverNavItems} />
+      <main style={{ flex: 1 }}>
+        <Outlet />
+      </main>
+      <ICareFooter />
     </div>
   );
 }
