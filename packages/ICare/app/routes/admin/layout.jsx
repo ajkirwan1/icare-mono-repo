@@ -7,7 +7,7 @@ export default function AdminLayout() {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <ICareAppNavbar navItems={adminNavItems} />
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, padding: "20px" }}>
         <Outlet />
       </main>
       <ICareFooter />

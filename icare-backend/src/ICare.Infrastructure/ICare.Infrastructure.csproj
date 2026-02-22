@@ -27,7 +27,6 @@
     <Folder Include="ExternalServices\Geocodings\" />
     <Folder Include="ExternalServices\Identity\" />
     <Folder Include="ExternalServices\Stripe\" />
-    <Folder Include="Persistence\Configurations\" />
     <Folder Include="Persistence\Interceptors\" />
     <Folder Include="Persistence\Migrations\" />
     <Folder Include="Persistence\Repositories\" />
