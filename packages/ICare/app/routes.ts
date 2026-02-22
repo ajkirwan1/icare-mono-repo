@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { type RouteConfig, index, route, prefix, layout } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.jsx"),
@@ -37,7 +37,42 @@ export default [
   route("newsletter/subscribe", "routes/website/actions/newsletter.subscribe.jsx"),
   route("newsletter/resend-action", "routes/website/actions/newsletter.resend.jsx"),
   route("waitinglist", "routes/website/actions/waitinglist.jsx"),
-  route("contact", "routes/website/actions/contact.jsx")
+  route("contact", "routes/website/actions/contact.jsx"),
+
+  // Admin
+  ...prefix("admin", [
+    layout("routes/admin/layout.jsx", [
+      index("routes/admin/admin-dashboard.jsx"),
+      route("verifications", "routes/admin/admin-verifications.jsx"),
+      route("verifications/verificationId", "routes/admin/verification-id.jsx"),
+      route("verifications/dbs-verificationId", "routes/admin/dbs-verification-id.jsx"),
+      route("applications", "routes/admin/admin-applications.jsx"),
+      route("applications/:applicationId", "routes/admin/application-id.jsx"),
+      route("bookings", "routes/admin/bookings.jsx"),
+      route("disputes", "routes/admin/disputes.jsx"),
+      route("safegaurding", "routes/admin/safeguarding.jsx"),
+      route("safegaurding/:reportId", "routes/admin/safeguarding-report-id.jsx"),
+      route("users", "routes/admin/users.jsx"),
+      route("users/:userId", "routes/admin/user-id.jsx"),
+      route("incidents", "routes/admin/incidents.jsx"),
+      route("analytics", "routes/admin/analytics.jsx")
+    ])
+  ]),
+
+  // Caregiver
+  ...prefix("caregiver", [
+    layout("routes/caregiver/layout.jsx", [
+      index("routes/caregiver/caregiver-dashboard.jsx")
+    ])
+  ]),
+
+  // Carereceiver
+  ...prefix("carereceiver", [
+    layout("routes/carereceiver/layout.jsx", [
+      index("routes/carereceiver/carereceiver-dashboard.jsx")
+    ])
+  ])
+
 
 
   // ICare App routes

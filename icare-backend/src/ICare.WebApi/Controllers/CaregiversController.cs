@@ -1,3 +1,5 @@
+using ICare.Application.Identity.Queries.GetAllCaregiversQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICare.WebApi.Controllers;
@@ -15,14 +17,25 @@ public class BookingQueryParameters
 [Route("api/v1/care-receivers")]
 public class CaregiversController : ControllerBase
 {
-  public CaregiversController()
-  {
+  private readonly IMediator _mediator;
 
+  public CaregiversController(IMediator mediator)
+  {
+    _mediator = mediator;
   }
 
   [HttpGet("me")]
   public async Task<IActionResult> GetMe()
   {
+    var guid = Guid.NewGuid();
+    var request = new GetAllCaregiversQuery(guid);
+
+    var result = await _mediator.Send(request);
+
+    if (result == null)
+    {
+      return NotFound();
+    }
     return Ok();
   }
 

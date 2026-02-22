@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { NavLink } from "react-router";
-import styles from "./icare-navbar.module.scss";
+import styles from "./icare-app-navbar.module.scss";
 
 /* ----------------------------- Mobile menu portal -------------------------- */
 
@@ -119,7 +119,23 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
 
 const CLOSE_DELAY = 120; // ms grace period when moving between trigger and menu
 
-export default function ICareAppNavbar({ noShadow = false }) {
+const DEFAULT_ITEMS = [
+  {
+    id: "icare",
+    label: "ICare",
+    children: [
+      { to: "/icare-for-caregivers", label: "For caregivers" },
+      { to: "/icare-for-carereceivers", label: "For care receivers" }
+    ]
+  },
+  { to: "/how-it-works", label: "How it works" },
+  { to: "/who-we-are", label: "Who we are" },
+  { to: "/care-knowledge", label: "Care guidance" },
+  { to: "/trust-and-safety", label: "Trust and safety" },
+  { to: "/login", label: "Login" }
+];
+
+export default function ICareAppNavbar({ navItems, noShadow = false }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const closeTimer = useRef(null);
@@ -127,24 +143,7 @@ export default function ICareAppNavbar({ noShadow = false }) {
   const navDropdownAnchor = useRef(null);
   const mobileHostRef = useRef(null);
 
-  const items = useMemo(
-    () => [
-      {
-        id: "icare",
-        label: "ICare",
-        children: [
-          { to: "/icare-for-caregivers", label: "For caregivers" },
-          { to: "/icare-for-carereceivers", label: "For care receivers" }
-        ]
-      },
-      { to: "/how-it-works", label: "How it works" },
-      { to: "/who-we-are", label: "Who we are" },
-      { to: "/care-knowledge", label: "Care guidance" },
-      { to: "/trust-and-safety", label: "Trust and safety" },
-      { to: "/login", label: "Login" }
-    ],
-    []
-  );
+  const items = useMemo(() => navItems ?? DEFAULT_ITEMS, [navItems]);
 
   // --- hover helpers (shared timer so trigger <-> menu travel is seamless) ---
   const openMenu = useCallback((id) => {

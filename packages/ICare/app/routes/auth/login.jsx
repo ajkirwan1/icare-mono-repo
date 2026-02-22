@@ -5,9 +5,9 @@ import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { login } from "../../services/login-service";
 import SubmitButton from "../../components/website/common/buttons/submit-buttons/submit-button";
-import { redirect } from "react-router";
-
+import { redirect, NavLink } from "react-router";
 import styles from "./login.module.scss";
+
 
 export function meta() {
   return [
@@ -50,11 +50,10 @@ export default function LoginPage() {
     <>
       <ICareNavbar />
 
-      <section aria-label="ICare contact us" className={styles.wrap}>
+      {/* <section aria-label="ICare contact us" className={styles.wrap}>
         <div className={styles.overlay} />
 
         <div className={styles.container}>
-          {/* Keep global class if it's providing the grid display/columns */}
           <div className={`icare-2paths ${styles.twoPaths}`}>
             <div className={styles.card}>
               <div className={styles.topRow}>
@@ -92,6 +91,15 @@ export default function LoginPage() {
                 </div>
               </form>
             </div>
+          </div>
+        </div>
+      </section> */}
+      <section className={styles.wrap}>
+        <div className={styles.container}>
+          <div className={styles.card}>
+            <NavLink to="/admin" className={styles.registerLink}>Admin</NavLink>
+            <NavLink to="/caregiver" className={styles.registerLink}>Caregiver</NavLink>
+            <NavLink to="/carereceiver" className={styles.registerLink}>Carereceiver</NavLink>
           </div>
         </div>
       </section>
