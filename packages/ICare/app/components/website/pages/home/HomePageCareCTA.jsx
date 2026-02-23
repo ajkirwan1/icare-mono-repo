@@ -25,7 +25,7 @@ export default function WhoIsICareForSection() {
           {/* FOR FAMILIES */}
           <div className={styles.col}>
             <div>
-              <h3 className={styles.h3}>For families &amp; care receivers</h3>
+              <h3 className={styles.h3}>For families &amp; those needing support</h3>
 
               <p className={styles.lead}>
                 Find companionship that fits your home - without agency pressure or
@@ -50,7 +50,7 @@ export default function WhoIsICareForSection() {
                 variant="outline"
                 className={`${styles.ctaButton} ${styles.ctaButtonOutline}`}
               >
-                Find companionship
+              Find companionship
               </NavigationButton>
 
               <p className={styles.ctaNote}>See what companionship includes and how it works.</p>

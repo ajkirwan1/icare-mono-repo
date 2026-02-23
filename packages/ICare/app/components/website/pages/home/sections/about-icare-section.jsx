@@ -18,12 +18,12 @@ export default function AboutICareSection() {
 
                 <div>
                     <h2 id="about-icare-heading" className={styles.title}>
-                        Support that works around your life
+                        Support shaped around your life
                     </h2>
 
                     <p className={styles.subtitle}>
-                        Across the UK, families balance care alongside work, distance and everyday responsibilities.
-                        Support needs change over time, and not every situation calls for intensive or long-term care.
+                        Across the UK, families balance care alongside work, distance and everyday life.
+                        Support needs change over time and not every situation calls for intensive or long-term care.
                     </p>
 
                     <p className={styles.subtitle}>
@@ -31,19 +31,8 @@ export default function AboutICareSection() {
                     </p>
 
                     <p className={styles.subtitle}>
-                        We bring families and independent caregivers together, making it easier to talk openly and agree
-                        arrangements that feel right - with flexible support and real people available when questions
-                        arise.
-                    </p>
-
-                    <p className={styles.subtitle}>
-                        Every caregiver on ICare completes a verification process, including{" "}
-                        <span className={styles.verificationAccent}>ID verification, right to work checks, and admin approval</span>. Voluntary DBS certificates are verified and displayed as a trust badge.
-                    </p>
-
-                    <p className={styles.subtitle}>
-                        Built-in safeguards help families explore care options with confidence and a greater sense of
-                        control.
+                        We connect families and independent carers directly, making it easier to talk openly and agree
+                        flexible arrangements that feel right.
                     </p>
                 </div>
             </div>
@@ -54,7 +43,7 @@ export default function AboutICareSection() {
                         <span className={styles.badgeIcon} aria-hidden="true">
                             <FontAwesomeIcon icon={faListCheck} />
                         </span>
-                        Transparent arrangements
+                        Open and direct care
                     </p>
                     <p className={styles.badgeText}>
                         Clear expectations, direct conversations and no extra layers.
@@ -65,7 +54,7 @@ export default function AboutICareSection() {
                         <span className={styles.badgeIcon} aria-hidden="true">
                             <FontAwesomeIcon icon={faSliders} />
                         </span>
-                        Care on your terms
+                        Care agreed together
                     </p>
                     <p className={styles.badgeText}>
                         Support that adapts as life changes.
