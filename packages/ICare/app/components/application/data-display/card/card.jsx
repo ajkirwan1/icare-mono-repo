@@ -2,13 +2,13 @@ import styles from "./card.module.scss";
 import NotificationsLabel from "../../ui/notifications-label/notifications-label";
 import { NavLink } from "react-router";
 
-function SectionHeader({ title, subtitle, cta }) {
+function SectionHeader({ title, subtitle, cta, icon }) {
   return (
     <header className={styles.header}>
 
       <div style={{ display: "flex", alignItems: "center", gap: "8px", width: "100%", justifyContent: "space-between" }}>
         {/* <NotificationsLabel /> */}
-        <h3 className={styles.title}>{title}</h3>
+        <h3 className={styles.title}>{icon && <span className={styles.titleIcon}>{icon}</span>}{title}</h3>
         {cta && <NavLink to={cta.to} className={styles.cta}>{cta}</NavLink>}
       </div>
       {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
@@ -33,6 +33,7 @@ export default function Card({
   title,
   subtitle,
   cta,
+  icon,
   children,
   footerLinks
 }) {
@@ -40,7 +41,7 @@ export default function Card({
   return (
     <article className={styles.card}>
       {(title || subtitle || cta) && (
-        <SectionHeader title={title} subtitle={subtitle} cta={cta} />
+        <SectionHeader title={title} subtitle={subtitle} cta={cta} icon={icon} />
       )}
       {children}
       <SectionFooter links={footerLinks} />
