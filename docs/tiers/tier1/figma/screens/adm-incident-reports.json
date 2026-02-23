@@ -1,0 +1,234 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-019",
+    "screenName": "Admin Incident Reports",
+    "wireframeSource": "scr-adm-019-incident-reports.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-incidents-loaded", "filtered", "empty-no-incidents"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "2",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Incidents" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Incident Reports",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Log and track platform incidents for compliance"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter & Search Bar",
+      "order": 4,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": true,
+            "searchPlaceholder": "Search by incident ID, user...",
+            "filters": [
+              { "label": "Category" },
+              { "label": "Severity" },
+              { "label": "Status" },
+              { "label": "Date Range" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 16, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 5,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Total Incidents", "value": "18", "subtext": "This month" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Open", "value": "4", "subtext": "Under investigation" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Critical", "value": "1", "subtext": "Urgent action needed", "statusColor": "red" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Resolved", "value": "14", "subtext": "Closed this month" }
+        }
+      ]
+    },
+    {
+      "id": "section-results-count",
+      "name": "Results Count",
+      "order": 6,
+      "children": [
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-18 of 18 incidents"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 }
+    },
+    {
+      "id": "section-incidents-table",
+      "name": "Incidents Table",
+      "order": 7,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Incident ID" },
+              { "label": "Category" },
+              { "label": "User Involved" },
+              { "label": "Severity" },
+              { "label": "Date" },
+              { "label": "Status" }
+            ],
+            "rows": [
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "INC-2026-018", "color": "#2563EB" },
+                  { "text": "Off-Platform Contact", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "Caregiver #4520",
+                  { "text": "Critical", "badge": true, "badgeColor": "#DC2626", "badgeTextColor": "white" },
+                  "Today",
+                  { "text": "Investigating", "badge": true, "badgeColor": "#EDE9FE", "badgeTextColor": "#6D28D9" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "INC-2026-017", "color": "#2563EB" },
+                  { "text": "Late Cancellation", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "Caregiver #4521",
+                  { "text": "Medium", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "2 days ago",
+                  { "text": "Investigating", "badge": true, "badgeColor": "#EDE9FE", "badgeTextColor": "#6D28D9" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "INC-2026-016", "color": "#2563EB" },
+                  { "text": "Payment Dispute", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "Care Receiver #2339",
+                  { "text": "High", "badge": true, "badgeColor": "#FED7AA", "badgeTextColor": "#C2410C" },
+                  "3 days ago",
+                  { "text": "Resolved", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "INC-2026-015", "color": "#2563EB" },
+                  { "text": "No-Show", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "Caregiver #4519",
+                  { "text": "Medium", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "1 week ago",
+                  { "text": "Resolved", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "INC-2026-014", "color": "#2563EB" },
+                  { "text": "Profile Misrepresentation", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  "Caregiver #4518",
+                  { "text": "Low", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  "1 week ago",
+                  { "text": "Resolved", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" }
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-18 of 18 incidents"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 8,
+      "component": "pagination-controls",
+      "props": { "currentPage": 1, "totalPages": 1 },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 9,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalIncidents": 18,
+    "openIncidents": 4,
+    "criticalIncidents": 1,
+    "resolvedThisMonth": 14
+  }
+}

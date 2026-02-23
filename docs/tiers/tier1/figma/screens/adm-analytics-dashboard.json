@@ -1,0 +1,227 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-020",
+    "screenName": "Admin Analytics Dashboard",
+    "wireframeSource": "scr-adm-020-platform-analytics.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-30d-view", "custom-date-range"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Super Admin",
+        "notificationCount": "2",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Analytics" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Platform Analytics",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Business intelligence and platform performance \u2014 Last 30 days"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-key-metrics",
+      "name": "Key Metrics",
+      "order": 4,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Total Users", "value": "234", "trend": "\u219115% from last month", "trendDirection": "up" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Total Bookings", "value": "156", "trend": "\u219125% from last month", "trendDirection": "up" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Revenue (GMV)", "value": "\u00a33,120", "trend": "\u219128% from last month", "trendDirection": "up" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Platform Fees", "value": "\u00a3468", "trend": "\u219128% from last month", "trendDirection": "up" }
+        }
+      ]
+    },
+    {
+      "id": "section-registration-chart",
+      "name": "Registration Trends",
+      "order": 5,
+      "component": "widget-container",
+      "variant": "with-header-action",
+      "props": {
+        "title": "Registration Trends",
+        "subtitle": "Care Receivers vs Caregivers over time",
+        "hasHeaderAction": false
+      },
+      "children": [
+        {
+          "component": "metric-list",
+          "layout": "vertical",
+          "gap": "{spacing.3}",
+          "children": [
+            { "component": "metric-row", "props": { "label": "Care Receivers", "value": "145 registered" } },
+            { "component": "metric-row", "props": { "label": "Caregivers", "value": "89 registered" } },
+            { "component": "metric-row", "props": { "label": "Family Members", "value": "38 registered" } }
+          ]
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-booking-metrics",
+      "name": "Booking Performance",
+      "order": 6,
+      "component": "widget-container",
+      "variant": "with-header-action",
+      "props": {
+        "title": "Booking Performance",
+        "subtitle": "Outcomes breakdown",
+        "hasHeaderAction": false
+      },
+      "children": [
+        {
+          "component": "metric-list",
+          "layout": "vertical",
+          "gap": "{spacing.3}",
+          "children": [
+            { "component": "metric-row", "props": { "label": "Completed", "value": "134 (86%)" } },
+            { "component": "metric-row", "props": { "label": "Cancelled", "value": "12 (8%)" } },
+            { "component": "metric-row", "props": { "label": "Disputed", "value": "2 (1%)" } },
+            { "component": "metric-row", "props": { "label": "In Progress", "value": "8 (5%)" } }
+          ]
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-verification-metrics",
+      "name": "Verification Metrics",
+      "order": 7,
+      "layout": "horizontal-grid",
+      "columns": 3,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Avg Review Time", "value": "22 hours", "subtext": "Target: <48h" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "SLA Compliance", "value": "96%", "subtext": "Last 30 days" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "DBS Uptake", "value": "35%", "subtext": "Voluntary at Tier 1" }
+        }
+      ]
+    },
+    {
+      "id": "section-quality-metrics",
+      "name": "Quality Metrics",
+      "order": 8,
+      "layout": "horizontal-grid",
+      "columns": 3,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Avg Caregiver Rating", "value": "4.7", "subtext": "From 98 reviews" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Acceptance Rate", "value": "90%", "subtext": "Booking requests" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Review Rate", "value": "73%", "subtext": "Post-booking reviews" }
+        }
+      ]
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 9,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalUsers": 234,
+    "careReceivers": 145,
+    "caregivers": 89,
+    "familyMembers": 38,
+    "totalBookings": 156,
+    "revenueGmv": 3120,
+    "platformFees": 468,
+    "avgReviewTime": "22 hours",
+    "slaCompliance": "96%",
+    "dbsUptake": "35%",
+    "avgRating": 4.7,
+    "acceptanceRate": "90%",
+    "reviewRate": "73%"
+  }
+}

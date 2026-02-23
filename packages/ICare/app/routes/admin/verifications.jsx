@@ -1,7 +1,7 @@
 export default function AdminVerifications() {
   return (
     <div>
-      ADMIN DASHBOARD
+      <h1>Admin Verifications</h1>
     </div>
   );
 }

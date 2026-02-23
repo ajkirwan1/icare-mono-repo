@@ -1,6 +1,7 @@
 export const adminNavItems = [
   { to: "/admin/dashboard", label: "Dashboard" },
   { to: "/admin/verifications", label: "Verifications" },
+  { to: "/admin/analytics", label: "Analystics" },
   { to: "/admin/users", label: "Users" },
   { to: "/admin/safeguarding", label: "Safeguarding" },
   { to: "/", label: "Signout" }

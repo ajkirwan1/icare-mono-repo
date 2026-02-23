@@ -43,7 +43,7 @@ export default [
   ...prefix("admin", [
     layout("routes/admin/layout.jsx", [
       index("routes/admin/admin-dashboard.jsx"),
-      route("verifications", "routes/admin/admin-verifications.jsx"),
+      route("verifications", "routes/admin/verifications.jsx"),
       route("verifications/verificationId", "routes/admin/verification-id.jsx"),
       route("verifications/dbs-verificationId", "routes/admin/dbs-verification-id.jsx"),
       route("applications", "routes/admin/admin-applications.jsx"),

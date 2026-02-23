@@ -13,13 +13,18 @@
 
 ## Executive Summary
 
-**Total Screens Documented**: 34 screens (R0 Launch-Critical)
+**Total Screens Documented**: 40 screens (R0 Launch-Critical)
 **Screen Categories**:
 - Authentication & Registration: 6 screens
 - Public/Compliance: 4 screens
 - Care Receiver Flows: 10 screens (includes Dashboard, Message Thread, Message Inbox, My Bookings, Leave Review)
 - Caregiver Flows: 8 screens (includes Dashboard, My Bookings, Profile Management)
-- Admin Operations: 6 screens (list screens only; 4 detail screens wireframe-pending)
+- Admin Operations: 12 screens (6 verification/safeguarding + 6 operations)
+
+> **v1.3 Changes (2026-02-23)**: SCOPE-001 — 6 admin operations screens elevated to R0:
+> - SCR-ADM-025 (User Management), SCR-ADM-025b (User Detail), SCR-ADM-010 (Booking Management),
+>   SCR-ADM-012 (Dispute Queue), SCR-ADM-019 (Incident Reports), SCR-ADM-023 (Analytics Dashboard)
+> See SCOPE-001 in r0-launch-scope.md for rationale.
 
 > **v1.2 Changes (2026-02-12)**: Profile Management elevated to R0:
 > - SCR-CG-003 (Profile Management) elevated from R1 to R0 — "My Profile" nav link requires destination
@@ -38,7 +43,7 @@
 - Verification: ID + Right to Work + Voluntary DBS (NO mandatory DBS, NO qualifications)
 
 **Source Documents**:
-- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 34 R0 launch-critical screens (updated 2026-02-12)
+- `/docs/tiers/tier1/planning/r0-launch-scope.md` - 40 R0 launch-critical screens (updated 2026-02-23)
 - `/docs/tiers/tier1/features.md` - 77 Tier 1 features across 11 systems
 - `/docs/tiers/common/spec/feature-map.md` - Complete feature definitions with tier tags
 - `/docs/tiers/common/spec/state-maps.md` - 7 critical state machine flows
@@ -2056,3 +2061,4 @@ This is correctly documented. No gap.
 | 1.0 | 2026-02-02 | Product Team (AI-assisted) | Initial canonical screen inventory for Tier 1 R0 launch (26 screens) |
 | 1.1 | 2026-02-12 | Product Director (Agent) | **Screen Gap Analysis**: R0 count 30→33. Added SCR-CR-007 (My Bookings CR), SCR-CR-012 (Message Inbox, elevated from R1), SCR-CG-014 (My Bookings CG). Admin IDs reassigned per route map reconciliation. |
 | 1.2 | 2026-02-12 | Product Director (Agent) | **GAP-005**: SCR-CG-003 (Profile Management) elevated from R1 to R0. R0 count 33→34. Caregiver flows 7→8. |
+| 1.3 | 2026-02-23 | Product Director | **SCOPE-001**: 6 admin operations screens elevated to R0. R0 count 34→40. Admin ops 6→12. Added: User Management, User Detail, Booking Management, Dispute Queue, Incident Reports, Analytics Dashboard. |

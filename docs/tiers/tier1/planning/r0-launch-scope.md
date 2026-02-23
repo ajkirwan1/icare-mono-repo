@@ -3,7 +3,7 @@
 **Document Purpose**: Define the absolute minimum screens required for a safe, compliant, revenue-generating Tier 1 (Companionship Only) launch at low volume.
 
 **Document Owner**: Product Team
-**Last Updated**: 2026-02-06
+**Last Updated**: 2026-02-23
 **Status**: Canonical - R0 Launch Definition (Tier 1 Aligned)
 
 > **Tier Alignment**: This document defines R0 scope for **Tier 1 (Companionship Only)** market entry.
@@ -25,9 +25,9 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 
 ---
 
-## R0 Launch Screens (34 screens)
+## R0 Launch Screens (40 screens)
 
-> **Change Log**: R0 screen count updated from 26 to 30 to 33 to 34 following Change Board and Gap Analysis decisions:
+> **Change Log**: R0 screen count updated from 26 to 30 to 33 to 34 to 40 following Change Board and Gap Analysis decisions:
 > - CB-001 (2026-02-02): SCR-CR-001 (Care Receiver Dashboard) elevated to R0
 > - CB-002 (2026-02-02): SCR-CG-001 (Caregiver Dashboard) elevated to R0
 > - CB-005 (2026-02-03): SCR-CR-011 (Message Thread) elevated to R0
@@ -36,6 +36,13 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 > - GAP-002 (2026-02-12): SCR-CR-007 (My Bookings - Care Receiver) added to R0 — new screen, "View All" links broken without it
 > - GAP-003 (2026-02-12): SCR-CG-014 (My Bookings - Caregiver) added to R0 — new screen, "My Bookings" nav link broken without it
 > - GAP-005 (2026-02-12): SCR-CG-003 (Profile Management) elevated from R1 to R0 — "My Profile" nav link in all caregiver screens requires this
+> - SCOPE-001 (2026-02-23): 6 admin screens elevated to R0 — admin team needs full operational tooling at launch, manual workarounds not sustainable:
+>   - SCR-ADM-025 (User Management) — admin needs user lookup/suspension capability from day one
+>   - SCR-ADM-025b (User Detail) — required destination for user management table rows
+>   - SCR-ADM-010 (Booking Management) — admin needs booking oversight for dispute/refund handling
+>   - SCR-ADM-012 (Dispute Queue) — disputes cannot wait for manual spreadsheet tracking
+>   - SCR-ADM-019 (Incident Reports) — incident documentation required for CQC audit trail
+>   - SCR-ADM-023 (Analytics Dashboard) — admin needs platform health visibility at launch
 
 > **Tier 1 Alignment Note**: This R0 scope is specifically for Tier 1 (Companionship Only) launch.
 > Medical condition experience profiles and care skills profiles are deferred to Tier 3 and Tier 2
@@ -233,6 +240,51 @@ A screen is R0 launch-critical if it meets **ALL** of these conditions:
 
 ---
 
+### Admin Operations (6 screens) - ELEVATED TO R0 (SCOPE-001)
+
+> **Elevation Rationale (SCOPE-001 - 2026-02-23)**: Manual workarounds (spreadsheets, email)
+> are not sustainable even at low volume. Admin needs full operational tooling from day one
+> to maintain safeguarding SLAs, handle disputes, and provide CQC audit trails.
+
+#### SCR-ADM-025: User Management
+**Route**: `/admin/users`
+**Why R0**: Operational viability - admin must search, view, and suspend users
+**Without This**: Admin cannot look up users, enforce suspensions, or respond to safeguarding by disabling accounts
+**Manual Alternative**: Previously "future" but user suspension is a safeguarding action that requires immediate capability
+**Screen JSON**: `adm-user-management.json`
+
+#### SCR-ADM-025b: User Detail
+**Route**: `/admin/users/:userId`
+**Why R0**: Required destination for user management table rows - admin must view full user profile, booking history, and take actions
+**Without This**: User Management table rows have no detail view; admin cannot investigate user activity
+**Manual Alternative**: NONE - user investigation requires structured view
+
+#### SCR-ADM-010: Booking Management
+**Route**: `/admin/bookings`
+**Why R0**: Operational viability - admin needs booking oversight for dispute handling, refund processing, and platform monitoring
+**Without This**: Admin cannot view active bookings, identify issues, or process refunds
+**Manual Alternative**: Previously "spreadsheet at low volume" but even 5 bookings/month requires proper tracking
+
+#### SCR-ADM-012: Dispute Queue
+**Route**: `/admin/disputes`
+**Why R0**: Operational viability - disputes require structured tracking with audit trail for consumer protection compliance
+**Without This**: Disputes tracked informally, no audit trail, Consumer Rights Act compliance risk
+**Manual Alternative**: Previously "manual tracking" but dispute resolution requires documented workflow
+
+#### SCR-ADM-019: Incident Reports
+**Route**: `/admin/incidents`
+**Why R0**: Regulatory compliance - CQC requires documented incident tracking and reporting
+**Without This**: No structured incident documentation; CQC audit readiness compromised
+**Manual Alternative**: Previously "manual logging" but CQC requires auditable incident records
+
+#### SCR-ADM-023: Analytics Dashboard
+**Route**: `/admin/analytics`
+**Why R0**: Operational viability - admin needs platform health metrics, booking trends, and user growth visibility
+**Without This**: Admin operates blind with no data on platform performance or growth
+**Manual Alternative**: Previously deferred but even at low volume admin needs visibility into key metrics
+
+---
+
 ## Screens Excluded from R0 (But MVP)
 
 These screens are MVP but can be handled manually or via workarounds at low volume (0-100 bookings/month):
@@ -246,9 +298,9 @@ These screens are MVP but can be handled manually or via workarounds at low volu
 
 ### Admin Can Handle Manually
 - **SCR-CR-009: Booking Cancellation** - Admin processes cancellations manually
-- **SCR-ADM-010: Booking Management** - Spreadsheet works at low volume
-- **SCR-ADM-012: Dispute Queue** - Manual dispute tracking in R0
-- **SCR-ADM-019: Incident Reports** - Manual logging initially
+- **SCR-ADM-010: Booking Management** - R0 Status: INCLUDED (Decision SCOPE-001 - 2026-02-23)
+- **SCR-ADM-012: Dispute Queue** - R0 Status: INCLUDED (Decision SCOPE-001 - 2026-02-23)
+- **SCR-ADM-019: Incident Reports** - R0 Status: INCLUDED (Decision SCOPE-001 - 2026-02-23)
 
 ### Profile Management (Post-First-Booking)
 - **SCR-CR-002: Care Needs Profile** - Captured in booking form, separate profile not critical for R0
@@ -371,20 +423,19 @@ These screens are MVP but can be handled manually or via workarounds at low volu
 
 ---
 
-## Post-R0 Immediate Priorities (Screens 29-40)
+## Post-R0 Immediate Priorities
 
 Once R0 is stable and user feedback validates core flows, add:
 
-1. **SCR-CR-011 + SCR-CR-012**: Messaging (in-app communication scales better than email)
-2. **SCR-CR-015**: Leave Review (close feedback loop for quality monitoring)
-3. **SCR-CG-011**: Availability Calendar (manual scheduling doesn't scale)
-4. **SCR-CR-001**: Care Receiver Dashboard (UX improvement for repeat users)
-5. **SCR-CG-001**: Caregiver Dashboard (UX improvement for active caregivers)
-6. **SCR-ADM-010**: Booking Management (admin needs booking oversight at scale)
-7. **SCR-CR-020**: Safeguarding Report (self-service reporting required at scale)
-8. **SCR-ADM-019**: Incident Reports (clinical incident tracking required for CQC)
-9. **SCR-CR-009**: Booking Cancellation (self-service cancellation required at scale)
-10. **SCR-ADM-023**: Audit Log (compliance requirement for CQC/GDPR audit)
+1. **SCR-CG-011**: Availability Calendar (manual scheduling doesn't scale)
+2. **SCR-CR-020**: Safeguarding Report (self-service reporting required at scale)
+3. **SCR-CR-009**: Booking Cancellation (self-service cancellation required at scale)
+4. **SCR-CR-017**: Account Settings (user self-service for email/password changes)
+5. **SCR-ADM-028**: System Settings (platform configuration - has screen JSON)
+
+> **Note**: SCR-CR-011/012 (Messaging), SCR-CR-015 (Leave Review), SCR-CR-001/SCR-CG-001 (Dashboards),
+> SCR-ADM-010 (Bookings), SCR-ADM-019 (Incidents), SCR-ADM-023 (Analytics) were previously listed here
+> but have been elevated to R0 via prior CB decisions and SCOPE-001.
 
 ---
 
@@ -420,6 +471,14 @@ Admin Verification Layer (Trust Foundation)
 ├── SCR-ADM-005: Caregiver Application Review
 ├── SCR-ADM-007: Verification Review
 └── SCR-ADM-008: DBS Review
+
+Admin Operations Layer (Operational Foundation - SCOPE-001)
+├── SCR-ADM-025: User Management
+├── SCR-ADM-025b: User Detail
+├── SCR-ADM-010: Booking Management
+├── SCR-ADM-012: Dispute Queue
+├── SCR-ADM-019: Incident Reports
+└── SCR-ADM-023: Analytics Dashboard
 
 Core Transaction Layer (Economic Loop)
 ├── SCR-CR-003: Caregiver Search
@@ -523,6 +582,7 @@ Safeguarding Response Layer (Care Act Compliance)
 | 1.0 | 2026-01-31 | Product Team | Initial R0 launch scope |
 | 1.1 | 2026-02-01 | Product Director | Tier 1 alignment - removed SCR-CG-004 (Tier 3) and SCR-CG-005 (Tier 2), updated DBS to voluntary status, reduced screen count from 28 to 26 |
 | 1.2 | 2026-02-06 | Product Director | Updated R0 screen count from 26 to 30 to reflect CB decisions (CB-001, CB-002, CB-005, CB-006) elevating dashboards, message thread, and review screens to R0 |
+| 1.3 | 2026-02-23 | Product Director | SCOPE-001: Elevated 6 admin operations screens to R0 (User Management, User Detail, Booking Management, Dispute Queue, Incident Reports, Analytics). R0 count 34→40. Manual workarounds not sustainable for admin operations. |
 
 ---
 
