@@ -23,6 +23,16 @@
   color: #1f2a37;
   font-weight: 800;
   letter-spacing: 0.2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleIcon {
+  display: flex;
+  align-items: center;
+  color: #64748b;
+  font-size: 1.1rem;
 }
 
 .subtitle {
