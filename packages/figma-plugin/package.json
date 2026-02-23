@@ -1,6 +1,6 @@
 {
   "name": "icare-figma-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1-dev.0",
   "description": "Import iCare design tokens, components, and screen layouts into Figma",
   "scripts": {
     "build": "node esbuild.config.js",

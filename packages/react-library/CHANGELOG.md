@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1-dev.0](https://github.com/ajkirwan1/icare-mono-repo/compare/react-library@0.2.0...react-library@0.2.1-dev.0) (2026-02-23)
+
+**Note:** Version bump only for package react-library
+
 # [0.2.0](https://github.com/ajkirwan1/icare-mono-repo/compare/react-library@0.1.0...react-library@0.2.0) (2025-10-04)
 
 ### Features

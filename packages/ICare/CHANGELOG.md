@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1-dev.0](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.4.2-dev.28...icare-app@1.0.1-dev.0) (2026-02-23)
+
+### Features
+
+- admin updates ([#120](https://github.com/ajkirwan1/icare-mono-repo/issues/120)) ([0958724](https://github.com/ajkirwan1/icare-mono-repo/commit/09587241b0c39542d1e2504e5e5a8c9a40806ac2))
+- cleanup ([3f42d94](https://github.com/ajkirwan1/icare-mono-repo/commit/3f42d94c0931fc898319b30da41f2d1f936e77fb))
+- cleanup ([e92cf60](https://github.com/ajkirwan1/icare-mono-repo/commit/e92cf60fc575f7bc79e239cba9a9296fe6f5b9ec))
+- cleanup ([#114](https://github.com/ajkirwan1/icare-mono-repo/issues/114)) ([91818d9](https://github.com/ajkirwan1/icare-mono-repo/commit/91818d975d8da82b58a472f86ddf9cfcd2eef1d3))
+- cleanup ([#45](https://github.com/ajkirwan1/icare-mono-repo/issues/45)) ([71b3cc6](https://github.com/ajkirwan1/icare-mono-repo/commit/71b3cc69313f7c74817301d346ea3f2d7ccd7d08))
+- cleanup ([#46](https://github.com/ajkirwan1/icare-mono-repo/issues/46)) ([0d03fad](https://github.com/ajkirwan1/icare-mono-repo/commit/0d03fadafc15de168ad1692c2871b97fbc7c4155))
+- cleanup ([#50](https://github.com/ajkirwan1/icare-mono-repo/issues/50)) ([b5743de](https://github.com/ajkirwan1/icare-mono-repo/commit/b5743de39c06216610c5dd069ba73d2d8967ae31))
+- cleanup ([#52](https://github.com/ajkirwan1/icare-mono-repo/issues/52)) ([d7f3a61](https://github.com/ajkirwan1/icare-mono-repo/commit/d7f3a61eb8e67caf38c27fb33b21f4f2778f6edd))
+- cleanup ([#55](https://github.com/ajkirwan1/icare-mono-repo/issues/55)) ([c844c3f](https://github.com/ajkirwan1/icare-mono-repo/commit/c844c3ff47b92c3a4fe74bc8133291f6c7906eee))
+- cleanup ([#61](https://github.com/ajkirwan1/icare-mono-repo/issues/61)) ([a1df13f](https://github.com/ajkirwan1/icare-mono-repo/commit/a1df13f89dd9af2dfa35c579dee1389429a2e4a4))
+- cleanup ([#72](https://github.com/ajkirwan1/icare-mono-repo/issues/72)) ([87c8679](https://github.com/ajkirwan1/icare-mono-repo/commit/87c86791781faf1346a437b0eff5ef5f43dd30ed))
+- cleanup ([#83](https://github.com/ajkirwan1/icare-mono-repo/issues/83)) ([f20916c](https://github.com/ajkirwan1/icare-mono-repo/commit/f20916c79a089da5fe36386f0c2c45ab12555e0f))
+
 ## [0.4.2-dev.28](https://github.com/ajkirwan1/icare-mono-repo/compare/icare-app@0.4.2-dev.27...icare-app@0.4.2-dev.28) (2026-01-18)
 
 ### Features
