@@ -14,8 +14,11 @@ if (!process.env.DATABASE_URL) {
 }
 
 const { Pool } = pg;
+const connectionString = process.env.DATABASE_URL;
+const useSSL = connectionString?.includes('sslmode=require');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: useSSL ? connectionString.replace(/[?&]sslmode=require/, '') : connectionString,
+  ssl: useSSL ? { rejectUnauthorized: false } : undefined
 });
 
 // ✅ Adjust this relative path to wherever migrations live now.

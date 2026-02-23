@@ -1,3 +1,7 @@
+www.icare-app.co.uk {
+    redir https://icare-app.co.uk{uri} permanent
+}
+
 icare-app.co.uk {
     # API routes
     handle /api/* {

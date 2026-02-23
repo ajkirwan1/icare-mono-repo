@@ -116,19 +116,20 @@ export default function ICareTypesOfCareSEO() {
                             <h3 className={styles.sectionTitle}>Why choose support at home?</h3>
 
                             <p className={styles.sectionText}>
-                                Staying at home can help people keep familiar routines, comfort and independence, with
-                                the right everyday support in place. Instead of adjusting to a new environment, support
-                                fits around everyday life at home, on their terms.
+                                Staying at home helps people keep familiar routines, comfort and independence - with the
+                                right everyday support in place. Support fits around daily life at home, rather than asking
+                                someone to adjust to a new environment.
                             </p>
 
                             <p className={styles.sectionText}>
-                                For many families, having a trusted companion brings peace of mind. Familiar surroundings
+                                For many families, knowing someone reliable is there brings reassurance and peace of mind.
+                                Familiar surroundings
                                 can reduce stress and confusion, especially when routines and personal space matter.
                             </p>
 
                             <p className={styles.sectionText}>
                                 Support at home is flexible by nature. You can start small with occasional visits and adjust
-                                over time without forcing difficult moves or long-term commitments.
+                                over time without difficult moves or long-term commitments.
                             </p>
                         </div>
                     </div>

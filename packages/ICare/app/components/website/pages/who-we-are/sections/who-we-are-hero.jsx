@@ -1,7 +1,9 @@
-import heroImage from "/images/heros/who-we-are-2.jpg";
+import heroImage from "/images/heros/who-we-are-2.webp";
+import heroImageMobile from "/images/heros/who-we-are-2-1200.webp";
 import styles from "./who-we-are-hero.module.scss";
 import NavigationButton from "../../../common/buttons/navigation-buttons/navigation-button";
 import heroCopyStyles from "../../../common/sections/hero-copy.module.scss";
+import HeroImage from "../../../common/media/HeroImage";
 
 
 export function WhoWeAreHero() {
@@ -11,12 +13,13 @@ export function WhoWeAreHero() {
             className={styles.hero}
             aria-label="Who We Are hero"
         >
-            <img
+            <HeroImage
                 src={heroImage}
+                mobileSrc={heroImageMobile}
                 alt=""
                 role="presentation"
-                width="3862"
-                height="2578"
+                width={3862}
+                height={2578}
                 className={styles.image}
             />
             <div className={styles.overlay} aria-hidden="true" />

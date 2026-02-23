@@ -10,6 +10,9 @@ if (!process.env.DATABASE_URL) {
   dotenv.config({ path: resolve(__dirname, "../.env.development") });
 }
 
+const connectionString = process.env.DATABASE_URL;
+const useSSL = connectionString?.includes('sslmode=require');
 export const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: useSSL ? connectionString.replace(/[?&]sslmode=require/, '') : connectionString,
+  ssl: useSSL ? { rejectUnauthorized: false } : undefined
 });

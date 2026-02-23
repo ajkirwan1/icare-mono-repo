@@ -13,11 +13,13 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
   // body class (scroll lock)
   useEffect(() => {
     if (!mounted) { return; }
+    if (!mounted) { return; }
     const body = document.body;
     const html = document.documentElement;
 
     const clearFixedLock = () => {
       const saved = body.dataset.icareScrollY;
+      if (!saved) { return; }          // nothing to restore
       if (!saved) { return; }          // nothing to restore
 
       const scrollY = parseInt(saved, 10);
@@ -64,17 +66,17 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
   if (!mounted || typeof document === "undefined") { return null; }
 
   const mountEl = mountElRef?.current;
-  if (!mountEl || !open) { return null; }
+  if (!mountEl) { return null; }
 
   return createPortal(
     <div
-      className={`${styles.mobileOverlay} ${styles.mobileOverlayOpen}`}
+      className={`${styles.mobileOverlay} ${open ? styles.mobileOverlayOpen : ""}`}
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) { onClose(); }
+        if (open && e.target === e.currentTarget) { onClose(); }
       }}
     >
       <div
-        className={`${styles.mobilePanel} ${styles.mobilePanelOpen}`}
+        className={styles.mobilePanel}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"

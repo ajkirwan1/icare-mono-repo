@@ -75,10 +75,17 @@
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(6px);
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.25s ease;
 
     .mediaWrap:hover & {
         opacity: 1;
+        pointer-events: auto;
+    }
+
+    .mediaWrap:focus-within & {
+        opacity: 1;
+        pointer-events: auto;
     }
 }
 
@@ -138,7 +145,6 @@
 
 @media (max-width: 900px), (pointer: coarse) {
     .controls {
-        opacity: 1;
         bottom: 14px;
         gap: 10px;
         padding: 8px 12px;

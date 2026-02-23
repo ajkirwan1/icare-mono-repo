@@ -156,13 +156,11 @@ export default function ICareCostEstimator({
             if (e.key === "Escape") setOpenTip(null);
         };
 
-        let rafId = null;
         const closeOnScroll = () => {
-            if (rafId !== null) return;
-            rafId = window.requestAnimationFrame(() => {
-                setOpenTip(null);
-                rafId = null;
-            });
+            setOpenTip(null);
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
         };
 
         document.addEventListener("mousedown", handleOutside);
@@ -181,7 +179,6 @@ export default function ICareCostEstimator({
             window.removeEventListener("wheel", closeOnScroll);
             window.removeEventListener("touchmove", closeOnScroll);
             document.removeEventListener("scroll", closeOnScroll, true);
-            if (rafId !== null) window.cancelAnimationFrame(rafId);
         };
     }, [openTip]);
 
@@ -246,7 +243,7 @@ export default function ICareCostEstimator({
                     </h2>
                     <h3 className={styles.h2Mini}>Budget clarity in under a minute</h3>
                     <p className={styles.lead}>
-                        Caring is emotional — money shouldn’t add extra stress. <br />
+                        Caring is emotional - money shouldn’t add extra stress. <br />
                         Adjust rate and hours/week to see an illustrative monthly estimate.
                     </p>
                 </div>

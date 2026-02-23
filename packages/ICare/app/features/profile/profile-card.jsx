@@ -1,5 +1,5 @@
 import Card from "../../components/application/data-display/card/card";
-import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.png";
+import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.webp";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";

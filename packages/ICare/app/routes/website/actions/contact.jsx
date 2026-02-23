@@ -1,4 +1,5 @@
-const API = import.meta.env.VITE_API_URL;
+// Server-side: use API_INTERNAL_URL (Docker internal), fallback to VITE_API_URL (local dev)
+const API = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
 
 import { ContactSchema } from "~/utils/validation/schemas/contact.schema";
 import { formDataToObject, parseWithZod } from "~/utils/validation/validation";

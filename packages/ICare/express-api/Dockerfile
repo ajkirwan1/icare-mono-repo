@@ -15,6 +15,7 @@ COPY middleware ./middleware
 COPY services ./services
 COPY utlis ./utlis
 COPY schemas ./schemas
+COPY public ./public
 COPY package.json package-lock.json ./
 
 EXPOSE 4001

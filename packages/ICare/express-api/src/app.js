@@ -7,6 +7,7 @@ import cors from "cors";
 import newsletterRouter from "../routes/newsletter.routes.js";
 import waitinglistRouter from "../routes/waitinglist.routes.js";
 import contactUsRouter from "../routes/contact.routes.js";
+import chatRouter from "../routes/chat.routes.js";
 
 const app = express();
 
@@ -27,5 +28,6 @@ app.use((req, res, next) => {
 app.use("/api/newsletter", newsletterRouter);
 app.use("/api/waitinglist", waitinglistRouter);
 app.use("/api/contact", contactUsRouter);
+app.use("/api", chatRouter);
 
 export default app;

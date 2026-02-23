@@ -1,5 +1,5 @@
 import Card from "../../../components/application/data-display/card/card";
-import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.png";
+import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.webp";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { NavLink } from "react-router";
 import styles from "./caregiver-profile-summary-card.module.scss";

@@ -1,4 +1,5 @@
 import heroImage from "/images/heros/icare-companionship.webp";
+import heroImageMobile from "/images/heros/icare-companionship-1200.webp";
 import CareTimeline from "../components/website/pages/home/CareTimeline";
 import HomePageCareCTA from "../components/website/pages/home/HomePageCareCTA";
 import HomePageHero from "../components/website/pages/shared/home-page-hero";
@@ -7,13 +8,12 @@ import IcareSafetyBlock from "../components/website/pages/home/sections/IcareSaf
 import ICareFooter from "../components/website/pages/shared/footers/icare-footer";
 import ICareCostEstimator from "../components/website/pages/home/sections/ICareCostEstimator";
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
-import HeroCaregiversTicker from "../components/website/pages/home/sections/HeroCaregiversTicker";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
 
 export const meta = () => {
   return [
-    { title: "ICare | Trusted Home Companionship Across the UK" },
+    { title: "ICare | Care at home with independent carers across the UK" },
     { name: "description", content: "Find trusted companions for elderly relatives or join our community of caregivers. iCare connects families with caring professionals directly, without agencies or intermediaries." },
     { name: "keywords", content: "elderly companionship UK, companionship care for elderly, companion for elderly parent, caregiver jobs UK, trusted caregivers" },
 
@@ -58,7 +58,12 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <HomePageHero imgSrc={heroImage} />
+      <HomePageHero
+        imgSrc={heroImage}
+        imgMobileSrc={heroImageMobile}
+        imgWidth={2560}
+        imgHeight={1707}
+      />
       <main>
         <AboutICareSection />
         <CareTimeline />
@@ -67,7 +72,6 @@ export default function Home() {
         <IcareSafetyBlock />
         <ICareCostEstimator />
         <ICareTypesOfCareSEO />
-        <HeroCaregiversTicker />
         <ICareEarlyAccessHomeSection />
       </main>
       <ICareFooter />

@@ -150,7 +150,7 @@ export default function ICareEarlyAccessHomeSection() {
             <div style={estimatorHeader}>
 
                 <h2 style={h1}>
-                    Be among the first when ICare opens near you
+                    Join the waiting list
                 </h2>
                 <p style={lead}>
                     Leave a few details and we’ll let you know when ICare opens near you.<br />Your answers help us understand where care is needed most, so we can

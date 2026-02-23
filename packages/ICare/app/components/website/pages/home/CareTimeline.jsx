@@ -28,7 +28,7 @@ export default function HowItWorksThreeSteps() {
         >
             <div className={styles.hiwContainer}>
                 <div className={styles.hiwHeader}>
-                    <h2 className={styles.hiwTitle}>What makes ICare different from agencies</h2>
+                    <h2 className={styles.hiwTitle}>A different way to begin care</h2>
                     <p className={styles.hiwSub}>
                         A calmer path through a big decision with clear steps and no pressure.
                     </p>

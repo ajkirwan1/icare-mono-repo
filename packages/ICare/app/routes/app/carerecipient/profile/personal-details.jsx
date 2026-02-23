@@ -1,5 +1,5 @@
 import { useState } from "react";
-import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.png";
+import imgSrc from "/images/care-receiver-profile-image/care-receiver-profile-image.webp";
 import { NavLink } from "react-router";
 import Card from "../../../../components/application/data-display/card/card";
 

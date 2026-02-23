@@ -27,7 +27,7 @@ export default [
 
 
   // Auth
-  route("login", "routes/auth/login.jsx"),
+  // route("login", "routes/auth/login.jsx"),
 
   // SEC
   route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
@@ -58,6 +58,11 @@ export default [
       route("analytics", "routes/admin/analytics.jsx")
     ])
   ]),
+
+  route("contact", "routes/website/actions/contact.jsx"),
+  route("carerecipient/account/my-account", "routes/app/carerecipient/account/my-account.jsx"),
+  route("bookings/new/:caregiverId", "routes/app/carerecipient/booking-request-form.jsx"),
+  route("bookings/:bookingId", "routes/app/carerecipient/booking-detail.jsx"),
 
   // Caregiver
   ...prefix("caregiver", [

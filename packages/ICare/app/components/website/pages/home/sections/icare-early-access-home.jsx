@@ -5,13 +5,12 @@ export default function ICareEarlyAccessHomeSection() {
     return (
         <section id="waitlist" aria-label="Early access signup" className={styles.wrap}>
             <div className={styles.estimatorHeader}>
-                <h2 className={styles.h1}>Be among the first when ICare opens near you</h2>
+                <h2 className={styles.h1}>Join the waiting list</h2>
 
                 <p className={styles.lead}>
-                    Leave a few details and we’ll let you know when ICare opens near you.
+                    Leave a few details and we will let you know when ICare becomes available in your area.
                     <br />
-                    Your answers help us understand where care is needed most, so we can open in&nbsp;the
-                    right places first.
+                    There is no commitment - just early access and updates.
                 </p>
             </div>
 
