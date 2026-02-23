@@ -1,0 +1,273 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-016",
+    "screenName": "Admin User Detail",
+    "wireframeSource": "scr-adm-016-user-detail.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-overview", "suspended-user", "banned-user"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "2",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Users", "url": "/admin/users" },
+          { "label": "John Smith" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-user-header",
+      "name": "User Profile Header",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "John Smith",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Caregiver \u00b7 #4523 \u00b7 Registered 5 Feb 2026 \u00b7 Last login: Today, 10:32"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-status-badges",
+      "name": "Status & Verification Badges",
+      "order": 4,
+      "layout": "horizontal",
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 },
+      "children": [
+        {
+          "component": "filter-tag-row",
+          "props": {
+            "tags": ["Active", "Identity Verified", "DBS Verified", "Right to Work Verified"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "section-quick-actions",
+      "name": "Quick Actions",
+      "order": 5,
+      "layout": "horizontal",
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 },
+      "gap": 12,
+      "children": [
+        {
+          "component": "button",
+          "variant": "secondary",
+          "props": { "label": "View Verification Docs" }
+        },
+        {
+          "component": "button",
+          "variant": "secondary",
+          "props": { "label": "Send Message" }
+        },
+        {
+          "component": "button",
+          "variant": "secondary",
+          "props": { "label": "Suspend Account" }
+        },
+        {
+          "component": "button",
+          "variant": "secondary",
+          "props": { "label": "Ban Permanently" }
+        }
+      ]
+    },
+    {
+      "id": "section-activity-metrics",
+      "name": "Platform Activity Metrics",
+      "order": 6,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Total Bookings", "value": "23", "subtext": "18 completed" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Average Rating", "value": "4.8", "subtext": "From 15 reviews" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Response Rate", "value": "95%", "subtext": "Avg 2h response" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Cancellation Rate", "value": "4%", "subtext": "1 of 23 bookings" }
+        }
+      ]
+    },
+    {
+      "id": "section-personal-info",
+      "name": "Personal Information",
+      "order": 7,
+      "component": "widget-container",
+      "variant": "with-header-action",
+      "props": {
+        "title": "Personal Information",
+        "subtitle": null,
+        "hasHeaderAction": false
+      },
+      "children": [
+        {
+          "component": "metric-list",
+          "layout": "vertical",
+          "gap": "{spacing.3}",
+          "children": [
+            { "component": "metric-row", "props": { "label": "Full Name", "value": "John Smith" } },
+            { "component": "metric-row", "props": { "label": "Email", "value": "john.smith@email.com (verified)" } },
+            { "component": "metric-row", "props": { "label": "Phone", "value": "+44 7700 900123 (verified)" } },
+            { "component": "metric-row", "props": { "label": "Date of Birth", "value": "15 March 1985" } },
+            { "component": "metric-row", "props": { "label": "Postcode", "value": "SW1A 1AA" } },
+            { "component": "metric-row", "props": { "label": "Hourly Rate", "value": "\u00a320.00/hour" } },
+            { "component": "metric-row", "props": { "label": "Total Earnings", "value": "\u00a31,840.50" } }
+          ]
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-booking-history",
+      "name": "Booking History",
+      "order": 8,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Date" },
+              { "label": "Care Receiver" },
+              { "label": "Service" },
+              { "label": "Status" },
+              { "label": "Amount" },
+              { "label": "Rating" }
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "22/02/2026",
+                  "Mary K.",
+                  "Companionship",
+                  { "text": "Completed", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "\u00a340.00",
+                  "5.0"
+                ]
+              },
+              {
+                "cells": [
+                  "20/02/2026",
+                  "Jane D.",
+                  "Companionship",
+                  { "text": "Completed", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "\u00a360.00",
+                  "4.5"
+                ]
+              },
+              {
+                "cells": [
+                  "18/02/2026",
+                  "Tom H.",
+                  "Companionship",
+                  { "text": "Disputed", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "\u00a340.00",
+                  "\u2014"
+                ]
+              },
+              {
+                "cells": [
+                  "15/02/2026",
+                  "Sarah J.",
+                  "Companionship",
+                  { "text": "Cancelled", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  "\u00a30.00",
+                  "\u2014"
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-4 of 23 bookings"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 9,
+      "component": "pagination-controls",
+      "props": { "currentPage": 1, "totalPages": 6 },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 10,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "user": {
+      "name": "John Smith",
+      "role": "Caregiver",
+      "userId": "#4523",
+      "status": "Active",
+      "registered": "5 Feb 2026",
+      "lastLogin": "Today, 10:32",
+      "totalBookings": 23,
+      "avgRating": 4.8,
+      "responseRate": "95%",
+      "cancellationRate": "4%",
+      "totalEarnings": 1840.50
+    }
+  }
+}

@@ -300,19 +300,31 @@ function renderAlertBanner(section, R, W) {
   const padH = isMobile() ? 16 : n(R, section.padding && section.padding.horizontal, 24);
   const padBottom = n(R, section.padding && section.padding.bottom, 16);
 
+  // Strip unresolved ${...} template literals from a string
+  function stripUnresolved(val) {
+    if (!val || typeof val !== 'string') return val;
+    if (/^\$\{.+\}$/.test(val)) return ''; // entire value is unresolved
+    return val.replace(/\$\{[^}]+\}/g, '').trim();
+  }
   // Determine variant from props or states
-  let variant = (section.props && section.props.variant) || 'warning';
-  let title = (section.props && section.props.title) || '';
-  let message = (section.props && section.props.message) || '';
-  let ctaLabel = (section.props && section.props.ctaLabel) || '';
+  let variant = stripUnresolved((section.props && section.props.variant)) || 'warning';
+  let title = stripUnresolved((section.props && section.props.title)) || stripUnresolved((section.props && section.props.heading)) || '';
+  let message = stripUnresolved((section.props && section.props.message)) || '';
+  let ctaLabel = stripUnresolved((section.props && section.props.ctaLabel)) || '';
 
   // Admin alert banners may use states[0].props
   if (!title && section.states && section.states[0] && section.states[0].props) {
     const sp = section.states[0].props;
-    variant = sp.variant || variant;
-    title = sp.title || title;
-    message = sp.message || message;
-    ctaLabel = sp.ctaLabel || ctaLabel;
+    variant = stripUnresolved(sp.variant) || variant;
+    title = stripUnresolved(sp.title) || title;
+    message = stripUnresolved(sp.message) || message;
+    ctaLabel = stripUnresolved(sp.ctaLabel) || ctaLabel;
+  }
+
+  // If all content was unresolved templates, provide a state-aware fallback
+  if (!title && !message) {
+    title = 'Status Alert';
+    message = 'Content varies based on booking state';
   }
 
   const isError = variant === 'error' || variant === 'safeguarding-urgent';
@@ -372,15 +384,30 @@ function renderQuickActions(section, R, W) {
 
       s += `<rect x="${x}" y="${y}" width="${cardW}" height="${cardH}" rx="${br}" fill="${bg}" stroke="${cardBorder}" stroke-width="1"/>`;
 
+      const cp = card.props || {};
+
       // Icon circle
       s += `<circle cx="${x + 30}" cy="${y + 38}" r="20" fill="${tc}" opacity="0.12"/>`;
 
-      // Title
-      const title = (card.props && card.props.title) || 'Action';
+      // Title — metric cards use "label", quick-action cards use "title"
+      const title = cp.title || cp.label || 'Action';
       s += `<text x="${x + 20}" y="${y + 78}" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${tc}">${esc(title)}</text>`;
 
-      // CTA button
-      const ctaLabel = card.props && card.props.ctaLabel;
+      // Value (metric cards)
+      if (cp.value) {
+        s += `<text x="${x + 20}" y="${y + 100}" font-family="Inter,sans-serif" font-size="22" font-weight="700" fill="${tc}">${esc(cp.value)}</text>`;
+      }
+
+      // Subtext or trend (metric cards)
+      if (cp.trend) {
+        const trendColor = cp.trendDirection === 'up' ? '#16a34a' : cp.trendDirection === 'down' ? '#ef4444' : tc;
+        s += `<text x="${x + 20}" y="${y + 120}" font-family="Inter,sans-serif" font-size="12" fill="${trendColor}" opacity="0.85">${esc(cp.trend)}</text>`;
+      } else if (cp.subtext) {
+        s += `<text x="${x + 20}" y="${y + 120}" font-family="Inter,sans-serif" font-size="12" fill="${tc}" opacity="0.6">${esc(cp.subtext)}</text>`;
+      }
+
+      // CTA button (quick-action cards)
+      const ctaLabel = cp.ctaLabel;
       if (ctaLabel) {
         s += `<rect x="${x + 16}" y="${y + 94}" width="${cardW - 32}" height="32" rx="10" fill="${tc}" opacity="0.14"/>`;
         s += `<text x="${x + cardW / 2}" y="${y + 115}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="${tc}" text-anchor="middle">${esc(ctaLabel)}</text>`;
@@ -498,8 +525,46 @@ function renderWidgetChild(child, R, width) {
     function resolveRepeatItem(childDef, itemData) {
       if (!itemData) return childDef;
       const json = JSON.stringify(childDef);
-      const resolved = json.replace(/\$\{item\.([^}]+)\}/g, function (match, key) {
-        return itemData[key] !== undefined ? String(itemData[key]) : match;
+      const resolved = json.replace(/\$\{item\.([^}]+)\}/g, function (match, expr) {
+        // Simple property: ${item.name}
+        if (/^[a-zA-Z_]\w*$/.test(expr)) {
+          return itemData[expr] !== undefined ? String(itemData[expr]).replace(/"/g, '\\"') : match;
+        }
+        // Ternary: ${item.prop === 'val' ? 'a' : 'b'} or ${item.prop > N ? 'a' : ...}
+        var ternaryMatch = expr.match(/^(\w+)\s*(===?|!==?|>=?|<=?)\s*['"]?([^'"\s?]+)['"]?\s*\?\s*['"]([^'"]+)['"]\s*:\s*(.+)$/);
+        if (ternaryMatch) {
+          var prop = ternaryMatch[1], op = ternaryMatch[2], cmpVal = ternaryMatch[3], trueVal = ternaryMatch[4], elseExpr = ternaryMatch[5].trim();
+          var actual = itemData[prop];
+          var result = false;
+          if (op === '===' || op === '==') result = String(actual) === cmpVal;
+          else if (op === '!==' || op === '!=') result = String(actual) !== cmpVal;
+          else if (op === '>') result = Number(actual) > Number(cmpVal);
+          else if (op === '>=') result = Number(actual) >= Number(cmpVal);
+          else if (op === '<') result = Number(actual) < Number(cmpVal);
+          else if (op === '<=') result = Number(actual) <= Number(cmpVal);
+          if (result) return trueVal.replace(/"/g, '\\"');
+          // Try to resolve nested ternary in else branch
+          var nestedTernary = elseExpr.match(/^item\.(\w+)\s*(===?|!==?|>=?|<=?)\s*['"]?([^'"\s?]+)['"]?\s*\?\s*['"]([^'"]+)['"]\s*:\s*['"]([^'"]+)['"]$/);
+          if (nestedTernary) {
+            var np = nestedTernary[1], nop = nestedTernary[2], ncmp = nestedTernary[3], ntv = nestedTernary[4], nfv = nestedTernary[5];
+            var nactual = itemData[np];
+            var nresult = false;
+            if (nop === '===' || nop === '==') nresult = String(nactual) === ncmp;
+            else if (nop === '>' ) nresult = Number(nactual) > Number(ncmp);
+            else if (nop === '>=') nresult = Number(nactual) >= Number(ncmp);
+            return (nresult ? ntv : nfv).replace(/"/g, '\\"');
+          }
+          // Else branch might be a simple quoted string
+          var simpleElse = elseExpr.match(/^['"]([^'"]+)['"]$/);
+          if (simpleElse) return simpleElse[1].replace(/"/g, '\\"');
+          return elseExpr.replace(/^['"]|['"]$/g, '').replace(/"/g, '\\"');
+        }
+        // Fallback: try extracting just the first property name
+        var simpleProp = expr.match(/^(\w+)/);
+        if (simpleProp && itemData[simpleProp[1]] !== undefined) {
+          return String(itemData[simpleProp[1]]).replace(/"/g, '\\"');
+        }
+        return match;
       });
       return JSON.parse(resolved);
     }
@@ -587,34 +652,42 @@ function renderSingleChild(child, R, width, index) {
     case 'booking-card':
     case 'booking-request-card': {
       const H = 90;
-      const variant = child.variant || 'confirmed';
+      const bcp = child.props || {};
+      const variant = child.variant || bcp.variant || 'confirmed';
       const isPending = variant.includes('pending') || variant.includes('request');
       const badgeBg = isPending ? '#fef3c7' : '#dbeafe';
       const badgeTxt = isPending ? '#92400e' : '#1e40af';
-      const badgeLabel = isPending ? 'Requested' : 'Confirmed';
+      const badgeLabel = bcp.statusLabel || bcp.status || (isPending ? 'Requested' : 'Confirmed');
+      const bcName = bcp.caregiverName || bcp.careReceiverName || bcp.name || `Caregiver ${index + 1}`;
+      const bcDate = bcp.date ? (bcp.time ? bcp.date + ' \u2022 ' + bcp.time : bcp.date) : (bcp.dateTime || `Booking ${index + 1}`);
+      const bcCta = bcp.ctaLabel || 'View Details';
 
       let s = '';
       s += `<rect x="0" y="0" width="${width}" height="${H}" rx="12" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
       s += `<circle cx="36" cy="${H / 2}" r="22" fill="${brand}" opacity="0.25"/>`;
-      s += `<text x="68" y="28" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${textP}">Caregiver Name ${index + 1}</text>`;
-      s += `<text x="68" y="48" font-family="Inter,sans-serif" font-size="13" fill="${textM}">Mon 15 Jan &#x2022; 10:00 &#x2013; 14:00 (4h)</text>`;
-      s += `<rect x="68" y="56" width="82" height="22" rx="11" fill="${badgeBg}"/>`;
-      s += `<text x="80" y="71" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="${badgeTxt}">${badgeLabel}</text>`;
+      s += `<text x="68" y="28" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${textP}">${esc(bcName)}</text>`;
+      s += `<text x="68" y="48" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(bcDate)}</text>`;
+      s += `<rect x="68" y="56" width="${badgeLabel.length * 8 + 16}" height="22" rx="11" fill="${badgeBg}"/>`;
+      s += `<text x="80" y="71" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="${badgeTxt}">${esc(badgeLabel)}</text>`;
 
       // CTA
       s += `<rect x="${width - 200}" y="${H / 2 - 14}" width="90" height="28" rx="8" fill="${brand}"/>`;
-      s += `<text x="${width - 178}" y="${H / 2 + 2}" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="white">View Details</text>`;
+      s += `<text x="${width - 178}" y="${H / 2 + 2}" font-family="Inter,sans-serif" font-size="12" font-weight="500" fill="white">${esc(bcCta)}</text>`;
 
       return { svg: s, height: H };
     }
 
     case 'activity-card': {
       const H = 52;
+      const acp = child.props || {};
+      const acText = acp.text || acp.description || acp.title || `Activity item ${index + 1}`;
+      const acTime = acp.time || acp.timestamp || acp.date || '2 hours ago';
+      const acAction = acp.primaryAction || acp.actionLabel || 'Review';
       let s = '';
       s += `<circle cx="20" cy="${H / 2}" r="16" fill="${brand}" opacity="0.12"/>`;
-      s += `<text x="46" y="${H / 2 - 3}" font-family="Inter,sans-serif" font-size="14" fill="${textP}">Activity item ${index + 1}</text>`;
-      s += `<text x="46" y="${H / 2 + 14}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">2 hours ago</text>`;
-      s += `<text x="${width - 64}" y="${H / 2 + 4}" font-family="Inter,sans-serif" font-size="13" fill="${brand}" font-weight="500">Review &#x2192;</text>`;
+      s += `<text x="46" y="${H / 2 - 3}" font-family="Inter,sans-serif" font-size="14" fill="${textP}">${esc(acText)}</text>`;
+      s += `<text x="46" y="${H / 2 + 14}" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(acTime)}</text>`;
+      s += `<text x="${width - 64}" y="${H / 2 + 4}" font-family="Inter,sans-serif" font-size="13" fill="${brand}" font-weight="500">${esc(acAction)} &#x2192;</text>`;
       return { svg: s, height: H };
     }
 
@@ -710,10 +783,13 @@ function renderSingleChild(child, R, width, index) {
 
     case 'profile-completion-bar': {
       const H = 40;
+      const pcbp = child.props || {};
+      const pcbPct = parseInt(pcbp.percentage || pcbp.value || '75', 10) || 75;
+      const pcbFrac = pcbPct / 100;
       let s = '';
       s += `<rect x="0" y="8" width="${width}" height="16" rx="8" fill="${textP}" opacity="0.08"/>`;
-      s += `<rect x="0" y="8" width="${width * 0.75}" height="16" rx="8" fill="${brand}"/>`;
-      s += `<text x="${width * 0.75 + 8}" y="22" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="${textP}">75%</text>`;
+      s += `<rect x="0" y="8" width="${width * pcbFrac}" height="16" rx="8" fill="${brand}"/>`;
+      s += `<text x="${width * pcbFrac + 8}" y="22" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="${textP}">${pcbPct}%</text>`;
       return { svg: s, height: H };
     }
 
@@ -779,9 +855,35 @@ function renderSingleChild(child, R, width, index) {
       return { svg: s, height: H };
     }
 
+    case 'status-badge': {
+      const sbp = child.props || {};
+      const sbStatus = sbp.status || sbp.label || child.variant || 'Status';
+      const sbSize = sbp.size === 'large' ? 15 : 12;
+      const statusMap = {
+        requested: { bg: '#fef3c7', text: '#92400e' }, pending: { bg: '#fef3c7', text: '#92400e' },
+        accepted: { bg: '#dbeafe', text: '#1e40af' }, confirmed: { bg: '#dbeafe', text: '#1e40af' },
+        in_progress: { bg: '#dbeafe', text: '#1e40af' }, completed: { bg: '#dcfce7', text: '#166534' },
+        cancelled: { bg: '#e5e7eb', text: '#374151' }, declined: { bg: '#fee2e2', text: '#dc2626' },
+        disputed: { bg: '#fee2e2', text: '#dc2626' }, expired: { bg: '#e5e7eb', text: '#374151' },
+        payment_released: { bg: '#dcfce7', text: '#166534' }
+      };
+      const sbColors = statusMap[sbStatus.toLowerCase()] || statusMap[sbStatus.replace(/[\s-]/g, '_').toLowerCase()] || { bg: '#e5e7eb', text: '#374151' };
+      const sbLabel = sbStatus.charAt(0).toUpperCase() + sbStatus.slice(1).replace(/_/g, ' ');
+      const sbW = sbLabel.length * 8 + 20;
+      let s = '';
+      s += `<rect x="0" y="0" width="${sbW}" height="28" rx="14" fill="${sbColors.bg}"/>`;
+      s += `<text x="10" y="18" font-family="Inter,sans-serif" font-size="${sbSize}" font-weight="500" fill="${sbColors.text}">${esc(sbLabel)}</text>`;
+      return { svg: s, height: 28 };
+    }
+
+    case 'countdown-timer': {
+      let s = `<text x="0" y="16" font-family="Inter,sans-serif" font-size="13" fill="${textM}">&#x23F1; Response timer</text>`;
+      return { svg: s, height: 24 };
+    }
+
     case 'button': {
       const H = 40;
-      const label = (child.props && child.props.label) || 'Button';
+      const label = child.label || (child.props && child.props.label) || 'Button';
       const variant = child.variant || (child.props && child.props.variant) || 'primary';
       const bg = variant === 'secondary' ? `${textP}` : brand;
       const opac = variant === 'secondary' ? '0.08' : '1';
@@ -907,8 +1009,11 @@ function renderSingleChild(child, R, width, index) {
       const H = 24;
       const content = (child.props && child.props.content) || child.content || 'Text';
       const fs = n(R, child.tokens && child.tokens.fontSize, 14);
-      const fill = c(R, child.tokens && child.tokens.fill);
-      let s = `<text x="0" y="16" font-family="Inter,sans-serif" font-size="${fs}" fill="${fill}">${esc(content)}</text>`;
+      const textFillToken = child.tokens && child.tokens.fill;
+      const fill = textFillToken ? (R.color(textFillToken) || textP) : textP;
+      const fw = (child.tokens && child.tokens.fontWeight) ? n(R, child.tokens.fontWeight, 400) : '';
+      const fwAttr = fw ? ` font-weight="${fw}"` : '';
+      let s = `<text x="0" y="16" font-family="Inter,sans-serif" font-size="${fs}" fill="${fill}"${fwAttr}>${esc(content)}</text>`;
       return { svg: s, height: H };
     }
 
@@ -948,17 +1053,25 @@ function renderSingleChild(child, R, width, index) {
 
     case 'caregiver-card': {
       const H = 280;
+      const cgcp = child.props || {};
+      const cgName = cgcp.name || cgcp.caregiverName || `Caregiver ${index + 1}`;
+      const cgLocation = cgcp.location || 'Location';
+      const cgDistance = cgcp.distance || `${(index + 1) * 1.2} mi`;
+      const cgRate = cgcp.hourlyRate || `&#xA3;${17 + index}`;
+      const cgRating = parseInt(cgcp.rating || '5', 10) || 5;
+      const cgService = cgcp.primaryService || cgcp.service || 'Companionship';
+      const cgCta = cgcp.ctaLabel || 'View Profile';
       let s = '';
       s += `<rect x="0" y="0" width="${width}" height="${H}" rx="16" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
       s += `<circle cx="${width / 2}" cy="48" r="32" fill="${brand}" opacity="0.25"/>`;
-      s += `<text x="${width / 2}" y="100" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="${textP}" text-anchor="middle">Caregiver ${index + 1}</text>`;
-      s += `<text x="${width / 2}" y="118" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">Location &#x2022; ${index + 1}.2 mi</text>`;
-      for (let i = 0; i < 5; i++) { s += `<text x="${width / 2 - 45 + i * 18}" y="140" font-family="Inter,sans-serif" font-size="14" fill="#f59e0b">&#x2605;</text>`; }
-      s += `<text x="${width / 2}" y="164" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="${textP}" text-anchor="middle">&#xA3;1${7 + index}/hr</text>`;
+      s += `<text x="${width / 2}" y="100" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="${textP}" text-anchor="middle">${esc(cgName)}</text>`;
+      s += `<text x="${width / 2}" y="118" font-family="Inter,sans-serif" font-size="12" fill="${textM}" text-anchor="middle">${esc(cgLocation)} &#x2022; ${esc(cgDistance)}</text>`;
+      for (let i = 0; i < 5; i++) { s += `<text x="${width / 2 - 45 + i * 18}" y="140" font-family="Inter,sans-serif" font-size="14" fill="${i < cgRating ? '#f59e0b' : '#d1d5db'}">&#x2605;</text>`; }
+      s += `<text x="${width / 2}" y="164" font-family="Inter,sans-serif" font-size="18" font-weight="700" fill="${textP}" text-anchor="middle">${esc(String(cgRate))}/hr</text>`;
       s += `<rect x="16" y="176" width="${(width - 32) * 0.48}" height="22" rx="11" fill="${brand}" opacity="0.12"/>`;
-      s += `<text x="${16 + (width - 32) * 0.24}" y="191" font-family="Inter,sans-serif" font-size="11" fill="${brand}" text-anchor="middle">Companionship</text>`;
+      s += `<text x="${16 + (width - 32) * 0.24}" y="191" font-family="Inter,sans-serif" font-size="11" fill="${brand}" text-anchor="middle">${esc(cgService)}</text>`;
       s += `<rect x="16" y="${H - 52}" width="${width - 32}" height="36" rx="8" fill="${brand}"/>`;
-      s += `<text x="${width / 2}" y="${H - 28}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="white" text-anchor="middle">View Profile</text>`;
+      s += `<text x="${width / 2}" y="${H - 28}" font-family="Inter,sans-serif" font-size="13" font-weight="500" fill="white" text-anchor="middle">${esc(cgCta)}</text>`;
       s += `<text x="${width - 32}" y="28" font-family="Inter,sans-serif" font-size="18" fill="${textM}" opacity="0.4">&#x2661;</text>`;
       return { svg: s, height: H };
     }
@@ -1086,14 +1199,20 @@ function renderSingleChild(child, R, width, index) {
 
     case 'review-card': {
       var rcH = 120;
+      var rcp = child.props || {};
+      var rcName = rcp.reviewerName || rcp.name || `Reviewer ${index + 1}`;
+      var rcDate = rcp.date || rcp.timeAgo || '2 weeks ago';
+      var rcRating = parseInt(rcp.rating || '5', 10) || 5;
+      var rcText = rcp.text || rcp.review || rcp.content || 'Wonderful caregiver, very reliable and caring. Highly recommended...';
+      var rcHelpful = rcp.helpfulCount || '3';
       let s = '';
       s += `<rect x="0" y="0" width="${width}" height="${rcH}" rx="12" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
       s += `<circle cx="32" cy="32" r="18" fill="${brand}" opacity="0.25"/>`;
-      s += `<text x="60" y="28" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="${textP}">Reviewer ${index + 1}</text>`;
-      s += `<text x="60" y="44" font-family="Inter,sans-serif" font-size="12" fill="${textM}">2 weeks ago</text>`;
-      for (let i = 0; i < 5; i++) { s += `<text x="${width - 100 + i * 16}" y="28" font-family="Inter,sans-serif" font-size="12" fill="#f59e0b">&#x2605;</text>`; }
-      s += `<text x="20" y="72" font-family="Inter,sans-serif" font-size="13" fill="${textP}">Wonderful caregiver, very reliable and caring. Highly recommended...</text>`;
-      s += `<text x="20" y="100" font-family="Inter,sans-serif" font-size="12" fill="${brand}">Helpful (3)</text>`;
+      s += `<text x="60" y="28" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="${textP}">${esc(rcName)}</text>`;
+      s += `<text x="60" y="44" font-family="Inter,sans-serif" font-size="12" fill="${textM}">${esc(rcDate)}</text>`;
+      for (let i = 0; i < 5; i++) { s += `<text x="${width - 100 + i * 16}" y="28" font-family="Inter,sans-serif" font-size="12" fill="${i < rcRating ? '#f59e0b' : '#d1d5db'}">&#x2605;</text>`; }
+      s += `<text x="20" y="72" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${esc(String(rcText).substring(0, 80))}</text>`;
+      s += `<text x="20" y="100" font-family="Inter,sans-serif" font-size="12" fill="${brand}">Helpful (${esc(String(rcHelpful))})</text>`;
       return { svg: s, height: rcH };
     }
 
@@ -1101,7 +1220,8 @@ function renderSingleChild(child, R, width, index) {
       var rdH = 140;
       let s = '';
       var barW = width - 80;
-      var dist = [60, 25, 10, 3, 2];
+      var rdp = child.props || {};
+      var dist = Array.isArray(rdp.distribution) ? rdp.distribution : [60, 25, 10, 3, 2];
       for (let i = 0; i < 5; i++) {
         var ry = i * 26;
         s += `<text x="0" y="${ry + 16}" font-family="Inter,sans-serif" font-size="13" fill="${textP}">${5 - i}&#x2605;</text>`;
@@ -1153,7 +1273,8 @@ function renderSingleChild(child, R, width, index) {
       s += `<rect x="0" y="0" width="${width}" height="${psH}" rx="12" fill="${cardBg}" stroke="${border}" stroke-width="1"/>`;
       s += `<text x="16" y="${piy + 16}" font-family="Inter,sans-serif" font-size="16" font-weight="600" fill="${textP}">Price Summary</text>`;
       piy += 36;
-      var prows = [['Hourly rate', psp.hourlyRate || '&#xA3;18'], ['Duration', (psp.duration || 3) + ' hours'], ['Subtotal', '&#xA3;' + (psp.subtotal || 54)], ['Service fee (5%)', '&#xA3;' + (psp.serviceFee || '2.70')]];
+      function psCurrency(val) { var v = String(val); return (/[£$€]|GBP|&#xA3;/).test(v) ? v : '&#xA3;' + v; }
+      var prows = [['Hourly rate', psCurrency(psp.hourlyRate || '18')], ['Duration', (psp.duration || 3) + ' hours'], ['Subtotal', psCurrency(psp.subtotal || '54')], ['Service fee (5%)', psCurrency(psp.serviceFee || '2.70')]];
       prows.forEach(function (rv) {
         s += `<text x="16" y="${piy + 12}" font-family="Inter,sans-serif" font-size="14" fill="${textM}">${rv[0]}</text>`;
         s += `<text x="${width - 16}" y="${piy + 12}" font-family="Inter,sans-serif" font-size="14" fill="${textP}" text-anchor="end">${rv[1]}</text>`;
@@ -1162,7 +1283,7 @@ function renderSingleChild(child, R, width, index) {
       s += `<line x1="16" y1="${piy}" x2="${width - 16}" y2="${piy}" stroke="${border}" stroke-width="1"/>`;
       piy += 12;
       s += `<text x="16" y="${piy + 14}" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="${textP}">Total</text>`;
-      s += `<text x="${width - 16}" y="${piy + 14}" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="${textP}" text-anchor="end">&#xA3;${psp.total || '56.70'}</text>`;
+      s += `<text x="${width - 16}" y="${piy + 14}" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="${textP}" text-anchor="end">${psCurrency(psp.total || '56.70')}</text>`;
       return { svg: s, height: psH };
     }
 
@@ -1319,7 +1440,8 @@ function renderSingleChild(child, R, width, index) {
       var ddSelectedVal = ddp.value || ddDefaultLabel || '';
       let s = '';
       s += `<rect x="0" y="0" width="${Math.min(width, 240)}" height="${ddH}" rx="8" fill="white" stroke="${border}" stroke-width="1"/>`;
-      s += `<text x="12" y="23" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(ddLabel)}: ${esc(ddSelectedVal)} &#x25BE;</text>`;
+      var ddSep = ddLabel.endsWith(':') ? ' ' : ': ';
+      s += `<text x="12" y="23" font-family="Inter,sans-serif" font-size="13" fill="${textM}">${esc(ddLabel)}${ddSep}${esc(ddSelectedVal)} &#x25BE;</text>`;
       return { svg: s, height: ddH };
     }
 
@@ -3098,6 +3220,11 @@ function generateScreenSvg(screen, R) {
 
     parts.push(`<g transform="translate(0, ${totalH})">${result.svg}</g>`);
     totalH += result.height;
+  }
+
+  // Sanitize: strip any remaining unresolved ${...} template literals from rendered SVG parts
+  for (let pi = 0; pi < parts.length; pi++) {
+    parts[pi] = parts[pi].replace(/\$\{[^}]+\}/g, '');
   }
 
   // Final SVG

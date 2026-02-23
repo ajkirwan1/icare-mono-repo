@@ -1,0 +1,245 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-023",
+    "screenName": "Admin Audit Log",
+    "wireframeSource": "scr-adm-023-audit-log.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-log-loaded", "filtered-by-admin", "filtered-by-action"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Super Admin",
+        "notificationCount": "1",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Audit Log" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Platform Audit Log",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Complete audit trail of all admin actions for GDPR and Care Act compliance"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter & Search Bar",
+      "order": 4,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": true,
+            "searchPlaceholder": "Search by user, action, or entity...",
+            "filters": [
+              { "label": "Admin User" },
+              { "label": "Action Type" },
+              { "label": "Entity Type" },
+              { "label": "Date Range" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 16, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 5,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Total Events (7d)", "value": "127", "subtext": "All admin actions" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "User Actions", "value": "45", "subtext": "Suspensions, bans, views" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Verification Actions", "value": "38", "subtext": "Approvals, rejections" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Safeguarding Actions", "value": "12", "subtext": "Reports, escalations" }
+        }
+      ]
+    },
+    {
+      "id": "section-results-count",
+      "name": "Results Count",
+      "order": 6,
+      "children": [
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing last 500 events"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 }
+    },
+    {
+      "id": "section-audit-table",
+      "name": "Audit Log Table",
+      "order": 7,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Timestamp" },
+              { "label": "Admin User" },
+              { "label": "Action" },
+              { "label": "Entity" },
+              { "label": "Details" }
+            ],
+            "rows": [
+              {
+                "cells": [
+                  "Today 15:30",
+                  "Admin Sarah",
+                  { "text": "Approved", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "Caregiver #4523",
+                  "Identity verification"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 15:15",
+                  "Admin Sarah",
+                  { "text": "Viewed", "badge": true, "badgeColor": "#DBEAFE", "badgeTextColor": "#1D4ED8" },
+                  "Care Receiver #2341",
+                  "Profile viewed"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 14:45",
+                  "Admin John",
+                  { "text": "Suspended", "badge": true, "badgeColor": "#FED7AA", "badgeTextColor": "#C2410C" },
+                  "Caregiver #4521",
+                  "7 days (policy violation)"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 14:30",
+                  "Admin Sarah",
+                  { "text": "Resolved", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "Dispute #42",
+                  "Partial refund (50%)"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 14:00",
+                  "Admin Sarah",
+                  { "text": "Rejected", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "Caregiver #4522",
+                  "ID expired"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 13:30",
+                  "Admin John",
+                  { "text": "Banned", "badge": true, "badgeColor": "#DC2626", "badgeTextColor": "white" },
+                  "Caregiver #4520",
+                  "Off-platform payment"
+                ]
+              },
+              {
+                "cells": [
+                  "Today 12:00",
+                  "Admin Sarah",
+                  { "text": "Exported", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  "Report",
+                  "Verification metrics CSV"
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-20 of 127 events"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 8,
+      "component": "pagination-controls",
+      "props": { "currentPage": 1, "totalPages": 7 },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 9,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalEvents7d": 127,
+    "userActions": 45,
+    "verificationActions": 38,
+    "safeguardingActions": 12
+  }
+}

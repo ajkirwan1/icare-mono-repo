@@ -1,0 +1,242 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-012",
+    "screenName": "Admin Dispute Queue",
+    "wireframeSource": "scr-adm-012-dispute-queue.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-disputes-loaded", "sla-breach-alert", "filtered", "empty-no-disputes"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "3",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Disputes" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Dispute Queue",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "Review and resolve booking disputes"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-sla-alert",
+      "name": "SLA Alert Banner",
+      "order": 4,
+      "component": "alert-banner",
+      "props": {
+        "variant": "warning",
+        "title": "SLA WARNING",
+        "message": "2 disputes approaching 7-day resolution deadline",
+        "ctaLabel": "Review Oldest First"
+      },
+      "padding": { "horizontal": 24, "bottom": 16 }
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter Bar",
+      "order": 5,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": false,
+            "filters": [
+              { "label": "Status" },
+              { "label": "Dispute Type" },
+              { "label": "Age" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 6,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Open Disputes", "value": "5", "subtext": "Requiring action" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Under Review", "value": "2", "subtext": "Assigned to admin" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Avg Resolution", "value": "3.5 days", "subtext": "Target: <7 days" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "SLA Compliance", "value": "92%", "subtext": "Last 30 days" }
+        }
+      ]
+    },
+    {
+      "id": "section-results-count",
+      "name": "Results Count",
+      "order": 7,
+      "children": [
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-5 of 5 disputes"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 }
+    },
+    {
+      "id": "section-disputes-table",
+      "name": "Disputes Table",
+      "order": 8,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Booking ID" },
+              { "label": "Care Receiver" },
+              { "label": "Caregiver" },
+              { "label": "Reason" },
+              { "label": "Amount" },
+              { "label": "Age" },
+              { "label": "SLA Status" }
+            ],
+            "rows": [
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "#7819", "color": "#2563EB" },
+                  "Tom H.",
+                  "David L.",
+                  "Duration shorter than booked",
+                  "\u00a384.00",
+                  "6 days",
+                  { "text": "Due tomorrow", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" }
+                ]
+              },
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "#7803", "color": "#2563EB" },
+                  "Jane D.",
+                  "Mary K.",
+                  "Caregiver late arrival",
+                  "\u00a363.00",
+                  "5 days",
+                  { "text": "Due in 2 days", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "#7798", "color": "#2563EB" },
+                  "Sarah J.",
+                  "Anna C.",
+                  "Service not as described",
+                  "\u00a342.00",
+                  "1 day",
+                  { "text": "On track", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" }
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "#7789", "color": "#2563EB" },
+                  "Robert P.",
+                  "Emma W.",
+                  "No-show caregiver",
+                  "\u00a363.00",
+                  "Resolved",
+                  { "text": "Resolved", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" }
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-5 of 5 disputes"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 9,
+      "component": "pagination-controls",
+      "props": { "currentPage": 1, "totalPages": 1 },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 10,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "openDisputes": 5,
+    "underReview": 2,
+    "avgResolutionDays": 3.5,
+    "slaCompliance": "92%",
+    "slaNearBreach": 2
+  }
+}

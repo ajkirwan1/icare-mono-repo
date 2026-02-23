@@ -1,0 +1,235 @@
+{
+  "_metadata": {
+    "screenId": "SCR-ADM-010",
+    "screenName": "Admin Booking Management",
+    "wireframeSource": "scr-adm-010-booking-management.md",
+    "generatedDate": "2026-02-23",
+    "role": "admin",
+    "breakpoints": { "desktop": 1440, "tablet": 768, "mobile": 375 },
+    "states": ["default-bookings-loaded", "filtered", "disputed-only", "empty-no-results"]
+  },
+  "frame": {
+    "width": 1440,
+    "height": "auto",
+    "fill": "{colors.background.base}",
+    "padding": { "top": 0, "right": 0, "bottom": 0, "left": 0 }
+  },
+  "sections": [
+    {
+      "id": "section-admin-header",
+      "name": "Admin Navigation Header",
+      "order": 1,
+      "component": "navigation-header",
+      "variant": "admin",
+      "props": {
+        "role": "admin",
+        "userName": "Admin Sarah",
+        "userRole": "Operations Manager",
+        "notificationCount": "2",
+        "hasSearch": true,
+        "searchPlaceholder": "Search users, bookings, verifications..."
+      },
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": "fill", "height": "64px" }
+    },
+    {
+      "id": "section-breadcrumb",
+      "name": "Breadcrumb Navigation",
+      "order": 2,
+      "component": "breadcrumb",
+      "props": {
+        "items": [
+          { "label": "Dashboard", "url": "/admin" },
+          { "label": "Bookings" }
+        ]
+      },
+      "padding": { "horizontal": 24, "vertical": 12 }
+    },
+    {
+      "id": "section-page-header",
+      "name": "Page Title",
+      "order": 3,
+      "children": [
+        {
+          "component": "text",
+          "variant": "heading",
+          "content": "Booking Management",
+          "tokens": { "fontSize": "32", "fontWeight": "700" }
+        },
+        {
+          "component": "text",
+          "variant": "subtitle",
+          "content": "View and manage all platform bookings"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 8, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-filter-bar",
+      "name": "Filter & Search Bar",
+      "order": 4,
+      "children": [
+        {
+          "component": "filter-bar",
+          "props": {
+            "hasSearch": true,
+            "searchPlaceholder": "Search by booking ID, user name...",
+            "filters": [
+              { "label": "Status" },
+              { "label": "Date Range" },
+              { "label": "Amount" }
+            ]
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 16, "bottom": 16 }
+    },
+    {
+      "id": "section-metrics",
+      "name": "Summary Metrics",
+      "order": 5,
+      "layout": "horizontal-grid",
+      "columns": 4,
+      "padding": { "horizontal": 24, "vertical": 16 },
+      "children": [
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Total Bookings", "value": "234", "trend": "\u219128% from last month", "trendDirection": "up" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Active Today", "value": "8", "subtext": "In progress" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "standard",
+          "props": { "label": "Disputed", "value": "3", "subtext": "Pending resolution", "statusColor": "red" }
+        },
+        {
+          "component": "metric-card",
+          "variant": "with-trend",
+          "props": { "label": "Revenue (30d)", "value": "\u00a33,120", "trend": "\u219128% from last month", "trendDirection": "up" }
+        }
+      ]
+    },
+    {
+      "id": "section-active-filters",
+      "name": "Active Filters Display",
+      "order": 6,
+      "children": [
+        {
+          "component": "text",
+          "variant": "body-small",
+          "content": "Showing 1-20 of 234 bookings"
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 4, "bottom": 8 },
+      "gap": 8
+    },
+    {
+      "id": "section-bookings-table",
+      "name": "Bookings Table",
+      "order": 7,
+      "children": [
+        {
+          "component": "data-table",
+          "props": {
+            "columns": [
+              { "label": "Booking ID" },
+              { "label": "Care Receiver" },
+              { "label": "Caregiver" },
+              { "label": "Date" },
+              { "label": "Status" },
+              { "label": "Amount" }
+            ],
+            "rows": [
+              {
+                "cells": [
+                  { "text": "#7825", "color": "#2563EB" },
+                  "Mary K.",
+                  "John S.",
+                  "23/02/2026",
+                  { "text": "In Progress", "badge": true, "badgeColor": "#DBEAFE", "badgeTextColor": "#1D4ED8" },
+                  "\u00a340.00"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "#7824", "color": "#2563EB" },
+                  "Jane D.",
+                  "Anna C.",
+                  "23/02/2026",
+                  { "text": "Requested", "badge": true, "badgeColor": "#FEF3C7", "badgeTextColor": "#92400E" },
+                  "\u00a360.00"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "#7821", "color": "#2563EB" },
+                  "Jane D.",
+                  "Mary K.",
+                  "22/02/2026",
+                  { "text": "Completed", "badge": true, "badgeColor": "#DCFCE7", "badgeTextColor": "#166534" },
+                  "\u00a340.00"
+                ]
+              },
+              {
+                "highlight": "urgent",
+                "cells": [
+                  { "text": "#7819", "color": "#2563EB" },
+                  "Tom H.",
+                  "David L.",
+                  "21/02/2026",
+                  { "text": "Disputed", "badge": true, "badgeColor": "#FEE2E2", "badgeTextColor": "#DC2626" },
+                  "\u00a384.00"
+                ]
+              },
+              {
+                "cells": [
+                  { "text": "#7818", "color": "#2563EB" },
+                  "Robert P.",
+                  "Emma W.",
+                  "20/02/2026",
+                  { "text": "Cancelled", "badge": true, "badgeColor": "#E5E7EB", "badgeTextColor": "#374151" },
+                  "\u00a30.00"
+                ]
+              }
+            ],
+            "resultsText": "Showing 1-20 of 234 bookings"
+          }
+        }
+      ],
+      "padding": { "horizontal": 24, "top": 0, "bottom": 16 }
+    },
+    {
+      "id": "section-pagination",
+      "name": "Pagination",
+      "order": 8,
+      "component": "pagination-controls",
+      "props": { "currentPage": 1, "totalPages": 12 },
+      "padding": { "vertical": 16 }
+    },
+    {
+      "id": "section-footer",
+      "name": "Footer",
+      "order": 9,
+      "component": "footer-global",
+      "variant": "desktop-full",
+      "props": {
+        "layout": "horizontal",
+        "copyrightText": "\u00a9 2026 iCare Platform. All rights reserved.",
+        "version": "Version 1.0.0"
+      }
+    }
+  ],
+  "sampleData": {
+    "totalBookings": 234,
+    "activeToday": 8,
+    "disputedPending": 3,
+    "revenue30d": 3120,
+    "revenueGrowth": "+28%"
+  }
+}
