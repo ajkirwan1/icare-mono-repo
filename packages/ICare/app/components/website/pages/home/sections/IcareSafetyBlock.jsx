@@ -8,8 +8,8 @@ export default function SafetyComesFirstThreeBoxes() {
             desc: (
                 <>
                     <strong className={styles.strong}>Photo ID</strong> and{" "}
-                    <strong className={styles.strong}>Right to Work</strong> are required before a
-                    profile becomes visible.
+                    <strong className={styles.strong}>Right to Work</strong> checks are completed
+                    before profiles are made visible.
                 </>
             ),
             image: "/images/web/homepage/verified-caregiver-profiles.webp",

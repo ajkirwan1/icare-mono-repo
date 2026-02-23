@@ -243,7 +243,7 @@ export default function ICareCostEstimator({
                     </h2>
                     <h3 className={styles.h2Mini}>Budget clarity in under a minute</h3>
                     <p className={styles.lead}>
-                        Caring is emotional — money shouldn’t add extra stress. <br />
+                        Caring is emotional - money shouldn’t add extra stress. <br />
                         Adjust rate and hours/week to see an illustrative monthly estimate.
                     </p>
                 </div>

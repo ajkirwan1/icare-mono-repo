@@ -5,7 +5,7 @@ export default function ICareEarlyAccessHomeSection() {
     return (
         <section id="waitlist" aria-label="Cost estimator" className={styles.wrap}>
             <div className={styles.estimatorHeader}>
-                <h2 className={styles.h1}>Be among the first when ICare opens near you</h2>
+                <h2 className={styles.h1}>Join the waiting list</h2>
 
                 <p className={styles.lead}>
                     Leave a few details and we’ll let you know when ICare opens near you.

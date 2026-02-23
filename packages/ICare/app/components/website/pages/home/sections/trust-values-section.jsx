@@ -49,14 +49,15 @@ export default function TrustValuesSection() {
                 <h2 className={styles.title}>Trust, care &amp; community</h2>
 
                 <p className={styles.subtitle}>
-                    ICare was created in response to what many families find overwhelming about traditional care agencies: pressure to decide quickly, unclear costs and limited visibility of who is providing care.
+                    ICare was created to offer a calmer alternative for families who need support -
                 </p>
 
                 <p className={styles.subinfo}>
-                    We are a transparent platform, not a care agency.<br />
-                    Families connect directly with independent caregivers, talk openly, agree companionship, everyday support and costs upfront, and stay in control of the care relationship at every stage.
+                    We saw how overwhelming care decisions can feel, especially when there&apos;s pressure to decide quickly or a lack of clarity around who is involved.
                     <br /><br />
-                    ICare supports the process with structure, tools and&nbsp;guidance - but the care arrangement is always between the family and the caregiver.
+                    ICare exists to bring people together, create space for conversation, and help families and caregivers find support that feels right for them.
+                    <br /><br />
+                    We offer structure, tools and guidance along the way - while the care relationship itself always remains between the family and the caregiver.
                 </p>
             </div>
 
