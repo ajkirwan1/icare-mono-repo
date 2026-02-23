@@ -241,12 +241,16 @@
     top: 0;
     right: 0;
     left: 0;
-
+    width: 100%;
     height: calc(100dvh - var(--navbar-height));
     min-height: calc(100vh - var(--navbar-height));
+    max-height: none;
 
     background: #fff;
     color: $txt;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
 
     display: flex;
     align-items: flex-start;
@@ -254,7 +258,8 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 
-    transform: translateX(100%);
+    transform: translateX(-100%);
+    opacity: 1;
     transition: transform 0.3s ease;
 
     padding: clamp(34px, 7vh, 56px) 18px calc(20px + env(safe-area-inset-bottom, 0px));
@@ -262,6 +267,17 @@
 
 .mobileOverlayOpen .mobilePanel {
     transform: translateX(0);
+    animation: mobilePanelSlideInFromLeft 0.3s ease both;
+}
+
+@keyframes mobilePanelSlideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 .mobileNav {

@@ -13,7 +13,7 @@ import ICareEarlyAccessHomeSection from "~/components/website/pages/home/section
 
 export const meta = () => {
   return [
-    { title: "ICare | Trusted Home Companionship Across the UK" },
+    { title: "ICare | Care at home with independent carers across the UK" },
     { name: "description", content: "Find trusted companions for elderly relatives or join our community of caregivers. iCare connects families with caring professionals directly, without agencies or intermediaries." },
     { name: "keywords", content: "elderly companionship UK, companionship care for elderly, companion for elderly parent, caregiver jobs UK, trusted caregivers" },
 
