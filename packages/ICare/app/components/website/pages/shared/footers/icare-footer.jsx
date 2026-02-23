@@ -154,7 +154,7 @@ export default function ICareFooter() {
             </NavLink>
 
             <p className={styles.tagline}>
-              A transparent platform connecting families with independent caregivers without agency markups.
+              Helping families find trusted, independent caregivers without agency pressure or markups.
             </p>
 
             {/* SOCIAL ICONS + SHARE */}
@@ -239,7 +239,7 @@ export default function ICareFooter() {
 
           {/* BUSINESS DETAILS */}
           <div className={styles.col}>
-            <div className={styles.heading}>Business details</div>
+            <div className={styles.heading}>Legal information</div>
 
             <div className={styles.detailsGrid}>
               <div>
