@@ -1,0 +1,345 @@
+.shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(20px, 3.2vw, 34px);
+}
+
+.header {
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+}
+
+.title {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 500;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: rgba(15, 23, 42, 0.75);
+  font-size: 15px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+.mainColumn,
+.asideColumn {
+  display: grid;
+  gap: clamp(16px, 2.2vw, 24px);
+}
+
+.alert {
+  border: 1.5px solid #f59e0b;
+  background: #fef3c7;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: clamp(16px, 2vw, 22px);
+}
+
+.alertInfo {
+  border-color: #93c5fd;
+  background: #eff6ff;
+}
+
+.alertSuccess {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.alertIcon {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.22);
+  color: #92400e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.alertTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.alertText {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: rgba(146, 64, 14, 0.9);
+}
+
+.card {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+  background: #fff;
+  padding: clamp(18px, 2.3vw, 24px);
+}
+
+.cardCompact {
+  padding: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.cardAction {
+  color: #778d43;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.bookingList {
+  display: grid;
+  gap: 12px;
+}
+
+.bookingRow {
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e6e9e1;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.metaName {
+  margin: 0;
+  font-weight: 600;
+  color: #243029;
+}
+
+.metaDate {
+  margin: 3px 0 0;
+  color: #0f172a;
+  font-size: 13px;
+}
+
+.pill {
+  margin-top: 6px;
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.pillPending {
+  background: #f7ecd4;
+  color: #8c5a1f;
+}
+
+.pillConfirmed {
+  background: #cfe0b1;
+  color: #1f2b1a;
+  border-color: #9cb36d;
+}
+
+.pillInfo {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.primaryButton {
+  border: 1px solid #647739;
+  border-radius: 25px;
+  background: #778d43;
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background: #647739;
+}
+
+.earningsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.earningsLabel {
+  margin: 0;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.earningsValue {
+  margin: 6px 0 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.earningsDelta {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 12px;
+}
+
+.progressTrack {
+  margin-top: 8px;
+  height: 18px;
+  border-radius: 999px;
+  background: #edf2e8;
+  border: 1px solid rgba(91, 117, 98, 0.22);
+  overflow: hidden;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #5b7562 0%, #b0c47f 100%);
+}
+
+.progressLabel {
+  margin: 10px 0 0 auto;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(176, 196, 127, 0.22);
+  color: #2f4238;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.chips {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(91, 117, 98, 0.35);
+  color: #2f4238;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toggleRow {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.toggleLabel {
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.toggle {
+  width: 46px;
+  height: 26px;
+  border: 1px solid #8fa96b;
+  border-radius: 999px;
+  background: #b0c47f;
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+}
+
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.toggleOn::after {
+  left: 25px;
+}
+
+.toggleOff {
+  background: #d1d5db;
+}
+
+.toggleOff::after {
+  left: 3px;
+}
+
+.quickActions {
+  display: grid;
+  gap: 10px;
+}
+
+.quickAction {
+  width: 100%;
+  border: 1px solid #c8783c;
+  border-radius: 25px;
+  background: #e08a4d;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.quickAction:hover {
+  background: #d67435;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .earningsGrid {
+    grid-template-columns: 1fr;
+  }
+}

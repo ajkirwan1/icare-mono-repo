@@ -1,4 +1,3 @@
-import { C } from "build/client/assets/chunk-EPOLDU6W-L3g161Wc";
 import styles from "./analytics.module.scss";
 import Card from "~/components/application/data-display/card/card";
 export default function Analytics() {
