@@ -1,13 +1,11 @@
-import { NavLink } from "react-router";
+import { NavLink, useSearchParams } from "react-router";
 import { DashboardShell, StatusPill } from "~/components/application/kasia";
 import styles from "./caregiver-bookings.module.scss";
 
 const tabs = [
-  { id: "all", label: "All (14)" },
-  { id: "pending", label: "Pending Requests (3)", active: true },
-  { id: "upcoming", label: "Upcoming (4)" },
-  { id: "completed", label: "Completed (5)" },
-  { id: "declined", label: "Declined (2)" }
+  { id: "upcoming", label: "Upcoming" },
+  { id: "completed", label: "Completed" },
+  { id: "declined", label: "Declined" }
 ];
 
 const bookings = [
@@ -118,7 +116,7 @@ function BookingActions({ actions }) {
       {actions.includes("accept") ? <button className={styles.acceptButton} type="button">Accept</button> : null}
       {actions.includes("details") ? <button className={styles.outlineButton} type="button">View Details</button> : null}
       {actions.includes("decline") ? <button className={styles.outlineButton} type="button">Decline</button> : null}
-      {actions.includes("message") ? <button className={styles.outlineButton} type="button">Message</button> : null}
+      {actions.includes("message") ? <NavLink className={styles.outlineButton} to="/caregiver/messages">Message</NavLink> : null}
       {actions.includes("cancel") ? <button className={styles.outlineButton} type="button">Cancel</button> : null}
     </div>
   );
@@ -165,6 +163,23 @@ function BookingCard({ booking }) {
 }
 
 export default function CaregiverBookings() {
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab") ?? "upcoming";
+
+  const filteredBookings = bookings.filter((booking) => {
+    if (activeTab === "completed") {
+      return booking.status === "Completed";
+    }
+
+    if (activeTab === "declined") {
+      return booking.status === "Declined";
+    }
+
+    return booking.status === "Confirmed";
+  });
+
+  const activeTabLabel = tabs.find((tab) => tab.id === activeTab)?.label ?? "Upcoming";
+
   return (
     <DashboardShell>
       <div className={styles.page}>
@@ -181,24 +196,23 @@ export default function CaregiverBookings() {
 
         <section className={styles.tabsSection} aria-label="Booking categories">
           {tabs.map((tab) => (
-            <button
+            <NavLink
               key={tab.id}
-              type="button"
-              className={`${styles.tabButton} ${tab.active ? styles.tabButtonActive : ""}`.trim()}
-              aria-pressed={Boolean(tab.active)}
+              to={`/caregiver/bookings?tab=${tab.id}`}
+              className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ""}`.trim()}
             >
               {tab.label}
-            </button>
+            </NavLink>
           ))}
         </section>
 
         <section className={styles.topRow}>
-          <p className={styles.pendingCount}>3 pending requests</p>
+          <p className={styles.pendingCount}>{filteredBookings.length} {activeTabLabel.toLowerCase()} bookings</p>
           <button type="button" className={styles.sortButton}>Sort by: Date (newest) ▾</button>
         </section>
 
         <section className={styles.list}>
-          {bookings.map((booking) => (
+          {filteredBookings.map((booking) => (
             <BookingCard key={booking.id} booking={booking} />
           ))}
         </section>

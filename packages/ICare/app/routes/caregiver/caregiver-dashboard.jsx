@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import styles from "./caregiver-dashboard.module.scss";
 
 const upcomingBookings = [
@@ -11,7 +12,7 @@ const pendingRequests = [
   { name: "John W.", date: "Thu 18 Jan - 08:00 - 12:00 (4h)", status: "Pending Response", avatar: "/images/avatars/male.webp" }
 ];
 
-function BookingItem({ item, requested = false }) {
+function BookingItem({ item, requested = false, onViewDetails }) {
   return (
     <article className={styles.bookingItem}>
       <div className={styles.avatar}>
@@ -22,13 +23,18 @@ function BookingItem({ item, requested = false }) {
         <small>{item.date}</small>
         <span className={requested ? styles.requested : styles.confirmed}>{item.status}</span>
       </div>
-      <button type="button">View Details</button>
+      <button type="button" onClick={onViewDetails}>View Details</button>
     </article>
   );
 }
 
 export default function CaregiverDashboard() {
   const [isProfileVisible, setIsProfileVisible] = useState(true);
+  const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate("/caregiver");
+  };
 
   return (
     <div className={styles.page}>
@@ -52,7 +58,7 @@ export default function CaregiverDashboard() {
               <h2>Pending Booking Requests</h2>
               <div className={styles.list}>
                 {pendingRequests.map((item) => (
-                  <BookingItem key={`${item.name}-${item.date}`} item={item} requested />
+                  <BookingItem key={`${item.name}-${item.date}`} item={item} requested onViewDetails={handleViewDetails} />
                 ))}
               </div>
             </section>
@@ -61,7 +67,7 @@ export default function CaregiverDashboard() {
               <h2>Upcoming Bookings</h2>
               <div className={styles.list}>
                 {upcomingBookings.map((item) => (
-                  <BookingItem key={`${item.name}-${item.date}`} item={item} />
+                  <BookingItem key={`${item.name}-${item.date}`} item={item} onViewDetails={handleViewDetails} />
                 ))}
               </div>
             </section>
