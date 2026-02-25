@@ -1,6 +1,8 @@
+@use "@styles/tokens" as tokens;
+
 .wrap {
     width: 100%;
-    padding: 0 0 clamp(3.2rem, 5vw, 4rem);
+    padding: 0 0 clamp(4.2rem, 7vw, 5.5rem);
     border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-size: cover;
@@ -149,7 +151,7 @@
 
 .estimatorHeader {
     width: min(92vw, 1100px);
-    margin: 1.25rem auto 0;
+    margin: 0 auto 0;
     display: grid;
     align-items: start;
     margin-bottom: 2rem;
@@ -184,6 +186,70 @@
     align-items: start;
 }
 
+.featuredLynnCard {
+    width: min(calc(100vw - 40px), 420px);
+    margin: 0 auto 80px;
+    padding: clamp(12px, 1.8vw, 16px);
+    border-radius: tokens.$radius-xxl;
+    border: 1px solid tokens.$border-soft;
+    background: rgba(247, 247, 242, 0.72);
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: tokens.$sp-3;
+    align-items: start;
+    position: relative;
+}
+
+.featuredLynnImage {
+    width: 104px;
+    height: 104px;
+    border-radius: tokens.$radius-sm;
+    object-fit: cover;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: none;
+    filter: saturate(0.74) contrast(0.94);
+    align-self: start;
+}
+
+.featuredLynnBody {
+    min-width: 0;
+    padding: 2px 4px 0 0;
+}
+
+.featuredLynnLabel {
+    margin: 0;
+    color: rgba(15, 23, 42, 0.58);
+    font-size: 0.66rem;
+    font-weight: tokens.$fw-semibold;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.featuredLynnTitle {
+    margin: 0.2rem 0 0;
+    color: rgba(15, 23, 42, 0.86);
+    font-size: clamp(0.98rem, 1.45vw, 1.08rem);
+    font-weight: tokens.$fw-bold;
+    letter-spacing: -0.01em;
+}
+
+.featuredLynnText {
+    margin: 0.4rem 0 0;
+    color: rgba(15, 23, 42, 0.68);
+    font-size: clamp(0.72rem, 0.86vw, 0.76rem);
+    line-height: 1.52;
+    max-width: 32ch;
+}
+
+.featuredLynnSmall {
+    display: block;
+    margin-top: 0.38rem;
+    color: rgba(15, 23, 42, 0.5);
+    font-size: 0.69rem;
+    line-height: 1.2;
+}
+
 .layout {
     display: grid;
     gap: clamp(16px, 2.4vw, 24px);
@@ -214,6 +280,25 @@
 
 /* ✅ Responsive layout */
 @media (max-width: 920px) {
+    .featuredLynnCard {
+        grid-template-columns: 1fr;
+        width: min(calc(100vw - 36px), 360px);
+        margin: 0 auto 80px;
+        padding: 12px;
+    }
+
+    .featuredLynnImage {
+        width: min(100%, 112px);
+        max-width: 112px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        margin: 2px auto 0;
+    }
+
+    .featuredLynnBody {
+        text-align: left;
+    }
+
     .layout {
         grid-template-columns: 1fr;
     }

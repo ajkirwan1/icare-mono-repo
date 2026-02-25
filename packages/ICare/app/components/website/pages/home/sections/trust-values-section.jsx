@@ -49,7 +49,7 @@ export default function TrustValuesSection() {
                 <h2 className={styles.title}>Trust, care &amp; community</h2>
 
                 <p className={styles.subtitle}>
-                    ICare was created to offer a calmer alternative for families who need support -
+                    ICare was created to offer a calmer alternative for families.
                 </p>
 
                 <p className={styles.subinfo}>
