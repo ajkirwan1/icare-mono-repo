@@ -1,0 +1,289 @@
+.page {
+  --ink: #23170f;
+  --ink-soft: #6d6259;
+  --accent: #c06a3f;
+  --accent-soft: rgba(192, 106, 63, 0.14);
+  --accent-border: rgba(192, 106, 63, 0.35);
+  --surface: #fff;
+  --surface-soft: #f7f3eb;
+  --line: rgba(35, 23, 15, 0.12);
+}
+
+.hero {
+  padding: calc(var(--navbar-height) + 2.4rem) 1rem 1.5rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(192, 106, 63, 0.12), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(105, 135, 87, 0.14), transparent 38%),
+    linear-gradient(180deg, #f4eee5 0%, #f9f6f1 100%);
+  font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.heroInner {
+  width: min(880px, 92vw);
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 0.55rem;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  letter-spacing: -0.35px;
+  color: var(--ink);
+  line-height: 1.14;
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 60ch;
+  font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.stepper {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 1.8rem auto 0;
+}
+
+.stepPill {
+  padding: 0.78rem 1.15rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #6d6259;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  transition: all 0.22s ease;
+}
+
+.stepActive {
+  color: #4e2f20;
+  background: var(--accent-soft);
+  border-color: var(--accent-border);
+}
+
+.stepDone {
+  color: #334155;
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.roleToggleWrap {
+  width: min(560px, 92vw);
+  margin: 16px auto 0;
+}
+
+.roleToggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--surface);
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 12px 22px rgba(35, 23, 15, 0.09);
+}
+
+.roleTab {
+  padding: 0.95rem 0;
+  font-weight: 700;
+  background: var(--surface);
+  color: rgba(15, 23, 42, 0.72);
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.roleTabLeft {
+  border-right: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.roleTabActive {
+  background: var(--accent-soft);
+  color: #4e2f20;
+}
+
+.roleTab:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: -2px;
+}
+
+.formSection {
+  padding: 0 1rem 4rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(192, 106, 63, 0.08), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(105, 135, 87, 0.1), transparent 38%),
+    linear-gradient(180deg, #f4eee5 0%, #f9f6f1 100%);
+  font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.formShell {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: clamp(2.4rem, 4vw, 3rem);
+  display: grid;
+  gap: 2.5rem;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 45px rgba(35, 23, 15, 0.08);
+}
+
+.pillGroup {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.choicePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #f7f3eb;
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.choicePill:hover {
+  transform: translateY(-1px);
+  background: #f4ede3;
+  border-color: rgba(192, 106, 63, 0.4);
+  box-shadow: 0 8px 16px rgba(192, 106, 63, 0.14);
+}
+
+.choicePillActive {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: #4e2f20;
+}
+
+.choicePill:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+}
+
+.actionRowEnd,
+.actionRowBetween {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.actionRowEnd {
+  justify-content: flex-end;
+}
+
+.actionRowBetween {
+  justify-content: space-between;
+}
+
+.btnPrimary,
+.btnSecondary {
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.btnPrimary {
+  background: #c06a3f;
+  color: #fff;
+  padding: 1rem 2.4rem;
+  font-size: 1.05rem;
+  box-shadow: 0 12px 24px rgba(192, 106, 63, 0.28);
+  border: none;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #a85a34;
+  box-shadow: 0 14px 28px rgba(192, 106, 63, 0.3);
+}
+
+.btnPrimary:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  padding: 0.85rem 1.6rem;
+  background: #fff;
+  border: 2px solid rgba(15, 23, 42, 0.28);
+  color: #0f172a;
+  font-size: 0.95rem;
+}
+
+.btnSecondary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(192, 106, 63, 0.45);
+  background: #f8f3ea;
+}
+
+.btnSecondary:focus-visible {
+  outline: 2px solid rgba(15, 23, 42, 0.24);
+  outline-offset: 2px;
+}
+
+.inlinePolicyLink {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.inlinePolicyLink:hover {
+  color: #a85a34;
+}
+
+.inlinePolicyLink:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.consentLabel {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.loginLinkRow {
+  width: min(960px, 92vw);
+  margin: 14px auto 0;
+  display: flex;
+  justify-content: center;
+}
+
+.loginLink {
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  color: #3f4b5b;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.loginLink:hover {
+  color: #4e2f20;
+  background: rgba(192, 106, 63, 0.1);
+}
+
+.loginLink:focus-visible {
+  outline: 2px solid var(--accent-border);
+  outline-offset: 2px;
+}

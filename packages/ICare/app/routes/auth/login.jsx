@@ -47,6 +47,12 @@ export default function LoginPage() {
 
             <p className={styles.kicker}>Welcome back</p>
             <h1 className={styles.title}>Continue as</h1>
+            <p className={styles.newAccount}>
+              New to ICare?{" "}
+              <NavLink to="/register" className={styles.newAccountLink}>
+                Create your account here
+              </NavLink>
+            </p>
 
             <div className={styles.roleGrid}>
               <NavLink to="/caregiver" className={styles.roleCard}>
