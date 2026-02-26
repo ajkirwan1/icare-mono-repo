@@ -12,10 +12,16 @@ export function meta() {
 }
 
 export default function Register() {
+    const OWN_SKILL_OPTIONS = [
+        "Medication management",
+        "Dementia support",
+        "Mobility assistance",
+        "Errands",
+    ];
     const BRAND = {
         green: "#1FAB1F",
-        dark: "#1f2a37",
-        text: "#334155",
+        dark: "#000000",
+        text: "#000000",
         border: "rgba(15,23,42,.12)",
         fieldBg: "#FFFFFF",
     };
@@ -52,6 +58,7 @@ export default function Register() {
 
     const [errors, setErrors] = useState({});
     const [submitting, setSubmitting] = useState(false);
+    const [ownSkills, setOwnSkills] = useState([]);
 
     const label = {
         fontWeight: 700,
@@ -69,7 +76,7 @@ export default function Register() {
         fontSize: 15,
         color: BRAND.text,
     };
-    const helper = { fontSize: 12.5, color: "#64748B", marginTop: 6 };
+    const helper = { fontSize: 12.5, color: "#000000", marginTop: 6 };
     const errorText = { fontSize: 12.5, color: "#b91c1c", marginTop: 6 };
 
     /* ===== HELPERS ===== */
@@ -79,6 +86,14 @@ export default function Register() {
         setForm((f) => {
             const has = f[k].includes(val);
             return { ...f, [k]: has ? f[k].filter((x) => x !== val) : [...f[k], val] };
+        });
+    };
+
+    const syncOwnSkills = (nextOwnSkills) => {
+        setOwnSkills(nextOwnSkills);
+        setForm((f) => {
+            const nonOwnSkills = f.skills.filter((s) => !OWN_SKILL_OPTIONS.includes(s));
+            return { ...f, skills: [...nonOwnSkills, ...nextOwnSkills] };
         });
     };
 
@@ -127,18 +142,10 @@ export default function Register() {
     /* ===== SUBMIT ===== */
     const onSubmit = async (ev) => {
         ev.preventDefault();
-        setErrors({});
-        // Ostateczna walidacja wszystkich kroków:
-        if (!validateStep(1) || !validateStep(2) || !validateStep(3)) {
-            setStep([1, 2, 3].find((k) => !validateStep(k)) || 1);
-            return;
-        }
         try {
             setSubmitting(true);
             // TODO: call your API here
-            alert(
-                `Submitted ${tab} registration with required consents! (Replace alert with API call)`
-            );
+            window.location.assign("/caregiver/profile");
         } finally {
             setSubmitting(false);
         }
@@ -192,7 +199,14 @@ export default function Register() {
             <div style={{ gridColumn: "1 / -1" }}>
                 <span style={label}>Skills *</span>
                 <div className={styles.pillGroup} role="group" aria-label="Skills">
-                    {["Dementia", "Mobility", "Medication", "Post-surgery", "Driving"].map(
+                    {[
+                        "Post-surgery",
+                        "Driving",
+                        "Personal care",
+                        "Meal preparation",
+                        "Companionship",
+                        "Housekeeping",
+                    ].map(
                         (s) => {
                             const active = form.skills.includes(s);
                             return (
@@ -208,6 +222,30 @@ export default function Register() {
                             );
                         }
                     )}
+                </div>
+                <div style={{ marginTop: 10, maxWidth: 280 }}>
+                    <label style={label} htmlFor="ownSkill">
+                        Own skill
+                    </label>
+                    <select
+                        id="ownSkill"
+                        style={field}
+                        multiple
+                        value={ownSkills}
+                        onChange={(e) => {
+                            const values = Array.from(
+                                e.target.selectedOptions,
+                                (option) => option.value
+                            );
+                            syncOwnSkills(values);
+                        }}
+                    >
+                        {OWN_SKILL_OPTIONS.map((skill) => (
+                            <option key={skill} value={skill}>
+                                {skill}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 {errors.skills && <div style={errorText}>{errors.skills}</div>}
                 <div style={helper}>Select all that apply.</div>
@@ -260,7 +298,7 @@ export default function Register() {
             <div style={{ gridColumn: "1 / -1" }}>
                 <span style={label}>Languages *</span>
                 <div className={styles.pillGroup} role="group" aria-label="Languages">
-                    {["English", "Polish", "German", "Ukrainian", "Other"].map((lang) => {
+                    {["English", "Polish", "German", "Other"].map((lang) => {
                         const active = form.languages.includes(lang);
                         return (
                             <button
@@ -626,7 +664,7 @@ export default function Register() {
                                             fontSize: ".82rem",
                                             opacity: 0.7,
                                             marginTop: "4px",
-                                            color: "#475569",
+                                            color: "#000000",
                                         }}
                                     >
                                         At least 8 characters.
@@ -708,7 +746,7 @@ export default function Register() {
                                         onChange={(e) =>
                                             update("location", e.target.value)
                                         }
-                                        placeholder="e.g., Warsaw, Mokotów"
+                                        placeholder="e.g., London"
                                         required
                                     />
                                     {errors.location && (

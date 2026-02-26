@@ -1,20 +1,18 @@
 .page {
   --ink: #23170f;
-  --ink-soft: #6d6259;
+  --ink-soft: #000000;
   --accent: #c06a3f;
   --accent-soft: rgba(192, 106, 63, 0.14);
   --accent-border: rgba(192, 106, 63, 0.35);
   --surface: #fff;
   --surface-soft: #f7f3eb;
   --line: rgba(35, 23, 15, 0.12);
+  color: #000000;
 }
 
 .hero {
   padding: calc(var(--navbar-height) + 2.4rem) 1rem 1.5rem;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(192, 106, 63, 0.12), transparent 36%),
-    radial-gradient(circle at 88% 82%, rgba(105, 135, 87, 0.14), transparent 38%),
-    linear-gradient(180deg, #f4eee5 0%, #f9f6f1 100%);
+  background: #ffffff;
   font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   text-align: center;
 }
@@ -26,7 +24,7 @@
 
 .title {
   margin: 0 0 0.55rem;
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   letter-spacing: -0.35px;
   color: var(--ink);
@@ -37,7 +35,7 @@
   margin: 0 auto;
   max-width: 60ch;
   font-size: clamp(0.98rem, 1.5vw, 1.08rem);
-  color: var(--ink-soft);
+  color: #000000;
   line-height: 1.5;
 }
 
@@ -54,20 +52,20 @@
   border-radius: 999px;
   font-weight: 700;
   font-size: 0.92rem;
-  color: #6d6259;
+  color: #000000;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--line);
   transition: all 0.22s ease;
 }
 
 .stepActive {
-  color: #4e2f20;
+  color: #000000;
   background: var(--accent-soft);
   border-color: var(--accent-border);
 }
 
 .stepDone {
-  color: #334155;
+  color: #000000;
   background: rgba(15, 23, 42, 0.06);
 }
 
@@ -90,7 +88,7 @@
   padding: 0.95rem 0;
   font-weight: 700;
   background: var(--surface);
-  color: rgba(15, 23, 42, 0.72);
+  color: #000000;
   font-size: 1rem;
   border: none;
   cursor: pointer;
@@ -103,7 +101,7 @@
 
 .roleTabActive {
   background: var(--accent-soft);
-  color: #4e2f20;
+  color: #000000;
 }
 
 .roleTab:focus-visible {
@@ -113,17 +111,14 @@
 
 .formSection {
   padding: 0 1rem 4rem;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(192, 106, 63, 0.08), transparent 36%),
-    radial-gradient(circle at 88% 82%, rgba(105, 135, 87, 0.1), transparent 38%),
-    linear-gradient(180deg, #f4eee5 0%, #f9f6f1 100%);
+  background: #ffffff;
   font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .formShell {
   width: min(900px, 100%);
   margin: 0 auto;
-  background: #ffffff;
+  background: #f7f3eb;
   border-radius: 22px;
   padding: clamp(2.4rem, 4vw, 3rem);
   display: grid;
@@ -142,27 +137,28 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: #f7f3eb;
+  border: 1px solid #000000;
+  background: #ffffff;
   color: var(--ink);
   font-weight: 700;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .choicePill:hover {
-  transform: translateY(-1px);
-  background: #f4ede3;
-  border-color: rgba(192, 106, 63, 0.4);
-  box-shadow: 0 8px 16px rgba(192, 106, 63, 0.14);
+  transform: none;
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .choicePillActive {
   border-color: var(--accent-border);
   background: var(--accent-soft);
-  color: #4e2f20;
+  color: #000000;
 }
 
 .choicePill:focus-visible {
@@ -197,14 +193,13 @@
   color: #fff;
   padding: 1rem 2.4rem;
   font-size: 1.05rem;
-  box-shadow: 0 12px 24px rgba(192, 106, 63, 0.28);
+  box-shadow: none;
   border: none;
 }
 
 .btnPrimary:hover:not(:disabled) {
-  transform: translateY(-1px);
   background: #a85a34;
-  box-shadow: 0 14px 28px rgba(192, 106, 63, 0.3);
+  box-shadow: none;
 }
 
 .btnPrimary:focus-visible {
@@ -258,7 +253,7 @@
   gap: 10px;
   align-items: flex-start;
   font-size: 0.95rem;
-  color: #475569;
+  color: #000000;
 }
 
 .loginLinkRow {
@@ -271,7 +266,7 @@
 .loginLink {
   padding: 0.8rem 1.4rem;
   border-radius: 999px;
-  color: #3f4b5b;
+  color: #000000;
   font-weight: 700;
   text-decoration: none;
   font-size: 0.95rem;
@@ -279,7 +274,7 @@
 }
 
 .loginLink:hover {
-  color: #4e2f20;
+  color: #000000;
   background: rgba(192, 106, 63, 0.1);
 }
 
