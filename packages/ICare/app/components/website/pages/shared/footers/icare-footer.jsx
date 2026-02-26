@@ -17,9 +17,6 @@ export default function ICareFooter() {
 
   const COMPANY = {
     brand: "ICare",
-    operatorLabel: "ICare (sole trader, UK)",
-    tradingAs: "ICare",
-    location: "Cheltenham, United Kingdom",
     socials: {
       linkedin: "https://www.linkedin.com/company/icare-platform/?viewAsMember=true",
       facebook: "https://www.facebook.com/profile.php?id=61587936540417"
@@ -242,17 +239,12 @@ export default function ICareFooter() {
             <div className={styles.heading}>Legal information</div>
 
             <div className={styles.detailsGrid}>
-              <div>
-                <div className={styles.label}>Operator</div>
-                <div className={styles.value}>{COMPANY.operatorLabel}</div>
+              <div className={styles.valueMuted}>
+                ICare is not a care agency.
+                <br />
+                Operated in the United Kingdom.
               </div>
 
-              <div>
-                <div className={styles.label}>Location</div>
-                <div className={styles.value}>{COMPANY.location}</div>
-              </div>
-
-              <div className={styles.valueMuted}>Operated in the United Kingdom.</div>
               <a
                 href="https://wa.me/447448016876?text=Hi%2C%20I%27m%20Kate%20from%20ICare.%0A%0AThanks%20for%20getting%20in%20touch%20-%20feel%20free%20to%20message%20me%20with%20any%20questions.%0AI%27ll%20reply%20as%20soon%20as%20I%20can%20%3A%29"
                 target="_blank"
