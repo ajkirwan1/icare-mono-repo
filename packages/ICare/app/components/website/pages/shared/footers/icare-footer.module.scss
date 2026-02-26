@@ -42,6 +42,20 @@
     width: 100%;
 }
 
+.brandSectionCol,
+.legalSectionCol,
+.linksSectionCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* optical top-line alignment with the logo cap-height */
+.legalSectionCol,
+.linksSectionCol {
+    padding-top: 2px;
+}
+
 /* BRAND */
 .brandLink {
     display: flex;
