@@ -2,7 +2,7 @@
 
 .wrap {
     width: 100%;
-    padding: 0 0 clamp(4.2rem, 7vw, 5.5rem);
+    padding: clamp(2.8rem, 4vw, 3.6rem) 0 clamp(7.8rem, 12.8vw, 10.4rem);
     border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-size: cover;
@@ -136,7 +136,7 @@
 .socialProofRole {
     margin: 0;
     font-size: 0.78rem;
-    font-weight: 500;
+    font-weight: 600;
     color: rgba(15, 23, 42, 0.72);
     line-height: 1.2;
 }
@@ -186,30 +186,43 @@
     align-items: start;
 }
 
+.featuredCaregivers {
+    width: min(90vw, 1020px);
+    margin: 28px auto 170px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2.4vw, 24px);
+}
+
 .featuredLynnCard {
-    width: min(calc(100vw - 40px), 420px);
-    margin: 0 auto 80px;
-    padding: clamp(12px, 1.8vw, 16px);
+    width: 100%;
+    margin: 0;
+    padding: 20px;
     border-radius: tokens.$radius-xxl;
     border: 1px solid tokens.$border-soft;
     background: rgba(247, 247, 242, 0.72);
     box-shadow: none;
     display: grid;
-    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-columns: 156px minmax(0, 1fr);
     gap: tokens.$sp-3;
     align-items: start;
     position: relative;
 }
 
 .featuredLynnImage {
-    width: 104px;
-    height: 104px;
-    border-radius: tokens.$radius-sm;
+    width: 156px;
+    height: 156px;
+    border-radius: 25px;
     object-fit: cover;
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: none;
     filter: saturate(0.74) contrast(0.94);
     align-self: start;
+}
+
+.featuredPriscillaImage {
+    object-fit: cover;
+    object-position: center top;
 }
 
 .featuredLynnBody {
@@ -220,7 +233,7 @@
 .featuredLynnLabel {
     margin: 0;
     color: rgba(15, 23, 42, 0.58);
-    font-size: 0.66rem;
+    font-size: 0.73rem;
     font-weight: tokens.$fw-semibold;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -236,7 +249,7 @@
 
 .featuredLynnText {
     margin: 0.4rem 0 0;
-    color: rgba(15, 23, 42, 0.68);
+    color: rgba(15, 23, 42, 0.82);
     font-size: clamp(0.72rem, 0.86vw, 0.76rem);
     line-height: 1.52;
     max-width: 32ch;
@@ -247,6 +260,18 @@
     margin-top: 0.38rem;
     color: rgba(15, 23, 42, 0.5);
     font-size: 0.69rem;
+    line-height: 1.2;
+}
+
+.featuredLynnLocation {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.22rem;
+    margin-bottom: 0.2rem;
+    color: #d67435;
+    font-size: 0.78rem;
+    font-weight: 600;
     line-height: 1.2;
 }
 
@@ -280,16 +305,21 @@
 
 /* ✅ Responsive layout */
 @media (max-width: 920px) {
+    .featuredCaregivers {
+        grid-template-columns: 1fr;
+        margin: 0 auto 120px;
+    }
+
     .featuredLynnCard {
         grid-template-columns: 1fr;
-        width: min(calc(100vw - 36px), 360px);
-        margin: 0 auto 80px;
-        padding: 12px;
+        width: min(calc(100vw - 36px), 420px);
+        margin: 0 auto;
+        padding: 20px;
     }
 
     .featuredLynnImage {
-        width: min(100%, 112px);
-        max-width: 112px;
+        width: min(100%, 168px);
+        max-width: 168px;
         height: auto;
         aspect-ratio: 1 / 1;
         margin: 2px auto 0;
