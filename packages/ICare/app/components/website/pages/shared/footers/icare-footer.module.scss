@@ -100,6 +100,10 @@
 
 .valueMuted {
     @extend .value;
+    display: block;
+    line-height: 1.6;
+    margin-top: $space-4;
+    margin-bottom: $space-4;
 }
 
 .valueLink {
@@ -128,7 +132,7 @@
 /* DETAILS */
 .detailsGrid {
     display: grid;
-    gap: $space-12;
+    gap: $space-16;
 }
 
 /* LINKS */
