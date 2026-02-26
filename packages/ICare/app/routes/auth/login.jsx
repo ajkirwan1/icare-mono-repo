@@ -1,18 +1,13 @@
-import { useState } from "react";
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
-import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { login } from "../../services/login-service";
-import SubmitButton from "../../components/website/common/buttons/submit-buttons/submit-button";
 import { redirect, NavLink } from "react-router";
 import styles from "./login.module.scss";
 
-
 export function meta() {
   return [
-    { title: "ICare | Home" },
-    { name: "description", content: "ICare – Supporting better care through intuitive tools." }
+    { title: "ICare | Login" },
+    { name: "description", content: "Choose your account type to continue with ICare." }
   ];
 }
 
@@ -39,67 +34,42 @@ export async function action({ request }) {
 }
 
 export default function LoginPage() {
-  const [status, setStatus] = useState("idle"); // idle | ok
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setStatus("ok");
-  };
-
   return (
     <>
       <ICareNavbar />
 
-      {/* <section aria-label="ICare contact us" className={styles.wrap}>
-        <div className={styles.overlay} />
-
-        <div className={styles.container}>
-          <div className={`icare-2paths ${styles.twoPaths}`}>
-            <div className={styles.card}>
-              <div className={styles.topRow}>
-                <span className={styles.icon} aria-hidden="true">
-                  <FontAwesomeIcon className={styles.iconSvg} icon={faHouseUser} />
-                </span>
-                <h1>Login to ICare</h1>
-              </div>
-
-              <form onSubmit={onSubmit} className={styles.form}>
-                <div className={styles.grid2}>
-                  <div>
-                    <label className={styles.label} htmlFor="login-email">Username</label>
-                    <input
-                      id="login-email"
-                      className={styles.input}
-                      required
-                      placeholder="username"
-                    />
-                  </div>
-
-                  <div>
-                    <label className={styles.label} htmlFor="login-password">Password</label>
-                    <input
-                      id="login-password"
-                      className={styles.input}
-                      required
-                      placeholder="password"
-                    />
-                  </div>
-                </div>
-
-                <div className={styles.btnWrap}>
-                  <SubmitButton variant="tertiary">Submit</SubmitButton>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section> */}
-      <section className={styles.wrap}>
+      <section className={styles.wrap} aria-label="Choose account type">
         <div className={styles.container}>
           <div className={styles.card}>
-            <NavLink to="/admin" className={styles.registerLink}>Admin</NavLink>
-            <NavLink to="/caregiver" className={styles.registerLink}>Caregiver</NavLink>
-            <NavLink to="/carereceiver" className={styles.registerLink}>Carereceiver</NavLink>
+            <div className={styles.brand} aria-label="icare logo">
+              <img src="/images/logo/icareblack.svg" alt="ICare" className={styles.brandLogo} width={121} height={48} />
+            </div>
+
+            <p className={styles.kicker}>Welcome back</p>
+            <h1 className={styles.title}>Continue as</h1>
+            <p className={styles.newAccount}>
+              New to ICare?{" "}
+              <NavLink to="/register" className={styles.newAccountLink}>
+                Create your account here
+              </NavLink>
+            </p>
+
+            <div className={styles.roleGrid}>
+              <NavLink to="/caregiver" className={styles.roleCard}>
+                <span className={styles.roleTitle}>CAREGIVER</span>
+                <span className={styles.roleText}>Manage your profile, jobs, and bookings.</span>
+              </NavLink>
+
+              <NavLink to="/carereceiver" className={styles.roleCard}>
+                <span className={styles.roleTitle}>CARE RECEIVER</span>
+                <span className={styles.roleText}>Find caregivers and manage support.</span>
+              </NavLink>
+
+              <NavLink to="/admin" className={styles.roleCard}>
+                <span className={styles.roleTitle}>ADMIN</span>
+                <span className={styles.roleText}>Review platform activity and manage operations.</span>
+              </NavLink>
+            </div>
           </div>
         </div>
       </section>

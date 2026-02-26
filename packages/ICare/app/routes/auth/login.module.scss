@@ -1,142 +1,139 @@
-/* contact-us-page.module.scss */
-
-$border: rgba(15, 23, 42, 0.10);
-$text: #221002;
-$textBlack: #000;
-$olive: #61674d;
-
-$focusBorder: rgba(231, 153, 97, 0.55);
-$focusRing: rgba(231, 153, 97, 0.16);
+$surface: #ffffff;
+$surfaceSoft: #f7f3eb;
+$text: #23170f;
+$textMuted: #6d6259;
+$border: rgba(35, 23, 15, 0.12);
+$accent: #c06a3f;
 
 .wrap {
-  position: relative;
-  width: 100%;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: $text;
-  padding: clamp(3.8rem, 5.2vw, 4.8rem) 0;
-  background-image: url("/images/web/homepage/caregiverbottom2.png");
-  background-size: cover;
-  padding-top: calc(var(--navbar-height) + 5vh);
-}
-
-.overlay {
-  pointer-events: none;
-  position: absolute;
-  height: 100%;
-  inset: 0;
-  background: linear-gradient(160deg,
-      rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0.15) 55%,
-      rgba(0, 0, 0, 0.55));
+  min-height: calc(100vh - var(--navbar-height));
+  padding: calc(var(--navbar-height) + 2.5rem) 1rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(192, 106, 63, 0.12), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(105, 135, 87, 0.14), transparent 38%),
+    linear-gradient(180deg, #f4eee5 0%, #f9f6f1 100%);
 }
 
 .container {
-  position: relative;
-  z-index: 2;
-  width: min(92vw, 1100px);
-  margin: 0 auto;
+  width: 100%;
+  max-width: 760px;
 }
 
-/* You currently rely on global .icare-2paths for grid layout.
-   This class adds the "style={grid}" parts and handles the responsive override. */
-.twoPaths {
-  gap: clamp(14px, 2.2vw, 22px);
-  align-items: stretch;
-
-  @media (max-width: 900px) {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-// .card {
-//     background: #fff;
-//     border: 1px solid $border;
-//     border-radius: 22px;
-//     padding: clamp(18px, 2.2vw, 22px);
-//     box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
-//     display: grid;
-//     gap: 14px;
-//     min-height: 260px;
-// }
 .card {
-  background: #fff;
+  background: $surface;
   border: 1px solid $border;
   border-radius: 22px;
-  padding: clamp(18px, 2.2vw, 22px);
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
-  display: flex;
-  gap: 14px;
-  min-height: 260px;
-  align-items: center;
-  justify-content: space-around;
+  box-shadow: 0 20px 45px rgba(35, 23, 15, 0.08);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.topRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 18px;
+.brand {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  color: $olive;
-  flex: 0 0 auto;
+  margin-bottom: 0.85rem;
+  animation: brandReveal 0.55s ease-out;
 }
 
-.iconSvg {
-  font-size: 27px;
-  line-height: 1;
-}
-
-.form {
-  margin-top: 6px;
-  display: grid;
-  gap: 12px;
-}
-
-.grid2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-
-  @media (max-width: 620px) {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-.label {
-  font-weight: 900;
-  color: $text;
-  font-size: 0.88rem;
-  letter-spacing: -0.1px;
-  margin-bottom: 6px;
+.brandLogo {
   display: block;
+  width: auto;
+  height: 48px;
+  max-width: 100%;
 }
 
-.input {
-  width: 100%;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 14px;
-  padding: 11px 12px;
-  background: #fff;
-  font-size: 0.98rem;
-  color: $text;
-  outline: none;
+.kicker {
+  margin: 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $textMuted;
+}
 
-  &:focus {
-    border-color: $focusBorder !important;
-    box-shadow: 0 0 0 4px $focusRing !important;
+.title {
+  margin: 0.45rem 0 1.4rem;
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  line-height: 1.15;
+  color: $text;
+}
+
+.newAccount {
+  margin: -0.55rem 0 1.25rem;
+  font-size: 0.94rem;
+  line-height: 1.4;
+  color: $textMuted;
+}
+
+.newAccountLink {
+  color: $accent;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: #a85a34;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(192, 106, 63, 0.35);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-.btnWrap {
+.roleGrid {
   display: grid;
-  justify-items: center;
-  gap: 14px;
-  margin-top: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.roleCard {
+  background: $surfaceSoft;
+  border: 1px solid $border;
+  border-radius: 25px;
+  padding: 1.265rem 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: rgba(192, 106, 63, 0.5);
+    box-shadow: 0 12px 20px rgba(192, 106, 63, 0.15);
+    transform: translateY(-2px);
+    outline: none;
+  }
+}
+
+.roleTitle {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: $text;
+}
+
+.roleText {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: $text;
+}
+
+@keyframes brandReveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

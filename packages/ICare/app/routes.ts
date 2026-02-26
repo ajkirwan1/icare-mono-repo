@@ -28,6 +28,7 @@ export default [
 
   // Auth
   route("login", "routes/auth/login.jsx"),
+  route("register", "routes/register.jsx"),
 
   // SEC
   route("sitemap.xml", "routes/sitemap[.]xml.jsx"),
@@ -66,7 +67,13 @@ export default [
   // Caregiver
   ...prefix("caregiver", [
     layout("routes/caregiver/layout.jsx", [
-      index("routes/caregiver/caregiver-dashboard.jsx")
+      index("routes/caregiver/caregiver-dashboard.jsx"),
+      route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
+      route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
+      route("messages", "routes/caregiver/caregiver-messages.jsx"),
+      route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
+      route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
+      route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
     ])
   ]),
 
