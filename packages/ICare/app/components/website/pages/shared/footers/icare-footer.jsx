@@ -138,7 +138,7 @@ export default function ICareFooter() {
         {/* TOP GRID */}
         <div className={styles.topGrid}>
           {/* BRAND */}
-          <div className={styles.col}>
+          <div className={`${styles.col} ${styles.brandSectionCol}`}>
             <NavLink to="/" aria-label="ICare home" className={styles.brandLink}>
               <img
                 src={LOGO_SRC}
@@ -235,7 +235,7 @@ export default function ICareFooter() {
           </div>
 
           {/* BUSINESS DETAILS */}
-          <div className={styles.col}>
+          <div className={`${styles.col} ${styles.legalSectionCol}`}>
             <div className={styles.heading}>Legal information</div>
 
             <div className={styles.detailsGrid}>
@@ -261,7 +261,7 @@ export default function ICareFooter() {
           </div>
 
           {/* LINKS */}
-          <div className={styles.col}>
+          <div className={`${styles.col} ${styles.linksSectionCol}`}>
             <nav aria-label="Footer links" className={styles.links}>
               <div className={styles.linksCol}>
                 <NavLink to="/" className={styles.navLink}>Home</NavLink>
