@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import "./carereceiver-pages.css";
+import RatingStars from "./rating-stars";
 
 const RADIUS_OPTIONS = [5, 10, 15, 20, 30];
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -111,11 +112,6 @@ function initials(name) {
         .toUpperCase();
 }
 
-function stars(rating) {
-    const rounded = Math.round(Number(rating) || 0);
-    return "★".repeat(rounded).padEnd(5, "☆");
-}
-
 function toggleInArray(list, value) {
     return list.includes(value) ? list.filter((entry) => entry !== value) : [...list, value];
 }
@@ -176,14 +172,14 @@ export default function CarereceiverSearch() {
         return tags.slice(0, 6);
     }, [selectedTimes, selectedVerification]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredCaregivers.length / PAGE_SIZE));
-  const visiblePageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-  const paginatedCaregivers = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return filteredCaregivers.slice(start, start + PAGE_SIZE);
-  }, [currentPage, filteredCaregivers]);
-  const pageStart = filteredCaregivers.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
-  const pageEnd = filteredCaregivers.length === 0 ? 0 : pageStart + paginatedCaregivers.length - 1;
+    const totalPages = Math.max(1, Math.ceil(filteredCaregivers.length / PAGE_SIZE));
+    const visiblePageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+    const paginatedCaregivers = useMemo(() => {
+        const start = (currentPage - 1) * PAGE_SIZE;
+        return filteredCaregivers.slice(start, start + PAGE_SIZE);
+    }, [currentPage, filteredCaregivers]);
+    const pageStart = filteredCaregivers.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+    const pageEnd = filteredCaregivers.length === 0 ? 0 : pageStart + paginatedCaregivers.length - 1;
 
     useEffect(() => {
         setCurrentPage((prevPage) => Math.min(prevPage, totalPages));
@@ -223,7 +219,7 @@ export default function CarereceiverSearch() {
         <div className="cr-page">
             <div className="cr-shell">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span><span>›</span><strong>Search Caregivers</strong>
+                    <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span><strong>Search Caregivers</strong>
                 </nav>
 
                 <section className="cr-card">
@@ -259,14 +255,14 @@ export default function CarereceiverSearch() {
 
                 <section className="cr-card">
                     <div className="cr-inline cr-toolbar" style={{ justifyContent: "space-between" }}>
-            <div>
-              <h1 style={{ margin: 0, fontSize: "26px" }}>
-                Showing {pageStart}-{pageEnd} of {filteredCaregivers.length} caregivers
-              </h1>
-              <p className="cr-muted" style={{ margin: "6px 0 0" }}>
-                Within {radiusMiles} miles{appliedPostcode ? ` of ${appliedPostcode.toUpperCase()}` : ""}
-              </p>
-            </div>
+                        <div>
+                            <h1 style={{ margin: 0, fontSize: "26px" }}>
+                                Showing {pageStart}-{pageEnd} of {filteredCaregivers.length} caregivers
+                            </h1>
+                            <p className="cr-muted" style={{ margin: "6px 0 0" }}>
+                                Within {radiusMiles} miles{appliedPostcode ? ` of ${appliedPostcode.toUpperCase()}` : ""}
+                            </p>
+                        </div>
                         <button
                             type="button"
                             className="cr-button cr-button--secondary cr-filter-toggle"
@@ -410,9 +406,11 @@ export default function CarereceiverSearch() {
                                 <h3 style={{ marginBottom: "4px" }}>{caregiver.name}</h3>
                                 <p className="cr-row-sub" style={{ marginBottom: "8px" }}>{caregiver.location} • {caregiver.distanceMiles.toFixed(1)} miles</p>
 
-                                <p className="cr-row-sub" style={{ marginBottom: "8px" }}>
-                                    <span style={{ color: "#dd8b4f", letterSpacing: "0.06em" }}>{stars(caregiver.rating)}</span>
-                                    <span> {caregiver.rating} ({caregiver.reviewCount})</span>
+                                <p className="cr-row-sub cr-rating-line" style={{ marginBottom: "8px" }}>
+                                    <span className="cr-stars-inline">
+                                        <RatingStars value={caregiver.rating} />
+                                    </span>
+                                    <span>{caregiver.rating} ({caregiver.reviewCount})</span>
                                 </p>
 
                                 <p style={{ margin: "0 0 8px", fontWeight: 700 }}>£{caregiver.hourlyRate}/hour</p>

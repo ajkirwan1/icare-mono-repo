@@ -2,6 +2,10 @@ import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import "./carereceiver-pages.css";
 
+// icon for verification rows
+import { FiCheck } from "react-icons/fi";
+import RatingStars from "./rating-stars";
+
 const CAREGIVER = {
     id: "cg-001",
     name: "Sarah Thompson",
@@ -49,11 +53,6 @@ function initials(name) {
         .toUpperCase();
 }
 
-function stars(count) {
-    const safe = Math.max(0, Math.min(5, Number(count) || 0));
-    return "★".repeat(safe).padEnd(5, "☆");
-}
-
 const CALENDAR_ROWS = [
     [null, null, null, 1, 2, 3, 4],
     [5, 6, 7, 8, 9, 10, 11],
@@ -86,7 +85,9 @@ export default function CarereceiverCaregiverProfile() {
         <div className="cr-page">
             <div className="cr-shell">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span><span>›</span><Link to="/carereceiver/search">Search</Link><span>›</span><strong>{CAREGIVER.name}</strong>
+                    <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span>
+                    <Link to="/carereceiver/search">Search</Link><span>›</span>
+                    <strong>{CAREGIVER.name}</strong>
                 </nav>
 
                 <Link className="cr-back-link" to="/carereceiver/search">← Back to Search Results</Link>
@@ -97,9 +98,9 @@ export default function CarereceiverCaregiverProfile() {
                     <div>
                         <h1 style={{ margin: "0 0 6px" }}>{CAREGIVER.name}</h1>
                         <p className="cr-muted" style={{ margin: "0 0 8px" }}>{CAREGIVER.location} • {CAREGIVER.distance}</p>
-                        <p className="cr-muted" style={{ margin: "0 0 8px" }}>
-                            <span style={{ color: "#dd8b4f", letterSpacing: "0.04em" }}>{stars(5)}</span>
-                            <span> {CAREGIVER.rating} ({CAREGIVER.reviewCount} reviews)</span>
+                        <p className="cr-muted cr-rating-line" style={{ margin: "0 0 8px" }}>
+                            <span className="cr-stars-inline"><RatingStars value={CAREGIVER.rating} /></span>
+                            <span>{CAREGIVER.rating} ({CAREGIVER.reviewCount} reviews)</span>
                         </p>
                         <p style={{ margin: "0 0 10px", fontWeight: 700 }}>£{CAREGIVER.hourlyRate}/hour</p>
                         <div className="cr-inline">
@@ -134,12 +135,15 @@ export default function CarereceiverCaregiverProfile() {
                                 {CAREGIVER.services.map((service) => (
                                     <li key={service.name} className="cr-row" style={{ gridTemplateColumns: "1fr" }}>
                                         <div>
-                                            <p className="cr-row-title">✓ {service.name}</p>
+                                            <p className="cr-row-title cr-row-title-inline"><FiCheck /> {service.name}</p>
                                             <p className="cr-row-sub">{service.description}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
+                            <p className="cr-muted" style={{ marginTop: "10px" }}>
+                                Looking for personal care services? We&apos;ll be adding these services soon. Join the waitlist for updates.
+                            </p>
                         </article>
 
                         <article className="cr-card">
@@ -185,11 +189,11 @@ export default function CarereceiverCaregiverProfile() {
                             </div>
 
                             <div className="cr-rating-bars">
-                                <div><span>5★</span><progress max="100" value="60" /><span>60%</span></div>
-                                <div><span>4★</span><progress max="100" value="25" /><span>25%</span></div>
-                                <div><span>3★</span><progress max="100" value="10" /><span>10%</span></div>
-                                <div><span>2★</span><progress max="100" value="3" /><span>3%</span></div>
-                                <div><span>1★</span><progress max="100" value="2" /><span>2%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 5</span><progress max="100" value="60" /><span>60%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 4</span><progress max="100" value="25" /><span>25%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 3</span><progress max="100" value="10" /><span>10%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 2</span><progress max="100" value="3" /><span>3%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 1</span><progress max="100" value="2" /><span>2%</span></div>
                             </div>
 
                             <ul className="cr-list" style={{ marginTop: "12px" }}>
@@ -198,7 +202,9 @@ export default function CarereceiverCaregiverProfile() {
                                         <div>
                                             <p className="cr-row-title">{review.name}</p>
                                             <p className="cr-row-sub">{review.date}</p>
-                                            <p className="cr-row-sub" style={{ color: "#dd8b4f", letterSpacing: "0.04em" }}>{stars(review.rating)}</p>
+                                            <p className="cr-row-sub">
+                                                <span className="cr-stars-inline"><RatingStars value={review.rating} /></span>
+                                            </p>
                                             <p className="cr-row-sub" style={{ marginTop: "6px" }}>{review.text}</p>
                                         </div>
                                     </li>
@@ -242,7 +248,9 @@ export default function CarereceiverCaregiverProfile() {
                                             <div className="cr-avatar">{initials(item.name)}</div>
                                             <div>
                                                 <p className="cr-row-title">{item.name}</p>
-                                                <p className="cr-row-sub">£{item.rate}/hr • {item.rating}★</p>
+                                                <p className="cr-row-sub" style={{ whiteSpace: "nowrap" }}>
+                                                    £{item.rate}/hr • <span className="cr-stars-inline"><RatingStars value={item.rating} /> {item.rating}</span>
+                                                </p>
                                             </div>
                                         </div>
                                         <Link className="cr-button cr-button--text" to={`/carereceiver/caregivers/${item.id}`}>Open</Link>

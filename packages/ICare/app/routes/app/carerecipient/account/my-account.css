@@ -153,8 +153,18 @@
     font-size: 13px;
 }
 
+.booking-breadcrumbs a {
+    color: #3a4659;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.booking-breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
 .booking-breadcrumbs strong {
-    color: var(--icare-text);
+    color: #0f172a;
     font-weight: 700;
 }
 

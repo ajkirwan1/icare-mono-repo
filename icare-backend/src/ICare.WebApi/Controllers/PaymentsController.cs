@@ -12,9 +12,17 @@ public class PaymentsController : ControllerBase
   }
 
   [HttpGet("methods")]
-  public async Task<IActionResult> GetMethods()
+  public IActionResult GetMethods()
   {
-    return Ok();
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        paymentMethods = Array.Empty<object>(),
+        defaultPaymentMethodId = (string?)null
+      }
+    });
   }
 
 }

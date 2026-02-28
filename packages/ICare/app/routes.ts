@@ -75,7 +75,10 @@ export default [
             route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
             route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
             route("messages", "routes/caregiver/caregiver-messages.jsx"),
+            route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
+            route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
             route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
+            route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
             route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
             route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
         ])
@@ -94,28 +97,7 @@ export default [
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
         ])
-    ])
-  ]),
-
-  route("carerecipient/account/my-account", "routes/app/carerecipient/account/my-account.jsx"),
-  route("bookings/new/:caregiverId", "routes/app/carerecipient/booking-request-form.jsx"),
-  route("bookings/:bookingId", "routes/app/carerecipient/booking-detail.jsx"),
-
-  // Caregiver
-  ...prefix("caregiver", [
-    layout("routes/caregiver/layout.jsx", [
-      index("routes/caregiver/caregiver-dashboard.jsx"),
-      route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
-      route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
-      route("messages", "routes/caregiver/caregiver-messages.jsx"),
-      route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
-      route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
-      route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
-      route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
-      route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
-      route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
-    ])
-  ]),
+    ]),
 
 
 

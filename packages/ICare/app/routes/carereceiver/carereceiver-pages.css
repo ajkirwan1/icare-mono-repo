@@ -25,13 +25,18 @@
 }
 
 .cr-breadcrumbs a {
-    color: #3f4d65;
+    color: #344156;
     text-decoration: none;
     font-weight: 600;
 }
 
 .cr-breadcrumbs a:hover {
     text-decoration: underline;
+}
+
+.cr-breadcrumbs strong {
+    color: #0f172a;
+    font-weight: 700;
 }
 
 .cr-header h1 {
@@ -57,6 +62,11 @@
 
 .cr-grid--1-1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cr-add-card-grid {
+    display: grid;
+    gap: 8px;
 }
 
 .cr-card {
@@ -188,6 +198,13 @@
     font-weight: 700;
 }
 
+.cr-row-title-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
 .cr-row-sub {
     margin: 0;
     color: #5f6878;
@@ -271,6 +288,44 @@
     gap: 10px;
 }
 
+.cr-thread-day {
+    margin: 0;
+    color: #5f6878;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cr-thread-context-card {
+    margin-bottom: 12px;
+}
+
+.cr-thread-context-title {
+    margin: 0 0 8px;
+    color: #5f6878;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cr-thread-context-link {
+    color: #647739;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cr-online-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    display: inline-block;
+    background: #36a664;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
 .cr-bubble {
     max-width: 74%;
     border-radius: 14px;
@@ -317,6 +372,59 @@
 .cr-stars {
     display: inline-flex;
     gap: 6px;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.cr-stars-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.cr-rating-stars {
+    --cr-star-fill-percent: 0%;
+    --cr-star-size: 14px;
+    position: relative;
+    display: inline-block;
+    font-size: var(--cr-star-size);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+}
+
+.cr-rating-stars::before,
+.cr-rating-stars::after {
+    content: "★★★★★";
+}
+
+.cr-rating-stars::before {
+    color: rgba(221, 139, 79, 0.28);
+}
+
+.cr-rating-stars::after {
+    color: #dd8b4f;
+    position: absolute;
+    inset: 0;
+    width: var(--cr-star-fill-percent);
+    overflow: hidden;
+}
+
+.cr-star-glyph {
+    color: #dd8b4f;
+    line-height: 1;
+}
+
+.cr-rating-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .cr-star {

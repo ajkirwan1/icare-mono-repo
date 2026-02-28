@@ -11,5 +11,36 @@ public class ConversationsController : ControllerBase
 
   }
 
+  [HttpGet]
+  public IActionResult GetConversations([FromQuery] int page = 1, [FromQuery] int limit = 25)
+  {
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        conversations = Array.Empty<object>(),
+        pagination = new
+        {
+          page,
+          limit,
+          totalPages = 0,
+          totalCount = 0
+        }
+      }
+    });
+  }
 
+  [HttpGet("unread-count")]
+  public IActionResult GetUnreadCount()
+  {
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        unreadCount = 0
+      }
+    });
+  }
 }

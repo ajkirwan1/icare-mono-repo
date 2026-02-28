@@ -1,4 +1,4 @@
-import { Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
+import { Form, Link, useActionData, useLoaderData, useLocation, useNavigation } from "react-router";
 import { useMemo, useState } from "react";
 import ICareAppNavbar from "~/components/application/app-navbar/icare-app-navbar";
 import { careReceiverNavItems } from "~/components/application/app-navbar/nav-items";
@@ -369,6 +369,7 @@ function ErrorText({ message }) {
 }
 
 export default function BookingRequestFormPage() {
+    const location = useLocation();
     const loaderData = useLoaderData();
     const actionData = useActionData();
     const navigation = useNavigation();
@@ -393,6 +394,10 @@ export default function BookingRequestFormPage() {
     const total = Number((subtotal + serviceFee).toFixed(2));
 
     const sendDisabled = paymentMethodCount === 0 || isSubmitting;
+    const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
+    const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
+    const searchPath = isCarereceiverPath ? "/carereceiver/search" : "/carerecipient";
+    const caregiverProfilePath = isCarereceiverPath ? `/carereceiver/caregivers/${caregiver.id}` : null;
 
     return (
         <>
@@ -401,11 +406,11 @@ export default function BookingRequestFormPage() {
             <main className="booking-detail-page">
                 <div className="booking-shell booking-request-shell">
                     <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
-                        <span>Home</span>
+                        <Link to={dashboardPath}>Dashboard</Link>
                         <span>›</span>
-                        <span>Search</span>
+                        <Link to={searchPath}>Search</Link>
                         <span>›</span>
-                        <span>{caregiver.name}</span>
+                        {caregiverProfilePath ? <Link to={caregiverProfilePath}>{caregiver.name}</Link> : <span>{caregiver.name}</span>}
                         <span>›</span>
                         <strong>Request Booking</strong>
                     </nav>

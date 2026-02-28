@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useLocation } from "react-router";
 import "./my-account.css";
 
 const API_BASE = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
@@ -498,8 +498,12 @@ function ActionControl({ action, variant = "secondary", label }) {
 }
 
 export default function CareRecipientMyAccountPage() {
+    const location = useLocation();
     const { detail, state } = useLoaderData();
     const { booking, caregiver, payment, emergencyContact } = detail;
+    const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
+    const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
+    const bookingsPath = isCarereceiverPath ? "/carereceiver/bookings" : "/carerecipient/account/my-account";
 
     return (
         <main className="booking-detail-page">
@@ -519,14 +523,14 @@ export default function CareRecipientMyAccountPage() {
                 </button>
             </header>
 
-            <div className="booking-shell">
-                <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span>
-                    <span>›</span>
-                    <span>Bookings</span>
-                    <span>›</span>
-                    <strong>Booking #{booking.ref}</strong>
-                </nav>
+                <div className="booking-shell">
+                    <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
+                        <Link to={dashboardPath}>Dashboard</Link>
+                        <span>›</span>
+                        <Link to={bookingsPath}>My Bookings</Link>
+                        <span>›</span>
+                        <strong>Booking Details</strong>
+                    </nav>
 
                 <section className="booking-title-row">
                     <h1>Booking with {caregiver.name}</h1>
