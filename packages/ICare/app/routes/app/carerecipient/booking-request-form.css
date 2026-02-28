@@ -1,114 +1,114 @@
 .booking-request-shell {
-  padding-bottom: 28px;
+    padding-bottom: 28px;
 }
 
 .booking-request-head {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .booking-request-head h1 {
-  margin: 0 0 8px;
-  font-size: clamp(28px, 3vw, 40px);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
 }
 
 .booking-request-head p {
-  margin: 0;
-  color: var(--icare-muted);
-  max-width: 76ch;
+    margin: 0;
+    color: var(--icare-muted);
+    max-width: 76ch;
 }
 
 .booking-request-caregiver-summary {
-  display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: center;
-  margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 .booking-request-avatar {
-  width: 54px;
-  height: 54px;
-  border-radius: 999px;
-  border: 1px solid rgba(138, 172, 57, 0.38);
-  background: linear-gradient(145deg, rgba(138, 172, 57, 0.22), rgba(138, 172, 57, 0.07));
-  color: var(--icare-green-dark);
-  font-weight: 700;
-  font-size: 18px;
-  display: grid;
-  place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    border: 1px solid rgba(138, 172, 57, 0.38);
+    background: linear-gradient(145deg, rgba(138, 172, 57, 0.22), rgba(138, 172, 57, 0.07));
+    color: var(--icare-green-dark);
+    font-weight: 700;
+    font-size: 18px;
+    display: grid;
+    place-items: center;
 }
 
 .booking-request-caregiver-meta {
-  display: grid;
-  gap: 4px;
+    display: grid;
+    gap: 4px;
 }
 
 .booking-request-caregiver-meta strong {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .booking-request-caregiver-meta span {
-  font-size: 13px;
-  color: var(--icare-muted);
+    font-size: 13px;
+    color: var(--icare-muted);
 }
 
 .booking-request-profile-link {
-  min-height: 40px;
-  border-radius: 12px;
-  border: 2px solid var(--icare-orange);
-  background: #fff;
-  color: var(--icare-orange-dark);
-  padding: 8px 14px;
-  font-size: 13px;
-  font-weight: 700;
+    min-height: 40px;
+    border-radius: 12px;
+    border: 2px solid var(--icare-orange);
+    background: #fff;
+    color: var(--icare-orange-dark);
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .booking-request-profile-button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .booking-request-form-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 60%) minmax(280px, 40%);
-  gap: 16px;
-  align-items: start;
+    display: grid;
+    grid-template-columns: minmax(0, 60%) minmax(280px, 40%);
+    gap: 16px;
+    align-items: start;
 }
 
 .booking-request-main {
-  display: grid;
-  gap: 16px;
+    display: grid;
+    gap: 16px;
 }
 
 .booking-request-main h2,
 .booking-request-main h3 {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .booking-form-label {
-  display: block;
-  margin: 12px 0 6px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #2a3448;
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2a3448;
 }
 
 .booking-form-input,
 .booking-form-textarea {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid var(--icare-border);
-  background: var(--icare-surface-strong);
-  color: var(--icare-text);
-  font-size: 14px;
-  padding: 10px 12px;
-  transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--icare-border);
+    background: var(--icare-surface-strong);
+    color: var(--icare-text);
+    font-size: 14px;
+    padding: 10px 12px;
+    transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }
 
 .booking-form-input:hover,
 .booking-form-textarea:hover {
-  border-color: var(--icare-border-strong);
+    border-color: var(--icare-border-strong);
 }
 
 .booking-form-input:focus,
@@ -118,229 +118,242 @@
 .booking-calendar-nav:focus,
 .booking-checkbox-row input:focus,
 .booking-request-profile-link:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(138, 172, 57, 0.16);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(138, 172, 57, 0.16);
 }
 
 .booking-form-input--readonly {
-  background: rgba(95, 104, 120, 0.09);
-  color: rgba(27, 36, 54, 0.84);
+    background: rgba(95, 104, 120, 0.09);
+    color: rgba(27, 36, 54, 0.84);
 }
 
 .booking-form-textarea {
-  min-height: 100px;
-  resize: vertical;
+    min-height: 100px;
+    resize: vertical;
 }
 
 .booking-form-help {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: var(--icare-muted);
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--icare-muted);
 }
 
 .booking-form-help--top {
-  margin-top: 12px;
+    margin-top: 12px;
 }
 
 .booking-form-counter {
-  margin: 6px 0 0;
-  font-size: 11px;
-  color: var(--icare-muted);
-  text-align: right;
+    margin: 6px 0 0;
+    font-size: 11px;
+    color: var(--icare-muted);
+    text-align: right;
 }
 
 .booking-form-error {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: var(--icare-danger);
-  font-weight: 700;
+    margin: 6px 0 0;
+    font-size: 12px;
+    color: var(--icare-danger);
+    font-weight: 700;
 }
 
 .booking-calendar {
-  border: 1px solid var(--icare-border);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.78);
-  overflow: hidden;
+    border: 1px solid var(--icare-border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.78);
+    overflow: hidden;
 }
 
 .booking-calendar-head {
-  min-height: 42px;
-  padding: 0 10px;
-  background: rgba(27, 36, 54, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    min-height: 42px;
+    padding: 0 10px;
+    background: rgba(27, 36, 54, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .booking-calendar-head strong {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .booking-calendar-nav {
-  border: 0;
-  background: transparent;
-  color: var(--icare-muted);
-  font-size: 18px;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: var(--icare-muted);
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .booking-calendar-weekdays,
 .booking-calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
 .booking-calendar-weekdays span {
-  text-align: center;
-  font-size: 11px;
-  color: var(--icare-muted);
-  padding: 8px 4px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--icare-muted);
+    padding: 8px 4px;
 }
 
 .booking-calendar-grid {
-  gap: 4px;
-  padding: 0 8px 10px;
+    gap: 4px;
+    padding: 0 8px 10px;
 }
 
 .booking-calendar-empty {
-  min-height: 30px;
+    min-height: 30px;
 }
 
 .booking-calendar-day {
-  min-height: 33px;
-  border-radius: 9px;
-  border: 1px solid transparent;
-  font-size: 13px;
-  cursor: pointer;
+    min-height: 33px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    cursor: pointer;
 }
 
 .booking-calendar-day.is-available {
-  background: var(--icare-green-soft);
-  color: var(--icare-text);
+    background: var(--icare-green-soft);
+    color: var(--icare-text);
 }
 
 .booking-calendar-day.is-unavailable {
-  background: rgba(95, 104, 120, 0.08);
-  color: rgba(27, 36, 54, 0.5);
-  cursor: not-allowed;
+    background: rgba(95, 104, 120, 0.08);
+    color: rgba(27, 36, 54, 0.5);
+    cursor: not-allowed;
 }
 
 .booking-calendar-day.is-selected {
-  background: linear-gradient(180deg, #98b84a 0%, #88a840 100%);
-  color: #fff;
-  font-weight: 700;
+    background: linear-gradient(180deg, #98b84a 0%, #88a840 100%);
+    color: #fff;
+    font-weight: 700;
 }
 
 .booking-duration-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .booking-duration-chip {
-  min-width: 76px;
-  min-height: 40px;
-  border-radius: 11px;
-  border: 1.5px solid var(--icare-border);
-  background: #fff;
-  color: #263146;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+    min-width: 76px;
+    min-height: 40px;
+    border-radius: 11px;
+    border: 1.5px solid var(--icare-border);
+    background: #fff;
+    color: #263146;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .booking-duration-chip.is-selected {
-  border-color: #7d9a3d;
-  background: linear-gradient(180deg, #98b84a 0%, #88a840 100%);
-  color: #fff;
-  font-weight: 700;
+    border-color: #7d9a3d;
+    background: linear-gradient(180deg, #98b84a 0%, #88a840 100%);
+    color: #fff;
+    font-weight: 700;
 }
 
 .booking-policy-text {
-  margin: 0 0 12px;
-  color: #253045;
-  line-height: 1.7;
+    margin: 0 0 12px;
+    color: #253045;
+    line-height: 1.7;
 }
 
 .booking-checkbox-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
 }
 
 .booking-checkbox-row input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--icare-orange);
+    width: 18px;
+    height: 18px;
+    accent-color: var(--icare-orange);
 }
 
 .booking-policy-link {
-  display: inline-block;
-  margin-top: 8px;
-  color: #6d8637;
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
+    display: inline-block;
+    margin-top: 8px;
+    color: #6d8637;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 .booking-policy-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .booking-request-sidebar {
-  display: grid;
-  gap: 16px;
+    display: grid;
+    gap: 16px;
 }
 
 .booking-request-price-card {
-  position: sticky;
-  top: 16px;
+    position: sticky;
+    top: 16px;
 }
 
 .booking-request-actions {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 10px;
-  justify-content: flex-start;
-  padding-top: 8px;
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    padding-top: 8px;
 }
 
 .booking-request-submit {
-  margin-left: auto;
-  min-width: 168px;
-  min-height: 50px;
+    margin-left: auto;
+    min-width: 168px;
+    min-height: 50px;
 }
 
 @media (max-width: 1200px) {
-  .booking-request-form-layout {
-    grid-template-columns: 1fr;
-  }
+    .booking-request-form-layout {
+        grid-template-columns: 1fr;
+    }
 
-  .booking-request-sidebar {
-    order: 3;
-  }
+    .booking-request-sidebar {
+        order: 3;
+    }
 }
 
 @media (max-width: 768px) {
-  .booking-request-caregiver-summary {
-    grid-template-columns: 54px minmax(0, 1fr);
-  }
+    .booking-request-head h1 {
+        font-size: 30px;
+    }
 
-  .booking-request-profile-link {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
+    .booking-request-caregiver-summary {
+        grid-template-columns: 54px minmax(0, 1fr);
+    }
 
-  .booking-request-actions {
-    flex-direction: column;
-  }
+    .booking-duration-chip {
+        min-width: 70px;
+        min-height: 44px;
+    }
 
-  .booking-request-submit {
-    margin-left: 0;
-    width: 100%;
-  }
+    .booking-calendar-day {
+        min-height: 38px;
+    }
+
+    .booking-request-profile-link {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .booking-request-actions {
+        flex-direction: column;
+    }
+
+    .booking-request-submit {
+        margin-left: 0;
+        width: 100%;
+    }
 }
