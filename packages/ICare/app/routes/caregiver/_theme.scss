@@ -1,0 +1,13 @@
+$bg: #f8eee7;
+$surface: #ffffff;
+$soft: #f2dccb;
+$accent: #d48a53;
+$accent-dark: #a5642e;
+
+@function border($alpha) {
+  @return rgba(212, 138, 83, $alpha);
+}
+
+@function shadow-accent($alpha) {
+  @return rgba(165, 100, 46, $alpha);
+}

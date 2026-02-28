@@ -3,13 +3,13 @@ import { useNavigate } from "react-router";
 import styles from "./caregiver-dashboard.module.scss";
 
 const upcomingBookings = [
-  { name: "John W.", date: "Mon 15 Jan - 10:00 - 14:00 (4h)", status: "Confirmed", avatar: "/images/avatars/male.webp" },
-  { name: "Margaret S.", date: "Tue 16 Jan - 09:00 - 13:00 (4h)", status: "Confirmed", avatar: "/images/avatars/female.webp" }
+  { bookingId: "confirmed-2", name: "John W.", date: "Mon 15 Jan - 10:00 - 14:00 (4h)", status: "Confirmed", avatar: "/images/avatars/male.webp" },
+  { bookingId: "confirmed-1", name: "Margaret S.", date: "Tue 16 Jan - 09:00 - 13:00 (4h)", status: "Confirmed", avatar: "/images/avatars/female.webp" }
 ];
 
 const pendingRequests = [
-  { name: "Margaret S.", date: "Wed 17 Jan - 12:00 - 16:00 (4h)", status: "Pending Response", avatar: "/images/avatars/female.webp" },
-  { name: "John W.", date: "Thu 18 Jan - 08:00 - 12:00 (4h)", status: "Pending Response", avatar: "/images/avatars/male.webp" }
+  { bookingId: "pending-1", name: "Margaret S.", date: "Wed 17 Jan - 12:00 - 16:00 (4h)", status: "Pending Response", avatar: "/images/avatars/female.webp" },
+  { bookingId: "pending-2", name: "John W.", date: "Thu 18 Jan - 08:00 - 12:00 (4h)", status: "Pending Response", avatar: "/images/avatars/male.webp" }
 ];
 
 function BookingItem({ item, requested = false, onViewDetails }) {
@@ -23,7 +23,7 @@ function BookingItem({ item, requested = false, onViewDetails }) {
         <small>{item.date}</small>
         <span className={requested ? styles.requested : styles.confirmed}>{item.status}</span>
       </div>
-      <button type="button" onClick={onViewDetails}>View Details</button>
+      <button type="button" onClick={() => onViewDetails(item.bookingId)}>View Details</button>
     </article>
   );
 }
@@ -32,8 +32,8 @@ export default function CaregiverDashboard() {
   const [isProfileVisible, setIsProfileVisible] = useState(true);
   const navigate = useNavigate();
 
-  const handleViewDetails = () => {
-    navigate("/caregiver");
+  const handleViewDetails = (bookingId) => {
+    navigate(bookingId ? `/caregiver/bookings/${bookingId}` : "/caregiver/bookings");
   };
 
   return (
@@ -118,9 +118,27 @@ export default function CaregiverDashboard() {
             <section className={`${styles.card} ${styles.blackTitleCard}`}>
               <h2>Quick Actions</h2>
               <div className={styles.quickActions}>
-                <button type="button" className={styles.quickAction}>manage availability</button>
-                <button type="button" className={styles.quickAction}>view earnings</button>
-                <button type="button" className={styles.quickAction}>upload DBS check</button>
+                <button
+                  type="button"
+                  className={styles.quickAction}
+                  onClick={() => navigate("/caregiver/profile")}
+                >
+                  Edit Profile
+                </button>
+                <button
+                  type="button"
+                  className={styles.quickAction}
+                  onClick={() => navigate("/caregiver/bookings?tab=completed")}
+                >
+                  View Earnings
+                </button>
+                <button
+                  type="button"
+                  className={styles.quickAction}
+                  onClick={() => navigate("/caregiver/onboarding/dbs-submission")}
+                >
+                  Upload DBS Check
+                </button>
               </div>
             </section>
           </aside>

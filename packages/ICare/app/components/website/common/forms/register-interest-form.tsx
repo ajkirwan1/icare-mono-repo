@@ -10,14 +10,14 @@ export default function RegisterInterestForm() {
   const message = fetcher.data?.message;
   const ok = fetcher.data?.ok;
 
-  const formRef = React.useRef(null);
+  const formRef = React.useRef<HTMLFormElement | null>(null);
 
   React.useEffect(() => {
     if (ok) { formRef.current?.reset(); }
   }, [ok]);
 
-  const errId = (name) => `${name}-error`;
-  const hasErr = (name) => Array.isArray(fieldErrors?.[name]) && fieldErrors[name].length > 0;
+  const errId = (name: string) => `${name}-error`;
+  const hasErr = (name: string) => Array.isArray(fieldErrors?.[name]) && fieldErrors[name].length > 0;
 
   return (
     <div className={styles.root}>

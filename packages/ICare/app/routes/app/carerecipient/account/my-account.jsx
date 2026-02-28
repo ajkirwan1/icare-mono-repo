@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useLocation } from "react-router";
 import "./my-account.css";
 
 const API_BASE = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
@@ -497,9 +497,62 @@ function ActionControl({ action, variant = "secondary", label }) {
     );
 }
 
+function adaptActionForViewer(action, isCaregiverView) {
+    if (!isCaregiverView || !action) {
+        return action;
+    }
+
+    if (action.startsWith("navigate:/carereceiver/messages/")) {
+        const conversationId = action.replace("navigate:/carereceiver/messages/", "");
+        return `navigate:/caregiver/messages/${conversationId}`;
+    }
+
+    if (action.startsWith("navigate:/carereceiver/caregivers/")) {
+        return "navigate:/caregiver/profile/preview";
+    }
+
+    if (action.startsWith("navigate:/carereceiver/bookings/new/")) {
+        return "navigate:/caregiver/bookings";
+    }
+
+    if (action.startsWith("navigate:/carereceiver/bookings/") && action.endsWith("/review")) {
+        const bookingId = action.replace("navigate:/carereceiver/bookings/", "").replace("/review", "");
+        return `navigate:/caregiver/bookings/${bookingId}`;
+    }
+
+    if (action === "navigate:/carereceiver/search") {
+        return "navigate:/caregiver/bookings";
+    }
+
+    if (action === "navigate:/carereceiver/settings/payment") {
+        return "navigate:/caregiver/bookings?tab=completed";
+    }
+
+    if (action.startsWith("navigate:/carereceiver/")) {
+        return action.replace("navigate:/carereceiver/", "navigate:/caregiver/");
+    }
+
+    return action;
+}
+
+function resolveViewerAction(action, isCaregiverView, bookingId) {
+    const adapted = adaptActionForViewer(action, isCaregiverView);
+    if (!isCaregiverView || !adapted?.startsWith("modal:")) {
+        return adapted;
+    }
+
+    if (adapted === "modal:cancel-booking" || adapted === "modal:cancel-booking-warning" || adapted === "modal:cancel-booking-confirmation") {
+        return `navigate:/caregiver/bookings?tab=upcoming&action=cancel&bookingId=${bookingId}`;
+    }
+
+    return `navigate:/caregiver/bookings/${bookingId}?action=${adapted.replace("modal:", "")}`;
+}
+
 export default function CareRecipientMyAccountPage() {
+    const location = useLocation();
     const { detail, state } = useLoaderData();
     const { booking, caregiver, payment, emergencyContact } = detail;
+    const isCaregiverView = location.pathname.startsWith("/caregiver/");
 
     return (
         <main className="booking-detail-page">
@@ -544,7 +597,12 @@ export default function CareRecipientMyAccountPage() {
                         {state.alertActions?.length ? (
                             <div className="booking-alert-actions">
                                 {state.alertActions.map((action) => (
-                                    <ActionControl key={`${action.label}-${action.action}`} action={action.action} variant={action.variant} label={action.label} />
+                                        <ActionControl
+                                            key={`${action.label}-${action.action}`}
+                                        action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
+                                            variant={action.variant}
+                                            label={action.label}
+                                        />
                                 ))}
                             </div>
                         ) : null}
@@ -582,9 +640,17 @@ export default function CareRecipientMyAccountPage() {
                             </div>
                             <div className="booking-inline-actions">
                                 {state.enableMessaging ? (
-                                    <ActionControl action={`navigate:/carereceiver/messages/${booking.id}`} label="Message Caregiver" variant="secondary" />
+                                    <ActionControl
+                                        action={resolveViewerAction(`navigate:/carereceiver/messages/${booking.id}`, isCaregiverView, booking.id)}
+                                        label="Message Caregiver"
+                                        variant="secondary"
+                                    />
                                 ) : null}
-                                <ActionControl action={`navigate:/carereceiver/caregivers/${caregiver.id}`} label="View Full Profile" variant="text-link" />
+                                <ActionControl
+                                    action={resolveViewerAction(`navigate:/carereceiver/caregivers/${caregiver.id}`, isCaregiverView, booking.id)}
+                                    label="View Full Profile"
+                                    variant="text-link"
+                                />
                             </div>
                         </article>
 
@@ -647,7 +713,12 @@ export default function CareRecipientMyAccountPage() {
                             <div className="booking-sidebar-actions">
                                 {(state.stateActions || []).length ? (
                                     state.stateActions.map((action) => (
-                                        <ActionControl key={`${action.label}-${action.action}`} action={action.action} variant={action.variant} label={action.label} />
+                                        <ActionControl
+                                            key={`${action.label}-${action.action}`}
+                                            action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
+                                            variant={action.variant}
+                                            label={action.label}
+                                        />
                                     ))
                                 ) : (
                                     <p className="booking-muted">No available actions for this status.</p>

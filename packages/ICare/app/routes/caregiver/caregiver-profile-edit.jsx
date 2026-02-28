@@ -443,7 +443,7 @@ export default function CaregiverProfileEdit() {
 
             <div className={styles.actionsFooter}>
               <PrimaryActionButton label="Save Changes" onClick={handleSaveChanges} />
-              <button type="button" className={styles.secondaryBtn}>Discard Changes</button>
+              <button type="button" className={styles.secondaryBtn} onClick={() => navigate(0)}>Discard Changes</button>
               <p>Last saved: {lastSavedAt}</p>
               {saveMessage ? <p className={styles.saveFeedback}>{saveMessage}</p> : null}
             </div>

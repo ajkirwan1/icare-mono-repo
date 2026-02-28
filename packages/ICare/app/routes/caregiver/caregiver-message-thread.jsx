@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
-import "./carereceiver-pages.css";
+import "../carereceiver/carereceiver-pages.css";
 import { sanitizeMessage } from "~/utils/contact-protection";
 
 const DEFAULT_API = "http://localhost:4001";
@@ -38,7 +38,7 @@ function asFriendlyError(value, fallback) {
   return value;
 }
 
-export default function CarereceiverMessageThread() {
+export default function CaregiverMessageThread() {
   const { conversationId } = useParams();
   const apiBase = useMemo(() => import.meta.env.VITE_API_URL || DEFAULT_API, []);
 
@@ -76,7 +76,7 @@ export default function CarereceiverMessageThread() {
 
       const hydrated = (data?.messages || []).map((message) => ({
         id: message.id,
-        sender: message.senderRole === "carereceiver" ? "own" : "other",
+        sender: message.senderRole === "caregiver" ? "own" : "other",
         text: sanitizeMessage(message.bodyPlain || "").sanitizedText,
         time: formatWhen(message.createdAt)
       }));
@@ -99,9 +99,9 @@ export default function CarereceiverMessageThread() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        senderRole: "carereceiver",
+        senderRole: "caregiver",
         flags,
-        metadata: { source: "carereceiver-thread" }
+        metadata: { source: "caregiver-thread" }
       })
     });
 
@@ -136,9 +136,9 @@ export default function CarereceiverMessageThread() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          senderRole: "carereceiver",
+          senderRole: "caregiver",
           bodyPlain: messageText,
-          metadata: { source: "carereceiver-thread" }
+          metadata: { source: "caregiver-thread" }
         })
       });
       const data = await response.json();
@@ -165,7 +165,7 @@ export default function CarereceiverMessageThread() {
     <div className="cr-page">
       <div className="cr-shell">
         <nav className="cr-breadcrumbs">
-          <span>Dashboard</span><span>›</span><Link to="/carereceiver/messages">Messages</Link><span>›</span><strong>Conversation {conversationId}</strong>
+          <span>Dashboard</span><span>›</span><Link to="/caregiver/messages">Messages</Link><span>›</span><strong>Conversation {conversationId}</strong>
         </nav>
 
         <section className="cr-grid cr-grid--2-1">
@@ -175,7 +175,7 @@ export default function CarereceiverMessageThread() {
                 <div className="cr-avatar">MT</div>
                 <div>
                   <h2 style={{ margin: 0 }}>Mary Thompson</h2>
-                  <p className="cr-muted" style={{ margin: 0 }}>Caregiver • Online</p>
+                  <p className="cr-muted" style={{ margin: 0 }}>Care receiver • Online</p>
                 </div>
               </div>
               {conversation.contactProtectionEnabled ? <span className="cr-chip cr-chip--orange">🔒 Protection enabled</span> : null}
@@ -192,8 +192,8 @@ export default function CarereceiverMessageThread() {
                   Why?
                 </p>
                 <div className="cr-inline" style={{ marginTop: "8px", gap: "10px" }}>
-                  <Link to="/carereceiver/bookings/bk-2026-0142">View booking</Link>
-                  <Link to="/carereceiver/search">View profile</Link>
+                  <Link to="/caregiver/bookings/confirmed-1">View booking</Link>
+                  <Link to="/caregiver/profile/preview">View profile</Link>
                 </div>
               </div>
             ) : null}
@@ -213,7 +213,7 @@ export default function CarereceiverMessageThread() {
               <textarea
                 className="cr-textarea"
                 maxLength={1000}
-                placeholder="Type your message..."
+                placeholder="Type a message..."
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
               />
@@ -247,8 +247,8 @@ export default function CarereceiverMessageThread() {
             <article className="cr-card">
               <h3>Booking Context</h3>
               <p className="cr-muted">Booking #BK-12345</p>
-              <p className="cr-muted">Wednesday, March 6 at 10:00 AM</p>
-              <span className="cr-chip cr-chip--green">Accepted</span>
+              <p className="cr-muted">Thursday, February 20 at 10:00 AM</p>
+              <span className="cr-chip cr-chip--green">Confirmed</span>
               <p className="cr-muted" style={{ marginTop: "8px" }}>
                 If you need to contact someone, please use official ICare channels.
               </p>
@@ -257,8 +257,8 @@ export default function CarereceiverMessageThread() {
             <article className="cr-card">
               <h3>Quick Actions</h3>
               <div className="cr-grid">
-                <Link className="cr-button cr-button--secondary" to="/carereceiver/bookings/bk-2026-0142">View booking</Link>
-                <button type="button" className="cr-button cr-button--orange-outline">Call caregiver</button>
+                <Link className="cr-button cr-button--secondary" to="/caregiver/bookings/confirmed-1">View booking</Link>
+                <Link className="cr-button cr-button--orange-outline" to="/caregiver/profile/preview">View profile</Link>
               </div>
             </article>
           </aside>

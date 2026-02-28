@@ -1,0 +1,55 @@
+.cg-booking-detail-wrapper .booking-top-nav,
+.cg-booking-detail-wrapper .booking-logo,
+.cg-booking-detail-wrapper .booking-main-nav,
+.cg-booking-detail-wrapper .booking-user,
+.cg-booking-detail-wrapper .booking-menu-toggle,
+.cg-booking-detail-wrapper .booking-footer {
+  display: none;
+}
+
+.cg-booking-detail-wrapper .booking-detail-page {
+  --icare-bg: #f7f3ee;
+  --icare-bg-soft: #fcfaf7;
+  --icare-surface: rgba(255, 255, 255, 0.9);
+  --icare-surface-strong: #ffffff;
+  --icare-text: #4f433a;
+  --icare-muted: #7a6d62;
+  --icare-border: rgba(137, 102, 78, 0.18);
+  --icare-border-strong: rgba(143, 99, 71, 0.36);
+  --icare-green: #c79069;
+  --icare-green-dark: #8f6347;
+  --icare-green-soft: rgba(199, 144, 105, 0.14);
+  --icare-orange: #b47c58;
+  --icare-orange-dark: #8f6347;
+  --icare-orange-soft: rgba(180, 124, 88, 0.14);
+  --icare-danger: #a33d3d;
+  --icare-shadow-soft: 0 10px 30px rgba(35, 23, 15, 0.08);
+  --icare-shadow-glow: 0 0 0 2px rgba(143, 99, 71, 0.18);
+
+  background:
+    radial-gradient(circle at 12% 18%, rgba(143, 99, 71, 0.1), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(194, 175, 154, 0.1), transparent 38%),
+    linear-gradient(180deg, #f7f3ee 0%, #fcfaf7 100%);
+}
+
+.cg-booking-detail-wrapper .booking-action--primary {
+  background: #c79069;
+  border-color: #b47c58;
+  color: #ffffff;
+  box-shadow: 0 7px 16px rgba(143, 99, 71, 0.24);
+}
+
+.cg-booking-detail-wrapper .booking-action--primary:hover {
+  background: #b47c58;
+}
+
+.cg-booking-detail-wrapper .booking-action--secondary:hover,
+.cg-booking-detail-wrapper .booking-action--text-link:hover {
+  color: #ffa967;
+}
+
+.cg-booking-detail-wrapper .booking-alert--success {
+  background: #eadfce;
+  border-color: #b47c58;
+  color: #4f433a;
+}

@@ -1,12 +1,14 @@
+@use "./theme" as cg;
+
 .page {
   --ink: #000000;
   --ink-soft: rgba(0, 0, 0, 0.72);
-  --accent: #8f6347;
-  --accent-soft: rgba(143, 99, 71, 0.14);
-  --accent-border: rgba(143, 99, 71, 0.35);
-  --surface: #ffffff;
-  --surface-soft: #f3ece3;
-  background: #f7f3ee;
+  --accent: #{cg.$accent-dark};
+  --accent-soft: rgba(212, 138, 83, 0.14);
+  --accent-border: rgba(212, 138, 83, 0.35);
+  --surface: #{cg.$surface};
+  --surface-soft: #{cg.$bg};
+  background: cg.$bg;
   color: var(--ink);
   min-height: 100vh;
   padding-bottom: 32px;
@@ -42,13 +44,13 @@
 
 .previewProfileBtn {
   border: 1px solid var(--accent-border) !important;
-  background: #c79069 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 10px rgba(143, 99, 71, 0.2);
+  background: cg.$accent !important;
+  color: cg.$surface !important;
+  box-shadow: 0 4px 10px rgba(212, 138, 83, 0.2);
 }
 
 .previewProfileBtn:hover {
-  background: #b47c58 !important;
+  background: cg.$accent !important;
 }
 
 .photoUpload {
@@ -68,7 +70,7 @@
 
 .uploadCircle {
   padding: 0;
-  border: 2px dashed rgba(143, 99, 71, 0.28);
+  border: 2px dashed rgba(212, 138, 83, 0.28);
   background: transparent;
   width: 120px;
   height: 120px;
@@ -90,7 +92,7 @@
   &:hover {
     border-color: var(--accent-border);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(143, 99, 71, 0.14);
+    box-shadow: 0 6px 16px rgba(212, 138, 83, 0.14);
   }
 }
 
@@ -112,8 +114,8 @@
   height: 28px;
   border-radius: 999px;
   background: var(--accent);
-  border: 2px solid #ffffff;
-  color: #ffffff;
+  border: 2px solid cg.$surface;
+  color: cg.$surface;
   font-size: 19px;
   font-weight: 700;
   display: inline-flex;
@@ -162,7 +164,7 @@
   textarea,
   select {
     width: 100%;
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 8px;
     padding: 10px 12px;
     font: inherit;
@@ -189,7 +191,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  border: 1px solid rgba(143, 99, 71, 0.24);
+  border: 1px solid rgba(212, 138, 83, 0.24);
   border-radius: 8px;
   padding: 8px;
   background: var(--surface);
@@ -219,7 +221,7 @@
   &:hover {
     background: var(--surface-soft);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(143, 99, 71, 0.2);
+    box-shadow: 0 2px 8px rgba(212, 138, 83, 0.2);
   }
 }
 
@@ -240,9 +242,9 @@
 
 .languageDropdown {
   select {
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 999px;
-    background: #ffffff;
+    background: cg.$surface;
     color: #000000;
     font-size: 12px;
     font-weight: 600;
@@ -260,9 +262,9 @@
 
 .interestDropdown {
   select {
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 999px;
-    background: #ffffff;
+    background: cg.$surface;
     color: #000000;
     font-size: 12px;
     font-weight: 600;
@@ -284,9 +286,9 @@
   gap: 6px;
 
   input {
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 999px;
-    background: #ffffff;
+    background: cg.$surface;
     color: #000000;
     font-size: 12px;
     font-weight: 500;
@@ -302,9 +304,9 @@
   }
 
   button {
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 999px;
-    background: #ffffff;
+    background: cg.$surface;
     color: #000000;
     font-size: 12px;
     font-weight: 600;
@@ -416,7 +418,7 @@
 
 .availabilityTable {
   margin-top: 10px;
-  border: 1px solid rgba(143, 99, 71, 0.24);
+  border: 1px solid rgba(212, 138, 83, 0.24);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -427,7 +429,7 @@
   margin-bottom: 10px;
 
   button {
-    border: 1px solid rgba(143, 99, 71, 0.24);
+    border: 1px solid rgba(212, 138, 83, 0.24);
     border-radius: 999px;
     background: #fff;
     color: var(--ink);
@@ -465,7 +467,7 @@
 }
 
 .avRow {
-  border-top: 1px solid rgba(143, 99, 71, 0.16);
+  border-top: 1px solid rgba(212, 138, 83, 0.16);
 
   > span {
     padding: 10px 8px;
@@ -479,7 +481,7 @@
   width: 36px;
   height: 36px;
   border-radius: 6px;
-  border: 1px solid rgba(143, 99, 71, 0.24);
+  border: 1px solid rgba(212, 138, 83, 0.24);
   background: #fff;
   color: transparent;
   font-weight: 700;

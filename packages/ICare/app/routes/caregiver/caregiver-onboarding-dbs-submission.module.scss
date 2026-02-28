@@ -1,6 +1,8 @@
+@use "./theme" as cg;
+
 .page {
-  background: #f7f3ee;
-  border: 1px solid rgba(143, 99, 71, 0.22);
+  background: cg.$bg;
+  border: 1px solid rgba(212, 138, 83, 0.22);
   border-radius: 14px;
   padding: clamp(22px, 2.6vw, 32px);
 }
@@ -39,10 +41,10 @@
 .optionalBadge {
   display: inline-flex;
   margin-top: 14px;
-  border: 1px solid rgba(143, 99, 71, 0.28);
+  border: 1px solid rgba(212, 138, 83, 0.28);
   border-radius: 999px;
   padding: 6px 12px;
-  background: rgba(143, 99, 71, 0.16);
+  background: rgba(212, 138, 83, 0.16);
   color: #000000;
   font-size: 12px;
   font-weight: 600;
@@ -60,7 +62,7 @@
 }
 
 .page :global(.alertIcon) {
-  background: rgba(143, 99, 71, 0.16);
+  background: rgba(212, 138, 83, 0.16);
 }
 
 .infoAlert {
@@ -72,8 +74,8 @@
   width: 100%;
   min-height: 140px;
   border-radius: 8px;
-  border: 2px dashed rgba(143, 99, 71, 0.28);
-  background: #f3ece3;
+  border: 2px dashed rgba(212, 138, 83, 0.28);
+  background: cg.$bg;
   display: grid;
   place-items: center;
   text-align: center;
@@ -87,7 +89,7 @@
 
 .uploadIcon {
   font-size: 40px;
-  color: #8f6347;
+  color: cg.$accent-dark;
   line-height: 1;
   margin-bottom: 4px;
 }
@@ -133,9 +135,9 @@
   margin-top: 8px;
   width: 100%;
   min-height: 40px;
-  border: 1px solid rgba(143, 99, 71, 0.24);
+  border: 1px solid rgba(212, 138, 83, 0.24);
   border-radius: 8px;
-  background: #ffffff;
+  background: cg.$surface;
   color: #000000;
   padding: 0 12px;
   font-size: 14px;
@@ -159,22 +161,22 @@
   width: 200px;
   min-height: 40px;
   border-radius: 25px;
-  background: #c79069;
-  border-color: #b47c58;
-  color: #ffffff;
+  background: cg.$accent;
+  border-color: cg.$accent;
+  color: cg.$surface;
   font-weight: 500;
 }
 
 .actions :global(button:hover) {
-  background: #b47c58;
+  background: cg.$accent;
 }
 
 .skipButton {
   width: 200px;
   min-height: 40px;
   border-radius: 25px;
-  border: 1px solid rgba(143, 99, 71, 0.3);
-  background: #f3ece3;
+  border: 1px solid rgba(212, 138, 83, 0.3);
+  background: cg.$bg;
   color: #000000;
   display: inline-flex;
   align-items: center;

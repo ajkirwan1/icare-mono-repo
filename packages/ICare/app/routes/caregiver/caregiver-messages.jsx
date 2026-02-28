@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { NavLink } from "react-router";
+import { useMemo } from "react";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
 import { DashboardShell } from "~/components/application/kasia";
 import styles from "./caregiver-messages.module.scss";
 
@@ -95,7 +95,17 @@ const conversations = [
 ];
 
 export default function CaregiverMessages() {
-  const [activeTab, setActiveTab] = useState("all");
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab") ?? "all";
+  const currentSort = searchParams.get("sort") ?? "recent";
+  const currentPage = Number(searchParams.get("page") ?? "1");
+
+  const setParam = (key, value) => {
+    const next = new URLSearchParams(searchParams);
+    next.set(key, value);
+    setSearchParams(next);
+  };
 
   const tabs = useMemo(() => {
     const allCount = conversations.length;
@@ -153,7 +163,7 @@ export default function CaregiverMessages() {
               key={tab.id}
               type="button"
               className={`${styles.tabButton} ${activeTab === tab.id ? styles.tabButtonActive : ""}`.trim()}
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => setParam("tab", tab.id)}
             >
               {tab.label}
             </button>
@@ -162,12 +172,30 @@ export default function CaregiverMessages() {
 
         <section className={styles.controls}>
           <p className={styles.countLabel}>{filteredConversations.length} conversations</p>
-          <button type="button" className={styles.sortButton}>Sort by: Most Recent</button>
+          <button
+            type="button"
+            className={styles.sortButton}
+            onClick={() => setParam("sort", currentSort === "recent" ? "oldest" : "recent")}
+          >
+            Sort by: {currentSort === "recent" ? "Most Recent" : "Oldest"}
+          </button>
         </section>
 
         <section className={styles.list} aria-label="Conversation list">
           {filteredConversations.map((thread) => (
-            <article key={thread.id} className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}>
+            <article
+              key={thread.id}
+              className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}
+              role="button"
+              tabIndex={0}
+              onClick={() => navigate(`/caregiver/messages/${thread.id}`)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  navigate(`/caregiver/messages/${thread.id}`);
+                }
+              }}
+            >
               <div className={styles.avatar} aria-hidden="true">
                 {thread.avatar ? (
                   <img className={styles.avatarImage} src={thread.avatar} alt="" />
@@ -191,9 +219,34 @@ export default function CaregiverMessages() {
         </section>
 
         <nav className={styles.pagination} aria-label="Pagination">
-          <button type="button" className={styles.pageButton}>← Prev</button>
-          <button type="button" className={`${styles.pageNumber} ${styles.currentPage}`.trim()}>1</button>
-          <button type="button" className={styles.pageButton}>Next →</button>
+          <button
+            type="button"
+            className={styles.pageButton}
+            onClick={() => setParam("page", String(Math.max(1, currentPage - 1)))}
+          >
+            ← Prev
+          </button>
+          <button
+            type="button"
+            className={`${styles.pageNumber} ${currentPage === 1 ? styles.currentPage : ""}`.trim()}
+            onClick={() => setParam("page", "1")}
+          >
+            1
+          </button>
+          <button
+            type="button"
+            className={`${styles.pageNumber} ${currentPage === 2 ? styles.currentPage : ""}`.trim()}
+            onClick={() => setParam("page", "2")}
+          >
+            2
+          </button>
+          <button
+            type="button"
+            className={styles.pageButton}
+            onClick={() => setParam("page", String(Math.min(2, currentPage + 1)))}
+          >
+            Next →
+          </button>
         </nav>
       </div>
     </DashboardShell>

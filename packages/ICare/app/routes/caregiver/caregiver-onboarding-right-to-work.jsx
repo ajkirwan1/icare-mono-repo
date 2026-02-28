@@ -1,15 +1,17 @@
 import { useMemo, useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { AlertBanner, DashboardShell, PrimaryActionButton, StatusPill } from "~/components/application/kasia";
 import styles from "./caregiver-onboarding-right-to-work.module.scss";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 export default function CaregiverOnboardingRightToWork() {
+  const navigate = useNavigate();
   const [method, setMethod] = useState("passport");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("");
   const [fileError, setFileError] = useState("");
+  const [status, setStatus] = useState("Not Submitted");
 
   const canSubmit = useMemo(
     () => method === "ukvi" || (confirmed && selectedFileName.length > 0 && !fileError),
@@ -32,6 +34,14 @@ export default function CaregiverOnboardingRightToWork() {
     setSelectedFileName(file.name);
   }
 
+  function onSubmit() {
+    if (!canSubmit) {
+      return;
+    }
+    setStatus("Pending Review");
+    navigate("/caregiver/onboarding");
+  }
+
   return (
     <DashboardShell>
       <div className={styles.page}>
@@ -44,7 +54,7 @@ export default function CaregiverOnboardingRightToWork() {
         <header className={styles.header}>
           <h1>Right to Work Verification</h1>
           <p>Confirm you have legal right to work in the UK</p>
-          <StatusPill label="Not Submitted" variant="info" />
+          <StatusPill label={status} variant="info" />
         </header>
 
         <AlertBanner
@@ -101,7 +111,7 @@ export default function CaregiverOnboardingRightToWork() {
         )}
 
         <div className={styles.actions}>
-          <PrimaryActionButton label="Submit for Review" type="button" />
+          <PrimaryActionButton label="Submit for Review" onClick={onSubmit} type="button" />
           {!canSubmit ? <p className={styles.hint}>Complete required fields to submit.</p> : null}
         </div>
 

@@ -11,7 +11,6 @@ export const caregiverNavItems = [
   { to: "/caregiver/dashboard", label: "Dashboard" },
   { to: "/caregiver/bookings", label: "My Bookings" },
   { to: "/caregiver/messages", label: "Messages" },
-  { to: "/caregiver/stripe-payments", label: "Payments" },
   { to: "/caregiver/onboarding", label: "Onboarding" },
   { to: "/caregiver/profile", label: "My Profile" },
   { to: "/", label: "Signout" }
