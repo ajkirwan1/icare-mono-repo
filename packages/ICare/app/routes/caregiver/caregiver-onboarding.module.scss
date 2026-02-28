@@ -1,0 +1,183 @@
+.page {
+  background: #f7f3ee;
+  border: 1px solid rgba(143, 99, 71, 0.22);
+  border-radius: 14px;
+  padding: clamp(22px, 2.6vw, 32px);
+  box-shadow: none;
+}
+
+.headerCard {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  margin-bottom: 18px;
+}
+
+.brandRow {
+  margin-bottom: 8px;
+
+  img {
+    height: 44px;
+    width: auto;
+    display: block;
+  }
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  h1 {
+    margin: 0;
+    color: #000000;
+    font-size: clamp(30px, 3vw, 38px);
+  }
+}
+
+.cta {
+  text-decoration: none;
+  border: 1px solid #647739;
+  border-radius: 10px;
+  background: #778d43;
+  color: #ffffff;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cta:hover {
+  background: #647739;
+}
+
+.ctaGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ctaSecondary {
+  text-decoration: none;
+  border: 1px solid rgba(143, 99, 71, 0.3);
+  border-radius: 10px;
+  background: #f3ece3;
+  color: #000000;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ctaSecondary:hover {
+  background: #eadfce;
+}
+
+.subtitle {
+  margin: 12px 0 2px;
+  color: #000000;
+  font-size: 17px;
+}
+
+.stepsGrid {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.stepCard {
+  border: 1px solid rgba(143, 99, 71, 0.22);
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 16px;
+
+  h2 {
+    margin: 0;
+    color: #000000;
+    font-size: 19px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 10px 0 0;
+    color: #000000;
+    font-size: 14px;
+  }
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stepAction,
+.stepActionMuted {
+  margin-top: 14px;
+  width: 100%;
+  max-width: 260px;
+  min-height: 40px;
+  border-radius: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stepAction {
+  border: 1px solid #b47c58;
+  background: #c79069;
+  color: #ffffff;
+}
+
+.stepAction:hover {
+  background: #b47c58;
+}
+
+.stepActionMuted {
+  border: 1px solid rgba(143, 99, 71, 0.3);
+  background: #f3ece3;
+  color: #000000;
+}
+
+.stepActionMuted:hover {
+  background: #eadfce;
+}
+
+.page :global(.pillInfo) {
+  background: rgba(143, 99, 71, 0.16);
+  color: #000000;
+}
+
+.page :global(.pillPending) {
+  background: rgba(143, 99, 71, 0.12);
+  color: #000000;
+}
+
+.page :global(.pill) {
+  border: 1px solid rgba(143, 99, 71, 0.28);
+}
+
+@media (max-width: 900px) {
+  .stepsGrid {
+    gap: 12px;
+  }
+
+  .stepAction,
+  .stepActionMuted {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .page {
+    border-radius: 12px;
+    padding: 14px;
+  }
+}

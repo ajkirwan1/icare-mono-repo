@@ -2,7 +2,7 @@
   background: #ffffff;
   min-height: 100vh;
   padding: clamp(18px, 3vw, 36px);
-  color: #243029;
+  color: #000000;
 }
 
 .shell {
@@ -22,20 +22,20 @@
     margin: 0;
     font-size: clamp(30px, 4vw, 40px);
     font-weight: 500;
-    color: #0f172a;
+    color: #000000;
   }
 
   p {
     margin: 10px 0 0;
-    color: rgba(70, 92, 77, 0.82);
+    color: #000000;
     font-size: 15px;
   }
 }
 
 .alertBanner {
   margin-bottom: clamp(16px, 2vw, 22px);
-  border: 1px solid #d7e1c2;
-  background: #f7faef;
+  border: 1px solid rgba(143, 99, 71, 0.24);
+  background: #f7f1e8;
   border-radius: 12px;
   padding: 12px 14px;
   display: flex;
@@ -47,8 +47,8 @@
   width: 26px;
   height: 26px;
   border-radius: 999px;
-  background: #e7efd6;
-  color: #5f7332;
+  background: #ead8c5;
+  color: #8f6347;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,14 +58,14 @@
 
 .alertTitle {
   margin: 0;
-  color: #334155;
+  color: #000000;
   font-size: 15px;
   font-weight: 700;
 }
 
 .alertSub {
   margin: 2px 0 0;
-  color: rgba(51, 65, 85, 0.85);
+  color: #000000;
   font-size: 13px;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .card {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(137, 102, 78, 0.18);
   border-radius: 18px;
   background: #ffffff;
   box-shadow: none;
@@ -93,7 +93,7 @@
     margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: #465c4d;
+    color: #000000;
     line-height: 1.25;
   }
 }
@@ -108,7 +108,7 @@
 
 .blackTitleCard {
   h2 {
-    color: #0f172a;
+    color: #000000;
   }
 }
 
@@ -119,7 +119,7 @@
 }
 
 .bookingItem {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(137, 102, 78, 0.18);
   border-radius: 12px;
   background: #ffffff;
   padding: 14px;
@@ -130,8 +130,8 @@
   transition: border-color 0.2s ease, background 0.2s ease;
 
   &:hover {
-    border-color: rgba(91, 117, 98, 0.35);
-    background: #fcfdfb;
+    border-color: rgba(143, 99, 71, 0.32);
+    background: #fcf8f3;
   }
 
   button {
@@ -168,7 +168,7 @@
   height: 36px;
   border-radius: 999px;
   overflow: hidden;
-  background: #e6e9e1;
+  background: #efe6dc;
 
   img {
     width: 100%;
@@ -182,14 +182,14 @@
   p {
     margin: 0;
     font-weight: 600;
-    color: #243029;
+    color: #000000;
     line-height: 1.25;
   }
 
   small {
     display: block;
     margin-top: 3px;
-    color: #0f172a;
+    color: #000000;
     line-height: 1.35;
   }
 
@@ -203,14 +203,14 @@
 }
 
 .requested {
-  background: #f7ecd4;
-  color: #8c5a1f;
+  background: #f2e3d3;
+  color: #000000;
 }
 
 .confirmed {
-  background: #cfe0b1;
-  color: #1f2b1a;
-  border: 1px solid #9cb36d;
+  background: #efe6dc;
+  color: #000000;
+  border: 1px solid rgba(143, 99, 71, 0.26);
   font-weight: 700;
 }
 
@@ -223,7 +223,7 @@
 
 .earningsLabel {
   margin: 0;
-  color: #0f172a;
+  color: #000000;
   font-size: 16px;
 }
 
@@ -231,12 +231,12 @@
   margin: 6px 0 0;
   font-size: 30px;
   font-weight: 700;
-  color: #0f172a;
+  color: #000000;
 }
 
 .earningsDelta {
   margin: 6px 0 0;
-  color: #0f172a;
+  color: #000000;
   font-size: 12px;
 }
 
@@ -244,18 +244,18 @@
   margin-top: 14px;
   height: 18px;
   border-radius: 999px;
-  background: #edf2e8;
-  border: 1px solid rgba(91, 117, 98, 0.22);
+  background: #f1e9df;
+  border: 1px solid rgba(143, 99, 71, 0.2);
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(36, 48, 41, 0.12);
+  box-shadow: inset 0 1px 2px rgba(79, 67, 58, 0.12);
 
   span {
     display: block;
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, #5b7562 0%, #b0c47f 100%);
+    background: linear-gradient(90deg, #8f6347 0%, #c39777 100%);
     position: relative;
-    box-shadow: 0 2px 6px rgba(70, 92, 77, 0.28);
+    box-shadow: 0 2px 6px rgba(143, 99, 71, 0.24);
     transition: width 0.35s ease;
   }
 
@@ -269,7 +269,7 @@
     border-radius: 999px;
     background: #ffffff;
     transform: translateY(-50%);
-    box-shadow: 0 0 0 1px rgba(70, 92, 77, 0.2);
+    box-shadow: 0 0 0 1px rgba(143, 99, 71, 0.24);
   }
 }
 
@@ -278,8 +278,8 @@
   width: fit-content;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(176, 196, 127, 0.22);
-  color: #2f4238;
+  background: rgba(143, 99, 71, 0.14);
+  color: #000000;
   font-size: 12px;
   font-weight: 700;
 }
@@ -294,8 +294,8 @@
     padding: 9px 14px;
     border-radius: 999px;
     background: #ffffff;
-    border: 1px solid rgba(91, 117, 98, 0.35);
-    color: #2f4238;
+    border: 1px solid rgba(143, 99, 71, 0.3);
+    color: #000000;
     font-size: 14px;
     font-weight: 600;
   }
@@ -304,7 +304,7 @@
 .verificationNote {
   margin: 12px 0 0;
   font-size: 12px;
-  color: #3f5238;
+  color: #000000;
   font-weight: 500;
   line-height: 1.35;
 }
@@ -317,7 +317,7 @@
   gap: 12px;
 
   span {
-    color: #0f172a;
+    color: #000000;
     font-size: 14px;
   }
 }
@@ -325,7 +325,7 @@
 .toggle {
   width: 46px;
   height: 26px;
-  border: 1px solid #8fa96b;
+  border: 1px solid rgba(143, 99, 71, 0.42);
   border-radius: 999px;
   position: relative;
   padding: 0;
@@ -344,13 +344,13 @@
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(119, 141, 67, 0.55);
+    outline: 2px solid rgba(143, 99, 71, 0.45);
     outline-offset: 2px;
   }
 }
 
 .toggleOn {
-  background: #b0c47f;
+  background: #c39777;
 
   span {
     left: 25px;
@@ -358,7 +358,7 @@
 }
 
 .toggleOff {
-  background: #d1d5db;
+  background: #ddd2c7;
 
   span {
     left: 3px;
@@ -373,9 +373,9 @@
 
 .quickAction {
   width: 100%;
-  border: 1px solid #c8783c;
+  border: 1px solid #b47c58;
   border-radius: 25px;
-  background: #e08a4d;
+  background: #c79069;
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
@@ -384,8 +384,8 @@
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 
   &:hover {
-    background: #d67435;
-    box-shadow: 0 2px 10px rgba(198, 120, 60, 0.28);
+    background: #b47c58;
+    box-shadow: 0 2px 10px rgba(143, 99, 71, 0.28);
   }
 
   &:active {
@@ -393,20 +393,20 @@
   }
 
   &:focus-visible {
-    outline: 2px solid rgba(214, 116, 53, 0.45);
+    outline: 2px solid rgba(143, 99, 71, 0.42);
     outline-offset: 2px;
   }
 }
 
 .quickAction:nth-child(2) {
-  background: #e08a4d;
-  border-color: #c8783c;
+  background: #c79069;
+  border-color: #b47c58;
   color: #ffffff;
 }
 
 .quickAction:nth-child(3) {
-  background: #e08a4d;
-  border-color: #c8783c;
+  background: #c79069;
+  border-color: #b47c58;
   color: #ffffff;
 }
 

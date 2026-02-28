@@ -200,6 +200,7 @@ export default function CaregiverProfileEdit() {
               <PrimaryActionButton
                 label="Preview Public Profile"
                 onClick={() => navigate("/caregiver/profile/preview")}
+                className={styles.previewProfileBtn}
               />
             </div>
 

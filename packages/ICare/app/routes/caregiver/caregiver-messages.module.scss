@@ -1,13 +1,9 @@
 .page {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(176, 196, 127, 0.15), transparent 32%),
-    linear-gradient(180deg, rgba(246, 247, 244, 0.86) 0%, rgba(242, 244, 241, 0.82) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: #f7f3ee;
+  border: 1px solid rgba(143, 99, 71, 0.22);
   border-radius: 24px;
-  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
-  padding: clamp(16px, 2vw, 24px);
+  box-shadow: 0 16px 32px rgba(143, 99, 71, 0.08);
+  padding: clamp(18px, 2.2vw, 28px);
 }
 
 .breadcrumb {
@@ -15,20 +11,20 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 24px;
-  font-size: 14px;
+  font-size: 15px;
 
   a {
-    color: #778d43;
+    color: #000000;
     text-decoration: none;
   }
 
   span {
-    color: rgba(15, 23, 42, 0.72);
+    color: #000000;
   }
 
   strong {
-    color: #0f172a;
-    font-weight: 600;
+    color: #000000;
+    font-weight: 700;
   }
 }
 
@@ -37,56 +33,64 @@
 
   h1 {
     margin: 0;
-    color: #0f172a;
-    font-size: 26px;
-    font-weight: 600;
+    color: #000000;
+    font-size: 28px;
+    font-weight: 700;
     line-height: 1.15;
   }
 
   p {
     margin: 10px 0 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 14px;
+    color: #000000;
+    font-size: 15px;
   }
 }
 
 .tabsSection {
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(143, 99, 71, 0.24);
+  border-radius: 14px;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   overflow-x: auto;
-  padding: 3px;
-  backdrop-filter: blur(14px) saturate(125%);
-  -webkit-backdrop-filter: blur(14px) saturate(125%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  padding: 4px;
 }
 
 .tabButton {
   border: 1px solid transparent;
   background: transparent;
-  color: rgba(15, 23, 42, 0.72);
-  font-size: 13px;
-  padding: 8px 12px;
+  color: #000000;
+  font-size: 14px;
+  padding: 10px 14px;
   cursor: pointer;
   white-space: nowrap;
   border-radius: 10px;
-  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: #f3e6d8;
+    border-color: rgba(180, 124, 88, 0.45);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(143, 99, 71, 0.12);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(143, 99, 71, 0.45);
+    outline-offset: 2px;
+  }
 }
 
 .tabButtonActive {
-  color: #3e4d21;
-  font-weight: 600;
-  background: rgba(237, 242, 223, 0.78);
-  border-color: rgba(176, 196, 127, 0.5);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  color: #000000;
+  font-weight: 700;
+  background: #f6ebe0;
+  border-color: rgba(180, 124, 88, 0.5);
 }
 
 .controls {
-  margin-top: 14px;
-  margin-bottom: 10px;
+  margin-top: 16px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -96,75 +100,77 @@
 
 .countLabel {
   margin: 0;
-  color: rgba(15, 23, 42, 0.5);
+  color: #000000;
   font-size: 16px;
   line-height: 1;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .sortButton {
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.58);
-  color: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(143, 99, 71, 0.24);
+  background: #ffffff;
+  color: #000000;
   border-radius: 10px;
-  padding: 8px 11px;
-  font-size: 13px;
+  padding: 10px 12px;
+  font-size: 14px;
   cursor: pointer;
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
 }
 
 .list {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.74);
+  background: #ffffff;
+  border: 1px solid rgba(143, 99, 71, 0.2);
   border-radius: 16px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
   padding: 8px;
   display: grid;
-  gap: 6px;
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  gap: 8px;
 }
 
 .row {
-  min-height: 84px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.62);
+  min-height: 88px;
+  border: 1px solid rgba(143, 99, 71, 0.22);
+  background: #ffffff;
   border-radius: 12px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   padding: 10px 12px;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px) saturate(125%);
-  -webkit-backdrop-filter: blur(10px) saturate(125%);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 10px rgba(143, 99, 71, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 
   &:hover {
     transform: translateY(-1px);
-    border-color: rgba(119, 141, 67, 0.25);
-    box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
+    border-color: rgba(143, 99, 71, 0.36);
+    box-shadow: 0 10px 18px rgba(143, 99, 71, 0.12);
   }
 }
 
 .rowUnread {
-  background: linear-gradient(180deg, rgba(248, 251, 255, 0.82) 0%, rgba(243, 248, 255, 0.74) 100%);
-  border-color: rgba(67, 156, 255, 0.22);
+  background: #fcf5ee;
+  border-color: rgba(180, 124, 88, 0.35);
 }
 
 .avatar {
   width: 44px;
   height: 44px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #eef3e1 0%, #dfe7cf 100%);
-  border: 1px solid rgba(176, 196, 127, 0.45);
-  color: #728444;
+  border-radius: 50%;
+  flex: 0 0 44px;
+  background: #ead8c5;
+  border: 1px solid rgba(143, 99, 71, 0.35);
+  color: #000000;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .threadMain {
@@ -173,24 +179,24 @@
 
 .threadName {
   margin: 0;
-  color: #0f172a;
+  color: #000000;
   font-size: 16px;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
 }
 
 .threadMeta {
   margin: 6px 0 0;
-  color: rgba(15, 23, 42, 0.74);
-  font-size: 11px;
+  color: #000000;
+  font-size: 12px;
   line-height: 1.3;
 }
 
 .threadPreview {
   margin: 4px 0 0;
-  color: rgba(15, 23, 42, 0.72);
-  font-size: 12px;
+  color: #000000;
+  font-size: 13px;
   line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
@@ -209,7 +215,7 @@
 
 .when {
   margin: 0;
-  color: rgba(15, 23, 42, 0.68);
+  color: #000000;
   font-size: 12px;
 }
 
@@ -217,14 +223,14 @@
   width: 24px;
   height: 24px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #ea3d3d 0%, #cd2323 100%);
+  background: linear-gradient(180deg, #d1533f 0%, #b5402e 100%);
   color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 8px rgba(205, 35, 35, 0.35);
+  font-weight: 700;
+  box-shadow: 0 4px 8px rgba(181, 64, 46, 0.32);
 }
 
 .pagination {
@@ -237,29 +243,27 @@
 
 .pageButton,
 .pageNumber {
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(143, 99, 71, 0.24);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.58);
-  color: rgba(15, 23, 42, 0.72);
-  height: 34px;
+  background: #ffffff;
+  color: #000000;
+  height: 36px;
   padding: 0 14px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
 }
 
 .pageNumber {
   min-width: 36px;
   padding: 0;
-  color: #0f172a;
+  color: #000000;
 }
 
 .currentPage {
-  background: #dce7bf;
-  border-color: #c7d8a0;
-  color: #3b491f;
-  font-weight: 600;
+  background: #ead8c5;
+  border-color: #b47c58;
+  color: #000000;
+  font-weight: 700;
 }
 
 @media (max-width: 1200px) {

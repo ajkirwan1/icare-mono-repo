@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
 import styles from "./kasia-dashboard.module.scss";
 
-export default function SectionCard({ title, actionLabel, actionTo, compact = false, children }) {
+export default function SectionCard({ title, actionLabel, actionTo, compact = false, children, className = "" }) {
   return (
-    <section className={`${styles.card} ${compact ? styles.cardCompact : ""}`.trim()}>
+    <section className={`${styles.card} ${compact ? styles.cardCompact : ""} ${className}`.trim()}>
       <div className={styles.cardHeader}>
         <h2 className={styles.cardTitle}>{title}</h2>
         {actionLabel && actionTo ? (

@@ -71,7 +71,10 @@ export default [
       route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
       route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
       route("messages", "routes/caregiver/caregiver-messages.jsx"),
+      route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
+      route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
       route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
+      route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
       route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
       route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
     ])

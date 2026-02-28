@@ -17,15 +17,20 @@ export default function CaregiverProfilePreview() {
       <div className={styles.breadcrumb}>My Profile <span>&gt;</span> <strong>Public Preview</strong></div>
 
       <DashboardShell
-        title="Public Profile Preview"
-        subtitle="This is how families will see your profile."
+        title={null}
+        subtitle={null}
         main={(
           <>
+            <header className={styles.pageHeader}>
+              <h1>Public Profile Preview</h1>
+              <p>This is how families will see your profile.</p>
+            </header>
+
             <div className={styles.previewNotice}>
               Preview mode: this view is read-only and mirrors what families see.
             </div>
 
-            <SectionCard title="Caregiver Overview">
+            <SectionCard title="Caregiver Overview" className={styles.previewCard}>
               <div className={styles.heroGrid}>
                 <div className={styles.hero}>
                   <img src="/images/avatars/female.webp" alt="Profile" />
@@ -56,14 +61,14 @@ export default function CaregiverProfilePreview() {
               </div>
             </SectionCard>
 
-            <SectionCard title="About">
+            <SectionCard title="About" className={styles.previewCard}>
               <p className={styles.copy}>
                 I am a friendly and experienced companion who enjoys meaningful conversations,
                 gentle outings, and helping with day-to-day routines.
               </p>
             </SectionCard>
 
-            <SectionCard title="Languages & Interests">
+            <SectionCard title="Languages & Interests" className={styles.previewCard}>
               <div className={styles.tagBlocks}>
                 <div>
                   <p className={styles.blockLabel}>Languages</p>
@@ -85,7 +90,7 @@ export default function CaregiverProfilePreview() {
               </div>
             </SectionCard>
 
-            <SectionCard title="Services Offered">
+            <SectionCard title="Services Offered" className={styles.previewCard}>
               <ul className={styles.serviceList}>
                 {services.map((item) => (
                   <li key={item}>
