@@ -7,10 +7,6 @@ export default function CaregiverOnboarding() {
     <DashboardShell>
       <div className={styles.page}>
         <div className={styles.headerCard}>
-          <div className={styles.brandRow}>
-            <img src="/images/logo/icareblack.svg" alt="ICare" />
-          </div>
-
           <div className={styles.topRow}>
             <h1>Caregiver Onboarding</h1>
             <div className={styles.ctaGroup}>

@@ -17,16 +17,6 @@
   margin-bottom: 18px;
 }
 
-.brandRow {
-  margin-bottom: 8px;
-
-  img {
-    height: 44px;
-    width: auto;
-    display: block;
-  }
-}
-
 .topRow {
   display: flex;
   align-items: center;
@@ -44,7 +34,7 @@
 .cta {
   text-decoration: none;
   border: 1px solid #647739;
-  border-radius: 10px;
+  border-radius: 25px;
   background: #778d43;
   color: cg.$surface;
   padding: 10px 14px;
@@ -65,7 +55,7 @@
 .ctaSecondary {
   text-decoration: none;
   border: 1px solid rgba(212, 138, 83, 0.3);
-  border-radius: 10px;
+  border-radius: 25px;
   background: cg.$bg;
   color: #000000;
   padding: 10px 14px;

@@ -69,7 +69,7 @@ export default function CaregiverOnboardingDbsSubmission() {
           variant="info"
           icon="i"
           title="Stand out to families. DBS-verified caregivers receive more booking requests."
-          message="DBS submission is voluntary at Tier 1. You can skip now and submit later."
+          message="DBS submission is voluntary. You can skip now and submit later."
           className={styles.infoAlert}
         />
 
