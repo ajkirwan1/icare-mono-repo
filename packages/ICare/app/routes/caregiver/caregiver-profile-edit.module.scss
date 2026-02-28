@@ -1,12 +1,12 @@
 .page {
   --ink: #000000;
   --ink-soft: rgba(0, 0, 0, 0.72);
-  --accent: #c06a3f;
-  --accent-soft: rgba(192, 106, 63, 0.14);
-  --accent-border: rgba(192, 106, 63, 0.35);
+  --accent: #8f6347;
+  --accent-soft: rgba(143, 99, 71, 0.14);
+  --accent-border: rgba(143, 99, 71, 0.35);
   --surface: #ffffff;
-  --surface-soft: #f7f3eb;
-  background: #ffffff;
+  --surface-soft: #f3ece3;
+  background: #f7f3ee;
   color: var(--ink);
   min-height: 100vh;
   padding-bottom: 32px;
@@ -40,6 +40,17 @@
   animation-delay: 20ms;
 }
 
+.previewProfileBtn {
+  border: 1px solid var(--accent-border) !important;
+  background: #c79069 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(143, 99, 71, 0.2);
+}
+
+.previewProfileBtn:hover {
+  background: #b47c58 !important;
+}
+
 .photoUpload {
   display: grid;
   justify-items: center;
@@ -57,7 +68,7 @@
 
 .uploadCircle {
   padding: 0;
-  border: 2px dashed rgba(15, 23, 42, 0.22);
+  border: 2px dashed rgba(143, 99, 71, 0.28);
   background: transparent;
   width: 120px;
   height: 120px;
@@ -79,7 +90,7 @@
   &:hover {
     border-color: var(--accent-border);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 6px 16px rgba(143, 99, 71, 0.14);
   }
 }
 
@@ -115,7 +126,7 @@
 
 .uploadCircle:hover .plusBadge {
   transform: scale(1.08);
-  background: #a85a34;
+  background: #78523a;
 }
 
 .uploadCaption {
@@ -151,11 +162,11 @@
   textarea,
   select {
     width: 100%;
-    border: 1px solid rgba(15, 23, 42, 0.15);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 8px;
     padding: 10px 12px;
     font: inherit;
-    color: #0f172a;
+    color: #000000;
     background: var(--surface);
     transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
   }
@@ -178,7 +189,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  border: 1px solid rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(143, 99, 71, 0.24);
   border-radius: 8px;
   padding: 8px;
   background: var(--surface);
@@ -208,7 +219,7 @@
   &:hover {
     background: var(--surface-soft);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(192, 106, 63, 0.18);
+    box-shadow: 0 2px 8px rgba(143, 99, 71, 0.2);
   }
 }
 
@@ -222,17 +233,17 @@
   transition: transform 0.14s ease, color 0.16s ease;
 
   &:hover {
-    color: #a85a34;
+    color: #78523a;
     transform: translateY(-1px);
   }
 }
 
 .languageDropdown {
   select {
-    border: 1px solid rgba(15, 23, 42, 0.16);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 999px;
     background: #ffffff;
-    color: #0f172a;
+    color: #000000;
     font-size: 12px;
     font-weight: 600;
     padding: 5px 10px;
@@ -249,10 +260,10 @@
 
 .interestDropdown {
   select {
-    border: 1px solid rgba(15, 23, 42, 0.16);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 999px;
     background: #ffffff;
-    color: #0f172a;
+    color: #000000;
     font-size: 12px;
     font-weight: 600;
     padding: 5px 10px;
@@ -273,10 +284,10 @@
   gap: 6px;
 
   input {
-    border: 1px solid rgba(15, 23, 42, 0.16);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 999px;
     background: #ffffff;
-    color: #0f172a;
+    color: #000000;
     font-size: 12px;
     font-weight: 500;
     padding: 6px 10px;
@@ -291,10 +302,10 @@
   }
 
   button {
-    border: 1px solid rgba(15, 23, 42, 0.16);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 999px;
     background: #ffffff;
-    color: #0f172a;
+    color: #000000;
     font-size: 12px;
     font-weight: 600;
     padding: 6px 10px;
@@ -405,7 +416,7 @@
 
 .availabilityTable {
   margin-top: 10px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(143, 99, 71, 0.24);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -416,7 +427,7 @@
   margin-bottom: 10px;
 
   button {
-    border: 1px solid rgba(15, 23, 42, 0.14);
+    border: 1px solid rgba(143, 99, 71, 0.24);
     border-radius: 999px;
     background: #fff;
     color: var(--ink);
@@ -454,7 +465,7 @@
 }
 
 .avRow {
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  border-top: 1px solid rgba(143, 99, 71, 0.16);
 
   > span {
     padding: 10px 8px;
@@ -468,7 +479,7 @@
   width: 36px;
   height: 36px;
   border-radius: 6px;
-  border: 1px solid rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(143, 99, 71, 0.24);
   background: #fff;
   color: transparent;
   font-weight: 700;

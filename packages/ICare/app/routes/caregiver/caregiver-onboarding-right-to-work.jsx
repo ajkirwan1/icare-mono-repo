@@ -36,7 +36,7 @@ export default function CaregiverOnboardingRightToWork() {
     <DashboardShell>
       <div className={styles.page}>
         <div className={styles.topNav}>
-          <NavLink className={styles.backLink} to="/caregiver">
+          <NavLink className={styles.backLink} to="/caregiver/onboarding">
             ← Back to Onboarding
           </NavLink>
         </div>
@@ -51,6 +51,7 @@ export default function CaregiverOnboardingRightToWork() {
           variant="info"
           title="All caregivers must prove they can legally work in the UK (Immigration Act 2006)"
           icon="i"
+          className={styles.legalAlert}
         />
 
         <section className={styles.section}>
@@ -104,7 +105,7 @@ export default function CaregiverOnboardingRightToWork() {
           {!canSubmit ? <p className={styles.hint}>Complete required fields to submit.</p> : null}
         </div>
 
-        <NavLink className={styles.bottomBack} to="/caregiver">
+        <NavLink className={styles.bottomBack} to="/caregiver/onboarding">
           ← Back to Onboarding
         </NavLink>
       </div>

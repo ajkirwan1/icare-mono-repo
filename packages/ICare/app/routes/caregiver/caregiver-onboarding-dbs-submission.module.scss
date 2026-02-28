@@ -19,7 +19,7 @@
 }
 
 .header {
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 
   h1 {
     margin: 0;
@@ -30,83 +30,41 @@
   }
 
   p {
-    margin: 14px 0 0;
+    margin: 12px 0 0;
     color: #000000;
     font-size: 17px;
   }
 }
 
-.header :global(span) {
-  margin-top: 16px;
-}
-
-.page :global(.alertTitle) {
+.optionalBadge {
+  display: inline-flex;
+  margin-top: 14px;
+  border: 1px solid rgba(143, 99, 71, 0.28);
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: rgba(143, 99, 71, 0.16);
   color: #000000;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
-.page :global(.alertText) {
+.statusRow {
+  margin-top: 14px;
+}
+
+.page :global(.alertTitle),
+.page :global(.alertText),
+.page :global(.alertIcon) {
   color: #000000;
 }
 
 .page :global(.alertIcon) {
-  color: #000000;
   background: rgba(143, 99, 71, 0.16);
 }
 
-.legalAlert {
-  p {
-    color: #000000 !important;
-  }
-}
-
-.section {
-  margin-top: 22px;
-
-  h2 {
-    margin: 0;
-    color: #000000;
-    font-size: 15px;
-    font-weight: 600;
-  }
-}
-
-.radioGroup {
-  margin-top: 12px;
-  display: grid;
-  gap: 12px;
-}
-
-.radioOption {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #000000;
-  font-size: 14px;
-  cursor: pointer;
-
-  input {
-    width: 20px;
-    height: 20px;
-    accent-color: #8f6347;
-    margin: 0;
-  }
-}
-
-.checkboxRow {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #000000;
-  font-size: 13px;
-  cursor: pointer;
-
-  input {
-    width: 18px;
-    height: 18px;
-    margin: 0;
-    accent-color: #8f6347;
-  }
+.infoAlert {
+  margin-top: 8px;
 }
 
 .uploadZone {
@@ -129,7 +87,6 @@
 
 .uploadIcon {
   font-size: 40px;
-  opacity: 1;
   color: #8f6347;
   line-height: 1;
   margin-bottom: 4px;
@@ -161,21 +118,41 @@
   font-weight: 500;
 }
 
-.ukviInfo {
-  margin-top: 20px;
-  border: 1px solid rgba(143, 99, 71, 0.3);
-  background: #f3ece3;
+.fieldSection {
+  margin-top: 18px;
+}
+
+.fieldLabel {
+  display: block;
   color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.textInput {
+  margin-top: 8px;
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid rgba(143, 99, 71, 0.24);
   border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 13px;
+  background: #ffffff;
+  color: #000000;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.helpText {
+  margin: 6px 0 0;
+  color: #000000;
+  font-size: 12px;
 }
 
 .actions {
-  margin-top: 20px;
+  margin-top: 22px;
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .actions :global(button) {
@@ -192,6 +169,25 @@
   background: #b47c58;
 }
 
+.skipButton {
+  width: 200px;
+  min-height: 40px;
+  border-radius: 25px;
+  border: 1px solid rgba(143, 99, 71, 0.3);
+  background: #f3ece3;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.skipButton:hover {
+  background: #eadfce;
+}
+
 .hint {
   margin: 0;
   color: #000000;
@@ -199,7 +195,7 @@
 }
 
 .bottomBack {
-  margin-top: 24px;
+  margin-top: 22px;
   display: inline-block;
   text-decoration: underline;
 }
@@ -207,10 +203,5 @@
 @media (max-width: 900px) {
   .topNav {
     justify-content: flex-start;
-  }
-
-  .actions {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }

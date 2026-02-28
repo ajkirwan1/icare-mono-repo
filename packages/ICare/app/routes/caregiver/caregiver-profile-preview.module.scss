@@ -1,33 +1,59 @@
 .page {
-  background: #ffffff;
+  background: #f7f3ee;
   min-height: 100vh;
   padding-bottom: 24px;
 }
 
+.pageHeader {
+  margin: 0 0 14px;
+
+  h1 {
+    margin: 0;
+    color: #000000;
+    font-size: clamp(30px, 4vw, 40px);
+    font-weight: 600;
+  }
+
+  p {
+    margin: 10px 0 0;
+    color: #000000;
+    font-size: 15px;
+  }
+}
+
 .previewNotice {
-  border: 1px solid #bfdbfe;
-  background: #eff6ff;
-  color: #1d4ed8;
+  border: 1px solid rgba(143, 99, 71, 0.3);
+  background: #f6ebe0;
+  color: #000000;
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 13px;
   font-weight: 600;
 }
 
+.previewCard {
+  border: 1px solid rgba(143, 99, 71, 0.22) !important;
+  background: #ffffff !important;
+}
+
+.previewCard h2 {
+  color: #000000 !important;
+}
+
 .breadcrumb {
   max-width: 1280px;
   margin: 0 auto;
   padding: 14px 34px 0;
-  color: rgba(15, 23, 42, 0.72);
+  color: #000000;
   font-size: 14px;
 
   span {
     margin: 0 8px;
-    color: rgba(15, 23, 42, 0.5);
+    color: #000000;
   }
 
   strong {
-    color: #0f172a;
+    color: #000000;
   }
 }
 
@@ -54,40 +80,40 @@
   h3 {
     margin: 0;
     font-size: 20px;
-    color: #0f172a;
+    color: #000000;
   }
 
   p {
     margin: 8px 0 0;
-    color: #0f172a;
+    color: #000000;
     font-size: 14px;
   }
 }
 
 .heroStats {
-  border: 1px solid rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(143, 99, 71, 0.22);
   border-radius: 12px;
-  background: #fcfdfb;
+  background: #fcf8f3;
   padding: 10px;
   display: grid;
   gap: 8px;
 
   div {
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(143, 99, 71, 0.18);
     border-radius: 8px;
     padding: 8px;
-    background: #f2f6ee;
+    background: #f3ece3;
   }
 
   small {
-    color: #0f172a;
+    color: #000000;
     font-size: 11px;
     font-weight: 600;
   }
 
   p {
     margin: 4px 0 0;
-    color: #0f172a;
+    color: #000000;
     font-size: 13px;
     font-weight: 700;
   }
@@ -100,10 +126,10 @@
   gap: 10px;
 
   span {
-    border: 1px solid #778d43;
+    border: 1px solid rgba(143, 99, 71, 0.4);
     border-radius: 999px;
     background: #ffffff;
-    color: #2b3c1e;
+    color: #000000;
     font-size: 13px;
     font-weight: 600;
     padding: 7px 12px;
@@ -112,7 +138,7 @@
 
 .copy {
   margin: 0;
-  color: #0f172a;
+  color: #000000;
   line-height: 1.6;
 }
 
@@ -124,8 +150,8 @@
   span {
     padding: 8px 12px;
     border-radius: 999px;
-    background: #eff6ff;
-    color: #1e40af;
+    background: #f3ece3;
+    color: #000000;
     font-size: 13px;
     font-weight: 500;
   }
@@ -138,7 +164,7 @@
 
 .blockLabel {
   margin: 0 0 8px;
-  color: #0f172a;
+  color: #000000;
   font-size: 13px;
   font-weight: 700;
 }
@@ -151,7 +177,7 @@
   gap: 8px;
 
   li {
-    color: #0f172a;
+    color: #000000;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -163,7 +189,7 @@
   width: 18px;
   height: 18px;
   border-radius: 4px;
-  background: rgb(176, 196, 127);
+  background: #b47c58;
   color: #fff;
   display: inline-flex;
   align-items: center;
@@ -182,12 +208,16 @@
   align-items: center;
   text-decoration: none;
   border-radius: 25px;
-  border: 1px solid #647739;
+  border: 1px solid #b47c58;
   padding: 10px 14px;
-  background: #778d43;
+  background: #c79069;
   color: #fff;
   font-size: 14px;
   font-weight: 600;
+}
+
+.editBtn:hover {
+  background: #b47c58;
 }
 
 @media (max-width: 960px) {

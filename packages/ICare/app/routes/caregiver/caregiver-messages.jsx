@@ -7,6 +7,7 @@ const conversations = [
   {
     id: "thread-1",
     name: "Margaret S.",
+    avatar: "/images/avatars/female.webp",
     meta: "Booking #1042 - Confirmed for Thu 20 Feb",
     preview: "Looking forward to seeing you on Thursday. I will be ready at 10:00.",
     when: "2 hours ago",
@@ -17,6 +18,7 @@ const conversations = [
   {
     id: "thread-2",
     name: "Mary Kelly",
+    avatar: "/images/avatars/female.webp",
     meta: "Booking #1038 - Completed",
     preview: "Thank you for today. The walk really helped and I appreciate your support.",
     when: "Yesterday",
@@ -27,6 +29,7 @@ const conversations = [
   {
     id: "thread-3",
     name: "Anna Chen",
+    avatar: "/images/avatars/female.webp",
     meta: "Pre-booking inquiry",
     preview: "Hi, are you available next Tuesday for companionship and shopping support?",
     when: "2 days ago",
@@ -37,6 +40,7 @@ const conversations = [
   {
     id: "thread-4",
     name: "Sarah Johnson",
+    avatar: "/images/avatars/female.webp",
     meta: "Pre-booking inquiry",
     preview: "Would you be available on Saturdays for 3-hour companionship visits?",
     when: "3 days ago",
@@ -47,6 +51,7 @@ const conversations = [
   {
     id: "thread-5",
     name: "Tom Richards",
+    avatar: "/images/avatars/male.webp",
     meta: "Booking #1035 - Completed",
     preview: "Great meeting you today. Hope you had a comfortable walk and lunch.",
     when: "5 days ago",
@@ -57,6 +62,7 @@ const conversations = [
   {
     id: "thread-6",
     name: "Lisa Park",
+    avatar: "/images/avatars/female.webp",
     meta: "Booking #1029 - Completed",
     preview: "I have sent the soup recipe we made together in case you want it.",
     when: "1 week ago",
@@ -67,6 +73,7 @@ const conversations = [
   {
     id: "thread-7",
     name: "James O'Brien",
+    avatar: "/images/avatars/male.webp",
     meta: "Pre-booking inquiry",
     preview: "Thanks for your profile details. Do you provide overnight companionship?",
     when: "2 weeks ago",
@@ -77,6 +84,7 @@ const conversations = [
   {
     id: "thread-8",
     name: "Emma Wright",
+    avatar: "/images/avatars/female.webp",
     meta: "Booking #1020 - Completed",
     preview: "Glad you enjoyed the afternoon. Take care and I hope to see you soon.",
     when: "3 weeks ago",
@@ -160,7 +168,13 @@ export default function CaregiverMessages() {
         <section className={styles.list} aria-label="Conversation list">
           {filteredConversations.map((thread) => (
             <article key={thread.id} className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}>
-              <div className={styles.avatar} aria-hidden="true">{thread.name.charAt(0)}</div>
+              <div className={styles.avatar} aria-hidden="true">
+                {thread.avatar ? (
+                  <img className={styles.avatarImage} src={thread.avatar} alt="" />
+                ) : (
+                  <span>{thread.name.charAt(0)}</span>
+                )}
+              </div>
 
               <div className={styles.threadMain}>
                 <p className={styles.threadName}>{thread.name}</p>
