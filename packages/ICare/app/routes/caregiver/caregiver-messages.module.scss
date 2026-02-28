@@ -109,9 +109,9 @@
 }
 
 .sortButton {
-  border: 1px solid cg.$accent;
+  border: 1px solid #000000;
   background: cg.$bg;
-  color: cg.$accent-dark;
+  color: #000000;
   border-radius: 10px;
   padding: 10px 12px;
   font-size: 14px;
@@ -142,8 +142,13 @@
 
   &:hover {
     transform: translateY(-1px);
+    background: #eef2f7;
     border-color: rgba(212, 138, 83, 0.55);
     box-shadow: 0 10px 18px rgba(165, 100, 46, 0.15);
+
+    .threadName {
+      color: cg.$accent-dark;
+    }
   }
 }
 
@@ -253,6 +258,10 @@
   padding: 0 14px;
   font-size: 13px;
   cursor: pointer;
+}
+
+.pageButton {
+  color: #000000;
 }
 
 .pageNumber {

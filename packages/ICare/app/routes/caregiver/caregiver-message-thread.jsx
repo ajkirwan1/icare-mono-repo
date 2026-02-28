@@ -4,7 +4,6 @@ import "../carereceiver/carereceiver-pages.css";
 import { sanitizeMessage } from "~/utils/contact-protection";
 
 const DEFAULT_API = "http://localhost:4001";
-const PROTECTION_MESSAGE = "For everyone’s safety, phone numbers, email addresses, physical addresses and links are automatically hidden. Please keep the conversation within ICare.";
 
 function formatWhen(value) {
   if (!value) {
@@ -15,17 +14,6 @@ function formatWhen(value) {
     return "Now";
   }
   return date.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
-}
-
-function toBlockMessage(blockedUntil) {
-  if (!blockedUntil) {
-    return `${PROTECTION_MESSAGE} Why? This helps protect both sides and keeps communication safe on ICare.`;
-  }
-  const until = new Date(blockedUntil);
-  if (Number.isNaN(until.getTime())) {
-    return `${PROTECTION_MESSAGE} Please try again later.`;
-  }
-  return `Sending is temporarily paused until ${until.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}. ${PROTECTION_MESSAGE}`;
 }
 
 function asFriendlyError(value, fallback) {
@@ -52,7 +40,6 @@ export default function CaregiverMessageThread() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
-  const [blockedUntil, setBlockedUntil] = useState(null);
 
   async function loadThread() {
     if (!conversationId) {
@@ -94,38 +81,9 @@ export default function CaregiverMessageThread() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, apiBase]);
 
-  async function registerModerationAttempt(flags) {
-    const response = await fetch(`${apiBase}/api/conversations/${conversationId}/moderation-attempt`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        senderRole: "caregiver",
-        flags,
-        metadata: { source: "caregiver-thread" }
-      })
-    });
-
-    const data = await response.json();
-    if (data?.blockedUntil) {
-      setBlockedUntil(data.blockedUntil);
-    }
-    setError(toBlockMessage(data?.blockedUntil));
-  }
-
   async function handleSend() {
     const messageText = draft.trim();
     if (!messageText || !conversationId) {
-      return;
-    }
-
-    if (blockedUntil && new Date(blockedUntil).getTime() > Date.now()) {
-      setError(toBlockMessage(blockedUntil));
-      return;
-    }
-
-    const localCheck = sanitizeMessage(messageText);
-    if (localCheck.blocked) {
-      await registerModerationAttempt(localCheck.flags);
       return;
     }
 
@@ -143,12 +101,6 @@ export default function CaregiverMessageThread() {
       });
       const data = await response.json();
       if (!response.ok) {
-        if (response.status === 422 || response.status === 429) {
-          if (data?.blockedUntil) {
-            setBlockedUntil(data.blockedUntil);
-          }
-          throw new Error(toBlockMessage(data?.blockedUntil));
-        }
         throw new Error(asFriendlyError(data?.message || data?.error, "Could not send the message."));
       }
 
@@ -163,7 +115,7 @@ export default function CaregiverMessageThread() {
 
   return (
     <div className="cr-page">
-      <div className="cr-shell">
+      <div className="cr-shell cr-shell--encapsulated">
         <nav className="cr-breadcrumbs">
           <span>Dashboard</span><span>›</span><Link to="/caregiver/messages">Messages</Link><span>›</span><strong>Conversation {conversationId}</strong>
         </nav>

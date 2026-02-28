@@ -1,0 +1,138 @@
+@use "../../../routes/caregiver/theme" as cg;
+
+.wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.helper {
+  margin: 0;
+  color: #000000;
+  font-size: 14px;
+}
+
+.safetyNote {
+  margin: 0;
+  color: #000000;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.playerWrap {
+  display: grid;
+  gap: 8px;
+  max-width: 360px;
+}
+
+.emptyState {
+  border: 1px dashed rgba(148, 163, 184, 0.45);
+  border-radius: 12px;
+  background: #f2f4f7;
+  padding: 16px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  max-width: 360px;
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid rgba(212, 138, 83, 0.35);
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 202px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 138, 83, 0.28);
+  background: #000;
+  object-fit: cover;
+}
+
+.meta {
+  margin: 0;
+  font-size: 12px;
+  color: #000000;
+  opacity: 0.75;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primaryBtn {
+  border: 1px solid cg.$accent;
+  background: cg.$accent;
+  color: #fff;
+}
+
+.secondaryBtn {
+  border: 1px solid rgba(212, 138, 83, 0.45);
+  background: cg.$surface;
+  color: #000000;
+}
+
+.primaryBtn:disabled,
+.secondaryBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.progressWrap {
+  display: grid;
+  gap: 6px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(212, 138, 83, 0.2);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: cg.$accent;
+    transition: width 180ms ease;
+  }
+}
+
+.progressText {
+  margin: 0;
+  font-size: 12px;
+  color: #000000;
+}
+
+.error {
+  margin: 0;
+  color: #a33a3a;
+  font-size: 13px;
+  font-weight: 600;
+}

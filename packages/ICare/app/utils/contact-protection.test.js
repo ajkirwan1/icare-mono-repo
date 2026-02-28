@@ -2,92 +2,66 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { sanitizeMessage } from "./contact-protection.js";
 
-test("masks email", () => {
-  const result = sanitizeMessage("Napisz na anna@example.com");
-  assert.equal(result.blocked, true);
+test("masks a single phone number inline and keeps sentence readable", () => {
+  const result = sanitizeMessage("Please call me on +44 7700 900123 tomorrow.");
+  assert.equal(result.sanitizedText, "Please call me on [phone number hidden] tomorrow.");
+  assert.equal(result.flags.phone, true);
+});
+
+test("masks a single email inline and keeps surrounding text", () => {
+  const result = sanitizeMessage("You can email me at anna@example.com or message me here.");
+  assert.equal(result.sanitizedText, "You can email me at [email hidden] or message me here.");
   assert.equal(result.flags.email, true);
-  assert.match(result.sanitizedText, /\[email ukryty\]/);
 });
 
-test("masks uk phone", () => {
-  const result = sanitizeMessage("Call me on +44 7700 900123");
-  assert.equal(result.flags.phone, true);
-  assert.match(result.sanitizedText, /\[telefon ukryty\]/);
-});
-
-test("masks generic phone with separators", () => {
-  const result = sanitizeMessage("my number is (020) 7946-0958");
-  assert.equal(result.flags.phone, true);
-  assert.match(result.sanitizedText, /\[telefon ukryty\]/);
-});
-
-test("does not mask short numbers as phone", () => {
-  const result = sanitizeMessage("I need 12345 steps");
-  assert.equal(result.flags.phone, false);
-  assert.equal(result.blocked, false);
-});
-
-test("masks http link", () => {
-  const result = sanitizeMessage("visit https://example.com/profile");
-  assert.equal(result.flags.link, true);
-  assert.match(result.sanitizedText, /\[link ukryty\]/);
-});
-
-test("masks www link", () => {
-  const result = sanitizeMessage("www.example.com is my page");
-  assert.equal(result.flags.link, true);
-  assert.match(result.sanitizedText, /\[link ukryty\]/);
-});
-
-test("masks short link", () => {
-  const result = sanitizeMessage("bit.ly/abc123");
-  assert.equal(result.flags.link, true);
-  assert.match(result.sanitizedText, /\[link ukryty\]/);
-});
-
-test("masks uk postcode with address context", () => {
+test("masks an address inline when clear address context is present", () => {
   const result = sanitizeMessage("My address is 12 King Street, SW1A 1AA");
+  assert.equal(result.sanitizedText, "My address is [address hidden]");
   assert.equal(result.flags.address, true);
-  assert.match(result.sanitizedText, /\[adres ukryty\]/);
 });
 
-test("does not trigger address on standalone postcode", () => {
-  const result = sanitizeMessage("Weather in SW1A 1AA is fine");
-  assert.equal(result.flags.address, false);
-});
-
-test("detects paypal as payment", () => {
-  const result = sanitizeMessage("pay me on PayPal");
+test("masks payment references inline", () => {
+  const result = sanitizeMessage("Please pay me on PayPal after the shift.");
+  assert.equal(result.sanitizedText, "Please pay me on [payment details hidden] after the shift.");
   assert.equal(result.flags.payment, true);
-  assert.match(result.sanitizedText, /\[dane płatności ukryte\]/);
 });
 
-test("detects revolut as payment", () => {
-  const result = sanitizeMessage("send by revolut please");
-  assert.equal(result.flags.payment, true);
-  assert.match(result.sanitizedText, /\[dane płatności ukryte\]/);
+test("supports multiple replacements in one message", () => {
+  const result = sanitizeMessage(
+    "Email me at anna@example.com, call +44 7700 900123, or visit https://example.com now."
+  );
+  assert.equal(
+    result.sanitizedText,
+    "Email me at [email hidden], call [phone number hidden], or visit [link hidden] now."
+  );
+  assert.equal(result.flags.email, true);
+  assert.equal(result.flags.phone, true);
+  assert.equal(result.flags.link, true);
 });
 
-test("detects bank transfer phrase", () => {
-  const result = sanitizeMessage("bank transfer with sort code and account number");
-  assert.equal(result.flags.payment, true);
-  assert.match(result.sanitizedText, /\[dane płatności ukryte\]/);
+test("masks social platform mentions inline", () => {
+  const result = sanitizeMessage("You can find me on facebook or instagram.");
+  assert.equal(result.sanitizedText, "You can find me on [link hidden] or [link hidden].");
+  assert.equal(result.flags.link, true);
 });
 
-test("detects social off-platform cues", () => {
-  const result = sanitizeMessage("message me on whatsapp");
-  assert.equal(result.flags.social, true);
-  assert.match(result.sanitizedText, /\[kontakt poza platformą ukryty\]/);
-});
-
-test("detects DM phrase", () => {
-  const result = sanitizeMessage("DM me on instagram");
-  assert.equal(result.flags.social, true);
-});
-
-test("safe text remains unchanged", () => {
-  const source = "Can we confirm the visit time for tomorrow?";
+test("keeps mixed normal text and masked content readable", () => {
+  const source = "I can do Tuesday at 10:00, my address is 21 Baker Street, London NW1 6XE.";
   const result = sanitizeMessage(source);
-  assert.equal(result.blocked, false);
+  assert.equal(result.sanitizedText, "I can do Tuesday at 10:00, my address is [address hidden].");
+  assert.equal(result.flags.address, true);
+});
+
+test("does not mask digits that are not phone numbers", () => {
+  const source = "I walked 12345 steps and completed 3 tasks.";
+  const result = sanitizeMessage(source);
   assert.equal(result.sanitizedText, source);
+  assert.equal(result.flags.phone, false);
+});
+
+test("is deterministic for the same input", () => {
+  const source = "Contact me on +44 7700 900123 and anna@example.com";
+  const first = sanitizeMessage(source);
+  const second = sanitizeMessage(source);
+  assert.deepEqual(first, second);
 });

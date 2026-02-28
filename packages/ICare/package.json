@@ -8,7 +8,8 @@
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc",
     "dev": "SASS_FORCE_PURE=true CHOKIDAR_USEPOLLING=1 react-router dev --host 127.0.0.1",
-    "test:contact-protection": "node --test app/utils/contact-protection.test.js"
+    "test:contact-protection": "node --test app/utils/contact-protection.test.js",
+    "test:intro-video-validation": "node --test app/utils/intro-video-validation.test.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

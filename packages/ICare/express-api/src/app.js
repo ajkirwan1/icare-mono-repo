@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
 
 // import todosRouter from "./routes/todos.routes.js";
 // import careRolesRouter from "./routes/care-roles.routes.js";
@@ -9,8 +11,10 @@ import waitinglistRouter from "../routes/waitinglist.routes.js";
 import contactUsRouter from "../routes/contact.routes.js";
 import chatRouter from "../routes/chat.routes.js";
 import conversationsRouter from "../routes/conversations.routes.js";
+import caregiverProfileRouter from "../routes/caregiver-profile.routes.js";
 
 const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let stripeRouter = null;
 let handleStripeWebhook = null;
@@ -40,6 +44,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/uploads", express.static(resolve(__dirname, "../../public/uploads")));
 app.use("/api/newsletter", newsletterRouter);
 app.use("/api/waitinglist", waitinglistRouter);
 app.use("/api/contact", contactUsRouter);
@@ -47,6 +52,7 @@ if (stripeRouter) {
   app.use("/api/stripe", stripeRouter);
 }
 app.use("/api", conversationsRouter);
+app.use("/api", caregiverProfileRouter);
 app.use("/api", chatRouter);
 
 export default app;

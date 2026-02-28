@@ -111,9 +111,10 @@ export function containsOffPlatformContact(text) {
 
   const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
   const phoneRegex = /(?:\+?\d[\d\s().-]{7,}\d)/;
-  const addressKeywordRegex = /\b(address|adres|street|st\.|road|rd\.|avenue|ave|postcode|zip)\b/i;
+  const addressKeywordRegex = /\b(address|street|st\.|road|rd\.|avenue|ave|postcode|zip)\b/i;
+  const socialRegex = /\b(facebook|instagram|whatsapp|telegram|snapchat|tiktok|x|twitter|messenger)\b/i;
 
-  return emailRegex.test(text) || phoneRegex.test(text) || addressKeywordRegex.test(text);
+  return emailRegex.test(text) || phoneRegex.test(text) || addressKeywordRegex.test(text) || socialRegex.test(text);
 }
 
 export function maskOffPlatformContact(text) {
@@ -121,10 +122,14 @@ export function maskOffPlatformContact(text) {
     return text;
   }
 
-  const maskedEmail = text.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email ukryty]");
-  const maskedPhone = maskedEmail.replace(/(?:\+?\d[\d\s().-]{7,}\d)/g, "[telefon ukryty]");
-  return maskedPhone.replace(
-    /\b(?:address|adres|street|st\.|road|rd\.|avenue|ave|postcode|zip)\b[^\n,]*/gi,
-    "[adres ukryty]"
+  const maskedEmail = text.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email hidden]");
+  const maskedPhone = maskedEmail.replace(/(?:\+?\d[\d\s().-]{7,}\d)/g, "[phone number hidden]");
+  const maskedAddress = maskedPhone.replace(
+    /\b(?:address|street|st\.|road|rd\.|avenue|ave|postcode|zip)\b[^\n,]*/gi,
+    "[address hidden]"
+  );
+  return maskedAddress.replace(
+    /\b(?:facebook|instagram|whatsapp|telegram|snapchat|tiktok|x|twitter|messenger)\b/gi,
+    "[link hidden]"
   );
 }
