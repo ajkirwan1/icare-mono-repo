@@ -2,6 +2,11 @@ import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import "./carereceiver-pages.css";
 import RatingStars from "./rating-stars";
+import {
+    readFavoriteCaregivers,
+    toggleFavoriteCaregiver,
+    writeFavoriteCaregivers
+} from "./favorites-storage";
 
 const RADIUS_OPTIONS = [5, 10, 15, 20, 30];
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -129,6 +134,9 @@ export default function CarereceiverSearch() {
     const [maxRate, setMaxRate] = useState(25);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [favoriteCaregivers, setFavoriteCaregivers] = useState(() => readFavoriteCaregivers());
+
+    const favoriteIds = useMemo(() => new Set(favoriteCaregivers.map((entry) => entry.id)), [favoriteCaregivers]);
 
     const filteredCaregivers = useMemo(() => {
         const query = appliedPostcode.trim().toLowerCase();
@@ -189,6 +197,10 @@ export default function CarereceiverSearch() {
         setCurrentPage(1);
     }, [appliedPostcode, maxRate, minRate, radiusMiles, selectedDays, selectedServices, selectedTimes, selectedVerification, sortBy]);
 
+    useEffect(() => {
+        writeFavoriteCaregivers(favoriteCaregivers);
+    }, [favoriteCaregivers]);
+
     function handleSearch(event) {
         event.preventDefault();
         setAppliedPostcode(searchInput);
@@ -213,6 +225,10 @@ export default function CarereceiverSearch() {
         }
         const raw = tag.value.replace(" availability", "");
         setSelectedTimes((prev) => prev.filter((item) => item !== raw));
+    }
+
+    function handleToggleFavorite(caregiver) {
+        setFavoriteCaregivers((prev) => toggleFavoriteCaregiver(prev, caregiver));
     }
 
     return (
@@ -261,6 +277,11 @@ export default function CarereceiverSearch() {
                             </h1>
                             <p className="cr-muted" style={{ margin: "6px 0 0" }}>
                                 Within {radiusMiles} miles{appliedPostcode ? ` of ${appliedPostcode.toUpperCase()}` : ""}
+                            </p>
+                            <p style={{ margin: "8px 0 0" }}>
+                                <Link className="cr-button cr-button--secondary" to="/carereceiver/favorites">
+                                    Favorites ({favoriteCaregivers.length})
+                                </Link>
                             </p>
                         </div>
                         <button
@@ -398,8 +419,13 @@ export default function CarereceiverSearch() {
                             <div key={caregiver.id} className="cr-card cr-caregiver-card">
                                 <div className="cr-inline" style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
                                     <div className="cr-avatar cr-caregiver-avatar">{initials(caregiver.name)}</div>
-                                    <button type="button" className="cr-heart-btn" aria-label={`Add ${caregiver.name} to favorites`}>
-                                        ♡
+                                    <button
+                                        type="button"
+                                        className={`cr-heart-btn ${favoriteIds.has(caregiver.id) ? "is-active" : ""}`}
+                                        aria-label={favoriteIds.has(caregiver.id) ? `Remove ${caregiver.name} from favorites` : `Add ${caregiver.name} to favorites`}
+                                        onClick={() => handleToggleFavorite(caregiver)}
+                                    >
+                                        <span className="cr-heart-glyph" aria-hidden="true">{favoriteIds.has(caregiver.id) ? "♥" : "♡"}</span>
                                     </button>
                                 </div>
 
@@ -429,9 +455,19 @@ export default function CarereceiverSearch() {
                                     ))}
                                 </div>
 
-                                <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
-                                    View Profile
-                                </Link>
+                                <div className="cr-grid" style={{ gap: "8px" }}>
+                                    <button
+                                        type="button"
+                                        className={`cr-favorite-action ${favoriteIds.has(caregiver.id) ? "is-active" : ""}`}
+                                        onClick={() => handleToggleFavorite(caregiver)}
+                                    >
+                                        {favoriteIds.has(caregiver.id) ? "♥ Saved to favorites" : "♡ Add to favorites"}
+                                    </button>
+
+                                    <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
+                                        View Profile
+                                    </Link>
+                                </div>
                             </div>
                         ))}
                     </article>

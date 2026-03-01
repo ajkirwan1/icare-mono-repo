@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NavLink, useSearchParams } from "react-router";
 import { DashboardShell } from "~/components/application/kasia";
 import styles from "./carereceiver-messages.module.scss";
+import { getConversations, relativeTimeLabel } from "./messages/messages-api-client";
 
 const PAGE_SIZE = 6;
 
@@ -12,17 +13,17 @@ const sortOptions = [
     { id: "name", label: "Name (A-Z)" }
 ];
 
-const conversations = [
+const fallbackConversations = [
     {
-        id: "conv-1001",
-        name: "Sarah Johnson",
-        meta: "Booking #1042 - Confirmed for Thu 20 Feb",
-        preview: "Looking forward to seeing you on Thursday. I will be ready at 10:00.",
+        id: "conv-1011",
+        name: "John Anderson",
+        meta: "Booking #BK-2026-1203 - In progress",
+        preview: "Will do. Looking forward to this afternoon session.",
         when: "2 hours ago",
         unread: 2,
         kind: "booking",
         archived: false,
-        updatedAt: "2026-02-20T12:00:00Z"
+        updatedAt: "2026-03-01T14:21:04Z"
     },
     {
         id: "conv-1002",
@@ -56,50 +57,6 @@ const conversations = [
         kind: "booking",
         archived: false,
         updatedAt: "2026-02-15T15:00:00Z"
-    },
-    {
-        id: "conv-1005",
-        name: "Emma Wilson",
-        meta: "Pre-booking inquiry",
-        preview: "Would Wednesday afternoon work for a first companionship visit?",
-        when: "1 week ago",
-        unread: 0,
-        kind: "inquiry",
-        archived: true,
-        updatedAt: "2026-02-13T10:00:00Z"
-    },
-    {
-        id: "conv-1006",
-        name: "John Anderson",
-        meta: "Booking #1025 - Completed",
-        preview: "Thanks again. Let me know if you want to rebook next month.",
-        when: "2 weeks ago",
-        unread: 0,
-        kind: "booking",
-        archived: false,
-        updatedAt: "2026-02-07T11:00:00Z"
-    },
-    {
-        id: "conv-1007",
-        name: "James O'Brien",
-        meta: "Pre-booking inquiry",
-        preview: "Thanks for your interest! I specialise in companionship and shopping support.",
-        when: "2 weeks ago",
-        unread: 0,
-        kind: "inquiry",
-        archived: false,
-        updatedAt: "2026-02-06T15:30:00Z"
-    },
-    {
-        id: "conv-1008",
-        name: "Emma Wright",
-        meta: "Booking #1020 - Completed",
-        preview: "Glad you enjoyed the afternoon. Take care and I hope to hear from you soon.",
-        when: "3 weeks ago",
-        unread: 0,
-        kind: "booking",
-        archived: false,
-        updatedAt: "2026-02-01T10:20:00Z"
     }
 ];
 
@@ -120,8 +77,89 @@ function buildSearch(searchParams, updates) {
     return `?${next.toString()}`;
 }
 
+function normalizeConversation(rawThread) {
+    const id = String(rawThread?.id || "").trim();
+    if (!id) {
+        return null;
+    }
+
+    const name = String(rawThread?.otherParty?.name || rawThread?.name || "Caregiver").trim() || "Caregiver";
+    const lastMessageText = String(rawThread?.lastMessage?.text || "").trim();
+    const lastMessageSentAt = rawThread?.lastMessage?.sentAt || null;
+    const updatedAt = lastMessageSentAt || rawThread?.updatedAt || rawThread?.createdAt || new Date().toISOString();
+    const threadType = String(rawThread?.threadType || "").trim();
+    const isInquiry = threadType === "inquiry" || !rawThread?.bookingId;
+    const unread = Number(rawThread?.unreadCount || 0);
+
+    // Hide not-yet-started conversation shells (no messages and no unread items).
+    if (!lastMessageText && !lastMessageSentAt && unread === 0) {
+        return null;
+    }
+
+    return {
+        id,
+        name,
+        meta: rawThread?.bookingContext?.label || (isInquiry ? "Pre-booking inquiry" : `Booking #${String(rawThread?.bookingId || "").toUpperCase()}`),
+        preview: lastMessageText || "No messages yet",
+        when: relativeTimeLabel(updatedAt),
+        unread,
+        kind: isInquiry ? "inquiry" : "booking",
+        archived: rawThread?.isActive === false || threadType === "archived",
+        updatedAt
+    };
+}
+
+function sortableTimestamp(value) {
+    const time = new Date(value).getTime();
+    return Number.isFinite(time) ? time : 0;
+}
+
 export default function CarereceiverMessages() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [state, setState] = useState({
+        loading: true,
+        error: "",
+        conversations: fallbackConversations
+    });
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadConversations() {
+            try {
+                const payload = await getConversations({ signal: controller.signal, page: 1, limit: 200 });
+                const normalized = (payload.conversations || []).map(normalizeConversation).filter(Boolean);
+
+                if (!mounted) {
+                    return;
+                }
+
+                setState({
+                    loading: false,
+                    error: "",
+                    conversations: normalized.length > 0 ? normalized : []
+                });
+            } catch {
+                if (!mounted) {
+                    return;
+                }
+
+                setState({
+                    loading: false,
+                    error: "Could not load conversations from API. Showing fallback data.",
+                    conversations: fallbackConversations
+                });
+            }
+        }
+
+        loadConversations();
+
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, []);
 
     const rawTab = searchParams.get("tab") ?? "all";
     const activeTab = tabIds.includes(rawTab) ? rawTab : "all";
@@ -132,11 +170,11 @@ export default function CarereceiverMessages() {
     const requestedPage = Number(searchParams.get("page") ?? "1");
 
     const tabs = useMemo(() => {
-        const allCount = conversations.length;
-        const unreadCount = conversations.filter((thread) => thread.unread > 0).length;
-        const bookingCount = conversations.filter((thread) => thread.kind === "booking").length;
-        const inquiryCount = conversations.filter((thread) => thread.kind === "inquiry").length;
-        const archivedCount = conversations.filter((thread) => thread.archived).length;
+        const allCount = state.conversations.length;
+        const unreadCount = state.conversations.filter((thread) => thread.unread > 0).length;
+        const bookingCount = state.conversations.filter((thread) => thread.kind === "booking").length;
+        const inquiryCount = state.conversations.filter((thread) => thread.kind === "inquiry").length;
+        const archivedCount = state.conversations.filter((thread) => thread.archived).length;
 
         return [
             { id: "all", label: `All (${allCount})` },
@@ -145,33 +183,33 @@ export default function CarereceiverMessages() {
             { id: "inquiry", label: `Inquiries (${inquiryCount})` },
             { id: "archived", label: `Archived (${archivedCount})` }
         ];
-    }, []);
+    }, [state.conversations]);
 
     const filteredConversations = useMemo(() => {
         if (activeTab === "unread") {
-            return conversations.filter((thread) => thread.unread > 0);
+            return state.conversations.filter((thread) => thread.unread > 0);
         }
 
         if (activeTab === "booking") {
-            return conversations.filter((thread) => thread.kind === "booking");
+            return state.conversations.filter((thread) => thread.kind === "booking");
         }
 
         if (activeTab === "inquiry") {
-            return conversations.filter((thread) => thread.kind === "inquiry");
+            return state.conversations.filter((thread) => thread.kind === "inquiry");
         }
 
         if (activeTab === "archived") {
-            return conversations.filter((thread) => thread.archived);
+            return state.conversations.filter((thread) => thread.archived);
         }
 
-        return conversations;
-    }, [activeTab]);
+        return state.conversations;
+    }, [activeTab, state.conversations]);
 
     const sortedConversations = useMemo(() => {
         const sorted = [...filteredConversations];
 
         if (activeSort === "oldest") {
-            sorted.sort((a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime());
+            sorted.sort((a, b) => sortableTimestamp(a.updatedAt) - sortableTimestamp(b.updatedAt));
             return sorted;
         }
 
@@ -181,7 +219,7 @@ export default function CarereceiverMessages() {
                     return b.unread - a.unread;
                 }
 
-                return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+                return sortableTimestamp(b.updatedAt) - sortableTimestamp(a.updatedAt);
             });
             return sorted;
         }
@@ -191,7 +229,7 @@ export default function CarereceiverMessages() {
             return sorted;
         }
 
-        sorted.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        sorted.sort((a, b) => sortableTimestamp(b.updatedAt) - sortableTimestamp(a.updatedAt));
         return sorted;
     }, [filteredConversations, activeSort]);
 
@@ -252,8 +290,21 @@ export default function CarereceiverMessages() {
                     </label>
                 </section>
 
+                {state.error ? <p className={styles.countLabel}>{state.error}</p> : null}
+
                 <section className={styles.list} aria-label="Conversation list">
-                    {pagedConversations.map((thread) => (
+                    {state.loading ? <p className={styles.countLabel}>Loading conversations...</p> : null}
+
+                    {!state.loading && pagedConversations.length === 0 ? (
+                        <article className={styles.row}>
+                            <div className={styles.threadMain}>
+                                <p className={styles.threadName}>No conversations yet</p>
+                                <p className={styles.threadMeta}>Once a caregiver conversation starts, it will appear here.</p>
+                            </div>
+                        </article>
+                    ) : null}
+
+                    {!state.loading ? pagedConversations.map((thread) => (
                         <article key={thread.id} className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}>
                             <div className={styles.avatar} aria-hidden="true">{thread.name.charAt(0)}</div>
 
@@ -271,7 +322,7 @@ export default function CarereceiverMessages() {
                                 </div>
                             </div>
                         </article>
-                    ))}
+                    )) : null}
                 </section>
 
                 <nav className={styles.pagination} aria-label="Pagination">

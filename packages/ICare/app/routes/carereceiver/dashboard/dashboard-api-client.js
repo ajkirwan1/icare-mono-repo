@@ -3,6 +3,35 @@ import { z } from "zod";
 const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 const API_PREFIX = "/api/v1";
 
+function readStoredViewer() {
+    if (typeof window === "undefined") {
+        return { id: "", email: "", token: "" };
+    }
+
+    let id = "";
+    let email = "";
+    let token = "";
+
+    try {
+        const rawUser = window.localStorage.getItem("icare_user");
+        if (rawUser) {
+            const parsedUser = JSON.parse(rawUser);
+            id = String(parsedUser?.id || "").trim();
+            email = String(parsedUser?.email || "").trim().toLowerCase();
+        }
+    } catch {
+        // ignore malformed local storage user payload
+    }
+
+    try {
+        token = String(window.localStorage.getItem("icare_access_token") || "").trim();
+    } catch {
+        token = "";
+    }
+
+    return { id, email, token };
+}
+
 const fallbackPendingBookings = [
     {
         id: "bk-2026-1101",
@@ -108,8 +137,10 @@ const bookingsResponseSchema = z.object({
 
 const userProfileSchema = z.object({
     firstName: z.string().optional(),
+    first_name: z.string().optional(),
     name: z.string().optional(),
     accountStatus: z.string().optional(),
+    account_status: z.string().optional(),
     phoneVerified: z.boolean().optional(),
     emailVerified: z.boolean().optional()
 }).passthrough();
@@ -150,15 +181,21 @@ function resolveUrl(path) {
 }
 
 async function requestJson(path, { signal, method = "GET", body } = {}) {
+    const viewer = readStoredViewer();
+    const headers = {
+        Accept: "application/json",
+        ...(body ? { "Content-Type": "application/json" } : {}),
+        ...(viewer.id ? { "X-User-Id": viewer.id } : {}),
+        ...(viewer.email ? { "X-User-Email": viewer.email } : {}),
+        ...(viewer.token ? { Authorization: `Bearer ${viewer.token}` } : {})
+    };
+
     const response = await fetch(resolveUrl(path), {
         method,
         signal,
         cache: "no-store",
         credentials: "include",
-        headers: {
-            Accept: "application/json",
-            ...(body ? { "Content-Type": "application/json" } : {})
-        },
+        headers,
         ...(body ? { body: JSON.stringify(body) } : {})
     });
 
@@ -288,16 +325,38 @@ function normalizeBookingsResponse(rawPayload) {
     return { bookings: [], totalCount: 0 };
 }
 
+function readStoredUserFirstName() {
+    if (typeof window === "undefined") {
+        return "";
+    }
+
+    try {
+        const raw = window.localStorage.getItem("icare_user");
+        if (!raw) {
+            return "";
+        }
+
+        const parsed = JSON.parse(raw);
+        const firstName = String(parsed?.firstName || parsed?.first_name || "").trim();
+        return firstName;
+    } catch {
+        return "";
+    }
+}
+
 export async function getCurrentUserProfile({ signal } = {}) {
+    const storedFirstName = readStoredUserFirstName();
+
     try {
         const rawPayload = await requestJson("/api/v1/users/me", { signal });
         const payload = userProfileSchema.parse(rawPayload);
+        const firstName = String(payload?.firstName || payload?.first_name || payload?.name || "").trim();
         return {
-            firstName: String(payload?.firstName || payload?.name || "Sarah").trim() || "Sarah",
-            accountStatus: String(payload?.accountStatus || "active")
+            firstName: firstName || storedFirstName,
+            accountStatus: String(payload?.accountStatus || payload?.account_status || "active")
         };
     } catch {
-        return { firstName: "Sarah", accountStatus: "active", isFallback: true };
+        return { firstName: storedFirstName, accountStatus: "active", isFallback: true };
     }
 }
 
@@ -327,6 +386,16 @@ export async function getPaymentMethodStatus({ signal } = {}) {
 }
 
 export async function getUnreadMessagesCount({ signal } = {}) {
+    try {
+        const unreadCountPayload = await requestJson("/api/v1/conversations/unread-count", { signal });
+        const total = Number(unreadCountPayload?.total ?? NaN);
+        if (Number.isFinite(total)) {
+            return { unreadCount: total };
+        }
+    } catch {
+        // fallback to conversations list query
+    }
+
     try {
         const rawPayload = await requestJson("/api/v1/conversations?page=1&limit=1", { signal });
         const payload = conversationsResponseSchema.parse(rawPayload);

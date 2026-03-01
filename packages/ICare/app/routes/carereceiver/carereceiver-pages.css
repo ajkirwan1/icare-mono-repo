@@ -531,7 +531,41 @@
     min-width: 38px;
     min-height: 38px;
     color: #5f6878;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     cursor: pointer;
+}
+
+.cr-heart-glyph {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.cr-heart-btn.is-active {
+    color: #cc2f2f;
+    border-color: rgba(204, 47, 47, 0.35);
+    background: rgba(204, 47, 47, 0.08);
+}
+
+.cr-favorite-action {
+    border: 1px solid rgba(70, 92, 77, 0.2);
+    background: #fff;
+    color: #1b2436;
+    border-radius: 999px;
+    min-height: 38px;
+    padding: 0 14px;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cr-favorite-action.is-active {
+    border-color: rgba(204, 47, 47, 0.35);
+    background: rgba(204, 47, 47, 0.08);
+    color: #9e1f1f;
 }
 
 .cr-back-link {

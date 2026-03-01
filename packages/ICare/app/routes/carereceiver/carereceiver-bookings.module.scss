@@ -261,6 +261,12 @@
     text-decoration: none;
 }
 
+.cancelTrigger {
+    border-color: rgba(180, 35, 24, 0.24);
+    color: #b42318;
+    background: rgba(180, 35, 24, 0.05);
+}
+
 .countdown {
     margin: 0;
     color: #f59e0b;
@@ -318,6 +324,92 @@
     border-color: #b0c47f;
     color: #fff;
     font-weight: 600;
+}
+
+.toastSuccess {
+    margin: 0 0 14px;
+    border: 1px solid rgba(92, 127, 38, 0.25);
+    background: rgba(176, 196, 127, 0.22);
+    color: #2f4d12;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    background: rgba(15, 23, 42, 0.5);
+    display: grid;
+    place-items: center;
+    padding: 18px;
+}
+
+.modalCard {
+    width: min(520px, 100%);
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.25);
+    padding: 18px;
+}
+
+.modalTitle {
+    margin: 0;
+    color: #0f172a;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.modalText {
+    margin: 10px 0 0;
+    color: rgba(15, 23, 42, 0.86);
+    font-size: 14px;
+}
+
+.modalMeta {
+    margin: 10px 0 0;
+    color: rgba(15, 23, 42, 0.72);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modalError {
+    margin: 12px 0 0;
+    color: #b42318;
+    font-size: 13px;
+}
+
+.modalActions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.modalSecondary,
+.modalDanger {
+    min-height: 38px;
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modalSecondary {
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    color: #0f172a;
+    background: #fff;
+}
+
+.modalDanger {
+    border: 1px solid #b42318;
+    color: #fff;
+    background: #b42318;
 }
 
 @media (max-width: 840px) {

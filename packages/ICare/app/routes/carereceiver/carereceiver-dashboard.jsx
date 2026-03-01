@@ -16,7 +16,7 @@ function formatTime(date) {
 }
 
 export default function CarereceiverDashboard() {
-    const [profile, setProfile] = useState({ loading: true, firstName: "Sarah", accountStatus: "active" });
+    const [profile, setProfile] = useState({ loading: true, firstName: "", accountStatus: "active" });
     const [payment, setPayment] = useState({ loading: true, paymentMethodMissing: false });
     const [messages, setMessages] = useState({ loading: true, unreadCount: 0 });
 
@@ -29,7 +29,7 @@ export default function CarereceiverDashboard() {
             if (mounted) {
                 setProfile({
                     loading: false,
-                    firstName: result.firstName || "Sarah",
+                    firstName: result.firstName || "",
                     accountStatus: result.accountStatus || "active"
                 });
             }
@@ -115,7 +115,7 @@ export default function CarereceiverDashboard() {
         <div className={styles.page}>
             <div className={styles.shell}>
                 <header className={styles.header}>
-                    <h1>Welcome back, {profile.firstName}</h1>
+                    <h1>{profile.firstName ? `Welcome back, ${profile.firstName}` : "Welcome back"}</h1>
                     <p>Last updated: Today at {lastUpdated}</p>
                 </header>
 

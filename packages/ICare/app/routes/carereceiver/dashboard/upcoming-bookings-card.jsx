@@ -109,13 +109,13 @@ export default function UpcomingBookingsCard() {
                                 View Details
                             </Link>
 
-                            {booking.status !== "in_progress" && booking.conversationId ? (
+                            {booking.conversationId ? (
                                 <Link className={styles.secondaryActionLink} to={`/carereceiver/messages/${booking.conversationId}`}>
                                     Message Caregiver
                                 </Link>
                             ) : (
                                 <Link className={styles.secondaryActionLink} to={`/carereceiver/bookings/${booking.id}`}>
-                                    Emergency Contact
+                                    View Booking
                                 </Link>
                             )}
                         </div>

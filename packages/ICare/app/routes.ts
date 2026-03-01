@@ -91,6 +91,7 @@ export default [
             route("messages", "routes/carereceiver/carereceiver-messages.jsx"),
             route("messages/:conversationId", "routes/carereceiver/carereceiver-message-thread.jsx"),
             route("search", "routes/carereceiver/carereceiver-search.jsx"),
+            route("favorites", "routes/carereceiver/carereceiver-favorites.jsx"),
             route("caregivers/:caregiverId", "routes/carereceiver/carereceiver-caregiver-profile.jsx"),
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")

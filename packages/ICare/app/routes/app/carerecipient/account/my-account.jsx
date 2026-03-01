@@ -12,6 +12,7 @@ const ALLOWED_STATUSES = new Set([
     "reviewed",
     "declined",
     "expired",
+    "cancelled",
     "cancelled_by_cr",
     "cancelled_by_cg",
     "disputed",
@@ -29,6 +30,7 @@ const STATUS_LABELS = {
     reviewed: "Reviewed",
     declined: "Declined",
     expired: "Expired",
+    cancelled: "Cancelled",
     cancelled_by_cr: "Cancelled",
     cancelled_by_cg: "Cancelled",
     disputed: "Disputed",
@@ -77,13 +79,13 @@ const STATE_VARIATIONS = {
         showAlertBanner: true,
         alertVariant: "warning",
         alertMessage:
-            "Emergency Contact: ${emergencyContact.name} (${emergencyContact.relationship}) - ${emergencyContact.phone}",
-        alertActions: [{ label: "Call Emergency", variant: "destructive", action: "tel:${emergencyContact.phone}" }],
+            "${caregiver.name} is currently with you for this booking. You can message the caregiver if you need to share anything.",
+        alertActions: [{ label: "Message Caregiver", variant: "secondary", action: "navigate:/carereceiver/messages/${booking.id}" }],
         showContactDetails: true,
         enableMessaging: true,
         showTimeline: false,
         paymentTag: "Payment Held",
-        showEmergencyContactCard: true,
+        showEmergencyContactCard: false,
         stateActions: [{ label: "Message Caregiver", variant: "secondary", action: "navigate:/carereceiver/messages/${booking.id}" }]
     },
     completed: {
@@ -170,6 +172,7 @@ const STATE_VARIATIONS = {
         showEmergencyContactCard: false,
         stateActions: [{ label: "Search for Another Caregiver", variant: "primary", action: "navigate:/carereceiver/search" }]
     },
+    cancelled: { extends: "cancelled_by_cr" },
     cancelled_by_cr: {
         statusVariant: "cancelled",
         showCountdownTimer: false,
@@ -309,11 +312,6 @@ const SAMPLE_DATA = {
         total: 75.6,
         paymentMethod: "Visa ending in 4242",
         refundAmount: 75.6
-    },
-    emergencyContact: {
-        name: "David Harrison",
-        phone: "07700 900456",
-        relationship: "Son"
     }
 };
 
@@ -373,11 +371,10 @@ function computeCountdown(deadline) {
 
 function normalizePayload(payload, fallbackId) {
     if (!payload || typeof payload !== "object") { return null; }
-    const booking = payload.booking || payload;
-    const caregiver = payload.caregiver || booking.caregiver || payload.provider || {};
-    const payment = payload.payment || booking.payment || payload.pricing || {};
-    const emergencyContact =
-        payload.emergencyContact || booking.emergencyContact || payload.emergency || caregiver.emergencyContact || {};
+    const root = payload?.data && typeof payload.data === "object" ? payload.data : payload;
+    const booking = root.booking || root;
+    const caregiver = root.caregiver || booking.caregiver || root.provider || {};
+    const payment = root.payment || booking.payment || root.pricing || {};
 
     return {
         booking: {
@@ -399,8 +396,7 @@ function normalizePayload(payload, fallbackId) {
                 ? caregiver.verificationBadges.map((item) => (typeof item === "string" ? item : item.label)).filter(Boolean)
                 : SAMPLE_DATA.caregiver.verificationBadges
         },
-        payment: { ...SAMPLE_DATA.payment, ...payment },
-        emergencyContact: { ...SAMPLE_DATA.emergencyContact, ...emergencyContact }
+        payment: { ...SAMPLE_DATA.payment, ...payment }
     };
 }
 
@@ -450,8 +446,7 @@ export async function loader({ request, params }) {
     const context = {
         booking: { ...detail.booking, status: effectiveStatus, statusLabel: STATUS_LABELS[effectiveStatus] || detail.booking.statusLabel },
         caregiver: detail.caregiver,
-        payment: detail.payment,
-        emergencyContact: detail.emergencyContact
+        payment: detail.payment
     };
 
     return {
@@ -500,7 +495,7 @@ function ActionControl({ action, variant = "secondary", label }) {
 export default function CareRecipientMyAccountPage() {
     const location = useLocation();
     const { detail, state } = useLoaderData();
-    const { booking, caregiver, payment, emergencyContact } = detail;
+    const { booking, caregiver, payment } = detail;
     const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
     const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
     const bookingsPath = isCarereceiverPath ? "/carereceiver/bookings" : "/carerecipient/account/my-account";
@@ -523,14 +518,14 @@ export default function CareRecipientMyAccountPage() {
                 </button>
             </header>
 
-                <div className="booking-shell">
-                    <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
-                        <Link to={dashboardPath}>Dashboard</Link>
-                        <span>›</span>
-                        <Link to={bookingsPath}>My Bookings</Link>
-                        <span>›</span>
-                        <strong>Booking Details</strong>
-                    </nav>
+            <div className="booking-shell">
+                <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
+                    <Link to={dashboardPath}>Dashboard</Link>
+                    <span>›</span>
+                    <Link to={bookingsPath}>My Bookings</Link>
+                    <span>›</span>
+                    <strong>Booking Details</strong>
+                </nav>
 
                 <section className="booking-title-row">
                     <h1>Booking with {caregiver.name}</h1>
@@ -634,17 +629,6 @@ export default function CareRecipientMyAccountPage() {
                                 <dt className="total">Total</dt><dd className="total">{formatCurrency(payment.total)}</dd>
                             </dl>
                         </article>
-
-                        {state.showEmergencyContactCard ? (
-                            <article className="booking-emergency-card">
-                                <h2>Emergency Contact</h2>
-                                <p>{emergencyContact.name}</p>
-                                <p>{emergencyContact.relationship}</p>
-                                <p>📞 {emergencyContact.phone}</p>
-                                <ActionControl action={`tel:${emergencyContact.phone}`} label="Call Emergency Contact" variant="destructive" />
-                                <ActionControl action="tel:999" label="Call 999" variant="destructive" />
-                            </article>
-                        ) : null}
 
                         <article className="booking-card">
                             <h2>Actions</h2>

@@ -1,21 +1,12 @@
 import { Link, useParams } from "react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./carereceiver-pages.css";
 
 import { FiCheck } from "react-icons/fi";
 import RatingStars from "./rating-stars";
+import { getCarereceiverBookingDetail, submitCarereceiverBookingReview } from "./bookings/bookings-api-client";
 
 const reviewLabels = ["Poor", "Fair", "Good", "Very Good", "Excellent"];
-
-const booking = {
-    caregiverName: "Mary Thompson",
-    date: "Wednesday, March 6, 2026",
-    time: "10:00 AM - 2:00 PM",
-    duration: "4 hours",
-    service: "Companionship",
-    rating: 4.8,
-    reviewCount: 24
-};
 
 function initials(name) {
     return String(name)
@@ -26,23 +17,111 @@ function initials(name) {
         .toUpperCase();
 }
 
+function mapReviewBooking(detail) {
+    const booking = detail?.booking || {};
+    const caregiver = detail?.caregiver || {};
+
+    return {
+        caregiverName: caregiver.name || "Caregiver",
+        date: booking.dateFormatted || booking.date || "Date TBD",
+        time: booking.timeFormatted || "Time TBD",
+        duration: booking.duration || "Duration TBD",
+        service: Array.isArray(booking.serviceTypes) && booking.serviceTypes.length > 0
+            ? booking.serviceTypes.join(", ")
+            : booking.serviceType || "Companionship",
+        rating: Number(caregiver.rating || 0),
+        reviewCount: Number(caregiver.reviewCount || 0),
+        verificationBadges: Array.isArray(caregiver.verificationBadges) ? caregiver.verificationBadges : []
+    };
+}
+
+const fallbackBooking = {
+    caregiverName: "Caregiver",
+    date: "Date TBD",
+    time: "Time TBD",
+    duration: "Duration TBD",
+    service: "Companionship",
+    rating: 0,
+    reviewCount: 0,
+    verificationBadges: ["Identity Verified", "DBS Verified"]
+};
+
 export default function CarereceiverLeaveReview() {
     const { bookingId } = useParams();
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState("");
     const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [state, setState] = useState({ loading: true, booking: fallbackBooking });
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadBookingSummary() {
+            if (!bookingId) {
+                if (mounted) {
+                    setState({ loading: false, booking: fallbackBooking });
+                }
+                return;
+            }
+
+            try {
+                const payload = await getCarereceiverBookingDetail(bookingId, { signal: controller.signal });
+                if (!mounted) {
+                    return;
+                }
+
+                setState({ loading: false, booking: mapReviewBooking(payload) });
+            } catch {
+                if (!mounted) {
+                    return;
+                }
+
+                setState({ loading: false, booking: fallbackBooking });
+            }
+        }
+
+        loadBookingSummary();
+
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, [bookingId]);
 
     const charCount = useMemo(() => `${reviewText.length} / 500`, [reviewText.length]);
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (!rating) {
             setError("Please select a star rating.");
             return;
         }
+
+        if (!bookingId) {
+            setError("Booking id is missing.");
+            return;
+        }
+
         setError("");
-        setSubmitted(true);
+        setSubmitting(true);
+
+        try {
+            await submitCarereceiverBookingReview(bookingId, {
+                rating,
+                reviewText,
+                reviewTags: []
+            });
+            setSubmitted(true);
+        } catch (submitError) {
+            setError(submitError instanceof Error ? submitError.message : "Could not submit review.");
+        } finally {
+            setSubmitting(false);
+        }
     }
+
+    const booking = state.booking;
 
     if (submitted) {
         return (
@@ -76,7 +155,7 @@ export default function CarereceiverLeaveReview() {
 
                 <section className="cr-card cr-review-layout">
                     <h1 style={{ margin: 0 }}>Leave a Review</h1>
-                    <p className="cr-muted" style={{ marginTop: "6px" }}>Share your experience with Mary</p>
+                    <p className="cr-muted" style={{ marginTop: "6px" }}>Share your experience with {booking.caregiverName}</p>
 
                     <article className="cr-card" style={{ background: "#fff" }}>
                         <p className="cr-muted" style={{ marginTop: 0, fontSize: "12px", letterSpacing: "0.04em", textTransform: "uppercase" }}>
@@ -87,12 +166,13 @@ export default function CarereceiverLeaveReview() {
                             <div>
                                 <p className="cr-row-title" style={{ margin: 0 }}>{booking.caregiverName}</p>
                                 <p className="cr-row-sub" style={{ margin: "4px 0", display: "inline-flex", alignItems: "center", gap: "10px", whiteSpace: "nowrap" }}>
-                                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><FiCheck /> Identity Verified</span>
-                                    <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><FiCheck /> DBS Verified</span>
+                                    {(booking.verificationBadges.length ? booking.verificationBadges : ["Identity Verified", "DBS Verified"]).slice(0, 2).map((badge) => (
+                                        <span key={badge} style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}><FiCheck /> {badge}</span>
+                                    ))}
                                 </p>
                                 <p className="cr-row-sub cr-rating-line" style={{ margin: 0 }}>
                                     <span className="cr-stars-inline"><RatingStars value={booking.rating} /></span>
-                                    <span style={{ color: "#5f6878" }}>{booking.rating} ({booking.reviewCount} reviews)</span>
+                                    <span style={{ color: "#5f6878" }}>{booking.rating.toFixed(1)} ({booking.reviewCount} reviews)</span>
                                 </p>
                             </div>
                         </div>
@@ -137,7 +217,7 @@ export default function CarereceiverLeaveReview() {
                         <textarea
                             className="cr-textarea"
                             maxLength={500}
-                            placeholder="e.g., Mary was punctual, kind, and made my father feel very comfortable..."
+                            placeholder="e.g., The caregiver was punctual, kind, and made my father feel very comfortable..."
                             value={reviewText}
                             onChange={(event) => setReviewText(event.target.value)}
                         />
@@ -152,11 +232,14 @@ export default function CarereceiverLeaveReview() {
                         <p className="cr-row-sub" style={{ margin: "2px 0" }}>• Reviews cannot be edited or deleted once submitted</p>
                     </section>
 
+                    {state.loading ? <p className="cr-muted">Loading booking summary...</p> : null}
                     {error ? <p className="cr-error" role="alert">{error}</p> : null}
 
                     <div className="cr-inline" style={{ marginTop: "8px" }}>
                         <Link className="cr-button cr-button--secondary" to="/carereceiver/bookings">Cancel</Link>
-                        <button type="button" className="cr-button cr-button--primary" onClick={handleSubmit}>Submit Review</button>
+                        <button type="button" className="cr-button cr-button--primary" onClick={handleSubmit} disabled={submitting || state.loading}>
+                            {submitting ? "Submitting..." : "Submit Review"}
+                        </button>
                     </div>
                 </section>
             </div>

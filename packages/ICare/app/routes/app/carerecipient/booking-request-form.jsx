@@ -1,5 +1,5 @@
 import { Form, Link, useActionData, useLoaderData, useLocation, useNavigation } from "react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ICareAppNavbar from "~/components/application/app-navbar/icare-app-navbar";
 import { careReceiverNavItems } from "~/components/application/app-navbar/nav-items";
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
@@ -122,8 +122,9 @@ async function tryFetchJson(url, options = {}) {
 
 async function loadCaregiver(apiBase, caregiverId) {
     const localCandidates = [
-        `http://localhost:4000/caregivers/${caregiverId}`,
-        `http://localhost:4000/caregivers?id=${caregiverId}`
+        `http://localhost:4001/api/v1/caregivers/${caregiverId}`,
+        `http://localhost:4001/caregivers/${caregiverId}`,
+        `http://localhost:4001/caregivers?id=${caregiverId}`
     ];
 
     const candidates = apiBase
@@ -199,15 +200,22 @@ function validateForm(values) {
     return errors;
 }
 
-async function submitBookingRequest(apiBase, payload) {
+async function submitBookingRequest(apiBase, payload, { viewerId = "", viewerEmail = "", viewerToken = "" } = {}) {
     if (!apiBase) { return { ok: false, status: 0 }; }
     const base = apiBase.replace(/\/$/, "");
     const candidates = [`${base}/api/v1/bookings`, `${base}/api/bookings`, `${base}/bookings`];
 
     for (const endpoint of candidates) {
+        const headers = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            ...(viewerId ? { "X-User-Id": viewerId } : {}),
+            ...(viewerEmail ? { "X-User-Email": viewerEmail } : {}),
+            ...(viewerToken ? { Authorization: `Bearer ${viewerToken}` } : {})
+        };
         const result = await tryFetchJson(endpoint, {
             method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            headers,
             body: JSON.stringify(payload)
         });
         if (result.ok) { return result; }
@@ -228,7 +236,10 @@ export async function action({ request, params }) {
         emergencyName: String(formData.get("emergencyName") || ""),
         emergencyPhone: String(formData.get("emergencyPhone") || ""),
         emergencyRelationship: String(formData.get("emergencyRelationship") || ""),
-        acceptCancellation: formData.get("acceptCancellation") === "on"
+        acceptCancellation: formData.get("acceptCancellation") === "on",
+        viewerId: String(formData.get("viewerId") || "").trim(),
+        viewerEmail: String(formData.get("viewerEmail") || "").trim().toLowerCase(),
+        viewerToken: String(formData.get("viewerToken") || "").trim()
     };
 
     const errors = validateForm(values);
@@ -310,7 +321,11 @@ export async function action({ request, params }) {
         };
     }
 
-    const result = await submitBookingRequest(API_BASE, payload);
+    const result = await submitBookingRequest(API_BASE, payload, {
+        viewerId: values.viewerId,
+        viewerEmail: values.viewerEmail,
+        viewerToken: values.viewerToken
+    });
     if (!result.ok) {
         if (paymentAuthorization?.id && stripeTools?.cancelStripePaymentIntent) {
             try {
@@ -322,16 +337,22 @@ export async function action({ request, params }) {
 
         return {
             ok: false,
-            formError: "Nie udalo sie wyslac requestu do backendu. Endpoint tworzenia bookingu nie jest jeszcze dostepny."
+            formError: "Could not create booking request in the API. Please try again."
         };
     }
+
+    const createdBookingId = result.payload?.data?.bookingId ||
+        result.payload?.data?.id ||
+        result.payload?.bookingId ||
+        result.payload?.id ||
+        null;
 
     return {
         ok: true,
         successMessage: paymentAuthorization
             ? `Booking request sent. ${toCurrency(paymentAuthorization.amount)} has been authorized and will be captured after caregiver acceptance.`
             : "Booking request sent. Caregiver has 24 hours to respond.",
-        bookingId: result.payload?.id || result.payload?.bookingId || null,
+        bookingId: createdBookingId,
         paymentAuthorizationId: paymentAuthorization?.id || null
     };
 }
@@ -384,6 +405,7 @@ export default function BookingRequestFormPage() {
     const [emergencyPhone, setEmergencyPhone] = useState(emergencyContact?.phone || "");
     const [emergencyRelationship, setEmergencyRelationship] = useState(emergencyContact?.relationship || "Daughter");
     const [acceptCancellation, setAcceptCancellation] = useState(false);
+    const [viewerIdentity, setViewerIdentity] = useState({ id: "", email: "", token: "" });
 
     const calendar = useMemo(() => buildCalendar(availableDates), [availableDates]);
     const availableDateSet = useMemo(() => new Set(availableDates), [availableDates]);
@@ -393,11 +415,56 @@ export default function BookingRequestFormPage() {
     const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 5) / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
-    const sendDisabled = paymentMethodCount === 0 || isSubmitting;
+    const sendDisabledBase = paymentMethodCount === 0 || isSubmitting;
     const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
     const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
     const searchPath = isCarereceiverPath ? "/carereceiver/search" : "/carerecipient";
     const caregiverProfilePath = isCarereceiverPath ? `/carereceiver/caregivers/${caregiver.id}` : null;
+    const sendDisabled = sendDisabledBase || (isCarereceiverPath && !viewerIdentity.id && !viewerIdentity.email);
+    const bookingDetailPath = actionData?.bookingId
+        ? (isCarereceiverPath ? `/carereceiver/bookings/${actionData.bookingId}` : `/bookings/${actionData.bookingId}`)
+        : "";
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        let nextId = "";
+        let nextEmail = "";
+        let nextToken = "";
+
+        try {
+            const rawUser = window.localStorage.getItem("icare_user");
+            if (rawUser) {
+                const parsedUser = JSON.parse(rawUser);
+                nextId = String(parsedUser?.id || "").trim();
+                nextEmail = String(parsedUser?.email || "").trim().toLowerCase();
+            }
+        } catch {
+            // keep empty identity fields
+        }
+
+        try {
+            nextToken = String(window.localStorage.getItem("icare_access_token") || "").trim();
+        } catch {
+            nextToken = "";
+        }
+
+        setViewerIdentity({ id: nextId, email: nextEmail, token: nextToken });
+    }, []);
+
+    useEffect(() => {
+        if (!actionData?.ok || !bookingDetailPath || typeof window === "undefined") {
+            return undefined;
+        }
+
+        const timer = window.setTimeout(() => {
+            window.location.assign(bookingDetailPath);
+        }, 1200);
+
+        return () => window.clearTimeout(timer);
+    }, [actionData?.ok, bookingDetailPath]);
 
     return (
         <>
@@ -450,6 +517,11 @@ export default function BookingRequestFormPage() {
                     {actionData?.ok ? (
                         <section className="booking-alert booking-alert--success" role="status" aria-live="polite">
                             <p>{actionData.successMessage}</p>
+                            {bookingDetailPath ? (
+                                <p>
+                                    <Link to={bookingDetailPath}>Open booking details</Link>
+                                </p>
+                            ) : null}
                         </section>
                     ) : null}
 
@@ -457,6 +529,9 @@ export default function BookingRequestFormPage() {
                         <input type="hidden" name="caregiverId" value={caregiver.id} />
                         <input type="hidden" name="bookingDate" value={bookingDate} />
                         <input type="hidden" name="durationHours" value={String(durationHours)} />
+                        <input type="hidden" name="viewerId" value={viewerIdentity.id} />
+                        <input type="hidden" name="viewerEmail" value={viewerIdentity.email} />
+                        <input type="hidden" name="viewerToken" value={viewerIdentity.token} />
 
                         <div className="booking-request-main">
                             <section className="booking-card">
