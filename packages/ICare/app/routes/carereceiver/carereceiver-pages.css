@@ -246,6 +246,11 @@
     font-size: 13px;
 }
 
+.cr-active-status {
+    color: #42592c;
+    font-weight: 700;
+}
+
 .cr-input,
 .cr-select,
 .cr-textarea {

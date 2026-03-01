@@ -1,9 +1,10 @@
 import { Link, useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import "./carereceiver-pages.css";
-import { sanitizeMessage } from "~/utils/contact-protection";
+import { hasProtectionHit, sanitizeMessage } from "~/utils/contact-protection";
 
 const DEFAULT_API = "http://localhost:4001";
+const MAX_CONTACT_SHARE_ATTEMPTS = 3;
 function formatWhen(value) {
   if (!value) {
     return "Now";
@@ -39,6 +40,8 @@ export default function CarereceiverMessageThread() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [contactShareAttempts, setContactShareAttempts] = useState(0);
+  const isWriteBlocked = contactShareAttempts >= MAX_CONTACT_SHARE_ATTEMPTS;
 
   async function loadThread() {
     if (!conversationId) {
@@ -82,8 +85,18 @@ export default function CarereceiverMessageThread() {
 
   async function handleSend() {
     const messageText = draft.trim();
-    if (!messageText || !conversationId) {
+    if (!messageText || !conversationId || isWriteBlocked) {
       return;
+    }
+
+    const isContactShareAttempt = hasProtectionHit(messageText);
+    if (isContactShareAttempt) {
+      const nextAttempts = contactShareAttempts + 1;
+      setContactShareAttempts(nextAttempts);
+      if (nextAttempts >= MAX_CONTACT_SHARE_ATTEMPTS) {
+        setError("Messaging has been paused after repeated attempts to share contact details outside ICare.");
+        return;
+      }
     }
 
     setSending(true);
@@ -164,28 +177,29 @@ export default function CarereceiverMessageThread() {
               <textarea
                 className="cr-textarea"
                 maxLength={1000}
-                placeholder="Type your message..."
+                placeholder={isWriteBlocked ? "Messaging is disabled after 3 attempts." : "Type your message..."}
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
+                disabled={isWriteBlocked}
               />
               <div className="cr-inline" style={{ justifyContent: "space-between" }}>
                 <span className="cr-muted">{draft.length}/1000</span>
-                <button type="button" className="cr-button cr-button--primary cr-send-button" onClick={handleSend} disabled={sending}>
+                <button type="button" className="cr-button cr-button--primary cr-send-button" onClick={handleSend} disabled={sending || isWriteBlocked || !draft.trim()}>
                   {sending ? "Sending..." : "Send"}
                 </button>
               </div>
+              {isWriteBlocked ? <p className="cr-muted">Messaging is paused after repeated attempts to share contact details outside ICare.</p> : null}
             </div>
           </article>
 
           <aside className="cr-grid">
             <article className="cr-card">
               <h3>Contact details protection</h3>
-              <label className="cr-inline" style={{ gap: "10px", opacity: 0.95 }}>
-                <input type="checkbox" checked disabled />
-                <span>(always on)</span>
-              </label>
+              <p className="cr-inline" style={{ gap: "10px", opacity: 0.95, margin: 0 }}>
+                <span>🛡️ Always on</span>
+              </p>
               <p className="cr-muted" style={{ marginTop: "8px" }}>
-                Protection: Active
+                Protection: <span className="cr-active-status">Active</span>
               </p>
               <p
                 className="cr-muted"

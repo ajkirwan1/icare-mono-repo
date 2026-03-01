@@ -34,6 +34,13 @@ export async function action({ request }) {
 }
 
 export default function LoginPage() {
+  const handleCardKeyDown = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+  };
+
   return (
     <>
       <ICareNavbar />
@@ -55,21 +62,30 @@ export default function LoginPage() {
             </p>
 
             <div className={styles.roleGrid}>
-              <NavLink to="/caregiver" className={styles.roleCard}>
+              <NavLink
+                to="/caregiver"
+                className={`${styles.roleCard} ${styles.primaryRoleCard}`}
+                onKeyDown={handleCardKeyDown}
+              >
                 <span className={styles.roleTitle}>CAREGIVER</span>
-                <span className={styles.roleText}>Manage your profile, jobs, and bookings.</span>
+                <span className={styles.roleText}>Create your profile, set availability, get matched.</span>
               </NavLink>
 
-              <NavLink to="/carereceiver" className={styles.roleCard}>
+              <NavLink
+                to="/carereceiver"
+                className={`${styles.roleCard} ${styles.primaryRoleCard}`}
+                onKeyDown={handleCardKeyDown}
+              >
                 <span className={styles.roleTitle}>CARE RECEIVER</span>
-                <span className={styles.roleText}>Find caregivers and manage support.</span>
-              </NavLink>
-
-              <NavLink to="/admin" className={styles.roleCard}>
-                <span className={styles.roleTitle}>ADMIN</span>
-                <span className={styles.roleText}>Review platform activity and manage operations.</span>
+                <span className={styles.roleText}>Find trusted carers, message and organise support.</span>
               </NavLink>
             </div>
+
+            <p className={styles.staffLoginRow}>
+              <NavLink to="/admin" className={styles.staffLoginLink}>
+                Staff login
+              </NavLink>
+            </p>
           </div>
         </div>
       </section>

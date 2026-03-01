@@ -6,6 +6,12 @@
   border-radius: 14px;
   padding: clamp(22px, 2.6vw, 32px);
   box-shadow: none;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.pageMounted {
+  animation: pageEnter 240ms ease-out forwards;
 }
 
 .headerCard {
@@ -44,6 +50,8 @@
 
 .cta:hover {
   background: #647739;
+  box-shadow: 0 10px 18px rgba(66, 89, 44, 0.2);
+  transform: translateY(-2px);
 }
 
 .ctaGroup {
@@ -65,12 +73,64 @@
 
 .ctaSecondary:hover {
   background: #eadfce;
+  transform: translateY(-1px);
 }
 
 .subtitle {
   margin: 12px 0 2px;
   color: #000000;
   font-size: 17px;
+}
+
+.progressRow {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.progressItem {
+  margin: 0;
+  border: 1px solid rgba(212, 138, 83, 0.24);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 10px 12px;
+  color: #000000;
+  font-size: 13px;
+  line-height: 1.45;
+  display: grid;
+  gap: 8px;
+}
+
+.badgeRequired,
+.badgeOptional,
+.badgeAvailable {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 24px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badgeRequired {
+  border: 1px solid rgba(96, 118, 52, 0.45);
+  background: rgba(119, 141, 67, 0.2);
+  color: #304516;
+}
+
+.badgeOptional {
+  border: 1px solid rgba(212, 138, 83, 0.4);
+  background: rgba(212, 138, 83, 0.16);
+  color: #61330f;
+}
+
+.badgeAvailable {
+  border: 1px solid rgba(69, 88, 117, 0.38);
+  background: rgba(109, 144, 191, 0.16);
+  color: #22395b;
 }
 
 .stepsGrid {
@@ -97,6 +157,22 @@
     color: #000000;
     font-size: 14px;
   }
+
+  opacity: 0;
+  transform: translateY(8px);
+  animation: cardEnter 230ms ease-out forwards;
+}
+
+.stepCard:nth-child(1) {
+  animation-delay: 70ms;
+}
+
+.stepCard:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.stepCard:nth-child(3) {
+  animation-delay: 210ms;
 }
 
 .stepHeader {
@@ -130,6 +206,8 @@
 
 .stepAction:hover {
   background: cg.$accent;
+  box-shadow: 0 10px 18px rgba(66, 89, 44, 0.2);
+  transform: translateY(-2px);
 }
 
 .stepActionMuted {
@@ -140,6 +218,49 @@
 
 .stepActionMuted:hover {
   background: #eadfce;
+  transform: translateY(-1px);
+}
+
+.helperText {
+  margin: 10px 0 0;
+  color: #6a5847;
+  font-size: 13px;
+}
+
+.ctaDisabled {
+  opacity: 0.55;
+  pointer-events: none;
+  filter: saturate(0.65);
+}
+
+.reassuranceBox {
+  margin-top: 16px;
+  border: 1px solid rgba(212, 138, 83, 0.22);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 12px 14px;
+
+  h3 {
+    margin: 0;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: #2d2d2d;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+}
+
+.cta:focus-visible,
+.ctaSecondary:focus-visible,
+.stepAction:focus-visible,
+.stepActionMuted:focus-visible {
+  outline: 3px solid rgba(119, 141, 67, 0.42);
+  outline-offset: 2px;
 }
 
 .page :global(.pillInfo) {
@@ -157,6 +278,10 @@
 }
 
 @media (max-width: 900px) {
+  .progressRow {
+    grid-template-columns: 1fr;
+  }
+
   .stepsGrid {
     gap: 12px;
   }
@@ -171,5 +296,53 @@
   .page {
     border-radius: 12px;
     padding: 14px;
+  }
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .stepCard {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .cta,
+  .ctaSecondary,
+  .stepAction,
+  .stepActionMuted {
+    transition: none;
+    transform: none;
+  }
+
+  .cta:hover,
+  .ctaSecondary:hover,
+  .stepAction:hover,
+  .stepActionMuted:hover {
+    transform: none;
   }
 }

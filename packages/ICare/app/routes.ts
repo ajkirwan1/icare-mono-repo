@@ -39,6 +39,8 @@ export default [
     route("newsletter/resend-action", "routes/website/actions/newsletter.resend.jsx"),
     route("waitinglist", "routes/website/actions/waitinglist.jsx"),
     route("contact", "routes/website/actions/contact.jsx"),
+    route("rr-api/conversations/:id", "routes/api/conversations-id.jsx"),
+    route("rr-api/conversations/:id/messages", "routes/api/conversations-id-messages.jsx"),
     route("api/v1/payments/methods", "routes/api/v1/payments-methods.jsx"),
     route("api/v1/webhooks/stripe", "routes/api/v1/webhooks-stripe.jsx"),
 
