@@ -25,6 +25,7 @@ export default function Register() {
         border: "rgba(15,23,42,.12)",
         fieldBg: "#FFFFFF",
     };
+    const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
     /* ===== STEPS ===== */
     const [step, setStep] = useState(1); // 1: konto, 2: rola, 3: podsumowanie + zgody
@@ -58,6 +59,8 @@ export default function Register() {
 
     const [errors, setErrors] = useState({});
     const [submitting, setSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState("");
+    const [submitSuccess, setSubmitSuccess] = useState("");
     const [ownSkills, setOwnSkills] = useState([]);
 
     const label = {
@@ -78,6 +81,32 @@ export default function Register() {
     };
     const helper = { fontSize: 12.5, color: "#000000", marginTop: 6 };
     const errorText = { fontSize: 12.5, color: "#b91c1c", marginTop: 6 };
+
+    const normalizeInternationalPhone = (value) => {
+        const raw = String(value || "").replace(/[\s\-()]/g, "");
+        if (!raw) return "";
+        if (raw.startsWith("00")) return `+${raw.slice(2)}`;
+        if (raw.startsWith("+447")) return raw;
+        if (raw.startsWith("447")) return `+${raw}`;
+        if (raw.startsWith("07")) return `+44${raw.slice(1)}`;
+        return raw;
+    };
+
+    const isValidInternationalPhone = (value) =>
+        /^\+[1-9]\d{7,14}$/.test(normalizeInternationalPhone(value));
+    const passwordChecks = {
+        minLength: (v) => String(v || "").length >= 8,
+        lowercase: (v) => /[a-z]/.test(String(v || "")),
+        uppercase: (v) => /[A-Z]/.test(String(v || "")),
+        number: (v) => /\d/.test(String(v || "")),
+        special: (v) => /[^\w\s]/.test(String(v || "")),
+    };
+    const isStrongPassword = (value) =>
+        passwordChecks.minLength(value) &&
+        passwordChecks.lowercase(value) &&
+        passwordChecks.uppercase(value) &&
+        passwordChecks.number(value) &&
+        passwordChecks.special(value);
 
     /* ===== HELPERS ===== */
     const update = (k, v) => setForm((f) => ({ ...f, [k]: v }));
@@ -104,9 +133,10 @@ export default function Register() {
             if (!form.lastName.trim()) e.lastName = "Last name is required.";
             if (!/^\S+@\S+\.\S+$/.test(form.email))
                 e.email = "Valid email is required.";
-            if (!/^[\d\s()+-]{6,}$/.test(form.phone))
-                e.phone = "Valid phone is required.";
-            if (form.password.length < 8) e.password = "Min. 8 characters.";
+            if (!isValidInternationalPhone(form.phone))
+                e.phone = "Use international format: +447700900123 (or 00447700900123).";
+            if (!isStrongPassword(form.password))
+                e.password = "Use 8+ chars with uppercase, lowercase, number and special character.";
             if (form.password !== form.confirmPassword)
                 e.confirmPassword = "Passwords must match.";
             if (!form.location.trim()) e.location = "Location is required.";
@@ -142,10 +172,77 @@ export default function Register() {
     /* ===== SUBMIT ===== */
     const onSubmit = async (ev) => {
         ev.preventDefault();
+        if (!validateStep(3)) return;
+
+        setSubmitError("");
+        setSubmitSuccess("");
+        setErrors({});
+
         try {
             setSubmitting(true);
-            // TODO: call your API here
-            window.location.assign("/caregiver/profile");
+            const phoneNormalized = normalizeInternationalPhone(form.phone);
+            const payload = {
+                userType: tab === "caregiver" ? "caregiver" : "care_receiver",
+                email: String(form.email || "").trim().toLowerCase(),
+                password: String(form.password || ""),
+                firstName: String(form.firstName || "").trim(),
+                lastName: String(form.lastName || "").trim(),
+                phone: phoneNormalized,
+                gdprConsent: Boolean(form.c_terms && form.c_privacy),
+                marketingConsent: Boolean(form.c_marketing),
+            };
+
+            const endpoint = `${API_BASE}/api/v1/auth/register`;
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json().catch(() => null);
+            if (!response.ok) {
+                const backendDetails = result?.error?.details;
+                if (backendDetails && typeof backendDetails === "object") {
+                    const mapped = {};
+                    for (const [key, value] of Object.entries(backendDetails)) {
+                        if (key === "gdprConsent") {
+                            mapped.c_terms = String(value);
+                            mapped.c_privacy = String(value);
+                            continue;
+                        }
+                        mapped[key] = String(value);
+                    }
+                    setErrors((prev) => ({ ...prev, ...mapped }));
+
+                    const step1Keys = new Set(["firstName", "lastName", "email", "phone", "password", "confirmPassword", "location"]);
+                    const step2Keys = new Set(["experienceYears", "availability", "skills", "careType", "hoursPerWeek", "languages"]);
+                    const keys = Object.keys(mapped);
+                    if (keys.some((k) => step1Keys.has(k))) {
+                        setStep(1);
+                    } else if (keys.some((k) => step2Keys.has(k))) {
+                        setStep(2);
+                    }
+                }
+                const detailsMessage = backendDetails && typeof backendDetails === "object"
+                    ? Object.entries(backendDetails).map(([k, v]) => `${k}: ${v}`).join(" | ")
+                    : "";
+                const message =
+                    result?.error?.message ||
+                    result?.error ||
+                    "Registration failed. Please check your data and try again.";
+                setSubmitError(detailsMessage ? `${message} (${detailsMessage})` : message);
+                return;
+            }
+
+            setSubmitSuccess("Registration successful. Your account was created.");
+            window.setTimeout(() => {
+                window.location.assign("/login?registered=1");
+            }, 1200);
+        } catch {
+            setSubmitError("Could not connect to registration API.");
         } finally {
             setSubmitting(false);
         }
@@ -393,57 +490,57 @@ export default function Register() {
                             3 short steps — you can complete your profile later.
                         </p>
 
-                    {/* ============================
+                        {/* ============================
            STEPPER
         ============================ */}
-                    <div className={styles.stepper}>
-                        <div className={`${styles.stepPill} ${step === 1 ? styles.stepActive : step > 1 ? styles.stepDone : ""}`}>
-                            1. Account
+                        <div className={styles.stepper}>
+                            <div className={`${styles.stepPill} ${step === 1 ? styles.stepActive : step > 1 ? styles.stepDone : ""}`}>
+                                1. Account
+                            </div>
+
+                            <div className={`${styles.stepPill} ${step === 2 ? styles.stepActive : step > 2 ? styles.stepDone : ""}`}>
+                                2. Role details
+                            </div>
+
+                            <div className={`${styles.stepPill} ${step === 3 ? styles.stepActive : ""}`}>
+                                3. Summary & consents
+                            </div>
                         </div>
 
-                        <div className={`${styles.stepPill} ${step === 2 ? styles.stepActive : step > 2 ? styles.stepDone : ""}`}>
-                            2. Role details
-                        </div>
-
-                        <div className={`${styles.stepPill} ${step === 3 ? styles.stepActive : ""}`}>
-                            3. Summary & consents
-                        </div>
-                    </div>
-
-                    {/* ============================
+                        {/* ============================
            ROLE TOGGLE
         ============================ */}
-                    <div className={styles.roleToggleWrap}>
-                        <div
-                            role="tablist"
-                            aria-label="Role selection"
-                            className={styles.roleToggle}
-                        >
-                            <button
-                                role="tab"
-                                aria-selected={tab === "caregiver"}
-                                onClick={() => {
-                                    setTab("caregiver");
-                                    update("role", "caregiver");
-                                }}
-                                className={`${styles.roleTab} ${styles.roleTabLeft} ${tab === "caregiver" ? styles.roleTabActive : ""}`}
+                        <div className={styles.roleToggleWrap}>
+                            <div
+                                role="tablist"
+                                aria-label="Role selection"
+                                className={styles.roleToggle}
                             >
-                                Caregiver
-                            </button>
+                                <button
+                                    role="tab"
+                                    aria-selected={tab === "caregiver"}
+                                    onClick={() => {
+                                        setTab("caregiver");
+                                        update("role", "caregiver");
+                                    }}
+                                    className={`${styles.roleTab} ${styles.roleTabLeft} ${tab === "caregiver" ? styles.roleTabActive : ""}`}
+                                >
+                                    Caregiver
+                                </button>
 
-                            <button
-                                role="tab"
-                                aria-selected={tab === "receiver"}
-                                onClick={() => {
-                                    setTab("receiver");
-                                    update("role", "receiver");
-                                }}
-                                className={`${styles.roleTab} ${tab === "receiver" ? styles.roleTabActive : ""}`}
-                            >
-                                Care Receiver
-                            </button>
+                                <button
+                                    role="tab"
+                                    aria-selected={tab === "receiver"}
+                                    onClick={() => {
+                                        setTab("receiver");
+                                        update("role", "receiver");
+                                    }}
+                                    className={`${styles.roleTab} ${tab === "receiver" ? styles.roleTabActive : ""}`}
+                                >
+                                    Care Receiver
+                                </button>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </section>
 
@@ -459,476 +556,497 @@ export default function Register() {
                         aria-live="polite"
                         className={styles.formShell}
                     >
-                    {/* ============================  
+                        {/* ============================  
             STEP 1 
         ============================ */}
-                    {step === 1 && (
-                        <>
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
-                                    gap: "1.4rem",
-                                }}
-                            >
-                                {/* FIRST NAME */}
-                                <div>
-                                    <label
-                                        htmlFor="firstName"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        First name *
-                                    </label>
-                                    <input
-                                        id="firstName"
-                                        type="text"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.firstName}
-                                        onChange={(e) => update("firstName", e.target.value)}
-                                        autoComplete="given-name"
-                                        required
-                                    />
-                                    {errors.firstName && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.firstName}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* LAST NAME */}
-                                <div>
-                                    <label
-                                        htmlFor="lastName"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Last name *
-                                    </label>
-                                    <input
-                                        id="lastName"
-                                        type="text"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.lastName}
-                                        onChange={(e) => update("lastName", e.target.value)}
-                                        autoComplete="family-name"
-                                        required
-                                    />
-                                    {errors.lastName && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.lastName}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* EMAIL */}
-                                <div>
-                                    <label
-                                        htmlFor="email"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Email *
-                                    </label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.email}
-                                        onChange={(e) => update("email", e.target.value)}
-                                        autoComplete="email"
-                                        required
-                                    />
-                                    {errors.email && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.email}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* PHONE */}
-                                <div>
-                                    <label
-                                        htmlFor="phone"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Phone *
-                                    </label>
-                                    <input
-                                        id="phone"
-                                        type="tel"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.phone}
-                                        onChange={(e) => update("phone", e.target.value)}
-                                        autoComplete="tel"
-                                        required
-                                    />
-                                    {errors.phone && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.phone}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* PASSWORD */}
-                                <div>
-                                    <label
-                                        htmlFor="password"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Password *
-                                    </label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.password}
-                                        onChange={(e) => update("password", e.target.value)}
-                                        autoComplete="new-password"
-                                        required
-                                    />
-                                    <div
-                                        style={{
-                                            fontSize: ".82rem",
-                                            opacity: 0.7,
-                                            marginTop: "4px",
-                                            color: "#000000",
-                                        }}
-                                    >
-                                        At least 8 characters.
-                                    </div>
-                                    {errors.password && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.password}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* CONFIRM PASSWORD */}
-                                <div>
-                                    <label
-                                        htmlFor="confirmPassword"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Confirm password *
-                                    </label>
-                                    <input
-                                        id="confirmPassword"
-                                        type="password"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.confirmPassword}
-                                        onChange={(e) => update("confirmPassword", e.target.value)}
-                                        autoComplete="new-password"
-                                        required
-                                    />
-                                    {errors.confirmPassword && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.confirmPassword}
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* LOCATION */}
-                                <div style={{ gridColumn: "1 / -1" }}>
-                                    <label
-                                        htmlFor="location"
-                                        style={{
-                                            fontWeight: 800,
-                                            fontSize: ".92rem",
-                                            color: "#0F172A",
-                                            marginBottom: "6px",
-                                            display: "block",
-                                        }}
-                                    >
-                                        Location (city/area) *
-                                    </label>
-                                    <input
-                                        id="location"
-                                        type="text"
-                                        style={{
-                                            width: "100%",
-                                            padding: "12px 14px",
-                                            borderRadius: 12,
-                                            border: "1px solid rgba(15,23,42,0.14)",
-                                            background: "#FFFFFF",
-                                            outline: "none",
-                                            fontSize: ".97rem",
-                                            transition: "border-color .2s, box-shadow .2s",
-                                        }}
-                                        value={form.location}
-                                        onChange={(e) =>
-                                            update("location", e.target.value)
-                                        }
-                                        placeholder="e.g., London"
-                                        required
-                                    />
-                                    {errors.location && (
-                                        <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
-                                            {errors.location}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* CTA ROW */}
-                            <div className={styles.actionRowEnd}>
-                                <button
-                                    type="button"
-                                    onClick={goNext}
-                                    className={styles.btnPrimary}
+                        {step === 1 && (
+                            <>
+                                <div
+                                    style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
+                                        gap: "1.4rem",
+                                    }}
                                 >
-                                    Next
-                                </button>
-                            </div>
-                        </>
-                    )}
+                                    {/* FIRST NAME */}
+                                    <div>
+                                        <label
+                                            htmlFor="firstName"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            First name *
+                                        </label>
+                                        <input
+                                            id="firstName"
+                                            type="text"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.firstName}
+                                            onChange={(e) => update("firstName", e.target.value)}
+                                            autoComplete="given-name"
+                                            required
+                                        />
+                                        {errors.firstName && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.firstName}
+                                            </div>
+                                        )}
+                                    </div>
 
-                    {/* ============================  
+                                    {/* LAST NAME */}
+                                    <div>
+                                        <label
+                                            htmlFor="lastName"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Last name *
+                                        </label>
+                                        <input
+                                            id="lastName"
+                                            type="text"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.lastName}
+                                            onChange={(e) => update("lastName", e.target.value)}
+                                            autoComplete="family-name"
+                                            required
+                                        />
+                                        {errors.lastName && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.lastName}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* EMAIL */}
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Email *
+                                        </label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.email}
+                                            onChange={(e) => update("email", e.target.value)}
+                                            autoComplete="email"
+                                            required
+                                        />
+                                        {errors.email && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.email}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* PHONE */}
+                                    <div>
+                                        <label
+                                            htmlFor="phone"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Phone *
+                                        </label>
+                                        <input
+                                            id="phone"
+                                            type="tel"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.phone}
+                                            onChange={(e) => update("phone", e.target.value)}
+                                            autoComplete="tel"
+                                            required
+                                        />
+                                        <div style={{ color: "#000000", fontSize: ".82rem", marginTop: "4px", opacity: 0.7 }}>
+                                            International format, e.g. +447700900123 or +4915123456789.
+                                        </div>
+                                        {errors.phone && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.phone}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* PASSWORD */}
+                                    <div>
+                                        <label
+                                            htmlFor="password"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Password *
+                                        </label>
+                                        <input
+                                            id="password"
+                                            type="password"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.password}
+                                            onChange={(e) => update("password", e.target.value)}
+                                            autoComplete="new-password"
+                                            required
+                                        />
+                                        <div
+                                            style={{
+                                                fontSize: ".82rem",
+                                                opacity: 0.7,
+                                                marginTop: "4px",
+                                                color: "#000000",
+                                            }}
+                                        >
+                                            Use 8+ characters, including uppercase, lowercase, number and special character.
+                                        </div>
+                                        {errors.password && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.password}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* CONFIRM PASSWORD */}
+                                    <div>
+                                        <label
+                                            htmlFor="confirmPassword"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Confirm password *
+                                        </label>
+                                        <input
+                                            id="confirmPassword"
+                                            type="password"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.confirmPassword}
+                                            onChange={(e) => update("confirmPassword", e.target.value)}
+                                            autoComplete="new-password"
+                                            required
+                                        />
+                                        {errors.confirmPassword && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.confirmPassword}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* LOCATION */}
+                                    <div style={{ gridColumn: "1 / -1" }}>
+                                        <label
+                                            htmlFor="location"
+                                            style={{
+                                                fontWeight: 800,
+                                                fontSize: ".92rem",
+                                                color: "#0F172A",
+                                                marginBottom: "6px",
+                                                display: "block",
+                                            }}
+                                        >
+                                            Location (city/area) *
+                                        </label>
+                                        <input
+                                            id="location"
+                                            type="text"
+                                            style={{
+                                                width: "100%",
+                                                padding: "12px 14px",
+                                                borderRadius: 12,
+                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                background: "#FFFFFF",
+                                                outline: "none",
+                                                fontSize: ".97rem",
+                                                transition: "border-color .2s, box-shadow .2s",
+                                            }}
+                                            value={form.location}
+                                            onChange={(e) =>
+                                                update("location", e.target.value)
+                                            }
+                                            placeholder="e.g., London"
+                                            required
+                                        />
+                                        {errors.location && (
+                                            <div style={{ color: "#B91C1C", fontSize: ".82rem", marginTop: "4px" }}>
+                                                {errors.location}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* CTA ROW */}
+                                <div className={styles.actionRowEnd}>
+                                    <button
+                                        type="button"
+                                        onClick={goNext}
+                                        className={styles.btnPrimary}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </>
+                        )}
+
+                        {/* ============================  
             STEP 2 
         ============================ */}
-                    {step === 2 && (
-                        <>
-                            <div
-                                style={{
-                                    display: "grid",
-                                    gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
-                                    gap: "1.4rem",
-                                }}
-                            >
-                                {tab === "caregiver" ? (
-                                    <CaregiverFields />
-                                ) : (
-                                    <ReceiverFields />
-                                )}
-                            </div>
-
-                            <div className={styles.actionRowBetween}>
-                                <button
-                                    type="button"
-                                    onClick={goBack}
-                                    className={styles.btnSecondary}
+                        {step === 2 && (
+                            <>
+                                <div
+                                    style={{
+                                        display: "grid",
+                                        gridTemplateColumns: "repeat(auto-fit, minmax(240px,1fr))",
+                                        gap: "1.4rem",
+                                    }}
                                 >
-                                    Back
-                                </button>
+                                    {tab === "caregiver" ? (
+                                        <CaregiverFields />
+                                    ) : (
+                                        <ReceiverFields />
+                                    )}
+                                </div>
 
-                                <button
-                                    type="button"
-                                    onClick={goNext}
-                                    className={styles.btnPrimary}
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        </>
-                    )}
+                                <div className={styles.actionRowBetween}>
+                                    <button
+                                        type="button"
+                                        onClick={goBack}
+                                        className={styles.btnSecondary}
+                                    >
+                                        Back
+                                    </button>
 
-                    {/* ============================  
+                                    <button
+                                        type="button"
+                                        onClick={goNext}
+                                        className={styles.btnPrimary}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </>
+                        )}
+
+                        {/* ============================  
             STEP 3 
         ============================ */}
-                    {step === 3 && (
-                        <>
-                            <h2
-                                style={{
-                                    margin: "0 0 10px",
-                                    fontWeight: 900,
-                                    letterSpacing: ".2px",
-                                    fontSize: "clamp(1.1rem,1.6vw,1.25rem)",
-                                    color: "#0F172A",
-                                }}
-                            >
-                                Summary
-                            </h2>
-
-                            <SummaryBlock />
-
-                            {/* CONSENTS */}
-                            <div
-                                style={{
-                                    marginTop: 18,
-                                    padding: "14px 14px",
-                                    borderRadius: 12,
-                                    border: "1px solid rgba(15,23,42,0.14)",
-                                    background: "rgba(31,171,31,.04)",
-                                }}
-                            >
-                                <h3
+                        {step === 3 && (
+                            <>
+                                <h2
                                     style={{
-                                        margin: 0,
+                                        margin: "0 0 10px",
                                         fontWeight: 900,
-                                        fontSize: "1rem",
+                                        letterSpacing: ".2px",
+                                        fontSize: "clamp(1.1rem,1.6vw,1.25rem)",
                                         color: "#0F172A",
                                     }}
                                 >
-                                    Consents
-                                </h3>
+                                    Summary
+                                </h2>
 
-                                <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
-                                    {[
-                                        {
-                                            key: "c_terms",
-                                            label: (
-                                                <>
-                                                    I have read the{" "}
-                                                    <Link to="/privacy" className={styles.inlinePolicyLink}>
-                                                        Privacy Policy
-                                                    </Link>{" "}
-                                                    and{" "}
-                                                    <Link to="/trust-and-safety" className={styles.inlinePolicyLink}>
-                                                        Trust & Safety
-                                                    </Link>{" "}
-                                                    commitments (required)
-                                                </>
-                                            ),
-                                        },
-                                        {
-                                            key: "c_age18",
-                                            label: <>I confirm I am at least 18 years old (required)</>,
-                                        },
-                                        {
-                                            key: "c_truth",
-                                            label: (
-                                                <>
-                                                    I confirm the information provided is accurate (required)
-                                                </>
-                                            ),
-                                        },
-                                        {
-                                            key: "c_marketing",
-                                            optional: true,
-                                            label: (
-                                                <>I agree to receive occasional product updates (optional)</>
-                                            ),
-                                        },
-                                    ].map((c) => (
-                                        <label
-                                            key={c.key}
-                                            className={styles.consentLabel}
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={form[c.key]}
-                                                onChange={(e) => update(c.key, e.target.checked)}
-                                            />
-                                            <span>
-                                                {c.label}
-                                                {errors[c.key] && (
-                                                    <div style={{ color: "#B91C1C", fontSize: ".82rem" }}>
-                                                        {errors[c.key]}
-                                                    </div>
-                                                )}
-                                            </span>
-                                        </label>
-                                    ))}
+                                <SummaryBlock />
+
+                                {/* CONSENTS */}
+                                <div
+                                    style={{
+                                        marginTop: 18,
+                                        padding: "14px 14px",
+                                        borderRadius: 12,
+                                        border: "1px solid rgba(15,23,42,0.14)",
+                                        background: "rgba(31,171,31,.04)",
+                                    }}
+                                >
+                                    <h3
+                                        style={{
+                                            margin: 0,
+                                            fontWeight: 900,
+                                            fontSize: "1rem",
+                                            color: "#0F172A",
+                                        }}
+                                    >
+                                        Consents
+                                    </h3>
+
+                                    <div style={{ display: "grid", gap: 10, marginTop: 10 }}>
+                                        {[
+                                            {
+                                                key: "c_terms",
+                                                label: (
+                                                    <>
+                                                        I agree to the platform terms and{" "}
+                                                        <Link to="/trust-and-safety" className={styles.inlinePolicyLink}>
+                                                            Trust & Safety
+                                                        </Link>{" "}
+                                                        commitments (required)
+                                                    </>
+                                                ),
+                                            },
+                                            {
+                                                key: "c_privacy",
+                                                label: (
+                                                    <>
+                                                        I have read the{" "}
+                                                        <Link to="/privacy" className={styles.inlinePolicyLink}>
+                                                            Privacy Policy
+                                                        </Link>{" "}
+                                                        (required)
+                                                    </>
+                                                ),
+                                            },
+                                            {
+                                                key: "c_age18",
+                                                label: <>I confirm I am at least 18 years old (required)</>,
+                                            },
+                                            {
+                                                key: "c_truth",
+                                                label: (
+                                                    <>
+                                                        I confirm the information provided is accurate (required)
+                                                    </>
+                                                ),
+                                            },
+                                            {
+                                                key: "c_marketing",
+                                                optional: true,
+                                                label: (
+                                                    <>I agree to receive occasional product updates (optional)</>
+                                                ),
+                                            },
+                                        ].map((c) => (
+                                            <label
+                                                key={c.key}
+                                                className={styles.consentLabel}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={form[c.key]}
+                                                    onChange={(e) => update(c.key, e.target.checked)}
+                                                />
+                                                <span>
+                                                    {c.label}
+                                                    {errors[c.key] && (
+                                                        <div style={{ color: "#B91C1C", fontSize: ".82rem" }}>
+                                                            {errors[c.key]}
+                                                        </div>
+                                                    )}
+                                                </span>
+                                            </label>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* CTA ROW */}
-                            <div className={styles.actionRowBetween}>
-                                <button
-                                    type="button"
-                                    onClick={goBack}
-                                    className={styles.btnSecondary}
-                                >
-                                    Back
-                                </button>
+                                {/* CTA ROW */}
+                                <div className={styles.actionRowBetween}>
+                                    <button
+                                        type="button"
+                                        onClick={goBack}
+                                        className={styles.btnSecondary}
+                                    >
+                                        Back
+                                    </button>
 
-                                <button
-                                    type="submit"
-                                    disabled={submitting}
-                                    className={styles.btnPrimary}
-                                >
-                                    {submitting ? "Creating account…" : "Create account"}
-                                </button>
-                            </div>
-                        </>
-                    )}
+                                    <button
+                                        type="submit"
+                                        disabled={submitting}
+                                        className={styles.btnPrimary}
+                                    >
+                                        {submitting ? "Creating account…" : "Create account"}
+                                    </button>
+                                </div>
+                                {submitError ? (
+                                    <div style={{ marginTop: "10px", color: "#B91C1C", fontSize: ".9rem" }}>
+                                        {submitError}
+                                    </div>
+                                ) : null}
+                                {submitSuccess ? (
+                                    <div style={{ marginTop: "10px", color: "#15803D", fontSize: ".9rem", fontWeight: 700 }}>
+                                        {submitSuccess}
+                                    </div>
+                                ) : null}
+                            </>
+                        )}
                     </form>
 
                     {/* LOGIN LINK */}

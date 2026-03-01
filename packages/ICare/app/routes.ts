@@ -22,12 +22,10 @@ export default [
     route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
     route("newsletter/resend", "routes/website/news-and-articles/newsletter-resend.jsx"),
 
-    // Not found
-    route("*", "routes/not-found.jsx"),
-
-
     // Auth
     route("login", "routes/auth/login.jsx"),
+    route("forgot-password", "routes/auth/forgot-password.jsx"),
+    route("reset-password", "routes/auth/reset-password.jsx"),
     route("register", "routes/register.jsx"),
 
     // SEC
@@ -178,5 +176,8 @@ export default [
     //     ])
     //   ])
     // ]
-    // )
+    // ),
+
+    // Not found (keep as last route)
+    route("*", "routes/not-found.jsx")
 ] satisfies RouteConfig;
