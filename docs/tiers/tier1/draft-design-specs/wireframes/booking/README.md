@@ -231,14 +231,14 @@ These booking wireframes follow the **dashboard-first** production approach defi
 ### 5. Commission & Pricing Transparency
 
 **Care Receiver View** (SCR-CR-006, SCR-CR-008):
-- Total charge: Subtotal (hourly rate × duration) + Platform service fee (5%)
-- Example: £72.00 + £3.60 = **£75.60 total**
+- Total charge: Subtotal (hourly rate × duration) + Platform service fee (15%)
+- Example: £72.00 + £10.80 = **£75.60 total**
 
 **Caregiver View** (SCR-CG-013):
 - Net earnings: Subtotal - Platform commission (15%)
 - Example: £72.00 - £10.80 = **£61.20 net**
 
-**Platform Revenue**: Service fee (£3.60) + Commission (£10.80) = £14.40 per 4-hour booking
+**Platform Revenue**: Service fee (£10.80) + Commission (£10.80) = £14.40 per 4-hour booking
 
 **Placeholder Status**: 15% commission rate is placeholder, subject to FDR-008 final decision (Decision CB-003 - 2026-02-02).
 

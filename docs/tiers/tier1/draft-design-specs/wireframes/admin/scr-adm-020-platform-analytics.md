@@ -642,7 +642,7 @@ The Platform Analytics screen provides admins with a comprehensive business inte
   ```
   Platform Revenue Model:
 
-  Care Receiver Service Fee: 5%
+  Care Receiver Service Fee: 15%
     - Added to booking total
     - Example: £60 booking → £3.00 service fee
 
@@ -833,7 +833,7 @@ Rank | Caregiver    | Rating | Reviews | Bookings
 │  │                                                                               │   │
 │  │ Platform Revenue Model:                                                       │   │
 │  │                                                                               │   │
-│  │ Care Receiver Service Fee: 5%                                                 │   │
+│  │ Care Receiver Service Fee: 15%                                                 │   │
 │  │   • Added to booking total                                                    │   │
 │  │   • Example: £60 booking → £3.00 service fee                                  │   │
 │  │                                                                               │   │

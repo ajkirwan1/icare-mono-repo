@@ -230,7 +230,7 @@ This audit examined 11 key Tier 1 documents for internal consistency. **27 incon
 ### INC-012: Platform Fee vs Service Fee vs Commission [MEDIUM] - **RESOLVED**
 
 **Documents Conflicting**:
-- `/docs/product/features/tier1-booking-specification.md`: "Platform service fee (e.g., 5%)"
+- `/docs/product/features/tier1-booking-specification.md`: "Platform service fee (e.g., 15%)"
 - `/docs/technical/database-schema-tier1.md`: `platform_service_fee` and `platform_commission_rate`
 - `/docs/product/tier1-route-map.md`: "Platform fee", "Platform commission"
 - `/docs/ROADMAP.md`: "Commission deduction"

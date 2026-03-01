@@ -197,7 +197,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
     - Line item: "Service: Companionship ([Duration] hours)"
     - Line item: "Rate: £[Rate]/hour"
     - Line item: "Subtotal: £[Rate × Duration]"
-    - Line item: "Platform service fee (5%): £[Subtotal × 0.05]"
+    - Line item: "Platform service fee (15%): £[Subtotal × 0.15]"
     - Divider line
     - **Total** (large, bold): "Total: £[Subtotal + Service Fee]"
   - **Payment Note**: "Payment will be authorized now and charged when [Caregiver Name] accepts."
@@ -208,7 +208,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
     Service: Companionship (4 hours)
     Rate: £18.00/hour
     Subtotal: £72.00
-    Platform service fee (5%): £3.60
+    Platform service fee (15%): £10.80
     ───────────────────────
     Total: £75.60
 
@@ -325,7 +325,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
    - Source: Real-time calculation
    - Formula:
      - Subtotal = hourly_rate × duration_hours
-     - Service fee = Subtotal × 0.05 (5%)
+     - Service fee = Subtotal × 0.15 (15%)
      - Total = Subtotal + Service fee
    - Updates: On duration field change
 
@@ -403,8 +403,8 @@ The Booking Request Form enables care receivers to create a companionship bookin
 |  |  Booking Date *                   |  |  Service: Companionship (4h)   |   |
 |  |  [  Select date...  ▼  ]         |  |  Rate: £18.00/hour             |   |
 |  |  Select a date when Mary is       |  |  Subtotal: £72.00              |   |
-|  |  available                        |  |  Platform service fee (5%):    |   |
-|  |                                   |  |  £3.60                         |   |
+|  |  available                        |  |  Platform service fee (15%):    |   |
+|  |                                   |  |  £10.80                         |   |
 |  |  Start Time *                     |  |  ──────────────────────────    |   |
 |  |  [  Select time...  ▼  ]         |  |  Total: £75.60                 |   |
 |  |                                   |  |                                |   |
@@ -632,7 +632,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
 |  |  Service: Companionship (4 hours)                 |  |
 |  |  Rate: £18.00/hour                                |  |
 |  |  Subtotal: £72.00                                 |  |
-|  |  Platform service fee (5%): £3.60                 |  |
+|  |  Platform service fee (15%): £10.80                 |  |
 |  |  ────────────────────────────────                 |  |
 |  |  Total: £75.60                                    |  |
 |  +----------------------------------------------------+  |
@@ -714,7 +714,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
 |  |  Companionship (4h)            |  |
 |  |  Rate: £18/hour                |  |
 |  |  Subtotal: £72.00              |  |
-|  |  Service fee (5%): £3.60       |  |
+|  |  service fee (15%): £10.80       |  |
 |  |  ──────────────────            |  |
 |  |  Total: £75.60                 |  |
 |  +--------------------------------+  |
@@ -900,7 +900,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
 - Format:
   - Duration changes: "Companionship (2 hours)" → "Companionship (4 hours)"
   - Subtotal recalculates: "£36.00" → "£72.00"
-  - Service fee recalculates: "£1.80" → "£3.60"
+  - Service fee recalculates: "£1.80" → "£10.80"
   - Total recalculates: "£37.80" → "£75.60"
 
 ---
@@ -1125,7 +1125,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
 - Update pattern:
   1. User selects new duration
   2. Subtotal recalculates (rate × duration)
-  3. Service fee recalculates (subtotal × 0.05)
+  3. Service fee recalculates (subtotal × 0.15)
   4. Total recalculates (subtotal + service fee)
   5. Subtle fade-in animation (200ms)
 - No loading state (instant update)
@@ -1151,7 +1151,7 @@ The Booking Request Form enables care receivers to create a companionship bookin
 
 **1. Transparency & Trust**
 - Real-time price calculation visible at all times
-- No hidden fees: "Platform service fee (5%)" clearly stated
+- No hidden fees: "Platform service fee (15%)" clearly stated
 - Payment note: "Payment will be authorized now and charged when Mary accepts"
 - Cancellation policy displayed before submission
 - Caregiver verification badges visible

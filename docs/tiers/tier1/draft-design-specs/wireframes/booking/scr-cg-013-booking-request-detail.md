@@ -210,7 +210,7 @@ The Booking Request Detail screen (Caregiver view) enables caregivers to review 
 **Commission Rate**: 15% (placeholder, subject to FDR-008 final decision)
 
 **Key Difference from Care Receiver View**:
-- Care receiver sees: Total charge (£75.60 = £72 + 5% service fee)
+- Care receiver sees: Total charge (£75.60 = £72 + 15% service fee)
 - Caregiver sees: Net earnings (£61.20 = £72 - 15% commission)
 
 #### Block 7: Actions (State-Dependent, Caregiver-Specific)

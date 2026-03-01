@@ -1130,7 +1130,7 @@ See **Appendix A** for the full proposed agent definition.
 
 4. **Commission the Domain Model Reference**: The new agent's second job would be to produce `/docs/technical/ddd-domain-model.md` -- formal definitions of all aggregates, value objects, domain events, and their relationships.
 
-5. **Resolve FDR-008 (Pricing)**: The commission percentages (currently placeholder: 15% caregiver commission + 5% service fee) are used throughout the domain model. The Booking and Payment bounded contexts need final values.
+5. **Resolve FDR-008 (Pricing)**: The commission percentages (currently placeholder: 15% caregiver commission + 15% service fee) are used throughout the domain model. The Booking and Payment bounded contexts need final values.
 
 ### Sequenced Work Plan
 
@@ -1255,7 +1255,7 @@ The solution uses Clean Architecture (Onion Architecture):
 2. **Self-Employed Model**: Caregivers are contractors (FDR-001). No employment patterns.
 3. **DBS Voluntary**: At Tier 1, DBS is optional (companionship is not regulated activity)
 4. **UK Data Residency**: All personal data in UK/EU. GDPR Article 6 lawful basis.
-5. **Commission Placeholder**: 15% caregiver + 5% service fee (FDR-008 PENDING)
+5. **Commission Placeholder**: 15% caregiver + 15% service fee (FDR-008 PENDING)
 6. **Existing specs are authoritative for business rules**: Do not invent new requirements
 
 ## Output Standards

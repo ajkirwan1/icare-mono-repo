@@ -166,6 +166,11 @@
     margin-bottom: 18px;
 }
 
+.booking-title-main {
+    display: grid;
+    gap: 8px;
+}
+
 .booking-title-row h1 {
     margin: 0;
     letter-spacing: -0.02em;
@@ -180,6 +185,13 @@
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: 10px;
+}
+
+.booking-at-a-glance {
+    margin: 0;
+    font-size: 13px;
+    color: var(--icare-muted);
+    line-height: 1.4;
 }
 
 .booking-status,
@@ -203,9 +215,10 @@
 
 .booking-status--confirmed,
 .booking-status--completed {
-    color: #395228;
-    background: var(--icare-green-soft);
-    border-color: rgba(138, 172, 57, 0.4);
+    color: #ffffff;
+    background: #356847;
+    border-color: #2a553a;
+    box-shadow: 0 2px 8px rgba(42, 85, 58, 0.28);
 }
 
 .booking-status--in-progress {
@@ -240,6 +253,19 @@
     margin: 0;
     line-height: 1.5;
     font-size: 14px;
+}
+
+.booking-alert-title {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.booking-alert-helper {
+    margin-top: 8px !important;
+    font-size: 12px !important;
+    color: var(--icare-muted);
 }
 
 .booking-alert--info {
@@ -284,6 +310,13 @@
     display: grid;
     gap: 16px;
     align-content: start;
+}
+
+@media (min-width: 1201px) {
+    .booking-sidebar-column {
+        position: sticky;
+        top: 18px;
+    }
 }
 
 .booking-card {
@@ -352,11 +385,38 @@
 .booking-contact {
     margin-top: 10px;
     display: grid;
-    gap: 6px;
+    gap: 8px;
 }
 
 .booking-contact p {
     margin: 0;
+}
+
+.booking-contact-title {
+    color: var(--icare-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+}
+
+.booking-contact-label {
+    min-width: 56px;
+    display: inline-block;
+    color: var(--icare-muted);
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.booking-contact-email {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.booking-contact-helper {
+    color: var(--icare-muted);
+    font-size: 12px;
 }
 
 .booking-contact-hidden {
@@ -386,6 +446,29 @@
 .booking-detail-list dd {
     margin: 0;
     color: var(--icare-text);
+}
+
+.booking-address-value {
+    color: var(--icare-muted);
+    line-height: 1.45;
+}
+
+.booking-service-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.booking-service-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(138, 172, 57, 0.34);
+    background: rgba(138, 172, 57, 0.12);
+    color: #40572d;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .booking-timeline {
@@ -452,6 +535,12 @@
     border-radius: 999px;
 }
 
+.booking-payment-helper {
+    margin: 8px 0 12px;
+    color: var(--icare-muted);
+    font-size: 12px;
+}
+
 .booking-payment-list {
     margin: 0;
     display: grid;
@@ -465,6 +554,14 @@
 
 .booking-payment-list dd {
     margin: 0;
+    text-align: right;
+}
+
+.booking-inline-note {
+    display: block;
+    color: var(--icare-muted);
+    font-size: 11px;
+    margin-top: 2px;
 }
 
 .booking-payment-list .total {
@@ -495,6 +592,17 @@
 .booking-sidebar-actions {
     display: grid;
     gap: 10px;
+}
+
+.booking-sidebar-action-wrap {
+    display: grid;
+    gap: 6px;
+}
+
+.booking-action-helper {
+    margin: 0;
+    color: var(--icare-muted);
+    font-size: 12px;
 }
 
 .booking-action {
@@ -551,15 +659,15 @@
 
 .booking-action--destructive,
 .booking-action--destructive-outlined {
-    background: #ffffff;
-    border: 2px solid var(--icare-orange);
+    background: rgba(180, 124, 88, 0.08);
+    border: 1px solid rgba(180, 124, 88, 0.34);
     color: var(--icare-orange-dark);
 }
 
 .booking-action--destructive:hover,
 .booking-action--destructive-outlined:hover {
-    background: rgba(221, 139, 79, 0.1);
-    border-color: #d67b34;
+    background: rgba(221, 139, 79, 0.14);
+    border-color: rgba(180, 124, 88, 0.48);
 }
 
 .booking-action--text-link {
@@ -575,6 +683,28 @@
 .booking-muted {
     margin: 0;
     color: var(--icare-muted);
+}
+
+.booking-content-grid {
+    animation: bookingContentEnter 240ms ease-out both;
+}
+
+@keyframes bookingContentEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .booking-content-grid {
+        animation: none;
+    }
 }
 
 @media (max-width: 1200px) {

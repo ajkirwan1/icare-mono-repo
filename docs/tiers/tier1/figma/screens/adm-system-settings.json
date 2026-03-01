@@ -195,13 +195,13 @@
                   { "label": "Booking duration", "value": "3 hours" },
                   { "label": "Booking subtotal", "value": "£60.00" },
                   { "style": "divider" },
-                  { "label": "Care Receiver Service Fee (5%)", "value": "+£3.00" },
-                  { "label": "Total Charged to Care Receiver", "value": "£63.00", "style": "subtotal" },
+                  { "label": "Care Receiver Service Fee (15%)", "value": "+£9.00" },
+                  { "label": "Total Charged to Care Receiver", "value": "£69.00", "style": "subtotal" },
                   { "style": "divider" },
                   { "label": "Caregiver Commission (15%)", "value": "-£9.00" },
                   { "label": "Caregiver Earnings (Payout)", "value": "£51.00", "style": "subtotal" },
                   { "style": "divider" },
-                  { "label": "Platform Revenue", "value": "£12.00 (20%)", "style": "total" }
+                  { "label": "Platform Revenue", "value": "£18.00 (30%)", "style": "total" }
                 ]
               }
             },

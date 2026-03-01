@@ -365,13 +365,13 @@ Hourly Rate: £20/hour
 Duration: 3 hours
 Caregiver Earnings: £20 × 3 = £60
 
-Platform Service Fee (Care Receiver): 5% of £60 = £3
-Total Care Receiver Charge: £60 + £3 = £63
+Platform Service Fee (Care Receiver): 15% of £60 = £9
+Total Care Receiver Charge: £60 + £9 = £69
 
 Platform Commission (from Caregiver): 15% of £60 = £9
 Caregiver Net Earnings: £60 - £9 = £51
 
-Platform Total Revenue: £3 (service fee) + £9 (commission) = £12
+Platform Total Revenue: £9 (service fee) + £9 (commission) = £18
 ```
 
 ```javascript
@@ -537,19 +537,19 @@ const paymentIntent = await stripe.paymentIntents.create({
 });
 
 // Money flow:
-// Care receiver charged: £63
-// Platform receives: £12 (as application fee)
+// Care receiver charged: £69
+// Platform receives: £18 (as application fee)
 // Caregiver receives: £51 (automatically via transfer_data)
 ```
 
 **Platform Revenue Breakdown**:
-- Service Fee (from care receiver): £3 (included in £63 charge)
+- Service Fee (from care receiver): £9 (included in £69 charge)
 - Commission (from caregiver): £9 (deducted from £60 caregiver rate)
-- Total Platform Revenue: £12
+- Total Platform Revenue: £18
 
 **Stripe Destination Charges** automatically:
-1. Charge care receiver £63
-2. Deduct £12 platform fee (application_fee_amount)
+1. Charge care receiver £69
+2. Deduct £18 platform fee (application_fee_amount)
 3. Transfer remaining £51 to caregiver account
 
 ### 3.5 Step 5: Commission Retained by Platform
@@ -558,20 +558,20 @@ const paymentIntent = await stripe.paymentIntents.create({
 
 | Party | Pays | Amount | Description |
 |-------|------|--------|-------------|
-| **Care Receiver** | Service Fee | 5% of booking | £60 × 5% = £3 |
+| **Care Receiver** | Service Fee | 15% of booking | £60 × 15% = £9 |
 | **Caregiver** | Commission | 15% of booking | £60 × 15% = £9 |
-| **Platform** | Total Revenue | Service Fee + Commission | £3 + £9 = £12 |
-| **Stripe** | Processing Fee | ~1.4% + 20p | £63 × 1.4% + £0.20 = £1.08 |
+| **Platform** | Total Revenue | Service Fee + Commission | £9 + £9 = £18 |
+| **Stripe** | Processing Fee | ~1.4% + 20p | £69 × 1.4% + £0.20 = £1.17 |
 
 **Net Platform Revenue** (after Stripe fees):
-£12 - £1.08 = £10.92 per £63 booking (17.3% margin)
+£18 - £1.17 = £16.83 per £69 booking (24.4% margin)
 
 **Commission Configuration**:
 
 ```javascript
 // Database: platform_settings table
 const platformSettings = {
-  care_receiver_service_fee_percentage: 5.0, // 5%
+  care_receiver_service_fee_percentage: 15.0, // 15%
   caregiver_commission_percentage: 15.0, // 15%
   vat_rate: 20.0 // 20% VAT on commission (if applicable)
 };
@@ -1032,9 +1032,9 @@ async function handlePaymentSucceeded(paymentIntent) {
 
 | Source | Charged To | Rate | Description |
 |--------|-----------|------|-------------|
-| **Service Fee** | Care Receiver | 5% of booking | Added to care receiver total |
+| **Service Fee** | Care Receiver | 15% of booking | Added to care receiver total |
 | **Commission** | Caregiver | 15% of booking | Deducted from caregiver earnings |
-| **Total Platform Revenue** | Combined | 20% of booking value | Service Fee + Commission |
+| **Total Platform Revenue** | Combined | 30% of booking value | Service Fee + Commission |
 
 **Example Calculation** (£20/hour × 3 hours):
 
@@ -1046,7 +1046,7 @@ const durationHours = 3;
 const caregiverGross = hourlyRate * durationHours; // £60
 
 // Platform service fee (charged to care receiver)
-const serviceFeePercentage = 5.0;
+const serviceFeePercentage = 15.0;
 const serviceFee = caregiverGross * (serviceFeePercentage / 100); // £3
 
 // Total charge to care receiver
@@ -1064,7 +1064,7 @@ const platformRevenue = serviceFee + commission; // £12
 
 console.log({
   caregiverGross: '£60.00',
-  serviceFee: '£3.00',
+  serviceFee: '£9.00',
   totalCareReceiverCharge: '£63.00',
   commission: '£9.00',
   caregiverNet: '£51.00',
@@ -1113,7 +1113,7 @@ const caregiverGross = 60.00;
 // Service fee (subject to VAT)
 const serviceFeeNet = 3.00;
 const serviceFeeVAT = serviceFeeNet * vatRate; // £0.60
-const serviceFeGross = serviceFeeNet + serviceFeeVAT; // £3.60
+const serviceFeGross = serviceFeeNet + serviceFeeVAT; // £10.80
 
 // Total care receiver charge (including VAT)
 const totalCareReceiverCharge = caregiverGross + serviceFeeGross; // £63.60
@@ -1141,7 +1141,7 @@ const platformVAT = platformRevenueGross - platformRevenueNet; // £2.40
 ```sql
 CREATE TABLE platform_settings (
   id UUID PRIMARY KEY,
-  care_receiver_service_fee_percentage DECIMAL(5, 2) DEFAULT 5.00,
+  care_receiver_service_fee_percentage DECIMAL(5, 2) DEFAULT 15.00,
   caregiver_commission_percentage DECIMAL(5, 2) DEFAULT 15.00,
   vat_registered BOOLEAN DEFAULT false,
   vat_rate DECIMAL(5, 2) DEFAULT 20.00,
@@ -1996,15 +1996,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 async function createBookingPayment(booking, careReceiver, caregiver) {
   // Calculate pricing
   const caregiverGross = booking.hourlyRate * booking.durationHours; // £60
-  const serviceFee = caregiverGross * 0.05; // £3
-  const totalCharge = caregiverGross + serviceFee; // £63
+  const serviceFee = caregiverGross * 0.15; // £9
+  const totalCharge = caregiverGross + serviceFee; // £69
   const commission = caregiverGross * 0.15; // £9
   const caregiverNet = caregiverGross - commission; // £51
-  const platformRevenue = serviceFee + commission; // £12
+  const platformRevenue = serviceFee + commission; // £18
 
   // Create PaymentIntent
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(totalCharge * 100), // £63.00 = 6300 pence
+    amount: Math.round(totalCharge * 100), // £69.00 = 6900 pence
     currency: 'gbp',
     customer: careReceiver.stripe_customer_id,
     payment_method: careReceiver.default_payment_method_id,

@@ -58,7 +58,7 @@ const STATE_VARIATIONS = {
         showAlertBanner: true,
         alertVariant: "success",
         alertMessage:
-            "${caregiver.name} has accepted your booking. Contact details are now available. Your booking is on ${booking.dateFormatted} at ${booking.timeFormatted}.",
+            "Contact details are now available. Your booking is ${booking.dateFormatted}, ${booking.timeFormatted}.",
         alertActions: [],
         showContactDetails: true,
         enableMessaging: true,
@@ -304,11 +304,11 @@ const SAMPLE_DATA = {
         hourlyRate: 18,
         duration: 4,
         subtotal: 72,
-        serviceFee: 3.6,
-        serviceFeePercentage: 5,
-        total: 75.6,
+        serviceFee: 10.8,
+        serviceFeePercentage: 15,
+        total: 82.8,
         paymentMethod: "Visa ending in 4242",
-        refundAmount: 75.6
+        refundAmount: 82.8
     },
     emergencyContact: {
         name: "David Harrison",
@@ -359,6 +359,36 @@ function resolveStateConfig(status) {
 
 function formatCurrency(value) {
     return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" }).format(Number(value || 0));
+}
+
+function formatLongDate(value) {
+    if (!value) { return ""; }
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) { return String(value); }
+    return new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).format(date);
+}
+
+function normalizeTimeRange(value) {
+    if (!value) { return ""; }
+    const normalized = String(value).replace(/\s*-\s*/g, "\u2013").replace(/\s+/g, " ").trim();
+    return normalized
+        .replace(" AM", "")
+        .replace(" PM", "")
+        .replace(" am", "")
+        .replace(" pm", "");
+}
+
+function formatDurationHours(duration) {
+    const match = String(duration || "").match(/(\d+(?:\.\d+)?)/);
+    if (!match) { return String(duration || ""); }
+    const n = Number(match[1]);
+    if (Number.isNaN(n)) { return String(duration || ""); }
+    return `${n} ${n === 1 ? "hour" : "hours"}`;
 }
 
 function computeCountdown(deadline) {
@@ -553,6 +583,27 @@ export default function CareRecipientMyAccountPage() {
     const { detail, state } = useLoaderData();
     const { booking, caregiver, payment, emergencyContact } = detail;
     const isCaregiverView = location.pathname.startsWith("/caregiver/");
+    const serviceTypes = Array.isArray(booking.serviceTypes) && booking.serviceTypes.length
+        ? booking.serviceTypes
+        : [booking.serviceType].filter(Boolean);
+    const glanceDate = (() => {
+        const date = new Date(booking.date || "");
+        if (Number.isNaN(date.getTime())) { return booking.dateFormatted || booking.date || ""; }
+        return new Intl.DateTimeFormat("en-GB", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+        }).format(date);
+    })();
+    const glanceTime = normalizeTimeRange(booking.timeFormatted || booking.time);
+    const glanceDuration = formatDurationHours(booking.duration);
+    const glanceService = serviceTypes[0] || "Companionship";
+    const normalizedAlertRole = state.alertVariant === "warning" || state.alertVariant === "error" ? "alert" : "status";
+    const hasHeldPayment = String(state.paymentTag || "").toLowerCase().includes("held");
+    const alertBody = (booking.status === "accepted" || booking.status === "confirmed")
+        ? `Contact details are now available. Your booking is ${glanceDate}, ${glanceTime}.`
+        : state.alertMessage;
 
     return (
         <main className="booking-detail-page">
@@ -582,7 +633,12 @@ export default function CareRecipientMyAccountPage() {
                 </nav>
 
                 <section className="booking-title-row">
-                    <h1>Booking with {caregiver.name}</h1>
+                    <div className="booking-title-main">
+                        <h1>Booking with {caregiver.name}</h1>
+                        <p className="booking-at-a-glance">
+                            {glanceDate} · {glanceTime} · {glanceDuration} · {glanceService}
+                        </p>
+                    </div>
                     <div className="booking-title-meta">
                         <span className={`booking-status booking-status--${state.statusVariant || "pending"}`}>
                             {booking.statusLabel || STATUS_LABELS[booking.status] || "Status"}
@@ -592,8 +648,14 @@ export default function CareRecipientMyAccountPage() {
                 </section>
 
                 {state.showAlertBanner ? (
-                    <section className={`booking-alert booking-alert--${state.alertVariant || "info"}`} role="alert" aria-live="polite">
-                        <p>{state.alertMessage}</p>
+                    <section className={`booking-alert booking-alert--${state.alertVariant || "info"}`} role={normalizedAlertRole} aria-live="polite">
+                        <h3 className="booking-alert-title">
+                            {(booking.status === "accepted" || booking.status === "confirmed") ? "Booking confirmed" : "Booking update"}
+                        </h3>
+                        <p>{alertBody}</p>
+                        {(booking.status === "accepted" || booking.status === "confirmed") ? (
+                            <p className="booking-alert-helper">Please keep arrangements in ICare where possible.</p>
+                        ) : null}
                         {state.alertActions?.length ? (
                             <div className="booking-alert-actions">
                                 {state.alertActions.map((action) => (
@@ -627,9 +689,15 @@ export default function CareRecipientMyAccountPage() {
                                     </div>
                                     {state.showContactDetails ? (
                                         <div className="booking-contact">
-                                            <p>Contact Details</p>
-                                            <p>📞 {caregiver.phone}</p>
-                                            {caregiver.email ? <p>✉️ {caregiver.email}</p> : null}
+                                            <p className="booking-contact-title">Contact details</p>
+                                            <p><span className="booking-contact-label">Phone</span><span>📞 {caregiver.phone}</span></p>
+                                            {caregiver.email ? (
+                                                <p>
+                                                    <span className="booking-contact-label">Email</span>
+                                                    <span className="booking-contact-email">✉️ {caregiver.email}</span>
+                                                </p>
+                                            ) : null}
+                                            <p className="booking-contact-helper">These details are shared after booking confirmation.</p>
                                         </div>
                                     ) : (
                                         <p className="booking-contact-hidden">
@@ -639,16 +707,9 @@ export default function CareRecipientMyAccountPage() {
                                 </div>
                             </div>
                             <div className="booking-inline-actions">
-                                {state.enableMessaging ? (
-                                    <ActionControl
-                                        action={resolveViewerAction(`navigate:/carereceiver/messages/${booking.id}`, isCaregiverView, booking.id)}
-                                        label="Message Caregiver"
-                                        variant="secondary"
-                                    />
-                                ) : null}
                                 <ActionControl
                                     action={resolveViewerAction(`navigate:/carereceiver/caregivers/${caregiver.id}`, isCaregiverView, booking.id)}
-                                    label="View Full Profile"
+                                    label="View full profile"
                                     variant="text-link"
                                 />
                             </div>
@@ -658,11 +719,15 @@ export default function CareRecipientMyAccountPage() {
                             <h2>Booking Details</h2>
                             <dl className="booking-detail-list">
                                 <dt>Reference</dt><dd>{booking.ref}</dd>
-                                <dt>Date</dt><dd>{booking.dateFormatted || booking.date}</dd>
-                                <dt>Time</dt><dd>{booking.timeFormatted || booking.time}</dd>
-                                <dt>Duration</dt><dd>{booking.duration}</dd>
-                                <dt>Service</dt><dd>{Array.isArray(booking.serviceTypes) ? booking.serviceTypes.join(", ") : booking.serviceType}</dd>
-                                <dt>Address</dt><dd>{booking.address}</dd>
+                                <dt>Date</dt><dd>{formatLongDate(booking.date || booking.dateFormatted)}</dd>
+                                <dt>Time</dt><dd>{normalizeTimeRange(booking.timeFormatted || booking.time)} ({formatDurationHours(booking.duration)})</dd>
+                                <dt>Service</dt>
+                                <dd className="booking-service-chips">
+                                    {serviceTypes.map((service) => (
+                                        <span key={service} className="booking-service-chip">{service}</span>
+                                    ))}
+                                </dd>
+                                <dt>Address</dt><dd className="booking-address-value">{booking.address}</dd>
                             </dl>
                         </article>
 
@@ -686,13 +751,17 @@ export default function CareRecipientMyAccountPage() {
                         <article className="booking-card">
                             <div className="booking-payment-head">
                                 <h2>Payment</h2>
-                                <span className="booking-payment-tag">{state.paymentTag}</span>
+                                <span className="booking-payment-tag" title={hasHeldPayment ? "Held until the booking is completed." : undefined}>{state.paymentTag}</span>
                             </div>
+                            {hasHeldPayment ? <p className="booking-payment-helper">Held until the booking is completed.</p> : null}
                             <dl className="booking-payment-list">
-                                <dt>Hourly rate</dt><dd>{formatCurrency(payment.hourlyRate)}</dd>
-                                <dt>Duration</dt><dd>{payment.duration} hours</dd>
+                                <dt>Rate &amp; duration</dt><dd>{formatCurrency(payment.hourlyRate)} × {payment.duration}h</dd>
                                 <dt>Subtotal</dt><dd>{formatCurrency(payment.subtotal)}</dd>
-                                <dt>Service fee</dt><dd>{formatCurrency(payment.serviceFee)}</dd>
+                                <dt>Service fee</dt>
+                                <dd>
+                                    {formatCurrency(payment.serviceFee)}
+                                    <small className="booking-inline-note">Platform fee</small>
+                                </dd>
                                 <dt className="total">Total</dt><dd className="total">{formatCurrency(payment.total)}</dd>
                             </dl>
                         </article>
@@ -713,12 +782,28 @@ export default function CareRecipientMyAccountPage() {
                             <div className="booking-sidebar-actions">
                                 {(state.stateActions || []).length ? (
                                     state.stateActions.map((action) => (
+                                        <div key={`${action.label}-${action.action}`} className="booking-sidebar-action-wrap">
                                         <ActionControl
-                                            key={`${action.label}-${action.action}`}
                                             action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
-                                            variant={action.variant}
-                                            label={action.label}
+                                            variant={
+                                                String(action.label).toLowerCase().includes("cancel")
+                                                    ? "destructive-outlined"
+                                                    : String(action.label).toLowerCase().includes("message")
+                                                        ? "primary"
+                                                        : action.variant
+                                            }
+                                            label={
+                                                action.label === "Message Caregiver"
+                                                    ? "Message caregiver"
+                                                    : action.label === "Cancel Booking"
+                                                        ? "Cancel booking"
+                                                        : action.label
+                                            }
                                         />
+                                        {String(action.label).toLowerCase().includes("cancel") ? (
+                                            <p className="booking-action-helper">You can request a cancellation.</p>
+                                        ) : null}
+                                        </div>
                                     ))
                                 ) : (
                                     <p className="booking-muted">No available actions for this status.</p>

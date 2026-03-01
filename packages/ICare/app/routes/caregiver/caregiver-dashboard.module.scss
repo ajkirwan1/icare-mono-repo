@@ -43,6 +43,10 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  justify-content: space-between;
+  position: sticky;
+  top: 12px;
+  z-index: 2;
 }
 
 .alertIcon {
@@ -58,6 +62,10 @@
   flex: 0 0 auto;
 }
 
+.alertContent {
+  flex: 1 1 auto;
+}
+
 .alertTitle {
   margin: 0;
   color: #000000;
@@ -71,6 +79,30 @@
   font-size: 13px;
 }
 
+.bannerCta {
+  border: 1px solid #647739;
+  border-radius: 999px;
+  background: #778d43;
+  color: #fff;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    background: #647739;
+    box-shadow: 0 2px 10px rgba(100, 119, 57, 0.24);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(119, 141, 67, 0.55);
+    outline-offset: 2px;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
@@ -81,6 +113,10 @@
 .rightColumn {
   display: grid;
   gap: clamp(16px, 2.2vw, 24px);
+}
+
+.rightColumn .card {
+  border-right: 1px solid rgba(137, 102, 78, 0.24);
 }
 
 .card {
@@ -98,6 +134,15 @@
     color: #000000;
     line-height: 1.25;
   }
+}
+
+.pendingCard {
+  border-left: 4px solid #778d43;
+  background: #f9f5ed;
+}
+
+.upcomingCard {
+  background: #fcfaf7;
 }
 
 .flatCard {
@@ -165,6 +210,15 @@
   }
 }
 
+.bookingItemPending {
+  border-left: 3px solid rgba(119, 141, 67, 0.7);
+  background: #faf6ef;
+}
+
+.bookingItemUpcoming {
+  background: #fdfbf8;
+}
+
 .avatar {
   width: 36px;
   height: 36px;
@@ -205,15 +259,30 @@
 }
 
 .requested {
-  background: #f2e3d3;
-  color: #000000;
+  background: #efe6d7;
+  color: #4b3a1f;
+  font-weight: 700;
 }
 
 .confirmed {
-  background: #efe6dc;
-  color: #000000;
-  border: 1px solid rgba(212, 138, 83, 0.26);
-  font-weight: 700;
+  background: #f3ece3;
+  color: #5d4734;
+  border: 1px solid rgba(212, 138, 83, 0.16);
+  font-weight: 600;
+}
+
+.statusHint {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.35;
+}
+
+.todayAtGlance {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.4;
 }
 
 .earningsGrid {
@@ -240,6 +309,13 @@
   margin: 6px 0 0;
   color: #000000;
   font-size: 12px;
+}
+
+.earningsHelper {
+  margin: 6px 0 0;
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .progressTrack {
@@ -293,19 +369,19 @@
   flex-wrap: wrap;
 
   span {
-    padding: 9px 14px;
+    padding: 7px 12px;
     border-radius: 999px;
-    background: cg.$surface;
-    border: 1px solid rgba(212, 138, 83, 0.3);
+    background: #f6f1eb;
+    border: 1px solid rgba(212, 138, 83, 0.22);
     color: #000000;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
+    font-weight: 500;
   }
 }
 
 .verificationNote {
   margin: 12px 0 0;
-  font-size: 12px;
+  font-size: 13px;
   color: #000000;
   font-weight: 500;
   line-height: 1.35;
@@ -321,6 +397,33 @@
   span {
     color: #000000;
     font-size: 14px;
+  }
+}
+
+.toggleLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.helpButton {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 138, 83, 0.34);
+  background: #fffaf3;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+
+  &:focus-visible {
+    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline-offset: 2px;
   }
 }
 
@@ -383,7 +486,7 @@
   padding: 0 20px;
   font-size: 14px;
   font-weight: 700;
-  text-transform: lowercase;
+  text-transform: none;
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -405,6 +508,38 @@
   }
 }
 
+.quickActionPrimary {
+  background: #778d43;
+  color: #fff;
+  border-color: #647739;
+
+  &:hover {
+    background: #647739;
+  }
+}
+
+.sectionEnter {
+  animation: sectionEnter 240ms ease-out both;
+}
+
+@keyframes sectionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionEnter {
+    animation: none;
+  }
+}
+
 @media (max-width: 960px) {
   .page {
     padding: 14px;
@@ -417,6 +552,12 @@
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .alertBanner {
+    top: 8px;
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 
   .earningsGrid {

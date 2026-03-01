@@ -601,12 +601,12 @@ From the marketplace specification, these axioms define the platform:
 5. **Payout Processed**: Funds appear in caregiver bank (2-3 business days)
 
 ### 7.3 Platform Fee Structure
-- Care receiver service fee: 5% (added to booking total)
+- Care receiver service fee: 15% (added to booking total)
 - Caregiver commission: 10-15% (deducted from payout)
 - Example: £20/hour × 3 hours = £60 caregiver rate
-  - Care receiver pays: £60 + £3 (5%) = £63
+  - Care receiver pays: £60 + £9 (15%) = £69
   - Caregiver receives: £60 - £9 (15%) = £51
-  - Platform revenue: £3 + £9 = £12
+  - Platform revenue: £9 + £9 = £18
 - Transparent fee breakdown at checkout and in earnings dashboard
 - Fee structure configurable per user type or booking type
 

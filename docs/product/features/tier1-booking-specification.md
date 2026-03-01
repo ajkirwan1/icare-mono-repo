@@ -64,7 +64,7 @@ The Tier 1 booking system enables care receivers and their families to request, 
 **Business Model:**
 - Platform operates as Introduction Agency (NOT CQC-registered care provider)
 - Caregivers are self-employed independent professionals
-- Platform takes commission on bookings (e.g., 15% from caregiver + 5% service fee from care receiver)
+- Platform takes commission on bookings (e.g., 15% from caregiver + 15% service fee from care receiver)
 - Escrow payment model (funds held until service completion)
 
 ### 1.4 Terminology Standards
@@ -223,7 +223,7 @@ The following terminology is canonical across all Tier 1 documentation:
 - Personal care options must be disabled with tooltip: "Available from Tier 2 onwards"
 
 **REQ-BR-003: Pricing Transparency**
-- System must display breakdown: (Hourly rate × Duration) + Platform service fee (e.g., 5%)
+- System must display breakdown: (Hourly rate × Duration) + Platform service fee (e.g., 15%)
 - Total amount shown before payment authorization
 - Cancellation policy link displayed prominently before submission
 - No hidden fees or charges
@@ -608,12 +608,12 @@ Reference: `/docs/tiers/common/spec/state-maps.md` - Section 2: Booking Flow
 - Not released to caregiver until service confirmed
 
 **BR-PAY-003: Platform Fee Structure (Example - Configurable)**
-- Care receiver service fee: 5% of booking total (added to total)
+- Care receiver service fee: 15% of booking total (added to total)
 - Caregiver commission: 15% of booking total (deducted from payout)
 - Example: £20/hour × 3 hours = £60 caregiver rate
-  - Care receiver pays: £60 + £3 (5%) = £63
+  - Care receiver pays: £60 + £9 (15%) = £69
   - Caregiver receives: £60 - £9 (15%) = £51
-  - Platform revenue: £3 + £9 = £12
+  - Platform revenue: £9 + £9 = £18
 
 **BR-PAY-004: Payment Release Window**
 - Payment held in escrow until:
@@ -1363,7 +1363,7 @@ The following business rules are configurable via admin settings (not hardcoded)
 | Maximum booking duration (Tier 1) | 8 hours | 6-12 hours |
 | Caregiver response window | 24 hours | 12-48 hours |
 | Care receiver confirmation window | 48 hours | 24-72 hours |
-| Platform service fee (care receiver) | 5% | 0-10% |
+| Platform service fee (care receiver) | 15% | 0-20% |
 | Platform commission (caregiver) | 15% | 10-20% |
 | Cancellation refund (48h+) | 100% | 75-100% |
 | Cancellation refund (24-48h) | 50% | 25-75% |

@@ -253,7 +253,7 @@ The Booking Detail screen displays comprehensive information about a booking and
     - Line item: "Service: Companionship (4 hours)"
     - Line item: "Rate: £18.00/hour"
     - Line item: "Subtotal: £72.00"
-    - Line item: "Platform service fee (5%): £3.60"
+    - Line item: "Platform service fee (15%): £10.80"
     - Divider
     - **Total** (bold): "Total: £75.60"
   - **Payment Status** (state-dependent):
@@ -516,7 +516,7 @@ Secondary Actions:
 |  |  Service: Companionship (4h)      |  |                                |   |
 |  |  Rate: £18.00/hour                |  |  Special Requests              |   |
 |  |  Subtotal: £72.00                 |  |  "I'd like to go for a walk    |   |
-|  |  Platform service fee (5%): £3.60 |  |  if the weather is nice."      |   |
+|  |  Platform service fee (15%): £10.80 |  |  if the weather is nice."      |   |
 |  |  ──────────────────────────────   |  |                                |   |
 |  |  Total: £75.60                    |  |  Emergency Contact             |   |
 |  |                                   |  |  Jane Smith (Daughter)         |   |
@@ -576,7 +576,7 @@ Secondary Actions:
 |  |  Service: Companionship (4h)      |  |  Emergency Contact             |   |
 |  |  Rate: £18.00/hour                |  |  Jane Smith (Daughter)         |   |
 |  |  Subtotal: £72.00                 |  |  07700 900123                  |   |
-|  |  Platform service fee (5%): £3.60 |  |                                |   |
+|  |  Platform service fee (15%): £10.80 |  |                                |   |
 |  |  ──────────────────────────────   |  +--------------------------------+   |
 |  |  Total: £75.60                    |                                       |
 |  |                                   |                                       |
@@ -948,7 +948,7 @@ Secondary Actions:
 |  |  Companionship (4h)            |  |
 |  |  Rate: £18/hour                |  |
 |  |  Subtotal: £72.00              |  |
-|  |  Service fee (5%): £3.60       |  |
+|  |  service fee (15%): £10.80       |  |
 |  |  ──────────────────            |  |
 |  |  Total: £75.60                 |  |
 |  |                                |  |

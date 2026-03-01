@@ -28,7 +28,7 @@
 iCare is a UK elderly companionship marketplace operating as an **Introduction Agency** (not a CQC-registered care provider). The platform connects elderly care receivers (65+) and their family members with self-employed caregivers who provide non-regulated companionship services.
 
 **Business Model**: Two-sided marketplace with escrow-based payment.
-- Care receivers pay hourly rate + 5% service fee
+- Care receivers pay hourly rate + 15% service fee
 - Caregivers receive hourly rate minus 15% platform commission
 - Platform revenue = service fee + commission (20% of booking value)
 - Commission rates are placeholders pending FDR-008 decision
@@ -812,7 +812,7 @@ This is primarily a **read model** optimized for search queries. It is not a tra
 - `ReviewedBy`, `ReviewNotes`
 
 **PlatformSettings** (Entity, singleton):
-- `CareReceiverServiceFeePercentage` (default 5.0)
+- `CareReceiverServiceFeePercentage` (default 15.0)
 - `CaregiverCommissionPercentage` (default 15.0)
 - `VatRegistered` (boolean, default false)
 - `VatRate` (default 20.0)
@@ -1450,7 +1450,7 @@ builder.OwnsOne(u => u.Email, email =>
 
 #### Risk 3: Commission Rate Placeholder (FDR-008)
 
-**Risk**: The 15% caregiver commission + 5% service fee are PLACEHOLDER values. FDR-008 (pricing decision) is PENDING from the founder. Two different placeholder values exist in the system (10% in website content, 15%+5% in feature specs).
+**Risk**: The 15% caregiver commission + 15% service fee are PLACEHOLDER values. FDR-008 (pricing decision) is PENDING from the founder. Two different placeholder values exist in the system (10% in website content, 15%+15% in feature specs).
 
 **Mitigation**:
 - Commission rates stored in `PlatformSettings` (configurable, not hardcoded)
@@ -1532,7 +1532,7 @@ builder.OwnsOne(u => u.Email, email =>
 
 | ID | Description | Impact on DDD |
 |----|-------------|---------------|
-| FDR-008 | Commission rate placeholder (10% website vs 15%+5% specs) | Commission must be configurable in PlatformSettings, not hardcoded in domain |
+| FDR-008 | Commission rate placeholder (10% website vs 15%+15% specs) | Commission must be configurable in PlatformSettings, not hardcoded in domain |
 | Schema vs Spec | Booking table has `booking_status` ENUM but spec defines 14 states; verify exact values match | Smart enum in domain must exactly match database ENUM |
 | Admin roles | Admin spec defines 4 roles; database has `admin_role` ENUM; verify alignment | AdminRole enum in domain must match database |
 | Message Inbox R0/R1 | Message Inbox was R1 but gap analysis elevated related list screens to R0 | Does not affect domain model; UI concern only |

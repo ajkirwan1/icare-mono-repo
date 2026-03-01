@@ -23,7 +23,7 @@ const SAMPLE_DATA = {
     },
     pricing: {
         hourlyRate: 18,
-        serviceFeePercent: 5
+        serviceFeePercent: 15
     },
     availableDates: [
         "2026-03-15",
@@ -239,7 +239,7 @@ export async function action({ request, params }) {
     const duration = Number(values.durationHours);
     const hourlyRate = SAMPLE_DATA.pricing.hourlyRate;
     const subtotal = Number((hourlyRate * duration).toFixed(2));
-    const serviceFee = Number((subtotal * 0.05).toFixed(2));
+    const serviceFee = Number((subtotal * 0.15).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
     const payload = {
@@ -389,7 +389,7 @@ export default function BookingRequestFormPage() {
 
     const hourlyRate = Number(pricing?.hourlyRate || 18);
     const subtotal = Number((hourlyRate * Number(durationHours || 0)).toFixed(2));
-    const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 5) / 100)).toFixed(2));
+    const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 15) / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
     const sendDisabled = paymentMethodCount === 0 || isSubmitting;
@@ -613,7 +613,7 @@ export default function BookingRequestFormPage() {
                                     <dt>Hourly rate</dt><dd>{toCurrency(hourlyRate)}</dd>
                                     <dt>Duration</dt><dd>{durationHours} hours</dd>
                                     <dt>Subtotal</dt><dd>{toCurrency(subtotal)}</dd>
-                                    <dt>Service fee (5%)</dt><dd>{toCurrency(serviceFee)}</dd>
+                                    <dt>Service fee (15%)</dt><dd>{toCurrency(serviceFee)}</dd>
                                     <dt className="total">Total</dt><dd className="total">{toCurrency(total)}</dd>
                                 </dl>
                                 <p className="booking-form-help booking-form-help--top">
