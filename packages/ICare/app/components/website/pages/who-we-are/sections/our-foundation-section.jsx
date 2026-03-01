@@ -8,51 +8,65 @@ export function OurFoundationSection() {
                 aria-label="Our foundation and mission"
                 className={styles.grid}
             >
-                {/* LEFT — OUR FOUNDATION */}
                 <div className={styles.colLeft}>
                     <div className={styles.colInner}>
-                        <h2 className={styles.heading}>Our foundation</h2>
-
+                        <h2 className={styles.heading}>The people behind ICare</h2>
+                        <p className={styles.descriptor}>FOUNDERS</p>
                         <p className={styles.paragraph}>
-                            Care often begins with a simple intention - helping someone stay safe and comfortable at home.
+                            ICare didn't start with a business plan.
+                            <br />
+                            It started with noticing how often care becomes
+                            complicated, rushed, or impersonal - at the very moment when people need calm and
+                            understanding the most.
                         </p>
-
                         <p className={styles.paragraph}>
-                            In practice, families quickly face uncertainty: how to find the right person, how to organise support, and how to know what's really happening day to day.
+                            We've spent time close to care.
+                            <br />
+                            Listening to families trying to do the right thing.
+                            Speaking with caregivers who care deeply about their work, and who often carry more than
+                            people realise. Kasia has worked as a caregiver herself, and that experience
+                            quietly shaped how we see trust, responsibility, and dignity.
                         </p>
-
-                        <p className={styles.paragraphContinued}>
-                            ICare was shaped by first-hand experience of live-in care.
-                            We saw how difficult it can be to balance trust, responsibility and everyday life — both for families and for caregivers.
+                        <p className={styles.paragraph}>
+                            Over time, those conversations began to connect. ICare grew slowly, from real moments and
+                            real needs - not from an idea of how care should look, but from how it actually feels.
                         </p>
-
-                        <p className={styles.paragraphContinued}>
-                            That experience led us to build ICare: a platform that brings structure and clarity to care arrangements, while keeping relationships direct and respectful.
-                            Caregivers remain independent. Families gain confidence. Expectations stay clear from the start.
+                        <p className={styles.paragraph}>
+                            What matters to us is simple.
+                            <br />
+                            Care should feel human. Clear. Grounded in trust.
+                        </p>
+                        <p className={styles.paragraph}>
+                            That's where ICare begins.
                         </p>
                     </div>
                 </div>
 
-                {/* RIGHT — OUR MISSION */}
                 <div className={styles.colRight}>
                     <div className={styles.colInner}>
-                        <h2 className={styles.headingMission}>Our mission</h2>
+                        <div className={styles.foundersStack}>
+                            <div className={styles.founderRow}>
+                                <div className={styles.founderImageWrap}>
+                                    <img
+                                        src="/images/kasia2.png"
+                                        alt="Kasia Kruk-Kirwan — Founder of ICare"
+                                        className={`${styles.founderImage} ${styles.founderImageKasia}`}
+                                    />
+                                </div>
+                                <p className={styles.founderName}>Kasia Kruk-Kirwan</p>
+                            </div>
 
-                        <p className={styles.paragraphSpaced}>
-                            We help older adults live with dignity, connection and everyday companionship.
-                        </p>
-                        <p className={styles.paragraphSpaced}>
-                            Across the UK, too many people experience loneliness, while families struggle to find support they can truly trust.
-                        </p>
-                        <p className={styles.paragraphSpaced}>
-                            ICare exists to make finding companionship calmer, clearer and more human - while valuing the caregivers who bring warmth and presence into people's lives.
-                        </p>
-
-                        <p className={styles.paragraph}>
-                            Our focus is simple: reduce unnecessary stress, make arrangements clearer, and support care that feels respectful and well-organised from the start.
-                            <br />
-                            By keeping communication direct, information secure and costs transparent, we help care begin on steady, confident terms.
-                        </p>
+                            <div className={styles.founderRow}>
+                                <div className={styles.founderImageWrap}>
+                                <img
+                                    src="/images/mx.jpeg"
+                                    alt="Maximilian Herbst — Founder of ICare"
+                                    className={styles.founderImage}
+                                />
+                            </div>
+                                <p className={styles.founderName}>Maximilian Herbst</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
