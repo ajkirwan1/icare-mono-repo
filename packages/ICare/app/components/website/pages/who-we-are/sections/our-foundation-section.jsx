@@ -12,6 +12,31 @@ export function OurFoundationSection() {
                     <div className={styles.colInner}>
                         <h2 className={styles.heading}>The people behind ICare</h2>
                         <p className={styles.descriptor}>FOUNDERS</p>
+                        <div className={styles.mobileFounders}>
+                            <div className={styles.foundersStack}>
+                                <div className={styles.founderRow}>
+                                    <div className={styles.founderImageWrap}>
+                                        <img
+                                            src="/images/kasia2.png"
+                                            alt="Kasia Kruk-Kirwan — Founder of ICare"
+                                            className={`${styles.founderImage} ${styles.founderImageKasia}`}
+                                        />
+                                    </div>
+                                    <p className={styles.founderName}>Kasia Kruk-Kirwan</p>
+                                </div>
+
+                                <div className={styles.founderRow}>
+                                    <div className={styles.founderImageWrap}>
+                                        <img
+                                            src="/images/mx.jpeg"
+                                            alt="Maximilian Herbst — Founder of ICare"
+                                            className={styles.founderImage}
+                                        />
+                                    </div>
+                                    <p className={styles.founderName}>Maximilian Herbst</p>
+                                </div>
+                            </div>
+                        </div>
                         <p className={styles.paragraph}>
                             ICare didn't start with a business plan.
                             <br />
@@ -44,7 +69,8 @@ export function OurFoundationSection() {
 
                 <div className={styles.colRight}>
                     <div className={styles.colInner}>
-                        <div className={styles.foundersStack}>
+                        <div className={styles.desktopFounders}>
+                            <div className={styles.foundersStack}>
                             <div className={styles.founderRow}>
                                 <div className={styles.founderImageWrap}>
                                     <img
@@ -66,6 +92,7 @@ export function OurFoundationSection() {
                             </div>
                                 <p className={styles.founderName}>Maximilian Herbst</p>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

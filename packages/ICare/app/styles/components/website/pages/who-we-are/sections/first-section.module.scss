@@ -64,6 +64,14 @@ strong {
     margin-top: 0.2rem;
 }
 
+.mobileFounders {
+    display: none;
+}
+
+.desktopFounders {
+    display: block;
+}
+
 .founderRow {
     display: grid;
     grid-template-columns: 273px 1fr;
@@ -165,6 +173,10 @@ strong {
         padding: 2rem 1.5rem;
     }
 
+    .colRight {
+        display: none;
+    }
+
     .colInner {
         max-width: 100%;
     }
@@ -178,6 +190,15 @@ strong {
         grid-template-columns: 1fr;
         justify-items: center;
         text-align: center;
+    }
+
+    .mobileFounders {
+        display: block;
+        margin-bottom: 50px;
+    }
+
+    .desktopFounders {
+        display: none;
     }
 
     .buildingInner {
