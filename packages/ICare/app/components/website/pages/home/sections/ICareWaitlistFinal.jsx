@@ -71,7 +71,7 @@ export default function ICareEarlyAccessHomeSection() {
         gap: "clamp(16px, 2.4vw, 24px)",
         alignItems: "start",
         gridTemplateColumns: "1fr"
-    }
+    };
 
     const header = {
         maxWidth: "72ch",
@@ -98,8 +98,15 @@ export default function ICareEarlyAccessHomeSection() {
     };
 
     const microCSS = `
+    @media (min-width: 921px){
+      .icare-wl-layout{ grid-template-columns: 1fr 1fr !important; }
+      .icare-wl-form{ order: 1; }
+      .icare-wl-image{ order: 2; }
+    }
     @media (max-width: 920px){
       .icare-wl-layout{ grid-template-columns: 1fr !important; }
+      .icare-wl-image{ order: 1; }
+      .icare-wl-form{ order: 2; }
     }
     .icare-est-input:focus{
       border-color: rgba(185,122,87,0.55) !important;
@@ -162,17 +169,13 @@ export default function ICareEarlyAccessHomeSection() {
             </div>
 
             <div style={container}>
-                <img style={estimatorImg} src="/images/web/homepage/icare-join-the-waiting-list.webp" alt="Join the waiting list" />
-            </div>
-
-            <div style={container}>
                 <div className="icare-wl-layout" style={icareLayout}>
-                    {/* LEFT */}
-                    <div style={card}>
+                    <img className="icare-wl-image" style={estimatorImg} src="/images/web/homepage/icare-join-the-waiting-list.webp" alt="Join the waiting list" />
+
+                    <div className="icare-wl-form" style={card}>
                         <WaitinglistForm />
                     </div>
                 </div>
-
             </div>
         </section>
     );
