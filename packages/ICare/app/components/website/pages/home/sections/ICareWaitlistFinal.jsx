@@ -54,8 +54,9 @@ export default function ICareEarlyAccessHomeSection() {
     const estimatorImg = {
         borderRadius: 24,
         width: "100%",
-        height: "auto",
-        display: "block"
+        height: "100%",
+        display: "block",
+        objectFit: "cover"
     };
 
     const container = {
@@ -69,7 +70,7 @@ export default function ICareEarlyAccessHomeSection() {
     const icareLayout = {
         display: "grid",
         gap: "clamp(16px, 2.4vw, 24px)",
-        alignItems: "start",
+        alignItems: "stretch",
         gridTemplateColumns: "1fr"
     };
 
@@ -102,10 +103,13 @@ export default function ICareEarlyAccessHomeSection() {
       .icare-wl-layout{ grid-template-columns: 1fr 1fr !important; }
       .icare-wl-form{ order: 1; }
       .icare-wl-image{ order: 2; }
+      .icare-wl-form{ height: 100% !important; }
+      .icare-wl-image{ height: 100% !important; }
     }
     @media (max-width: 920px){
       .icare-wl-layout{ grid-template-columns: 1fr !important; }
       .icare-wl-image{ order: 1; }
+      .icare-wl-image{ height: auto !important; object-fit: contain !important; }
       .icare-wl-form{ order: 2; }
     }
     .icare-est-input:focus{

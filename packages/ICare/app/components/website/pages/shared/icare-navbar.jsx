@@ -15,6 +15,9 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
     if (!mounted) { return; }
     const body = document.body;
     const html = document.documentElement;
+    const isIOS =
+      /iPad|iPhone|iPod/.test(window.navigator.userAgent) ||
+      (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
 
     const clearFixedLock = () => {
       const saved = body.dataset.icareScrollY;
@@ -34,7 +37,7 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
     body.classList.toggle("icare-mobile-open", open);
     html.classList.toggle("icare-mobile-open", open);
 
-    if (open) {
+    if (open && isIOS) {
       const scrollY = window.scrollY || window.pageYOffset || 0;
       body.dataset.icareScrollY = String(scrollY);
       body.style.position = "fixed";
