@@ -67,12 +67,12 @@ export default function Home() {
       <main>
         <AboutICareSection />
         <CareTimeline />
+        <ICareEarlyAccessHomeSection />
         <TrustValuesSection />
         <HomePageCareCTA />
         <IcareSafetyBlock />
         <ICareCostEstimator />
         <ICareTypesOfCareSEO />
-        <ICareEarlyAccessHomeSection />
       </main>
       <ICareFooter />
     </>
