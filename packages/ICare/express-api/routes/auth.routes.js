@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import { Router } from "express";
 import { z } from "zod";
 import { pool } from "../db/db.js";
+import { sendPasswordResetEmail } from "../services/emails/auth.js";
 
 const router = Router();
 const LOGIN_MAX_ATTEMPTS = 5;
@@ -73,6 +74,10 @@ function hashSha256(value) {
 
 function issueToken(bytes = 32) {
     return crypto.randomBytes(bytes).toString("hex");
+}
+
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
 }
 
 async function verifyPassword(plainPassword, passwordHash) {
@@ -423,6 +428,14 @@ router.post("/forgot-password", async (req, res) => {
             `,
             [user.id, tokenHash, RESET_TOKEN_EXPIRY_MINUTES, req.ip || null]
         );
+
+        try {
+            if (isValidEmail(payload.email)) {
+                await sendPasswordResetEmail(payload.email.toLowerCase(), resetToken);
+            }
+        } catch (emailError) {
+            console.error("[auth] forgot-password email failed:", emailError);
+        }
 
         if (process.env.NODE_ENV !== "production") {
             return res.status(200).json({

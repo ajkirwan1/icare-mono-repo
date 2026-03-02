@@ -1,8 +1,18 @@
 import { Router } from "express";
 import { pool } from "../db/db.js";
+import {
+    sendBookingRequestConfirmationEmail,
+    sendBookingRequestNotificationEmail,
+    sendBookingCancellationConfirmationEmail,
+    sendBookingCancellationNotificationEmail
+} from "../services/emails/bookings.js";
 
 const router = Router();
 const ALLOWED_SORTS = new Set(["startTime_asc", "completedAt_desc"]);
+const ALLOWED_REVIEW_SORTS = new Set(["newest", "highest"]);
+const ACCEPTED_BOOKING_STATUSES = ["accepted", "in_progress", "completed", "payment_released", "reviewed"];
+const MIN_REQUESTS_FOR_RESPONSE_METRICS = 5;
+const MIN_ACCEPTED_FOR_RESPONSE_METRICS = 3;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const DETAIL_STATUS_LABELS = {
     requested: "Requested",
@@ -19,6 +29,12 @@ const DETAIL_STATUS_LABELS = {
     cancelled: "Cancelled"
 };
 const CANCELLATION_REASONS = new Set(["schedule_change", "no_longer_needed", "emergency", "other"]);
+const CANCELLATION_REASON_LABELS = {
+    schedule_change: "Schedule change",
+    no_longer_needed: "No longer needed",
+    emergency: "Emergency",
+    other: "Other"
+};
 const CAREGIVER_DIRECTORY = {
     "cg-001": {
         id: "cg-001",
@@ -85,6 +101,17 @@ const CAREGIVER_DIRECTORY = {
         rating: 4.9,
         reviewCount: 31,
         verificationBadges: ["Identity Verified", "DBS Verified"]
+    },
+    "cg-007": {
+        id: "cg-007",
+        name: "Margaret Shaw",
+        photoUrl: "/images/avatars/female.webp",
+        phone: "07700 900985",
+        email: "maxherbst1985@gmail.com",
+        hourlyRate: 19,
+        rating: 4.9,
+        reviewCount: 16,
+        verificationBadges: ["Identity Verified", "DBS Verified", "Right to Work Verified"]
     },
     "cg-emma-wilson": {
         id: "cg-emma-wilson",
@@ -240,14 +267,16 @@ function formatDateLong(isoDate) {
         weekday: "long",
         year: "numeric",
         month: "long",
-        day: "numeric"
+        day: "numeric",
+        timeZone: "UTC"
     }).format(parsed);
 }
 
 function formatTime12(date) {
     return new Intl.DateTimeFormat("en-GB", {
         hour: "numeric",
-        minute: "2-digit"
+        minute: "2-digit",
+        timeZone: "UTC"
     }).format(date);
 }
 
@@ -350,6 +379,67 @@ function roundMoney(value) {
     return Math.round(numeric * 100) / 100;
 }
 
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function isValidEmergencyPhone(value) {
+    const normalized = String(value || "").replace(/[^\d+]/g, "");
+    return /^\+[1-9]\d{7,14}$/.test(normalized) || /^0\d{9,10}$/.test(normalized);
+}
+
+async function getCaregiverResponseMetrics(caregiverId) {
+    const normalizedId = String(caregiverId || "").trim();
+    if (!normalizedId) {
+        return null;
+    }
+
+    const metricsQuery = await pool.query(
+        `
+        SELECT
+          COUNT(*) FILTER (WHERE requested_at IS NOT NULL) AS total_requests_received,
+          COUNT(*) FILTER (
+            WHERE requested_at IS NOT NULL
+              AND (status = ANY($2::text[]) OR accepted_at IS NOT NULL)
+          ) AS accepted_requests,
+          AVG(
+            EXTRACT(EPOCH FROM (accepted_at - requested_at)) / 3600.0
+          ) FILTER (
+            WHERE requested_at IS NOT NULL
+              AND accepted_at IS NOT NULL
+              AND accepted_at >= requested_at
+          ) AS average_response_time_hours
+        FROM carereceiver_dashboard_bookings
+        WHERE caregiver_id = $1
+        `,
+        [normalizedId, ACCEPTED_BOOKING_STATUSES]
+    );
+
+    const row = metricsQuery.rows?.[0] || {};
+    const totalRequestsReceived = Number(row.total_requests_received || 0);
+    const acceptedRequests = Number(row.accepted_requests || 0);
+    const averageResponseTimeHours = row.average_response_time_hours == null
+        ? null
+        : Number(row.average_response_time_hours);
+    const acceptanceRate = totalRequestsReceived > 0
+        ? Number((acceptedRequests / totalRequestsReceived).toFixed(4))
+        : null;
+
+    const hasSufficientData = (
+        totalRequestsReceived >= MIN_REQUESTS_FOR_RESPONSE_METRICS &&
+        acceptedRequests >= MIN_ACCEPTED_FOR_RESPONSE_METRICS &&
+        Number.isFinite(averageResponseTimeHours)
+    );
+
+    return {
+        acceptanceRate: Number.isFinite(acceptanceRate) ? acceptanceRate : null,
+        averageResponseTimeHours: Number.isFinite(averageResponseTimeHours) ? Number(averageResponseTimeHours.toFixed(1)) : null,
+        totalRequestsReceived,
+        acceptedRequests,
+        hasSufficientData
+    };
+}
+
 function normalizeBookingDate(value) {
     const raw = String(value || "").trim();
     if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
@@ -443,15 +533,27 @@ function normalizeSqlTime(value) {
     return `${String(hhmmss[1]).padStart(2, "0")}:${String(hhmmss[2]).padStart(2, "0")}:${String(hhmmss[3] || "00").padStart(2, "0")}`;
 }
 
-function calculateCancellationRefund({ status, bookingDate, startTime, paymentTotal }) {
+function calculateCancellationRefund({
+    status,
+    bookingDate,
+    startTime,
+    paymentTotal,
+    paymentSubtotal,
+    paymentServiceFee
+}) {
     const total = roundMoney(paymentTotal);
+    const subtotal = roundMoney(paymentSubtotal);
+    const serviceFee = Math.max(0, roundMoney(paymentServiceFee));
+    const refundableBase = subtotal > 0
+        ? subtotal
+        : Math.max(0, roundMoney(total - serviceFee));
     const normalizedStatus = String(status || "").toLowerCase();
 
     if (normalizedStatus === "requested") {
         return {
-            amount: total,
+            amount: refundableBase,
             percentage: 100,
-            reason: "Payment authorisation released",
+            reason: "Cancelled before acceptance (service fee retained)",
             processedAt: new Date().toISOString()
         };
     }
@@ -460,9 +562,9 @@ function calculateCancellationRefund({ status, bookingDate, startTime, paymentTo
     const time = normalizeSqlTime(startTime);
     if (!date || !time) {
         return {
-            amount: total,
+            amount: refundableBase,
             percentage: 100,
-            reason: "Full refund",
+            reason: "Service fee is non-refundable",
             processedAt: new Date().toISOString()
         };
     }
@@ -472,27 +574,27 @@ function calculateCancellationRefund({ status, bookingDate, startTime, paymentTo
 
     if (!Number.isFinite(diffHours)) {
         return {
-            amount: total,
+            amount: refundableBase,
             percentage: 100,
-            reason: "Full refund",
+            reason: "Service fee is non-refundable",
             processedAt: new Date().toISOString()
         };
     }
 
     if (diffHours >= 24) {
         return {
-            amount: total,
+            amount: refundableBase,
             percentage: 100,
-            reason: "Cancelled 24+ hours before start",
+            reason: "Cancelled 24+ hours before start (service fee retained)",
             processedAt: new Date().toISOString()
         };
     }
 
     if (diffHours >= 2) {
         return {
-            amount: roundMoney(total * 0.5),
+            amount: roundMoney(refundableBase * 0.5),
             percentage: 50,
-            reason: "Cancelled less than 24 hours before start",
+            reason: "Cancelled less than 24 hours before start (service fee retained)",
             processedAt: new Date().toISOString()
         };
     }
@@ -544,6 +646,161 @@ async function generateBookingId(year) {
     return `bk-${year}-${String(nextSuffix).padStart(4, "0")}`;
 }
 
+function compactConversationPreview(text, maxLength = 180) {
+    const compacted = String(text || "").replace(/\s+/g, " ").trim();
+    if (!compacted) {
+        return "";
+    }
+    return compacted.length > maxLength ? `${compacted.slice(0, maxLength - 1)}...` : compacted;
+}
+
+function buildBookingRequestSystemMessage({
+    bookingRef,
+    bookingDate,
+    startTime,
+    durationHours,
+    specialRequests
+}) {
+    const reference = String(bookingRef || "").trim() || "Pending";
+    const dateLabel = formatDateLong(normalizeSqlDate(bookingDate)) || "To be confirmed";
+    const timeLabel = buildTimeRangeLabel(normalizeSqlTime(startTime), durationHours) || "To be confirmed";
+    const notes = String(specialRequests || "").trim();
+    const lines = [
+        `Booking request created (${reference}).`,
+        `Schedule: ${dateLabel}, ${timeLabel}.`
+    ];
+    if (notes) {
+        lines.push("Special requests:");
+        lines.push(notes);
+    }
+    return lines.join("\n");
+}
+
+function buildBookingCancellationSystemMessage({
+    bookingRef,
+    bookingDate,
+    startTime,
+    durationHours,
+    reasonLabel,
+    details,
+    refundAmount
+}) {
+    const reference = String(bookingRef || "").trim() || "Pending";
+    const dateLabel = formatDateLong(normalizeSqlDate(bookingDate)) || "To be confirmed";
+    const timeLabel = buildTimeRangeLabel(normalizeSqlTime(startTime), durationHours) || "To be confirmed";
+    const reason = String(reasonLabel || "").trim() || "Other";
+    const detailText = String(details || "").trim();
+    const lines = [
+        `Booking cancelled by care receiver (${reference}).`,
+        `Original schedule: ${dateLabel}, ${timeLabel}.`,
+        `Reason: ${reason}${detailText ? ` - ${detailText}` : ""}.`
+    ];
+
+    if (Number.isFinite(Number(refundAmount))) {
+        lines.push(`Refund amount: £${Number(refundAmount).toFixed(2)}.`);
+    }
+
+    return lines.join("\n");
+}
+
+async function ensureConversationForBooking({
+    bookingId,
+    conversationId,
+    careReceiverId,
+    caregiverId,
+    caregiverName,
+    caregiverPhotoUrl,
+    caregiverPhone
+}) {
+    const safeBookingId = String(bookingId || "").trim();
+    if (!safeBookingId) {
+        return "";
+    }
+
+    const safeConversationId = String(conversationId || "").trim() || `conv-${safeBookingId}`;
+    await pool.query(
+        `
+        UPDATE carereceiver_dashboard_bookings
+        SET conversation_id = $2,
+            updated_at = NOW()
+        WHERE id = $1
+        `,
+        [safeBookingId, safeConversationId]
+    );
+
+    await pool.query(
+        `
+        INSERT INTO carereceiver_conversations (
+          id,
+          booking_id,
+          care_receiver_id,
+          caregiver_id,
+          caregiver_name,
+          caregiver_photo_url,
+          caregiver_phone,
+          is_active,
+          created_at,
+          updated_at
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE, NOW(), NOW())
+        ON CONFLICT (id) DO UPDATE SET
+          booking_id = EXCLUDED.booking_id,
+          care_receiver_id = EXCLUDED.care_receiver_id,
+          caregiver_id = EXCLUDED.caregiver_id,
+          caregiver_name = EXCLUDED.caregiver_name,
+          caregiver_photo_url = EXCLUDED.caregiver_photo_url,
+          caregiver_phone = EXCLUDED.caregiver_phone,
+          is_active = TRUE,
+          updated_at = NOW()
+        `,
+        [
+            safeConversationId,
+            safeBookingId,
+            careReceiverId || null,
+            caregiverId || null,
+            caregiverName || "Caregiver",
+            caregiverPhotoUrl || null,
+            caregiverPhone || null
+        ]
+    );
+
+    return safeConversationId;
+}
+
+async function appendSystemConversationMessage(conversationId, messageText) {
+    const safeConversationId = String(conversationId || "").trim();
+    const safeMessageText = String(messageText || "").trim();
+    if (!safeConversationId || !safeMessageText) {
+        return;
+    }
+
+    await pool.query(
+        `
+        INSERT INTO carereceiver_messages (
+          conversation_id,
+          sender_role,
+          sender_name,
+          message_text,
+          sent_at,
+          is_system_message,
+          is_flagged
+        ) VALUES ($1, 'system', 'ICare System', $2, NOW(), TRUE, FALSE)
+        `,
+        [safeConversationId, safeMessageText]
+    );
+
+    await pool.query(
+        `
+        UPDATE carereceiver_conversations
+        SET
+          last_message_preview = $2,
+          last_message_at = NOW(),
+          updated_at = NOW()
+        WHERE id = $1
+        `,
+        [safeConversationId, compactConversationPreview(safeMessageText)]
+    );
+}
+
 router.get("/users/me", async (req, res) => {
     try {
         const viewer = await resolveViewer(req);
@@ -576,6 +833,62 @@ router.get("/users/me", async (req, res) => {
             error: {
                 code: "INTERNAL_ERROR",
                 message: "Could not load current user profile."
+            }
+        });
+    }
+});
+
+router.get("/caregivers/:caregiverId", async (req, res) => {
+    const caregiverId = String(req.params?.caregiverId || "").trim();
+    if (!caregiverId) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: "VALIDATION_ERROR",
+                message: "caregiverId is required."
+            }
+        });
+    }
+
+    try {
+        const caregiver = resolveCaregiverProfile(caregiverId);
+        const responseMetrics = await getCaregiverResponseMetrics(caregiverId);
+        const nameParts = String(caregiver.name || "").trim().split(/\s+/);
+        const firstName = nameParts[0] || "Caregiver";
+        const lastName = nameParts.slice(1).join(" ");
+        const maskedLastName = lastName ? `${lastName[0]}.` : "";
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                id: caregiver.id,
+                firstName,
+                lastName: maskedLastName,
+                profilePhotoUrl: caregiver.photoUrl || "",
+                hourlyRate: Number(caregiver.hourlyRate || 0),
+                averageRating: Number(caregiver.rating || 0),
+                totalReviews: Number(caregiver.reviewCount || 0),
+                verification: {
+                    idVerified: true,
+                    dbsVerified: caregiver.verificationBadges?.includes("DBS Verified") || false,
+                    rightToWorkVerified: caregiver.verificationBadges?.includes("Right to Work Verified") || false
+                },
+                responseMetrics: responseMetrics?.hasSufficientData
+                    ? {
+                        acceptanceRate: responseMetrics.acceptanceRate,
+                        averageResponseTimeHours: responseMetrics.averageResponseTimeHours,
+                        totalRequestsReceived: responseMetrics.totalRequestsReceived
+                    }
+                    : null
+            }
+        });
+    } catch (error) {
+        console.error("[carereceiver-dashboard] GET /caregivers/:caregiverId failed:", error);
+        return res.status(500).json({
+            success: false,
+            error: {
+                code: "INTERNAL_ERROR",
+                message: "Could not load caregiver profile."
             }
         });
     }
@@ -655,6 +968,16 @@ router.post("/bookings", async (req, res) => {
         });
     }
 
+    if (!isValidEmergencyPhone(emergencyPhone)) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: "VALIDATION_ERROR",
+                message: "Emergency contact phone must be valid (e.g. +447700900123 or 07700900123)."
+            }
+        });
+    }
+
     try {
         const viewer = await resolveViewer(req);
         if (!viewer?.id) {
@@ -704,6 +1027,7 @@ router.post("/bookings", async (req, res) => {
         const bookingYear = bookingDate.slice(0, 4);
         const bookingId = await generateBookingId(bookingYear);
         const bookingRef = bookingId.toUpperCase();
+        const conversationId = `conv-${bookingId}`;
         const timelineJson = [
             {
                 timestamp: requestedAt.toISOString(),
@@ -750,13 +1074,14 @@ router.post("/bookings", async (req, res) => {
               emergency_contact_relationship,
               requested_at,
               timeline_json,
+              conversation_id,
               has_review,
               created_at,
               updated_at
             ) VALUES (
               $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11::text[], $12::date, $13::time, $14,
               'requested', $15, $16, $17::text[], $18, $19, $20, $21, $22, $23, $24, $25, $26, $27,
-              $28, $29, $30, $31, $32::jsonb, FALSE, NOW(), NOW()
+              $28, $29, $30, $31, $32::jsonb, $33, FALSE, NOW(), NOW()
             )
             `,
             [
@@ -786,17 +1111,79 @@ router.post("/bookings", async (req, res) => {
                 serviceFeePercentage,
                 total,
                 paymentMethodLabel,
-                total,
+                0,
                 emergencyName,
                 emergencyPhone,
                 emergencyRelationship,
                 requestedAt.toISOString(),
-                JSON.stringify(timelineJson)
+                JSON.stringify(timelineJson),
+                conversationId
             ]
         );
 
         const firstName = caregiver.name.split(" ")[0] || caregiver.name;
         const lastInitial = (caregiver.name.split(" ")[1] || "").slice(0, 1);
+
+        const careReceiverName = [viewer.first_name, viewer.last_name ? `${viewer.last_name[0]}.` : ""]
+            .filter(Boolean)
+            .join(" ")
+            .trim() || "Care receiver";
+
+        try {
+            const resolvedConversationId = await ensureConversationForBooking({
+                bookingId,
+                conversationId,
+                careReceiverId: viewer.id,
+                caregiverId: caregiver.id,
+                caregiverName: caregiver.name,
+                caregiverPhotoUrl: caregiver.photoUrl,
+                caregiverPhone: caregiver.phone
+            });
+
+            await appendSystemConversationMessage(
+                resolvedConversationId,
+                buildBookingRequestSystemMessage({
+                    bookingRef,
+                    bookingDate,
+                    startTime: startTimeSql,
+                    durationHours,
+                    specialRequests
+                })
+            );
+        } catch (conversationError) {
+            console.error("[carereceiver-dashboard] booking conversation sync failed:", conversationError);
+        }
+
+        try {
+            if (isValidEmail(viewer.email)) {
+                await sendBookingRequestConfirmationEmail(viewer.email, {
+                    bookingId,
+                    bookingRef,
+                    caregiverName: caregiver.name,
+                    bookingDate,
+                    startTime: startTimeSql,
+                    durationHours,
+                    specialRequests
+                });
+            }
+        } catch (emailError) {
+            console.error("[carereceiver-dashboard] booking confirmation email failed:", emailError);
+        }
+
+        try {
+            if (isValidEmail(caregiver.email)) {
+                await sendBookingRequestNotificationEmail(caregiver.email, {
+                    bookingRef,
+                    careReceiverName,
+                    bookingDate,
+                    startTime: startTimeSql,
+                    durationHours,
+                    specialRequests
+                });
+            }
+        } catch (emailError) {
+            console.error("[carereceiver-dashboard] caregiver notification email failed:", emailError);
+        }
 
         return res.status(201).json({
             success: true,
@@ -872,24 +1259,35 @@ router.get("/care-receivers/me/bookings", async (req, res) => {
             SELECT
               b.id,
               b.status,
-              COALESCE(to_jsonb(b)->>'caregiver_id', '') AS "caregiverId",
+              COALESCE(row_json.row_data->>'caregiver_id', '') AS "caregiverId",
               b.caregiver_name AS "caregiverName",
               b.caregiver_photo_url AS "caregiverPhotoUrl",
               to_char(b.booking_date, 'YYYY-MM-DD') AS "bookingDate",
               to_char(b.start_time, 'HH12:MI AM') AS "startTime",
-              b.duration_hours AS "durationHours",
+              NULLIF(row_json.row_data->>'duration_hours', '')::numeric AS "durationHours",
               b.response_deadline AS "responseDeadline",
               b.conversation_id AS "conversationId",
               b.completed_at AS "completedAt",
               b.updated_at AS "updatedAt",
               b.created_at AS "createdAt",
               b.has_review AS "hasReview",
-              COALESCE(to_jsonb(b)->>'booking_ref', upper(b.id)) AS "bookingRef",
-              b.service_type AS "serviceType",
-              b.service_types AS "serviceTypes",
-              b.payment_hourly_rate AS "hourlyRate",
-              b.payment_total AS "paymentTotal"
+              COALESCE(row_json.row_data->>'booking_ref', upper(b.id)) AS "bookingRef",
+              NULLIF(row_json.row_data->>'service_type', '') AS "serviceType",
+              ARRAY(
+                SELECT jsonb_array_elements_text(
+                  CASE
+                    WHEN jsonb_typeof(row_json.row_data->'service_types') = 'array'
+                      THEN row_json.row_data->'service_types'
+                    ELSE '[]'::jsonb
+                  END
+                )
+              ) AS "serviceTypes",
+              NULLIF(row_json.row_data->>'payment_hourly_rate', '')::numeric AS "hourlyRate",
+              NULLIF(row_json.row_data->>'payment_total', '')::numeric AS "paymentTotal"
             FROM carereceiver_dashboard_bookings b
+            CROSS JOIN LATERAL (
+              SELECT to_jsonb(b) AS row_data
+            ) row_json
             ${whereSql}
             ${orderSql}
             LIMIT $${nextIndex}
@@ -918,7 +1316,8 @@ router.get("/care-receivers/me/bookings", async (req, res) => {
                 }
             }
         });
-    } catch {
+    } catch (error) {
+        console.error("[carereceiver-dashboard] GET /care-receivers/me/bookings failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -947,15 +1346,21 @@ router.get("/bookings/:bookingId", async (req, res) => {
 
         const detailQuery = viewerId
             ? `
-              SELECT *
-              FROM carereceiver_dashboard_bookings
+              SELECT
+                b.*,
+                to_char(b.booking_date, 'YYYY-MM-DD') AS "bookingDateText",
+                to_char(b.cancelled_date, 'YYYY-MM-DD') AS "cancelledDateText"
+              FROM carereceiver_dashboard_bookings b
               WHERE id = $1
                 AND (care_receiver_id IS NULL OR care_receiver_id = $2)
               LIMIT 1
             `
             : `
-              SELECT *
-              FROM carereceiver_dashboard_bookings
+              SELECT
+                b.*,
+                to_char(b.booking_date, 'YYYY-MM-DD') AS "bookingDateText",
+                to_char(b.cancelled_date, 'YYYY-MM-DD') AS "cancelledDateText"
+              FROM carereceiver_dashboard_bookings b
               WHERE id = $1
               LIMIT 1
             `;
@@ -973,7 +1378,7 @@ router.get("/bookings/:bookingId", async (req, res) => {
             });
         }
 
-        const bookingDate = row.booking_date ? new Date(row.booking_date).toISOString().slice(0, 10) : "";
+        const bookingDate = String(row.bookingDateText || "").trim() || normalizeSqlDate(row.booking_date);
         const durationHours = Number(row.duration_hours || 0);
         const paymentDuration = Number(row.payment_duration || durationHours || 0);
 
@@ -1000,7 +1405,7 @@ router.get("/bookings/:bookingId", async (req, res) => {
                     requestedAt: row.requested_at || null,
                     acceptedAt: row.accepted_at || null,
                     declineReason: row.decline_reason || "",
-                    cancelledDate: row.cancelled_date || null,
+                    cancelledDate: String(row.cancelledDateText || "").trim() || null,
                     timeline: formatTimelineItems(row)
                 },
                 caregiver: {
@@ -1207,6 +1612,139 @@ router.post("/bookings/:bookingId/review", async (req, res) => {
     }
 });
 
+router.get("/caregivers/:caregiverId/reviews", async (req, res) => {
+    const caregiverId = String(req.params.caregiverId || "").trim();
+    if (!caregiverId) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: "VALIDATION_ERROR",
+                message: "Caregiver id is required."
+            }
+        });
+    }
+
+    const limit = parsePositiveInt(req.query.limit, 20, 100);
+    const page = parsePositiveInt(req.query.page, 1, 1000);
+    const offset = (page - 1) * limit;
+    const sort = String(req.query.sort || "newest").trim().toLowerCase();
+    const orderSql = ALLOWED_REVIEW_SORTS.has(sort) && sort === "highest"
+        ? "ORDER BY r.rating DESC, r.created_at DESC"
+        : "ORDER BY r.created_at DESC";
+
+    try {
+        const tableCheck = await pool.query(
+            "SELECT to_regclass('public.carereceiver_booking_reviews') IS NOT NULL AS exists"
+        );
+        if (!tableCheck.rows?.[0]?.exists) {
+            return res.status(200).json({
+                success: true,
+                data: {
+                    summary: {
+                        averageRating: 0,
+                        reviewCount: 0,
+                        distribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+                    },
+                    reviews: [],
+                    pagination: { page, limit, totalCount: 0, totalPages: 1 }
+                }
+            });
+        }
+
+        const reviewsQuery = `
+            SELECT
+              r.id,
+              r.rating,
+              r.review_text AS "reviewText",
+              r.created_at AS "createdAt",
+              COALESCE(NULLIF(TRIM(CONCAT(u.first_name, ' ', u.last_name)), ''), 'Family member') AS "reviewerName"
+            FROM carereceiver_booking_reviews r
+            JOIN carereceiver_dashboard_bookings b ON b.id = r.booking_id
+            LEFT JOIN users u ON u.id = r.care_receiver_id
+            WHERE COALESCE(to_jsonb(b)->>'caregiver_id', '') = $1
+            ${orderSql}
+            LIMIT $2
+            OFFSET $3
+        `;
+
+        const summaryQuery = `
+            SELECT
+              COUNT(*)::int AS total,
+              COALESCE(AVG(r.rating), 0)::numeric(4,2) AS avg,
+              COUNT(*) FILTER (WHERE r.rating = 5)::int AS star5,
+              COUNT(*) FILTER (WHERE r.rating = 4)::int AS star4,
+              COUNT(*) FILTER (WHERE r.rating = 3)::int AS star3,
+              COUNT(*) FILTER (WHERE r.rating = 2)::int AS star2,
+              COUNT(*) FILTER (WHERE r.rating = 1)::int AS star1
+            FROM carereceiver_booking_reviews r
+            JOIN carereceiver_dashboard_bookings b ON b.id = r.booking_id
+            WHERE COALESCE(to_jsonb(b)->>'caregiver_id', '') = $1
+        `;
+
+        const [reviewsResult, summaryResult] = await Promise.all([
+            pool.query(reviewsQuery, [caregiverId, limit, offset]),
+            pool.query(summaryQuery, [caregiverId])
+        ]);
+
+        const summaryRow = summaryResult.rows?.[0] || {};
+        const reviewCount = Number(summaryRow.total || 0);
+        const toPercent = (count) => {
+            if (reviewCount <= 0) {
+                return 0;
+            }
+            return Math.round((Number(count || 0) / reviewCount) * 100);
+        };
+
+        const reviews = (reviewsResult.rows || []).map((row) => {
+            const createdAt = row.createdAt ? new Date(row.createdAt) : null;
+            return {
+                id: String(row.id),
+                name: String(row.reviewerName || "Family member"),
+                rating: Number(row.rating || 0),
+                text: String(row.reviewText || ""),
+                createdAt: createdAt ? createdAt.toISOString() : null,
+                dateISO: createdAt ? createdAt.toISOString().slice(0, 10) : "",
+                date: createdAt
+                    ? new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" }).format(createdAt)
+                    : ""
+            };
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                summary: {
+                    averageRating: Number(summaryRow.avg || 0),
+                    reviewCount,
+                    distribution: {
+                        1: toPercent(summaryRow.star1),
+                        2: toPercent(summaryRow.star2),
+                        3: toPercent(summaryRow.star3),
+                        4: toPercent(summaryRow.star4),
+                        5: toPercent(summaryRow.star5)
+                    }
+                },
+                reviews,
+                pagination: {
+                    page,
+                    limit,
+                    totalCount: reviewCount,
+                    totalPages: Math.max(1, Math.ceil(reviewCount / limit))
+                }
+            }
+        });
+    } catch (error) {
+        console.error("[carereceiver-dashboard] GET /caregivers/:caregiverId/reviews failed:", error);
+        return res.status(500).json({
+            success: false,
+            error: {
+                code: "INTERNAL_ERROR",
+                message: "Could not load caregiver reviews."
+            }
+        });
+    }
+});
+
 router.put("/bookings/:bookingId/cancel", async (req, res) => {
     const bookingId = String(req.params.bookingId || "").trim();
     const reason = String(req.body?.reason || "no_longer_needed").trim().toLowerCase();
@@ -1251,9 +1789,21 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
               SELECT
                 id,
                 status,
-                booking_date AS "bookingDate",
-                start_time AS "startTime",
-                payment_total AS "paymentTotal"
+                booking_ref AS "bookingRef",
+                  caregiver_name AS "caregiverName",
+                  caregiver_email AS "caregiverEmail",
+                  caregiver_id AS "caregiverId",
+                  caregiver_photo_url AS "caregiverPhotoUrl",
+                  caregiver_phone AS "caregiverPhone",
+                  care_receiver_id AS "careReceiverId",
+                  conversation_id AS "conversationId",
+                  booking_date AS "bookingDate",
+                  start_time AS "startTime",
+                  duration_hours AS "durationHours",
+                  special_requests AS "specialRequests",
+                  payment_subtotal AS "paymentSubtotal",
+                  payment_service_fee AS "paymentServiceFee",
+                  payment_total AS "paymentTotal"
               FROM carereceiver_dashboard_bookings
               WHERE id = $1
                 AND (care_receiver_id IS NULL OR care_receiver_id = $2)
@@ -1263,9 +1813,21 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
               SELECT
                 id,
                 status,
-                booking_date AS "bookingDate",
-                start_time AS "startTime",
-                payment_total AS "paymentTotal"
+                booking_ref AS "bookingRef",
+                  caregiver_name AS "caregiverName",
+                  caregiver_email AS "caregiverEmail",
+                  caregiver_id AS "caregiverId",
+                  caregiver_photo_url AS "caregiverPhotoUrl",
+                  caregiver_phone AS "caregiverPhone",
+                  care_receiver_id AS "careReceiverId",
+                  conversation_id AS "conversationId",
+                  booking_date AS "bookingDate",
+                  start_time AS "startTime",
+                  duration_hours AS "durationHours",
+                  special_requests AS "specialRequests",
+                  payment_subtotal AS "paymentSubtotal",
+                  payment_service_fee AS "paymentServiceFee",
+                  payment_total AS "paymentTotal"
               FROM carereceiver_dashboard_bookings
               WHERE id = $1
               LIMIT 1
@@ -1296,6 +1858,15 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
             });
         }
 
+        const refund = calculateCancellationRefund({
+            status: currentStatus,
+            bookingDate: booking.bookingDate,
+            startTime: booking.startTime,
+            paymentTotal: booking.paymentTotal,
+            paymentSubtotal: booking.paymentSubtotal,
+            paymentServiceFee: booking.paymentServiceFee
+        });
+        const refundAmount = roundMoney(refund.amount);
         const cancellationNote = details ? `${reason}: ${details}` : reason;
         const query = viewerId
             ? `
@@ -1304,6 +1875,7 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 status = 'cancelled',
                 cancelled_date = CURRENT_DATE,
                 decline_reason = $3,
+                payment_refund_amount = $4,
                 updated_at = NOW()
               WHERE id = $1
                 AND (care_receiver_id IS NULL OR care_receiver_id = $2)
@@ -1315,11 +1887,14 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 status = 'cancelled',
                 cancelled_date = CURRENT_DATE,
                 decline_reason = $2,
+                payment_refund_amount = $3,
                 updated_at = NOW()
               WHERE id = $1
               RETURNING id, status, updated_at AS "updatedAt"
             `;
-        const params = viewerId ? [bookingId, viewerId, cancellationNote] : [bookingId, cancellationNote];
+        const params = viewerId
+            ? [bookingId, viewerId, cancellationNote, refundAmount]
+            : [bookingId, cancellationNote, refundAmount];
 
         const updated = await pool.query(query, params);
         const row = updated.rows?.[0];
@@ -1333,13 +1908,73 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
             });
         }
 
-        const refund = calculateCancellationRefund({
-            status: currentStatus,
-            bookingDate: booking.bookingDate,
-            startTime: booking.startTime,
-            paymentTotal: booking.paymentTotal
-        });
         const cancelledAt = row.updatedAt ? new Date(row.updatedAt).toISOString() : new Date().toISOString();
+        const bookingRef = String(booking.bookingRef || bookingId).toUpperCase();
+        const reasonLabel = CANCELLATION_REASON_LABELS[reason] || "Other";
+        const careReceiverName = [viewer?.first_name, viewer?.last_name ? `${viewer.last_name[0]}.` : ""]
+            .filter(Boolean)
+            .join(" ")
+            .trim() || "Care receiver";
+
+        try {
+            if (isValidEmail(viewer?.email)) {
+                await sendBookingCancellationConfirmationEmail(viewer.email, {
+                    bookingId,
+                    bookingRef,
+                    caregiverName: booking.caregiverName || "caregiver",
+                    bookingDate: normalizeSqlDate(booking.bookingDate),
+                    startTime: normalizeSqlTime(booking.startTime),
+                    durationHours: Number(booking.durationHours || 0),
+                    reason: reasonLabel,
+                    refundAmount: refund?.amount,
+                    specialRequests: String(booking.specialRequests || "").trim()
+                });
+            }
+        } catch (emailError) {
+            console.error("[carereceiver-dashboard] booking cancellation confirmation email failed:", emailError);
+        }
+
+        try {
+            if (isValidEmail(booking.caregiverEmail)) {
+                await sendBookingCancellationNotificationEmail(booking.caregiverEmail, {
+                    bookingRef,
+                    careReceiverName,
+                    bookingDate: normalizeSqlDate(booking.bookingDate),
+                    startTime: normalizeSqlTime(booking.startTime),
+                    durationHours: Number(booking.durationHours || 0),
+                    reason: reasonLabel,
+                    specialRequests: String(booking.specialRequests || "").trim()
+                });
+            }
+        } catch (emailError) {
+            console.error("[carereceiver-dashboard] booking cancellation notification email failed:", emailError);
+        }
+
+        try {
+            const resolvedConversationId = await ensureConversationForBooking({
+                bookingId,
+                conversationId: booking.conversationId,
+                careReceiverId: booking.careReceiverId || viewerId,
+                caregiverId: booking.caregiverId,
+                caregiverName: booking.caregiverName,
+                caregiverPhotoUrl: booking.caregiverPhotoUrl,
+                caregiverPhone: booking.caregiverPhone
+            });
+            await appendSystemConversationMessage(
+                resolvedConversationId,
+                buildBookingCancellationSystemMessage({
+                    bookingRef,
+                    bookingDate: normalizeSqlDate(booking.bookingDate),
+                    startTime: normalizeSqlTime(booking.startTime),
+                    durationHours: Number(booking.durationHours || 0),
+                    reasonLabel,
+                    details,
+                    refundAmount
+                })
+            );
+        } catch (conversationError) {
+            console.error("[carereceiver-dashboard] booking cancellation conversation sync failed:", conversationError);
+        }
 
         return res.status(200).json({
             success: true,

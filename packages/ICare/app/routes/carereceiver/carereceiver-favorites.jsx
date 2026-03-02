@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
+import { FiHeart } from "react-icons/fi";
 import RatingStars from "./rating-stars";
 import "./carereceiver-pages.css";
 import { readFavoriteCaregivers, writeFavoriteCaregivers } from "./favorites-storage";
@@ -75,7 +76,7 @@ export default function CarereceiverFavorites() {
                                         aria-label={`Remove ${caregiver.name} from favorites`}
                                         onClick={() => handleRemove(caregiver.id)}
                                     >
-                                        <span className="cr-heart-glyph" aria-hidden="true">♥</span>
+                                        <span className="cr-heart-glyph" aria-hidden="true"><FiHeart /></span>
                                     </button>
                                 </div>
 
@@ -118,9 +119,6 @@ export default function CarereceiverFavorites() {
                                     <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
                                         View Profile
                                     </Link>
-                                    <button type="button" className="cr-favorite-action is-active" onClick={() => handleRemove(caregiver.id)}>
-                                        ♥ Remove from favorites
-                                    </button>
                                 </div>
                             </article>
                         ))}

@@ -57,14 +57,14 @@ export default function CarereceiverMessageThread() {
                     conversation: payload.conversation,
                     messages: (payload.messages || []).map(toThreadMessage)
                 });
-            } catch {
+            } catch (error) {
                 if (!mounted) {
                     return;
                 }
 
                 setState({
                     loading: false,
-                    error: "Could not load conversation.",
+                    error: error instanceof Error ? error.message : "Could not load conversation.",
                     conversationId: "",
                     bookingId: "",
                     conversation: null,
@@ -187,7 +187,7 @@ export default function CarereceiverMessageThread() {
 
                                 return (
                                     <div key={message.id} className={`cr-bubble ${isOwn ? "cr-bubble--own" : "cr-bubble--other"}`}>
-                                        <p style={{ margin: 0 }}>{message.text}</p>
+                                        <p style={{ margin: 0, whiteSpace: "pre-line" }}>{message.text}</p>
                                         <p className="cr-muted" style={{ margin: "6px 0 0", fontSize: "12px" }}>
                                             {!isOwn ? `${message.senderName} • ` : ""}
                                             {threadTimeLabel(message.sentAt)}

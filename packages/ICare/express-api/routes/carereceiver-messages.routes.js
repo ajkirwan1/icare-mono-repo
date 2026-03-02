@@ -225,6 +225,35 @@ function compactMessagePreview(text, maxLength = 100) {
     return `${compact.slice(0, maxLength - 1)}…`;
 }
 
+async function backfillReadReceiptsFromReplies(conversationId) {
+    await pool.query(
+        `
+        UPDATE carereceiver_messages m
+        SET read_at = (
+          SELECT MIN(cg.sent_at)
+          FROM carereceiver_messages cg
+          WHERE cg.conversation_id = m.conversation_id
+            AND cg.sender_role = 'caregiver'
+            AND cg.deleted_at IS NULL
+            AND cg.sent_at >= m.sent_at
+        )
+        WHERE m.conversation_id = $1
+          AND m.sender_role = 'care_receiver'
+          AND m.read_at IS NULL
+          AND m.deleted_at IS NULL
+          AND EXISTS (
+            SELECT 1
+            FROM carereceiver_messages cg
+            WHERE cg.conversation_id = m.conversation_id
+              AND cg.sender_role = 'caregiver'
+              AND cg.deleted_at IS NULL
+              AND cg.sent_at >= m.sent_at
+          )
+        `,
+        [conversationId]
+    );
+}
+
 function bookingContextLabel(row) {
     const bookingRef = String(row?.bookingRef || row?.bookingId || "").toUpperCase();
     const status = String(row?.bookingStatus || "").replaceAll("_", " ").trim();
@@ -573,6 +602,16 @@ router.get("/conversations", async (req, res) => {
 
         // Fallback: if conversation table is empty, derive list directly from bookings.
         if (conversations.length === 0) {
+            const fallbackFilters = ["b.conversation_id IS NOT NULL"];
+            const fallbackParams = [];
+            if (viewer?.id) {
+                fallbackParams.push(viewer.id);
+                fallbackFilters.push(`(b.care_receiver_id IS NULL OR b.care_receiver_id = $${fallbackParams.length})`);
+            }
+            const fallbackWhereSql = `WHERE ${fallbackFilters.join(" AND ")}`;
+            const fallbackLimitParam = fallbackParams.length + 1;
+            const fallbackOffsetParam = fallbackParams.length + 2;
+
             const fallbackList = await pool.query(
                 `
                 SELECT
@@ -596,20 +635,21 @@ router.get("/conversations", async (req, res) => {
                   b.updated_at AS "lastMessageSentAt",
                   NULL::timestamp AS "lastMessageReadAt"
                 FROM carereceiver_dashboard_bookings b
-                WHERE b.conversation_id IS NOT NULL
+                ${fallbackWhereSql}
                 ORDER BY COALESCE(b.updated_at, b.created_at) DESC
-                LIMIT $1
-                OFFSET $2
+                LIMIT $${fallbackLimitParam}
+                OFFSET $${fallbackOffsetParam}
                 `,
-                [limit, offset]
+                [...fallbackParams, limit, offset]
             );
 
             const fallbackCount = await pool.query(
                 `
                 SELECT COUNT(*)::int AS total
                 FROM carereceiver_dashboard_bookings b
-                WHERE b.conversation_id IS NOT NULL
-                `
+                ${fallbackWhereSql}
+                `,
+                fallbackParams
             );
 
             conversations = (fallbackList.rows || []).map(buildConversationDto);
@@ -676,26 +716,34 @@ router.get("/conversations/:conversationId/messages", async (req, res) => {
         const limit = parsePositiveInt(req.query.limit, 50, 200);
         const offset = (page - 1) * limit;
 
-        await pool.query(
-            `
-            UPDATE carereceiver_messages
-            SET read_at = NOW()
-            WHERE conversation_id = $1
-              AND sender_role = 'caregiver'
-              AND read_at IS NULL
-              AND deleted_at IS NULL
-            `,
-            [conversation.id]
-        );
+        try {
+            await pool.query(
+                `
+                UPDATE carereceiver_messages
+                SET read_at = NOW()
+                WHERE conversation_id = $1
+                  AND sender_role = 'caregiver'
+                  AND read_at IS NULL
+                  AND deleted_at IS NULL
+                `,
+                [conversation.id]
+            );
 
-        await pool.query(
-            `
-            UPDATE carereceiver_conversations
-            SET care_receiver_unread_count = 0, updated_at = NOW()
-            WHERE id = $1
-            `,
-            [conversation.id]
-        );
+            await pool.query(
+                `
+                UPDATE carereceiver_conversations
+                SET care_receiver_unread_count = 0, updated_at = NOW()
+                WHERE id = $1
+                `,
+                [conversation.id]
+            );
+
+            // If caregiver has already replied to a care receiver message,
+            // mark that earlier outgoing message as read.
+            await backfillReadReceiptsFromReplies(conversation.id);
+        } catch (readStateError) {
+            console.error("[carereceiver-messages] read state sync skipped:", readStateError);
+        }
 
         const [messagesResult, countResult] = await Promise.all([
             pool.query(
@@ -870,6 +918,112 @@ router.post("/conversations/:conversationId/messages", async (req, res) => {
             error: {
                 code: "INTERNAL_ERROR",
                 message: "Could not send message."
+            }
+        });
+    }
+});
+
+router.put("/messages/:messageId/read", async (req, res) => {
+    const messageId = String(req.params.messageId || "").trim();
+    if (!messageId) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: "VALIDATION_ERROR",
+                message: "Message id is required."
+            }
+        });
+    }
+
+    try {
+        await ensureMessagingSchema();
+        await ensureBackfilledConversationsAndMessages();
+        const viewer = await resolveViewer(req);
+        const scope = makeScopeClause(viewer?.id || null, "c", 2);
+
+        const messageQuery = `
+            SELECT
+              m.id,
+              m.sender_role AS "senderRole",
+              m.read_at AS "readAt",
+              m.conversation_id AS "conversationId"
+            FROM carereceiver_messages m
+            JOIN carereceiver_conversations c ON c.id = m.conversation_id
+            WHERE m.id = $1
+              ${scope.sql ? `AND (${scope.sql.replace(/^WHERE\s+/i, "")})` : ""}
+              AND m.deleted_at IS NULL
+            LIMIT 1
+        `;
+
+        const messageResult = await pool.query(messageQuery, [messageId, ...scope.params]);
+        const row = messageResult.rows?.[0];
+        if (!row) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: "RESOURCE_NOT_FOUND",
+                    message: "Message not found."
+                }
+            });
+        }
+
+        // Care receiver can mark caregiver messages as read.
+        if (String(row.senderRole || "") !== "caregiver") {
+            return res.status(403).json({
+                success: false,
+                error: {
+                    code: "FORBIDDEN",
+                    message: "Only received messages can be marked as read."
+                }
+            });
+        }
+
+        if (row.readAt) {
+            return res.status(200).json({
+                success: true,
+                data: {
+                    messageId: String(row.id),
+                    readAt: row.readAt
+                }
+            });
+        }
+
+        const updated = await pool.query(
+            `
+            UPDATE carereceiver_messages
+            SET read_at = NOW()
+            WHERE id = $1
+            RETURNING id, read_at AS "readAt", conversation_id AS "conversationId"
+            `,
+            [messageId]
+        );
+
+        const readMessage = updated.rows?.[0];
+
+        await pool.query(
+            `
+            UPDATE carereceiver_conversations
+            SET care_receiver_unread_count = GREATEST(0, COALESCE(care_receiver_unread_count, 0) - 1),
+                updated_at = NOW()
+            WHERE id = $1
+            `,
+            [readMessage.conversationId]
+        );
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                messageId: String(readMessage.id),
+                readAt: readMessage.readAt
+            }
+        });
+    } catch (error) {
+        console.error("[carereceiver-messages] PUT /messages/:id/read failed:", error);
+        return res.status(500).json({
+            success: false,
+            error: {
+                code: "INTERNAL_ERROR",
+                message: "Could not mark message as read."
             }
         });
     }

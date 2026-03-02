@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
+import { FiHeart } from "react-icons/fi";
 import "./carereceiver-pages.css";
 import RatingStars from "./rating-stars";
 import {
@@ -104,6 +105,21 @@ const caregivers = [
         languages: "English, Hindi",
         badges: ["DBS Verified", "ID Verified"],
         availabilityDays: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        availabilityTimes: ["Morning", "Afternoon"]
+    },
+    {
+        id: "cg-007",
+        name: "Margaret Shaw",
+        postcode: "NW1",
+        location: "NW1 area",
+        distanceMiles: 2.1,
+        hourlyRate: 19,
+        rating: 4.9,
+        reviewCount: 16,
+        services: ["Companionship", "Light housework"],
+        languages: "English",
+        badges: ["DBS Verified", "ID Verified", "Right to Work Verified"],
+        availabilityDays: ["Monday", "Tuesday", "Wednesday", "Friday"],
         availabilityTimes: ["Morning", "Afternoon"]
     }
 ];
@@ -425,7 +441,7 @@ export default function CarereceiverSearch() {
                                         aria-label={favoriteIds.has(caregiver.id) ? `Remove ${caregiver.name} from favorites` : `Add ${caregiver.name} to favorites`}
                                         onClick={() => handleToggleFavorite(caregiver)}
                                     >
-                                        <span className="cr-heart-glyph" aria-hidden="true">{favoriteIds.has(caregiver.id) ? "♥" : "♡"}</span>
+                                        <span className="cr-heart-glyph" aria-hidden="true"><FiHeart /></span>
                                     </button>
                                 </div>
 
@@ -456,14 +472,6 @@ export default function CarereceiverSearch() {
                                 </div>
 
                                 <div className="cr-grid" style={{ gap: "8px" }}>
-                                    <button
-                                        type="button"
-                                        className={`cr-favorite-action ${favoriteIds.has(caregiver.id) ? "is-active" : ""}`}
-                                        onClick={() => handleToggleFavorite(caregiver)}
-                                    >
-                                        {favoriteIds.has(caregiver.id) ? "♥ Saved to favorites" : "♡ Add to favorites"}
-                                    </button>
-
                                     <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
                                         View Profile
                                     </Link>

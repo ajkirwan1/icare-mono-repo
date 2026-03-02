@@ -123,3 +123,27 @@ export async function cancelCarereceiverBooking(bookingId, { reason = "no_longer
         }
     });
 }
+
+export async function getCaregiverReviews(caregiverId, { signal, page = 1, limit = 50, sort = "newest" } = {}) {
+    const normalizedId = String(caregiverId || "").trim();
+    if (!normalizedId) {
+        throw new Error("Caregiver id is required.");
+    }
+
+    const query = new URLSearchParams({
+        page: String(page),
+        limit: String(limit),
+        sort: String(sort || "newest")
+    });
+
+    return requestJson(`/api/v1/caregivers/${encodeURIComponent(normalizedId)}/reviews?${query.toString()}`, { signal });
+}
+
+export async function getCaregiverPublicProfile(caregiverId, { signal } = {}) {
+    const normalizedId = String(caregiverId || "").trim();
+    if (!normalizedId) {
+        throw new Error("Caregiver id is required.");
+    }
+
+    return requestJson(`/api/v1/caregivers/${encodeURIComponent(normalizedId)}`, { signal });
+}

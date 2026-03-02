@@ -161,23 +161,25 @@ export function threadTimeLabel(isoDate) {
         return "Now";
     }
 
-    const now = new Date();
-    const sameDay = now.toDateString() === date.toDateString();
-
-    if (sameDay) {
-        return `Today at ${new Intl.DateTimeFormat("en-GB", {
-            hour: "numeric",
-            minute: "2-digit"
-        }).format(date)}`;
-    }
-
     return new Intl.DateTimeFormat("en-GB", {
         weekday: "short",
         day: "2-digit",
         month: "short",
-        hour: "numeric",
-        minute: "2-digit"
-    }).format(date);
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+    }).format(date).replace(",", "");
+}
+
+export async function markMessageRead(messageId, { signal } = {}) {
+    if (!messageId) {
+        throw new Error("Message id is required.");
+    }
+
+    return requestJson(`/api/v1/messages/${encodeURIComponent(String(messageId))}/read`, {
+        signal,
+        method: "PUT"
+    });
 }
 
 export async function getConversations({ signal, page = 1, limit = 50 } = {}) {

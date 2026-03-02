@@ -539,14 +539,52 @@
 }
 
 .cr-heart-glyph {
-    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
     line-height: 1;
+}
+
+.cr-heart-glyph svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+    fill: transparent;
+    transition: fill 0.18s ease, stroke 0.18s ease, color 0.18s ease, opacity 0.18s ease;
 }
 
 .cr-heart-btn.is-active {
     color: #cc2f2f;
     border-color: rgba(204, 47, 47, 0.35);
     background: rgba(204, 47, 47, 0.08);
+}
+
+.cr-heart-btn.is-active .cr-heart-glyph svg,
+.cr-favorite-action.is-active .cr-heart-glyph svg {
+    fill: #cc2f2f;
+    stroke: #cc2f2f;
+    opacity: 1;
+}
+
+.cr-heart-btn.is-active:hover,
+.cr-favorite-action.is-active:hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.cr-heart-btn.is-active:hover .cr-heart-glyph svg,
+.cr-favorite-action.is-active:hover .cr-heart-glyph svg {
+    fill: transparent;
+    stroke: #cf6666;
+}
+
+.cr-heart-btn:not(.is-active):hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(207, 102, 102, 0.08);
 }
 
 .cr-favorite-action {
@@ -560,12 +598,51 @@
     font-size: 13px;
     text-align: center;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .cr-favorite-action.is-active {
     border-color: rgba(204, 47, 47, 0.35);
     background: rgba(204, 47, 47, 0.08);
     color: #9e1f1f;
+}
+
+.cr-favorite-action:not(.is-active):hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(207, 102, 102, 0.08);
+}
+
+.cr-favorite-label-switch {
+    display: inline-grid;
+    align-items: center;
+}
+
+.cr-favorite-label-default,
+.cr-favorite-label-hover {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.cr-favorite-label-hover {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.cr-favorite-action.is-active:hover .cr-favorite-label-default {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cr-favorite-action.is-active:hover .cr-favorite-label-hover {
+    opacity: 1;
+    visibility: visible;
 }
 
 .cr-back-link {
@@ -590,6 +667,18 @@
 
 .cr-profile-hero-actions {
     justify-self: end;
+    width: 232px;
+    max-width: 100%;
+}
+
+.cr-profile-hero-actions .cr-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.cr-profile-hero-actions .cr-favorite-action,
+.cr-profile-hero-actions .cr-button {
+    width: 100%;
 }
 
 .cr-profile-layout {

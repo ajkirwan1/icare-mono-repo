@@ -39,11 +39,25 @@ const SAMPLE_DATA = {
     ],
     availableTimes: ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00"],
     emergencyContact: {
-        name: "Jane Smith",
-        phone: "07700 900123",
-        relationship: "Daughter"
+        name: "",
+        phone: "",
+        relationship: ""
     },
     paymentMethodCount: 1
+};
+
+const LOCAL_CAREGIVER_DIRECTORY = {
+    "cg-001": { id: "cg-001", name: "Sarah Thompson", hourlyRate: 18, rating: 4.9, reviewCount: 27, distance: "1.2 miles" },
+    "cg-002": { id: "cg-002", name: "Mary Johnson", hourlyRate: 17, rating: 4.8, reviewCount: 19, distance: "2.4 miles" },
+    "cg-003": { id: "cg-003", name: "Emma Collins", hourlyRate: 20, rating: 4.7, reviewCount: 14, distance: "3.1 miles" },
+    "cg-004": { id: "cg-004", name: "Anna Nowak", hourlyRate: 16, rating: 4.6, reviewCount: 11, distance: "3.8 miles" },
+    "cg-005": { id: "cg-005", name: "Tom Richards", hourlyRate: 19, rating: 4.8, reviewCount: 22, distance: "4.4 miles" },
+    "cg-006": { id: "cg-006", name: "Lina Patel", hourlyRate: 18, rating: 4.9, reviewCount: 31, distance: "5.0 miles" },
+    "cg-007": { id: "cg-007", name: "Margaret Shaw", hourlyRate: 19, rating: 4.9, reviewCount: 16, distance: "2.1 miles" },
+    "cg-emma-wilson": { id: "cg-emma-wilson", name: "Emma Wilson", hourlyRate: 18, rating: 4.7, reviewCount: 18, distance: "2.0 miles" },
+    "cg-john-anderson": { id: "cg-john-anderson", name: "John Anderson", hourlyRate: 19, rating: 4.6, reviewCount: 21, distance: "2.6 miles" },
+    "cg-margaret-thompson": { id: "cg-margaret-thompson", name: "Margaret Thompson", hourlyRate: 20, rating: 4.9, reviewCount: 31, distance: "3.2 miles" },
+    "cg-mary-thompson": { id: "cg-mary-thompson", name: "Mary Thompson", hourlyRate: 18, rating: 4.8, reviewCount: 24, distance: "2.8 miles" }
 };
 
 export function meta() {
@@ -144,7 +158,21 @@ async function loadCaregiver(apiBase, caregiverId) {
         if (caregiver) { return caregiver; }
     }
 
-    return { ...SAMPLE_DATA.caregiver, id: caregiverId || SAMPLE_DATA.caregiver.id };
+    const normalizedId = String(caregiverId || "").trim();
+    const localFallback = LOCAL_CAREGIVER_DIRECTORY[normalizedId];
+    if (localFallback) {
+        return {
+            ...SAMPLE_DATA.caregiver,
+            ...localFallback,
+            isVerified: true
+        };
+    }
+
+    return {
+        ...SAMPLE_DATA.caregiver,
+        id: normalizedId || SAMPLE_DATA.caregiver.id,
+        name: titleCaseFromId(normalizedId) || SAMPLE_DATA.caregiver.name
+    };
 }
 
 async function loadPaymentMethodCount(apiBase, request) {
@@ -188,22 +216,47 @@ export async function loader({ params, request }) {
 
 function validateForm(values) {
     const errors = {};
+    const normalizedEmergencyPhone = String(values.emergencyPhone || "").replace(/[^\d+]/g, "");
+    const emergencyPhoneIsValid =
+        /^\+[1-9]\d{7,14}$/.test(normalizedEmergencyPhone) ||
+        /^0\d{9,10}$/.test(normalizedEmergencyPhone);
+
     if (!values.bookingDate) { errors.bookingDate = "Please select an available date."; }
     if (!values.startTime) { errors.startTime = "Please select a start time."; }
-    if (!values.durationHours || Number(values.durationHours) < 2) { errors.durationHours = "Minimum booking duration is 2 hours."; }
+    if (!values.durationHours || Number(values.durationHours) < 2 || Number(values.durationHours) > 8) {
+        errors.durationHours = "Duration must be between 2 and 8 hours.";
+    }
     if (!values.emergencyName || values.emergencyName.trim().length < 2) { errors.emergencyName = "Emergency contact name is required."; }
-    if (!values.emergencyPhone || !/^\+?[0-9\s()-]{8,20}$/.test(values.emergencyPhone.trim())) {
-        errors.emergencyPhone = "Please enter a valid phone number.";
+    if (!values.emergencyPhone || !emergencyPhoneIsValid) {
+        errors.emergencyPhone = "Enter a valid phone number (e.g. +447700900123 or 07700900123).";
     }
     if (!values.emergencyRelationship) { errors.emergencyRelationship = "Please specify relationship to emergency contact."; }
     if (!values.acceptCancellation) { errors.acceptCancellation = "You must accept the cancellation policy to continue."; }
     return errors;
 }
 
-async function submitBookingRequest(apiBase, payload, { viewerId = "", viewerEmail = "", viewerToken = "" } = {}) {
-    if (!apiBase) { return { ok: false, status: 0 }; }
-    const base = apiBase.replace(/\/$/, "");
-    const candidates = [`${base}/api/v1/bookings`, `${base}/api/bookings`, `${base}/bookings`];
+async function submitBookingRequest(apiBase, payload, request, { viewerId = "", viewerEmail = "", viewerToken = "" } = {}) {
+    const baseCandidates = [];
+    const normalizedApiBase = String(apiBase || "").trim();
+    if (normalizedApiBase) {
+        baseCandidates.push(normalizedApiBase.replace(/\/$/, ""));
+    }
+    try {
+        const requestOrigin = new URL(request.url).origin;
+        if (requestOrigin) {
+            baseCandidates.push(requestOrigin.replace(/\/$/, ""));
+        }
+    } catch {
+        // ignore malformed request url
+    }
+    baseCandidates.push("http://localhost:4001");
+
+    const uniqueBases = Array.from(new Set(baseCandidates));
+    const candidates = uniqueBases.flatMap((base) => [
+        `${base}/api/v1/bookings`,
+        `${base}/api/bookings`,
+        `${base}/bookings`
+    ]);
 
     for (const endpoint of candidates) {
         const headers = {
@@ -232,6 +285,7 @@ export async function action({ request, params }) {
         bookingDate: String(formData.get("bookingDate") || ""),
         startTime: String(formData.get("startTime") || ""),
         durationHours: String(formData.get("durationHours") || ""),
+        hourlyRate: Number(formData.get("hourlyRate") || 0),
         notes: String(formData.get("notes") || ""),
         emergencyName: String(formData.get("emergencyName") || ""),
         emergencyPhone: String(formData.get("emergencyPhone") || ""),
@@ -248,7 +302,9 @@ export async function action({ request, params }) {
     }
 
     const duration = Number(values.durationHours);
-    const hourlyRate = SAMPLE_DATA.pricing.hourlyRate;
+    const hourlyRate = Number.isFinite(values.hourlyRate) && values.hourlyRate > 0
+        ? Number(values.hourlyRate)
+        : SAMPLE_DATA.pricing.hourlyRate;
     const subtotal = Number((hourlyRate * duration).toFixed(2));
     const serviceFee = Number((subtotal * 0.05).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
@@ -278,41 +334,36 @@ export async function action({ request, params }) {
             const methods = await stripeTools.listStripePaymentMethods(customerId);
             const chosenMethod = methods.find((method) => method.isDefault && !method.isExpired) || methods.find((method) => !method.isExpired);
 
-            if (!chosenMethod) {
-                return {
-                    ok: false,
-                    formError: "No valid payment method found. Please add a card in Payment Methods before sending a booking request."
+            if (chosenMethod) {
+                if (!chosenMethod.isDefault) {
+                    await stripeTools.setStripeDefaultPaymentMethod(customerId, chosenMethod.id);
+                }
+
+                const authorization = await stripeTools.createStripeBookingAuthorization({
+                    customerId,
+                    paymentMethodId: chosenMethod.id,
+                    amount: total,
+                    currency: "gbp",
+                    metadata: {
+                        caregiver_id: values.caregiverId,
+                        booking_date: values.bookingDate,
+                        start_time: values.startTime
+                    }
+                });
+
+                paymentAuthorization = {
+                    id: authorization.id,
+                    status: authorization.status,
+                    paymentMethodId: chosenMethod.id,
+                    amount: total
+                };
+
+                payload.payment = {
+                    authorizationId: authorization.id,
+                    authorizationStatus: authorization.status,
+                    paymentMethodId: chosenMethod.id
                 };
             }
-
-            if (!chosenMethod.isDefault) {
-                await stripeTools.setStripeDefaultPaymentMethod(customerId, chosenMethod.id);
-            }
-
-            const authorization = await stripeTools.createStripeBookingAuthorization({
-                customerId,
-                paymentMethodId: chosenMethod.id,
-                amount: total,
-                currency: "gbp",
-                metadata: {
-                    caregiver_id: values.caregiverId,
-                    booking_date: values.bookingDate,
-                    start_time: values.startTime
-                }
-            });
-
-            paymentAuthorization = {
-                id: authorization.id,
-                status: authorization.status,
-                paymentMethodId: chosenMethod.id,
-                amount: total
-            };
-
-            payload.payment = {
-                authorizationId: authorization.id,
-                authorizationStatus: authorization.status,
-                paymentMethodId: chosenMethod.id
-            };
         }
     } catch (error) {
         return {
@@ -321,7 +372,7 @@ export async function action({ request, params }) {
         };
     }
 
-    const result = await submitBookingRequest(API_BASE, payload, {
+    const result = await submitBookingRequest(API_BASE, payload, request, {
         viewerId: values.viewerId,
         viewerEmail: values.viewerEmail,
         viewerToken: values.viewerToken
@@ -400,27 +451,34 @@ export default function BookingRequestFormPage() {
     const [bookingDate, setBookingDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [durationHours, setDurationHours] = useState(4);
+    const [customDurationSelected, setCustomDurationSelected] = useState(false);
+    const [customDurationHours, setCustomDurationHours] = useState("");
     const [notes, setNotes] = useState("");
     const [emergencyName, setEmergencyName] = useState(emergencyContact?.name || "");
     const [emergencyPhone, setEmergencyPhone] = useState(emergencyContact?.phone || "");
-    const [emergencyRelationship, setEmergencyRelationship] = useState(emergencyContact?.relationship || "Daughter");
+    const [emergencyRelationship, setEmergencyRelationship] = useState(emergencyContact?.relationship || "");
     const [acceptCancellation, setAcceptCancellation] = useState(false);
     const [viewerIdentity, setViewerIdentity] = useState({ id: "", email: "", token: "" });
 
     const calendar = useMemo(() => buildCalendar(availableDates), [availableDates]);
     const availableDateSet = useMemo(() => new Set(availableDates), [availableDates]);
 
+    const parsedCustomDuration = Number(customDurationHours);
+    const effectiveDurationHours = customDurationSelected && Number.isFinite(parsedCustomDuration)
+        ? parsedCustomDuration
+        : Number(durationHours || 0);
+
     const hourlyRate = Number(pricing?.hourlyRate || 18);
-    const subtotal = Number((hourlyRate * Number(durationHours || 0)).toFixed(2));
+    const subtotal = Number((hourlyRate * Number(effectiveDurationHours || 0)).toFixed(2));
     const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 5) / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
-    const sendDisabledBase = paymentMethodCount === 0 || isSubmitting;
+    const sendDisabledBase = isSubmitting;
     const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
     const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
     const searchPath = isCarereceiverPath ? "/carereceiver/search" : "/carerecipient";
     const caregiverProfilePath = isCarereceiverPath ? `/carereceiver/caregivers/${caregiver.id}` : null;
-    const sendDisabled = sendDisabledBase || (isCarereceiverPath && !viewerIdentity.id && !viewerIdentity.email);
+    const sendDisabled = sendDisabledBase;
     const bookingDetailPath = actionData?.bookingId
         ? (isCarereceiverPath ? `/carereceiver/bookings/${actionData.bookingId}` : `/bookings/${actionData.bookingId}`)
         : "";
@@ -488,8 +546,8 @@ export default function BookingRequestFormPage() {
                     </section>
 
                     {paymentMethodCount === 0 ? (
-                        <section className="booking-alert booking-alert--warning" role="alert" aria-live="assertive">
-                            <p>Add a payment method to continue. You&apos;ll need to add a card before you can send a booking request.</p>
+                        <section className="booking-alert booking-alert--warning" role="alert" aria-live="polite">
+                            <p>No saved payment method detected. Booking request can still be sent and payment will stay pending.</p>
                             <div className="booking-alert-actions">
                                 <ActionLink to="/carereceiver/settings/payment" label="Add Payment Method" />
                             </div>
@@ -528,7 +586,8 @@ export default function BookingRequestFormPage() {
                     <Form method="post" className="booking-request-form-layout">
                         <input type="hidden" name="caregiverId" value={caregiver.id} />
                         <input type="hidden" name="bookingDate" value={bookingDate} />
-                        <input type="hidden" name="durationHours" value={String(durationHours)} />
+                        <input type="hidden" name="durationHours" value={String(effectiveDurationHours)} />
+                        <input type="hidden" name="hourlyRate" value={String(hourlyRate)} />
                         <input type="hidden" name="viewerId" value={viewerIdentity.id} />
                         <input type="hidden" name="viewerEmail" value={viewerIdentity.email} />
                         <input type="hidden" name="viewerToken" value={viewerIdentity.token} />
@@ -587,7 +646,7 @@ export default function BookingRequestFormPage() {
                                 <label className="booking-form-label">Duration *</label>
                                 <div className="booking-duration-row" role="radiogroup" aria-label="Select duration">
                                     {DURATION_OPTIONS.map((hours) => {
-                                        const selected = durationHours === hours;
+                                        const selected = !customDurationSelected && durationHours === hours;
                                         return (
                                             <button
                                                 key={hours}
@@ -595,14 +654,39 @@ export default function BookingRequestFormPage() {
                                                 role="radio"
                                                 aria-checked={selected}
                                                 className={`booking-duration-chip ${selected ? "is-selected" : ""}`}
-                                                onClick={() => setDurationHours(hours)}
+                                                onClick={() => {
+                                                    setCustomDurationSelected(false);
+                                                    setDurationHours(hours);
+                                                }}
                                             >
                                                 {hours}h
                                             </button>
                                         );
                                     })}
-                                    <button type="button" className="booking-duration-chip">Custom</button>
+                                    <button
+                                        type="button"
+                                        className={`booking-duration-chip ${customDurationSelected ? "is-selected" : ""}`}
+                                        onClick={() => setCustomDurationSelected(true)}
+                                    >
+                                        Custom
+                                    </button>
                                 </div>
+                                {customDurationSelected ? (
+                                    <div style={{ marginTop: "10px" }}>
+                                        <label className="booking-form-label" htmlFor="customDurationHours">Custom duration (2-8h)</label>
+                                        <input
+                                            id="customDurationHours"
+                                            type="number"
+                                            min="2"
+                                            max="8"
+                                            step="0.5"
+                                            className="booking-form-input"
+                                            value={customDurationHours}
+                                            onChange={(event) => setCustomDurationHours(event.target.value)}
+                                            placeholder="e.g. 5.5"
+                                        />
+                                    </div>
+                                ) : null}
                                 <ErrorText message={actionData?.errors?.durationHours} />
 
                                 <label className="booking-form-label" htmlFor="serviceType">Service Type</label>
@@ -634,6 +718,7 @@ export default function BookingRequestFormPage() {
                                     className="booking-form-input"
                                     value={emergencyName}
                                     onChange={(event) => setEmergencyName(event.target.value)}
+                                    placeholder="e.g. Jane Smith"
                                 />
                                 <ErrorText message={actionData?.errors?.emergencyName} />
 
@@ -644,6 +729,7 @@ export default function BookingRequestFormPage() {
                                     className="booking-form-input"
                                     value={emergencyPhone}
                                     onChange={(event) => setEmergencyPhone(event.target.value)}
+                                    placeholder="+447700900123"
                                 />
                                 <ErrorText message={actionData?.errors?.emergencyPhone} />
 
@@ -655,6 +741,7 @@ export default function BookingRequestFormPage() {
                                     value={emergencyRelationship}
                                     onChange={(event) => setEmergencyRelationship(event.target.value)}
                                 >
+                                    <option value="">Select relationship...</option>
                                     {RELATIONSHIP_OPTIONS.map((option) => (
                                         <option key={option} value={option}>{option}</option>
                                     ))}
@@ -691,7 +778,7 @@ export default function BookingRequestFormPage() {
                                 <h2>Price Summary</h2>
                                 <dl className="booking-payment-list">
                                     <dt>Hourly rate</dt><dd>{toCurrency(hourlyRate)}</dd>
-                                    <dt>Duration</dt><dd>{durationHours} hours</dd>
+                                    <dt>Duration</dt><dd>{effectiveDurationHours} hours</dd>
                                     <dt>Subtotal</dt><dd>{toCurrency(subtotal)}</dd>
                                     <dt>Service fee (5%)</dt><dd>{toCurrency(serviceFee)}</dd>
                                     <dt className="total">Total</dt><dd className="total">{toCurrency(total)}</dd>
