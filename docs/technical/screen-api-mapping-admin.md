@@ -706,7 +706,7 @@ data.general.platformName           → General: Platform Name field
 data.general.maintenanceMode        → General: Maintenance Mode toggle
 data.general.supportEmail           → General: Support Email field
 data.payments.caregiverCommission   → Payments: Caregiver Commission (%) field (FDR-008 placeholder: 15.00)
-data.payments.serviceFee            → Payments: Care Receiver Service Fee (%) field (FDR-008 placeholder: 5.00)
+data.payments.serviceFee            → Payments: Care Receiver Service Fee (%) field (FDR-008 placeholder: 15.00)
 data.payments.stripePublishableKey  → Payments: Stripe Publishable Key field (masked: "pk_live_••••••••5678")
 data.payments.stripeSecretKeyMasked → Payments: Stripe Secret Key field (always masked, reveal requires 2FA)
 data.payments.payoutSchedule        → Payments: Payout Schedule dropdown (weekly | bi-weekly | monthly)
@@ -766,14 +766,14 @@ data[].newValue          → New Value column
   "category": "payments",
   "settings": {
     "caregiverCommission": 15.00,
-    "serviceFee": 5.00,
+    "serviceFee": 15.00,
     "payoutSchedule": "weekly",
     "payoutDay": "friday"
   }
 }
 ```
 
-**Commission rate note**: FDR-008 is PENDING. The values 15% (caregiver) and 5% (service fee) are placeholders. The actual rates are a founder decision. Commission changes affect future bookings only — existing bookings retain the rate at time of booking (this logic is in the booking service, not the settings API).
+**Commission rate note**: FDR-008 is PENDING. The values 15% (caregiver) and 15% (service fee) are placeholders. The actual rates are a founder decision. Commission changes affect future bookings only — existing bookings retain the rate at time of booking (this logic is in the booking service, not the settings API).
 
 **Screen Elements Updated on success**: "Unsaved changes" indicator clears. Success toast displayed. Audit log table gains a new row at the top. Discard button is disabled.
 
@@ -1252,7 +1252,7 @@ Auth: Bearer JWT (super_admin role ONLY — returns 403 for all other roles)
     },
     "payments": {
       "caregiverCommission": 15.00,
-      "serviceFee": 5.00,
+      "serviceFee": 15.00,
       "stripePublishableKey": "pk_live_••••••••••••5678",
       "stripeSecretKeyMasked": "sk_live_••••••••••••••••••••••••",
       "payoutSchedule": "weekly",
@@ -1344,7 +1344,7 @@ Auth: Bearer JWT (super_admin role ONLY)
   "category": "payments",
   "settings": {
     "caregiverCommission": 15.00,
-    "serviceFee": 5.00,
+    "serviceFee": 15.00,
     "payoutSchedule": "weekly",
     "payoutDay": "friday"
   }

@@ -22,10 +22,12 @@ export default [
     route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
     route("newsletter/resend", "routes/website/news-and-articles/newsletter-resend.jsx"),
 
+    // Not found
+    route("*", "routes/not-found.jsx"),
+
+
     // Auth
     route("login", "routes/auth/login.jsx"),
-    route("forgot-password", "routes/auth/forgot-password.jsx"),
-    route("reset-password", "routes/auth/reset-password.jsx"),
     route("register", "routes/register.jsx"),
 
     // SEC
@@ -37,6 +39,8 @@ export default [
     route("newsletter/resend-action", "routes/website/actions/newsletter.resend.jsx"),
     route("waitinglist", "routes/website/actions/waitinglist.jsx"),
     route("contact", "routes/website/actions/contact.jsx"),
+    route("rr-api/conversations/:id", "routes/api/conversations-id.jsx"),
+    route("rr-api/conversations/:id/messages", "routes/api/conversations-id-messages.jsx"),
     route("api/v1/payments/methods", "routes/api/v1/payments-methods.jsx"),
     route("api/v1/webhooks/stripe", "routes/api/v1/webhooks-stripe.jsx"),
 
@@ -72,8 +76,9 @@ export default [
             index("routes/caregiver/caregiver-dashboard.jsx"),
             route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
             route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
+            route("bookings/:bookingId", "routes/caregiver/caregiver-booking-detail.jsx"),
             route("messages", "routes/caregiver/caregiver-messages.jsx"),
-            route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
+            route("messages/:conversationId", "routes/caregiver/caregiver-message-thread.jsx"),
             route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
             route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
             route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
@@ -91,7 +96,6 @@ export default [
             route("messages", "routes/carereceiver/carereceiver-messages.jsx"),
             route("messages/:conversationId", "routes/carereceiver/carereceiver-message-thread.jsx"),
             route("search", "routes/carereceiver/carereceiver-search.jsx"),
-            route("favorites", "routes/carereceiver/carereceiver-favorites.jsx"),
             route("caregivers/:caregiverId", "routes/carereceiver/carereceiver-caregiver-profile.jsx"),
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
@@ -177,8 +181,5 @@ export default [
     //     ])
     //   ])
     // ]
-    // ),
-
-    // Not found (keep as last route)
-    route("*", "routes/not-found.jsx")
+    // )
 ] satisfies RouteConfig;

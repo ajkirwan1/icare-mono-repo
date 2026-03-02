@@ -1,176 +1,96 @@
 import ICareFooter from "../../components/website/pages/shared/footers/icare-footer";
 import ICareNavbar from "../../components/website/pages/shared/icare-navbar";
-import { Link, NavLink, useSearchParams } from "react-router";
-import { useState } from "react";
+import { login } from "../../services/login-service";
+import { redirect, NavLink } from "react-router";
 import styles from "./login.module.scss";
 
 export function meta() {
-    return [
-        { title: "ICare | Login" },
-        { name: "description", content: "Choose your account type to continue with ICare." }
-    ];
+  return [
+    { title: "ICare | Login" },
+    { name: "description", content: "Choose your account type to continue with ICare." }
+  ];
 }
 
-const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+export async function action({ request }) {
+  const formData = await request.formData();
+  const username = formData.get("username");
+  const password = formData.get("password");
 
-function redirectByRole(userType) {
-    if (userType === "caregiver") return "/caregiver";
-    if (userType === "care_receiver" || userType === "family") return "/carereceiver";
-    if (userType === "admin") return "/admin";
-    return "/login";
+  const loginDetails = await login(username, password);
+
+  if (!loginDetails.success) {
+    return { error: loginDetails.message };
+  }
+
+  if (loginDetails.userdetails.role === "caregiver") {
+    return redirect("/carerecipient");
+  }
+
+  if (loginDetails.userdetails.role === "carerecipient") {
+    return redirect("/carerecipient");
+  }
+
+  return null;
 }
 
 export default function LoginPage() {
-    const [searchParams] = useSearchParams();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const registered = searchParams.get("registered") === "1";
-    const redirectParam = searchParams.get("redirect");
-
-    async function onSubmit(event) {
-        event.preventDefault();
-        setError("");
-
-        if (!/^\S+@\S+\.\S+$/.test(email)) {
-            setError("Enter a valid email.");
-            return;
-        }
-        if (!password) {
-            setError("Password is required.");
-            return;
-        }
-
-        try {
-            setLoading(true);
-            const response = await fetch(`${API_BASE}/api/v1/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json"
-                },
-                body: JSON.stringify({
-                    email: String(email || "").trim().toLowerCase(),
-                    password: String(password || "")
-                })
-            });
-
-            const result = await response.json().catch(() => null);
-            if (!response.ok) {
-                const serverError = result?.error;
-                const remainingAttempts = Number.isFinite(serverError?.remainingAttempts)
-                    ? ` (${serverError.remainingAttempts} attempts remaining)`
-                    : "";
-                setError((serverError?.message || "Login failed.") + remainingAttempts);
-                return;
-            }
-
-            const data = result?.data || {};
-            if (data.accessToken) {
-                window.localStorage.setItem("icare_access_token", data.accessToken);
-            }
-            if (data.user) {
-                window.localStorage.setItem("icare_user", JSON.stringify(data.user));
-            }
-
-            const defaultTarget = redirectByRole(data?.user?.userType);
-            const target = redirectParam && redirectParam.startsWith("/") ? redirectParam : defaultTarget;
-            window.location.assign(target);
-        } catch {
-            setError("Could not connect to login API.");
-        } finally {
-            setLoading(false);
-        }
+  const handleCardKeyDown = (event) => {
+    if (event.key === " ") {
+      event.preventDefault();
+      event.currentTarget.click();
     }
+  };
 
-    return (
-        <>
-            <ICareNavbar />
+  return (
+    <>
+      <ICareNavbar />
 
-            <section className={styles.wrap} aria-label="Choose account type">
-                <div className={styles.container}>
-                    <div className={styles.card}>
-                        <div className={styles.brand} aria-label="icare logo">
-                            <img src="/images/logo/icareblack.svg" alt="ICare" className={styles.brandLogo} width={121} height={48} />
-                        </div>
+      <section className={styles.wrap} aria-label="Choose account type">
+        <div className={styles.container}>
+          <div className={styles.card}>
+            <div className={styles.brand} aria-label="icare logo">
+              <img src="/images/logo/icareblack.svg" alt="ICare" className={styles.brandLogo} width={121} height={48} />
+            </div>
 
-                        <p className={styles.kicker}>Welcome back</p>
-                        <h1 className={styles.title}>Log in to your account</h1>
-                        <p className={styles.newAccount}>
-                            New to ICare?{" "}
-                            <NavLink to="/register" className={styles.newAccountLink}>
-                                Create your account here
-                            </NavLink>
-                        </p>
+            <p className={styles.kicker}>Welcome back</p>
+            <h1 className={styles.title}>Continue as</h1>
+            <p className={styles.newAccount}>
+              New to ICare?{" "}
+              <NavLink to="/register" className={styles.newAccountLink}>
+                Create your account here
+              </NavLink>
+            </p>
 
-                        {registered ? (
-                            <div className={styles.successBanner}>
-                                Registration successful. Log in with your email and password.
-                            </div>
-                        ) : null}
+            <div className={styles.roleGrid}>
+              <NavLink
+                to="/caregiver"
+                className={`${styles.roleCard} ${styles.primaryRoleCard}`}
+                onKeyDown={handleCardKeyDown}
+              >
+                <span className={styles.roleTitle}>CAREGIVER</span>
+                <span className={styles.roleText}>Create your profile, set availability, get matched.</span>
+              </NavLink>
 
-                        <form onSubmit={onSubmit} className={styles.form}>
-                            <label className={styles.label} htmlFor="email">
-                                Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className={styles.input}
-                                autoComplete="email"
-                                required
-                            />
+              <NavLink
+                to="/carereceiver"
+                className={`${styles.roleCard} ${styles.primaryRoleCard}`}
+                onKeyDown={handleCardKeyDown}
+              >
+                <span className={styles.roleTitle}>CARE RECEIVER</span>
+                <span className={styles.roleText}>Find trusted carers, message and organise support.</span>
+              </NavLink>
+            </div>
 
-                            <label className={styles.label} htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className={styles.input}
-                                autoComplete="current-password"
-                                required
-                            />
+            <p className={styles.staffLoginRow}>
+              <NavLink to="/admin" className={styles.staffLoginLink}>
+                Staff login
+              </NavLink>
+            </p>
+          </div>
+        </div>
+      </section>
 
-                            <div className={styles.formActions}>
-                                <button className={styles.loginBtn} type="submit" disabled={loading}>
-                                    {loading ? "Logging in..." : "Log In"}
-                                </button>
-                                <Link to="/forgot-password" className={styles.forgotLink}>
-                                    Forgot password?
-                                </Link>
-                            </div>
-
-                            {error ? <div className={styles.errorText}>{error}</div> : null}
-                        </form>
-
-                        <div className={styles.roleGrid}>
-                            <NavLink to="/caregiver" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>CAREGIVER</span>
-                                <span className={styles.roleText}>Manage your profile, jobs, and bookings.</span>
-                            </NavLink>
-
-                            <NavLink to="/carereceiver" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>CARE RECEIVER</span>
-                                <span className={styles.roleText}>Find caregivers and manage support.</span>
-                            </NavLink>
-
-                            <NavLink to="/admin" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>ADMIN</span>
-                                <span className={styles.roleText}>Review platform activity and manage operations.</span>
-                            </NavLink>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <ICareFooter />
-        </>
-    );
+      <ICareFooter />
+    </>
+  );
 }

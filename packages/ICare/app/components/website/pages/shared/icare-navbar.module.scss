@@ -72,6 +72,10 @@
     }
 }
 
+.loginLink {
+    font-weight: $fw-bold;
+}
+
 /* wrapper keeps button + menu in one hover zone —
    stretched to full header height so dropdown sits flush at header bottom */
 .dropdownWrapper {
@@ -300,6 +304,10 @@
     &[aria-current="page"] {
         color: #ffa967;
     }
+}
+
+.mobileLoginLink {
+    font-weight: $fw-extrabold;
 }
 
 .mobileGroup {

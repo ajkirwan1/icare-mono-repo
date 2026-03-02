@@ -14,3 +14,7 @@
 //     </IcarePage>
 //   );
 // }
+
+export default function CarerecipientRoute() {
+  return null;
+}

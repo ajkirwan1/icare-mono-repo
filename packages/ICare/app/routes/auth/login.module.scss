@@ -6,211 +6,232 @@ $border: rgba(137, 102, 78, 0.18);
 $accent: #8f6347;
 
 .wrap {
-    min-height: calc(100vh - var(--navbar-height));
-    padding: calc(var(--navbar-height) + 2.5rem) 1rem 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        radial-gradient(circle at 12% 18%, rgba(143, 99, 71, 0.1), transparent 36%),
-        radial-gradient(circle at 88% 82%, rgba(194, 175, 154, 0.1), transparent 38%),
-        linear-gradient(180deg, #f7f3ee 0%, #fcfaf7 100%);
+  min-height: calc(100vh - var(--navbar-height));
+  padding: calc(var(--navbar-height) + 2.5rem) 1rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(143, 99, 71, 0.1), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(194, 175, 154, 0.1), transparent 38%),
+    linear-gradient(180deg, #f7f3ee 0%, #fcfaf7 100%);
 }
 
 .container {
-    width: 100%;
-    max-width: 760px;
+  width: 100%;
+  max-width: 760px;
 }
 
 .card {
-    background: $surface;
-    border: 1px solid $border;
-    border-radius: 22px;
-    box-shadow: 0 20px 45px rgba(35, 23, 15, 0.08);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: 22px;
+  box-shadow: 0 20px 45px rgba(35, 23, 15, 0.08);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  animation: sectionEnter 240ms ease-out both;
 }
 
 .brand {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 0.85rem;
-    animation: brandReveal 0.55s ease-out;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  animation: brandReveal 0.55s ease-out;
 }
 
 .brandLogo {
-    display: block;
-    width: auto;
-    height: 48px;
-    max-width: 100%;
+  display: block;
+  width: auto;
+  height: 48px;
+  max-width: 100%;
 }
 
 .kicker {
-    margin: 0;
-    font-size: 0.84rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #000000;
+  margin: 0;
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000000;
 }
 
 .title {
-    margin: 0.45rem 0 1.4rem;
-    font-size: clamp(1.7rem, 3.4vw, 2.2rem);
-    line-height: 1.15;
-    color: #000000;
+  margin: 0.45rem 0 1.4rem;
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  line-height: 1.15;
+  color: #000000;
 }
 
 .newAccount {
-    margin: -0.55rem 0 1.25rem;
-    font-size: 0.94rem;
-    line-height: 1.4;
-    color: #000000;
+  margin: -0.55rem 0 1.25rem;
+  font-size: 0.94rem;
+  line-height: 1.4;
+  color: #000000;
 }
 
 .newAccountLink {
-    color: $accent;
-    font-weight: 600;
-    text-decoration: underline;
-    text-underline-offset: 2px;
+  color: $accent;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 
-    &:hover {
-        color: #78523a;
-    }
+  &:hover {
+    color: #78523a;
+  }
 
-    &:focus-visible {
-        outline: 2px solid rgba(143, 99, 71, 0.3);
-        outline-offset: 2px;
-        border-radius: 4px;
-    }
-}
-
-.successBanner {
-    border: 1px solid rgba(22, 163, 74, 0.35);
-    background: rgba(22, 163, 74, 0.12);
-    color: #14532d;
-    border-radius: 12px;
-    padding: 0.7rem 0.85rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.form {
-    display: grid;
-    gap: 0.55rem;
-    margin-bottom: 1rem;
-}
-
-.label {
-    font-size: 0.86rem;
-    font-weight: 700;
-    color: #000000;
-}
-
-.input {
-    width: 100%;
-    border: 1px solid $border;
-    border-radius: 12px;
-    padding: 0.75rem 0.85rem;
-    font-size: 0.95rem;
-    color: #000000;
-    background: #ffffff;
-
-    &:focus {
-        outline: none;
-        border-color: rgba(143, 99, 71, 0.45);
-        box-shadow: 0 0 0 3px rgba(143, 99, 71, 0.12);
-    }
-}
-
-.formActions {
-    margin-top: 0.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.8rem;
-}
-
-.loginBtn {
-    border: 1px solid transparent;
-    border-radius: 999px;
-    background: #000000;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.92rem;
-    padding: 0.65rem 1rem;
-    cursor: pointer;
-
-    &:disabled {
-        opacity: 0.65;
-        cursor: not-allowed;
-    }
-}
-
-.forgotLink {
-    font-size: 0.88rem;
-    color: #000000;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-}
-
-.errorText {
-    margin-top: 0.2rem;
-    color: #b91c1c;
-    font-size: 0.85rem;
-    font-weight: 600;
+  &:focus-visible {
+    outline: 2px solid rgba(143, 99, 71, 0.3);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
 .roleGrid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
 
-    @media (max-width: 700px) {
-        grid-template-columns: 1fr;
-    }
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .roleCard {
-    background: $surfaceSoft;
-    border: 1px solid $border;
-    border-radius: 25px;
-    padding: 1.265rem 1.15rem;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  background: $surfaceSoft;
+  border: 1px solid $border;
+  border-radius: 25px;
+  padding: 1.265rem 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: cardEnter 230ms ease-out both;
 
-    &:hover,
-    &:focus-visible {
-        border-color: rgba(143, 99, 71, 0.36);
-        box-shadow: 0 12px 20px rgba(143, 99, 71, 0.12);
-        transform: translateY(-2px);
-        outline: none;
-    }
+  &:hover,
+  &:focus-visible {
+    border-color: rgba(143, 99, 71, 0.44);
+    box-shadow: 0 12px 20px rgba(143, 99, 71, 0.14);
+    transform: translateY(-3px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(143, 99, 71, 0.55);
+    outline-offset: 3px;
+  }
+}
+
+.primaryRoleCard {
+  min-height: 166px;
+  padding: 1.45rem 1.25rem;
+  border-color: rgba(143, 99, 71, 0.26);
+  background: linear-gradient(160deg, #f5ece1 0%, #fff8ee 100%);
+  box-shadow: 0 10px 20px rgba(72, 46, 30, 0.08);
 }
 
 .roleTitle {
-    font-size: 1.02rem;
-    font-weight: 700;
-    color: #000000;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #000000;
 }
 
 .roleText {
-    font-size: 0.92rem;
-    line-height: 1.45;
-    color: #000000;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #000000;
+}
+
+.primaryRoleCard .roleTitle {
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+}
+
+.primaryRoleCard .roleText {
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.roleGrid .roleCard:nth-child(1) {
+  animation-delay: 60ms;
+}
+
+.roleGrid .roleCard:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.staffLoginRow {
+  margin: 1rem 0 0;
+  text-align: center;
+  animation: cardEnter 230ms ease-out both;
+  animation-delay: 220ms;
+}
+
+.staffLoginLink {
+  font-size: 0.9rem;
+  color: #6f4f39;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: #5f4330;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(143, 99, 71, 0.5);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@keyframes sectionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes brandReveal {
-    from {
-        opacity: 0;
-        transform: translateY(6px) scale(0.98);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .roleCard,
+  .staffLoginRow,
+  .brand {
+    animation: none;
+  }
+
+  .roleCard {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .roleCard:hover,
+  .roleCard:focus-visible {
+    transform: none;
+  }
 }

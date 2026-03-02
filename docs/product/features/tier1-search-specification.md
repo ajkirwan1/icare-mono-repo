@@ -331,7 +331,7 @@ Search and discovery is critical because:
 
 **Display**:
 - Rate shown is caregiver's take-home rate
-- Tooltip: "Platform adds 5% service fee to your total. Caregiver pays 10-15% commission."
+- Tooltip: "Platform adds 15% service fee to your total. Caregiver pays 10-15% commission."
 - Total cost calculated at booking stage
 
 ---
@@ -485,7 +485,7 @@ Search and discovery is critical because:
 6. **Hourly Rate**:
    - "From 20 GBP/hour"
    - Caregiver's take-home rate (before platform commission)
-   - Tooltip: "Platform adds 5% service fee to total"
+   - Tooltip: "Platform adds 15% service fee to total"
 
 7. **Average Rating**:
    - Star rating (1-5 stars, half-stars supported)
@@ -1619,7 +1619,7 @@ CREATE INDEX idx_favorites_caregiver ON favorited_caregivers(caregiver_id);
 **AC-003: Rate Range Filtering**
 - [ ] User can set min and max hourly rate (slider or input)
 - [ ] Results filter by rate range dynamically
-- [ ] Platform fee displayed transparently ("20 GBP/hour + 5% platform fee")
+- [ ] Platform fee displayed transparently ("20 GBP/hour + 15% platform fee")
 - [ ] Default range: 10-40 GBP/hour
 
 ---

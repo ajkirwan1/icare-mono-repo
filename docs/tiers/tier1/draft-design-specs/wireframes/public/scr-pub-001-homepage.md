@@ -186,7 +186,7 @@ The Homepage is the primary entry point for all users (authenticated and unauthe
        - Heading: "Earn £18/hour"
        - Body: "Get paid securely after each visit. Set your own availability"
 
-**Note**: Commission rate placeholder is 15% caregiver + 5% service fee per established convention (see MEMORY.md).
+**Note**: Commission rate placeholder is 15% caregiver + 15% service fee per established convention (see MEMORY.md).
 
 #### Block 6: Testimonials (Optional for R0, can be placeholder)
 - **Purpose**: Social proof from care receivers and caregivers

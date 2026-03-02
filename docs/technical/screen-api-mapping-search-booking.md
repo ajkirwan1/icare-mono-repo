@@ -52,7 +52,7 @@ All endpoints below are relative to `{base}/api/v1`. Full base URLs:
 
 ### Commission Rate Note
 
-The booking form wireframe displays a 5% platform service fee charged to care receivers. The caregiver booking detail displays a 15% platform commission deducted from earnings. These are placeholder values pending FDR-008 (pricing decision).
+The booking form wireframe displays a 15% platform service fee charged to care receivers. The caregiver booking detail displays a 15% platform commission deducted from earnings. These are placeholder values pending FDR-008 (pricing decision).
 
 ---
 
@@ -558,12 +558,12 @@ data.postcode                       → distance calculation for summary card
 **No API call**: Price calculation is entirely client-side using values already loaded:
 - `hourlyRate` from `GET /caregivers/:id` (Call 1)
 - `duration` from the user's radio button selection (2, 3, 4, 6, or 8 hours)
-- `serviceFeeRate` from hardcoded constant (5% — pending FDR-008)
+- `serviceFeeRate` from hardcoded constant (15% — pending FDR-008)
 
 **Calculation**:
 ```
 subtotal     = hourlyRate × durationHours
-serviceFee   = subtotal × 0.05
+serviceFee   = subtotal × 0.15
 totalCharge  = subtotal + serviceFee
 ```
 
@@ -693,7 +693,7 @@ The booking detail screen is driven almost entirely by a single endpoint. All 14
 
 - **Payment Details** (`section-payment-details`):
   - Service + rate + subtotal: `data.pricing.hourlyRate` × `data.durationHours`
-  - Platform service fee (5%): derived from `data.pricing`
+  - Platform service fee (15%): derived from `data.pricing`
   - Total: `data.pricing.totalCareReceiverCharge`
   - Payment status text: derived from `data.status` + `data.paymentStatus`
 

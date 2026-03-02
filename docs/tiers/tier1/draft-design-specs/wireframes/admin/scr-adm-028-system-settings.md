@@ -44,7 +44,7 @@ The System Settings screen provides super admins with a centralized interface to
 
 **Primary Tasks**:
 1. Update commission rate for caregiver earnings (15% placeholder)
-2. Update service fee charged to care receivers (5% placeholder)
+2. Update service fee charged to care receivers (15% placeholder)
 3. Configure required verification documents (ID, DBS, Right to Work)
 4. Set verification expiry periods (e.g., DBS expires after 3 years)
 5. Enable/disable platform features (messaging, reviews, booking)
@@ -62,7 +62,7 @@ The System Settings screen provides super admins with a centralized interface to
 ### 1.3 Critical Business Context
 
 **IMPORTANT - Commission Rate Placeholder**:
-- Current placeholder: **15% caregiver commission + 5% care receiver service fee**
+- Current placeholder: **15% caregiver commission + 15% care receiver service fee**
 - This is NOT the final rate (FDR-008 decision pending from founder)
 - Settings interface must support easy rate changes
 - Historical rate changes must be audited and logged
@@ -407,8 +407,8 @@ The System Settings screen provides super admins with a centralized interface to
 **2. Care Receiver Service Fee**:
 - Label: "Care Receiver Service Fee (%)"
 - Input type: Number (decimal, 2 places)
-- Current value: "5.00"
-- Help text: "Percentage added to booking total charged to care receiver (e.g., 5% means care receiver pays 105% of caregiver rate)"
+- Current value: "15.00"
+- Help text: "Percentage added to booking total charged to care receiver (e.g., 15% means care receiver pays 115% of caregiver rate)"
 - Validation: Required, 0-25% range
 - Min: 0, Max: 25, Step: 0.25
 - Warning badge: "PLACEHOLDER - FDR-008 PENDING" (orange)
@@ -416,7 +416,7 @@ The System Settings screen provides super admins with a centralized interface to
 **3. Combined Platform Revenue**:
 - Label: "Total Platform Revenue per Booking"
 - Display: Read-only calculation
-- Current value: "20.00%" (15% commission + 5% service fee)
+- Current value: "30.00%" (15% commission + 15% service fee)
 - Format: Bold text, larger font (20px)
 - Help text: "This is the effective take rate on each booking"
 
@@ -428,7 +428,7 @@ Caregiver hourly rate: £20.00
 Booking duration: 3 hours
 Booking subtotal: £60.00
 
-Care Receiver Service Fee (5%): +£3.00
+Care Receiver service fee (15%): +£9.00
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Total Charged to Care Receiver: £63.00
 
@@ -764,7 +764,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 10 Feb 2026, 09:15 | Mike (Super Admin)    | Features      | Messaging System        | ON        | OFF
 09 Feb 2026, 16:45 | Sarah (Super Admin)   | Verification  | DBS Expiry Period       | 5 years   | 3 years
 08 Feb 2026, 11:22 | Mike (Super Admin)    | General       | Maintenance Mode        | OFF       | ON
-07 Feb 2026, 08:30 | Sarah (Super Admin)   | Payments      | Service Fee             | 5.00%     | 7.00%
+07 Feb 2026, 08:30 | Sarah (Super Admin)   | Payments      | Service Fee             | 15.00%    | 17.00%
 ```
 
 **Action Link**:
@@ -895,17 +895,17 @@ Date/Time          | Admin User            | Category      | Field Changed      
 │  │ [🔔] Notifications│ Percentage deducted from caregiver earnings                │   │
 │  │                  │                                                            │   │
 │  │ [⚡] Features     │ Care Receiver Service Fee (%)  [PLACEHOLDER - FDR-008]     │   │
-│  │     2 disabled   │ [5.00                 ]                                    │   │
+│  │     2 disabled   │ [15.00                ]                                    │   │
 │  │                  │ Percentage added to booking total charged to care receiver │   │
 │  │                  │                                                            │   │
 │  │                  │ Total Platform Revenue per Booking                         │   │
-│  │                  │ 20.00%  (15% commission + 5% service fee)                 │   │
+│  │                  │ 30.00%  (15% commission + 15% service fee)                 │   │
 │  │                  │ This is the effective take rate on each booking            │   │
 │  │                  │                                                            │   │
 │  │                  │ ┌─────────────────────────────────────────────────────┐   │   │
 │  │                  │ │ Example Booking Calculation:                        │   │   │
 │  │                  │ │ Caregiver rate: £20/hr × 3hrs = £60                │   │   │
-│  │                  │ │ Care Receiver Service Fee (5%): +£3.00             │   │   │
+│  │                  │ │ Care Receiver service fee (15%): +£9.00             │   │   │
 │  │                  │ │ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │   │   │
 │  │                  │ │ Total Charged to Care Receiver: £63.00             │   │   │
 │  │                  │ │                                                     │   │   │
@@ -1726,7 +1726,7 @@ Date/Time          | Admin User            | Category      | Field Changed      
 **Product Gaps**:
 1. **Screen ID Assignment**: RESOLVED -- Assigned SCR-ADM-028 (2026-02-12 gap analysis reconciliation).
 
-2. **Commission Rate Final Decision**: FDR-008 pending from founder. Current placeholder (15% caregiver commission + 5% service fee) may change before R0 launch. Settings interface designed to accommodate easy changes.
+2. **Commission Rate Final Decision**: FDR-008 pending from founder. Current placeholder (15% caregiver commission + 15% service fee) may change before R0 launch. Settings interface designed to accommodate easy changes.
 
 3. **Email Template Editor**: Notification settings section assumes basic textarea for email templates. R1+ may require rich text editor (WYSIWYG) for formatting. Defer to R1.
 

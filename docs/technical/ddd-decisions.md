@@ -176,7 +176,7 @@ public readonly record struct CaregiverId(Guid Value);
 
 **Decision:** Commission rate is NOT hardcoded in domain entities. It is stored in a `PlatformSettings` aggregate in the Admin context and injected into the Booking/Payment contexts via a domain service (`IPricingCalculator`).
 
-**Rationale:** FDR-008 (final commission rate) is still pending. The domain model must be configurable. Current placeholder: 15% caregiver commission + 5% service fee.
+**Rationale:** FDR-008 (final commission rate) is still pending. The domain model must be configurable. Current placeholder: 15% caregiver commission + 15% service fee.
 
 ---
 

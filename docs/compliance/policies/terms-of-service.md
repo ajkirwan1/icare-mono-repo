@@ -249,7 +249,7 @@ Require caregivers and care receivers to indemnify Platform for claims arising f
 
 **Escrow Model**:
 
-> "Care receivers authorize payment when booking care. Funds are held in escrow by the Platform and released to the caregiver upon completion of care and confirmation by the care receiver. Platform charges a service fee [5%] to care receivers and a commission [10-15%] to caregivers."
+> "Care receivers authorize payment when booking care. Funds are held in escrow by the Platform and released to the caregiver upon completion of care and confirmation by the care receiver. Platform charges a service fee [15%] to care receivers and a commission [10-15%] to caregivers."
 
 ### Cancellation Policy
 

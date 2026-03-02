@@ -6,6 +6,7 @@
     "start:full": "npm run db:seed && npm run start",
     "dev": "nodemon src/index.js",
     "dev:full": "npm run db:seed && npm run dev",
+    "test:intro-video-validation": "node --test utils/intro-video-validation.test.js",
     "db:wait": "wait-on tcp:localhost:5432",
     "db:init": "node db/scripts/run-sql.js",
     "db:seed": "npm run db:wait && npm run db:init"

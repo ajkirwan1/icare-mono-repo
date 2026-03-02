@@ -478,7 +478,7 @@ CREATE TABLE bookings (
 
   -- Pricing
   hourly_rate DECIMAL(10, 2) NOT NULL, -- Caregiver rate at time of booking
-  platform_service_fee DECIMAL(10, 2) NOT NULL, -- Care receiver pays (e.g., 5%)
+  platform_service_fee DECIMAL(10, 2) NOT NULL, -- Care receiver pays (e.g., 15%)
   platform_commission_rate DECIMAL(5, 2) NOT NULL, -- % deducted from caregiver
   total_care_receiver_charge DECIMAL(10, 2) NOT NULL, -- Total charged to care receiver
   caregiver_earnings DECIMAL(10, 2) NOT NULL, -- After commission

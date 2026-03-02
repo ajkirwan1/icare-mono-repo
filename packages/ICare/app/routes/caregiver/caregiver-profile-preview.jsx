@@ -1,5 +1,7 @@
 import { NavLink } from "react-router";
+import { useEffect, useState } from "react";
 import { DashboardShell, SectionCard } from "~/components/application/kasia";
+import { fetchCaregiverProfile } from "~/utils/api/caregiver-intro-video";
 import styles from "./caregiver-profile-preview.module.scss";
 
 const services = [
@@ -12,6 +14,47 @@ const services = [
 ];
 
 export default function CaregiverProfilePreview() {
+  const profileId = "caregiver-sarah-johnson";
+  const [profile, setProfile] = useState({
+    id: profileId,
+    introVideoUrl: null,
+    introVideoDurationSec: null,
+    introVideoMime: null,
+    introVideoSizeBytes: null
+  });
+  const [loadingVideo, setLoadingVideo] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProfile() {
+      setLoadingVideo(true);
+      try {
+        const data = await fetchCaregiverProfile(profileId);
+        if (!isMounted) {
+          return;
+        }
+        setProfile((prev) => ({
+          ...prev,
+          ...data?.profile
+        }));
+      } catch {
+        // Keep UI functional even if API is temporarily unavailable.
+      } finally {
+        if (isMounted) {
+          setLoadingVideo(false);
+        }
+      }
+    }
+
+    loadProfile();
+    return () => {
+      isMounted = false;
+    };
+  }, [profileId]);
+
+  const showIntroVideoSection = Boolean(profile.introVideoUrl);
+
   return (
     <div className={styles.page}>
       <div className={styles.breadcrumb}>My Profile <span>&gt;</span> <strong>Public Preview</strong></div>
@@ -25,10 +68,6 @@ export default function CaregiverProfilePreview() {
               <h1>Public Profile Preview</h1>
               <p>This is how families will see your profile.</p>
             </header>
-
-            <div className={styles.previewNotice}>
-              Preview mode: this view is read-only and mirrors what families see.
-            </div>
 
             <SectionCard title="Caregiver Overview" className={styles.previewCard}>
               <div className={styles.heroGrid}>
@@ -100,6 +139,23 @@ export default function CaregiverProfilePreview() {
                 ))}
               </ul>
             </SectionCard>
+
+            {showIntroVideoSection ? (
+              <SectionCard title="Intro video" className={styles.previewCard}>
+                {loadingVideo ? (
+                  <p className={styles.copy}>Loading intro video...</p>
+                ) : (
+                  <div className={styles.videoPreview}>
+                    <video
+                      src={profile.introVideoUrl}
+                      controls
+                      preload="metadata"
+                      poster="/images/avatars/female.webp"
+                    />
+                  </div>
+                )}
+              </SectionCard>
+            ) : null}
 
             <div className={styles.footerActions}>
               <NavLink to="/caregiver/profile" className={styles.editBtn}>Back to Edit Profile</NavLink>

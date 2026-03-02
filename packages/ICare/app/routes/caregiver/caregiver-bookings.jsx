@@ -110,14 +110,14 @@ const bookings = [
   }
 ];
 
-function BookingActions({ actions }) {
+function BookingActions({ actions, bookingId }) {
   return (
     <div className={styles.actions}>
-      {actions.includes("accept") ? <button className={styles.acceptButton} type="button">Accept</button> : null}
-      {actions.includes("details") ? <button className={styles.outlineButton} type="button">View Details</button> : null}
-      {actions.includes("decline") ? <button className={styles.outlineButton} type="button">Decline</button> : null}
+      {actions.includes("accept") ? <NavLink className={styles.acceptButton} to={`/caregiver/bookings/${bookingId}?action=accept`}>Accept</NavLink> : null}
+      {actions.includes("details") ? <NavLink className={styles.outlineButton} to={`/caregiver/bookings/${bookingId}`}>View Details</NavLink> : null}
+      {actions.includes("decline") ? <NavLink className={styles.outlineButton} to={`/caregiver/bookings/${bookingId}?action=decline`}>Decline</NavLink> : null}
       {actions.includes("message") ? <NavLink className={styles.outlineButton} to="/caregiver/messages">Message</NavLink> : null}
-      {actions.includes("cancel") ? <button className={styles.outlineButton} type="button">Cancel</button> : null}
+      {actions.includes("cancel") ? <NavLink className={styles.outlineButton} to={`/caregiver/bookings?tab=upcoming&action=cancel&bookingId=${bookingId}`}>Cancel</NavLink> : null}
     </div>
   );
 }
@@ -154,7 +154,7 @@ function BookingCard({ booking }) {
         <p className={styles.details}>{booking.details}</p>
 
         <div className={styles.footerRow}>
-          <BookingActions actions={booking.actions} />
+          <BookingActions actions={booking.actions} bookingId={booking.id} />
           {booking.countdown ? <p className={styles.countdown}>⏳ {booking.countdown}</p> : null}
         </div>
       </div>
@@ -163,8 +163,16 @@ function BookingCard({ booking }) {
 }
 
 export default function CaregiverBookings() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get("tab") ?? "upcoming";
+  const currentSort = searchParams.get("sort") ?? "newest";
+  const currentPage = Number(searchParams.get("page") ?? "1");
+
+  const setParam = (key, value) => {
+    const next = new URLSearchParams(searchParams);
+    next.set(key, value);
+    setSearchParams(next);
+  };
 
   const filteredBookings = bookings.filter((booking) => {
     if (activeTab === "completed") {
@@ -208,7 +216,13 @@ export default function CaregiverBookings() {
 
         <section className={styles.topRow}>
           <p className={styles.pendingCount}>{filteredBookings.length} {activeTabLabel.toLowerCase()} bookings</p>
-          <button type="button" className={styles.sortButton}>Sort by: Date (newest) ▾</button>
+          <button
+            type="button"
+            className={styles.sortButton}
+            onClick={() => setParam("sort", currentSort === "newest" ? "oldest" : "newest")}
+          >
+            Sort by: Date ({currentSort}) ▾
+          </button>
         </section>
 
         <section className={styles.list}>
@@ -218,10 +232,34 @@ export default function CaregiverBookings() {
         </section>
 
         <nav className={styles.pagination} aria-label="Pagination">
-          <button type="button" className={styles.pageButton}>← Prev</button>
-          <button type="button" className={`${styles.pageNumber} ${styles.currentPage}`.trim()}>1</button>
-          <button type="button" className={styles.pageNumber}>2</button>
-          <button type="button" className={styles.pageButton}>Next →</button>
+          <button
+            type="button"
+            className={styles.pageButton}
+            onClick={() => setParam("page", String(Math.max(1, currentPage - 1)))}
+          >
+            ← Prev
+          </button>
+          <button
+            type="button"
+            className={`${styles.pageNumber} ${currentPage === 1 ? styles.currentPage : ""}`.trim()}
+            onClick={() => setParam("page", "1")}
+          >
+            1
+          </button>
+          <button
+            type="button"
+            className={`${styles.pageNumber} ${currentPage === 2 ? styles.currentPage : ""}`.trim()}
+            onClick={() => setParam("page", "2")}
+          >
+            2
+          </button>
+          <button
+            type="button"
+            className={styles.pageButton}
+            onClick={() => setParam("page", String(Math.min(2, currentPage + 1)))}
+          >
+            Next →
+          </button>
         </nav>
       </div>
     </DashboardShell>

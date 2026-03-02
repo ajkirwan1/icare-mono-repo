@@ -1,10 +1,16 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import {
   DashboardShell,
   SectionCard,
   PrimaryActionButton
 } from "~/components/application/kasia";
+import IntroVideoUploader from "~/components/application/profile/IntroVideoUploader";
+import {
+  fetchCaregiverProfile,
+  removeCaregiverIntroVideo,
+  uploadCaregiverIntroVideo
+} from "~/utils/api/caregiver-intro-video";
 import styles from "./caregiver-profile-edit.module.scss";
 
 const languages = ["English", "Polish"];
@@ -76,6 +82,7 @@ const initialSelected = {
 export default function CaregiverProfileEdit() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const profileId = "caregiver-sarah-johnson";
   const [visibleLanguages, setVisibleLanguages] = useState(languages);
   const [visibleInterests, setVisibleInterests] = useState(interests);
   const [selected, setSelected] = useState(initialSelected);
@@ -86,6 +93,12 @@ export default function CaregiverProfileEdit() {
   const [selectedAdditionalServices, setSelectedAdditionalServices] = useState([]);
   const [otherService, setOtherService] = useState("");
   const [profilePhoto, setProfilePhoto] = useState("/images/avatars/female.webp");
+  const [viewerRole, setViewerRole] = useState("caregiver");
+  const [introVideo, setIntroVideo] = useState({
+    introVideoUrl: null,
+    introVideoDurationSec: null
+  });
+  const [loadingIntroVideo, setLoadingIntroVideo] = useState(true);
   const [saveMessage, setSaveMessage] = useState("");
   const [lastSavedAt, setLastSavedAt] = useState("Today at 2:15 PM");
 
@@ -187,6 +200,71 @@ export default function CaregiverProfileEdit() {
 
   const clearAll = () => setSelected({});
 
+  useEffect(() => {
+    const role = window.localStorage.getItem("icare_user_role");
+    if (role === "admin" || role === "caregiver") {
+      setViewerRole(role);
+    }
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadIntroVideo() {
+      setLoadingIntroVideo(true);
+      try {
+        const data = await fetchCaregiverProfile(profileId);
+        if (!isMounted) {
+          return;
+        }
+        setIntroVideo({
+          introVideoUrl: data?.profile?.introVideoUrl || null,
+          introVideoDurationSec: data?.profile?.introVideoDurationSec ?? null
+        });
+      } catch {
+        // Keep edit form usable even when profile media API is temporarily unavailable.
+      } finally {
+        if (isMounted) {
+          setLoadingIntroVideo(false);
+        }
+      }
+    }
+
+    loadIntroVideo();
+    return () => {
+      isMounted = false;
+    };
+  }, [profileId]);
+
+  async function handleUploadIntroVideo(file, durationSec, onProgress) {
+    const data = await uploadCaregiverIntroVideo({
+      profileId,
+      userRole: viewerRole,
+      userId: profileId,
+      file,
+      durationSec,
+      onProgress
+    });
+
+    setIntroVideo({
+      introVideoUrl: data?.profile?.introVideoUrl || null,
+      introVideoDurationSec: data?.profile?.introVideoDurationSec ?? null
+    });
+  }
+
+  async function handleRemoveIntroVideo() {
+    const data = await removeCaregiverIntroVideo({
+      profileId,
+      userRole: viewerRole,
+      userId: profileId
+    });
+
+    setIntroVideo({
+      introVideoUrl: data?.profile?.introVideoUrl || null,
+      introVideoDurationSec: data?.profile?.introVideoDurationSec ?? null
+    });
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.breadcrumb}>Dashboard <span>&gt;</span> <strong>My Profile</strong></div>
@@ -220,6 +298,20 @@ export default function CaregiverProfileEdit() {
                 <p className={styles.uploadCaption}>Click to upload or replace profile photo</p>
                 <p>JPG, PNG - Max 5MB</p>
               </div>
+            </SectionCard>
+
+            <SectionCard title="Intro video (optional)">
+              {loadingIntroVideo ? (
+                <p>Loading intro video...</p>
+              ) : (
+                <IntroVideoUploader
+                  canEdit
+                  introVideoUrl={introVideo.introVideoUrl}
+                  introVideoDurationSec={introVideo.introVideoDurationSec}
+                  onUpload={handleUploadIntroVideo}
+                  onRemove={handleRemoveIntroVideo}
+                />
+              )}
             </SectionCard>
 
             <SectionCard title="About You">
@@ -443,7 +535,7 @@ export default function CaregiverProfileEdit() {
 
             <div className={styles.actionsFooter}>
               <PrimaryActionButton label="Save Changes" onClick={handleSaveChanges} />
-              <button type="button" className={styles.secondaryBtn}>Discard Changes</button>
+              <button type="button" className={styles.secondaryBtn} onClick={() => navigate(0)}>Discard Changes</button>
               <p>Last saved: {lastSavedAt}</p>
               {saveMessage ? <p className={styles.saveFeedback}>{saveMessage}</p> : null}
             </div>

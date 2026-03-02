@@ -170,7 +170,7 @@ The Terms of Service page displays legally enforceable terms and conditions for 
 - **Content**:
   - Self-employed contractor status (NOT employee)
   - Verification requirements (ID, right to work, voluntary DBS at Tier 1)
-  - Commission structure (platform fee deduction - placeholder: 15% caregiver + 5% service fee)
+  - Commission structure (platform fee deduction - placeholder: 15% caregiver + 15% service fee)
   - Professional conduct expectations (safeguarding, boundaries, professionalism)
   - Insurance requirements (own public liability insurance recommended)
   - Booking acceptance and cancellation obligations
@@ -696,7 +696,7 @@ This is a static legal document. Content is updated manually and versioned (last
 2. Caregiver navigates to SCR-PUB-006 (Terms of Service)
 3. Caregiver clicks ToC link "4. For Caregivers"
 4. Page scrolls to Section 4
-5. Caregiver reads commission structure (15% caregiver + 5% service fee)
+5. Caregiver reads commission structure (15% caregiver + 15% service fee)
 6. Caregiver clicks ToC link "5. Payments & Fees" for more detail
 7. Caregiver reads payment processing details
 
