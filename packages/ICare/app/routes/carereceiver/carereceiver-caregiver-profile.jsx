@@ -1,6 +1,16 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import "./carereceiver-pages.css";
+
+// icon for verification rows
+import { FiCheck, FiHeart } from "react-icons/fi";
+import RatingStars from "./rating-stars";
+import { getCaregiverPublicProfile, getCaregiverReviews } from "./bookings/bookings-api-client";
+import {
+    readFavoriteCaregivers,
+    toggleFavoriteCaregiver,
+    writeFavoriteCaregivers
+} from "./favorites-storage";
 
 const CAREGIVER = {
     id: "cg-001",
@@ -26,7 +36,82 @@ const CAREGIVER = {
     verificationItems: ["Identity Verified", "Enhanced DBS Check", "References Checked", "Right to Work"]
 };
 
-const REVIEWS = [
+const CAREGIVER_OVERRIDES = {
+    "cg-001": {
+        name: "Sarah Thompson",
+        location: "SW1A area",
+        distance: "1.2 miles from you",
+        hourlyRate: 18,
+        rating: 4.8,
+        reviewCount: 24,
+        languages: "English, Polish"
+    },
+    "cg-002": {
+        name: "Mary Johnson",
+        location: "W1H area",
+        distance: "2.4 miles from you",
+        hourlyRate: 17,
+        rating: 4.8,
+        reviewCount: 19,
+        languages: "English"
+    },
+    "cg-003": {
+        name: "Emma Collins",
+        location: "SE1 area",
+        distance: "3.1 miles from you",
+        hourlyRate: 20,
+        rating: 4.7,
+        reviewCount: 14,
+        languages: "English, Romanian"
+    },
+    "cg-004": {
+        name: "Anna Nowak",
+        location: "N1 area",
+        distance: "3.8 miles from you",
+        hourlyRate: 16,
+        rating: 4.6,
+        reviewCount: 11,
+        languages: "English, Polish"
+    },
+    "cg-005": {
+        name: "Tom Richards",
+        location: "EC1 area",
+        distance: "4.4 miles from you",
+        hourlyRate: 19,
+        rating: 4.8,
+        reviewCount: 22,
+        languages: "English"
+    },
+    "cg-006": {
+        name: "Lina Patel",
+        location: "E2 area",
+        distance: "5.0 miles from you",
+        hourlyRate: 18,
+        rating: 4.9,
+        reviewCount: 31,
+        languages: "English, Hindi"
+    },
+    "cg-007": {
+        name: "Margaret Shaw",
+        location: "NW1 area",
+        distance: "2.1 miles from you",
+        hourlyRate: 19,
+        rating: 4.9,
+        reviewCount: 16,
+        languages: "English"
+    }
+};
+
+function resolveCaregiverProfile(caregiverId) {
+    const normalizedId = String(caregiverId || CAREGIVER.id).trim() || CAREGIVER.id;
+    return {
+        ...CAREGIVER,
+        ...CAREGIVER_OVERRIDES[normalizedId],
+        id: normalizedId
+    };
+}
+
+const FALLBACK_REVIEWS = [
     { id: "rv-1", name: "Margaret H.", date: "15 Jan 2026", dateISO: "2026-01-15", rating: 5, text: "Wonderful caregiver, very reliable and caring. Highly recommended." },
     { id: "rv-2", name: "David P.", date: "28 Dec 2025", dateISO: "2025-12-28", rating: 4, text: "Very professional and kind, communication was excellent." },
     { id: "rv-3", name: "Linda K.", date: "10 Nov 2025", dateISO: "2025-11-10", rating: 5, text: "Always punctual and brings calm energy. Great with routines." },
@@ -49,11 +134,6 @@ function initials(name) {
         .toUpperCase();
 }
 
-function stars(count) {
-    const safe = Math.max(0, Math.min(5, Number(count) || 0));
-    return "★".repeat(safe).padEnd(5, "☆");
-}
-
 const CALENDAR_ROWS = [
     [null, null, null, 1, 2, 3, 4],
     [5, 6, 7, 8, 9, 10, 11],
@@ -64,44 +144,169 @@ const CALENDAR_ROWS = [
 
 export default function CarereceiverCaregiverProfile() {
     const { caregiverId } = useParams();
-    const bookingUrl = `/carereceiver/bookings/new/${caregiverId || CAREGIVER.id}`;
+    const activeCaregiverId = caregiverId || CAREGIVER.id;
+    const caregiver = useMemo(() => resolveCaregiverProfile(activeCaregiverId), [activeCaregiverId]);
+    const bookingUrl = `/carereceiver/bookings/new/${caregiver.id}`;
     const [sortMode, setSortMode] = useState("newest");
     const [visibleReviewCount, setVisibleReviewCount] = useState(3);
+    const [favoriteCaregivers, setFavoriteCaregivers] = useState(() => readFavoriteCaregivers());
+    const [reviewState, setReviewState] = useState({
+        loading: true,
+        reviews: [],
+        summary: null,
+        usedFallback: false
+    });
+    const [responseMetrics, setResponseMetrics] = useState(null);
+    const isFavorite = useMemo(
+        () => favoriteCaregivers.some((entry) => entry.id === caregiver.id),
+        [favoriteCaregivers, caregiver.id]
+    );
 
-    const sortedReviews = useMemo(() => {
-        const copy = [...REVIEWS];
-        if (sortMode === "highest") {
-            copy.sort((a, b) => b.rating - a.rating || new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
-            return copy;
+    useEffect(() => {
+        writeFavoriteCaregivers(favoriteCaregivers);
+    }, [favoriteCaregivers]);
+
+    useEffect(() => {
+        setVisibleReviewCount(3);
+    }, [activeCaregiverId, sortMode]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadReviews() {
+            setReviewState((prev) => ({ ...prev, loading: true }));
+            try {
+                const payload = await getCaregiverReviews(activeCaregiverId, {
+                    signal: controller.signal,
+                    sort: sortMode === "highest" ? "highest" : "newest",
+                    limit: 100
+                });
+                if (!mounted) {
+                    return;
+                }
+
+                setReviewState({
+                    loading: false,
+                    reviews: Array.isArray(payload?.reviews) ? payload.reviews : [],
+                    summary: payload?.summary || null,
+                    usedFallback: false
+                });
+            } catch {
+                if (!mounted) {
+                    return;
+                }
+
+                setReviewState({
+                    loading: false,
+                    reviews: FALLBACK_REVIEWS,
+                    summary: {
+                        averageRating: caregiver.rating,
+                        reviewCount: FALLBACK_REVIEWS.length,
+                        distribution: { 1: 2, 2: 3, 3: 10, 4: 25, 5: 60 }
+                    },
+                    usedFallback: true
+                });
+            }
         }
 
-        copy.sort((a, b) => new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime());
-        return copy;
-    }, [sortMode]);
+        loadReviews();
+
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, [activeCaregiverId, caregiver.rating, sortMode]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadResponseMetrics() {
+            try {
+                const payload = await getCaregiverPublicProfile(activeCaregiverId, {
+                    signal: controller.signal
+                });
+                if (!mounted) {
+                    return;
+                }
+
+                const metrics = payload?.responseMetrics && typeof payload.responseMetrics === "object"
+                    ? payload.responseMetrics
+                    : null;
+                setResponseMetrics(metrics);
+            } catch {
+                if (!mounted) {
+                    return;
+                }
+                setResponseMetrics(null);
+            }
+        }
+
+        loadResponseMetrics();
+
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, [activeCaregiverId]);
+
+    const sortedReviews = useMemo(() => {
+        return Array.isArray(reviewState.reviews) ? reviewState.reviews : [];
+    }, [reviewState.reviews]);
 
     const visibleReviews = sortedReviews.slice(0, visibleReviewCount);
     const canShowMoreReviews = visibleReviewCount < sortedReviews.length;
+    const summary = reviewState.summary;
+    const displayRating = summary ? Number(summary.averageRating || 0) : caregiver.rating;
+    const displayReviewCount = summary ? Number(summary.reviewCount || 0) : caregiver.reviewCount;
+    const ratingDistribution = summary?.distribution || { 1: 2, 2: 3, 3: 10, 4: 25, 5: 60 };
+    const acceptanceRateText = Number.isFinite(Number(responseMetrics?.acceptanceRate))
+        ? `${Math.round(Number(responseMetrics.acceptanceRate) * 100)}%`
+        : "";
+    const averageResponseHours = Number(responseMetrics?.averageResponseTimeHours);
+    const responseTimeText = Number.isFinite(averageResponseHours)
+        ? `Usually within ${Math.max(1, Math.round(averageResponseHours))} hours`
+        : "";
+    const showResponseStats = Boolean(responseMetrics && acceptanceRateText && responseTimeText);
+
+    function handleToggleFavorite() {
+        setFavoriteCaregivers((current) => toggleFavoriteCaregiver(current, {
+            id: caregiver.id,
+            name: caregiver.name,
+            location: caregiver.location,
+            distanceMiles: Number.parseFloat(String(caregiver.distance || "").split(" ")[0]) || 0,
+            hourlyRate: caregiver.hourlyRate,
+            rating: displayRating,
+            reviewCount: displayReviewCount,
+            languages: caregiver.languages,
+            services: Array.isArray(caregiver.services) ? caregiver.services.map((service) => service.name) : [],
+            badges: ["DBS Verified", "ID Verified", "Right to Work Verified"]
+        }));
+    }
 
     return (
         <div className="cr-page">
             <div className="cr-shell">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span><span>›</span><Link to="/carereceiver/search">Search</Link><span>›</span><strong>{CAREGIVER.name}</strong>
+                    <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span>
+                    <Link to="/carereceiver/search">Search</Link><span>›</span>
+                    <strong>{caregiver.name}</strong>
                 </nav>
 
                 <Link className="cr-back-link" to="/carereceiver/search">← Back to Search Results</Link>
 
                 <section className="cr-card cr-profile-hero">
-                    <div className="cr-avatar cr-profile-avatar">{initials(CAREGIVER.name)}</div>
+                    <div className="cr-avatar cr-profile-avatar">{initials(caregiver.name)}</div>
 
                     <div>
-                        <h1 style={{ margin: "0 0 6px" }}>{CAREGIVER.name}</h1>
-                        <p className="cr-muted" style={{ margin: "0 0 8px" }}>{CAREGIVER.location} • {CAREGIVER.distance}</p>
-                        <p className="cr-muted" style={{ margin: "0 0 8px" }}>
-                            <span style={{ color: "#dd8b4f", letterSpacing: "0.04em" }}>{stars(5)}</span>
-                            <span> {CAREGIVER.rating} ({CAREGIVER.reviewCount} reviews)</span>
+                        <h1 style={{ margin: "0 0 6px" }}>{caregiver.name}</h1>
+                        <p className="cr-muted" style={{ margin: "0 0 8px" }}>{caregiver.location} • {caregiver.distance}</p>
+                        <p className="cr-muted cr-rating-line" style={{ margin: "0 0 8px" }}>
+                            <span className="cr-stars-inline"><RatingStars value={displayRating} /></span>
+                            <span>{displayRating.toFixed(1)} ({displayReviewCount} reviews)</span>
                         </p>
-                        <p style={{ margin: "0 0 10px", fontWeight: 700 }}>£{CAREGIVER.hourlyRate}/hour</p>
+                        <p style={{ margin: "0 0 10px", fontWeight: 700 }}>£{caregiver.hourlyRate}/hour</p>
                         <div className="cr-inline">
                             <span className="cr-chip cr-chip--green">DBS Verified</span>
                             <span className="cr-chip cr-chip--green">ID Verified</span>
@@ -110,36 +315,54 @@ export default function CarereceiverCaregiverProfile() {
                     </div>
 
                     <div className="cr-profile-hero-actions">
-                        <Link className="cr-button cr-button--primary" to={bookingUrl}>Request Booking</Link>
+                        <div className="cr-grid" style={{ gap: "8px" }}>
+                            <button
+                                type="button"
+                                className={`cr-favorite-action ${isFavorite ? "is-active" : ""}`}
+                                onClick={handleToggleFavorite}
+                            >
+                                <span className="cr-heart-glyph" aria-hidden="true"><FiHeart /></span>
+                                {isFavorite ? (
+                                    <span className="cr-favorite-label-switch">
+                                        <span className="cr-favorite-label-default">Saved to favorites</span>
+                                        <span className="cr-favorite-label-hover" aria-hidden="true">Remove from favorites</span>
+                                    </span>
+                                ) : "Add to favorites"}
+                            </button>
+                            <Link className="cr-button cr-button--primary" to={bookingUrl}>Request Booking</Link>
+                        </div>
                     </div>
                 </section>
 
                 <section className="cr-profile-layout">
                     <div className="cr-grid">
                         <article className="cr-card">
-                            <h2>About Sarah</h2>
-                            <p className="cr-muted">{CAREGIVER.about}</p>
+                            <h2>About {caregiver.name.split(" ")[0]}</h2>
+                            <p className="cr-muted">{caregiver.about}</p>
 
                             <div className="cr-grid" style={{ gap: "6px", marginTop: "10px" }}>
-                                <p className="cr-row-sub"><strong>Experience:</strong> {CAREGIVER.experience}</p>
-                                <p className="cr-row-sub"><strong>Languages:</strong> {CAREGIVER.languages}</p>
-                                <p className="cr-row-sub"><strong>Interests:</strong> {CAREGIVER.interests}</p>
-                                <p className="cr-row-sub"><strong>Transportation:</strong> {CAREGIVER.transportation}</p>
+                                <p className="cr-row-sub"><strong>Experience:</strong> {caregiver.experience}</p>
+                                <p className="cr-row-sub"><strong>Languages:</strong> {caregiver.languages}</p>
+                                <p className="cr-row-sub"><strong>Interests:</strong> {caregiver.interests}</p>
+                                <p className="cr-row-sub"><strong>Transportation:</strong> {caregiver.transportation}</p>
                             </div>
                         </article>
 
                         <article className="cr-card">
                             <h2>Services I Offer</h2>
                             <ul className="cr-list">
-                                {CAREGIVER.services.map((service) => (
+                                {caregiver.services.map((service) => (
                                     <li key={service.name} className="cr-row" style={{ gridTemplateColumns: "1fr" }}>
                                         <div>
-                                            <p className="cr-row-title">✓ {service.name}</p>
+                                            <p className="cr-row-title cr-row-title-inline"><FiCheck /> {service.name}</p>
                                             <p className="cr-row-sub">{service.description}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
+                            <p className="cr-muted" style={{ marginTop: "10px" }}>
+                                Looking for personal care services? We&apos;ll be adding these services soon. Join the waitlist for updates.
+                            </p>
                         </article>
 
                         <article className="cr-card">
@@ -173,7 +396,7 @@ export default function CarereceiverCaregiverProfile() {
                         </article>
 
                         <article className="cr-card">
-                            <div className="cr-inline" style={{ justifyContent: "space-between" }}>
+                            <div className="cr-inline" style={{ justifyContent: "space-between", marginBottom: "20px" }}>
                                 <h2 style={{ margin: 0 }}>Reviews & Ratings</h2>
                                 <button
                                     type="button"
@@ -185,34 +408,48 @@ export default function CarereceiverCaregiverProfile() {
                             </div>
 
                             <div className="cr-rating-bars">
-                                <div><span>5★</span><progress max="100" value="60" /><span>60%</span></div>
-                                <div><span>4★</span><progress max="100" value="25" /><span>25%</span></div>
-                                <div><span>3★</span><progress max="100" value="10" /><span>10%</span></div>
-                                <div><span>2★</span><progress max="100" value="3" /><span>3%</span></div>
-                                <div><span>1★</span><progress max="100" value="2" /><span>2%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 5</span><progress max="100" value={ratingDistribution[5] || 0} /><span>{ratingDistribution[5] || 0}%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 4</span><progress max="100" value={ratingDistribution[4] || 0} /><span>{ratingDistribution[4] || 0}%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 3</span><progress max="100" value={ratingDistribution[3] || 0} /><span>{ratingDistribution[3] || 0}%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 2</span><progress max="100" value={ratingDistribution[2] || 0} /><span>{ratingDistribution[2] || 0}%</span></div>
+                                <div><span className="cr-stars-inline"><span className="cr-star-glyph">★</span> 1</span><progress max="100" value={ratingDistribution[1] || 0} /><span>{ratingDistribution[1] || 0}%</span></div>
                             </div>
 
                             <ul className="cr-list" style={{ marginTop: "12px" }}>
-                                {visibleReviews.map((review) => (
+                                {visibleReviews.length === 0 ? (
+                                    <li className="cr-row" style={{ gridTemplateColumns: "1fr" }}>
+                                        <p className="cr-row-sub" style={{ margin: 0 }}>No reviews yet for this caregiver.</p>
+                                    </li>
+                                ) : visibleReviews.map((review) => (
                                     <li key={review.id} className="cr-row" style={{ gridTemplateColumns: "1fr" }}>
                                         <div>
                                             <p className="cr-row-title">{review.name}</p>
-                                            <p className="cr-row-sub">{review.date}</p>
-                                            <p className="cr-row-sub" style={{ color: "#dd8b4f", letterSpacing: "0.04em" }}>{stars(review.rating)}</p>
+                                            <p className="cr-row-sub">{review.date || review.dateISO}</p>
+                                            <p className="cr-row-sub">
+                                                <span className="cr-stars-inline"><RatingStars value={review.rating} /></span>
+                                            </p>
                                             <p className="cr-row-sub" style={{ marginTop: "6px" }}>{review.text}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
 
-                            <button
-                                type="button"
-                                className="cr-button cr-button--primary"
-                                style={{ marginTop: "12px" }}
-                                onClick={() => setVisibleReviewCount((count) => (canShowMoreReviews ? count + 3 : 3))}
-                            >
-                                {canShowMoreReviews ? "Show more reviews" : "Show less reviews"}
-                            </button>
+                            {sortedReviews.length > 3 ? (
+                                <button
+                                    type="button"
+                                    className="cr-button cr-button--primary"
+                                    style={{ marginTop: "12px" }}
+                                    onClick={() => setVisibleReviewCount((count) => (canShowMoreReviews ? count + 3 : 3))}
+                                >
+                                    {canShowMoreReviews ? "Show more reviews" : "Show less reviews"}
+                                </button>
+                            ) : null}
+                            {reviewState.loading ? <p className="cr-muted" style={{ marginTop: "12px" }}>Loading reviews...</p> : null}
+                            {reviewState.usedFallback ? (
+                                <p className="cr-muted" style={{ marginTop: "8px" }}>
+                                    Showing fallback reviews. Start API to load reviews from database.
+                                </p>
+                            ) : null}
                         </article>
                     </div>
 
@@ -220,7 +457,7 @@ export default function CarereceiverCaregiverProfile() {
                         <article className="cr-card">
                             <h3>Verification Status</h3>
                             <ul className="cr-list">
-                                {CAREGIVER.verificationItems.map((item) => (
+                                {caregiver.verificationItems.map((item) => (
                                     <li key={item} className="cr-row" style={{ gridTemplateColumns: "1fr auto", padding: "10px 12px" }}>
                                         <span>{item}</span>
                                         <span className="cr-chip cr-chip--green">Verified</span>
@@ -242,7 +479,9 @@ export default function CarereceiverCaregiverProfile() {
                                             <div className="cr-avatar">{initials(item.name)}</div>
                                             <div>
                                                 <p className="cr-row-title">{item.name}</p>
-                                                <p className="cr-row-sub">£{item.rate}/hr • {item.rating}★</p>
+                                                <p className="cr-row-sub" style={{ whiteSpace: "nowrap" }}>
+                                                    £{item.rate}/hr • <span className="cr-stars-inline"><RatingStars value={item.rating} /> {item.rating}</span>
+                                                </p>
                                             </div>
                                         </div>
                                         <Link className="cr-button cr-button--text" to={`/carereceiver/caregivers/${item.id}`}>Open</Link>
@@ -255,8 +494,12 @@ export default function CarereceiverCaregiverProfile() {
 
                 <section className="cr-card cr-profile-cta">
                     <Link className="cr-button cr-button--primary" to={bookingUrl}>Request Booking</Link>
-                    <p className="cr-muted" style={{ margin: 0 }}>Response time: Usually within 2 hours</p>
-                    <p className="cr-muted" style={{ margin: 0 }}>Acceptance rate: 85%</p>
+                    {showResponseStats ? (
+                        <>
+                            <p className="cr-muted" style={{ margin: 0 }}>Response time: {responseTimeText}</p>
+                            <p className="cr-muted" style={{ margin: 0 }}>Acceptance rate: {acceptanceRateText}</p>
+                        </>
+                    ) : null}
                 </section>
 
                 <div className="cr-mobile-sticky-cta">

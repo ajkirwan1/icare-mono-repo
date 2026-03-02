@@ -8,6 +8,7 @@ import {
     listStripePaymentMethods,
     setStripeDefaultPaymentMethod
 } from "~/lib/stripe-payments.server";
+import { useState } from "react";
 import "./carereceiver-pages.css";
 
 function messageFromQuery(url) {
@@ -179,8 +180,11 @@ export default function CarereceiverPaymentMethods() {
     const actionData = useActionData();
     const navigation = useNavigation();
     const isSubmitting = navigation.state === "submitting";
+    const [cardholderName, setCardholderName] = useState("");
+    const [cardPostcode, setCardPostcode] = useState("");
 
     const { cards, notice, error, stripeConfigured, publishableKey } = loaderData;
+    const expiredCard = cards.find((card) => card.isExpired);
 
     return (
         <div className="cr-page">
@@ -197,6 +201,13 @@ export default function CarereceiverPaymentMethods() {
                     <h1>Payment Methods</h1>
                     <p>Manage your payment cards for booking payments.</p>
                 </header>
+
+                {expiredCard ? (
+                    <section className="cr-alert" role="alert">
+                        <p style={{ fontWeight: 700, marginBottom: "6px" }}>Card expired</p>
+                        <p>Your card ending in {expiredCard.last4} has expired. Please update or remove this card and add a new one.</p>
+                    </section>
+                ) : null}
 
                 {notice ? (
                     <section className="cr-alert" role="status">
@@ -217,15 +228,7 @@ export default function CarereceiverPaymentMethods() {
                 ) : null}
 
                 <section className="cr-card">
-                    <div className="cr-inline" style={{ justifyContent: "space-between", marginBottom: "10px" }}>
-                        <h2 style={{ margin: 0 }}>Saved Cards</h2>
-                        <Form method="post">
-                            <input type="hidden" name="intent" value="start_setup" />
-                            <button type="submit" className="cr-button cr-button--orange-outline" disabled={!stripeConfigured || isSubmitting}>
-                                {isSubmitting ? "Opening Stripe..." : "Add Payment Method"}
-                            </button>
-                        </Form>
-                    </div>
+                    <h2 style={{ margin: 0 }}>Saved Cards</h2>
 
                     {cards.length === 0 ? (
                         <p className="cr-muted">No payment methods saved yet.</p>
@@ -246,7 +249,7 @@ export default function CarereceiverPaymentMethods() {
                                                 <input type="hidden" name="intent" value="set_default" />
                                                 <input type="hidden" name="paymentMethodId" value={card.id} />
                                                 <button type="submit" className="cr-button cr-button--secondary" disabled={card.isDefault || isSubmitting}>
-                                                    {card.isDefault ? "Default" : "Set default"}
+                                                    Default
                                                 </button>
                                             </Form>
 
@@ -265,27 +268,61 @@ export default function CarereceiverPaymentMethods() {
                     )}
                 </section>
 
-                <section className="cr-grid cr-grid--2-1">
-                    <article className="cr-card">
-                        <h2>Secure Card Setup</h2>
-                        <p className="cr-muted">
-                            We use Stripe-hosted secure forms for card entry. Card number, CVC and expiry are collected directly by Stripe and never stored on iCare servers.
-                        </p>
-                        <div className="cr-grid" style={{ marginTop: "10px" }}>
-                            <span className="cr-chip cr-chip--green">SCA / 3D Secure supported</span>
-                            <span className="cr-chip cr-chip--green">PCI-compliant flow</span>
-                            <span className="cr-chip cr-chip--green">Sandbox ready</span>
-                        </div>
-                    </article>
+                <section className="cr-card">
+                    <h2>Add New Card</h2>
+                    <Form method="post" className="cr-add-card-grid">
+                        <input type="hidden" name="intent" value="start_setup" />
 
-                    <article className="cr-card">
-                        <h3>Stripe Config</h3>
-                        <p className="cr-muted">Mode: {stripeConfigured ? "Connected" : "Not configured"}</p>
-                        <p className="cr-muted">Publishable key: {publishableKey ? "Present" : "Missing"}</p>
-                        <span className={`cr-chip ${stripeConfigured ? "cr-chip--green" : "cr-chip--orange"}`}>
-                            {stripeConfigured ? "Powered by Stripe" : "Awaiting Sandbox Keys"}
-                        </span>
-                    </article>
+                        <label className="cr-muted" htmlFor="card-number">Card number *</label>
+                        <input id="card-number" className="cr-input" placeholder="1234 5678 9012 3456" value="" readOnly />
+
+                        <div className="cr-grid cr-grid--1-1">
+                            <div>
+                                <label className="cr-muted" htmlFor="card-expiry">Expiry date *</label>
+                                <input id="card-expiry" className="cr-input" placeholder="MM / YY" value="" readOnly />
+                            </div>
+                            <div>
+                                <label className="cr-muted" htmlFor="card-cvc">CVC *</label>
+                                <input id="card-cvc" className="cr-input" placeholder="CVC" value="" readOnly />
+                            </div>
+                        </div>
+
+                        <label className="cr-muted" htmlFor="cardholder">Cardholder name *</label>
+                        <input
+                            id="cardholder"
+                            className="cr-input"
+                            placeholder="e.g., Jane Smith"
+                            value={cardholderName}
+                            onChange={(event) => setCardholderName(event.target.value)}
+                        />
+
+                        <label className="cr-muted" htmlFor="billing-postcode">Billing postcode *</label>
+                        <input
+                            id="billing-postcode"
+                            className="cr-input"
+                            placeholder="e.g., SW1A 1AA"
+                            value={cardPostcode}
+                            onChange={(event) => setCardPostcode(event.target.value)}
+                        />
+
+                        <div className="cr-inline" style={{ marginTop: "10px" }}>
+                            <button type="submit" className="cr-button cr-button--primary" disabled={!stripeConfigured || isSubmitting}>
+                                {isSubmitting ? "Opening Stripe..." : "Save Card"}
+                            </button>
+                            <button type="reset" className="cr-button cr-button--secondary" onClick={() => { setCardholderName(""); setCardPostcode(""); }}>
+                                Cancel
+                            </button>
+                        </div>
+                    </Form>
+
+                    <div className="cr-grid" style={{ gap: "4px", marginTop: "10px" }}>
+                        <p className="cr-muted">🔒 256-bit Encrypted</p>
+                        <p className="cr-muted">✓ Powered by Stripe</p>
+                        <p className="cr-muted">
+                            Your card details are securely processed by Stripe. We never store your full card number.
+                            {publishableKey ? "" : " (Stripe key missing in this environment.)"}
+                        </p>
+                    </div>
                 </section>
             </div>
         </div>

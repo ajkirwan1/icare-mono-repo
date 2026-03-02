@@ -1,38 +1,47 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
-// services/authService.js
-export async function login(username, password) {
-  try {
-    const response = await fetch(
-      `http://localhost:4000/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-    );
+const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+export async function login(email, password) {
+    try {
+        const response = await fetch(`${API_BASE}/api/v1/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                email: String(email || "").trim().toLowerCase(),
+                password: String(password || "")
+            })
+        });
+
+        if (!response.ok) {
+            const result = await response.json().catch(() => null);
+            return {
+                success: false,
+                message: result?.error?.message || "Invalid email or password",
+                remainingAttempts: result?.error?.remainingAttempts
+            };
+        }
+
+        const result = await response.json();
+        const user = result?.data?.user;
+        if (!user) return { success: false, message: "Invalid email or password" };
+
+        console.log("Login successful", user);
+
+        return {
+            success: true,
+            userdetails: {
+                id: user.id,
+                email: user.email,
+                role: user.userType
+            },
+            accessToken: result?.data?.accessToken || ""
+        };
+    } catch (error) {
+        console.error("Error logging in:", error);
+        return { success: false, message: error.message };
     }
-
-    const data = await response.json(); // Parse the JSON response
-
-    if (!data || data.length === 0) {
-      // No matching user found
-      return { success: false, message: "Invalid username or password" };
-    }
-
-    const user = data[0]; // Take the first matching user
-
-    console.log("Login successful", user);
-
-    // Return a clean object without exposing password
-    return {
-      success: true,
-      userdetails: {
-        id: user.id,
-        username: user.username,
-        role: user.role
-      }
-    };
-  } catch (error) {
-    console.error("Error logging in:", error);
-    return { success: false, message: error.message };
-  }
 }

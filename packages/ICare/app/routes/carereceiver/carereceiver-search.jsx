@@ -1,6 +1,13 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
+import { FiHeart } from "react-icons/fi";
 import "./carereceiver-pages.css";
+import RatingStars from "./rating-stars";
+import {
+    readFavoriteCaregivers,
+    toggleFavoriteCaregiver,
+    writeFavoriteCaregivers
+} from "./favorites-storage";
 
 const RADIUS_OPTIONS = [5, 10, 15, 20, 30];
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -99,6 +106,21 @@ const caregivers = [
         badges: ["DBS Verified", "ID Verified"],
         availabilityDays: ["Monday", "Tuesday", "Wednesday", "Thursday"],
         availabilityTimes: ["Morning", "Afternoon"]
+    },
+    {
+        id: "cg-007",
+        name: "Margaret Shaw",
+        postcode: "NW1",
+        location: "NW1 area",
+        distanceMiles: 2.1,
+        hourlyRate: 19,
+        rating: 4.9,
+        reviewCount: 16,
+        services: ["Companionship", "Light housework"],
+        languages: "English",
+        badges: ["DBS Verified", "ID Verified", "Right to Work Verified"],
+        availabilityDays: ["Monday", "Tuesday", "Wednesday", "Friday"],
+        availabilityTimes: ["Morning", "Afternoon"]
     }
 ];
 
@@ -109,11 +131,6 @@ function initials(name) {
         .join("")
         .slice(0, 2)
         .toUpperCase();
-}
-
-function stars(rating) {
-    const rounded = Math.round(Number(rating) || 0);
-    return "★".repeat(rounded).padEnd(5, "☆");
 }
 
 function toggleInArray(list, value) {
@@ -133,6 +150,9 @@ export default function CarereceiverSearch() {
     const [maxRate, setMaxRate] = useState(25);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [favoriteCaregivers, setFavoriteCaregivers] = useState(() => readFavoriteCaregivers());
+
+    const favoriteIds = useMemo(() => new Set(favoriteCaregivers.map((entry) => entry.id)), [favoriteCaregivers]);
 
     const filteredCaregivers = useMemo(() => {
         const query = appliedPostcode.trim().toLowerCase();
@@ -176,14 +196,14 @@ export default function CarereceiverSearch() {
         return tags.slice(0, 6);
     }, [selectedTimes, selectedVerification]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredCaregivers.length / PAGE_SIZE));
-  const visiblePageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-  const paginatedCaregivers = useMemo(() => {
-    const start = (currentPage - 1) * PAGE_SIZE;
-    return filteredCaregivers.slice(start, start + PAGE_SIZE);
-  }, [currentPage, filteredCaregivers]);
-  const pageStart = filteredCaregivers.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
-  const pageEnd = filteredCaregivers.length === 0 ? 0 : pageStart + paginatedCaregivers.length - 1;
+    const totalPages = Math.max(1, Math.ceil(filteredCaregivers.length / PAGE_SIZE));
+    const visiblePageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+    const paginatedCaregivers = useMemo(() => {
+        const start = (currentPage - 1) * PAGE_SIZE;
+        return filteredCaregivers.slice(start, start + PAGE_SIZE);
+    }, [currentPage, filteredCaregivers]);
+    const pageStart = filteredCaregivers.length === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+    const pageEnd = filteredCaregivers.length === 0 ? 0 : pageStart + paginatedCaregivers.length - 1;
 
     useEffect(() => {
         setCurrentPage((prevPage) => Math.min(prevPage, totalPages));
@@ -192,6 +212,10 @@ export default function CarereceiverSearch() {
     useEffect(() => {
         setCurrentPage(1);
     }, [appliedPostcode, maxRate, minRate, radiusMiles, selectedDays, selectedServices, selectedTimes, selectedVerification, sortBy]);
+
+    useEffect(() => {
+        writeFavoriteCaregivers(favoriteCaregivers);
+    }, [favoriteCaregivers]);
 
     function handleSearch(event) {
         event.preventDefault();
@@ -219,11 +243,15 @@ export default function CarereceiverSearch() {
         setSelectedTimes((prev) => prev.filter((item) => item !== raw));
     }
 
+    function handleToggleFavorite(caregiver) {
+        setFavoriteCaregivers((prev) => toggleFavoriteCaregiver(prev, caregiver));
+    }
+
     return (
         <div className="cr-page">
             <div className="cr-shell">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span><span>›</span><strong>Search Caregivers</strong>
+                    <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span><strong>Search Caregivers</strong>
                 </nav>
 
                 <section className="cr-card">
@@ -259,14 +287,19 @@ export default function CarereceiverSearch() {
 
                 <section className="cr-card">
                     <div className="cr-inline cr-toolbar" style={{ justifyContent: "space-between" }}>
-            <div>
-              <h1 style={{ margin: 0, fontSize: "26px" }}>
-                Showing {pageStart}-{pageEnd} of {filteredCaregivers.length} caregivers
-              </h1>
-              <p className="cr-muted" style={{ margin: "6px 0 0" }}>
-                Within {radiusMiles} miles{appliedPostcode ? ` of ${appliedPostcode.toUpperCase()}` : ""}
-              </p>
-            </div>
+                        <div>
+                            <h1 style={{ margin: 0, fontSize: "26px" }}>
+                                Showing {pageStart}-{pageEnd} of {filteredCaregivers.length} caregivers
+                            </h1>
+                            <p className="cr-muted" style={{ margin: "6px 0 0" }}>
+                                Within {radiusMiles} miles{appliedPostcode ? ` of ${appliedPostcode.toUpperCase()}` : ""}
+                            </p>
+                            <p style={{ margin: "8px 0 0" }}>
+                                <Link className="cr-button cr-button--secondary" to="/carereceiver/favorites">
+                                    Favorites ({favoriteCaregivers.length})
+                                </Link>
+                            </p>
+                        </div>
                         <button
                             type="button"
                             className="cr-button cr-button--secondary cr-filter-toggle"
@@ -402,17 +435,24 @@ export default function CarereceiverSearch() {
                             <div key={caregiver.id} className="cr-card cr-caregiver-card">
                                 <div className="cr-inline" style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
                                     <div className="cr-avatar cr-caregiver-avatar">{initials(caregiver.name)}</div>
-                                    <button type="button" className="cr-heart-btn" aria-label={`Add ${caregiver.name} to favorites`}>
-                                        ♡
+                                    <button
+                                        type="button"
+                                        className={`cr-heart-btn ${favoriteIds.has(caregiver.id) ? "is-active" : ""}`}
+                                        aria-label={favoriteIds.has(caregiver.id) ? `Remove ${caregiver.name} from favorites` : `Add ${caregiver.name} to favorites`}
+                                        onClick={() => handleToggleFavorite(caregiver)}
+                                    >
+                                        <span className="cr-heart-glyph" aria-hidden="true"><FiHeart /></span>
                                     </button>
                                 </div>
 
                                 <h3 style={{ marginBottom: "4px" }}>{caregiver.name}</h3>
                                 <p className="cr-row-sub" style={{ marginBottom: "8px" }}>{caregiver.location} • {caregiver.distanceMiles.toFixed(1)} miles</p>
 
-                                <p className="cr-row-sub" style={{ marginBottom: "8px" }}>
-                                    <span style={{ color: "#dd8b4f", letterSpacing: "0.06em" }}>{stars(caregiver.rating)}</span>
-                                    <span> {caregiver.rating} ({caregiver.reviewCount})</span>
+                                <p className="cr-row-sub cr-rating-line" style={{ marginBottom: "8px" }}>
+                                    <span className="cr-stars-inline">
+                                        <RatingStars value={caregiver.rating} />
+                                    </span>
+                                    <span>{caregiver.rating} ({caregiver.reviewCount})</span>
                                 </p>
 
                                 <p style={{ margin: "0 0 8px", fontWeight: 700 }}>£{caregiver.hourlyRate}/hour</p>
@@ -431,9 +471,11 @@ export default function CarereceiverSearch() {
                                     ))}
                                 </div>
 
-                                <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
-                                    View Profile
-                                </Link>
+                                <div className="cr-grid" style={{ gap: "8px" }}>
+                                    <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
+                                        View Profile
+                                    </Link>
+                                </div>
                             </div>
                         ))}
                     </article>
