@@ -25,13 +25,18 @@
 }
 
 .cr-breadcrumbs a {
-    color: #3f4d65;
+    color: #344156;
     text-decoration: none;
     font-weight: 600;
 }
 
 .cr-breadcrumbs a:hover {
     text-decoration: underline;
+}
+
+.cr-breadcrumbs strong {
+    color: #0f172a;
+    font-weight: 700;
 }
 
 .cr-header h1 {
@@ -57,6 +62,11 @@
 
 .cr-grid--1-1 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cr-add-card-grid {
+    display: grid;
+    gap: 8px;
 }
 
 .cr-card {
@@ -188,6 +198,13 @@
     font-weight: 700;
 }
 
+.cr-row-title-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
 .cr-row-sub {
     margin: 0;
     color: #5f6878;
@@ -271,6 +288,44 @@
     gap: 10px;
 }
 
+.cr-thread-day {
+    margin: 0;
+    color: #5f6878;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cr-thread-context-card {
+    margin-bottom: 12px;
+}
+
+.cr-thread-context-title {
+    margin: 0 0 8px;
+    color: #5f6878;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cr-thread-context-link {
+    color: #647739;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cr-online-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    display: inline-block;
+    background: #36a664;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
 .cr-bubble {
     max-width: 74%;
     border-radius: 14px;
@@ -317,6 +372,59 @@
 .cr-stars {
     display: inline-flex;
     gap: 6px;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.cr-stars-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.cr-rating-stars {
+    --cr-star-fill-percent: 0%;
+    --cr-star-size: 14px;
+    position: relative;
+    display: inline-block;
+    font-size: var(--cr-star-size);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+}
+
+.cr-rating-stars::before,
+.cr-rating-stars::after {
+    content: "★★★★★";
+}
+
+.cr-rating-stars::before {
+    color: rgba(221, 139, 79, 0.28);
+}
+
+.cr-rating-stars::after {
+    color: #dd8b4f;
+    position: absolute;
+    inset: 0;
+    width: var(--cr-star-fill-percent);
+    overflow: hidden;
+}
+
+.cr-star-glyph {
+    color: #dd8b4f;
+    line-height: 1;
+}
+
+.cr-rating-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .cr-star {
@@ -423,7 +531,118 @@
     min-width: 38px;
     min-height: 38px;
     color: #5f6878;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     cursor: pointer;
+}
+
+.cr-heart-glyph {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+}
+
+.cr-heart-glyph svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+    fill: transparent;
+    transition: fill 0.18s ease, stroke 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+}
+
+.cr-heart-btn.is-active {
+    color: #cc2f2f;
+    border-color: rgba(204, 47, 47, 0.35);
+    background: rgba(204, 47, 47, 0.08);
+}
+
+.cr-heart-btn.is-active .cr-heart-glyph svg,
+.cr-favorite-action.is-active .cr-heart-glyph svg {
+    fill: #cc2f2f;
+    stroke: #cc2f2f;
+    opacity: 1;
+}
+
+.cr-heart-btn.is-active:hover,
+.cr-favorite-action.is-active:hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.cr-heart-btn.is-active:hover .cr-heart-glyph svg,
+.cr-favorite-action.is-active:hover .cr-heart-glyph svg {
+    fill: transparent;
+    stroke: #cf6666;
+}
+
+.cr-heart-btn:not(.is-active):hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(207, 102, 102, 0.08);
+}
+
+.cr-favorite-action {
+    border: 1px solid rgba(70, 92, 77, 0.2);
+    background: #fff;
+    color: #1b2436;
+    border-radius: 999px;
+    min-height: 38px;
+    padding: 0 14px;
+    font-weight: 700;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.cr-favorite-action.is-active {
+    border-color: rgba(204, 47, 47, 0.35);
+    background: rgba(204, 47, 47, 0.08);
+    color: #9e1f1f;
+}
+
+.cr-favorite-action:not(.is-active):hover {
+    color: #cf6666;
+    border-color: rgba(207, 102, 102, 0.42);
+    background: rgba(207, 102, 102, 0.08);
+}
+
+.cr-favorite-label-switch {
+    display: inline-grid;
+    align-items: center;
+}
+
+.cr-favorite-label-default,
+.cr-favorite-label-hover {
+    grid-area: 1 / 1;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.cr-favorite-label-hover {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.cr-favorite-action.is-active:hover .cr-favorite-label-default {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.cr-favorite-action.is-active:hover .cr-favorite-label-hover {
+    opacity: 1;
+    visibility: visible;
 }
 
 .cr-back-link {
@@ -448,6 +667,18 @@
 
 .cr-profile-hero-actions {
     justify-self: end;
+    width: 232px;
+    max-width: 100%;
+}
+
+.cr-profile-hero-actions .cr-grid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.cr-profile-hero-actions .cr-favorite-action,
+.cr-profile-hero-actions .cr-button {
+    width: 100%;
 }
 
 .cr-profile-layout {

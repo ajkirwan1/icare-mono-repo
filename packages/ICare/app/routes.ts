@@ -22,12 +22,10 @@ export default [
     route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
     route("newsletter/resend", "routes/website/news-and-articles/newsletter-resend.jsx"),
 
-    // Not found
-    route("*", "routes/not-found.jsx"),
-
-
     // Auth
     route("login", "routes/auth/login.jsx"),
+    route("forgot-password", "routes/auth/forgot-password.jsx"),
+    route("reset-password", "routes/auth/reset-password.jsx"),
     route("register", "routes/register.jsx"),
 
     // SEC
@@ -75,7 +73,10 @@ export default [
             route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
             route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
             route("messages", "routes/caregiver/caregiver-messages.jsx"),
+            route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
+            route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
             route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
+            route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
             route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
             route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
         ])
@@ -90,32 +91,12 @@ export default [
             route("messages", "routes/carereceiver/carereceiver-messages.jsx"),
             route("messages/:conversationId", "routes/carereceiver/carereceiver-message-thread.jsx"),
             route("search", "routes/carereceiver/carereceiver-search.jsx"),
+            route("favorites", "routes/carereceiver/carereceiver-favorites.jsx"),
             route("caregivers/:caregiverId", "routes/carereceiver/carereceiver-caregiver-profile.jsx"),
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
         ])
-    ])
-  ]),
-
-  route("carerecipient/account/my-account", "routes/app/carerecipient/account/my-account.jsx"),
-  route("bookings/new/:caregiverId", "routes/app/carerecipient/booking-request-form.jsx"),
-  route("bookings/:bookingId", "routes/app/carerecipient/booking-detail.jsx"),
-
-  // Caregiver
-  ...prefix("caregiver", [
-    layout("routes/caregiver/layout.jsx", [
-      index("routes/caregiver/caregiver-dashboard.jsx"),
-      route("dashboard", "routes/caregiver/caregiver-dashboard-redirect.jsx"),
-      route("bookings", "routes/caregiver/caregiver-bookings.jsx"),
-      route("messages", "routes/caregiver/caregiver-messages.jsx"),
-      route("stripe-payments", "routes/caregiver/caregiver-stripe-payments.jsx"),
-      route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
-      route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
-      route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
-      route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
-      route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
-    ])
-  ]),
+    ]),
 
 
 
@@ -196,5 +177,8 @@ export default [
     //     ])
     //   ])
     // ]
-    // )
+    // ),
+
+    // Not found (keep as last route)
+    route("*", "routes/not-found.jsx")
 ] satisfies RouteConfig;

@@ -1,152 +1,173 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import styles from "./carereceiver-dashboard.module.scss";
 
-const pendingRequests = [
-    {
-        id: "bk-2026-1101",
-        name: "Emma Wilson",
-        date: "Wed 17 Jan - 12:00 - 16:00 (4h)",
-        status: "Pending Response",
-        avatar: "/images/avatars/female.webp"
-    },
-    {
-        id: "bk-2026-1102",
-        name: "John W.",
-        date: "Thu 18 Jan - 08:00 - 12:00 (4h)",
-        status: "Pending Response",
-        avatar: "/images/avatars/male.webp"
-    }
-];
+import { MdOutlineSearch, MdOutlineCalendarMonth, MdOutlineChatBubbleOutline } from "react-icons/md";
+import PendingRequestsCard from "./dashboard/pending-requests-card";
+import UpcomingBookingsCard from "./dashboard/upcoming-bookings-card";
+import RecentActivityCard from "./dashboard/recent-activity-card";
+import { getCurrentUserProfile, getPaymentMethodStatus, getUnreadMessagesCount } from "./dashboard/dashboard-api-client";
 
-const upcomingBookings = [
-    {
-        id: "bk-2026-1201",
-        name: "Mary Thompson",
-        date: "Mon 15 Jan - 10:00 - 14:00 (4h)",
-        status: "Confirmed",
-        avatar: "/images/avatars/female.webp"
-    },
-    {
-        id: "bk-2026-1202",
-        name: "Tom Richards",
-        date: "Tue 16 Jan - 09:00 - 13:00 (4h)",
-        status: "Confirmed",
-        avatar: "/images/avatars/male.webp"
-    }
-];
-
-function BookingItem({ item, requested = false }) {
-    return (
-        <article className={styles.bookingItem}>
-            <div className={styles.avatar}>
-                <img src={item.avatar} alt={item.name} />
-            </div>
-            <div className={styles.meta}>
-                <p>{item.name}</p>
-                <small>{item.date}</small>
-                <span className={requested ? styles.requested : styles.confirmed}>{item.status}</span>
-            </div>
-            <Link className={styles.detailsAction} to={`/carereceiver/bookings/${item.id}`}>
-                View Details
-            </Link>
-        </article>
-    );
+function formatTime(date) {
+    return new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit"
+    }).format(date);
 }
 
 export default function CarereceiverDashboard() {
-    const [isProfileVisible, setIsProfileVisible] = useState(true);
+    const [profile, setProfile] = useState({ loading: true, firstName: "", accountStatus: "active" });
+    const [payment, setPayment] = useState({ loading: true, paymentMethodMissing: false });
+    const [messages, setMessages] = useState({ loading: true, unreadCount: 0 });
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadProfile() {
+            const result = await getCurrentUserProfile({ signal: controller.signal });
+            if (mounted) {
+                setProfile({
+                    loading: false,
+                    firstName: result.firstName || "",
+                    accountStatus: result.accountStatus || "active"
+                });
+            }
+        }
+
+        loadProfile();
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, []);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadPaymentStatus() {
+            const result = await getPaymentMethodStatus({ signal: controller.signal });
+            if (mounted) {
+                setPayment({
+                    loading: false,
+                    paymentMethodMissing: Boolean(result.paymentMethodMissing)
+                });
+            }
+        }
+
+        loadPaymentStatus();
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, []);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        let mounted = true;
+
+        async function loadUnreadCount() {
+            const result = await getUnreadMessagesCount({ signal: controller.signal });
+            if (mounted) {
+                setMessages({
+                    loading: false,
+                    unreadCount: Number(result.unreadCount || 0)
+                });
+            }
+        }
+
+        loadUnreadCount();
+        return () => {
+            mounted = false;
+            controller.abort();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return undefined;
+        }
+
+        const onNewMessage = (event) => {
+            const detail = event?.detail || {};
+            const explicitTotal = Number(
+                detail?.unreadCountTotal ??
+                detail?.totalUnreadCount ??
+                detail?.unreadCount ??
+                NaN
+            );
+
+            setMessages((current) => ({
+                loading: false,
+                unreadCount: Number.isFinite(explicitTotal) ? explicitTotal : current.unreadCount + 1
+            }));
+        };
+
+        window.addEventListener("carereceiver:new_message", onNewMessage);
+        return () => window.removeEventListener("carereceiver:new_message", onNewMessage);
+    }, []);
+
+    const lastUpdated = useMemo(() => formatTime(new Date()), []);
+    const unreadCount = messages.unreadCount;
 
     return (
         <div className={styles.page}>
             <div className={styles.shell}>
                 <header className={styles.header}>
-                    <h1>Welcome back, Sarah M.</h1>
-                    <p>Tuesday, 7 February 2026</p>
+                    <h1>{profile.firstName ? `Welcome back, ${profile.firstName}` : "Welcome back"}</h1>
+                    <p>Last updated: Today at {lastUpdated}</p>
                 </header>
 
-                <section className={styles.alertBanner}>
-                    <span className={styles.alertIcon}>!</span>
-                    <div>
-                        <p className={styles.alertTitle}>2 booking updates need your attention</p>
-                        <p className={styles.alertSub}>Review pending responses and confirm your next visit details.</p>
-                    </div>
-                </section>
+                {!profile.loading && profile.accountStatus !== "active" ? (
+                    <section className={styles.alertBanner}>
+                        <span className={styles.alertIcon}>!</span>
+                        <div>
+                            <p className={styles.alertTitle}>Your account status is: {profile.accountStatus}</p>
+                            <p className={styles.alertSub}>Some actions may be limited until your account is fully active.</p>
+                        </div>
+                    </section>
+                ) : null}
 
-                <div className={styles.grid}>
-                    <div className={styles.leftColumn}>
-                        <section className={`${styles.card} ${styles.blackTitleCard}`.trim()}>
-                            <h2>Pending Booking Requests</h2>
-                            <div className={styles.list}>
-                                {pendingRequests.map((item) => (
-                                    <BookingItem key={item.id} item={item} requested />
-                                ))}
-                            </div>
-                        </section>
+                {!payment.loading && payment.paymentMethodMissing ? (
+                    <section className={styles.alertBanner}>
+                        <span className={styles.alertIcon}>!</span>
+                        <div>
+                            <p className={styles.alertTitle}>Add a payment method to request bookings</p>
+                            <p className={styles.alertSub}>You'll need to add a card before you can book caregivers</p>
+                            <Link to="/carereceiver/settings/payment" className={styles.alertCta}>
+                                Add Payment Method
+                            </Link>
+                        </div>
+                    </section>
+                ) : null}
 
-                        <section className={`${styles.card} ${styles.blackTitleCard}`.trim()}>
-                            <h2>Upcoming Bookings</h2>
-                            <div className={styles.list}>
-                                {upcomingBookings.map((item) => (
-                                    <BookingItem key={item.id} item={item} />
-                                ))}
-                            </div>
-                        </section>
+                <div className={styles.quickActionRow}>
+                    <Link to="/carereceiver/search" className={`${styles.ctaCard} ${styles.ctaPrimary}`}>
+                        <div className={styles.ctaIcon}><MdOutlineSearch /></div>
+                        <p className={styles.ctaTitle}>Find a Caregiver</p>
+                        <span className={styles.ctaButton}>Search Now</span>
+                    </Link>
 
-                        <section className={`${styles.card} ${styles.blackTitleCard}`.trim()}>
-                            <h2>Care Budget Summary</h2>
-                            <div className={styles.earningsGrid}>
-                                <div>
-                                    <p className={styles.earningsLabel}>This Month</p>
-                                    <p className={styles.earningsValue}>GBP 450.00</p>
-                                    <p className={styles.earningsDelta}>+GBP 120 from last month</p>
-                                </div>
-                                <div>
-                                    <p className={styles.earningsLabel}>Pending Charges</p>
-                                    <p className={styles.earningsValue}>GBP 120.00</p>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
+                    <Link to="/carereceiver/bookings" className={`${styles.ctaCard} ${styles.ctaSecondary}`}>
+                        <div className={styles.ctaIcon}><MdOutlineCalendarMonth /></div>
+                        <p className={styles.ctaTitle}>View All Bookings</p>
+                        <span className={styles.ctaButton}>View Bookings</span>
+                    </Link>
 
-                    <aside className={styles.rightColumn}>
-                        <section className={`${styles.card} ${styles.blackTitleCard}`.trim()}>
-                            <h2>Profile Status</h2>
-                            <div className={styles.progressTrack}>
-                                <span style={{ width: "75%" }} />
-                            </div>
-                            <p className={styles.progressText}>75%</p>
-                            <div className={styles.chips}>
-                                <span>Address Verified</span>
-                                <span>Payment Method Added</span>
-                                <span>Emergency Contact Added</span>
-                            </div>
-                            <p className={styles.verificationNote}>Your booking profile is ready. Complete the remaining fields for faster caregiver matching.</p>
-                            <div className={styles.toggleRow}>
-                                <span>Profile visible to caregivers</span>
-                                <button
-                                    type="button"
-                                    className={`${styles.toggle} ${isProfileVisible ? styles.toggleOn : styles.toggleOff}`.trim()}
-                                    aria-label="Toggle profile visibility"
-                                    aria-pressed={isProfileVisible}
-                                    onClick={() => setIsProfileVisible((prev) => !prev)}
-                                >
-                                    <span />
-                                </button>
-                            </div>
-                        </section>
-
-                        <section className={`${styles.card} ${styles.blackTitleCard}`.trim()}>
-                            <h2>Quick Actions</h2>
-                            <div className={styles.quickActions}>
-                                <Link to="/carereceiver/search" className={styles.quickAction}>find caregiver</Link>
-                                <Link to="/carereceiver/bookings" className={styles.quickAction}>view bookings</Link>
-                                <Link to="/carereceiver/messages" className={styles.quickAction}>open messages</Link>
-                                <Link to="/carereceiver/settings/payment" className={styles.quickAction}>payment methods</Link>
-                            </div>
-                        </section>
-                    </aside>
+                    <Link to="/carereceiver/messages" className={`${styles.ctaCard} ${styles.ctaSecondary}`}>
+                        <div className={styles.ctaIcon}><MdOutlineChatBubbleOutline /></div>
+                        <p className={styles.ctaTitle}>
+                            Messages
+                            {!messages.loading && unreadCount > 0 ? <span className={styles.ctaBadge}>{unreadCount}</span> : null}
+                        </p>
+                        <span className={styles.ctaButton}>View Messages</span>
+                    </Link>
                 </div>
+
+                <PendingRequestsCard />
+                <UpcomingBookingsCard />
+                <RecentActivityCard />
             </div>
         </div>
     );

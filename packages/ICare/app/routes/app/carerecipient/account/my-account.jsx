@@ -1,5 +1,7 @@
-import { Link, useLoaderData } from "react-router";
+import { useCallback, useState } from "react";
+import { Link, useLoaderData, useLocation, useRevalidator } from "react-router";
 import "./my-account.css";
+import { cancelCarereceiverBooking } from "../../../carereceiver/bookings/bookings-api-client.js";
 
 const API_BASE = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
 const ALLOWED_STATUSES = new Set([
@@ -12,6 +14,7 @@ const ALLOWED_STATUSES = new Set([
     "reviewed",
     "declined",
     "expired",
+    "cancelled",
     "cancelled_by_cr",
     "cancelled_by_cg",
     "disputed",
@@ -29,6 +32,7 @@ const STATUS_LABELS = {
     reviewed: "Reviewed",
     declined: "Declined",
     expired: "Expired",
+    cancelled: "Cancelled",
     cancelled_by_cr: "Cancelled",
     cancelled_by_cg: "Cancelled",
     disputed: "Disputed",
@@ -77,13 +81,13 @@ const STATE_VARIATIONS = {
         showAlertBanner: true,
         alertVariant: "warning",
         alertMessage:
-            "Emergency Contact: ${emergencyContact.name} (${emergencyContact.relationship}) - ${emergencyContact.phone}",
-        alertActions: [{ label: "Call Emergency", variant: "destructive", action: "tel:${emergencyContact.phone}" }],
+            "${caregiver.name} is currently with you for this booking. You can message the caregiver if you need to share anything.",
+        alertActions: [{ label: "Message Caregiver", variant: "secondary", action: "navigate:/carereceiver/messages/${booking.id}" }],
         showContactDetails: true,
         enableMessaging: true,
         showTimeline: false,
         paymentTag: "Payment Held",
-        showEmergencyContactCard: true,
+        showEmergencyContactCard: false,
         stateActions: [{ label: "Message Caregiver", variant: "secondary", action: "navigate:/carereceiver/messages/${booking.id}" }]
     },
     completed: {
@@ -170,6 +174,7 @@ const STATE_VARIATIONS = {
         showEmergencyContactCard: false,
         stateActions: [{ label: "Search for Another Caregiver", variant: "primary", action: "navigate:/carereceiver/search" }]
     },
+    cancelled: { extends: "cancelled_by_cr" },
     cancelled_by_cr: {
         statusVariant: "cancelled",
         showCountdownTimer: false,
@@ -309,11 +314,6 @@ const SAMPLE_DATA = {
         total: 75.6,
         paymentMethod: "Visa ending in 4242",
         refundAmount: 75.6
-    },
-    emergencyContact: {
-        name: "David Harrison",
-        phone: "07700 900456",
-        relationship: "Son"
     }
 };
 
@@ -373,11 +373,10 @@ function computeCountdown(deadline) {
 
 function normalizePayload(payload, fallbackId) {
     if (!payload || typeof payload !== "object") { return null; }
-    const booking = payload.booking || payload;
-    const caregiver = payload.caregiver || booking.caregiver || payload.provider || {};
-    const payment = payload.payment || booking.payment || payload.pricing || {};
-    const emergencyContact =
-        payload.emergencyContact || booking.emergencyContact || payload.emergency || caregiver.emergencyContact || {};
+    const root = payload?.data && typeof payload.data === "object" ? payload.data : payload;
+    const booking = root.booking || root;
+    const caregiver = root.caregiver || booking.caregiver || root.provider || {};
+    const payment = root.payment || booking.payment || root.pricing || {};
 
     return {
         booking: {
@@ -399,8 +398,7 @@ function normalizePayload(payload, fallbackId) {
                 ? caregiver.verificationBadges.map((item) => (typeof item === "string" ? item : item.label)).filter(Boolean)
                 : SAMPLE_DATA.caregiver.verificationBadges
         },
-        payment: { ...SAMPLE_DATA.payment, ...payment },
-        emergencyContact: { ...SAMPLE_DATA.emergencyContact, ...emergencyContact }
+        payment: { ...SAMPLE_DATA.payment, ...payment }
     };
 }
 
@@ -450,8 +448,7 @@ export async function loader({ request, params }) {
     const context = {
         booking: { ...detail.booking, status: effectiveStatus, statusLabel: STATUS_LABELS[effectiveStatus] || detail.booking.statusLabel },
         caregiver: detail.caregiver,
-        payment: detail.payment,
-        emergencyContact: detail.emergencyContact
+        payment: detail.payment
     };
 
     return {
@@ -474,7 +471,7 @@ export async function loader({ request, params }) {
     };
 }
 
-function ActionControl({ action, variant = "secondary", label }) {
+function ActionControl({ action, variant = "secondary", label, onPress, disabled = false }) {
     const className = `booking-action booking-action--${variant}`;
     if (action?.startsWith("navigate:")) {
         return (
@@ -491,15 +488,68 @@ function ActionControl({ action, variant = "secondary", label }) {
         );
     }
     return (
-        <button className={className} type="button">
+        <button className={className} type="button" onClick={() => onPress?.(action)} disabled={disabled}>
             {label}
         </button>
     );
 }
 
 export default function CareRecipientMyAccountPage() {
+    const location = useLocation();
+    const revalidator = useRevalidator();
     const { detail, state } = useLoaderData();
-    const { booking, caregiver, payment, emergencyContact } = detail;
+    const { booking, caregiver, payment } = detail;
+    const [isCancelling, setIsCancelling] = useState(false);
+    const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
+    const [cancelError, setCancelError] = useState("");
+    const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
+    const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
+    const bookingsPath = isCarereceiverPath ? "/carereceiver/bookings" : "/carerecipient/account/my-account";
+    const handleActionPress = useCallback(async (action) => {
+        const normalizedAction = String(action || "");
+        if (normalizedAction.startsWith("scroll:")) {
+            const targetId = normalizedAction.replace("scroll:", "");
+            const element = typeof document !== "undefined" ? document.getElementById(targetId) : null;
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            return;
+        }
+
+        if (!normalizedAction.startsWith("modal:cancel-booking")) {
+            return;
+        }
+
+        setCancelError("");
+        setIsCancelDialogOpen(true);
+    }, []);
+
+    const closeCancelDialog = useCallback(() => {
+        if (isCancelling) {
+            return;
+        }
+        setIsCancelDialogOpen(false);
+    }, [isCancelling]);
+
+    const confirmCancellation = useCallback(async () => {
+        if (isCancelling) {
+            return;
+        }
+        setCancelError("");
+        setIsCancelling(true);
+        try {
+            await cancelCarereceiverBooking(booking.id, {
+                reason: "no_longer_needed",
+                details: "Cancelled from booking detail page."
+            });
+            setIsCancelDialogOpen(false);
+            revalidator.revalidate();
+        } catch (error) {
+            setCancelError(error instanceof Error ? error.message : "Could not cancel booking.");
+        } finally {
+            setIsCancelling(false);
+        }
+    }, [booking.id, isCancelling, revalidator]);
 
     return (
         <main className="booking-detail-page">
@@ -521,11 +571,11 @@ export default function CareRecipientMyAccountPage() {
 
             <div className="booking-shell">
                 <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
-                    <span>Home</span>
+                    <Link to={dashboardPath}>Dashboard</Link>
                     <span>›</span>
-                    <span>Bookings</span>
+                    <Link to={bookingsPath}>My Bookings</Link>
                     <span>›</span>
-                    <strong>Booking #{booking.ref}</strong>
+                    <strong>Booking Details</strong>
                 </nav>
 
                 <section className="booking-title-row">
@@ -544,7 +594,14 @@ export default function CareRecipientMyAccountPage() {
                         {state.alertActions?.length ? (
                             <div className="booking-alert-actions">
                                 {state.alertActions.map((action) => (
-                                    <ActionControl key={`${action.label}-${action.action}`} action={action.action} variant={action.variant} label={action.label} />
+                                    <ActionControl
+                                        key={`${action.label}-${action.action}`}
+                                        action={action.action}
+                                        variant={action.variant}
+                                        label={action.label}
+                                        onPress={handleActionPress}
+                                        disabled={isCancelling && String(action.action || "").startsWith("modal:cancel-booking")}
+                                    />
                                 ))}
                             </div>
                         ) : null}
@@ -631,23 +688,19 @@ export default function CareRecipientMyAccountPage() {
                             </dl>
                         </article>
 
-                        {state.showEmergencyContactCard ? (
-                            <article className="booking-emergency-card">
-                                <h2>Emergency Contact</h2>
-                                <p>{emergencyContact.name}</p>
-                                <p>{emergencyContact.relationship}</p>
-                                <p>📞 {emergencyContact.phone}</p>
-                                <ActionControl action={`tel:${emergencyContact.phone}`} label="Call Emergency Contact" variant="destructive" />
-                                <ActionControl action="tel:999" label="Call 999" variant="destructive" />
-                            </article>
-                        ) : null}
-
                         <article className="booking-card">
                             <h2>Actions</h2>
                             <div className="booking-sidebar-actions">
                                 {(state.stateActions || []).length ? (
                                     state.stateActions.map((action) => (
-                                        <ActionControl key={`${action.label}-${action.action}`} action={action.action} variant={action.variant} label={action.label} />
+                                        <ActionControl
+                                            key={`${action.label}-${action.action}`}
+                                            action={action.action}
+                                            variant={action.variant}
+                                            label={action.label}
+                                            onPress={handleActionPress}
+                                            disabled={isCancelling && String(action.action || "").startsWith("modal:cancel-booking")}
+                                        />
                                     ))
                                 ) : (
                                     <p className="booking-muted">No available actions for this status.</p>
@@ -657,6 +710,52 @@ export default function CareRecipientMyAccountPage() {
                     </aside>
                 </section>
             </div>
+
+            {isCancelDialogOpen ? (
+                <div className="booking-modal-backdrop" role="presentation" onClick={closeCancelDialog}>
+                    <section
+                        className="booking-modal-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="cancel-booking-modal-title"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <h2 id="cancel-booking-modal-title" className="booking-modal-title">Cancel this booking?</h2>
+                        <p className="booking-modal-text">
+                            You are about to cancel booking with <strong>{caregiver.name}</strong>.
+                        </p>
+                        <p className="booking-modal-meta">
+                            {booking.dateFormatted || booking.date} • {booking.timeFormatted || booking.time}
+                        </p>
+                        <p className="booking-modal-text">
+                            This action will update booking status to cancelled and process refund rules based on policy.
+                        </p>
+
+                        {cancelError ? (
+                            <p className="booking-modal-error" role="alert">{cancelError}</p>
+                        ) : null}
+
+                        <div className="booking-modal-actions">
+                            <button
+                                type="button"
+                                className="booking-modal-secondary"
+                                onClick={closeCancelDialog}
+                                disabled={isCancelling}
+                            >
+                                Keep booking
+                            </button>
+                            <button
+                                type="button"
+                                className="booking-modal-danger"
+                                onClick={confirmCancellation}
+                                disabled={isCancelling}
+                            >
+                                {isCancelling ? "Cancelling..." : "Confirm Cancellation"}
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            ) : null}
 
             <footer className="booking-footer">
                 <a href="/privacy">Privacy Policy</a>

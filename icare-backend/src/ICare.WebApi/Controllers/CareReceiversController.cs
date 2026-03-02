@@ -11,9 +11,36 @@ public class CareReceiversController : ControllerBase
 
   }
 
-  [HttpGet("me/bookings")]
-  public async Task<ActionResult> Get()
+  [HttpPut("me")]
+  public IActionResult UpdateMe()
   {
-    return Ok();
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        updatedAt = DateTimeOffset.UtcNow
+      }
+    });
+  }
+
+  [HttpGet("me/bookings")]
+  public IActionResult GetMeBookings([FromQuery] BookingQueryParameters queryParameters)
+  {
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        bookings = Array.Empty<object>(),
+        pagination = new
+        {
+          page = queryParameters.Page,
+          limit = queryParameters.Limit,
+          totalPages = 0,
+          totalCount = 0
+        }
+      }
+    });
   }
 }

@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using ICare.Application.Identity.Queries.GetMyDetailsQuery;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICare.WebApi.Controllers;
@@ -24,9 +23,28 @@ public class UsersController : ControllerBase
 
     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     // var request = new GetMyDetailsQuery(Guid.Parse(userId));
-    // var response = await _mediator.Send(request);
+    _ = await _mediator.Send(request);
 
-    var response = await _mediator.Send(request);
-    return Ok();
+    return Ok(new
+    {
+      success = true,
+      data = new
+      {
+        id,
+        email = "user@example.com",
+        userType = "care_receiver",
+        firstName = "Sarah",
+        lastName = "Johnson",
+        phone = "+447700900000",
+        phoneVerified = true,
+        emailVerified = true,
+        dateOfBirth = "1960-05-15",
+        accountStatus = "active",
+        gdprConsent = true,
+        marketingConsent = false,
+        createdAt = DateTimeOffset.UtcNow.AddDays(-30),
+        lastLoginAt = DateTimeOffset.UtcNow
+      }
+    });
   }
 }
