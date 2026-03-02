@@ -528,6 +528,10 @@ export default function AiChat() {
                     bottom: isMobile ? MOBILE_LAUNCHER_BOTTOM : 20,
                     zIndex: CHAT_Z_INDEX,
                     display: open || (isMobile && mobileMenuOpen) ? "none" : undefined,
+                    transform: "translateZ(0)",
+                    WebkitTransform: "translateZ(0)",
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
                 }}
             >
                 <button
@@ -560,6 +564,8 @@ export default function AiChat() {
                         background: "rgba(245, 238, 223, 0.72)",
                         backdropFilter: "blur(10px)",
                         WebkitBackdropFilter: "blur(10px)",
+                        transform: "translateZ(0)",
+                        WebkitTransform: "translateZ(0)",
                     }}
                 />
             )}
@@ -577,7 +583,6 @@ export default function AiChat() {
                         bottom: expanded ? "auto" : (isMobile ? MOBILE_CHAT_BOTTOM : 96),
                         left: expanded ? "50%" : (isMobile ? 8 : "auto"),
                         top: expanded ? "50%" : (isMobile ? MOBILE_CHAT_TOP : "auto"),
-                        transform: expanded ? "translate(-50%, -50%)" : "none",
                         width: expanded ? "min(800px, calc(100vw - 40px))" : (isMobile ? "auto" : 360),
                         height: expanded ? "min(86vh, 780px)" : (isMobile ? "auto" : 520),
                         background: "#fff",
@@ -587,6 +592,10 @@ export default function AiChat() {
                         flexDirection: "column",
                         zIndex: CHAT_Z_INDEX,
                         overflow: "hidden",
+                        transform: expanded ? "translate(-50%, -50%)" : "translateZ(0)",
+                        WebkitTransform: expanded ? "translate(-50%, -50%)" : "translateZ(0)",
+                        backfaceVisibility: "hidden",
+                        WebkitBackfaceVisibility: "hidden",
                     }}
                 >
                     <div
@@ -967,6 +976,8 @@ export default function AiChat() {
                     opacity: 0;
                     transform: translateX(14px) scale(0.98);
                     pointer-events: none;
+                    will-change: transform, opacity;
+                    contain: layout paint;
                 }
 
                 .icare-chat-launcher-wrap--visible {
@@ -984,17 +995,22 @@ export default function AiChat() {
                     font-size: 13px;
                     font-weight: 500;
                     line-height: 1.25;
-                    border: 1px solid #333;
-                    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.22);
+                    border: none;
+                    box-shadow: none;
+                    filter: none;
                     white-space: normal;
                     letter-spacing: 0.01em;
-                    animation: icareBubbleIn 260ms cubic-bezier(0.2, 0.9, 0.2, 1), icareChatPulse 2.2s ease-in-out infinite;
+                    animation: icareBubbleIn 260ms cubic-bezier(0.2, 0.9, 0.2, 1);
                     cursor: pointer;
                     text-align: center;
                     position: relative;
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
+                    backface-visibility: hidden;
+                    -webkit-backface-visibility: hidden;
+                    appearance: none;
+                    -webkit-appearance: none;
                 }
 
                 .icare-chat-bubble-launcher::after {
@@ -1013,11 +1029,6 @@ export default function AiChat() {
                         padding: 13px;
                         font-size: 12px;
                     }
-                }
-
-                @keyframes icareChatPulse {
-                    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(119, 141, 67, 0.2); }
-                    50% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(119, 141, 67, 0.08); }
                 }
 
                 .icare-chat-close {

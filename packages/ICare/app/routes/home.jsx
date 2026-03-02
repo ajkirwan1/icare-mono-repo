@@ -11,6 +11,7 @@ import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICare
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
 import ICareWaitlistFinalSection from "../components/website/pages/home/sections/ICareWaitlistFinal";
+import { useLoaderData } from "react-router";
 
 export const meta = () => {
   return [
@@ -51,7 +52,20 @@ const jsonLd = {
   "description": "Trusted companionship care connecting families with caring professionals across the UK."
 };
 
+export async function loader() {
+  try {
+    const { getHomeFeaturedCarers } = await import("../lib/homeFeaturedCarers.server");
+    const featuredCarers = await getHomeFeaturedCarers();
+    return { featuredCarers };
+  } catch (error) {
+    console.error("Failed to load home featured carers from Sanity:", error);
+    return { featuredCarers: [] };
+  }
+}
+
 export default function Home() {
+  const { featuredCarers } = useLoaderData();
+
   return (
     <>
       <script
@@ -68,7 +82,7 @@ export default function Home() {
       <main>
         <AboutICareSection />
         <CareTimeline />
-        <ICareEarlyAccessHomeSection />
+        <ICareEarlyAccessHomeSection carers={featuredCarers} />
         <TrustValuesSection />
         <HomePageCareCTA />
         <IcareSafetyBlock />

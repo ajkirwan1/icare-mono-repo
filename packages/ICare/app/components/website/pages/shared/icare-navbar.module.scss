@@ -242,8 +242,8 @@
     right: 0;
     left: 0;
     width: 100%;
-    height: calc(100dvh - var(--navbar-height));
-    min-height: calc(100vh - var(--navbar-height));
+    height: calc(100svh - var(--navbar-height));
+    min-height: calc(100svh - var(--navbar-height));
     max-height: none;
 
     background: #fff;
@@ -267,17 +267,6 @@
 
 .mobileOverlayOpen .mobilePanel {
     transform: translateX(0);
-    animation: mobilePanelSlideInFromLeft 0.3s ease both;
-}
-
-@keyframes mobilePanelSlideInFromLeft {
-    from {
-        transform: translateX(-100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
 }
 
 .mobileNav {
