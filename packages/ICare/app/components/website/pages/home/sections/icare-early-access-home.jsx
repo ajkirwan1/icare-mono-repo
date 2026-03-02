@@ -1,4 +1,3 @@
-import WaitinglistForm from "~/components/website/common/forms/waitinglist-form";
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
@@ -174,7 +173,7 @@ export default function ICareEarlyAccessHomeSection() {
                 : null;
 
     return (
-        <section id="waitlist" aria-label="Early access signup" className={styles.wrap}>
+        <section id="featured-carers" aria-label="Featured carers" className={styles.wrap}>
             <h2 className={styles.featuredCaregiversTitle}>Meet one of our carers</h2>
             <div className={styles.mobileSliderWrap}>
                 <button
@@ -422,29 +421,6 @@ export default function ICareEarlyAccessHomeSection() {
                 )}
             </div>
 
-            <div className={styles.estimatorHeader}>
-                <h2 className={styles.h1}>Join the waiting list</h2>
-                <p className={styles.lead}>
-                    Leave a few details and we will let you know when ICare becomes available in your area.
-                    <br />
-                    There is no commitment - just early access and updates.
-                </p>
-            </div>
-
-            <div className={styles.container}>
-                <div className={styles.layout}>
-                    <div className={styles.card}>
-                        <WaitinglistForm />
-                    </div>
-
-                    <img
-                        className={styles.image}
-                        src="/images/web/homepage/icare-join-the-waiting-list.webp"
-                        alt="Join the waiting list"
-                        loading="lazy"
-                    />
-                </div>
-            </div>
         </section>
     );
 }

@@ -10,6 +10,7 @@ import ICareCostEstimator from "../components/website/pages/home/sections/ICareC
 import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICareTypesOfCareSEO";
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
+import ICareWaitlistFinalSection from "../components/website/pages/home/sections/ICareWaitlistFinal";
 
 export const meta = () => {
   return [
@@ -73,6 +74,7 @@ export default function Home() {
         <IcareSafetyBlock />
         <ICareCostEstimator />
         <ICareTypesOfCareSEO />
+        <ICareWaitlistFinalSection />
       </main>
       <ICareFooter />
     </>

@@ -13,8 +13,7 @@ export default function ICareEarlyAccessHomeSection() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        // ✅ prevents background/hero resizing when email section expands
-        minHeight: "clamp(860px, 88vh, 980px)"
+        minHeight: "auto"
     };
 
     const card = {
@@ -53,8 +52,11 @@ export default function ICareEarlyAccessHomeSection() {
     }
 
     const estimatorImg = {
-        borderRadius: 24
-    }
+        borderRadius: 24,
+        width: "100%",
+        height: "auto",
+        display: "block"
+    };
 
     const container = {
         width: "min(92vw,1100px)",
@@ -68,7 +70,7 @@ export default function ICareEarlyAccessHomeSection() {
         display: "grid",
         gap: "clamp(16px, 2.4vw, 24px)",
         alignItems: "start",
-        gridTemplateColumns: "1fr 1fr"
+        gridTemplateColumns: "1fr"
     }
 
     const header = {
@@ -97,7 +99,7 @@ export default function ICareEarlyAccessHomeSection() {
 
     const microCSS = `
     @media (max-width: 920px){
-      .icare-est-cards{ grid-template-columns: 1fr !important; }
+      .icare-wl-layout{ grid-template-columns: 1fr !important; }
     }
     .icare-est-input:focus{
       border-color: rgba(185,122,87,0.55) !important;
@@ -144,7 +146,7 @@ export default function ICareEarlyAccessHomeSection() {
 
 
     return (
-        <section aria-label="Cost estimator" style={wrap}>
+        <section id="waitlist" aria-label="Join the waiting list" style={wrap}>
             <style>{microCSS}</style>
 
             <div style={estimatorHeader}>
@@ -160,14 +162,15 @@ export default function ICareEarlyAccessHomeSection() {
             </div>
 
             <div style={container}>
+                <img style={estimatorImg} src="/images/web/homepage/icare-join-the-waiting-list.webp" alt="Join the waiting list" />
+            </div>
+
+            <div style={container}>
                 <div className="icare-wl-layout" style={icareLayout}>
                     {/* LEFT */}
                     <div style={card}>
                         <WaitinglistForm />
                     </div>
-
-                    <img style={estimatorImg} src="/images/web/homepage/icare-join-the-waiting-list.webp" alt="Join the waiting list" />
-
                 </div>
 
             </div>
