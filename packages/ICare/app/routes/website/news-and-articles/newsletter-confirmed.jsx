@@ -30,7 +30,7 @@ export default function NewsletterConfirmed() {
               straight to your inbox.
             </p>
             <div className={styles.actions}>
-              <NavigationButton to="/care-knowledge" className={styles.statusActionBtn}>
+              <NavigationButton to="/care-guidance" className={styles.statusActionBtn}>
                 Read our latest articles
               </NavigationButton>
               <NavigationButton to="/" className={styles.statusActionBtn}>

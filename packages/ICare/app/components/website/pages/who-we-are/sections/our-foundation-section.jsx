@@ -28,7 +28,7 @@ export function OurFoundationSection() {
                                 <div className={styles.founderRow}>
                                     <div className={styles.founderImageWrap}>
                                         <img
-                                            src="/images/mx.jpeg"
+                                            src="/images/maxfin.png"
                                             alt="Maximilian Herbst — Founder of ICare"
                                             className={styles.founderImage}
                                         />
@@ -85,7 +85,7 @@ export function OurFoundationSection() {
                             <div className={styles.founderRow}>
                                 <div className={styles.founderImageWrap}>
                                 <img
-                                    src="/images/mx.jpeg"
+                                    src="/images/maxfin.png"
                                     alt="Maximilian Herbst — Founder of ICare"
                                     className={styles.founderImage}
                                 />

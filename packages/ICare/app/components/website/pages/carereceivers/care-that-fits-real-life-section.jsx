@@ -30,7 +30,7 @@ export default function CareThatFitsRealLifeSection() {
                     <p className={styles.subtitle}>
                         <Link
                             className={styles.link}
-                            to="/care-knowledge"
+                            to="/care-guidance"
                         >Learn more in Care guidance
                         </Link>
                     </p>

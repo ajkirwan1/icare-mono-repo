@@ -14,7 +14,7 @@ export async function loader() {
     { loc: "/trust-and-safety", changefreq: "monthly", priority: "0.6" },
     { loc: "/privacy", changefreq: "monthly", priority: "0.4" },
     { loc: "/safety-commitment", changefreq: "monthly", priority: "0.4" },
-    { loc: "/care-knowledge", changefreq: "weekly", priority: "0.8" }
+    { loc: "/care-guidance", changefreq: "weekly", priority: "0.8" }
   ];
 
   const posts = await sanity.fetch(`
@@ -40,7 +40,7 @@ export async function loader() {
     .map(
       (post) => `
   <url>
-    <loc>${siteUrl}/care-knowledge/${post.slug}</loc>
+    <loc>${siteUrl}/care-guidance/${post.slug}</loc>
     <lastmod>${(post._updatedAt || post.publishedAt).split("T")[0]}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

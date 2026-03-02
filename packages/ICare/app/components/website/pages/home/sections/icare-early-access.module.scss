@@ -2,15 +2,12 @@
 
 .wrap {
     width: 100%;
-    padding: clamp(2.8rem, 4vw, 3.6rem) 0 clamp(7.8rem, 12.8vw, 10.4rem);
+    padding: clamp(1.2rem, 2.6vw, 2rem) 0 clamp(2.4rem, 5vw, 3.6rem);
     border-bottom: 1px solid rgba(15, 23, 42, 0.06);
     font-family: Poppins, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    /* ✅ prevents background/hero resizing when email section expands */
-    min-height: clamp(860px, 88vh, 980px);
 }
 
 .socialProofStripe {
@@ -188,7 +185,7 @@
 
 .featuredCaregivers {
     width: min(98vw, 1464px);
-    margin: 28px auto 170px;
+    margin: 20px auto 60px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
@@ -198,10 +195,10 @@
 
 .featuredCaregiversTitle {
     width: min(98vw, 1464px);
-    margin: 0 auto 28px;
+    margin: 60px auto 28px;
     text-align: center;
     color: rgba(15, 23, 42, 0.9);
-    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    font-size: clamp(1.32rem, 1.92vw, 1.68rem);
     line-height: 1.2;
     font-weight: 600;
 }
@@ -231,7 +228,7 @@
     width: 100%;
     min-width: 0;
     margin: 0;
-    padding: 14px;
+    padding: 12px 12px 42px;
     border-radius: tokens.$radius-xxl;
     border: 1px solid tokens.$border-soft;
     background: rgba(247, 247, 242, 0.72);
@@ -241,6 +238,7 @@
     gap: tokens.$sp-3;
     align-items: start;
     position: relative;
+    overflow: hidden;
 }
 
 .featuredCardTop {
@@ -286,7 +284,7 @@
 .featuredLynnTitle {
     margin: 0.2rem 0 0;
     color: rgba(15, 23, 42, 0.86);
-    font-size: clamp(1.18rem, 1.74vw, 1.3rem);
+    font-size: clamp(1.36rem, 2vw, 1.5rem);
     font-weight: tokens.$fw-bold;
     letter-spacing: -0.01em;
 }
@@ -294,9 +292,109 @@
 .featuredLynnText {
     margin: 0.28rem 0 0;
     color: rgba(15, 23, 42, 0.82);
-    font-size: clamp(0.68rem, 0.78vw, 0.74rem);
+    font-size: clamp(0.8rem, 0.92vw, 0.87rem);
     line-height: 1.45;
     max-width: none;
+}
+
+.cardOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    background: linear-gradient(180deg, rgba(248, 246, 241, 0.62) 0%, rgba(248, 246, 241, 0.78) 100%);
+    padding: 14px;
+    backdrop-filter: blur(3px);
+    animation: cardOverlayFade 0.22s ease;
+}
+
+.cardOverlayPanel {
+    height: 100%;
+    overflow: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 248, 244, 0.96) 100%);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+    padding: 14px 14px 12px;
+}
+
+.cardOverlayTitle {
+    margin: 0 0 10px;
+    color: rgba(15, 23, 42, 0.9);
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.cardOverlayText {
+    margin: 0;
+    color: rgba(15, 23, 42, 0.82);
+    font-size: 0.87rem;
+    line-height: 1.52;
+    white-space: pre-line;
+}
+
+.cardOverlayActions {
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    position: sticky;
+    bottom: 0;
+    padding-top: 10px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(252, 251, 248, 0.98) 38%);
+}
+
+.overlayCloseButton {
+    border: 1px solid rgba(15, 23, 42, 0.16);
+    background: rgba(255, 255, 255, 0.94);
+    color: rgba(15, 23, 42, 0.86);
+    border-radius: 999px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.44rem 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+
+    &:hover {
+        background: rgba(247, 242, 236, 0.98);
+        border-color: rgba(214, 116, 53, 0.32);
+        transform: translateY(-1px);
+    }
+}
+
+@keyframes cardOverlayFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.mobileOverlayBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: linear-gradient(180deg, rgba(248, 246, 241, 0.62) 0%, rgba(248, 246, 241, 0.78) 100%);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px;
+    animation: cardOverlayFade 0.22s ease;
+}
+
+.mobileOverlayDialog {
+    width: min(92vw, 520px);
+    max-height: min(82vh, 700px);
+    overflow: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 248, 244, 0.96) 100%);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
+    padding: 14px 14px 12px;
 }
 
 .featuredLynnSmall {
@@ -319,6 +417,11 @@
     line-height: 1.2;
 }
 
+.featuredLynnLocationPlaceholder {
+    visibility: hidden;
+    min-height: 1.2em;
+}
+
 .readMoreButton {
     margin-top: 0.5rem;
     padding: 0;
@@ -338,16 +441,37 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: auto;
-    align-self: flex-end;
-    padding: 0.45rem 0.95rem;
-    border: 0.5px solid #000;
+    margin-top: 0;
+    align-self: auto;
+    padding: 0.54rem 1.14rem;
+    border: 0.5px solid rgba(214, 116, 53, 0.7);
     border-radius: 999px;
-    background: #e5e7eb;
-    color: #000;
-    font-size: 0.7rem;
+    background: rgba(214, 116, 53, 0.7);
+    color: #fff;
+    font-size: 0.84rem;
     line-height: 1;
     text-decoration: none;
+    animation: contactPulse 2.8s ease-in-out infinite;
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+}
+
+@keyframes contactPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(184, 92, 35, 0.34);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 10px rgba(184, 92, 35, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(15, 23, 42, 0);
+    }
 }
 
 .layout {
@@ -386,6 +510,25 @@
 }
 
 @media (min-width: 921px) {
+    .featuredCaregivers {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+
+    .featuredCaregivers::-webkit-scrollbar {
+        display: none;
+    }
+
+    .featuredLynnCard {
+        flex: 0 0 calc((100% - 32px) / 3);
+        min-width: calc((100% - 32px) / 3);
+        min-height: 280px;
+        height: 280px;
+        scroll-snap-align: start;
+    }
+
     .featuredCardTop {
         display: grid;
         grid-template-columns: 156px minmax(0, 1fr);
@@ -399,6 +542,7 @@
         height: auto;
         aspect-ratio: 1 / 1;
     }
+
 }
 
 /* ✅ Responsive layout */
@@ -409,49 +553,117 @@
 
     .mobileSliderWrap {
         width: min(94vw, 1020px);
-        display: grid;
-        grid-template-columns: 36px minmax(0, 1fr) 36px;
-        gap: 8px;
-        align-items: center;
+        position: relative;
+        display: block;
     }
 
     .mobileSliderArrow {
         display: inline-flex;
-        width: 53px;
-        height: 53px;
+        width: 43px;
+        height: 43px;
         border: 0;
-        border-radius: 0;
-        background: transparent;
+        border-radius: 999px;
+        background: rgb(119, 141, 67);
         align-items: center;
         justify-content: center;
         padding: 0;
         cursor: pointer;
-    }
+        position: absolute;
+        top: clamp(120px, 24vw, 165px);
+        transform: none;
+        z-index: 5;
+        opacity: 0.95;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
 
-    .mobileSliderArrow::before {
-        content: "";
-        display: block;
-        width: 18px;
-        height: 18px;
-        border-top: 2.7px solid rgba(15, 23, 42, 0.78);
-        border-right: 2.7px solid rgba(15, 23, 42, 0.78);
+        &::before {
+            content: "";
+            position: absolute;
+            inset: -12px;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            border-right: 2.4px solid #fff;
+            border-bottom: 2.4px solid #fff;
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        &:hover {
+            opacity: 1;
+            background: rgb(102, 122, 57);
+        }
+
+        &:focus-visible {
+            outline: 3px solid rgba(255, 255, 255, 0.95);
+            outline-offset: 2px;
+        }
     }
 
     .mobileSliderArrowPrev::before {
-        transform: rotate(-135deg);
+        transform: none;
     }
 
     .mobileSliderArrowNext::before {
-        transform: rotate(45deg);
+        transform: none;
+    }
+
+    .mobileSliderArrowPrev {
+        left: 10px;
+
+        &::after {
+            transform: translate(calc(-50% + 2px), -50%) rotate(135deg);
+        }
+    }
+
+    .mobileSliderArrowNext {
+        right: 10px;
+
+        &::after {
+            transform: translate(calc(-50% - 2px), -50%) rotate(-45deg);
+        }
     }
 
     .featuredCaregivers {
         width: 100%;
-        display: block;
-        position: relative;
-        overflow: hidden;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        touch-action: pan-y;
+        overscroll-behavior-x: none;
         grid-template-columns: 1fr;
-        margin: 0 auto 120px;
+        margin: 0 auto 50px;
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+
+    .mobileCrossfade {
+        animation: mobileSlideCrossfade 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        animation-fill-mode: both;
+        will-change: opacity;
+    }
+
+    @keyframes mobileSlideCrossfade {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.82;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .featuredCaregivers::-webkit-scrollbar {
+        display: none;
     }
 
     .featuredLynnCard {
@@ -460,28 +672,15 @@
         min-width: 100%;
         margin: 0;
         padding: 20px;
-    }
-
-    .mobileSlide {
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-    }
-
-    .mobileSlideActive {
-        position: relative;
-        opacity: 1;
-        pointer-events: auto;
+        scroll-snap-align: start;
     }
 
     .featuredLynnImage {
-        width: 100%;
-        max-width: none;
+        width: clamp(150px, 58%, 200px);
+        max-width: 200px;
         height: auto;
         aspect-ratio: 1 / 1;
-        margin: 0;
+        margin: 0 auto 6px;
     }
 
     .featuredCardMeta {

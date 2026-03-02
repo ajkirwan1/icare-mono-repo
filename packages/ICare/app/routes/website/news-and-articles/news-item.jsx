@@ -28,7 +28,7 @@ export function meta({ data }) {
     if (!post) { return [{ title: "News | ICare" }]; }
 
     const siteUrl = "https://example.com"; // ideally from env
-    const url = `${siteUrl}/care-knowledge/${post.slug}`;
+    const url = `${siteUrl}/care-guidance/${post.slug}`;
     const title = `${post.title} | ICare`;
     const description = post.metaDescription || post.excerpt || "";
     const ogImage = post.heroImage
@@ -127,7 +127,7 @@ export default function NewsPostPage() {
     const { post, related } = useLoaderData();
 
     const siteUrl = import.meta.env.VITE_SITE_URL; // ideally from env
-    const canonicalUrl = `${siteUrl}/care-knowledge/${post.slug}`;
+    const canonicalUrl = `${siteUrl}/care-guidance/${post.slug}`;
 
     const articleJsonLd = {
         "@context": "https://schema.org",
@@ -158,7 +158,7 @@ export default function NewsPostPage() {
                 "@type": "ListItem",
                 position: 1,
                 name: "care knowledge",
-                item: `${siteUrl}/care-knowledge`
+                item: `${siteUrl}/care-guidance`
             },
             {
                 "@type": "ListItem",
@@ -196,7 +196,7 @@ export default function NewsPostPage() {
             <main className={classes.articleMain} id="icare-main">
                 <nav aria-label="Breadcrumb" className={classes.breadcrumbs}>
                     <ol className={classes.breadcrumbList}>
-                        <li className={classes.crumb}><NavLink to="/care-knowledge">care knowledge</NavLink></li>
+                        <li className={classes.crumb}><NavLink to="/care-guidance">care knowledge</NavLink></li>
                         <li className={classes.crumb} aria-current="page">{post.title}</li>
                     </ol>
                 </nav>
@@ -258,7 +258,7 @@ export default function NewsPostPage() {
                             <ul id="related-carousel" className={classes.relatedCarousel}>
                                 {related.map((r) => (
                                     <li key={r._id} className={classes.relatedSlide}>
-                                        <NavLink to={`/care-knowledge/${r.slug}`} className={classes.relatedLink}>
+                                        <NavLink to={`/care-guidance/${r.slug}`} className={classes.relatedLink}>
                                             <article className={classes.relatedCard}>
                                                 {r.heroImage && (
                                                     <img

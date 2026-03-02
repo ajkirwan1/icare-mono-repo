@@ -79,6 +79,28 @@ const NEWS_COUNT_QUERY = `
   count(*[_type == "newsPost" && defined(slug.current)])
 `;
 
+const PINNED_INDEPENDENT_NEWS_QUERY = `
+  *[
+    _type == "newsPost" &&
+    defined(slug.current) &&
+    (
+      title match "*Working as an independent*" ||
+      title match "*working as an independent*"
+    )
+  ]
+  | order(isFeatured desc, publishedAt desc)[0]{
+    _id,
+    title,
+    subtitle,
+    "slug": slug.current,
+    publishedAt,
+    excerpt,
+    heroImage,
+    tags,
+    featuredQuote
+  }
+`;
+
 export async function getNewsByTag(tag) {
   return sanity.fetch(NEWS_BY_TAG_QUERY, { tag });
 }
@@ -115,4 +137,8 @@ export async function getTagCounts() {
 
 export async function getNewsCount() {
   return sanity.fetch(NEWS_COUNT_QUERY);
+}
+
+export async function getPinnedIndependentNews() {
+  return sanity.fetch(PINNED_INDEPENDENT_NEWS_QUERY);
 }

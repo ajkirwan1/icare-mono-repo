@@ -205,7 +205,7 @@ export default function ContactContent() {
                             Join the Waitlist
                         </NavLink>{" "}
                         <span className={styles.muted}>|</span>{" "}
-                        <NavLink to="/care-knowledge" className={styles.inlineLink}>
+                        <NavLink to="/care-guidance" className={styles.inlineLink}>
                             Care Guidance
                         </NavLink>{" "}
                         <span className={styles.muted}>|</span>{" "}
