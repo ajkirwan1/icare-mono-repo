@@ -28,7 +28,7 @@ export default function NewsletterUnsubscribed() {
               page.
             </p>
             <div className={styles.actions}>
-              <NavigationButton to="/care-knowledge">
+              <NavigationButton to="/care-guidance">
                 Browse articles
               </NavigationButton>
               <NavigationButton to="/">

@@ -34,6 +34,7 @@ export default function AiChat() {
     const [isMobile, setIsMobile] = useState(false);
     const [input, setInput] = useState("");
     const [showLauncher, setShowLauncher] = useState(false);
+    const [showGreetingBubble, setShowGreetingBubble] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [popularOpen, setPopularOpen] = useState(false);
     const [expanded, setExpanded] = useState(false);
@@ -127,6 +128,13 @@ export default function AiChat() {
         const timer = setTimeout(() => {
             setShowLauncher(true);
         }, 3000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowGreetingBubble(true);
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -286,6 +294,7 @@ export default function AiChat() {
             closeChat();
             return;
         }
+        setShowGreetingBubble(false);
         setOpen(true);
     }
 
@@ -527,19 +536,17 @@ export default function AiChat() {
                     aria-label="Open ICare chat"
                     aria-expanded={open}
                     aria-controls="icare-chat-dialog"
-                    className="icare-chat-launcher"
-                    style={{
-                        width: 64.4,
-                        height: 64.4,
-                        borderRadius: "50%",
-                        background: BRAND_GREEN,
-                        color: "#fff",
-                        fontSize: 25.3,
-                        border: "none",
-                        cursor: "pointer",
-                    }}
+                    className="icare-chat-bubble-launcher"
                 >
-                    💬
+                    {showGreetingBubble ? (
+                        <>
+                            HI it&apos;s Kate
+                            <br />
+                            Can I help you?
+                        </>
+                    ) : (
+                        "Chat with ICare"
+                    )}
                 </button>
             </div>
 
@@ -952,28 +959,65 @@ export default function AiChat() {
 
             <style>{`
                 @keyframes icareLauncherIn {
-                    from { opacity: 0; transform: translateY(24px); }
-                    to { opacity: 1; transform: translateY(0); }
+                    from { opacity: 0; transform: translateX(14px) scale(0.98); }
+                    to { opacity: 1; transform: translateX(0); }
                 }
 
                 .icare-chat-launcher-wrap {
                     opacity: 0;
-                    transform: translateY(24px);
+                    transform: translateX(14px) scale(0.98);
                     pointer-events: none;
                 }
 
                 .icare-chat-launcher-wrap--visible {
-                    animation: icareLauncherIn 450ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+                    animation: icareLauncherIn 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
                     pointer-events: auto;
                 }
 
-                @keyframes icareChatPulse {
-                    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(119, 141, 67, 0.45); }
-                    50% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(119, 141, 67, 0.16); }
+                .icare-chat-bubble-launcher {
+                    width: 99px;
+                    height: 99px;
+                    padding: 13px;
+                    border-radius: 999px;
+                    background: linear-gradient(150deg, rgba(119, 141, 67, 0.96) 0%, rgba(99, 119, 56, 0.93) 100%);
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: 500;
+                    line-height: 1.25;
+                    border: 1px solid #333;
+                    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.22);
+                    white-space: normal;
+                    letter-spacing: 0.01em;
+                    animation: icareBubbleIn 260ms cubic-bezier(0.2, 0.9, 0.2, 1), icareChatPulse 2.2s ease-in-out infinite;
+                    cursor: pointer;
+                    text-align: center;
+                    position: relative;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
-                .icare-chat-launcher {
-                    animation: icareChatPulse 2.2s ease-in-out infinite;
+                .icare-chat-bubble-launcher::after {
+                    content: none;
+                }
+
+                @keyframes icareBubbleIn {
+                    from { opacity: 0; transform: translateX(8px) translateY(3px); }
+                    to { opacity: 1; transform: translateX(0) translateY(0); }
+                }
+
+                @media (max-width: 760px) {
+                    .icare-chat-bubble-launcher {
+                        width: 102px;
+                        height: 102px;
+                        padding: 13px;
+                        font-size: 12px;
+                    }
+                }
+
+                @keyframes icareChatPulse {
+                    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(119, 141, 67, 0.2); }
+                    50% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(119, 141, 67, 0.08); }
                 }
 
                 .icare-chat-close {

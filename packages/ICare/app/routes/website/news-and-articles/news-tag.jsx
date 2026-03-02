@@ -26,8 +26,8 @@ export function meta({ data }) {
     const pretty = tag ? prettifyTag(tag) : "Tag";
     const encodedTag = tag ? encodeURIComponent(tag) : "";
     const url = tag
-        ? `https://icare-app.co.uk/care-knowledge/tags/${encodedTag}`
-        : "https://icare-app.co.uk/care-knowledge";
+        ? `https://icare-app.co.uk/care-guidance/tags/${encodedTag}`
+        : "https://icare-app.co.uk/care-guidance";
     const image = "https://icare-app.co.uk/images/og/default.jpg";
 
     const title = `${pretty} articles | ICare`;
@@ -60,7 +60,7 @@ export default function NewsTagPage() {
             <main className={classes.page}>
                 <nav aria-label="Breadcrumb" className={classes.breadcrumbs}>
                     <ol className={classes.breadcrumbList}>
-                        <li className={classes.crumb}><Link to="/care-knowledge">care knowledge</Link></li>
+                        <li className={classes.crumb}><Link to="/care-guidance">care knowledge</Link></li>
                         <li className={classes.crumb} aria-current="page">{prettyTag}</li>
                     </ol>
                 </nav>
@@ -74,13 +74,13 @@ export default function NewsTagPage() {
                 {posts.length === 0 ? (
                     <div>
                         <p>No posts found for this topic yet.</p>
-                        <Link to="/care-knowledge">← Back to all news</Link>
+                        <Link to="/care-guidance">← Back to all news</Link>
                     </div>
                 ) : (
                     <ul className={classes.grid}>
                         {posts.map((p) => (
                             <li key={p._id} className={classes.newsCard}>
-                                <Link to={`/care-knowledge/${p.slug}`} className={classes.cardLink}>
+                                <Link to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
                                     {p.heroImage && (
                                         <img
                                             src={urlFor(p.heroImage).width(600).height(360).fit("crop").url()}
@@ -105,7 +105,7 @@ export default function NewsTagPage() {
                                                 {p.tags.map((t) => (
                                                     <Link
                                                         key={t}
-                                                        to={`/care-knowledge/tags/${t}`}
+                                                        to={`/care-guidance/tags/${t}`}
                                                         className={classes.tag}
                                                         style={{ textDecoration: "none", color: "inherit" }}
                                                     >
@@ -122,7 +122,7 @@ export default function NewsTagPage() {
                 )}
 
                 <div style={{ marginTop: "3rem" }}>
-                    <Link to="/care-knowledge">← Back to all news</Link>
+                    <Link to="/care-guidance">← Back to all news</Link>
                 </div>
                 <EngagementSection />
             </main>

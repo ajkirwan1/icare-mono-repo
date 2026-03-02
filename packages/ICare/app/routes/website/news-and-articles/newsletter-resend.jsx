@@ -59,7 +59,7 @@ export default function NewsletterResend() {
             )}
 
             <div className={styles.actions} style={{ marginTop: 20 }}>
-              <NavigationButton to="/care-knowledge">
+              <NavigationButton to="/care-guidance">
                 Browse articles
               </NavigationButton>
             </div>

@@ -9,7 +9,7 @@ import EngagementSection from "~/components/website/common/sections/engagement-s
 export const meta = () => {
   const title = "Care guidance | ICare";
   const description = "Expert articles and practical guidance on home care in the UK for families and caregivers.";
-  const url = "https://icare-app.co.uk/care-knowledge";
+  const url = "https://icare-app.co.uk/care-guidance";
   const image = "https://icare-app.co.uk/images/og/default.jpg";
 
   return [
@@ -29,7 +29,7 @@ export const meta = () => {
 
 export const links = () => {
   return [
-    { rel: "canonical", href: "https://icare-app.co.uk/care-knowledge" }
+    { rel: "canonical", href: "https://icare-app.co.uk/care-guidance" }
   ];
 };
 
@@ -49,16 +49,21 @@ export async function loader({ request }) {
   const limit = 6;
   const offset = (page - 1) * limit;
 
-  const { getNewsListPaged, getTagCounts, getNewsCount } = await import("../../../lib/news.server");
-  const [posts, tagCounts, total] = await Promise.all([
+  const { getNewsListPaged, getTagCounts, getNewsCount, getPinnedIndependentNews } = await import("../../../lib/news.server");
+  const [posts, tagCounts, total, pinnedIndependentPost] = await Promise.all([
     getNewsListPaged({ offset, limit }),
     getTagCounts(),
-    getNewsCount()
+    getNewsCount(),
+    page === 1 ? getPinnedIndependentNews() : null
   ]);
+
+  const prioritizedPosts = page === 1 && pinnedIndependentPost
+    ? [pinnedIndependentPost, ...posts.filter((post) => post._id !== pinnedIndependentPost._id)].slice(0, limit)
+    : posts;
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
 
-  return { posts, tagCounts, page, totalPages, total, limit };
+  return { posts: prioritizedPosts, tagCounts, page, totalPages, total, limit };
 }
 
 export default function NewsAndArticlesPage() {
@@ -87,12 +92,12 @@ export default function NewsAndArticlesPage() {
           {tagCounts?.length > 0 && (
             <aside className={classes.pageHeaderAside}>
               <div className={classes.tagFlexContainer}>
-                <h2 className={classes.asideTitle}>Search by tags</h2>
+                <h2 className={classes.asideTitle}>Find by tag</h2>
                 <nav>
                   <ul className={classes.tagsBar}>
-                    {tagCounts.slice(0, 20).map(({ tag, count }) => (
+                    {tagCounts.slice(0, 10).map(({ tag, count }) => (
                       <li key={tag}>
-                        <Tag label={`${tag} (${count})`} to={`/care-knowledge/tags/${tag}`} />
+                        <Tag label={`${tag} (${count})`} to={`/care-guidance/tags/${tag}`} />
                       </li>
                     ))}
                   </ul>
@@ -110,7 +115,7 @@ export default function NewsAndArticlesPage() {
           <ul className={classes.grid}>
             {posts.map((p) => (
               <li key={p._id} className={classes.newsCard}>
-                <NavLink to={`/care-knowledge/${p.slug}`} className={classes.cardLink}>
+                <NavLink to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
                   {p.heroImage && (
                     <img
                       src={urlFor(p.heroImage).width(600).height(360).fit("crop").url()}

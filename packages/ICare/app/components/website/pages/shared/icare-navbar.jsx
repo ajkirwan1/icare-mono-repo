@@ -139,7 +139,7 @@ export default function ICareAppNavbar({ noShadow = false }) {
       },
       { to: "/how-it-works", label: "How it works" },
       { to: "/who-we-are", label: "Who we are" },
-      { to: "/care-knowledge", label: "Care guidance" },
+      { to: "/care-guidance", label: "Care guidance" },
       { to: "/trust-and-safety", label: "Trust and safety" }
     ],
     []
