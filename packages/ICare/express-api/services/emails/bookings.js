@@ -64,6 +64,14 @@ function renderMultilineTextHtml(value) {
     return escapeHtml(String(value || "")).replace(/\r?\n/g, "<br/>");
 }
 
+function formatPounds(amount) {
+    const parsed = Number(amount);
+    if (!Number.isFinite(parsed)) {
+        return "";
+    }
+    return `£${parsed.toFixed(2)}`;
+}
+
 export async function sendBookingRequestConfirmationEmail(toEmail, payload) {
     const siteUrl = getSiteUrl();
     const [blackBase64, whiteBase64] = await Promise.all([
@@ -293,6 +301,186 @@ export async function sendBookingCancellationNotificationEmail(toEmail, payload)
         from: process.env.EMAIL_FROM,
         to: toEmail,
         subject: `Booking cancelled${bookingRef ? ` (${bookingRef})` : ""} — ICare`,
+        html,
+        attachments: [
+            {
+                filename: "icareblack.png",
+                content: blackBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-dark"
+            },
+            {
+                filename: "icarelogo-white.png",
+                content: whiteBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-light"
+            }
+        ]
+    });
+}
+
+export async function sendBookingAcceptedNotificationEmail(toEmail, payload) {
+    const siteUrl = getSiteUrl();
+    const [blackBase64, whiteBase64] = await Promise.all([
+        loadLogoPngBase64(),
+        loadLogoPngBase64White()
+    ]);
+
+    const caregiverName = escapeHtml(payload?.caregiverName || "Caregiver");
+    const bookingRef = escapeHtml(payload?.bookingRef || "");
+    const schedule = escapeHtml(formatSchedule(payload?.bookingDate, payload?.startTime, payload?.durationHours));
+    const detailUrl = `${siteUrl}/carereceiver/bookings/${encodeURIComponent(String(payload?.bookingId || ""))}`;
+
+    const html = wrapEmailHtml(
+        `
+      <h2 style="margin:0 0 12px;">Booking confirmed</h2>
+      <p style="margin:0 0 12px;line-height:1.6;">
+        <strong>${caregiverName}</strong> accepted your booking request.
+      </p>
+      <div style="margin:16px 0 0;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+        <p style="margin:0;line-height:1.6;">
+          <strong>Reference:</strong> ${bookingRef || "Pending"}<br/>
+          <strong>Schedule:</strong> ${schedule || "To be confirmed"}<br/>
+          Contact details are now available in your booking details.
+        </p>
+      </div>
+      <p style="margin:16px 0 0;line-height:1.6;">
+        Please keep communication and payment in ICare where possible.
+      </p>
+      <p style="margin:8px 0 0;line-height:1.6;">
+        <a href="${detailUrl}" style="font-weight:600;">Open booking details</a>
+      </p>
+    `,
+        {
+            unsubscribeUrl: null,
+            logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+        }
+    );
+
+    return sendEmail({
+        from: process.env.EMAIL_FROM,
+        to: toEmail,
+        subject: `Booking confirmed${bookingRef ? ` (${bookingRef})` : ""} — ICare`,
+        html,
+        attachments: [
+            {
+                filename: "icareblack.png",
+                content: blackBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-dark"
+            },
+            {
+                filename: "icarelogo-white.png",
+                content: whiteBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-light"
+            }
+        ]
+    });
+}
+
+export async function sendBookingPaymentCapturedReceiptEmail(toEmail, payload) {
+    const siteUrl = getSiteUrl();
+    const [blackBase64, whiteBase64] = await Promise.all([
+        loadLogoPngBase64(),
+        loadLogoPngBase64White()
+    ]);
+
+    const bookingRef = escapeHtml(payload?.bookingRef || "");
+    const caregiverName = escapeHtml(payload?.caregiverName || "Caregiver");
+    const schedule = escapeHtml(formatSchedule(payload?.bookingDate, payload?.startTime, payload?.durationHours));
+    const amountLabel = escapeHtml(formatPounds(payload?.amount) || "Confirmed");
+    const detailUrl = `${siteUrl}/carereceiver/bookings/${encodeURIComponent(String(payload?.bookingId || ""))}`;
+
+    const html = wrapEmailHtml(
+        `
+      <h2 style="margin:0 0 12px;">Payment confirmed</h2>
+      <p style="margin:0 0 12px;line-height:1.6;">
+        Your booking payment has been captured in ICare.
+      </p>
+      <div style="margin:16px 0 0;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+        <p style="margin:0;line-height:1.6;">
+          <strong>Reference:</strong> ${bookingRef || "Pending"}<br/>
+          <strong>Caregiver:</strong> ${caregiverName}<br/>
+          <strong>Schedule:</strong> ${schedule || "To be confirmed"}<br/>
+          <strong>Amount charged:</strong> ${amountLabel}
+        </p>
+      </div>
+      <p style="margin:16px 0 0;line-height:1.6;">
+        <a href="${detailUrl}" style="font-weight:600;">Open booking details</a>
+      </p>
+    `,
+        {
+            unsubscribeUrl: null,
+            logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+        }
+    );
+
+    return sendEmail({
+        from: process.env.EMAIL_FROM,
+        to: toEmail,
+        subject: `Payment confirmed${bookingRef ? ` (${bookingRef})` : ""} — ICare`,
+        html,
+        attachments: [
+            {
+                filename: "icareblack.png",
+                content: blackBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-dark"
+            },
+            {
+                filename: "icarelogo-white.png",
+                content: whiteBase64,
+                contentType: "image/png",
+                contentId: "icare-logo-light"
+            }
+        ]
+    });
+}
+
+export async function sendBookingPaymentCapturedNotificationEmail(toEmail, payload) {
+    const siteUrl = getSiteUrl();
+    const [blackBase64, whiteBase64] = await Promise.all([
+        loadLogoPngBase64(),
+        loadLogoPngBase64White()
+    ]);
+
+    const bookingRef = escapeHtml(payload?.bookingRef || "");
+    const careReceiverName = escapeHtml(payload?.careReceiverName || "Care receiver");
+    const schedule = escapeHtml(formatSchedule(payload?.bookingDate, payload?.startTime, payload?.durationHours));
+    const amountLabel = escapeHtml(formatPounds(payload?.amount) || "Confirmed");
+    const listUrl = `${siteUrl}/caregiver/bookings`;
+
+    const html = wrapEmailHtml(
+        `
+      <h2 style="margin:0 0 12px;">Booking payment captured</h2>
+      <p style="margin:0 0 12px;line-height:1.6;">
+        Payment for this booking has been captured from ${careReceiverName}.
+      </p>
+      <div style="margin:16px 0 0;padding:14px 16px;border:1px solid #eee;border-radius:12px;background:#fafafa;">
+        <p style="margin:0;line-height:1.6;">
+          <strong>Reference:</strong> ${bookingRef || "Pending"}<br/>
+          <strong>Schedule:</strong> ${schedule || "To be confirmed"}<br/>
+          <strong>Amount captured:</strong> ${amountLabel}
+        </p>
+      </div>
+      <p style="margin:16px 0 0;line-height:1.6;">
+        You can continue managing this booking in your dashboard.
+      </p>
+      <p style="margin:8px 0 0;line-height:1.6;">
+        <a href="${listUrl}" style="font-weight:600;">Open bookings</a>
+      </p>
+    `,
+        {
+            unsubscribeUrl: null,
+            logoCids: { dark: "icare-logo-dark", light: "icare-logo-light" }
+        }
+    );
+
+    return sendEmail({
+        from: process.env.EMAIL_FROM,
+        to: toEmail,
+        subject: `Payment captured${bookingRef ? ` (${bookingRef})` : ""} — ICare`,
         html,
         attachments: [
             {

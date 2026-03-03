@@ -1,8 +1,10 @@
+@use "../caregiver/theme" as cg;
+
 .page {
     background: #ffffff;
     min-height: 100vh;
     padding: clamp(18px, 3vw, 36px);
-    color: #243029;
+    color: #000000;
 }
 
 .shell {
@@ -27,15 +29,15 @@
 
     p {
         margin: 10px 0 0;
-        color: rgba(70, 92, 77, 0.82);
+        color: #000000;
         font-size: 15px;
     }
 }
 
 .alertBanner {
     margin-bottom: clamp(16px, 2vw, 22px);
-    border: 1px solid #d7e1c2;
-    background: #f7faef;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    background: #f7f1e8;
     border-radius: 12px;
     padding: 12px 14px;
     display: flex;
@@ -47,8 +49,8 @@
     width: 26px;
     height: 26px;
     border-radius: 999px;
-    background: #e7efd6;
-    color: #5f7332;
+    background: cg.$soft;
+    color: cg.$accent-dark;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -58,14 +60,14 @@
 
 .alertTitle {
     margin: 0;
-    color: #334155;
+    color: #000000;
     font-size: 15px;
     font-weight: 700;
 }
 
 .alertSub {
     margin: 2px 0 0;
-    color: rgba(51, 65, 85, 0.85);
+    color: #000000;
     font-size: 13px;
 }
 
@@ -73,8 +75,8 @@
     margin-top: 6px;
     display: inline-block;
     font-size: 13px;
-    font-weight: 600;
-    color: #647739;
+    font-weight: 700;
+    color: #a5642e;
     text-decoration: underline;
 }
 
@@ -199,19 +201,19 @@
 
 .activityText {
     margin: 0;
-    color: #0f172a;
+    color: #000000;
     font-weight: 600;
     line-height: 1.35;
 }
 
 .activityTime {
-    color: rgba(15, 23, 42, 0.72);
+    color: rgba(0, 0, 0, 0.72);
     font-size: 12px;
 }
 
 .activityAction {
     font-size: 13px;
-    color: #647739;
+    color: #a5642e;
     text-decoration: none;
     font-weight: 600;
 }
@@ -224,7 +226,7 @@
 }
 
 .card {
-    border: 1px solid rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(137, 102, 78, 0.18);
     border-radius: 18px;
     background: #ffffff;
     box-shadow: none;
@@ -235,7 +237,7 @@
         margin: 0;
         font-size: 18px;
         font-weight: 600;
-        color: #465c4d;
+        color: #000000;
         line-height: 1.25;
     }
 }
@@ -263,9 +265,9 @@
     min-width: 24px;
     height: 24px;
     border-radius: 999px;
-    background: #eef3e1;
-    border: 1px solid #c7d8a0;
-    color: #4b5f30;
+    background: #f6f1eb;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    color: #5d4734;
     font-size: 12px;
     font-weight: 700;
     display: inline-flex;
@@ -274,7 +276,7 @@
 }
 
 .viewAllLink {
-    color: #647739;
+    color: #a5642e;
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
@@ -283,7 +285,7 @@
 
 .sectionSubTitle {
     margin: 6px 0 0;
-    color: rgba(15, 23, 42, 0.72);
+    color: rgba(0, 0, 0, 0.72);
     font-size: 13px;
 }
 
@@ -294,7 +296,7 @@
 }
 
 .bookingItem {
-    border: 1px solid rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(137, 102, 78, 0.18);
     border-radius: 12px;
     background: #ffffff;
     padding: 14px;
@@ -305,15 +307,15 @@
     transition: border-color 0.2s ease, background 0.2s ease;
 
     &:hover {
-        border-color: rgba(91, 117, 98, 0.35);
-        background: #fcfdfb;
+        border-color: rgba(212, 138, 83, 0.32);
+        background: #fcf8f3;
     }
 }
 
 .skeletonItem {
     min-height: 86px;
     opacity: 0.65;
-    background: linear-gradient(90deg, rgba(235, 240, 226, 0.9), rgba(248, 250, 244, 0.9), rgba(235, 240, 226, 0.9));
+    background: linear-gradient(90deg, rgba(242, 228, 214, 0.9), rgba(251, 244, 237, 0.9), rgba(242, 228, 214, 0.9));
     background-size: 240% 100%;
     animation: card-skeleton 1.4s linear infinite;
 }
@@ -321,7 +323,7 @@
 .skeletonActivity {
     min-height: 58px;
     border-radius: 10px;
-    background: linear-gradient(90deg, rgba(235, 240, 226, 0.9), rgba(248, 250, 244, 0.9), rgba(235, 240, 226, 0.9));
+    background: linear-gradient(90deg, rgba(242, 228, 214, 0.9), rgba(251, 244, 237, 0.9), rgba(242, 228, 214, 0.9));
     background-size: 240% 100%;
     animation: card-skeleton 1.4s linear infinite;
 }
@@ -335,7 +337,7 @@
 
 .cardEmpty {
     margin: 6px 0 0;
-    color: rgba(15, 23, 42, 0.72);
+    color: rgba(0, 0, 0, 0.72);
     font-size: 14px;
 }
 
@@ -415,7 +417,7 @@
     height: 36px;
     border-radius: 999px;
     overflow: hidden;
-    background: #e6e9e1;
+    background: #efe6dc;
 
     img {
         width: 100%;
@@ -429,14 +431,14 @@
     p {
         margin: 0;
         font-weight: 600;
-        color: #243029;
+        color: #000000;
         line-height: 1.25;
     }
 
     small {
         display: block;
         margin-top: 3px;
-        color: #0f172a;
+        color: #000000;
         line-height: 1.35;
     }
 
@@ -450,15 +452,16 @@
 }
 
 .requested {
-    background: #f7ecd4;
-    color: #8c5a1f;
+    background: #efe6d7;
+    color: #4b3a1f;
+    font-weight: 700;
 }
 
 .confirmed {
-    background: #cfe0b1;
-    color: #1f2b1a;
-    border: 1px solid #9cb36d;
-    font-weight: 700;
+    background: #f3ece3;
+    color: #5d4734;
+    border: 1px solid rgba(212, 138, 83, 0.16);
+    font-weight: 600;
 }
 
 .inProgress {
@@ -470,7 +473,7 @@
 
 .countdownText {
     margin-top: 6px;
-    color: #8c5a1f;
+    color: #4b3a1f;
     font-size: 12px;
     font-weight: 700;
 }
@@ -484,7 +487,7 @@
 
 .earningsLabel {
     margin: 0;
-    color: #0f172a;
+    color: #000000;
     font-size: 16px;
 }
 
@@ -492,12 +495,12 @@
     margin: 6px 0 0;
     font-size: 30px;
     font-weight: 700;
-    color: #0f172a;
+    color: #000000;
 }
 
 .earningsDelta {
     margin: 6px 0 0;
-    color: #0f172a;
+    color: #000000;
     font-size: 12px;
 }
 
@@ -554,18 +557,18 @@
     span {
         padding: 9px 14px;
         border-radius: 999px;
-        background: #ffffff;
-        border: 1px solid rgba(91, 117, 98, 0.35);
-        color: #2f4238;
+        background: #f6f1eb;
+        border: 1px solid rgba(212, 138, 83, 0.22);
+        color: #000000;
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 500;
     }
 }
 
 .verificationNote {
     margin: 12px 0 0;
-    font-size: 12px;
-    color: #3f5238;
+    font-size: 13px;
+    color: #000000;
     font-weight: 500;
     line-height: 1.35;
 }
@@ -578,7 +581,7 @@
     gap: 12px;
 
     span {
-        color: #0f172a;
+        color: #000000;
         font-size: 14px;
     }
 }
@@ -619,7 +622,7 @@
 }
 
 .toggleOff {
-    background: #e5e7eb;
+    background: #ddd2c7;
 
     span {
         left: 3px;

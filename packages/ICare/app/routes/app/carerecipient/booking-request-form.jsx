@@ -1,5 +1,5 @@
-import { Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
-import { useMemo, useState } from "react";
+import { Form, Link, redirect, useActionData, useLoaderData, useLocation, useNavigation } from "react-router";
+import { useEffect, useMemo, useState } from "react";
 import ICareAppNavbar from "~/components/application/app-navbar/icare-app-navbar";
 import { careReceiverNavItems } from "~/components/application/app-navbar/nav-items";
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
@@ -7,8 +7,10 @@ import "./account/my-account.css";
 import "./booking-request-form.css";
 
 const API_BASE = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
+const STRIPE_BOOKING_AUTH_ENABLED = String(globalThis.process?.env?.ICARE_ENABLE_BOOKING_STRIPE_AUTH || "").trim() !== "0";
 const RELATIONSHIP_OPTIONS = ["Daughter", "Son", "Spouse", "Partner", "Friend", "Other"];
 const DURATION_OPTIONS = [2, 3, 4, 6, 8];
+const BOOKING_DRAFT_STORAGE_PREFIX = "icare:booking-request-draft:";
 
 const SAMPLE_DATA = {
     caregiver: {
@@ -23,7 +25,7 @@ const SAMPLE_DATA = {
     },
     pricing: {
         hourlyRate: 18,
-        serviceFeePercent: 15
+        serviceFeePercent: 5
     },
     availableDates: [
         "2026-03-15",
@@ -39,11 +41,25 @@ const SAMPLE_DATA = {
     ],
     availableTimes: ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00"],
     emergencyContact: {
-        name: "Jane Smith",
-        phone: "07700 900123",
-        relationship: "Daughter"
+        name: "",
+        phone: "",
+        relationship: ""
     },
     paymentMethodCount: 1
+};
+
+const LOCAL_CAREGIVER_DIRECTORY = {
+    "cg-001": { id: "cg-001", name: "Sarah Thompson", hourlyRate: 18, rating: 4.9, reviewCount: 27, distance: "1.2 miles" },
+    "cg-002": { id: "cg-002", name: "Mary Johnson", hourlyRate: 17, rating: 4.8, reviewCount: 19, distance: "2.4 miles" },
+    "cg-003": { id: "cg-003", name: "Emma Collins", hourlyRate: 20, rating: 4.7, reviewCount: 14, distance: "3.1 miles" },
+    "cg-004": { id: "cg-004", name: "Anna Nowak", hourlyRate: 16, rating: 4.6, reviewCount: 11, distance: "3.8 miles" },
+    "cg-005": { id: "cg-005", name: "Tom Richards", hourlyRate: 19, rating: 4.8, reviewCount: 22, distance: "4.4 miles" },
+    "cg-006": { id: "cg-006", name: "Lina Patel", hourlyRate: 18, rating: 4.9, reviewCount: 31, distance: "5.0 miles" },
+    "cg-007": { id: "cg-007", name: "Margaret Shaw", hourlyRate: 19, rating: 4.9, reviewCount: 16, distance: "2.1 miles" },
+    "cg-emma-wilson": { id: "cg-emma-wilson", name: "Emma Wilson", hourlyRate: 18, rating: 4.7, reviewCount: 18, distance: "2.0 miles" },
+    "cg-john-anderson": { id: "cg-john-anderson", name: "John Anderson", hourlyRate: 19, rating: 4.6, reviewCount: 21, distance: "2.6 miles" },
+    "cg-margaret-thompson": { id: "cg-margaret-thompson", name: "Margaret Thompson", hourlyRate: 20, rating: 4.9, reviewCount: 31, distance: "3.2 miles" },
+    "cg-mary-thompson": { id: "cg-mary-thompson", name: "Mary Thompson", hourlyRate: 18, rating: 4.8, reviewCount: 24, distance: "2.8 miles" }
 };
 
 export function meta() {
@@ -105,6 +121,65 @@ function dateToYMD(dateObj) {
     return `${year}-${month}-${day}`;
 }
 
+function parseYmdToUtcDate(value) {
+    const ymd = String(value || "").trim();
+    const match = ymd.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) {
+        return null;
+    }
+    const parsed = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function toUtcMonthStart(dateObj) {
+    return new Date(Date.UTC(dateObj.getUTCFullYear(), dateObj.getUTCMonth(), 1));
+}
+
+function addUtcMonths(monthStart, deltaMonths) {
+    return new Date(Date.UTC(
+        monthStart.getUTCFullYear(),
+        monthStart.getUTCMonth() + Number(deltaMonths || 0),
+        1
+    ));
+}
+
+function parseTimeToMinutes(value) {
+    const match = String(value || "").trim().match(/^([01]?\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/);
+    if (!match) {
+        return null;
+    }
+    return (Number(match[1]) * 60) + Number(match[2]);
+}
+
+function minutesToTime(minutes) {
+    const clamped = Math.max(0, Math.min(1439, Number(minutes || 0)));
+    const hours = Math.floor(clamped / 60);
+    const mins = clamped % 60;
+    return `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+}
+
+function buildFlexibleStartTimes(availableTimes) {
+    const EARLIEST_MINUTES = 6 * 60;
+    const LATEST_MINUTES = 22 * 60;
+    const STEP_MINUTES = 15;
+    const minuteSet = new Set();
+
+    for (let minutes = EARLIEST_MINUTES; minutes <= LATEST_MINUTES; minutes += STEP_MINUTES) {
+        minuteSet.add(minutes);
+    }
+
+    for (const rawTime of (availableTimes || [])) {
+        const parsed = parseTimeToMinutes(rawTime);
+        if (parsed !== null) {
+            minuteSet.add(parsed);
+        }
+    }
+
+    return Array.from(minuteSet)
+        .sort((a, b) => a - b)
+        .map((minutes) => minutesToTime(minutes));
+}
+
 async function tryFetchJson(url, options = {}) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3500);
@@ -122,8 +197,9 @@ async function tryFetchJson(url, options = {}) {
 
 async function loadCaregiver(apiBase, caregiverId) {
     const localCandidates = [
-        `http://localhost:4000/caregivers/${caregiverId}`,
-        `http://localhost:4000/caregivers?id=${caregiverId}`
+        `http://localhost:4001/api/v1/caregivers/${caregiverId}`,
+        `http://localhost:4001/caregivers/${caregiverId}`,
+        `http://localhost:4001/caregivers?id=${caregiverId}`
     ];
 
     const candidates = apiBase
@@ -143,7 +219,21 @@ async function loadCaregiver(apiBase, caregiverId) {
         if (caregiver) { return caregiver; }
     }
 
-    return { ...SAMPLE_DATA.caregiver, id: caregiverId || SAMPLE_DATA.caregiver.id };
+    const normalizedId = String(caregiverId || "").trim();
+    const localFallback = LOCAL_CAREGIVER_DIRECTORY[normalizedId];
+    if (localFallback) {
+        return {
+            ...SAMPLE_DATA.caregiver,
+            ...localFallback,
+            isVerified: true
+        };
+    }
+
+    return {
+        ...SAMPLE_DATA.caregiver,
+        id: normalizedId || SAMPLE_DATA.caregiver.id,
+        name: titleCaseFromId(normalizedId) || SAMPLE_DATA.caregiver.name
+    };
 }
 
 async function loadPaymentMethodCount(apiBase, request) {
@@ -169,8 +259,46 @@ export async function loader({ params, request }) {
     const url = new URL(request.url);
     const caregiverId = params?.caregiverId || url.searchParams.get("caregiverId") || SAMPLE_DATA.caregiver.id;
     const noPaymentOverride = url.searchParams.get("noPayment") === "1";
+    const stripeCheckoutStatus = String(url.searchParams.get("stripeCheckout") || "").trim().toLowerCase();
+    const stripeCheckoutSessionId = String(url.searchParams.get("session_id") || "").trim();
     const caregiver = await loadCaregiver(API_BASE, caregiverId);
     const paymentMethodCount = noPaymentOverride ? 0 : await loadPaymentMethodCount(API_BASE, request);
+    const stripeCheckout = {
+        required: false,
+        stripeConfigured: false,
+        status: stripeCheckoutStatus,
+        error: "",
+        authorization: null
+    };
+
+    if (STRIPE_BOOKING_AUTH_ENABLED) {
+        try {
+            const stripeTools = await import("~/lib/stripe-payments.server");
+            stripeCheckout.stripeConfigured = Boolean(stripeTools.isStripeConfigured());
+            stripeCheckout.required = stripeCheckout.stripeConfigured;
+
+            if (stripeCheckoutStatus === "success" && stripeCheckoutSessionId.startsWith("cs_") && stripeCheckout.stripeConfigured) {
+                const session = await stripeTools.getStripeCheckoutSessionWithPayment(stripeCheckoutSessionId);
+                if (!isCheckoutAuthorizationReady(session)) {
+                    stripeCheckout.error = "Stripe checkout completed, but payment authorization is not ready yet. Please try again.";
+                } else {
+                    stripeCheckout.authorization = {
+                        sessionId: stripeCheckoutSessionId,
+                        authorizationId: session.paymentIntentId,
+                        authorizationStatus: normalizeCheckoutAuthorizationStatus(session),
+                        amount: Number(session.amountTotal || 0),
+                        amountLabel: toCurrency(session.amountTotal),
+                        currency: session.currency,
+                        checkoutPaymentStatus: session.checkoutPaymentStatus || session.paymentStatus,
+                        paymentIntentStatus: session.paymentIntentStatus,
+                        paymentMethodId: session.paymentMethodId || ""
+                    };
+                }
+            }
+        } catch (error) {
+            stripeCheckout.error = error?.message || "Could not verify Stripe checkout session.";
+        }
+    }
 
     return {
         caregiver,
@@ -181,54 +309,138 @@ export async function loader({ params, request }) {
         availableDates: SAMPLE_DATA.availableDates,
         availableTimes: SAMPLE_DATA.availableTimes,
         emergencyContact: SAMPLE_DATA.emergencyContact,
-        paymentMethodCount
+        paymentMethodCount,
+        stripeCheckout
     };
 }
 
 function validateForm(values) {
     const errors = {};
+    const normalizedEmergencyPhone = String(values.emergencyPhone || "").replace(/[^\d+]/g, "");
+    const emergencyPhoneIsValid =
+        /^\+[1-9]\d{7,14}$/.test(normalizedEmergencyPhone) ||
+        /^0\d{9,10}$/.test(normalizedEmergencyPhone);
+
     if (!values.bookingDate) { errors.bookingDate = "Please select an available date."; }
     if (!values.startTime) { errors.startTime = "Please select a start time."; }
-    if (!values.durationHours || Number(values.durationHours) < 2) { errors.durationHours = "Minimum booking duration is 2 hours."; }
+    if (!values.durationHours || Number(values.durationHours) < 2 || Number(values.durationHours) > 8) {
+        errors.durationHours = "Duration must be between 2 and 8 hours.";
+    }
     if (!values.emergencyName || values.emergencyName.trim().length < 2) { errors.emergencyName = "Emergency contact name is required."; }
-    if (!values.emergencyPhone || !/^\+?[0-9\s()-]{8,20}$/.test(values.emergencyPhone.trim())) {
-        errors.emergencyPhone = "Please enter a valid phone number.";
+    if (!values.emergencyPhone || !emergencyPhoneIsValid) {
+        errors.emergencyPhone = "Enter a valid phone number (e.g. +447700900123 or 07700900123).";
     }
     if (!values.emergencyRelationship) { errors.emergencyRelationship = "Please specify relationship to emergency contact."; }
     if (!values.acceptCancellation) { errors.acceptCancellation = "You must accept the cancellation policy to continue."; }
     return errors;
 }
 
-async function submitBookingRequest(apiBase, payload) {
-    if (!apiBase) { return { ok: false, status: 0 }; }
-    const base = apiBase.replace(/\/$/, "");
-    const candidates = [`${base}/api/v1/bookings`, `${base}/api/bookings`, `${base}/bookings`];
+function redirectWithCookie(path, setCookie) {
+    if (setCookie) {
+        return redirect(path, { headers: { "Set-Cookie": setCookie } });
+    }
+    return redirect(path);
+}
+
+function normalizeCheckoutAuthorizationStatus(session) {
+    const intentStatus = String(session?.paymentIntentStatus || "").trim().toLowerCase();
+    if (intentStatus) {
+        return intentStatus;
+    }
+
+    const checkoutPaymentStatus = String(session?.checkoutPaymentStatus || session?.paymentStatus || "").trim().toLowerCase();
+    if (checkoutPaymentStatus === "paid") {
+        return "authorized";
+    }
+
+    return "authorized";
+}
+
+function isCheckoutAuthorizationReady(session) {
+    const paymentIntentId = String(session?.paymentIntentId || "").trim();
+    if (!paymentIntentId.startsWith("pi_")) {
+        return false;
+    }
+
+    const checkoutPaymentStatus = String(session?.checkoutPaymentStatus || session?.paymentStatus || "").trim().toLowerCase();
+    const paymentIntentStatus = String(session?.paymentIntentStatus || "").trim().toLowerCase();
+
+    if (checkoutPaymentStatus === "paid") {
+        return true;
+    }
+
+    return [
+        "requires_capture",
+        "requires_confirmation",
+        "processing",
+        "succeeded"
+    ].includes(paymentIntentStatus);
+}
+
+async function submitBookingRequest(apiBase, payload, request, { viewerId = "", viewerEmail = "", viewerToken = "" } = {}) {
+    const baseCandidates = [];
+    const normalizedApiBase = String(apiBase || "").trim();
+    if (normalizedApiBase) {
+        baseCandidates.push(normalizedApiBase.replace(/\/$/, ""));
+    }
+    try {
+        const requestOrigin = new URL(request.url).origin;
+        if (requestOrigin) {
+            baseCandidates.push(requestOrigin.replace(/\/$/, ""));
+        }
+    } catch {
+        // ignore malformed request url
+    }
+    baseCandidates.push("http://localhost:4001");
+
+    const uniqueBases = Array.from(new Set(baseCandidates));
+    const candidates = uniqueBases.flatMap((base) => [
+        `${base}/api/v1/bookings`,
+        `${base}/api/bookings`,
+        `${base}/bookings`
+    ]);
+    let lastErrorResult = { ok: false, status: 0, payload: null };
 
     for (const endpoint of candidates) {
+        const headers = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            ...(viewerId ? { "X-User-Id": viewerId } : {}),
+            ...(viewerEmail ? { "X-User-Email": viewerEmail } : {}),
+            ...(viewerToken ? { Authorization: `Bearer ${viewerToken}` } : {})
+        };
         const result = await tryFetchJson(endpoint, {
             method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            headers,
             body: JSON.stringify(payload)
         });
         if (result.ok) { return result; }
+        if (!lastErrorResult.status || result.status >= 400) {
+            lastErrorResult = result;
+        }
     }
 
-    return { ok: false, status: 0 };
+    return lastErrorResult;
 }
 
 export async function action({ request, params }) {
     const formData = await request.formData();
+    const intent = String(formData.get("intent") || "send_request").trim().toLowerCase();
     const caregiverId = params?.caregiverId || String(formData.get("caregiverId") || SAMPLE_DATA.caregiver.id);
     const values = {
         caregiverId,
         bookingDate: String(formData.get("bookingDate") || ""),
         startTime: String(formData.get("startTime") || ""),
         durationHours: String(formData.get("durationHours") || ""),
+        hourlyRate: Number(formData.get("hourlyRate") || 0),
         notes: String(formData.get("notes") || ""),
         emergencyName: String(formData.get("emergencyName") || ""),
         emergencyPhone: String(formData.get("emergencyPhone") || ""),
         emergencyRelationship: String(formData.get("emergencyRelationship") || ""),
-        acceptCancellation: formData.get("acceptCancellation") === "on"
+        acceptCancellation: formData.get("acceptCancellation") === "on",
+        viewerId: String(formData.get("viewerId") || "").trim(),
+        viewerEmail: String(formData.get("viewerEmail") || "").trim().toLowerCase(),
+        viewerToken: String(formData.get("viewerToken") || "").trim()
     };
 
     const errors = validateForm(values);
@@ -237,9 +449,11 @@ export async function action({ request, params }) {
     }
 
     const duration = Number(values.durationHours);
-    const hourlyRate = SAMPLE_DATA.pricing.hourlyRate;
+    const hourlyRate = Number.isFinite(values.hourlyRate) && values.hourlyRate > 0
+        ? Number(values.hourlyRate)
+        : SAMPLE_DATA.pricing.hourlyRate;
     const subtotal = Number((hourlyRate * duration).toFixed(2));
-    const serviceFee = Number((subtotal * 0.15).toFixed(2));
+    const serviceFee = Number((subtotal * 0.05).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
     const payload = {
@@ -259,30 +473,37 @@ export async function action({ request, params }) {
 
     let paymentAuthorization = null;
     let stripeTools = null;
+    let stripeConfigured = false;
 
-    try {
-        stripeTools = await import("~/lib/stripe-payments.server");
-        if (stripeTools.isStripeConfigured()) {
-            const { customerId } = await stripeTools.ensureStripeCustomer(request);
-            const methods = await stripeTools.listStripePaymentMethods(customerId);
-            const chosenMethod = methods.find((method) => method.isDefault && !method.isExpired) || methods.find((method) => !method.isExpired);
+    if (STRIPE_BOOKING_AUTH_ENABLED) {
+        try {
+            stripeTools = await import("~/lib/stripe-payments.server");
+            stripeConfigured = Boolean(stripeTools.isStripeConfigured());
+        } catch {
+            stripeConfigured = false;
+        }
+    }
 
-            if (!chosenMethod) {
-                return {
-                    ok: false,
-                    formError: "No valid payment method found. Please add a card in Payment Methods before sending a booking request."
-                };
-            }
+    if (intent === "start_checkout") {
+        if (!STRIPE_BOOKING_AUTH_ENABLED || !stripeConfigured || !stripeTools) {
+            return {
+                ok: false,
+                formError: "Stripe checkout is not configured yet in this environment."
+            };
+        }
 
-            if (!chosenMethod.isDefault) {
-                await stripeTools.setStripeDefaultPaymentMethod(customerId, chosenMethod.id);
-            }
+        try {
+            const { customerId, setCookie } = await stripeTools.ensureStripeCustomer(request);
+            const currentUrl = new URL(request.url);
+            const successUrl = `${currentUrl.origin}${currentUrl.pathname}?stripeCheckout=success&session_id={CHECKOUT_SESSION_ID}`;
+            const cancelUrl = `${currentUrl.origin}${currentUrl.pathname}?stripeCheckout=cancel`;
 
-            const authorization = await stripeTools.createStripeBookingAuthorization({
+            const session = await stripeTools.createStripeBookingCheckoutSession({
                 customerId,
-                paymentMethodId: chosenMethod.id,
                 amount: total,
                 currency: "gbp",
+                successUrl,
+                cancelUrl,
                 metadata: {
                     caregiver_id: values.caregiverId,
                     booking_date: values.bookingDate,
@@ -290,27 +511,67 @@ export async function action({ request, params }) {
                 }
             });
 
+            return redirectWithCookie(session.url, setCookie);
+        } catch (error) {
+            return {
+                ok: false,
+                formError: error?.message || "Could not start Stripe checkout. Please try again."
+            };
+        }
+    }
+
+    if (stripeConfigured) {
+        const checkoutSessionId = String(formData.get("checkoutSessionId") || "").trim();
+        if (!checkoutSessionId.startsWith("cs_")) {
+            return {
+                ok: false,
+                formError: "Please complete Stripe checkout before sending the booking request."
+            };
+        }
+
+        try {
+            const checkoutSession = await stripeTools.getStripeCheckoutSessionWithPayment(checkoutSessionId);
+            if (!isCheckoutAuthorizationReady(checkoutSession)) {
+                return {
+                    ok: false,
+                    formError: "Stripe checkout was not authorized yet. Please try checkout again."
+                };
+            }
+
+            const checkoutAmount = Number(checkoutSession.amountTotal || 0);
+            if (Math.abs(checkoutAmount - total) > 0.01) {
+                return {
+                    ok: false,
+                    formError: "Booking details changed after checkout. Please run Stripe checkout again for the updated amount."
+                };
+            }
+
             paymentAuthorization = {
-                id: authorization.id,
-                status: authorization.status,
-                paymentMethodId: chosenMethod.id,
-                amount: total
+                id: checkoutSession.paymentIntentId,
+                status: normalizeCheckoutAuthorizationStatus(checkoutSession),
+                paymentMethodId: String(checkoutSession.paymentMethodId || "").trim(),
+                amount: checkoutAmount || total,
+                sessionId: checkoutSessionId
             };
 
             payload.payment = {
-                authorizationId: authorization.id,
-                authorizationStatus: authorization.status,
-                paymentMethodId: chosenMethod.id
+                authorizationId: paymentAuthorization.id,
+                authorizationStatus: paymentAuthorization.status,
+                paymentMethodId: paymentAuthorization.paymentMethodId || undefined
+            };
+        } catch (error) {
+            return {
+                ok: false,
+                formError: error?.message || "Could not verify Stripe checkout session. Please try again."
             };
         }
-    } catch (error) {
-        return {
-            ok: false,
-            formError: error?.message || "Payment authorization failed. Please check your payment method and try again."
-        };
     }
 
-    const result = await submitBookingRequest(API_BASE, payload);
+    const result = await submitBookingRequest(API_BASE, payload, request, {
+        viewerId: values.viewerId,
+        viewerEmail: values.viewerEmail,
+        viewerToken: values.viewerToken
+    });
     if (!result.ok) {
         if (paymentAuthorization?.id && stripeTools?.cancelStripePaymentIntent) {
             try {
@@ -319,29 +580,37 @@ export async function action({ request, params }) {
                 // Best-effort rollback; if this fails we still return the booking error.
             }
         }
+        const apiErrorMessage = result.payload?.error?.message || result.payload?.message || "";
 
         return {
             ok: false,
-            formError: "Nie udalo sie wyslac requestu do backendu. Endpoint tworzenia bookingu nie jest jeszcze dostepny."
+            formError: apiErrorMessage || "Could not create booking request in the API. Please try again."
         };
     }
+
+    const createdBookingId = result.payload?.data?.bookingId ||
+        result.payload?.data?.id ||
+        result.payload?.bookingId ||
+        result.payload?.id ||
+        null;
 
     return {
         ok: true,
         successMessage: paymentAuthorization
-            ? `Booking request sent. ${toCurrency(paymentAuthorization.amount)} has been authorized and will be captured after caregiver acceptance.`
+            ? `Booking request sent. ${toCurrency(paymentAuthorization.amount)} was authorized in Stripe and will be captured after caregiver acceptance.`
             : "Booking request sent. Caregiver has 24 hours to respond.",
-        bookingId: result.payload?.id || result.payload?.bookingId || null,
+        bookingId: createdBookingId,
         paymentAuthorizationId: paymentAuthorization?.id || null
     };
 }
 
-function buildCalendar(availableDates) {
-    const dates = availableDates || [];
-    const seed = dates[0] || "2026-03-01";
-    const seedDate = new Date(`${seed}T00:00:00.000Z`);
-    const month = seedDate.getUTCMonth();
-    const year = seedDate.getUTCFullYear();
+function buildCalendar(visibleMonthStart) {
+    const seed = visibleMonthStart instanceof Date && !Number.isNaN(visibleMonthStart.getTime())
+        ? visibleMonthStart
+        : new Date();
+    const monthStartSeed = toUtcMonthStart(seed);
+    const month = monthStartSeed.getUTCMonth();
+    const year = monthStartSeed.getUTCFullYear();
     const monthStart = new Date(Date.UTC(year, month, 1));
     const firstWeekday = (monthStart.getUTCDay() + 6) % 7;
     const daysInMonth = new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
@@ -369,30 +638,242 @@ function ErrorText({ message }) {
 }
 
 export default function BookingRequestFormPage() {
+    const location = useLocation();
     const loaderData = useLoaderData();
     const actionData = useActionData();
     const navigation = useNavigation();
     const isSubmitting = navigation.state === "submitting";
 
-    const { caregiver, pricing, availableDates, availableTimes, emergencyContact, paymentMethodCount } = loaderData;
+    const { caregiver, pricing, availableDates, availableTimes, emergencyContact, paymentMethodCount, stripeCheckout } = loaderData;
     const [bookingDate, setBookingDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [durationHours, setDurationHours] = useState(4);
+    const [customDurationSelected, setCustomDurationSelected] = useState(false);
+    const [customDurationHours, setCustomDurationHours] = useState("");
     const [notes, setNotes] = useState("");
     const [emergencyName, setEmergencyName] = useState(emergencyContact?.name || "");
     const [emergencyPhone, setEmergencyPhone] = useState(emergencyContact?.phone || "");
-    const [emergencyRelationship, setEmergencyRelationship] = useState(emergencyContact?.relationship || "Daughter");
+    const [emergencyRelationship, setEmergencyRelationship] = useState(emergencyContact?.relationship || "");
     const [acceptCancellation, setAcceptCancellation] = useState(false);
+    const [viewerIdentity, setViewerIdentity] = useState({ id: "", email: "", token: "" });
+    const [draftHydrated, setDraftHydrated] = useState(false);
+    const [calendarMonth, setCalendarMonth] = useState(() => {
+        const seededDate = parseYmdToUtcDate(availableDates?.[0]) || new Date();
+        return toUtcMonthStart(seededDate);
+    });
 
-    const calendar = useMemo(() => buildCalendar(availableDates), [availableDates]);
+    const calendar = useMemo(() => buildCalendar(calendarMonth), [calendarMonth]);
     const availableDateSet = useMemo(() => new Set(availableDates), [availableDates]);
+    const startTimeOptions = useMemo(() => {
+        const options = buildFlexibleStartTimes(availableTimes);
+        if (startTime && !options.includes(startTime)) {
+            return [startTime, ...options];
+        }
+        return options;
+    }, [availableTimes, startTime]);
+
+    const parsedCustomDuration = Number(customDurationHours);
+    const effectiveDurationHours = customDurationSelected && Number.isFinite(parsedCustomDuration)
+        ? parsedCustomDuration
+        : Number(durationHours || 0);
 
     const hourlyRate = Number(pricing?.hourlyRate || 18);
-    const subtotal = Number((hourlyRate * Number(durationHours || 0)).toFixed(2));
-    const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 15) / 100)).toFixed(2));
+    const subtotal = Number((hourlyRate * Number(effectiveDurationHours || 0)).toFixed(2));
+    const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 5) / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
+    const draftStorageKey = `${BOOKING_DRAFT_STORAGE_PREFIX}${caregiver.id}`;
+    const checkoutAuthorization = stripeCheckout?.authorization || null;
+    const checkoutReady = Boolean(checkoutAuthorization?.authorizationId);
+    const stripeCheckoutRequired = Boolean(stripeCheckout?.required);
+    const checkoutAmount = Number(checkoutAuthorization?.amount || 0);
+    const checkoutAmountMatches = checkoutReady ? Math.abs(checkoutAmount - total) <= 0.01 : false;
+    const canSendWithCheckout = checkoutReady && checkoutAmountMatches;
+    const currentIntent = stripeCheckoutRequired && !canSendWithCheckout ? "start_checkout" : "send_request";
+    const submittingIntent = String(navigation.formData?.get("intent") || "");
+    const primaryLabel = (() => {
+        if (isSubmitting) {
+            if (submittingIntent === "start_checkout") {
+                return "Redirecting to Payment...";
+            }
+            return "Sending request...";
+        }
+        if (currentIntent === "start_checkout") {
+            return "Continue to Payment";
+        }
+        return "Send Request";
+    })();
 
-    const sendDisabled = paymentMethodCount === 0 || isSubmitting;
+    const sendDisabledBase = isSubmitting;
+    const isCarereceiverPath = location.pathname.startsWith("/carereceiver");
+    const dashboardPath = isCarereceiverPath ? "/carereceiver/dashboard" : "/";
+    const searchPath = isCarereceiverPath ? "/carereceiver/search" : "/carerecipient";
+    const caregiverProfilePath = isCarereceiverPath ? `/carereceiver/caregivers/${caregiver.id}` : null;
+    const sendDisabled = sendDisabledBase;
+    const bookingDetailPathBase = actionData?.bookingId
+        ? (isCarereceiverPath ? `/carereceiver/bookings/${actionData.bookingId}` : `/bookings/${actionData.bookingId}`)
+        : "";
+    const bookingDetailPath = bookingDetailPathBase ? `${bookingDetailPathBase}?status=requested` : "";
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        let nextId = "";
+        let nextEmail = "";
+        let nextToken = "";
+
+        try {
+            const rawUser = window.localStorage.getItem("icare_user");
+            if (rawUser) {
+                const parsedUser = JSON.parse(rawUser);
+                nextId = String(parsedUser?.id || "").trim();
+                nextEmail = String(parsedUser?.email || "").trim().toLowerCase();
+            }
+        } catch {
+            // keep empty identity fields
+        }
+
+        try {
+            nextToken = String(window.localStorage.getItem("icare_access_token") || "").trim();
+        } catch {
+            nextToken = "";
+        }
+
+        setViewerIdentity({ id: nextId, email: nextEmail, token: nextToken });
+    }, []);
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        try {
+            const rawDraft = window.localStorage.getItem(draftStorageKey);
+            if (!rawDraft) {
+                setDraftHydrated(true);
+                return;
+            }
+
+            const draft = JSON.parse(rawDraft);
+            if (draft && typeof draft === "object") {
+                setBookingDate(String(draft.bookingDate || ""));
+                setStartTime(String(draft.startTime || ""));
+                setDurationHours(Number(draft.durationHours || 4));
+                setCustomDurationSelected(Boolean(draft.customDurationSelected));
+                setCustomDurationHours(String(draft.customDurationHours || ""));
+                setNotes(String(draft.notes || ""));
+                setEmergencyName(String(draft.emergencyName || ""));
+                setEmergencyPhone(String(draft.emergencyPhone || ""));
+                setEmergencyRelationship(String(draft.emergencyRelationship || ""));
+                setAcceptCancellation(Boolean(draft.acceptCancellation));
+            }
+        } catch {
+            // ignore malformed draft payload
+        } finally {
+            setDraftHydrated(true);
+        }
+    }, [draftStorageKey]);
+
+    useEffect(() => {
+        if (!draftHydrated || typeof window === "undefined") {
+            return;
+        }
+
+        const draft = {
+            bookingDate,
+            startTime,
+            durationHours,
+            customDurationSelected,
+            customDurationHours,
+            notes,
+            emergencyName,
+            emergencyPhone,
+            emergencyRelationship,
+            acceptCancellation
+        };
+
+        try {
+            window.localStorage.setItem(draftStorageKey, JSON.stringify(draft));
+        } catch {
+            // ignore localStorage write errors
+        }
+    }, [
+        draftHydrated,
+        draftStorageKey,
+        bookingDate,
+        startTime,
+        durationHours,
+        customDurationSelected,
+        customDurationHours,
+        notes,
+        emergencyName,
+        emergencyPhone,
+        emergencyRelationship,
+        acceptCancellation
+    ]);
+
+    useEffect(() => {
+        if (!actionData?.ok || typeof window === "undefined") {
+            return;
+        }
+
+        try {
+            window.localStorage.removeItem(draftStorageKey);
+        } catch {
+            // ignore localStorage write errors
+        }
+    }, [actionData?.ok, draftStorageKey]);
+
+    useEffect(() => {
+        if (!actionData?.ok || !bookingDetailPath || typeof window === "undefined") {
+            return undefined;
+        }
+
+        const timer = window.setTimeout(() => {
+            window.location.assign(bookingDetailPath);
+        }, 1200);
+
+        return () => window.clearTimeout(timer);
+    }, [actionData?.ok, bookingDetailPath]);
+
+    useEffect(() => {
+        const selectedDate = parseYmdToUtcDate(bookingDate);
+        if (!selectedDate) {
+            return;
+        }
+        const selectedMonth = toUtcMonthStart(selectedDate);
+        setCalendarMonth((currentMonth) => (
+            dateToYMD(currentMonth) === dateToYMD(selectedMonth)
+                ? currentMonth
+                : selectedMonth
+        ));
+    }, [bookingDate]);
+
+    const persistDraftNow = () => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        const draft = {
+            bookingDate,
+            startTime,
+            durationHours,
+            customDurationSelected,
+            customDurationHours,
+            notes,
+            emergencyName,
+            emergencyPhone,
+            emergencyRelationship,
+            acceptCancellation
+        };
+
+        try {
+            window.localStorage.setItem(draftStorageKey, JSON.stringify(draft));
+        } catch {
+            // ignore localStorage write errors
+        }
+    };
 
     return (
         <>
@@ -401,11 +882,11 @@ export default function BookingRequestFormPage() {
             <main className="booking-detail-page">
                 <div className="booking-shell booking-request-shell">
                     <nav className="booking-breadcrumbs" aria-label="Breadcrumb navigation">
-                        <span>Home</span>
+                        <Link to={dashboardPath}>Dashboard</Link>
                         <span>›</span>
-                        <span>Search</span>
+                        <Link to={searchPath}>Search</Link>
                         <span>›</span>
-                        <span>{caregiver.name}</span>
+                        {caregiverProfilePath ? <Link to={caregiverProfilePath}>{caregiver.name}</Link> : <span>{caregiver.name}</span>}
                         <span>›</span>
                         <strong>Request Booking</strong>
                     </nav>
@@ -416,8 +897,8 @@ export default function BookingRequestFormPage() {
                     </section>
 
                     {paymentMethodCount === 0 ? (
-                        <section className="booking-alert booking-alert--warning" role="alert" aria-live="assertive">
-                            <p>Add a payment method to continue. You&apos;ll need to add a card before you can send a booking request.</p>
+                        <section className="booking-alert booking-alert--warning" role="alert" aria-live="polite">
+                            <p>No saved card detected yet. You can still continue and enter card details in Stripe Checkout.</p>
                             <div className="booking-alert-actions">
                                 <ActionLink to="/carereceiver/settings/payment" label="Add Payment Method" />
                             </div>
@@ -442,16 +923,53 @@ export default function BookingRequestFormPage() {
                         </section>
                     ) : null}
 
-                    {actionData?.ok ? (
-                        <section className="booking-alert booking-alert--success" role="status" aria-live="polite">
-                            <p>{actionData.successMessage}</p>
+                    {stripeCheckout?.status === "cancel" ? (
+                        <section className="booking-alert booking-alert--warning" role="alert">
+                            <p>Payment checkout was cancelled. Continue to Payment again to authorize payment before sending this request.</p>
                         </section>
                     ) : null}
 
-                    <Form method="post" className="booking-request-form-layout">
+                    {stripeCheckout?.error ? (
+                        <section className="booking-alert booking-alert--error" role="alert">
+                            <p>{stripeCheckout.error}</p>
+                        </section>
+                    ) : null}
+
+                    {stripeCheckout?.status === "success" && checkoutAuthorization ? (
+                        <section className="booking-alert booking-alert--success" role="status" aria-live="polite">
+                            <p>Stripe authorization is ready: <strong>{checkoutAuthorization.amountLabel}</strong>.</p>
+                            <p className="booking-alert-helper">
+                                Payment Intent: {checkoutAuthorization.authorizationId} ({checkoutAuthorization.paymentIntentStatus || checkoutAuthorization.checkoutPaymentStatus || "authorized"})
+                            </p>
+                        </section>
+                    ) : null}
+
+                    {stripeCheckoutRequired && checkoutReady && !checkoutAmountMatches ? (
+                        <section className="booking-alert booking-alert--warning" role="alert">
+                            <p>Booking details changed after checkout. Continue to Payment again to authorize the updated total.</p>
+                        </section>
+                    ) : null}
+
+                    {actionData?.ok ? (
+                        <section className="booking-alert booking-alert--success" role="status" aria-live="polite">
+                            <p>{actionData.successMessage}</p>
+                            {bookingDetailPath ? (
+                                <p>
+                                    <Link to={bookingDetailPath}>Open booking details</Link>
+                                </p>
+                            ) : null}
+                        </section>
+                    ) : null}
+
+                    <Form method="post" className="booking-request-form-layout" onSubmit={persistDraftNow}>
                         <input type="hidden" name="caregiverId" value={caregiver.id} />
                         <input type="hidden" name="bookingDate" value={bookingDate} />
-                        <input type="hidden" name="durationHours" value={String(durationHours)} />
+                        <input type="hidden" name="durationHours" value={String(effectiveDurationHours)} />
+                        <input type="hidden" name="hourlyRate" value={String(hourlyRate)} />
+                        <input type="hidden" name="checkoutSessionId" value={checkoutAuthorization?.sessionId || ""} />
+                        <input type="hidden" name="viewerId" value={viewerIdentity.id} />
+                        <input type="hidden" name="viewerEmail" value={viewerIdentity.email} />
+                        <input type="hidden" name="viewerToken" value={viewerIdentity.token} />
 
                         <div className="booking-request-main">
                             <section className="booking-card">
@@ -460,9 +978,23 @@ export default function BookingRequestFormPage() {
                                 <label className="booking-form-label">Booking Date *</label>
                                 <div className="booking-calendar">
                                     <div className="booking-calendar-head">
-                                        <button type="button" className="booking-calendar-nav" aria-label="Previous month">‹</button>
+                                        <button
+                                            type="button"
+                                            className="booking-calendar-nav"
+                                            aria-label="Previous month"
+                                            onClick={() => setCalendarMonth((current) => addUtcMonths(current, -1))}
+                                        >
+                                            ‹
+                                        </button>
                                         <strong>{calendar.title}</strong>
-                                        <button type="button" className="booking-calendar-nav" aria-label="Next month">›</button>
+                                        <button
+                                            type="button"
+                                            className="booking-calendar-nav"
+                                            aria-label="Next month"
+                                            onClick={() => setCalendarMonth((current) => addUtcMonths(current, 1))}
+                                        >
+                                            ›
+                                        </button>
                                     </div>
                                     <div className="booking-calendar-weekdays">
                                         <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
@@ -495,19 +1027,20 @@ export default function BookingRequestFormPage() {
                                     name="startTime"
                                     value={startTime}
                                     onChange={(event) => setStartTime(event.target.value)}
-                                    className="booking-form-input"
+                                    className="booking-form-input booking-form-select"
                                 >
                                     <option value="">Select time...</option>
-                                    {availableTimes.map((time) => (
+                                    {startTimeOptions.map((time) => (
                                         <option key={time} value={time}>{time}</option>
                                     ))}
                                 </select>
                                 <ErrorText message={actionData?.errors?.startTime} />
+                                <p className="booking-form-help">Flexible slots every 15 minutes.</p>
 
                                 <label className="booking-form-label">Duration *</label>
                                 <div className="booking-duration-row" role="radiogroup" aria-label="Select duration">
                                     {DURATION_OPTIONS.map((hours) => {
-                                        const selected = durationHours === hours;
+                                        const selected = !customDurationSelected && durationHours === hours;
                                         return (
                                             <button
                                                 key={hours}
@@ -515,14 +1048,39 @@ export default function BookingRequestFormPage() {
                                                 role="radio"
                                                 aria-checked={selected}
                                                 className={`booking-duration-chip ${selected ? "is-selected" : ""}`}
-                                                onClick={() => setDurationHours(hours)}
+                                                onClick={() => {
+                                                    setCustomDurationSelected(false);
+                                                    setDurationHours(hours);
+                                                }}
                                             >
                                                 {hours}h
                                             </button>
                                         );
                                     })}
-                                    <button type="button" className="booking-duration-chip">Custom</button>
+                                    <button
+                                        type="button"
+                                        className={`booking-duration-chip ${customDurationSelected ? "is-selected" : ""}`}
+                                        onClick={() => setCustomDurationSelected(true)}
+                                    >
+                                        Custom
+                                    </button>
                                 </div>
+                                {customDurationSelected ? (
+                                    <div style={{ marginTop: "10px" }}>
+                                        <label className="booking-form-label" htmlFor="customDurationHours">Custom duration (2-8h)</label>
+                                        <input
+                                            id="customDurationHours"
+                                            type="number"
+                                            min="2"
+                                            max="8"
+                                            step="0.5"
+                                            className="booking-form-input"
+                                            value={customDurationHours}
+                                            onChange={(event) => setCustomDurationHours(event.target.value)}
+                                            placeholder="e.g. 5.5"
+                                        />
+                                    </div>
+                                ) : null}
                                 <ErrorText message={actionData?.errors?.durationHours} />
 
                                 <label className="booking-form-label" htmlFor="serviceType">Service Type</label>
@@ -554,6 +1112,7 @@ export default function BookingRequestFormPage() {
                                     className="booking-form-input"
                                     value={emergencyName}
                                     onChange={(event) => setEmergencyName(event.target.value)}
+                                    placeholder="e.g. Jane Smith"
                                 />
                                 <ErrorText message={actionData?.errors?.emergencyName} />
 
@@ -564,6 +1123,7 @@ export default function BookingRequestFormPage() {
                                     className="booking-form-input"
                                     value={emergencyPhone}
                                     onChange={(event) => setEmergencyPhone(event.target.value)}
+                                    placeholder="+447700900123"
                                 />
                                 <ErrorText message={actionData?.errors?.emergencyPhone} />
 
@@ -571,10 +1131,11 @@ export default function BookingRequestFormPage() {
                                 <select
                                     id="emergencyRelationship"
                                     name="emergencyRelationship"
-                                    className="booking-form-input"
+                                    className="booking-form-input booking-form-select"
                                     value={emergencyRelationship}
                                     onChange={(event) => setEmergencyRelationship(event.target.value)}
                                 >
+                                    <option value="">Select relationship...</option>
                                     {RELATIONSHIP_OPTIONS.map((option) => (
                                         <option key={option} value={option}>{option}</option>
                                     ))}
@@ -611,13 +1172,15 @@ export default function BookingRequestFormPage() {
                                 <h2>Price Summary</h2>
                                 <dl className="booking-payment-list">
                                     <dt>Hourly rate</dt><dd>{toCurrency(hourlyRate)}</dd>
-                                    <dt>Duration</dt><dd>{durationHours} hours</dd>
+                                    <dt>Duration</dt><dd>{effectiveDurationHours} hours</dd>
                                     <dt>Subtotal</dt><dd>{toCurrency(subtotal)}</dd>
-                                    <dt>Service fee (15%)</dt><dd>{toCurrency(serviceFee)}</dd>
+                                    <dt>Service fee (5%)</dt><dd>{toCurrency(serviceFee)}</dd>
                                     <dt className="total">Total</dt><dd className="total">{toCurrency(total)}</dd>
                                 </dl>
                                 <p className="booking-form-help booking-form-help--top">
-                                    Payment will be authorized now and charged when {caregiver.name.split(" ")[0]} accepts.
+                                    {stripeCheckoutRequired && currentIntent === "start_checkout"
+                                        ? "You will be redirected to payment to authorize this amount before sending the request."
+                                        : `Payment has been authorized and will be captured when ${caregiver.name.split(" ")[0]} accepts.`}
                                 </p>
                             </section>
                         </aside>
@@ -628,10 +1191,12 @@ export default function BookingRequestFormPage() {
                             </button>
                             <button
                                 type="submit"
+                                name="intent"
+                                value={currentIntent}
                                 className="booking-action booking-action--primary booking-request-submit"
                                 disabled={sendDisabled}
                             >
-                                {isSubmitting ? "Sending request..." : "Send Request"}
+                                {primaryLabel}
                             </button>
                         </section>
                     </Form>

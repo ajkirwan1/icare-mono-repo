@@ -25,6 +25,9 @@ export default function CustomSelect({
     describedBy,
     className,
     controlClassName,
+    listClassName,
+    optionClassName,
+    optionActiveClassName,
 }) {
     const uid = useId();
     const selectId = id ?? `cs_${uid}`;
@@ -70,7 +73,7 @@ export default function CustomSelect({
     };
 
     return (
-        <div ref={wrapRef} className={clsx(className)} data-open={open ? "1" : "0"}>
+        <div ref={wrapRef} className={clsx(styles.wrap, className)} data-open={open ? "1" : "0"}>
 
             {/* hidden input -> form submit */}
             <input type="hidden" name={name} value={value ?? ""} />
@@ -78,6 +81,7 @@ export default function CustomSelect({
             <button
                 ref={btnRef}
                 type="button"
+                id={selectId}
                 className={clsx(controlClassName, styles.trigger)}
                 aria-haspopup="listbox"
                 aria-expanded={open ? "true" : "false"}
@@ -101,7 +105,7 @@ export default function CustomSelect({
                 <ul
                     id={listId}
                     role="listbox"
-                    className={styles.list}
+                    className={clsx(styles.list, listClassName)}
                     aria-labelledby={labelId}
                 >
                     {options.map((opt) => {
@@ -116,7 +120,12 @@ export default function CustomSelect({
                             >
                                 <button
                                     type="button"
-                                    className={clsx(styles.option, isActive && styles.optionActive)}
+                                    className={clsx(
+                                        styles.option,
+                                        optionClassName,
+                                        isActive && styles.optionActive,
+                                        isActive && optionActiveClassName
+                                    )}
                                     onClick={() => choose(opt.value)}
                                     disabled={disabled}
                                 >

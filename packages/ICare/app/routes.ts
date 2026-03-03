@@ -7,6 +7,7 @@ export default [
     route("icare-for-caregivers", "routes/website/icare-for-caregivers.jsx"),
     route("icare-for-carereceivers", "routes/website/icare-for-carereceivers.jsx"),
     route("privacy", "routes/website/privacy.jsx"),
+    route("terms", "routes/website/terms.jsx"),
     route("carerecipient", "routes/carerecipient.jsx"),
     route("safety-commitment", "routes/website/safety-commitment.jsx"),
     route("trust-and-safety", "routes/website/trust-and-safety.jsx"),
@@ -28,6 +29,8 @@ export default [
 
     // Auth
     route("login", "routes/auth/login.jsx"),
+    route("forgot-password", "routes/auth/forgot-password.jsx"),
+    route("reset-password", "routes/auth/reset-password.jsx"),
     route("register", "routes/register.jsx"),
 
     // SEC
@@ -96,7 +99,9 @@ export default [
             route("messages", "routes/carereceiver/carereceiver-messages.jsx"),
             route("messages/:conversationId", "routes/carereceiver/carereceiver-message-thread.jsx"),
             route("search", "routes/carereceiver/carereceiver-search.jsx"),
+            route("favorites", "routes/carereceiver/carereceiver-favorites.jsx"),
             route("caregivers/:caregiverId", "routes/carereceiver/carereceiver-caregiver-profile.jsx"),
+            route("settings", "routes/carereceiver/carereceiver-settings-redirect.jsx"),
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
         ])

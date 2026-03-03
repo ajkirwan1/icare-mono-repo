@@ -299,6 +299,47 @@
     gap: 10px;
 }
 
+.booking-confirm-terms {
+    display: grid;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.booking-confirm-terms-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: inherit;
+}
+
+.booking-confirm-terms-row input {
+    margin-top: 3px;
+}
+
+.booking-confirm-terms-label {
+    line-height: 1.45;
+    font-size: 14px;
+}
+
+.booking-confirm-terms-label a {
+    color: inherit;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.booking-confirm-terms-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.booking-confirm-terms-error {
+    margin: 0;
+    color: var(--icare-danger);
+    font-size: 13px;
+    font-weight: 600;
+}
+
 .booking-content-grid {
     display: grid;
     grid-template-columns: minmax(0, 65%) minmax(320px, 35%);

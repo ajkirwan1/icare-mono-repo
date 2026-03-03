@@ -1,0 +1,39 @@
+@use "@styles/abstracts/motifs" as motifs;
+
+.hero {
+    @include motifs.hero;
+}
+
+.bgImage {
+    @include motifs.hero-image;
+    filter: brightness(0.75) contrast(1.05);
+}
+
+.overlay {
+    @include motifs.hero-overlay;
+    background: rgba(0, 0, 0, 0.48);
+}
+
+.headerLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(2, 8, 23, 0.28);
+    backdrop-filter: saturate(1.05) blur(4px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    height: 0;
+}
+
+.content {
+    @include motifs.hero-content;
+
+    @media (max-width: 600px) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}

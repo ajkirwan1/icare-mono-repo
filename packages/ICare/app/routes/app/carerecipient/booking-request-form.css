@@ -106,6 +106,21 @@
     transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }
 
+.booking-form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 42px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%232A3448' d='M1.41.59 6 5.17 10.59.59 12 2l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 12px 8px;
+}
+
+.booking-form-select::-ms-expand {
+    display: none;
+}
+
 .booking-form-input:hover,
 .booking-form-textarea:hover {
     border-color: var(--icare-border-strong);
@@ -179,12 +194,21 @@
 .booking-calendar-nav {
     border: 0;
     background: transparent;
-    color: var(--icare-muted);
-    font-size: 18px;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
+    color: #2a3448;
+    font-size: 34px;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
     cursor: pointer;
+    font-weight: 400;
+    display: grid;
+    place-items: center;
+    padding: 0;
+}
+
+.booking-calendar-nav:hover {
+    background: rgba(42, 52, 72, 0.08);
 }
 
 .booking-calendar-weekdays,

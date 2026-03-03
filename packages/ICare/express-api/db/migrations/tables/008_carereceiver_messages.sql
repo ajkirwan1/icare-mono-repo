@@ -103,23 +103,29 @@ ON CONFLICT (message_uid) DO NOTHING;
 
 UPDATE carereceiver_conversations c
 SET
-  last_message_preview = COALESCE(msg.message_text, c.last_message_preview),
-  last_message_at = COALESCE(msg.sent_at, c.last_message_at),
-  care_receiver_unread_count = unread.unread_count,
+  last_message_preview = COALESCE((
+    SELECT m.message_text
+    FROM carereceiver_messages m
+    WHERE m.conversation_id = c.id
+      AND m.deleted_at IS NULL
+    ORDER BY m.sent_at DESC
+    LIMIT 1
+  ), c.last_message_preview),
+  last_message_at = COALESCE((
+    SELECT m.sent_at
+    FROM carereceiver_messages m
+    WHERE m.conversation_id = c.id
+      AND m.deleted_at IS NULL
+    ORDER BY m.sent_at DESC
+    LIMIT 1
+  ), c.last_message_at),
+  care_receiver_unread_count = (
+    SELECT COUNT(*)::int
+    FROM carereceiver_messages m
+    WHERE m.conversation_id = c.id
+      AND m.sender_role = 'caregiver'
+      AND m.read_at IS NULL
+      AND m.deleted_at IS NULL
+  ),
   updated_at = NOW()
-FROM LATERAL (
-  SELECT m.message_text, m.sent_at
-  FROM carereceiver_messages m
-  WHERE m.conversation_id = c.id AND m.deleted_at IS NULL
-  ORDER BY m.sent_at DESC
-  LIMIT 1
-) msg,
-LATERAL (
-  SELECT COUNT(*)::int AS unread_count
-  FROM carereceiver_messages m
-  WHERE m.conversation_id = c.id
-    AND m.sender_role = 'caregiver'
-    AND m.read_at IS NULL
-    AND m.deleted_at IS NULL
-) unread
 WHERE c.id IN ('conv-1011', 'conv-1002', 'conv-1012');

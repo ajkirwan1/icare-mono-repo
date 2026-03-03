@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { FiHeart } from "react-icons/fi";
+import CustomSelect from "~/forms/inputs/CustomSelect";
 import "./carereceiver-pages.css";
 import RatingStars from "./rating-stars";
 import {
@@ -10,6 +11,12 @@ import {
 } from "./favorites-storage";
 
 const RADIUS_OPTIONS = [5, 10, 15, 20, 30];
+const SORT_OPTIONS = [
+    { value: "distance", label: "Distance (nearest first)" },
+    { value: "rating", label: "Rating (highest first)" },
+    { value: "price-low", label: "Price (low to high)" },
+    { value: "price-high", label: "Price (high to low)" }
+];
 const DAY_OPTIONS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const TIME_OPTIONS = ["Morning", "Afternoon", "Evening"];
 const SERVICE_OPTIONS = ["Companionship", "Light housework", "Shopping", "Meal prep", "Transportation"];
@@ -254,7 +261,7 @@ export default function CarereceiverSearch() {
                     <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span><strong>Search Caregivers</strong>
                 </nav>
 
-                <section className="cr-card">
+                <section className="cr-card cr-card--search">
                     <form className="cr-search-form" onSubmit={handleSearch}>
                         <label className="cr-muted" htmlFor="postcode-input">
                             Where do you need care?
@@ -267,17 +274,17 @@ export default function CarereceiverSearch() {
                             />
                         </label>
                         <label className="cr-muted" htmlFor="radius-input">
-                            Search radius
-                            <select
+                            <span id="radius-input-label">Search radius</span>
+                            <CustomSelect
                                 id="radius-input"
-                                className="cr-select"
+                                name="radius-input"
+                                labelId="radius-input-label"
+                                className="cr-custom-select cr-custom-select--full"
+                                controlClassName="cr-custom-select-control"
                                 value={`${radiusMiles}`}
-                                onChange={(event) => setRadiusMiles(Number(event.target.value))}
-                            >
-                                {RADIUS_OPTIONS.map((radius) => (
-                                    <option key={radius} value={`${radius}`}>{radius} miles</option>
-                                ))}
-                            </select>
+                                onChange={(nextValue) => setRadiusMiles(Number(nextValue))}
+                                options={RADIUS_OPTIONS.map((radius) => ({ value: `${radius}`, label: `${radius} miles` }))}
+                            />
                         </label>
                         <button type="submit" className="cr-button cr-button--primary" style={{ width: "100%" }}>
                             Search
@@ -307,17 +314,19 @@ export default function CarereceiverSearch() {
                         >
                             {mobileFiltersOpen ? "Hide filters" : "Filters"}
                         </button>
-                        <select
-                            className="cr-select"
-                            style={{ maxWidth: "260px" }}
-                            value={sortBy}
-                            onChange={(event) => setSortBy(event.target.value)}
-                        >
-                            <option value="distance">Sort by: Distance (nearest first)</option>
-                            <option value="rating">Sort by: Rating (highest first)</option>
-                            <option value="price-low">Sort by: Price (low to high)</option>
-                            <option value="price-high">Sort by: Price (high to low)</option>
-                        </select>
+                        <label className="cr-toolbar-sort">
+                            <span id="cr-search-sort-label" className="cr-muted">Sort by</span>
+                            <CustomSelect
+                                id="cr-search-sort"
+                                name="cr-search-sort"
+                                labelId="cr-search-sort-label"
+                                className="cr-custom-select cr-custom-select--compact"
+                                controlClassName="cr-custom-select-control"
+                                value={sortBy}
+                                onChange={setSortBy}
+                                options={SORT_OPTIONS}
+                            />
+                        </label>
                     </div>
 
                     <div className="cr-inline" style={{ marginTop: "10px" }}>

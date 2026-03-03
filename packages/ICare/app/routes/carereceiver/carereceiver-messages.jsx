@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { NavLink, useSearchParams } from "react-router";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
 import { DashboardShell } from "~/components/application/kasia";
+import CustomSelect from "~/forms/inputs/CustomSelect";
 import styles from "./carereceiver-messages.module.scss";
 import { getConversations, relativeTimeLabel } from "./messages/messages-api-client";
 
@@ -115,6 +116,7 @@ function sortableTimestamp(value) {
 }
 
 export default function CarereceiverMessages() {
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [state, setState] = useState({
         loading: true,
@@ -270,23 +272,24 @@ export default function CarereceiverMessages() {
                 <section className={styles.controls}>
                     <p className={styles.countLabel}>{filteredConversations.length} conversations</p>
                     <label className={styles.sortWrap}>
-                        <span className={styles.sortLabel}>Sort by</span>
-                        <select
+                        <span id="carereceiver-messages-sort-label" className={styles.sortLabel}>Sort by</span>
+                        <CustomSelect
+                            id="carereceiver-messages-sort"
+                            name="carereceiver-messages-sort"
+                            labelId="carereceiver-messages-sort-label"
                             className={styles.sortSelect}
+                            controlClassName={styles.sortSelectControl}
                             value={activeSort}
-                            onChange={(event) => {
+                            onChange={(nextValue) => {
                                 setSearchParams((prev) => {
                                     const next = new URLSearchParams(prev);
-                                    next.set("sort", event.target.value);
+                                    next.set("sort", nextValue);
                                     next.set("page", "1");
                                     return next;
                                 });
                             }}
-                        >
-                            {sortOptions.map((option) => (
-                                <option key={option.id} value={option.id}>{option.label}</option>
-                            ))}
-                        </select>
+                            options={sortOptions.map((option) => ({ value: option.id, label: option.label }))}
+                        />
                     </label>
                 </section>
 
@@ -305,7 +308,19 @@ export default function CarereceiverMessages() {
                     ) : null}
 
                     {!state.loading ? pagedConversations.map((thread) => (
-                        <article key={thread.id} className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}>
+                        <article
+                            key={thread.id}
+                            className={`${styles.row} ${thread.unread > 0 ? styles.rowUnread : ""}`.trim()}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => navigate(`/carereceiver/messages/${thread.id}`)}
+                            onKeyDown={(event) => {
+                                if (event.key === "Enter" || event.key === " ") {
+                                    event.preventDefault();
+                                    navigate(`/carereceiver/messages/${thread.id}`);
+                                }
+                            }}
+                        >
                             <div className={styles.avatar} aria-hidden="true">{thread.name.charAt(0)}</div>
 
                             <div className={styles.threadMain}>

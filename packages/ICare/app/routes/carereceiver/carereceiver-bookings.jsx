@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { NavLink, useSearchParams } from "react-router";
 import { DashboardShell, StatusPill } from "~/components/application/kasia";
+import CustomSelect from "~/forms/inputs/CustomSelect";
 import styles from "./carereceiver-bookings.module.scss";
 
 import { FiCalendar, FiClock } from "react-icons/fi";
@@ -13,6 +14,12 @@ const sortOptions = [
     { id: "oldest", label: "Date (oldest)" },
     { id: "amount-high", label: "Amount (highest)" },
     { id: "amount-low", label: "Amount (lowest)" }
+];
+const cancelReasonOptions = [
+    { id: "no_longer_needed", label: "No longer needed" },
+    { id: "schedule_change", label: "Schedule change" },
+    { id: "emergency", label: "Emergency" },
+    { id: "other", label: "Other" }
 ];
 
 const fallbackBookings = [
@@ -316,6 +323,8 @@ export default function CarereceiverBookings() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [state, setState] = useState({ loading: true, error: "", bookings: fallbackBookings });
     const [cancelDialog, setCancelDialog] = useState({ booking: null, submitting: false, error: "" });
+    const [cancelReason, setCancelReason] = useState("no_longer_needed");
+    const [cancelDetails, setCancelDetails] = useState("");
     const [toastMessage, setToastMessage] = useState("");
 
     useEffect(() => {
@@ -370,6 +379,8 @@ export default function CarereceiverBookings() {
     }, [toastMessage]);
 
     function openCancelDialog(booking) {
+        setCancelReason("no_longer_needed");
+        setCancelDetails("");
         setCancelDialog({ booking, submitting: false, error: "" });
     }
 
@@ -383,12 +394,21 @@ export default function CarereceiverBookings() {
             return;
         }
 
+        const normalizedDetails = String(cancelDetails || "").trim();
+        if (cancelReason === "other" && !normalizedDetails) {
+            setCancelDialog((prev) => ({
+                ...prev,
+                error: "Please add a short reason when selecting Other."
+            }));
+            return;
+        }
+
         setCancelDialog((prev) => ({ ...prev, submitting: true, error: "" }));
 
         try {
             const response = await cancelCarereceiverBooking(booking.id, {
-                reason: "no_longer_needed",
-                details: ""
+                reason: cancelReason,
+                details: normalizedDetails
             });
 
             const nextStatus = statusPresentation(response?.status || "cancelled");
@@ -523,23 +543,25 @@ export default function CarereceiverBookings() {
                 <section className={styles.topRow}>
                     <p className={styles.pendingCount}>{filteredBookings.length} bookings</p>
                     <label className={styles.sortWrap}>
-                        <span className={styles.sortLabel}>Sort by</span>
-                        <select
+                        <span id="carereceiver-bookings-sort-label" className={styles.sortLabel}>Sort by</span>
+                        <CustomSelect
+                            id="carereceiver-bookings-sort"
+                            name="carereceiver-bookings-sort"
+                            labelId="carereceiver-bookings-sort-label"
                             className={styles.sortSelect}
+                            controlClassName={styles.sortSelectControl}
                             value={activeSort}
-                            onChange={(event) => {
+                            onChange={(nextValue) => {
                                 setSearchParams((prev) => {
                                     const next = new URLSearchParams(prev);
-                                    next.set("sort", event.target.value);
+                                    next.set("sort", nextValue);
                                     next.set("page", "1");
                                     return next;
                                 });
                             }}
-                        >
-                            {sortOptions.map((option) => (
-                                <option key={option.id} value={option.id}>{option.label}</option>
-                            ))}
-                        </select>
+                            options={sortOptions.map((option) => ({ value: option.id, label: option.label }))}
+                            placeholder="Sort"
+                        />
                     </label>
                 </section>
 
@@ -611,6 +633,40 @@ export default function CarereceiverBookings() {
                             <p className={styles.modalText}>
                                 This action will update booking status to cancelled and process refund rules based on policy.
                             </p>
+
+                            <div className={styles.modalForm}>
+                                <label className={styles.modalField} htmlFor="cancel-reason">
+                                    <span id="cancel-reason-label">Reason</span>
+                                    <CustomSelect
+                                        id="cancel-reason"
+                                        name="cancel-reason"
+                                        labelId="cancel-reason-label"
+                                        className={styles.modalSelect}
+                                        controlClassName={styles.modalSelectControl}
+                                        value={cancelReason}
+                                        onChange={(nextValue) => {
+                                            setCancelReason(nextValue);
+                                            setCancelDialog((prev) => ({ ...prev, error: "" }));
+                                        }}
+                                        options={cancelReasonOptions.map((option) => ({ value: option.id, label: option.label }))}
+                                    />
+                                </label>
+
+                                <label className={styles.modalField} htmlFor="cancel-details">
+                                    <span>Details (optional)</span>
+                                    <textarea
+                                        id="cancel-details"
+                                        className={styles.modalTextarea}
+                                        value={cancelDetails}
+                                        maxLength={300}
+                                        onChange={(event) => {
+                                            setCancelDetails(event.target.value);
+                                            setCancelDialog((prev) => ({ ...prev, error: "" }));
+                                        }}
+                                        placeholder="Add context for caregiver (optional)"
+                                    />
+                                </label>
+                            </div>
 
                             {cancelDialog.error ? (
                                 <p className={styles.modalError} role="alert">{cancelDialog.error}</p>

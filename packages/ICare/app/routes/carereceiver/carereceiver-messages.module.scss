@@ -1,353 +1,412 @@
+@use "../caregiver/theme" as cg;
+
+$accent: cg.$accent;
+$accentDark: cg.$accent-dark;
+$bg: cg.$bg;
+$surface: cg.$surface;
+
 .page {
-  background:
-    radial-gradient(circle at 12% 8%, rgba(176, 196, 127, 0.15), transparent 32%),
-    linear-gradient(180deg, rgba(246, 247, 244, 0.86) 0%, rgba(242, 244, 241, 0.82) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 24px;
-  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
-  padding: clamp(16px, 2vw, 24px);
+    background: $bg;
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 22px;
+    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.08);
+    padding: clamp(24px, 2.8vw, 38px);
 }
 
 .breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 24px;
-  font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    font-size: 16px;
 
-  a {
-    color: #778d43;
-    text-decoration: none;
-  }
+    a {
+        color: #000;
+        text-decoration: none;
+    }
 
-  span {
-    color: rgba(15, 23, 42, 0.72);
-  }
+    a:focus-visible {
+        outline: 2px solid rgba(119, 141, 67, 0.52);
+        outline-offset: 2px;
+        border-radius: 6px;
+    }
 
-  strong {
-    color: #0b1220;
-    font-weight: 700;
-  }
+    span,
+    strong {
+        color: #000;
+    }
+
+    strong {
+        font-weight: 600;
+    }
 }
 
 .header {
-  margin-bottom: 16px;
+    margin-bottom: 30px;
 
-  h1 {
-    margin: 0;
-    color: #0f172a;
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 1.15;
-  }
+    h1 {
+        margin: 0;
+        color: #000;
+        font-size: 21px;
+        font-weight: 700;
+    }
 
-  p {
-    margin: 10px 0 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 14px;
-  }
+    p {
+        margin: 12px 0 0;
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+    }
 }
 
 .tabsSection {
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  overflow-x: auto;
-  padding: 3px;
-  backdrop-filter: blur(14px) saturate(125%);
-  -webkit-backdrop-filter: blur(14px) saturate(125%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    background: $surface;
+    border: 1px solid rgba(212, 138, 83, 0.35);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 4px;
 }
 
 .tabButton {
-  border: 1px solid transparent;
-  background: transparent;
-  color: rgba(15, 23, 42, 0.72);
-  font-size: 13px;
-  padding: 8px 12px;
-  cursor: pointer;
-  white-space: nowrap;
-  border-radius: 10px;
-  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
-  text-decoration: none;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #000;
+    font-size: 14px;
+    padding: 10px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        background: $bg;
+        border-color: rgba(212, 138, 83, 0.55);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(165, 100, 46, 0.14);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(119, 141, 67, 0.52);
+        outline-offset: 2px;
+    }
 }
 
 .tabButtonActive {
-  color: #3e4d21;
-  font-weight: 600;
-  background: rgba(237, 242, 223, 0.78);
-  border-color: rgba(176, 196, 127, 0.5);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    color: $accentDark;
+    font-weight: 700;
+    background: $bg;
+    border-color: $accent;
 }
 
 .controls {
-  margin-top: 14px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .countLabel {
-  margin: 0;
-  color: rgba(15, 23, 42, 0.5);
-  font-size: 16px;
-  line-height: 1;
-  font-weight: 500;
+    margin: 0;
+    color: #000;
+    font-size: 17px;
+    line-height: 1;
+    font-weight: 600;
 }
 
 .sortWrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .sortLabel {
-  color: rgba(15, 23, 42, 0.68);
-  font-size: 13px;
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .sortSelect {
-  border: 1px solid rgba(255, 255, 255, 0.75);
-  background: rgba(255, 255, 255, 0.58);
-  color: rgba(15, 23, 42, 0.72);
-  border-radius: 10px;
-  padding: 8px 11px;
-  font-size: 13px;
-  cursor: pointer;
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
+    position: relative;
+    min-width: 240px;
+}
+
+.sortSelectControl {
+    border: 1px solid rgba(212, 138, 83, 0.35);
+    background: #fff;
+    color: #000;
+    border-radius: 12px;
+    padding: 10px 14px 10px 12px;
+    font-size: 14px;
+    min-height: 42px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.sortSelectControl:hover {
+    border-color: rgba(212, 138, 83, 0.64);
+    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.16);
+}
+
+.sortSelectControl:focus-visible {
+    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline-offset: 2px;
 }
 
 .list {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.74);
-  border-radius: 16px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
-  padding: 8px;
-  display: grid;
-  gap: 6px;
-  backdrop-filter: blur(14px) saturate(130%);
-  -webkit-backdrop-filter: blur(14px) saturate(130%);
+    display: grid;
+    gap: 14px;
 }
 
 .row {
-  min-height: 84px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.62);
-  border-radius: 12px;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 12px;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px) saturate(125%);
-  -webkit-backdrop-filter: blur(10px) saturate(125%);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    min-height: 132px;
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 14px;
+    background: #fff;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 22px;
+    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
 
-  &:hover {
-    transform: translateY(-1px);
-    border-color: rgba(119, 141, 67, 0.25);
-    box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
-  }
+    &:hover {
+        transform: translateY(-1px);
+        background: #f7eee4;
+        border-color: rgba(212, 138, 83, 0.42);
+        box-shadow: 0 10px 20px rgba(212, 138, 83, 0.12);
+
+        .threadName {
+            color: $accentDark;
+        }
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba(119, 141, 67, 0.45);
+        outline-offset: 2px;
+    }
 }
 
 .rowUnread {
-  background: linear-gradient(180deg, rgba(248, 251, 255, 0.82) 0%, rgba(243, 248, 255, 0.74) 100%);
-  border-color: rgba(67, 156, 255, 0.22);
+    background: #fff8f0;
+    border-left: 4px solid #778d43;
 }
 
 .avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #eef3e1 0%, #dfe7cf 100%);
-  border: 1px solid rgba(176, 196, 127, 0.45);
-  color: #728444;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 600;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    flex: 0 0 52px;
+    background: #f8f2eb;
+    border: 1px solid rgba(212, 138, 83, 0.38);
+    color: $accentDark;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .threadMain {
-  min-width: 0;
+    min-width: 0;
 }
 
 .threadName {
-  margin: 0;
-  color: #0f172a;
-  font-size: 16px;
-  line-height: 1.1;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+    margin: 0;
+    color: #000;
+    font-size: 17px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
 .threadMeta {
-  margin: 6px 0 0;
-  color: rgba(15, 23, 42, 0.74);
-  font-size: 11px;
-  line-height: 1.3;
+    margin: 8px 0 0;
+    color: #000;
+    font-size: 13px;
+    line-height: 1.3;
 }
 
 .threadPreview {
-  margin: 4px 0 0;
-  color: rgba(15, 23, 42, 0.72);
-  font-size: 12px;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    margin: 6px 0 0;
+    color: #000;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .threadRight {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 6px;
-  align-self: stretch;
-  min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 6px;
+    align-self: stretch;
+    min-width: 104px;
 }
 
 .rightActions {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .openLink {
-  border: 1px solid rgba(15, 23, 42, 0.14);
-  border-radius: 999px;
-  min-height: 28px;
-  padding: 0 12px;
-  background: rgba(255, 255, 255, 0.72);
-  color: #334155;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    border-radius: 10px;
+    min-height: 36px;
+    min-width: 90px;
+    padding: 8px 14px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.openLink:hover {
+    background: #f7eee4;
+    border-color: rgba(212, 138, 83, 0.42);
+    box-shadow: 0 4px 10px rgba(212, 138, 83, 0.12);
+}
+
+.openLink:focus-visible {
+    outline: 2px solid rgba(119, 141, 67, 0.52);
+    outline-offset: 2px;
 }
 
 .when {
-  margin: 0;
-  color: rgba(15, 23, 42, 0.68);
-  font-size: 12px;
+    margin: 0;
+    color: #000;
+    font-size: 12px;
 }
 
 .unreadBadge {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ea3d3d 0%, #cd2323 100%);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 8px rgba(205, 35, 35, 0.35);
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, $accent 0%, $accentDark 100%);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 8px rgba(165, 100, 46, 0.32);
 }
 
 .pagination {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .pageButton,
 .pageNumber {
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.58);
-  color: rgba(15, 23, 42, 0.72);
-  height: 34px;
-  padding: 0 14px;
-  font-size: 12px;
-  cursor: pointer;
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    border-radius: 10px;
+    background: transparent;
+    color: #000;
+    height: 42px;
+    padding: 0 18px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-grid;
+    place-items: center;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
 .pageButtonDisabled {
-  opacity: 0.5;
-  pointer-events: none;
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .pageNumber {
-  min-width: 36px;
-  padding: 0;
-  color: #0f172a;
+    min-width: 42px;
+    padding: 0;
+    color: #000;
 }
 
 .currentPage {
-  background: #dce7bf;
-  border-color: #c7d8a0;
-  color: #3b491f;
-  font-weight: 600;
+    background: rgba(212, 138, 83, 0.14);
+    border-color: #d48a53;
+    color: #000;
+    font-weight: 600;
+}
+
+.pageButton:focus-visible,
+.pageNumber:focus-visible {
+    outline: 2px solid rgba(119, 141, 67, 0.52);
+    outline-offset: 2px;
 }
 
 @media (max-width: 1200px) {
-  .threadName {
-    font-size: 18px;
-  }
+    .threadName {
+        font-size: 18px;
+    }
 
-  .threadMeta,
-  .threadPreview {
-    font-size: 14px;
-  }
+    .threadMeta,
+    .threadPreview {
+        font-size: 14px;
+    }
 
-  .countLabel {
-    font-size: 15px;
-  }
+    .countLabel {
+        font-size: 15px;
+    }
 
-  .when {
-    font-size: 13px;
-  }
+    .when {
+        font-size: 13px;
+    }
 }
 
 @media (max-width: 820px) {
-  .page {
-    border-radius: 16px;
-    padding: 14px;
-  }
+    .page {
+        border-radius: 12px;
+        padding: 14px;
+    }
 
-  .sortWrap {
-    width: 100%;
-  }
+    .sortWrap {
+        width: 100%;
+    }
 
-  .sortSelect {
-    flex: 1;
-  }
+    .sortSelect {
+        flex: 1;
+        width: 100%;
+    }
 
-  .row {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 10px;
-  }
+    .sortSelectControl {
+        width: 100%;
+    }
 
-  .threadRight {
-    grid-column: 1 / -1;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 0;
-    margin-left: 62px;
-    gap: 8px;
-  }
+    .row {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 12px;
+        padding: 16px 14px;
+    }
+
+    .threadRight {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 0;
+        margin-left: 62px;
+        gap: 8px;
+    }
 }

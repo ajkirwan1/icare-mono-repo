@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { Link, useLoaderData, useLocation } from "react-router";
+import { TERMS_ACCEPTED_AT_KEY, createTermsAcceptedAt, persistTermsAcceptedAt } from "../../../../utils/terms-acceptance";
+import { acceptCaregiverBooking } from "../../../caregiver/bookings/caregiver-bookings-api-client";
 import "./my-account.css";
 
 const API_BASE = globalThis.process?.env?.API_INTERNAL_URL || import.meta.env.VITE_API_URL;
@@ -403,11 +406,12 @@ function computeCountdown(deadline) {
 
 function normalizePayload(payload, fallbackId) {
     if (!payload || typeof payload !== "object") { return null; }
-    const booking = payload.booking || payload;
-    const caregiver = payload.caregiver || booking.caregiver || payload.provider || {};
-    const payment = payload.payment || booking.payment || payload.pricing || {};
+    const root = payload.data && typeof payload.data === "object" ? payload.data : payload;
+    const booking = root.booking || root;
+    const caregiver = root.caregiver || booking.caregiver || root.provider || {};
+    const payment = root.payment || booking.payment || root.pricing || {};
     const emergencyContact =
-        payload.emergencyContact || booking.emergencyContact || payload.emergency || caregiver.emergencyContact || {};
+        root.emergencyContact || booking.emergencyContact || root.emergency || caregiver.emergencyContact || {};
 
     return {
         booking: {
@@ -434,11 +438,21 @@ function normalizePayload(payload, fallbackId) {
     };
 }
 
-async function tryFetchJson(url) {
+async function tryFetchJson(url, request) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 3000);
     try {
-        const response = await fetch(url, { headers: { Accept: "application/json" }, signal: controller.signal });
+        const headers = { Accept: "application/json" };
+        const cookieHeader = request?.headers?.get?.("Cookie");
+        if (cookieHeader) {
+            headers.Cookie = cookieHeader;
+        }
+
+        const response = await fetch(url, {
+            headers,
+            signal: controller.signal,
+            cache: "no-store"
+        });
         if (!response.ok) { return null; }
         const text = await response.text();
         if (!text) { return null; }
@@ -450,17 +464,61 @@ async function tryFetchJson(url) {
     }
 }
 
-async function loadBookingDetail(apiBase, bookingId) {
-    if (!apiBase || !bookingId) { return null; }
-    const cleanBase = apiBase.replace(/\/$/, "");
-    const candidates = [
-        `${cleanBase}/api/v1/bookings/${bookingId}`,
-        `${cleanBase}/api/bookings/${bookingId}`,
-        `${cleanBase}/bookings/${bookingId}`
-    ];
+function buildBookingDetailEndpoint(baseUrl, bookingId) {
+    const normalizedBase = String(baseUrl || "").trim().replace(/\/$/, "");
+    if (!normalizedBase) {
+        return "";
+    }
+
+    if (normalizedBase.endsWith("/api/v1")) {
+        return `${normalizedBase}/bookings/${bookingId}`;
+    }
+
+    if (normalizedBase.endsWith("/api")) {
+        return `${normalizedBase}/v1/bookings/${bookingId}`;
+    }
+
+    return `${normalizedBase}/api/v1/bookings/${bookingId}`;
+}
+
+async function loadBookingDetail(apiBase, bookingId, request) {
+    if (!bookingId) { return null; }
+    if (/^(confirmed|pending)-/i.test(String(bookingId))) {
+        // Legacy dashboard mock ids should not trigger API retries.
+        return null;
+    }
+
+    const baseCandidates = [];
+    const pushBase = (value) => {
+        const normalized = String(value || "").trim().replace(/\/$/, "");
+        if (!normalized || baseCandidates.includes(normalized)) {
+            return;
+        }
+        baseCandidates.push(normalized);
+    };
+
+    const normalizedApiBase = String(apiBase || "").trim();
+    if (normalizedApiBase) {
+        pushBase(normalizedApiBase);
+    }
+
+    try {
+        const requestOrigin = new URL(request.url).origin;
+        if (requestOrigin && /:(4000|4001)\b/.test(requestOrigin)) {
+            pushBase(requestOrigin);
+        }
+    } catch {
+        // ignore malformed request url
+    }
+
+    pushBase("http://localhost:4001");
+
+    const candidates = baseCandidates
+        .map((base) => buildBookingDetailEndpoint(base, bookingId))
+        .filter(Boolean);
 
     for (const endpoint of candidates) {
-        const payload = await tryFetchJson(endpoint);
+        const payload = await tryFetchJson(endpoint, request);
         const normalized = normalizePayload(payload, bookingId);
         if (normalized) { return normalized; }
     }
@@ -472,7 +530,7 @@ export async function loader({ request, params }) {
     const bookingId = params?.bookingId || url.searchParams.get("bookingId") || SAMPLE_DATA.booking.id;
     const statusOverride = url.searchParams.get("status");
 
-    const backendData = await loadBookingDetail(API_BASE, bookingId);
+    const backendData = await loadBookingDetail(API_BASE, bookingId, request);
     const detail = backendData || normalizePayload(SAMPLE_DATA, bookingId);
 
     const effectiveStatus = ALLOWED_STATUSES.has(statusOverride) ? statusOverride : detail.booking.status;
@@ -578,11 +636,44 @@ function resolveViewerAction(action, isCaregiverView, bookingId) {
     return `navigate:/caregiver/bookings/${bookingId}?action=${adapted.replace("modal:", "")}`;
 }
 
+function readStoredTermsAcceptedAt() {
+    if (typeof window === "undefined") {
+        return "";
+    }
+
+    try {
+        const direct = String(window.localStorage.getItem(TERMS_ACCEPTED_AT_KEY) || "").trim();
+        if (direct) {
+            return direct;
+        }
+    } catch {
+        // ignore localStorage read errors
+    }
+
+    try {
+        const rawUser = window.localStorage.getItem("icare_user");
+        if (!rawUser) {
+            return "";
+        }
+
+        const parsedUser = JSON.parse(rawUser);
+        return String(parsedUser?.termsAcceptedAt || "").trim();
+    } catch {
+        return "";
+    }
+}
+
 export default function CareRecipientMyAccountPage() {
     const location = useLocation();
     const { detail, state } = useLoaderData();
     const { booking, caregiver, payment, emergencyContact } = detail;
     const isCaregiverView = location.pathname.startsWith("/caregiver/");
+    const activeAction = new URLSearchParams(location.search).get("action");
+    const showAcceptFairUseConfirm = isCaregiverView && activeAction === "accept";
+    const [confirmTermsChecked, setConfirmTermsChecked] = useState(false);
+    const [confirmTermsError, setConfirmTermsError] = useState("");
+    const [storedTermsAcceptedAt, setStoredTermsAcceptedAt] = useState("");
+    const [confirmSubmitting, setConfirmSubmitting] = useState(false);
     const serviceTypes = Array.isArray(booking.serviceTypes) && booking.serviceTypes.length
         ? booking.serviceTypes
         : [booking.serviceType].filter(Boolean);
@@ -604,6 +695,57 @@ export default function CareRecipientMyAccountPage() {
     const alertBody = (booking.status === "accepted" || booking.status === "confirmed")
         ? `Contact details are now available. Your booking is ${glanceDate}, ${glanceTime}.`
         : state.alertMessage;
+
+    useEffect(() => {
+        if (!showAcceptFairUseConfirm) {
+            return;
+        }
+
+        const value = readStoredTermsAcceptedAt();
+        setStoredTermsAcceptedAt(value);
+    }, [showAcceptFairUseConfirm]);
+
+    const onConfirmWithTerms = async () => {
+        if (confirmSubmitting) {
+            return;
+        }
+
+        if (!storedTermsAcceptedAt && !confirmTermsChecked) {
+            setConfirmTermsError("Please accept the Terms of Service before confirming.");
+            return;
+        }
+
+        let acceptedAt = storedTermsAcceptedAt;
+        if (!acceptedAt) {
+            acceptedAt = createTermsAcceptedAt();
+            persistTermsAcceptedAt(acceptedAt);
+            setStoredTermsAcceptedAt(acceptedAt);
+
+            try {
+                const rawUser = window.localStorage.getItem("icare_user");
+                if (rawUser) {
+                    const parsedUser = JSON.parse(rawUser);
+                    window.localStorage.setItem("icare_user", JSON.stringify({
+                        ...parsedUser,
+                        termsAcceptedAt: acceptedAt
+                    }));
+                }
+            } catch {
+                // ignore localStorage write errors
+            }
+        }
+
+        try {
+            setConfirmSubmitting(true);
+            await acceptCaregiverBooking(booking.id, { termsAcceptedAt: acceptedAt });
+            setConfirmTermsError("");
+            window.location.assign(`/caregiver/bookings/${booking.id}`);
+        } catch (error) {
+            setConfirmTermsError(error?.message || "Could not confirm booking. Please try again.");
+        } finally {
+            setConfirmSubmitting(false);
+        }
+    };
 
     return (
         <main className="booking-detail-page">
@@ -659,15 +801,53 @@ export default function CareRecipientMyAccountPage() {
                         {state.alertActions?.length ? (
                             <div className="booking-alert-actions">
                                 {state.alertActions.map((action) => (
-                                        <ActionControl
-                                            key={`${action.label}-${action.action}`}
+                                    <ActionControl
+                                        key={`${action.label}-${action.action}`}
                                         action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
-                                            variant={action.variant}
-                                            label={action.label}
-                                        />
+                                        variant={action.variant}
+                                        label={action.label}
+                                    />
                                 ))}
                             </div>
                         ) : null}
+                    </section>
+                ) : null}
+
+                {showAcceptFairUseConfirm ? (
+                    <section className="booking-alert booking-alert--warning" role="alert" aria-live="polite">
+                        <h3 className="booking-alert-title">Confirm Booking</h3>
+                        <div className="booking-confirm-terms">
+                            <label className="booking-confirm-terms-row" htmlFor="confirm-terms-acceptance">
+                                <input
+                                    id="confirm-terms-acceptance"
+                                    type="checkbox"
+                                    checked={storedTermsAcceptedAt ? true : confirmTermsChecked}
+                                    onChange={(event) => {
+                                        setConfirmTermsChecked(event.target.checked);
+                                        setConfirmTermsError("");
+                                    }}
+                                    disabled={Boolean(storedTermsAcceptedAt)}
+                                />
+                                <span className="booking-confirm-terms-label">
+                                    I confirm I accept the{" "}
+                                    <a href="/terms#introduction-fair-use">Terms of Service (including Introduction &amp; Fair Use)</a>.
+                                </span>
+                            </label>
+                            {confirmTermsError ? <p className="booking-confirm-terms-error">{confirmTermsError}</p> : null}
+                            <div className="booking-confirm-terms-actions">
+                                <button
+                                    type="button"
+                                    className="booking-action booking-action--primary"
+                                    onClick={onConfirmWithTerms}
+                                    disabled={confirmSubmitting}
+                                >
+                                    {confirmSubmitting ? "Confirming..." : "Confirm"}
+                                </button>
+                                <Link className="booking-action booking-action--secondary" to={`/caregiver/bookings/${booking.id}`}>
+                                    Back
+                                </Link>
+                            </div>
+                        </div>
                     </section>
                 ) : null}
 
@@ -783,26 +963,26 @@ export default function CareRecipientMyAccountPage() {
                                 {(state.stateActions || []).length ? (
                                     state.stateActions.map((action) => (
                                         <div key={`${action.label}-${action.action}`} className="booking-sidebar-action-wrap">
-                                        <ActionControl
-                                            action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
-                                            variant={
-                                                String(action.label).toLowerCase().includes("cancel")
-                                                    ? "destructive-outlined"
-                                                    : String(action.label).toLowerCase().includes("message")
-                                                        ? "primary"
-                                                        : action.variant
-                                            }
-                                            label={
-                                                action.label === "Message Caregiver"
-                                                    ? "Message caregiver"
-                                                    : action.label === "Cancel Booking"
-                                                        ? "Cancel booking"
-                                                        : action.label
-                                            }
-                                        />
-                                        {String(action.label).toLowerCase().includes("cancel") ? (
-                                            <p className="booking-action-helper">You can request a cancellation.</p>
-                                        ) : null}
+                                            <ActionControl
+                                                action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
+                                                variant={
+                                                    String(action.label).toLowerCase().includes("cancel")
+                                                        ? "destructive-outlined"
+                                                        : String(action.label).toLowerCase().includes("message")
+                                                            ? "primary"
+                                                            : action.variant
+                                                }
+                                                label={
+                                                    action.label === "Message Caregiver"
+                                                        ? "Message caregiver"
+                                                        : action.label === "Cancel Booking"
+                                                            ? "Cancel booking"
+                                                            : action.label
+                                                }
+                                            />
+                                            {String(action.label).toLowerCase().includes("cancel") ? (
+                                                <p className="booking-action-helper">You can request a cancellation.</p>
+                                            ) : null}
                                         </div>
                                     ))
                                 ) : (
@@ -816,7 +996,7 @@ export default function CareRecipientMyAccountPage() {
 
             <footer className="booking-footer">
                 <a href="/privacy">Privacy Policy</a>
-                <a href="/terms-and-conditions">Terms of Service</a>
+                <a href="/terms">Terms of Service</a>
                 <a href="/safeguarding">Safeguarding</a>
                 <a href="/contact-us">Contact Us</a>
                 <a href="/frequently-asked-questions">Help Centre</a>
