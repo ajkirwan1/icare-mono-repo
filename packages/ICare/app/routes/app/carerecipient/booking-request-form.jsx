@@ -114,6 +114,14 @@ function normalizePaymentMethodsCount(raw) {
     return null;
 }
 
+function normalizePercent(rawValue, fallback = 5) {
+    const parsed = Number(rawValue);
+    if (!Number.isFinite(parsed)) {
+        return fallback;
+    }
+    return Math.max(0, Math.min(100, Number(parsed.toFixed(2))));
+}
+
 function dateToYMD(dateObj) {
     const year = dateObj.getUTCFullYear();
     const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
@@ -255,6 +263,29 @@ async function loadPaymentMethodCount(apiBase, request) {
     return SAMPLE_DATA.paymentMethodCount;
 }
 
+async function loadPlatformPricingSettings(apiBase, request) {
+    const base = apiBase ? apiBase.replace(/\/$/, "") : new URL(request.url).origin;
+    const candidates = [
+        `${base}/api/v1/platform/settings`,
+        `${base}/api/v1/admin/system-settings`,
+        "http://localhost:4001/api/v1/platform/settings",
+        "http://localhost:4001/api/v1/admin/system-settings"
+    ];
+    const cookieHeader = request.headers.get("Cookie");
+
+    for (const url of candidates) {
+        const headers = { Accept: "application/json" };
+        if (cookieHeader) { headers.Cookie = cookieHeader; }
+        const result = await tryFetchJson(url, { headers });
+        if (!result.ok || !result.payload) { continue; }
+        const source = result.payload?.data || result.payload;
+        const percent = normalizePercent(source?.payments?.bookingServiceFeePercent, SAMPLE_DATA.pricing.serviceFeePercent);
+        return { bookingServiceFeePercent: percent };
+    }
+
+    return { bookingServiceFeePercent: SAMPLE_DATA.pricing.serviceFeePercent };
+}
+
 export async function loader({ params, request }) {
     const url = new URL(request.url);
     const caregiverId = params?.caregiverId || url.searchParams.get("caregiverId") || SAMPLE_DATA.caregiver.id;
@@ -263,6 +294,7 @@ export async function loader({ params, request }) {
     const stripeCheckoutSessionId = String(url.searchParams.get("session_id") || "").trim();
     const caregiver = await loadCaregiver(API_BASE, caregiverId);
     const paymentMethodCount = noPaymentOverride ? 0 : await loadPaymentMethodCount(API_BASE, request);
+    const platformPricing = await loadPlatformPricingSettings(API_BASE, request);
     const stripeCheckout = {
         required: false,
         stripeConfigured: false,
@@ -304,7 +336,7 @@ export async function loader({ params, request }) {
         caregiver,
         pricing: {
             hourlyRate: Number(caregiver.hourlyRate || SAMPLE_DATA.pricing.hourlyRate),
-            serviceFeePercent: SAMPLE_DATA.pricing.serviceFeePercent
+            serviceFeePercent: normalizePercent(platformPricing.bookingServiceFeePercent, SAMPLE_DATA.pricing.serviceFeePercent)
         },
         availableDates: SAMPLE_DATA.availableDates,
         availableTimes: SAMPLE_DATA.availableTimes,
@@ -433,6 +465,7 @@ export async function action({ request, params }) {
         startTime: String(formData.get("startTime") || ""),
         durationHours: String(formData.get("durationHours") || ""),
         hourlyRate: Number(formData.get("hourlyRate") || 0),
+        serviceFeePercent: Number(formData.get("serviceFeePercent") || 0),
         notes: String(formData.get("notes") || ""),
         emergencyName: String(formData.get("emergencyName") || ""),
         emergencyPhone: String(formData.get("emergencyPhone") || ""),
@@ -452,8 +485,9 @@ export async function action({ request, params }) {
     const hourlyRate = Number.isFinite(values.hourlyRate) && values.hourlyRate > 0
         ? Number(values.hourlyRate)
         : SAMPLE_DATA.pricing.hourlyRate;
+    const serviceFeePercent = normalizePercent(values.serviceFeePercent, SAMPLE_DATA.pricing.serviceFeePercent);
     const subtotal = Number((hourlyRate * duration).toFixed(2));
-    const serviceFee = Number((subtotal * 0.05).toFixed(2));
+    const serviceFee = Number((subtotal * (serviceFeePercent / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
 
     const payload = {
@@ -468,7 +502,7 @@ export async function action({ request, params }) {
             phone: values.emergencyPhone.trim(),
             relationship: values.emergencyRelationship
         },
-        pricing: { hourlyRate, subtotal, serviceFee, total }
+        pricing: { hourlyRate, subtotal, serviceFeePercent, serviceFee, total }
     };
 
     let paymentAuthorization = null;
@@ -678,8 +712,9 @@ export default function BookingRequestFormPage() {
         : Number(durationHours || 0);
 
     const hourlyRate = Number(pricing?.hourlyRate || 18);
+    const serviceFeePercent = normalizePercent(pricing?.serviceFeePercent, SAMPLE_DATA.pricing.serviceFeePercent);
     const subtotal = Number((hourlyRate * Number(effectiveDurationHours || 0)).toFixed(2));
-    const serviceFee = Number((subtotal * Number((pricing?.serviceFeePercent || 5) / 100)).toFixed(2));
+    const serviceFee = Number((subtotal * Number(serviceFeePercent / 100)).toFixed(2));
     const total = Number((subtotal + serviceFee).toFixed(2));
     const draftStorageKey = `${BOOKING_DRAFT_STORAGE_PREFIX}${caregiver.id}`;
     const checkoutAuthorization = stripeCheckout?.authorization || null;
@@ -966,6 +1001,7 @@ export default function BookingRequestFormPage() {
                         <input type="hidden" name="bookingDate" value={bookingDate} />
                         <input type="hidden" name="durationHours" value={String(effectiveDurationHours)} />
                         <input type="hidden" name="hourlyRate" value={String(hourlyRate)} />
+                        <input type="hidden" name="serviceFeePercent" value={String(serviceFeePercent)} />
                         <input type="hidden" name="checkoutSessionId" value={checkoutAuthorization?.sessionId || ""} />
                         <input type="hidden" name="viewerId" value={viewerIdentity.id} />
                         <input type="hidden" name="viewerEmail" value={viewerIdentity.email} />
@@ -1174,7 +1210,7 @@ export default function BookingRequestFormPage() {
                                     <dt>Hourly rate</dt><dd>{toCurrency(hourlyRate)}</dd>
                                     <dt>Duration</dt><dd>{effectiveDurationHours} hours</dd>
                                     <dt>Subtotal</dt><dd>{toCurrency(subtotal)}</dd>
-                                    <dt>Service fee (5%)</dt><dd>{toCurrency(serviceFee)}</dd>
+                                    <dt>Service fee ({serviceFeePercent}%)</dt><dd>{toCurrency(serviceFee)}</dd>
                                     <dt className="total">Total</dt><dd className="total">{toCurrency(total)}</dd>
                                 </dl>
                                 <p className="booking-form-help booking-form-help--top">

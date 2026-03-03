@@ -1,3 +1,4 @@
+/* global console */
 import { Router } from "express";
 import { pool } from "../db/db.js";
 import {
@@ -203,6 +204,35 @@ function parsePositiveInt(value, fallback, max = 100) {
         return fallback;
     }
     return Math.min(parsed, max);
+}
+
+function clampPercent(value, fallback = 5) {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) {
+        return fallback;
+    }
+    return Math.max(0, Math.min(100, Math.round(parsed * 100) / 100));
+}
+
+async function getDefaultBookingServiceFeePercent() {
+    try {
+        const settings = await pool.query(
+            `
+            SELECT booking_service_fee_percent
+            FROM admin_system_settings
+            WHERE id = 1
+            LIMIT 1
+            `
+        );
+        return clampPercent(settings.rows?.[0]?.booking_service_fee_percent, 5);
+    } catch (error) {
+        if (error?.code === "42P01" || error?.code === "42703") {
+            return 5;
+        }
+
+        console.warn("[carereceiver-dashboard] booking service fee settings fallback:", error?.message || error);
+        return 5;
+    }
 }
 
 async function resolveViewer(req, preferredUserTypes = ["care_receiver", "family"]) {
@@ -1132,10 +1162,11 @@ router.post("/bookings", async (req, res) => {
         const endAt = new Date(startAt.getTime() + Math.round(durationHours * 60) * 60000);
         const pricingInput = req.body?.pricing && typeof req.body.pricing === "object" ? req.body.pricing : {};
         const paymentInput = req.body?.payment && typeof req.body.payment === "object" ? req.body.payment : {};
+        const defaultServiceFeePercentage = await getDefaultBookingServiceFeePercent();
 
         const hourlyRate = roundMoney(pricingInput.hourlyRate || caregiver.hourlyRate || 18);
         const subtotal = roundMoney(pricingInput.subtotal || (hourlyRate * durationHours));
-        const serviceFeePercentage = roundMoney(pricingInput.serviceFeePercent ?? pricingInput.serviceFeePercentage ?? 5);
+        const serviceFeePercentage = roundMoney(pricingInput.serviceFeePercent ?? pricingInput.serviceFeePercentage ?? defaultServiceFeePercentage);
         const serviceFee = roundMoney(
             pricingInput.serviceFee ||
             pricingInput.platformServiceFee ||

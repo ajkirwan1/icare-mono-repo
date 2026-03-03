@@ -1,3 +1,4 @@
+/* global console */
 import express from "express";
 import cors from "cors";
 import { fileURLToPath } from "url";
@@ -21,6 +22,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let stripeRouter = null;
 let handleStripeWebhook = null;
+let caregiverOnboardingRouter = null;
 
 try {
     const stripeModule = await import("../routes/stripe.routes.js");
@@ -28,6 +30,13 @@ try {
     handleStripeWebhook = stripeModule.handleStripeWebhook;
 } catch (error) {
     console.warn("Stripe routes disabled:", error?.message || error);
+}
+
+try {
+    const caregiverOnboardingModule = await import("../routes/caregiver-onboarding.routes.js");
+    caregiverOnboardingRouter = caregiverOnboardingModule.default;
+} catch (error) {
+    console.warn("Caregiver onboarding routes disabled:", error?.message || error);
 }
 
 app.use(cors({
@@ -57,6 +66,9 @@ app.use("/api/contact", contactUsRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", carereceiverDashboardRouter);
 app.use("/api/v1", carereceiverMessagesRouter);
+if (caregiverOnboardingRouter) {
+    app.use("/api/v1", caregiverOnboardingRouter);
+}
 if (stripeRouter) {
     app.use("/api/stripe", stripeRouter);
 }

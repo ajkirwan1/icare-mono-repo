@@ -1,176 +1,216 @@
+import { useEffect, useMemo, useState } from "react";
 import Card from "~/components/application/data-display/card/card";
 import styles from "./admin-dashboard.module.scss";
-import { NavLink } from "react-router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { getAdminVerificationQueue, isAbortError } from "./admin-verifications-api-client";
 
 const footerLinks = [
-  { to: "/admin/verification-queue", label: "Review queue" }
-  // Add more links as needed
+    { to: "/admin/verifications", label: "Review queue" }
 ];
 
+function verificationLabel(type) {
+    const normalized = String(type || "").trim().toLowerCase();
+    if (normalized === "right_to_work") {
+        return "Right to Work";
+    }
+    if (normalized === "identity") {
+        return "Identity";
+    }
+    if (normalized === "dbs") {
+        return "DBS";
+    }
+    return "Verification";
+}
+
+function formatDateTime(value) {
+    if (!value) {
+        return "-";
+    }
+
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) {
+        return "-";
+    }
+
+    return new Intl.DateTimeFormat("en-GB", {
+        dateStyle: "medium",
+        timeStyle: "short"
+    }).format(parsed);
+}
+
+function getAverageWaitHours(items) {
+    if (!Array.isArray(items) || items.length === 0) {
+        return 0;
+    }
+
+    const nowMs = Date.now();
+    const deltas = items
+        .map((item) => new Date(item?.submittedAt || "").getTime())
+        .filter((ts) => Number.isFinite(ts) && ts > 0)
+        .map((ts) => Math.max(0, (nowMs - ts) / (1000 * 60 * 60)));
+
+    if (deltas.length === 0) {
+        return 0;
+    }
+
+    const total = deltas.reduce((sum, value) => sum + value, 0);
+    return total / deltas.length;
+}
+
+function queueSlaClass(avgWaitHours) {
+    if (avgWaitHours >= 24) {
+        return styles.breached;
+    }
+    if (avgWaitHours >= 6) {
+        return styles.warning;
+    }
+    return styles.healthy;
+}
+
+function queueSlaLabel(avgWaitHours) {
+    if (avgWaitHours >= 24) {
+        return "SLA Breached";
+    }
+    if (avgWaitHours >= 6) {
+        return "SLA Warning";
+    }
+    return "SLA Healthy";
+}
+
 export default function AdminDashboard() {
-  return (
-    <>
-      <div style={{ marginBottom: "20px", padding: "15px", backgroundColor: "#FEE2E2", border: "1px solid #ffcccc", borderRadius: "4px" }}>
-        <p><FontAwesomeIcon icon={faTriangleExclamation} style={{ color: "#991B1B" }} /> URGENT SAFEGUARDING REPORT</p>
-        <p>Report #SR-00423 submitted 35 minutes ago requires immediate review</p>
-        <NavLink to="/admin/safeguarding-reports/4" className={styles.safeguardingLink}>Review Report Now</NavLink>
-      </div>
-      <div className={styles.grid}>
-        <div className={styles.leftColumn}>
-          <Card title={"Verification Queue"}
-            subtitle={"Caregivers awaiting admin review"}
-            cta={"Review Now"}
-            footerLinks={footerLinks}>
-            <div className={styles.container}>
-              <div>
-                <dl className={styles.statsList}>
-                  <dt>Pending Verifications:</dt>
-                  <dd>12 Caregivers</dd>
-                  <dt>Identity:</dt>
-                  <dd>8 pending</dd>
-                  <dt>DBS (voluntary):</dt>
-                  <dd>8 pending</dd>
-                </dl>
-              </div>
-              <div>
-                <div className={`${styles.slaStatus} ${styles.warning}`}>SLA Warning</div>
-                <div className={`${styles.slaStatus} ${styles.healthy}`}>SLA Healthy</div>
-                <div className={`${styles.slaStatus} ${styles.breached}`}>SLA Breached</div>
-                <dl className={styles.statsList}>
-                  <dt>Average wait time:</dt>
-                  <dd>4 hours</dd>
-                </dl>
-              </div>
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        async function loadPendingQueue() {
+            setLoading(true);
+            setError("");
+
+            try {
+                const payload = await getAdminVerificationQueue({
+                    status: "pending",
+                    limit: 200,
+                    signal: controller.signal
+                });
+                setItems(Array.isArray(payload?.items) ? payload.items : []);
+            } catch (loadError) {
+                if (isAbortError(loadError) || controller.signal.aborted) {
+                    return;
+                }
+                setError(loadError instanceof Error ? loadError.message : "Could not load verification queue.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadPendingQueue();
+
+        return () => {
+            controller.abort();
+        };
+    }, []);
+
+    const pendingCount = items.length;
+    const pendingIdentity = useMemo(
+        () => items.filter((item) => String(item?.verificationType || "").toLowerCase() === "identity").length,
+        [items]
+    );
+    const pendingRightToWork = useMemo(
+        () => items.filter((item) => String(item?.verificationType || "").toLowerCase() === "right_to_work").length,
+        [items]
+    );
+    const pendingDbs = useMemo(
+        () => items.filter((item) => String(item?.verificationType || "").toLowerCase() === "dbs").length,
+        [items]
+    );
+    const averageWaitHours = useMemo(() => getAverageWaitHours(items), [items]);
+    const recentItems = useMemo(() => items.slice(0, 5), [items]);
+
+    return (
+        <div className={styles.grid}>
+            <div className={styles.leftColumn}>
+                <Card
+                    title={"Verification Queue"}
+                    subtitle={"Live data from caregiver submissions"}
+                    cta={"Review Now"}
+                    footerLinks={footerLinks}
+                >
+                    <div className={styles.container}>
+                        {loading ? <p className={styles.infoText}>Loading queue...</p> : null}
+                        {error ? <p className={styles.errorText}>{error}</p> : null}
+                        {!loading && !error ? (
+                            <div>
+                                <dl className={styles.statsList}>
+                                    <dt>Pending verifications:</dt>
+                                    <dd>{pendingCount}</dd>
+                                    <dt>Identity:</dt>
+                                    <dd>{pendingIdentity}</dd>
+                                    <dt>Right to Work:</dt>
+                                    <dd>{pendingRightToWork}</dd>
+                                    <dt>DBS (voluntary):</dt>
+                                    <dd>{pendingDbs}</dd>
+                                </dl>
+                            </div>
+                        ) : null}
+
+                        {!loading && !error ? (
+                            <div>
+                                <div className={`${styles.slaStatus} ${queueSlaClass(averageWaitHours)}`}>
+                                    {queueSlaLabel(averageWaitHours)}
+                                </div>
+                                <dl className={styles.statsList}>
+                                    <dt>Average wait time:</dt>
+                                    <dd>{averageWaitHours.toFixed(1)} hours</dd>
+                                </dl>
+                            </div>
+                        ) : null}
+                    </div>
+                </Card>
+
+                <Card title={"Recent Verification Activity"} subtitle={"Latest pending submissions"}>
+                    <div className={styles.container}>
+                        {loading ? <p className={styles.infoText}>Loading activity...</p> : null}
+                        {error ? <p className={styles.errorText}>Activity unavailable.</p> : null}
+                        {!loading && !error && recentItems.length === 0 ? (
+                            <p className={styles.infoText}>No pending verification submissions.</p>
+                        ) : null}
+                        {!loading && !error && recentItems.length > 0 ? (
+                            <ol className={styles.timeline}>
+                                {recentItems.map((item) => {
+                                    const type = verificationLabel(item?.verificationType);
+                                    const caregiver = item?.caregiverName || item?.caregiverEmail || item?.caregiverId || item?.caregiverKey || "caregiver";
+
+                                    return (
+                                        <li key={item?.id || `${caregiver}-${type}`}>
+                                            <span className={styles.timelineDot} />
+                                            <div>
+                                                <p className={styles.timelineText}>
+                                                    {type} verification submitted by <strong>{caregiver}</strong>
+                                                </p>
+                                                <time className={styles.timelineTime}>{formatDateTime(item?.submittedAt)}</time>
+                                            </div>
+                                        </li>
+                                    );
+                                })}
+                            </ol>
+                        ) : null}
+                    </div>
+                </Card>
             </div>
-          </Card>
-          <Card title={"Safeguarding Reports"}
-            subtitle={"Active safety concerns requiring attention"}
-            cta={"View Reports"}
-            footerLinks={footerLinks}>
-            <div className={styles.container}>
-              <div>
-                <dl className={styles.statsList}>
-                  <dt>Active Reports:</dt>
-                  <dd>2 cases</dd>
-                </dl>
-              </div>
-              <div>
-                <div className={`${styles.slaStatus} ${styles.warning}`}>Urgent (High Severity)</div>
-                <div className={`${styles.slaStatus} ${styles.healthy}`}>Healthy</div>
-                <div className={`${styles.slaStatus} ${styles.breached}`}>Critical</div>
-                <ol className={styles.timeline}>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}>Report #SR-00421 resolved (outcome: no action)</p>
-                      <time className={styles.timelineTime}>Feb 6</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}>Report #SR-00420 escalated to SAB</p>
-                      <time className={styles.timelineTime}>Feb 5</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}>Report #SR-00419 resolved (user suspended)</p>
-                      <time className={styles.timelineTime}>Feb 3</time>
-                    </div>
-                  </li>
-                </ol>
-              </div>
+
+            <div className={styles.rightColumn}>
+                <Card title={"Safeguarding Reports"} subtitle={"Live feed"}>
+                    <p className={styles.infoText}>No safeguarding data source connected yet.</p>
+                </Card>
+                <Card title={"Platform Overview"} subtitle={"Live feed"}>
+                    <p className={styles.infoText}>No platform metrics data source connected yet.</p>
+                </Card>
+                <Card title={"Bookings"} subtitle={"Live feed"}>
+                    <p className={styles.infoText}>No bookings metrics data source connected yet.</p>
+                </Card>
             </div>
-          </Card>
-          <Card title={"Recent Activity"}
-            subtitle={"Last 24 hours"}
-            cta={"View full Audit Log"}>
-            <div className={styles.container}>
-              <div>
-                <select className={styles.filter}>
-                  <option value="all">All Events</option>
-                  <option value="verifications">Verifications</option>
-                  <option value="safeguarding">Safeguarding</option>
-                  <option value="bookings">Bookings</option>
-                </select>
-                <ol className={styles.timeline}>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}><strong>Admin Sarah</strong> approved caregiver verification: John Smith (#4523)</p>
-                      <time className={styles.timelineTime}>Today, 14:32</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}>Booking #7821 completed successfully (Jane D. → Mary K.)</p>
-                      <time className={styles.timelineTime}>Today, 14:15</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}><strong>Admin Sarah</strong> rejected caregiver verification: David Jones (#4522) — ID expired</p>
-                      <time className={styles.timelineTime}>Today, 13:47</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}>Dispute raised on Booking #7803 by Tom H.</p>
-                      <time className={styles.timelineTime}>Today, 12:05</time>
-                    </div>
-                  </li>
-                  <li>
-                    <span className={styles.timelineDot} />
-                    <div>
-                      <p className={styles.timelineText}><strong>Admin Sarah</strong> resolved dispute on Booking #7789 — Partial refund (50%)</p>
-                      <time className={styles.timelineTime}>Today, 11:23</time>
-                    </div>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </Card>
         </div>
-        <div className={styles.rightColumn}>
-          <Card title={"Platform Overview"}
-            subtitle={"Key metrics"}>
-            <div className={styles.container}>
-              <div>
-                <dl className={styles.statsList}>
-                  <dt>Total Users:</dt>
-                  <dd>1,247</dd>
-                  <dt>Active Caregivers:</dt>
-                  <dd>89</dd>
-                  <dt>Active Care Receivers:</dt>
-                  <dd>156</dd>
-                </dl>
-              </div>
-            </div>
-          </Card>
-          <Card title={"Bookings"}
-            subtitle={"This week"}>
-            <div className={styles.container}>
-              <div>
-                <dl className={styles.statsList}>
-                  <dt>New Bookings:</dt>
-                  <dd>23</dd>
-                  <dt>Completed:</dt>
-                  <dd>18</dd>
-                  <dt>Cancelled:</dt>
-                  <dd>2</dd>
-                </dl>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </>
-  );
+    );
 }

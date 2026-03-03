@@ -50,20 +50,33 @@ export default [
     // Admin
     ...prefix("admin", [
         layout("routes/admin/layout.jsx", [
-            index("routes/admin/admin-dashboard.jsx"),
+            index("routes/admin/dashboard-admin.jsx"),
+            route("dashboard", "routes/admin/dashboard-admin-alias.jsx"),
             route("verifications", "routes/admin/verifications.jsx"),
-            route("verifications/verificationId", "routes/admin/verification-id.jsx"),
-            route("verifications/dbs-verificationId", "routes/admin/dbs-verification-id.jsx"),
+            route("adm-verification-queue", "routes/admin/adm-verification-queue.jsx"),
+            route("verifications/:verificationId", "routes/admin/verification-id.jsx"),
+            route("verifications/verificationId", "routes/admin/verification-id-alias.jsx"),
+            route("verifications/dbs/:verificationId", "routes/admin/dbs-verification-id.jsx"),
+            route("verifications/dbs-verificationId", "routes/admin/dbs-verification-id-alias.jsx"),
             route("applications", "routes/admin/admin-applications.jsx"),
             route("applications/:applicationId", "routes/admin/application-id.jsx"),
             route("bookings", "routes/admin/bookings.jsx"),
+            route("adm-booking-management", "routes/admin/adm-booking-management.jsx"),
             route("disputes", "routes/admin/disputes.jsx"),
+            route("adm-dispute-queue", "routes/admin/adm-dispute-queue.jsx"),
             route("safegaurding", "routes/admin/safeguarding.jsx"),
             route("safegaurding/:reportId", "routes/admin/safeguarding-report-id.jsx"),
             route("users", "routes/admin/users.jsx"),
+            route("adm-user-management", "routes/admin/adm-user-management.jsx"),
             route("users/:userId", "routes/admin/user-id.jsx"),
+            route("adm-user-detail", "routes/admin/adm-user-detail.jsx"),
             route("incidents", "routes/admin/incidents.jsx"),
-            route("analytics", "routes/admin/analytics.jsx")
+            route("adm-incident-reports", "routes/admin/adm-incident-reports.jsx"),
+            route("analytics", "routes/admin/analytics.jsx"),
+            route("adm-analytics-dashboard", "routes/admin/adm-analytics-dashboard.jsx"),
+            route("audit-log", "routes/admin/adm-audit-log.jsx"),
+            route("reported-issues", "routes/admin/adm-reported-issues.jsx"),
+            route("system-settings", "routes/admin/adm-system-settings.jsx")
         ])
     ]),
 
@@ -83,8 +96,10 @@ export default [
             route("messages", "routes/caregiver/caregiver-messages.jsx"),
             route("messages/:conversationId", "routes/caregiver/caregiver-message-thread.jsx"),
             route("onboarding", "routes/caregiver/caregiver-onboarding.jsx"),
+            route("onboarding/identity-verification", "routes/caregiver/caregiver-onboarding-identity-verification.jsx"),
             route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
             route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
+            route("payout-setup", "routes/caregiver/caregiver-payout-setup.jsx"),
             route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
             route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
         ])
@@ -105,7 +120,7 @@ export default [
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
         ])
-    ]),
+    ])
 
 
 
