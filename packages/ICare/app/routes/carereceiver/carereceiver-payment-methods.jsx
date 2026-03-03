@@ -1,8 +1,10 @@
 import { Form, Link, useActionData, useLoaderData, useNavigation, redirect } from "react-router";
 import {
+    createStripeTestPaymentCheckoutSession,
     createStripeSetupCheckoutSession,
     detachStripePaymentMethod,
     ensureStripeCustomer,
+    getStripeCheckoutSessionWithPayment,
     getStripePublishableKey,
     isStripeConfigured,
     listStripePaymentMethods,
@@ -10,6 +12,25 @@ import {
 } from "~/lib/stripe-payments.server";
 import { useState } from "react";
 import "./carereceiver-pages.css";
+
+function parseTestAmount(raw) {
+    const normalized = String(raw || "").replace(",", ".").trim();
+    const value = Number(normalized);
+    if (!Number.isFinite(value)) {
+        return null;
+    }
+    if (value <= 0 || value > 5000) {
+        return null;
+    }
+    return Number(value.toFixed(2));
+}
+
+function formatCurrency(value, currency = "GBP") {
+    return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: String(currency || "GBP").toUpperCase()
+    }).format(Number(value || 0));
+}
 
 function messageFromQuery(url) {
     const setup = url.searchParams.get("setup");
@@ -46,6 +67,8 @@ export async function loader({ request }) {
     const url = new URL(request.url);
     const configured = isStripeConfigured();
     const publishableKey = getStripePublishableKey();
+    const paymentTestStatus = String(url.searchParams.get("payment_test") || "").trim().toLowerCase();
+    const paymentTestSessionId = String(url.searchParams.get("session_id") || "").trim();
 
     if (!configured) {
         return {
@@ -53,6 +76,7 @@ export async function loader({ request }) {
             publishableKey,
             cards: [],
             notice: messageFromQuery(url),
+            testPayment: null,
             error: "Stripe is not configured yet. Add sandbox keys to enable real payment methods."
         };
     }
@@ -60,6 +84,33 @@ export async function loader({ request }) {
     try {
         const { customerId, setCookie } = await ensureStripeCustomer(request);
         const cards = await listStripePaymentMethods(customerId);
+        let testPayment = null;
+
+        if (paymentTestStatus === "success" && paymentTestSessionId.startsWith("cs_")) {
+            try {
+                const session = await getStripeCheckoutSessionWithPayment(paymentTestSessionId);
+                testPayment = {
+                    ok: true,
+                    amount: session.amountTotal,
+                    amountLabel: formatCurrency(session.amountTotal, session.currency),
+                    currency: session.currency,
+                    paymentStatus: session.paymentStatus,
+                    paymentIntentId: session.paymentIntentId,
+                    chargeId: session.chargeId,
+                    createdAt: session.createdAt
+                };
+            } catch (error) {
+                testPayment = {
+                    ok: false,
+                    message: error?.message || "Could not verify Stripe test payment session."
+                };
+            }
+        } else if (paymentTestStatus === "cancel") {
+            testPayment = {
+                ok: false,
+                message: "Sandbox payment was cancelled."
+            };
+        }
 
         const payload = {
             stripeConfigured: true,
@@ -67,6 +118,7 @@ export async function loader({ request }) {
             customerId,
             cards,
             notice: messageFromQuery(url),
+            testPayment,
             error: null
         };
 
@@ -86,6 +138,7 @@ export async function loader({ request }) {
             publishableKey,
             cards: [],
             notice: messageFromQuery(url),
+            testPayment: null,
             error: error?.message || "Could not load payment methods from Stripe."
         };
     }
@@ -111,6 +164,30 @@ export async function action({ request }) {
             const successUrl = `${currentUrl.origin}/carereceiver/settings/payment?setup=success`;
             const cancelUrl = `${currentUrl.origin}/carereceiver/settings/payment?setup=cancel`;
             const session = await createStripeSetupCheckoutSession({ customerId, successUrl, cancelUrl });
+
+            return redirectWithCookie(session.url, setCookie);
+        }
+
+        if (intent === "start_test_payment") {
+            const currentUrl = new URL(request.url);
+            const amount = parseTestAmount(formData.get("testAmount"));
+
+            if (!amount) {
+                return {
+                    ok: false,
+                    error: "Enter a valid test payment amount (e.g. 1.00)."
+                };
+            }
+
+            const successUrl = `${currentUrl.origin}/carereceiver/settings/payment?payment_test=success&session_id={CHECKOUT_SESSION_ID}`;
+            const cancelUrl = `${currentUrl.origin}/carereceiver/settings/payment?payment_test=cancel`;
+            const session = await createStripeTestPaymentCheckoutSession({
+                customerId,
+                amount,
+                currency: "gbp",
+                successUrl,
+                cancelUrl
+            });
 
             return redirectWithCookie(session.url, setCookie);
         }
@@ -183,7 +260,8 @@ export default function CarereceiverPaymentMethods() {
     const [cardholderName, setCardholderName] = useState("");
     const [cardPostcode, setCardPostcode] = useState("");
 
-    const { cards, notice, error, stripeConfigured, publishableKey } = loaderData;
+    const [testAmount, setTestAmount] = useState("1.00");
+    const { cards, notice, error, stripeConfigured, publishableKey, testPayment } = loaderData;
     const expiredCard = cards.find((card) => card.isExpired);
 
     return (
@@ -224,6 +302,23 @@ export default function CarereceiverPaymentMethods() {
                 {actionData?.error ? (
                     <section className="cr-alert" role="alert">
                         <p>{actionData.error}</p>
+                    </section>
+                ) : null}
+
+                {testPayment ? (
+                    <section className="cr-alert" role="status">
+                        {testPayment.ok ? (
+                            <>
+                                <p style={{ fontWeight: 700, marginBottom: "6px" }}>Sandbox payment completed</p>
+                                <p>Amount charged by Stripe: <strong>{testPayment.amountLabel}</strong></p>
+                                <p className="cr-muted">Status: {testPayment.paymentStatus || "succeeded"}</p>
+                                {testPayment.paymentIntentId ? (
+                                    <p className="cr-muted">Payment Intent: {testPayment.paymentIntentId}</p>
+                                ) : null}
+                            </>
+                        ) : (
+                            <p>{testPayment.message || "Sandbox payment did not complete."}</p>
+                        )}
                     </section>
                 ) : null}
 
@@ -323,6 +418,33 @@ export default function CarereceiverPaymentMethods() {
                             {publishableKey ? "" : " (Stripe key missing in this environment.)"}
                         </p>
                     </div>
+                </section>
+
+                <section className="cr-card">
+                    <h2>Sandbox Test Payment</h2>
+                    <p className="cr-muted" style={{ marginTop: 0 }}>
+                        Use this to run a real Stripe test checkout and verify charged amount on localhost.
+                    </p>
+                    <Form method="post" className="cr-add-card-grid">
+                        <input type="hidden" name="intent" value="start_test_payment" />
+
+                        <label className="cr-muted" htmlFor="test-amount">Test amount (GBP)</label>
+                        <input
+                            id="test-amount"
+                            name="testAmount"
+                            className="cr-input"
+                            inputMode="decimal"
+                            placeholder="e.g. 1.00"
+                            value={testAmount}
+                            onChange={(event) => setTestAmount(event.target.value)}
+                        />
+
+                        <div className="cr-inline" style={{ marginTop: "10px" }}>
+                            <button type="submit" className="cr-button cr-button--primary" disabled={!stripeConfigured || isSubmitting}>
+                                {isSubmitting ? "Opening Stripe..." : "Pay Test Amount"}
+                            </button>
+                        </div>
+                    </Form>
                 </section>
             </div>
         </div>

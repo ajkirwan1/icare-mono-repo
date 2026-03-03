@@ -1,11 +1,24 @@
+/* global console */
 import { Router } from "express";
 import { pool } from "../db/db.js";
 import {
     sendBookingRequestConfirmationEmail,
     sendBookingRequestNotificationEmail,
     sendBookingCancellationConfirmationEmail,
-    sendBookingCancellationNotificationEmail
+    sendBookingCancellationNotificationEmail,
+    sendBookingAcceptedNotificationEmail,
+    sendBookingPaymentCapturedReceiptEmail,
+    sendBookingPaymentCapturedNotificationEmail
 } from "../services/emails/bookings.js";
+import { hasAcceptedTerms, normalizeTermsAcceptedAt, termsNotAcceptedError } from "../utils/terms-acceptance.js";
+import {
+    attachBookingMetadataToPaymentIntent,
+    cancelBookingPaymentIntent,
+    captureBookingPaymentIntent,
+    isStripeServerConfigured,
+    readableStripeError,
+    refundCapturedBookingPaymentIntent
+} from "../services/payments/stripe-bookings.js";
 
 const router = Router();
 const ALLOWED_SORTS = new Set(["startTime_asc", "completedAt_desc"]);
@@ -34,6 +47,10 @@ const CANCELLATION_REASON_LABELS = {
     no_longer_needed: "No longer needed",
     emergency: "Emergency",
     other: "Other"
+};
+const CAREGIVER_EMAIL_ALIAS_TO_ID = {
+    "maxax85@gmail.com": "cg-007",
+    "maxherbst1985@gmail.com": "cg-007"
 };
 const CAREGIVER_DIRECTORY = {
     "cg-001": {
@@ -158,6 +175,28 @@ const CAREGIVER_DIRECTORY = {
         verificationBadges: ["Identity Verified", "DBS Verified"]
     }
 };
+let bookingPaymentColumnsReady = false;
+
+async function ensureBookingPaymentColumns() {
+    if (bookingPaymentColumnsReady) {
+        return;
+    }
+
+    await pool.query(`
+      ALTER TABLE carereceiver_dashboard_bookings
+        ADD COLUMN IF NOT EXISTS payment_provider VARCHAR(32),
+        ADD COLUMN IF NOT EXISTS payment_intent_id VARCHAR(128),
+        ADD COLUMN IF NOT EXISTS payment_status VARCHAR(40),
+        ADD COLUMN IF NOT EXISTS payment_authorized_at TIMESTAMP,
+        ADD COLUMN IF NOT EXISTS payment_captured_at TIMESTAMP,
+        ADD COLUMN IF NOT EXISTS payment_cancelled_at TIMESTAMP,
+        ADD COLUMN IF NOT EXISTS payment_refund_id VARCHAR(128),
+        ADD COLUMN IF NOT EXISTS payment_refunded_at TIMESTAMP,
+        ADD COLUMN IF NOT EXISTS payment_last_error TEXT;
+    `);
+
+    bookingPaymentColumnsReady = true;
+}
 
 function parsePositiveInt(value, fallback, max = 100) {
     const parsed = Number.parseInt(String(value ?? ""), 10);
@@ -167,21 +206,58 @@ function parsePositiveInt(value, fallback, max = 100) {
     return Math.min(parsed, max);
 }
 
-async function resolveViewer(req) {
+function clampPercent(value, fallback = 5) {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) {
+        return fallback;
+    }
+    return Math.max(0, Math.min(100, Math.round(parsed * 100) / 100));
+}
+
+async function getDefaultBookingServiceFeePercent() {
+    try {
+        const settings = await pool.query(
+            `
+            SELECT booking_service_fee_percent
+            FROM admin_system_settings
+            WHERE id = 1
+            LIMIT 1
+            `
+        );
+        return clampPercent(settings.rows?.[0]?.booking_service_fee_percent, 5);
+    } catch (error) {
+        if (error?.code === "42P01" || error?.code === "42703") {
+            return 5;
+        }
+
+        console.warn("[carereceiver-dashboard] booking service fee settings fallback:", error?.message || error);
+        return 5;
+    }
+}
+
+async function resolveViewer(req, preferredUserTypes = ["care_receiver", "family"]) {
     const headerUserId = String(req.get("x-user-id") || "").trim();
     const headerEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
+    const allowedTypes = Array.isArray(preferredUserTypes) && preferredUserTypes.length > 0
+        ? preferredUserTypes
+        : ["care_receiver", "family"];
 
     if (UUID_RE.test(headerUserId)) {
         const byId = await pool.query(
             `
             SELECT
               id, email, user_type, first_name, last_name,
-              account_status, phone_verified, email_verified
+              account_status, phone_verified, email_verified,
+              gdpr_consent AS "gdprConsent",
+              gdpr_consent_date AS "gdprConsentDate",
+              NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
             FROM users
-            WHERE id = $1 AND deleted_at IS NULL
+            WHERE id = $1
+              AND user_type = ANY($2::text[])
+              AND deleted_at IS NULL
             LIMIT 1
             `,
-            [headerUserId]
+            [headerUserId, allowedTypes]
         );
         if (byId.rows?.[0]) {
             return byId.rows[0];
@@ -193,12 +269,17 @@ async function resolveViewer(req) {
             `
             SELECT
               id, email, user_type, first_name, last_name,
-              account_status, phone_verified, email_verified
+              account_status, phone_verified, email_verified,
+              gdpr_consent AS "gdprConsent",
+              gdpr_consent_date AS "gdprConsentDate",
+              NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
             FROM users
-            WHERE lower(email) = $1 AND deleted_at IS NULL
+            WHERE lower(email) = $1
+              AND user_type = ANY($2::text[])
+              AND deleted_at IS NULL
             LIMIT 1
             `,
-            [headerEmail]
+            [headerEmail, allowedTypes]
         );
         if (byEmail.rows?.[0]) {
             return byEmail.rows[0];
@@ -209,14 +290,27 @@ async function resolveViewer(req) {
         `
         SELECT
           id, email, user_type, first_name, last_name,
-          account_status, phone_verified, email_verified
+          account_status, phone_verified, email_verified,
+          gdpr_consent AS "gdprConsent",
+          gdpr_consent_date AS "gdprConsentDate",
+          NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
         FROM users
-        WHERE user_type IN ('care_receiver', 'family') AND deleted_at IS NULL
+        WHERE user_type = ANY($1::text[]) AND deleted_at IS NULL
         ORDER BY created_at DESC
         LIMIT 1
-        `
+        `,
+        [allowedTypes]
     );
     return fallback.rows?.[0] || null;
+}
+
+function ensureTermsAccepted(res, viewer) {
+    if (hasAcceptedTerms(viewer)) {
+        return true;
+    }
+
+    res.status(403).json(termsNotAcceptedError());
+    return false;
 }
 
 function buildBookingFilters({ viewerId, statusList, startDate, endDate }) {
@@ -368,6 +462,64 @@ function resolveCaregiverProfile(caregiverId) {
         rating: 4.7,
         reviewCount: 0,
         verificationBadges: ["Identity Verified"]
+    };
+}
+
+function buildCaregiverIdentityMatcher({ viewer, headerUserEmail = "", caregiverIdHint = "" } = {}, alias = "b") {
+    const viewerEmail = String(viewer?.email || "").trim().toLowerCase();
+    const viewerFullName = [viewer?.first_name, viewer?.last_name]
+        .map((value) => String(value || "").trim())
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+    const normalizedHeaderEmail = String(headerUserEmail || "").trim().toLowerCase();
+    const normalizedHint = String(caregiverIdHint || "").trim();
+
+    const caregiverIds = new Set();
+    if (viewer?.id) {
+        caregiverIds.add(String(viewer.id));
+    }
+    if (normalizedHint) {
+        caregiverIds.add(normalizedHint);
+    }
+    if (viewerEmail && CAREGIVER_EMAIL_ALIAS_TO_ID[viewerEmail]) {
+        caregiverIds.add(CAREGIVER_EMAIL_ALIAS_TO_ID[viewerEmail]);
+    }
+    if (normalizedHeaderEmail && CAREGIVER_EMAIL_ALIAS_TO_ID[normalizedHeaderEmail]) {
+        caregiverIds.add(CAREGIVER_EMAIL_ALIAS_TO_ID[normalizedHeaderEmail]);
+    }
+
+    for (const profile of Object.values(CAREGIVER_DIRECTORY)) {
+        const profileEmail = String(profile?.email || "").trim().toLowerCase();
+        const profileName = String(profile?.name || "").trim().toLowerCase();
+
+        if (viewerEmail && profileEmail && profileEmail === viewerEmail) {
+            caregiverIds.add(String(profile.id));
+        }
+        if (viewerFullName && profileName && profileName === viewerFullName) {
+            caregiverIds.add(String(profile.id));
+        }
+    }
+
+    const clauses = [];
+    const params = [];
+
+    if (caregiverIds.size > 0) {
+        clauses.push(`COALESCE(to_jsonb(${alias})->>'caregiver_id', '') = ANY($${params.length + 1}::text[])`);
+        params.push(Array.from(caregiverIds));
+    }
+    if (viewerEmail) {
+        clauses.push(`lower(COALESCE(${alias}.caregiver_email, '')) = $${params.length + 1}`);
+        params.push(viewerEmail);
+    }
+    if (viewerFullName) {
+        clauses.push(`lower(COALESCE(${alias}.caregiver_name, '')) = $${params.length + 1}`);
+        params.push(viewerFullName);
+    }
+
+    return {
+        clauses,
+        params
     };
 }
 
@@ -670,8 +822,7 @@ function buildBookingRequestSystemMessage({
         `Schedule: ${dateLabel}, ${timeLabel}.`
     ];
     if (notes) {
-        lines.push("Special requests:");
-        lines.push(notes);
+        lines.push(`Special requests: ${notes}`);
     }
     return lines.join("\n");
 }
@@ -979,6 +1130,7 @@ router.post("/bookings", async (req, res) => {
     }
 
     try {
+        await ensureBookingPaymentColumns();
         const viewer = await resolveViewer(req);
         if (!viewer?.id) {
             return res.status(404).json({
@@ -988,6 +1140,9 @@ router.post("/bookings", async (req, res) => {
                     message: "Care receiver profile not found."
                 }
             });
+        }
+        if (!ensureTermsAccepted(res, viewer)) {
+            return;
         }
 
         const caregiver = resolveCaregiverProfile(caregiverId);
@@ -1007,10 +1162,11 @@ router.post("/bookings", async (req, res) => {
         const endAt = new Date(startAt.getTime() + Math.round(durationHours * 60) * 60000);
         const pricingInput = req.body?.pricing && typeof req.body.pricing === "object" ? req.body.pricing : {};
         const paymentInput = req.body?.payment && typeof req.body.payment === "object" ? req.body.payment : {};
+        const defaultServiceFeePercentage = await getDefaultBookingServiceFeePercent();
 
         const hourlyRate = roundMoney(pricingInput.hourlyRate || caregiver.hourlyRate || 18);
         const subtotal = roundMoney(pricingInput.subtotal || (hourlyRate * durationHours));
-        const serviceFeePercentage = roundMoney(pricingInput.serviceFeePercent ?? pricingInput.serviceFeePercentage ?? 5);
+        const serviceFeePercentage = roundMoney(pricingInput.serviceFeePercent ?? pricingInput.serviceFeePercentage ?? defaultServiceFeePercentage);
         const serviceFee = roundMoney(
             pricingInput.serviceFee ||
             pricingInput.platformServiceFee ||
@@ -1022,6 +1178,13 @@ router.post("/bookings", async (req, res) => {
         const paymentMethodLabel = paymentMethodId
             ? `Saved card (${paymentMethodId.slice(-6)})`
             : "Saved card";
+        const paymentIntentId = String(paymentInput.authorizationId || "").trim();
+        const hasPaymentIntent = /^pi_[A-Za-z0-9]+$/.test(paymentIntentId);
+        const normalizedIncomingPaymentStatus = String(paymentInput.authorizationStatus || "").trim().toLowerCase();
+        const paymentStatus = hasPaymentIntent
+            ? (normalizedIncomingPaymentStatus || "authorized")
+            : "pending";
+        const paymentProvider = hasPaymentIntent ? "stripe" : null;
         const responseDeadline = new Date(Date.now() + 24 * 60 * 60 * 1000);
         const requestedAt = new Date();
         const bookingYear = bookingDate.slice(0, 4);
@@ -1068,6 +1231,11 @@ router.post("/bookings", async (req, res) => {
               payment_service_fee_percentage,
               payment_total,
               payment_method,
+              payment_provider,
+              payment_intent_id,
+              payment_status,
+              payment_authorized_at,
+              payment_last_error,
               payment_refund_amount,
               emergency_contact_name,
               emergency_contact_phone,
@@ -1080,8 +1248,8 @@ router.post("/bookings", async (req, res) => {
               updated_at
             ) VALUES (
               $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11::text[], $12::date, $13::time, $14,
-              'requested', $15, $16, $17::text[], $18, $19, $20, $21, $22, $23, $24, $25, $26, $27,
-              $28, $29, $30, $31, $32::jsonb, $33, FALSE, NOW(), NOW()
+              'requested', $15, $16, $17::text[], $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28,
+              $29, CASE WHEN $28 IS NULL THEN NULL ELSE $30::timestamp END, NULL, 0, $31, $32, $33, $34, $35::jsonb, $36, FALSE, NOW(), NOW()
             )
             `,
             [
@@ -1111,7 +1279,10 @@ router.post("/bookings", async (req, res) => {
                 serviceFeePercentage,
                 total,
                 paymentMethodLabel,
-                0,
+                paymentProvider,
+                hasPaymentIntent ? paymentIntentId : null,
+                paymentStatus,
+                requestedAt.toISOString(),
                 emergencyName,
                 emergencyPhone,
                 emergencyRelationship,
@@ -1120,6 +1291,28 @@ router.post("/bookings", async (req, res) => {
                 conversationId
             ]
         );
+
+        if (hasPaymentIntent && isStripeServerConfigured()) {
+            try {
+                await attachBookingMetadataToPaymentIntent({
+                    paymentIntentId,
+                    bookingId,
+                    careReceiverId: viewer.id,
+                    caregiverId: caregiver.id
+                });
+            } catch (stripeMetadataError) {
+                const metadataErrorMessage = readableStripeError(stripeMetadataError, "Could not attach booking metadata.");
+                await pool.query(
+                    `
+                    UPDATE carereceiver_dashboard_bookings
+                    SET payment_last_error = $2, updated_at = NOW()
+                    WHERE id = $1
+                    `,
+                    [bookingId, metadataErrorMessage]
+                );
+                console.error("[carereceiver-dashboard] booking payment metadata sync failed:", stripeMetadataError);
+            }
+        }
 
         const firstName = caregiver.name.split(" ")[0] || caregiver.name;
         const lastInitial = (caregiver.name.split(" ")[1] || "").slice(0, 1);
@@ -1207,8 +1400,8 @@ router.post("/bookings", async (req, res) => {
                     platformServiceFee: serviceFee,
                     totalCharge: total
                 },
-                paymentStatus: paymentInput.authorizationId ? "authorized" : "pending",
-                paymentIntentId: paymentInput.authorizationId || null,
+                paymentStatus,
+                paymentIntentId: hasPaymentIntent ? paymentIntentId : null,
                 responseDeadline: responseDeadline.toISOString(),
                 requestedAt: requestedAt.toISOString()
             }
@@ -1328,6 +1521,448 @@ router.get("/care-receivers/me/bookings", async (req, res) => {
     }
 });
 
+router.get("/caregivers/me/bookings", async (req, res) => {
+    try {
+        const headerUserId = String(req.get("x-user-id") || "").trim();
+        const headerUserEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
+        const caregiverIdHint = String(req.query.caregiverId || req.get("x-caregiver-id") || "").trim();
+        if (!headerUserId && !headerUserEmail && !caregiverIdHint) {
+            return res.status(401).json({
+                success: false,
+                error: {
+                    code: "UNAUTHORIZED",
+                    message: "Login required to load caregiver bookings."
+                }
+            });
+        }
+
+        const viewer = await resolveViewer(req, ["caregiver"]);
+        const statusList = String(req.query.status || "")
+            .split(",")
+            .map((value) => value.trim())
+            .filter(Boolean);
+        const limit = parsePositiveInt(req.query.limit, 20, 100);
+        const page = parsePositiveInt(req.query.page, 1, 1000);
+        const offset = (page - 1) * limit;
+        const sort = String(req.query.sort || "").trim();
+
+        const matcher = buildCaregiverIdentityMatcher({
+            viewer,
+            headerUserEmail,
+            caregiverIdHint
+        }, "b");
+        const identityClauses = matcher.clauses;
+        const identityParams = matcher.params;
+
+        if (!identityClauses.length) {
+            return res.status(200).json({
+                success: true,
+                data: {
+                    bookings: [],
+                    pagination: { totalCount: 0, page, limit }
+                }
+            });
+        }
+
+        const clauses = [`(${identityClauses.join(" OR ")})`];
+        const params = [...identityParams];
+        let nextIndex = params.length + 1;
+
+        if (statusList.length > 0) {
+            clauses.push(`b.status = ANY($${nextIndex}::text[])`);
+            params.push(statusList);
+            nextIndex += 1;
+        }
+
+        const whereSql = `WHERE ${clauses.join(" AND ")}`;
+        let orderSql = "ORDER BY b.created_at DESC";
+        if (ALLOWED_SORTS.has(sort) && sort === "startTime_asc") {
+            orderSql = "ORDER BY b.booking_date ASC NULLS LAST, b.start_time ASC NULLS LAST, b.created_at DESC";
+        } else if (ALLOWED_SORTS.has(sort) && sort === "completedAt_desc") {
+            orderSql = "ORDER BY b.completed_at DESC NULLS LAST, b.updated_at DESC";
+        }
+
+        const listParams = [...params, limit, offset];
+        const listSql = `
+            SELECT
+              b.id,
+              b.status,
+              COALESCE(to_jsonb(b)->>'booking_ref', upper(b.id)) AS "bookingRef",
+              to_char(b.booking_date, 'YYYY-MM-DD') AS "bookingDate",
+              to_char(b.start_time, 'HH12:MI AM') AS "startTime",
+              NULLIF(to_jsonb(b)->>'duration_hours', '')::numeric AS "durationHours",
+              b.response_deadline AS "responseDeadline",
+              b.confirmation_deadline AS "confirmationDeadline",
+              b.conversation_id AS "conversationId",
+              b.completed_at AS "completedAt",
+              b.updated_at AS "updatedAt",
+              b.created_at AS "createdAt",
+              b.care_receiver_id AS "careReceiverId",
+              COALESCE(NULLIF(TRIM(CONCAT(u.first_name, ' ', u.last_name)), ''), 'Care receiver') AS "careReceiverName",
+              NULLIF(to_jsonb(b)->>'service_type', '') AS "serviceType",
+              ARRAY(
+                SELECT jsonb_array_elements_text(
+                  CASE
+                    WHEN jsonb_typeof(to_jsonb(b)->'service_types') = 'array'
+                      THEN to_jsonb(b)->'service_types'
+                    ELSE '[]'::jsonb
+                  END
+                )
+              ) AS "serviceTypes",
+              NULLIF(to_jsonb(b)->>'payment_subtotal', '')::numeric AS "paymentSubtotal",
+              NULLIF(to_jsonb(b)->>'payment_service_fee', '')::numeric AS "paymentServiceFee",
+              NULLIF(to_jsonb(b)->>'payment_service_fee_percentage', '')::numeric AS "paymentServiceFeePercentage",
+              NULLIF(to_jsonb(b)->>'payment_total', '')::numeric AS "paymentTotal"
+            FROM carereceiver_dashboard_bookings b
+            LEFT JOIN users u ON u.id = b.care_receiver_id
+            ${whereSql}
+            ${orderSql}
+            LIMIT $${nextIndex}
+            OFFSET $${nextIndex + 1}
+        `;
+
+        const countSql = `
+            SELECT COUNT(*)::int AS total
+            FROM carereceiver_dashboard_bookings b
+            ${whereSql}
+        `;
+
+        const [listResult, countResult] = await Promise.all([
+            pool.query(listSql, listParams),
+            pool.query(countSql, params)
+        ]);
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                bookings: listResult.rows || [],
+                pagination: {
+                    totalCount: Number(countResult.rows?.[0]?.total || 0),
+                    page,
+                    limit
+                }
+            }
+        });
+    } catch (error) {
+        console.error("[carereceiver-dashboard] GET /caregivers/me/bookings failed:", error);
+        return res.status(500).json({
+            success: false,
+            error: {
+                code: "INTERNAL_ERROR",
+                message: "Could not load caregiver bookings."
+            }
+        });
+    }
+});
+
+router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
+    const bookingId = String(req.params.bookingId || "").trim();
+    if (!bookingId) {
+        return res.status(400).json({
+            success: false,
+            error: {
+                code: "VALIDATION_ERROR",
+                message: "Booking id is required."
+            }
+        });
+    }
+
+    try {
+        await ensureBookingPaymentColumns();
+        const headerUserEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
+        const caregiverIdHint = String(req.query.caregiverId || req.get("x-caregiver-id") || "").trim();
+        const termsAcceptedAtRaw = String(req.body?.termsAcceptedAt || "").trim();
+        const viewer = await resolveViewer(req, ["caregiver"]);
+
+        if (!viewer) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: "RESOURCE_NOT_FOUND",
+                    message: "Caregiver profile not found."
+                }
+            });
+        }
+
+        if (!hasAcceptedTerms(viewer)) {
+            if (!termsAcceptedAtRaw) {
+                return res.status(403).json(termsNotAcceptedError());
+            }
+
+            const normalizedTermsAcceptedAt = normalizeTermsAcceptedAt(termsAcceptedAtRaw);
+            if (viewer?.id) {
+                try {
+                    await pool.query(
+                        `
+                        UPDATE users
+                        SET terms_accepted_at = COALESCE(terms_accepted_at, $2::timestamp),
+                            updated_at = NOW()
+                        WHERE id = $1
+                        `,
+                        [viewer.id, normalizedTermsAcceptedAt]
+                    );
+                } catch (error) {
+                    const missingColumn = error?.code === "42703" &&
+                        /terms_accepted_at/i.test(String(error?.message || ""));
+                    if (!missingColumn) {
+                        throw error;
+                    }
+                }
+            }
+            viewer.termsAcceptedAt = normalizedTermsAcceptedAt;
+        }
+
+        if (!ensureTermsAccepted(res, viewer)) {
+            return;
+        }
+
+        const matcher = buildCaregiverIdentityMatcher({
+            viewer,
+            headerUserEmail,
+            caregiverIdHint
+        }, "b");
+        if (matcher.clauses.length === 0) {
+            return res.status(403).json({
+                success: false,
+                error: {
+                    code: "FORBIDDEN",
+                    message: "Booking does not belong to this caregiver."
+                }
+            });
+        }
+
+        const bookingQuery = await pool.query(
+            `
+            SELECT
+              b.id,
+              b.status,
+              COALESCE(to_jsonb(b)->>'booking_ref', upper(b.id)) AS "bookingRef",
+              to_char(b.booking_date, 'YYYY-MM-DD') AS "bookingDate",
+              to_char(b.start_time, 'HH24:MI:SS') AS "startTime",
+              NULLIF(to_jsonb(b)->>'duration_hours', '')::numeric AS "durationHours",
+              b.care_receiver_id AS "careReceiverId",
+              b.conversation_id AS "conversationId",
+              b.caregiver_id AS "caregiverId",
+              b.caregiver_name AS "caregiverName",
+              b.caregiver_photo_url AS "caregiverPhotoUrl",
+              b.caregiver_phone AS "caregiverPhone",
+              b.caregiver_email AS "caregiverEmail",
+              NULLIF(to_jsonb(b)->>'payment_intent_id', '') AS "paymentIntentId",
+              COALESCE(NULLIF(to_jsonb(b)->>'payment_status', ''), 'pending') AS "paymentStatus",
+              NULLIF(to_jsonb(b)->>'payment_total', '')::numeric AS "paymentTotal",
+              u.email AS "careReceiverEmail",
+              COALESCE(NULLIF(TRIM(CONCAT(u.first_name, ' ', u.last_name)), ''), 'Care receiver') AS "careReceiverName"
+            FROM carereceiver_dashboard_bookings b
+            LEFT JOIN users u ON u.id = b.care_receiver_id
+            WHERE b.id = $1
+              AND (${matcher.clauses.join(" OR ")})
+            LIMIT 1
+            `,
+            [bookingId, ...matcher.params]
+        );
+
+        const booking = bookingQuery.rows?.[0];
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                error: {
+                    code: "RESOURCE_NOT_FOUND",
+                    message: "Booking not found."
+                }
+            });
+        }
+
+        if (String(booking.status || "").toLowerCase() !== "requested") {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: "VALIDATION_ERROR",
+                    message: "Only requested bookings can be confirmed."
+                }
+            });
+        }
+
+        let normalizedPaymentStatus = String(booking.paymentStatus || "pending").toLowerCase();
+        let capturedAtTimestamp = null;
+        let paymentLastError = null;
+        const paymentIntentId = String(booking.paymentIntentId || "").trim();
+
+        if (paymentIntentId) {
+            if (!isStripeServerConfigured()) {
+                return res.status(503).json({
+                    success: false,
+                    error: {
+                        code: "PAYMENT_UNAVAILABLE",
+                        message: "Stripe is not configured on API, so booking payment cannot be captured."
+                    }
+                });
+            }
+
+            try {
+                const capturedIntent = await captureBookingPaymentIntent({
+                    paymentIntentId,
+                    bookingId,
+                    amount: Number(booking.paymentTotal || 0)
+                });
+                normalizedPaymentStatus = capturedIntent?.status === "succeeded" ? "captured" : String(capturedIntent?.status || "captured");
+                capturedAtTimestamp = new Date().toISOString();
+            } catch (stripeError) {
+                paymentLastError = readableStripeError(stripeError, "Payment capture failed.");
+                await pool.query(
+                    `
+                    UPDATE carereceiver_dashboard_bookings
+                    SET payment_last_error = $2, updated_at = NOW()
+                    WHERE id = $1
+                    `,
+                    [bookingId, paymentLastError]
+                );
+
+                return res.status(402).json({
+                    success: false,
+                    error: {
+                        code: "PAYMENT_CAPTURE_FAILED",
+                        message: paymentLastError
+                    }
+                });
+            }
+        }
+
+        const updateResult = await pool.query(
+            `
+            UPDATE carereceiver_dashboard_bookings
+            SET
+              status = 'accepted',
+              accepted_at = NOW(),
+              decline_reason = NULL,
+              payment_status = $2,
+              payment_captured_at = COALESCE($3::timestamp, payment_captured_at),
+              payment_last_error = $4,
+              confirmation_deadline = COALESCE(confirmation_deadline, NOW() + INTERVAL '48 hours'),
+              updated_at = NOW()
+            WHERE id = $1
+            RETURNING
+              id,
+              status,
+              payment_status AS "paymentStatus",
+              payment_captured_at AS "paymentCapturedAt",
+              accepted_at AS "acceptedAt",
+              confirmation_deadline AS "confirmationDeadline",
+              updated_at AS "updatedAt"
+            `,
+            [bookingId, normalizedPaymentStatus, capturedAtTimestamp, paymentLastError]
+        );
+
+        const updated = updateResult.rows?.[0];
+        if (!updated) {
+            return res.status(500).json({
+                success: false,
+                error: {
+                    code: "INTERNAL_ERROR",
+                    message: "Booking confirmation failed."
+                }
+            });
+        }
+
+        const finalPaymentStatus = String(updated.paymentStatus || normalizedPaymentStatus || "").toLowerCase();
+        const paymentCaptured = finalPaymentStatus === "captured" || finalPaymentStatus === "succeeded";
+        const paymentTotal = Number(booking.paymentTotal || 0);
+
+        const resolvedConversationId = await ensureConversationForBooking({
+            bookingId,
+            conversationId: booking.conversationId,
+            careReceiverId: booking.careReceiverId,
+            caregiverId: booking.caregiverId,
+            caregiverName: booking.caregiverName,
+            caregiverPhotoUrl: booking.caregiverPhotoUrl,
+            caregiverPhone: booking.caregiverPhone
+        });
+
+        const confirmationMessageLines = [
+            `Booking confirmed (${String(booking.bookingRef || bookingId).toUpperCase()}).`,
+            `Schedule: ${formatDateLong(booking.bookingDate)}, ${buildTimeRangeLabel(booking.startTime, booking.durationHours)}.`,
+            "Contact details are now available in ICare."
+        ];
+        if (paymentCaptured && Number.isFinite(paymentTotal) && paymentTotal > 0) {
+            confirmationMessageLines.push(`Payment captured in ICare: £${paymentTotal.toFixed(2)}.`);
+        }
+        await appendSystemConversationMessage(
+            resolvedConversationId,
+            confirmationMessageLines.join("\n")
+        );
+
+        try {
+            if (isValidEmail(booking.careReceiverEmail)) {
+                await sendBookingAcceptedNotificationEmail(booking.careReceiverEmail, {
+                    bookingId,
+                    bookingRef: booking.bookingRef,
+                    caregiverName: booking.caregiverName || "Caregiver",
+                    bookingDate: booking.bookingDate,
+                    startTime: booking.startTime,
+                    durationHours: Number(booking.durationHours || 0)
+                });
+            }
+        } catch (emailError) {
+            console.error("[carereceiver-dashboard] booking accepted notification email failed:", emailError);
+        }
+
+        // API spec (bookings accept): once payment is captured, notify both parties.
+        if (paymentCaptured) {
+            try {
+                if (isValidEmail(booking.careReceiverEmail)) {
+                    await sendBookingPaymentCapturedReceiptEmail(booking.careReceiverEmail, {
+                        bookingId,
+                        bookingRef: booking.bookingRef,
+                        caregiverName: booking.caregiverName || "Caregiver",
+                        bookingDate: booking.bookingDate,
+                        startTime: booking.startTime,
+                        durationHours: Number(booking.durationHours || 0),
+                        amount: paymentTotal
+                    });
+                }
+            } catch (emailError) {
+                console.error("[carereceiver-dashboard] payment receipt email failed:", emailError);
+            }
+
+            try {
+                if (isValidEmail(booking.caregiverEmail)) {
+                    await sendBookingPaymentCapturedNotificationEmail(booking.caregiverEmail, {
+                        bookingRef: booking.bookingRef,
+                        careReceiverName: booking.careReceiverName || "Care receiver",
+                        bookingDate: booking.bookingDate,
+                        startTime: booking.startTime,
+                        durationHours: Number(booking.durationHours || 0),
+                        amount: paymentTotal
+                    });
+                }
+            } catch (emailError) {
+                console.error("[carereceiver-dashboard] caregiver payment notification email failed:", emailError);
+            }
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                bookingId,
+                status: updated.status,
+                paymentStatus: updated.paymentStatus || normalizedPaymentStatus,
+                paymentCapturedAt: updated.paymentCapturedAt || capturedAtTimestamp,
+                acceptedAt: updated.acceptedAt,
+                confirmationDeadline: updated.confirmationDeadline,
+                conversationId: resolvedConversationId || booking.conversationId || null
+            }
+        });
+    } catch (error) {
+        console.error("[carereceiver-dashboard] PUT /caregiver/bookings/:bookingId/accept failed:", error);
+        return res.status(500).json({
+            success: false,
+            error: {
+                code: "INTERNAL_ERROR",
+                message: "Could not confirm booking."
+            }
+        });
+    }
+});
+
 router.get("/bookings/:bookingId", async (req, res) => {
     const bookingId = String(req.params.bookingId || "").trim();
     if (!bookingId) {
@@ -1428,7 +2063,13 @@ router.get("/bookings/:bookingId", async (req, res) => {
                     serviceFeePercentage: Number(row.payment_service_fee_percentage || 0),
                     total: Number(row.payment_total || 0),
                     paymentMethod: row.payment_method || "",
-                    refundAmount: Number(row.payment_refund_amount || 0)
+                    refundAmount: Number(row.payment_refund_amount || 0),
+                    provider: row.payment_provider || "",
+                    status: row.payment_status || "pending",
+                    paymentIntentId: row.payment_intent_id || "",
+                    capturedAt: row.payment_captured_at || null,
+                    cancelledAt: row.payment_cancelled_at || null,
+                    refundedAt: row.payment_refunded_at || null
                 }
             }
         });
@@ -1485,7 +2126,11 @@ router.post("/bookings/:bookingId/review", async (req, res) => {
         .slice(0, 10);
 
     try {
+        await ensureBookingPaymentColumns();
         const viewer = await resolveViewer(req);
+        if (!ensureTermsAccepted(res, viewer)) {
+            return;
+        }
         const viewerId = viewer?.id || null;
         const bookingQuery = viewerId
             ? `
@@ -1782,6 +2427,9 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
 
     try {
         const viewer = await resolveViewer(req);
+        if (!ensureTermsAccepted(res, viewer)) {
+            return;
+        }
         const viewerId = viewer?.id || null;
 
         const findSql = viewerId
@@ -1803,7 +2451,9 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                   special_requests AS "specialRequests",
                   payment_subtotal AS "paymentSubtotal",
                   payment_service_fee AS "paymentServiceFee",
-                  payment_total AS "paymentTotal"
+                  payment_total AS "paymentTotal",
+                  NULLIF(to_jsonb(carereceiver_dashboard_bookings)->>'payment_intent_id', '') AS "paymentIntentId",
+                  COALESCE(NULLIF(to_jsonb(carereceiver_dashboard_bookings)->>'payment_status', ''), 'pending') AS "paymentStatus"
               FROM carereceiver_dashboard_bookings
               WHERE id = $1
                 AND (care_receiver_id IS NULL OR care_receiver_id = $2)
@@ -1827,7 +2477,9 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                   special_requests AS "specialRequests",
                   payment_subtotal AS "paymentSubtotal",
                   payment_service_fee AS "paymentServiceFee",
-                  payment_total AS "paymentTotal"
+                  payment_total AS "paymentTotal",
+                  NULLIF(to_jsonb(carereceiver_dashboard_bookings)->>'payment_intent_id', '') AS "paymentIntentId",
+                  COALESCE(NULLIF(to_jsonb(carereceiver_dashboard_bookings)->>'payment_status', ''), 'pending') AS "paymentStatus"
               FROM carereceiver_dashboard_bookings
               WHERE id = $1
               LIMIT 1
@@ -1868,6 +2520,52 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
         });
         const refundAmount = roundMoney(refund.amount);
         const cancellationNote = details ? `${reason}: ${details}` : reason;
+        const paymentIntentId = String(booking.paymentIntentId || "").trim();
+        const normalizedPaymentStatus = String(booking.paymentStatus || "pending").toLowerCase();
+        let persistedPaymentStatus = normalizedPaymentStatus;
+        let paymentCancelledAt = null;
+        let paymentRefundedAt = null;
+        let paymentRefundId = null;
+        let paymentLastError = null;
+
+        if (paymentIntentId) {
+            if (!isStripeServerConfigured()) {
+                return res.status(503).json({
+                    success: false,
+                    error: {
+                        code: "PAYMENT_UNAVAILABLE",
+                        message: "Stripe is not configured on API, so booking payment cannot be released/refunded."
+                    }
+                });
+            }
+
+            try {
+                if (["authorized", "requires_capture", "requires_confirmation", "pending"].includes(normalizedPaymentStatus)) {
+                    await cancelBookingPaymentIntent({ paymentIntentId, bookingId });
+                    persistedPaymentStatus = "authorization_released";
+                    paymentCancelledAt = new Date().toISOString();
+                } else if (refundAmount > 0) {
+                    const refundResult = await refundCapturedBookingPaymentIntent({
+                        paymentIntentId,
+                        bookingId,
+                        amount: refundAmount
+                    });
+                    persistedPaymentStatus = "refunded";
+                    paymentRefundId = String(refundResult?.id || "").trim() || null;
+                    paymentRefundedAt = new Date().toISOString();
+                }
+            } catch (stripeError) {
+                paymentLastError = readableStripeError(stripeError, "Payment release/refund failed.");
+                return res.status(402).json({
+                    success: false,
+                    error: {
+                        code: "PAYMENT_RELEASE_FAILED",
+                        message: paymentLastError
+                    }
+                });
+            }
+        }
+
         const query = viewerId
             ? `
               UPDATE carereceiver_dashboard_bookings
@@ -1876,10 +2574,15 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 cancelled_date = CURRENT_DATE,
                 decline_reason = $3,
                 payment_refund_amount = $4,
+                payment_status = $5,
+                payment_cancelled_at = COALESCE($6::timestamp, payment_cancelled_at),
+                payment_refunded_at = COALESCE($7::timestamp, payment_refunded_at),
+                payment_refund_id = COALESCE($8, payment_refund_id),
+                payment_last_error = $9,
                 updated_at = NOW()
               WHERE id = $1
                 AND (care_receiver_id IS NULL OR care_receiver_id = $2)
-              RETURNING id, status, updated_at AS "updatedAt"
+              RETURNING id, status, payment_status AS "paymentStatus", updated_at AS "updatedAt"
             `
             : `
               UPDATE carereceiver_dashboard_bookings
@@ -1888,13 +2591,18 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 cancelled_date = CURRENT_DATE,
                 decline_reason = $2,
                 payment_refund_amount = $3,
+                payment_status = $4,
+                payment_cancelled_at = COALESCE($5::timestamp, payment_cancelled_at),
+                payment_refunded_at = COALESCE($6::timestamp, payment_refunded_at),
+                payment_refund_id = COALESCE($7, payment_refund_id),
+                payment_last_error = $8,
                 updated_at = NOW()
               WHERE id = $1
-              RETURNING id, status, updated_at AS "updatedAt"
+              RETURNING id, status, payment_status AS "paymentStatus", updated_at AS "updatedAt"
             `;
         const params = viewerId
-            ? [bookingId, viewerId, cancellationNote, refundAmount]
-            : [bookingId, cancellationNote, refundAmount];
+            ? [bookingId, viewerId, cancellationNote, refundAmount, persistedPaymentStatus, paymentCancelledAt, paymentRefundedAt, paymentRefundId, paymentLastError]
+            : [bookingId, cancellationNote, refundAmount, persistedPaymentStatus, paymentCancelledAt, paymentRefundedAt, paymentRefundId, paymentLastError];
 
         const updated = await pool.query(query, params);
         const row = updated.rows?.[0];
@@ -1981,6 +2689,7 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
             data: {
                 bookingId: row.id,
                 status: row.status,
+                paymentStatus: row.paymentStatus || persistedPaymentStatus,
                 cancelledAt,
                 cancelledBy: "care_receiver",
                 reason,

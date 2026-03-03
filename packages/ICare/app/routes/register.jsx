@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import ICareFooter from "../components/website/pages/shared/footers/icare-footer";
 import ICareNavbar from "../components/website/pages/shared/icare-navbar";
+import { createTermsAcceptedAt, isTermsAccepted, persistTermsAcceptedAt } from "../utils/terms-acceptance";
 import styles from "./register.module.scss";
 
 export function meta() {
@@ -154,7 +155,7 @@ export default function Register() {
             }
         }
         if (s === 3) {
-            if (!form.c_terms) e.c_terms = "Required.";
+            if (!isTermsAccepted(form.c_terms)) e.c_terms = "Required.";
             if (!form.c_privacy) e.c_privacy = "Required.";
             if (!form.c_age18) e.c_age18 = "Required.";
             if (!form.c_truth) e.c_truth = "Required.";
@@ -181,6 +182,7 @@ export default function Register() {
         try {
             setSubmitting(true);
             const phoneNormalized = normalizeInternationalPhone(form.phone);
+            const termsAcceptedAt = createTermsAcceptedAt();
             const payload = {
                 userType: tab === "caregiver" ? "caregiver" : "care_receiver",
                 email: String(form.email || "").trim().toLowerCase(),
@@ -190,6 +192,7 @@ export default function Register() {
                 phone: phoneNormalized,
                 gdprConsent: Boolean(form.c_terms && form.c_privacy),
                 marketingConsent: Boolean(form.c_marketing),
+                termsAcceptedAt,
             };
 
             const endpoint = `${API_BASE}/api/v1/auth/register`;
@@ -237,6 +240,8 @@ export default function Register() {
                 return;
             }
 
+            // MVP persistence until backend profile field is available.
+            persistTermsAcceptedAt(termsAcceptedAt);
             setSubmitSuccess("Registration successful. Your account was created.");
             window.setTimeout(() => {
                 window.location.assign("/login?registered=1");
@@ -955,11 +960,11 @@ export default function Register() {
                                                 key: "c_terms",
                                                 label: (
                                                     <>
-                                                        I agree to the platform terms and{" "}
-                                                        <Link to="/trust-and-safety" className={styles.inlinePolicyLink}>
-                                                            Trust & Safety
+                                                        I agree to the{" "}
+                                                        <Link to="/terms" className={styles.inlinePolicyLink}>
+                                                            Terms of Service
                                                         </Link>{" "}
-                                                        commitments (required)
+                                                        including Introduction &amp; Fair Use (required)
                                                     </>
                                                 ),
                                             },

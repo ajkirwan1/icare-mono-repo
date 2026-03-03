@@ -1,0 +1,109 @@
+@use "@styles/tokens" as *;
+
+.page {
+  background: #fff;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(24px, 3.2vw, 44px) $gap-grid-fluid clamp(80px, 8vw, 140px);
+}
+
+.header {
+  display: grid;
+  gap: $space-14;
+}
+
+.h1 {
+  margin: 0;
+  color: $ink-strong;
+  font-weight: $fw-bold;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  letter-spacing: $tracking-xs;
+}
+
+.h2 {
+  margin: 0;
+  color: rgb(119, 141, 67);
+  font-weight: $fw-bold;
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  letter-spacing: $tracking-xxs;
+}
+
+.h3 {
+  margin: 0;
+  color: $ink-strong;
+  font-weight: $fw-bold;
+  font-size: $fs-lg;
+  letter-spacing: $tracking-xxs;
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-10;
+  color: $txt;
+  opacity: 0.85;
+  font-size: $fs-sm;
+}
+
+.lead {
+  margin: 0;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-lg-2;
+}
+
+.paragraph {
+  margin: 0;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-md;
+}
+
+.callout {
+  border: 1px solid rgba(221, 139, 79, 0.2);
+  border-left: 3px solid rgba(221, 139, 79, 0.6);
+  background: rgba(221, 139, 79, 0.04);
+  border-radius: $radius-lg;
+  padding: $space-14 $space-16;
+  line-height: $lh-body;
+  color: $txt;
+}
+
+.section {
+  display: grid;
+  gap: $space-12;
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
+  margin-top: clamp(28px, 3.5vw, 44px);
+  padding-top: clamp(28px, 3.5vw, 44px);
+}
+
+.ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: $space-10;
+  color: $txt;
+  line-height: $lh-body;
+  font-size: $fs-md;
+}
+
+.inlineLink {
+  color: rgb(119, 141, 67);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(119, 141, 67, 0.3);
+  transition: $transition-ui;
+
+  &:hover {
+    color: rgba(119, 141, 67, 0.8);
+  }
+
+  &:focus-visible {
+    outline: $space-2 solid $focus-border;
+    outline-offset: $space-2;
+    box-shadow: 0 0 0 $space-4 $focus-ring;
+    border-bottom-color: transparent;
+  }
+}

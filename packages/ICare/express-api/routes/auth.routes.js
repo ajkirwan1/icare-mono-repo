@@ -3,6 +3,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { pool } from "../db/db.js";
 import { sendPasswordResetEmail } from "../services/emails/auth.js";
+import { normalizeTermsAcceptedAt } from "../utils/terms-acceptance.js";
 
 const router = Router();
 const LOGIN_MAX_ATTEMPTS = 5;
@@ -32,7 +33,8 @@ const registerSchema = z.object({
     phoneCountryCode: z.string().trim().regex(/^\+[1-9]\d{0,3}$/).optional(),
     dateOfBirth: z.string().date().optional(),
     gdprConsent: z.literal(true),
-    marketingConsent: z.boolean().optional().default(false)
+    marketingConsent: z.boolean().optional().default(false),
+    termsAcceptedAt: z.string().trim().optional()
 });
 const loginSchema = z.object({
     email: z.string().trim().email(),
@@ -126,40 +128,85 @@ router.post("/register", async (req, res) => {
     try {
         const hashResult = await pool.query("SELECT crypt($1, gen_salt('bf', 10)) AS hash", [payload.password]);
         const passwordHash = String(hashResult.rows?.[0]?.hash || "");
+        const termsAcceptedAt = normalizeTermsAcceptedAt(payload.termsAcceptedAt);
         if (!passwordHash) {
             throw new Error("Password hash generation failed.");
         }
 
-        const insert = await pool.query(
-            `
-            INSERT INTO users (
-              email, email_verified, email_verified_at, password_hash,
-              phone, phone_verified, phone_verified_at, phone_country_code,
-              user_type, first_name, last_name, date_of_birth,
-              account_status, gdpr_consent, gdpr_consent_date, marketing_consent,
-              created_at, updated_at
-            ) VALUES (
-              $1, FALSE, NULL, $2,
-              $3, FALSE, NULL, $4,
-              $5, $6, $7, $8,
-              'active', $9, NOW(), $10,
-              NOW(), NOW()
-            )
-            RETURNING id, email, user_type
-            `,
-            [
-                payload.email.toLowerCase(),
-                passwordHash,
-                payload.phone,
-                payload.phoneCountryCode || null,
-                payload.userType,
-                payload.firstName,
-                payload.lastName,
-                payload.dateOfBirth || null,
-                payload.gdprConsent,
-                payload.marketingConsent
-            ]
-        );
+        let insert;
+        try {
+            insert = await pool.query(
+                `
+                INSERT INTO users (
+                  email, email_verified, email_verified_at, password_hash,
+                  phone, phone_verified, phone_verified_at, phone_country_code,
+                  user_type, first_name, last_name, date_of_birth,
+                  account_status, gdpr_consent, gdpr_consent_date, marketing_consent,
+                  terms_accepted_at,
+                  created_at, updated_at
+                ) VALUES (
+                  $1, FALSE, NULL, $2,
+                  $3, FALSE, NULL, $4,
+                  $5, $6, $7, $8,
+                  'active', $9, NOW(), $10, $11::timestamp,
+                  NOW(), NOW()
+                )
+                RETURNING id, email, user_type
+                `,
+                [
+                    payload.email.toLowerCase(),
+                    passwordHash,
+                    payload.phone,
+                    payload.phoneCountryCode || null,
+                    payload.userType,
+                    payload.firstName,
+                    payload.lastName,
+                    payload.dateOfBirth || null,
+                    payload.gdprConsent,
+                    payload.marketingConsent,
+                    termsAcceptedAt
+                ]
+            );
+        } catch (insertError) {
+            const isMissingTermsColumn = insertError?.code === "42703" &&
+                /terms_accepted_at/i.test(String(insertError?.message || ""));
+
+            if (!isMissingTermsColumn) {
+                throw insertError;
+            }
+
+            // Backward-compatible fallback for environments where migration 011 was not applied yet.
+            insert = await pool.query(
+                `
+                INSERT INTO users (
+                  email, email_verified, email_verified_at, password_hash,
+                  phone, phone_verified, phone_verified_at, phone_country_code,
+                  user_type, first_name, last_name, date_of_birth,
+                  account_status, gdpr_consent, gdpr_consent_date, marketing_consent,
+                  created_at, updated_at
+                ) VALUES (
+                  $1, FALSE, NULL, $2,
+                  $3, FALSE, NULL, $4,
+                  $5, $6, $7, $8,
+                  'active', $9, NOW(), $10,
+                  NOW(), NOW()
+                )
+                RETURNING id, email, user_type
+                `,
+                [
+                    payload.email.toLowerCase(),
+                    passwordHash,
+                    payload.phone,
+                    payload.phoneCountryCode || null,
+                    payload.userType,
+                    payload.firstName,
+                    payload.lastName,
+                    payload.dateOfBirth || null,
+                    payload.gdprConsent,
+                    payload.marketingConsent
+                ]
+            );
+        }
 
         const created = insert.rows[0];
         return res.status(201).json({
@@ -224,7 +271,9 @@ router.post("/login", async (req, res) => {
             SELECT
               id, email, password_hash, user_type, first_name, last_name,
               email_verified, phone_verified, account_status,
-              failed_login_attempts, account_locked_until
+              gdpr_consent, gdpr_consent_date,
+              failed_login_attempts, account_locked_until,
+              NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS terms_accepted_at
             FROM users
             WHERE email = $1 AND deleted_at IS NULL
             LIMIT 1
@@ -342,7 +391,8 @@ router.post("/login", async (req, res) => {
                     lastName: user.last_name,
                     emailVerified: Boolean(user.email_verified),
                     phoneVerified: Boolean(user.phone_verified),
-                    accountStatus: user.account_status
+                    accountStatus: user.account_status,
+                    termsAcceptedAt: user.terms_accepted_at || user.gdpr_consent_date || null
                 }
             }
         });

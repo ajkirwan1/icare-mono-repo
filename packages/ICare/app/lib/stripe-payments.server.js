@@ -231,6 +231,14 @@ function toMinorUnits(amount) {
     return Math.max(0, Math.round(Number(amount || 0) * 100));
 }
 
+function fromMinorUnits(amount) {
+    const value = Number(amount || 0);
+    if (!Number.isFinite(value)) {
+        return 0;
+    }
+    return value / 100;
+}
+
 export async function createStripeBookingAuthorization({
     customerId,
     paymentMethodId,
@@ -271,4 +279,115 @@ export async function cancelStripePaymentIntent(paymentIntentId) {
     return stripeApiRequest(`/payment_intents/${encodeURIComponent(paymentIntentId)}/cancel`, {
         method: "POST"
     });
+}
+
+export async function createStripeTestPaymentCheckoutSession({
+    customerId,
+    amount,
+    currency = "gbp",
+    successUrl,
+    cancelUrl
+}) {
+    const minorAmount = toMinorUnits(amount);
+    if (!minorAmount) {
+        throw new Error("Test payment amount must be greater than 0.");
+    }
+
+    return stripeApiRequest("/checkout/sessions", {
+        method: "POST",
+        form: {
+            mode: "payment",
+            customer: customerId,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            billing_address_collection: "required",
+            "payment_method_types[]": "card",
+            locale: "en-GB",
+            "line_items[0][quantity]": 1,
+            "line_items[0][price_data][currency]": currency,
+            "line_items[0][price_data][unit_amount]": minorAmount,
+            "line_items[0][price_data][product_data][name]": "ICare sandbox payment test",
+            "line_items[0][price_data][product_data][description]": "Local test checkout in Stripe sandbox",
+            "metadata[source]": "icare-payment-methods-test"
+        }
+    });
+}
+
+export async function createStripeBookingCheckoutSession({
+    customerId,
+    amount,
+    currency = "gbp",
+    successUrl,
+    cancelUrl,
+    metadata = {}
+}) {
+    const minorAmount = toMinorUnits(amount);
+    if (!minorAmount) {
+        throw new Error("Booking amount must be greater than 0.");
+    }
+
+    return stripeApiRequest("/checkout/sessions", {
+        method: "POST",
+        form: {
+            mode: "payment",
+            customer: customerId,
+            success_url: successUrl,
+            cancel_url: cancelUrl,
+            billing_address_collection: "required",
+            "payment_method_types[]": "card",
+            locale: "en-GB",
+            "line_items[0][quantity]": 1,
+            "line_items[0][price_data][currency]": currency,
+            "line_items[0][price_data][unit_amount]": minorAmount,
+            "line_items[0][price_data][product_data][name]": "ICare booking authorization",
+            "line_items[0][price_data][product_data][description]": "Booking hold to be captured after caregiver acceptance",
+            "payment_intent_data[capture_method]": "manual",
+            "payment_intent_data[description]": "iCare booking authorization",
+            "metadata[source]": "icare-booking-checkout",
+            "payment_intent_data[metadata][source]": "icare-booking-request",
+            ...Object.fromEntries(
+                Object.entries(metadata).flatMap(([key, value]) => ([
+                    [`metadata[${key}]`, value],
+                    [`payment_intent_data[metadata][${key}]`, value]
+                ]))
+            )
+        }
+    });
+}
+
+export async function getStripeCheckoutSessionWithPayment(sessionId) {
+    const id = String(sessionId || "").trim();
+    if (!id.startsWith("cs_")) {
+        throw new Error("Invalid Stripe checkout session id.");
+    }
+
+    const result = await stripeApiRequest(
+        `/checkout/sessions/${encodeURIComponent(id)}?expand[]=payment_intent&expand[]=payment_intent.latest_charge`
+    );
+
+    const paymentIntent = result?.payment_intent && typeof result.payment_intent === "object"
+        ? result.payment_intent
+        : null;
+    const latestCharge = paymentIntent?.latest_charge && typeof paymentIntent.latest_charge === "object"
+        ? paymentIntent.latest_charge
+        : null;
+
+    return {
+        id: result?.id || id,
+        checkoutStatus: String(result?.status || "").trim().toLowerCase(),
+        checkoutPaymentStatus: String(result?.payment_status || "").trim().toLowerCase(),
+        paymentStatus: String(result?.payment_status || paymentIntent?.status || "").trim().toLowerCase(),
+        paymentIntentStatus: String(paymentIntent?.status || "").trim().toLowerCase(),
+        currency: String(result?.currency || paymentIntent?.currency || "gbp").toUpperCase(),
+        amountTotal: fromMinorUnits(result?.amount_total || paymentIntent?.amount_received || paymentIntent?.amount || 0),
+        amountCaptured: fromMinorUnits(paymentIntent?.amount_received || 0),
+        paymentIntentId: paymentIntent?.id || "",
+        paymentMethodId: typeof paymentIntent?.payment_method === "string"
+            ? paymentIntent.payment_method
+            : paymentIntent?.payment_method?.id || "",
+        chargeId: latestCharge?.id || "",
+        createdAt: Number(result?.created || paymentIntent?.created || 0) > 0
+            ? new Date(Number(result?.created || paymentIntent?.created) * 1000).toISOString()
+            : null
+    };
 }

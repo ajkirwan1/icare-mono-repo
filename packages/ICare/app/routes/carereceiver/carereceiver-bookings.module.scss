@@ -1,78 +1,99 @@
+@use "../caregiver/theme" as cg;
+
 .page {
-    background: #f7f7f2;
-    border-radius: 16px;
-    padding: clamp(20px, 2.4vw, 32px);
+    background: cg.$bg;
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 22px;
+    padding: clamp(24px, 2.8vw, 38px);
+    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.08);
 }
 
 .breadcrumb {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 24px;
-    font-size: 14px;
+    margin-bottom: 28px;
+    font-size: 16px;
 
     a {
-        color: #778d43;
+        color: #000000;
         text-decoration: none;
     }
 
     span {
-        color: rgba(15, 23, 42, 0.72);
+        color: #000000;
     }
 
     strong {
-        color: #0b1220;
-        font-weight: 700;
+        color: #000000;
+        font-weight: 600;
     }
 }
 
 .pageHeader {
-    margin-bottom: 26px;
+    margin-bottom: 30px;
 }
 
 .pageTitle {
     margin: 0;
-    color: #0f172a;
-    font-size: 16px;
-    font-weight: 600;
+    color: #000000;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .pageSubtitle {
     margin: 12px 0 0;
-    color: #0f172a;
-    font-size: 14px;
+    color: #000000;
+    font-size: 16px;
     font-weight: 400;
 }
 
 .tabsSection {
-    border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+    background: cg.$surface;
+    border: 1px solid rgba(212, 138, 83, 0.35);
+    border-radius: 14px;
     display: flex;
-    align-items: flex-end;
-    gap: 2px;
+    align-items: center;
+    gap: 4px;
     overflow-x: auto;
+    padding: 4px;
 }
 
 .tabButton {
-    border: 0;
-    border-bottom: 3px solid transparent;
+    border: 1px solid transparent;
     background: transparent;
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 13px;
-    padding: 11px 18px 12px;
+    color: #000000;
+    font-size: 14px;
+    padding: 10px 14px;
     cursor: pointer;
     white-space: nowrap;
     text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        background: cg.$bg;
+        border-color: rgba(212, 138, 83, 0.55);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(212, 138, 83, 0.14);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(212, 138, 83, 0.45);
+        outline-offset: 2px;
+    }
 }
 
 .tabButtonActive {
-    color: #778d43;
-    font-weight: 600;
-    border-bottom-color: #b0c47f;
+    color: #000000;
+    font-weight: 700;
+    background: cg.$bg;
+    border-color: cg.$accent;
 }
 
 .topRow {
-    margin-top: 26px;
-    margin-bottom: 18px;
+    margin-top: 30px;
+    margin-bottom: 22px;
     display: flex;
     justify-content: space-between;
     gap: 12px;
@@ -82,9 +103,9 @@
 
 .pendingCount {
     margin: 0;
-    color: #0f172a;
-    font-size: 14px;
-    font-weight: 500;
+    color: #000000;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .sortWrap {
@@ -94,42 +115,60 @@
 }
 
 .sortLabel {
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 13px;
+    color: #000000;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .sortSelect {
-    border: 1px solid rgba(15, 23, 42, 0.1);
+    position: relative;
+    min-width: 240px;
+}
+
+.sortSelectControl {
+    border: 1px solid rgba(212, 138, 83, 0.35);
     background: #fff;
-    color: rgba(15, 23, 42, 0.72);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 13px;
-    cursor: pointer;
+    color: #000000;
+    border-radius: 12px;
+    padding: 10px 14px 10px 12px;
+    font-size: 14px;
+    min-height: 42px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.sortSelectControl:hover {
+    border-color: rgba(212, 138, 83, 0.64);
+    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.16);
+}
+
+.sortSelectControl:focus-visible {
+    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline-offset: 2px;
 }
 
 .list {
     display: grid;
-    gap: 10px;
+    gap: 14px;
 }
 
 .bookingCard {
-    border: 1px solid rgba(15, 23, 42, 0.1);
+    border: 1px solid rgba(212, 138, 83, 0.22);
     background: #fff;
-    border-radius: 8px;
-    min-height: 120px;
-    padding: 16px 18px;
+    border-radius: 14px;
+    min-height: 146px;
+    padding: 20px 22px;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    gap: 12px;
+    gap: 16px;
+    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.06);
 }
 
 .avatar {
-    width: 42px;
-    height: 42px;
+    width: 52px;
+    height: 52px;
     border-radius: 999px;
     overflow: hidden;
-    background: rgba(176, 196, 127, 0.2);
+    background: cg.$soft;
 
     img {
         width: 100%;
@@ -159,9 +198,9 @@
 
 .name {
     margin: 0;
-    color: #0f172a;
-    font-size: 14px;
-    font-weight: 600;
+    color: #000000;
+    font-size: 17px;
+    font-weight: 700;
 }
 
 .amountWrap {
@@ -170,22 +209,22 @@
 
 .amount {
     margin: 0;
-    color: #0f172a;
-    font-size: 32px;
+    color: #000000;
+    font-size: 36px;
     font-weight: 700;
     line-height: 1;
 }
 
 .payoutNote {
     margin: 3px 0 0;
-    font-size: 10px;
-    color: rgba(15, 23, 42, 0.72);
+    font-size: 12px;
+    color: #000000;
 }
 
 .dateTime {
     margin: 8px 0 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 12px;
+    color: #000000;
+    font-size: 14px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -208,12 +247,12 @@
 
 .details {
     margin: 5px 0 0;
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 11px;
+    color: #000000;
+    font-size: 13px;
 }
 
 .footerRow {
-    margin-top: 11px;
+    margin-top: 14px;
     display: flex;
     justify-content: space-between;
     gap: 14px;
@@ -223,19 +262,19 @@
 
 .actions {
     display: flex;
-    gap: 7px;
+    gap: 9px;
     flex-wrap: wrap;
 }
 
 .acceptButton {
-    min-width: 72px;
-    min-height: 26px;
+    min-width: 88px;
+    min-height: 36px;
     border: 0;
-    border-radius: 6px;
-    background: #b0c47f;
-    color: #fff;
-    padding: 5px 12px;
-    font-size: 11px;
+    border-radius: 10px;
+    background: #d8bea6;
+    color: #000000;
+    padding: 8px 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -245,20 +284,38 @@
 }
 
 .outlineButton {
-    border: 1px solid rgba(15, 23, 42, 0.1);
-    border-radius: 6px;
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 10px;
     background: #fff;
-    color: #0f172a;
+    color: #000000;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 66px;
-    min-height: 26px;
-    padding: 5px 12px;
-    font-size: 11px;
+    min-width: 90px;
+    min-height: 36px;
+    padding: 8px 14px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        background: #f7eee4;
+        border-color: rgba(212, 138, 83, 0.42);
+        box-shadow: 0 4px 10px rgba(212, 138, 83, 0.12);
+    }
+
+    &:active {
+        transform: translateY(1px) scale(0.99);
+        background: #f1e4d6;
+        box-shadow: 0 2px 6px rgba(212, 138, 83, 0.18);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(212, 138, 83, 0.45);
+        outline-offset: 2px;
+    }
 }
 
 .cancelTrigger {
@@ -269,23 +326,23 @@
 
 .countdown {
     margin: 0;
-    color: #f59e0b;
-    font-size: 11px;
+    color: #000000;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .declinedPill {
     display: inline-flex;
     border-radius: 999px;
-    padding: 2px 10px;
-    font-size: 11px;
+    padding: 5px 12px;
+    font-size: 13px;
     font-weight: 500;
     background: #f3f4f6;
-    color: #6b7280;
+    color: #000000;
 }
 
 .pagination {
-    margin-top: 30px;
+    margin-top: 36px;
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -294,13 +351,13 @@
 
 .pageButton,
 .pageNumber {
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    border-radius: 8px;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    border-radius: 10px;
     background: transparent;
-    color: rgba(15, 23, 42, 0.72);
-    height: 36px;
-    padding: 0 16px;
-    font-size: 13px;
+    color: #000000;
+    height: 42px;
+    padding: 0 18px;
+    font-size: 15px;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
@@ -314,23 +371,23 @@
 }
 
 .pageNumber {
-    min-width: 36px;
+    min-width: 42px;
     padding: 0;
-    color: #0f172a;
+    color: #000000;
 }
 
 .currentPage {
-    background: #b0c47f;
-    border-color: #b0c47f;
-    color: #fff;
+    background: cg.$soft;
+    border-color: cg.$accent;
+    color: #000000;
     font-weight: 600;
 }
 
 .toastSuccess {
     margin: 0 0 14px;
-    border: 1px solid rgba(92, 127, 38, 0.25);
-    background: rgba(176, 196, 127, 0.22);
-    color: #2f4d12;
+    border: 1px solid rgba(212, 138, 83, 0.25);
+    background: rgba(212, 138, 83, 0.14);
+    color: #5d4734;
     border-radius: 10px;
     padding: 10px 12px;
     font-size: 13px;
@@ -351,27 +408,27 @@
     width: min(520px, 100%);
     border-radius: 14px;
     background: #fff;
-    border: 1px solid rgba(15, 23, 42, 0.12);
-    box-shadow: 0 18px 48px rgba(15, 23, 42, 0.25);
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    box-shadow: 0 18px 48px rgba(165, 100, 46, 0.24);
     padding: 18px;
 }
 
 .modalTitle {
     margin: 0;
-    color: #0f172a;
+    color: #000000;
     font-size: 20px;
     font-weight: 700;
 }
 
 .modalText {
     margin: 10px 0 0;
-    color: rgba(15, 23, 42, 0.86);
+    color: #000000;
     font-size: 14px;
 }
 
 .modalMeta {
     margin: 10px 0 0;
-    color: rgba(15, 23, 42, 0.72);
+    color: rgba(0, 0, 0, 0.72);
     font-size: 13px;
     font-weight: 600;
 }
@@ -380,6 +437,56 @@
     margin: 12px 0 0;
     color: #b42318;
     font-size: 13px;
+}
+
+.modalForm {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+}
+
+.modalField {
+    display: grid;
+    gap: 6px;
+}
+
+.modalField > span {
+    color: #000000;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modalSelect {
+    position: relative;
+}
+
+.modalSelectControl {
+    border: 1px solid rgba(212, 138, 83, 0.35);
+    background: #fff;
+    color: #000000;
+    border-radius: 10px;
+    padding: 9px 12px;
+    min-height: 40px;
+    font-size: 14px;
+}
+
+.modalTextarea {
+    width: 100%;
+    border: 1px solid rgba(212, 138, 83, 0.35);
+    border-radius: 10px;
+    background: #fff;
+    color: #000000;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.45;
+    min-height: 82px;
+    resize: vertical;
+}
+
+.modalTextarea:focus-visible,
+.modalSelectControl:focus-visible {
+    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline-offset: 2px;
 }
 
 .modalActions {
@@ -401,8 +508,8 @@
 }
 
 .modalSecondary {
-    border: 1px solid rgba(15, 23, 42, 0.14);
-    color: #0f172a;
+    border: 1px solid rgba(212, 138, 83, 0.24);
+    color: #000000;
     background: #fff;
 }
 
@@ -424,6 +531,7 @@
 
     .sortSelect {
         flex: 1;
+        min-width: 0;
     }
 
     .bookingCard {

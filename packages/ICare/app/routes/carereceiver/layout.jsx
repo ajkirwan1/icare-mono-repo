@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { Outlet } from "react-router";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Outlet, useLocation } from "react-router";
 import ICareAppNavbar from "~/components/application/app-navbar/icare-app-navbar";
 import { careReceiverNavItems } from "~/components/application/app-navbar/nav-items";
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
@@ -30,25 +30,41 @@ function resolveWsUrl() {
 }
 
 export default function CarereceiverLayout() {
+    const location = useLocation();
     const [unreadCount, setUnreadCount] = useState(0);
 
+    const loadUnreadCount = useCallback((signal) => {
+        return getUnreadMessagesCount({ signal }).then((result) => {
+            setUnreadCount(Number(result.unreadCount || 0));
+        });
+    }, []);
+
     useEffect(() => {
-        let mounted = true;
         const controller = new AbortController();
-
-        async function loadUnreadCount() {
-            const result = await getUnreadMessagesCount({ signal: controller.signal });
-            if (mounted) {
-                setUnreadCount(Number(result.unreadCount || 0));
-            }
-        }
-
-        loadUnreadCount();
+        loadUnreadCount(controller.signal).catch(() => {
+            // ignore fetch failures, fallback behavior is handled in data client
+        });
         return () => {
-            mounted = false;
             controller.abort();
         };
-    }, []);
+    }, [location.pathname, location.search, loadUnreadCount]);
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return undefined;
+        }
+
+        const handler = () => {
+            const controller = new AbortController();
+            loadUnreadCount(controller.signal).catch(() => { });
+            window.setTimeout(() => controller.abort(), 3000);
+        };
+
+        window.addEventListener("carereceiver:messages_state_changed", handler);
+        return () => {
+            window.removeEventListener("carereceiver:messages_state_changed", handler);
+        };
+    }, [loadUnreadCount]);
 
     useEffect(() => {
         const wsUrl = resolveWsUrl();
