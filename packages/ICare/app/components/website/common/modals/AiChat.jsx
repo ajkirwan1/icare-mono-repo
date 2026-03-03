@@ -13,9 +13,10 @@ export default function AiChat() {
     const POP_SOUND_FALLBACK_VOLUME = 1;
     const CHAT_Z_INDEX = 12000;
     const BRAND_GREEN = "rgb(119, 141, 67)";
-    const MOBILE_LAUNCHER_BOTTOM = "calc(26px + env(safe-area-inset-bottom, 0px))";
+    const MOBILE_LAUNCHER_BOTTOM = 20;
     const MOBILE_CHAT_TOP = "calc(var(--navbar-height, 92px) + 8px)";
     const MOBILE_CHAT_BOTTOM = "calc(8px + env(safe-area-inset-bottom, 0px))";
+    const DESKTOP_CHAT_BOTTOM = 20;
 
     const quickActions = [
         { label: "View FAQs", href: "/frequently-asked-questions", type: "link" },
@@ -528,10 +529,6 @@ export default function AiChat() {
                     bottom: isMobile ? MOBILE_LAUNCHER_BOTTOM : 20,
                     zIndex: CHAT_Z_INDEX,
                     display: open || (isMobile && mobileMenuOpen) ? "none" : undefined,
-                    transform: "translateZ(0)",
-                    WebkitTransform: "translateZ(0)",
-                    backfaceVisibility: "hidden",
-                    WebkitBackfaceVisibility: "hidden",
                 }}
             >
                 <button
@@ -580,7 +577,7 @@ export default function AiChat() {
                     style={{
                         position: "fixed",
                         right: expanded ? "auto" : (isMobile ? 8 : 24),
-                        bottom: expanded ? "auto" : (isMobile ? MOBILE_CHAT_BOTTOM : 96),
+                        bottom: expanded ? "auto" : (isMobile ? MOBILE_CHAT_BOTTOM : DESKTOP_CHAT_BOTTOM),
                         left: expanded ? "50%" : (isMobile ? 8 : "auto"),
                         top: expanded ? "50%" : (isMobile ? MOBILE_CHAT_TOP : "auto"),
                         width: expanded ? "min(800px, calc(100vw - 40px))" : (isMobile ? "auto" : 360),
@@ -968,16 +965,14 @@ export default function AiChat() {
 
             <style>{`
                 @keyframes icareLauncherIn {
-                    from { opacity: 0; transform: translateX(14px) scale(0.98); }
-                    to { opacity: 1; transform: translateX(0); }
+                    from { opacity: 0; }
+                    to { opacity: 1; }
                 }
 
                 .icare-chat-launcher-wrap {
                     opacity: 0;
-                    transform: translateX(14px) scale(0.98);
                     pointer-events: none;
-                    will-change: transform, opacity;
-                    contain: layout paint;
+                    will-change: opacity;
                 }
 
                 .icare-chat-launcher-wrap--visible {
