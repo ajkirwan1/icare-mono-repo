@@ -285,12 +285,17 @@
 
 .mobileSliderArrowIcon {
     color: #fff;
-    font-size: 1.7rem;
+    font-size: 1rem;
+    width: 16px;
+    height: 16px;
     line-height: 1;
     font-weight: 700;
-    position: relative;
-    top: -1px;
     pointer-events: none;
+}
+
+/* Use icon glyph only; avoid pseudo-arrow overlap artifacts */
+.mobileSliderArrow::after {
+    display: none;
 }
 
 @media (min-width: 921px) {
@@ -361,7 +366,16 @@
 
 .featuredPriscillaImage {
     object-fit: cover;
-    object-position: center top;
+    object-position: 50% 6%;
+    transform: none;
+    transform-origin: center top;
+}
+
+@media (max-width: 920px) {
+    .featuredPriscillaImage {
+        object-position: 50% 8%;
+        transform: none;
+    }
 }
 
 .featuredCardMeta {

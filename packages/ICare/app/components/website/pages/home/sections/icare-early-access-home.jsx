@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import styles from "./icare-early-access.module.scss";
 
 const DEFAULT_WHATSAPP_NUMBER = "447448016876";
@@ -475,6 +475,25 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     }, [cancelAutoplayAnimation, cancelSlideAnimation]);
 
     const expandedCard = featuredCarers.find((carer) => carer.cardId === expandedId) || null;
+    const arrowBaseStyle = {
+        display: "inline-flex",
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)",
+        width: "43px",
+        height: "43px",
+        borderRadius: "999px",
+        border: "0",
+        background: "rgb(119, 141, 67)",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 40,
+        cursor: "pointer",
+        opacity: 0.98
+    };
+    const desktopArrowOffset = "-100px";
+    const mobileArrowOffset = "12px";
+    const arrowOffset = isMobileViewport ? mobileArrowOffset : desktopArrowOffset;
 
     return (
         <section id="featured-carers" aria-label="Featured carers" className={styles.wrap}>
@@ -489,8 +508,9 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                     className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowPrev}`}
                     aria-label="Show previous carer"
                     onClick={() => scrollFeatured("prev")}
+                    style={{ ...arrowBaseStyle, left: arrowOffset }}
                 >
-                    <span className={styles.mobileSliderArrowIcon} aria-hidden="true">‹</span>
+                    <FontAwesomeIcon icon={faChevronLeft} className={styles.mobileSliderArrowIcon} aria-hidden="true" />
                 </button>
 
                 <div
@@ -519,7 +539,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                         }}
                     >
                         {featuredCarers.map((carer) => {
-                            const isPriscillaCard = carer.cardId.includes("priscilla");
+                            const isPriscillaCard = String(carer.name || "").toLowerCase().includes("priscilla");
                             const imageClassName = isPriscillaCard
                                 ? `${styles.featuredLynnImage} ${styles.featuredPriscillaImage}`
                                 : styles.featuredLynnImage;
@@ -542,6 +562,10 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                             src={carer.photoUrl || "/images/Priscilla.jpeg"}
                                             alt={carer.photoAlt}
                                             loading="lazy"
+                                            style={isPriscillaCard ? {
+                                                objectFit: "cover",
+                                                objectPosition: "50% 6%"
+                                            } : undefined}
                                         />
                                         <div className={styles.featuredCardMeta}>
                                             <p className={styles.featuredLynnTitle}>{carer.name}</p>
@@ -613,8 +637,9 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                     className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowNext}`}
                     aria-label="Show next carer"
                     onClick={() => scrollFeatured("next")}
+                    style={{ ...arrowBaseStyle, right: arrowOffset }}
                 >
-                    <span className={styles.mobileSliderArrowIcon} aria-hidden="true">›</span>
+                    <FontAwesomeIcon icon={faChevronRight} className={styles.mobileSliderArrowIcon} aria-hidden="true" />
                 </button>
 
                 {isMobileViewport && expandedCard && (
