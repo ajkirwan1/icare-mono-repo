@@ -55,7 +55,7 @@ export default function SafeguardingReportId() {
     return (
         <section>
             <h1>Safeguarding Report</h1>
-            <p><Link to="/admin/safegaurding">Back to safeguarding queue</Link></p>
+            <p><Link to="/admin/safeguarding">Back to safeguarding queue</Link></p>
 
             {loading ? <p>Loading report...</p> : null}
             {error ? <p>{error}</p> : null}
