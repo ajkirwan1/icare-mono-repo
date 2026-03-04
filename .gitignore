@@ -13,3 +13,4 @@ icare-backend/**/obj/
 icare-backend/**/*.user
 icare-backend/**/*.suo
 icare-backend/.vs/
+.agent-backups/
