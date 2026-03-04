@@ -3,6 +3,11 @@ import { Router } from "express";
 import Stripe from "stripe";
 import { z } from "zod";
 import { pool } from "../db/db.js";
+import {
+    clampPercent,
+    getPlatformFeePercentFromEnv,
+    readAdminSystemSettings
+} from "../domains/admin/system-settings/system-settings.repository.js";
 
 const router = Router();
 
@@ -16,7 +21,6 @@ const CAREGIVER_EMAIL_ALIAS_TO_ID = {
 
 let onboardingTableReady = false;
 let adminVerificationQueueTableReady = false;
-let adminSystemSettingsTableReady = false;
 
 const identitySchema = z.object({
     documentType: z.enum(["uk_passport", "driving_licence", "residence_permit", "other"]).default("uk_passport"),
@@ -51,17 +55,6 @@ const verificationDecisionSchema = z.object({
     reviewedBy: z.string().trim().max(255).optional()
 });
 
-const systemSettingsUpdateSchema = z.object({
-    platformFeePercent: z.number().min(0).max(100).optional(),
-    bookingServiceFeePercent: z.number().min(0).max(100).optional(),
-    identityRequired: z.boolean().optional(),
-    rightToWorkRequired: z.boolean().optional(),
-    dbsRequired: z.boolean().optional()
-}).refine(
-    (value) => Object.values(value).some((entry) => entry !== undefined),
-    { message: "At least one system setting field must be provided." }
-);
-
 function getStripeClientIfConfigured() {
     const secretKey = String(process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST || "").trim();
     if (!secretKey) {
@@ -72,60 +65,7 @@ function getStripeClientIfConfigured() {
 }
 
 function getPlatformFeePercent() {
-    const parsed = Number(process.env.STRIPE_PLATFORM_FEE_PERCENT || 15);
-    if (!Number.isFinite(parsed) || parsed < 0 || parsed > 100) {
-        return 15;
-    }
-    return Math.round(parsed * 100) / 100;
-}
-
-function clampPercent(value, fallback = 0) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return fallback;
-    }
-    return Math.max(0, Math.min(100, Math.round(parsed * 100) / 100));
-}
-
-function buildDefaultSystemSettings() {
-    return {
-        payments: {
-            platformFeePercent: clampPercent(getPlatformFeePercent(), 15),
-            bookingServiceFeePercent: 5
-        },
-        verification: {
-            identityRequired: true,
-            rightToWorkRequired: true,
-            dbsRequired: false
-        },
-        meta: {
-            updatedAt: null,
-            updatedBy: ""
-        }
-    };
-}
-
-function mapSystemSettingsRecord(row) {
-    const defaults = buildDefaultSystemSettings();
-    if (!row) {
-        return defaults;
-    }
-
-    return {
-        payments: {
-            platformFeePercent: clampPercent(row.platform_fee_percent, defaults.payments.platformFeePercent),
-            bookingServiceFeePercent: clampPercent(row.booking_service_fee_percent, defaults.payments.bookingServiceFeePercent)
-        },
-        verification: {
-            identityRequired: row.identity_required == null ? defaults.verification.identityRequired : Boolean(row.identity_required),
-            rightToWorkRequired: row.right_to_work_required == null ? defaults.verification.rightToWorkRequired : Boolean(row.right_to_work_required),
-            dbsRequired: row.dbs_required == null ? defaults.verification.dbsRequired : Boolean(row.dbs_required)
-        },
-        meta: {
-            updatedAt: row.updated_at || null,
-            updatedBy: String(row.updated_by || "")
-        }
-    };
+    return getPlatformFeePercentFromEnv();
 }
 
 function normalizeStatus(value) {
@@ -237,79 +177,6 @@ async function ensureAdminVerificationQueueTable() {
     `);
 
     adminVerificationQueueTableReady = true;
-}
-
-async function ensureAdminSystemSettingsTable() {
-    if (adminSystemSettingsTableReady) {
-        return;
-    }
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS admin_system_settings (
-        id SMALLINT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
-        platform_fee_percent NUMERIC(5, 2) NOT NULL DEFAULT 15,
-        booking_service_fee_percent NUMERIC(5, 2) NOT NULL DEFAULT 5,
-        identity_required BOOLEAN NOT NULL DEFAULT TRUE,
-        right_to_work_required BOOLEAN NOT NULL DEFAULT TRUE,
-        dbs_required BOOLEAN NOT NULL DEFAULT FALSE,
-        updated_by TEXT,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await pool.query(
-        `
-        INSERT INTO admin_system_settings (
-          id,
-          platform_fee_percent,
-          booking_service_fee_percent,
-          identity_required,
-          right_to_work_required,
-          dbs_required,
-          updated_by
-        ) VALUES (1, $1, 5, TRUE, TRUE, FALSE, 'system:init')
-        ON CONFLICT (id) DO NOTHING
-        `,
-        [clampPercent(getPlatformFeePercent(), 15)]
-    );
-
-    adminSystemSettingsTableReady = true;
-}
-
-async function readAdminSystemSettings() {
-    const defaults = buildDefaultSystemSettings();
-
-    try {
-        await ensureAdminSystemSettingsTable();
-
-        const result = await pool.query(
-            `
-            SELECT
-              id,
-              platform_fee_percent,
-              booking_service_fee_percent,
-              identity_required,
-              right_to_work_required,
-              dbs_required,
-              updated_by,
-              created_at,
-              updated_at
-            FROM admin_system_settings
-            WHERE id = 1
-            LIMIT 1
-            `
-        );
-
-        return mapSystemSettingsRecord(result.rows?.[0] || null);
-    } catch (error) {
-        if (isMissingSchemaError(error)) {
-            return defaults;
-        }
-
-        console.warn("[caregiver-onboarding] read admin system settings fallback:", error?.message || error);
-        return defaults;
-    }
 }
 
 async function resolveCaregiverIdentity(req) {
@@ -2328,176 +2195,6 @@ router.get("/admin/audit-log", async (req, res) => {
             error: {
                 code: "admin_audit_log_fetch_failed",
                 message: "Could not load audit log."
-            }
-        });
-    }
-});
-
-router.get("/admin/system-settings", async (req, res) => {
-    try {
-        const settings = await readAdminSystemSettings();
-        const [queueSummary, usersSummary] = await Promise.all([
-            querySafe(
-                `
-                SELECT
-                  COUNT(*) FILTER (WHERE status = 'pending')::int AS pending_verifications,
-                  COUNT(*) FILTER (WHERE status = 'approved')::int AS approved_verifications,
-                  COUNT(*) FILTER (WHERE status = 'rejected')::int AS rejected_verifications
-                FROM admin_verification_queue
-                `,
-                []
-            ),
-            querySafe(
-                `
-                SELECT
-                  COUNT(*)::int AS total_users,
-                  COUNT(*) FILTER (WHERE account_status = 'active')::int AS active_users
-                FROM users
-                WHERE deleted_at IS NULL
-                `,
-                []
-            )
-        ]);
-
-        const queueRow = queueSummary.rows?.[0] || {};
-        const usersRow = usersSummary.rows?.[0] || {};
-
-        return res.json({
-            data: {
-                payments: settings.payments,
-                verification: settings.verification,
-                meta: settings.meta,
-                platform: {
-                    stripeConfigured: Boolean(getStripeClientIfConfigured()),
-                    apiEnvironment: String(process.env.NODE_ENV || "development"),
-                    totalUsers: asInteger(usersRow.total_users),
-                    activeUsers: asInteger(usersRow.active_users),
-                    pendingVerifications: asInteger(queueRow.pending_verifications),
-                    approvedVerifications: asInteger(queueRow.approved_verifications),
-                    rejectedVerifications: asInteger(queueRow.rejected_verifications)
-                }
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] GET admin system settings failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "admin_system_settings_fetch_failed",
-                message: "Could not load system settings."
-            }
-        });
-    }
-});
-
-router.patch("/admin/system-settings", async (req, res) => {
-    try {
-        const parsed = systemSettingsUpdateSchema.safeParse(req.body || {});
-        if (!parsed.success) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_payload",
-                    message: "System settings payload is invalid.",
-                    details: parsed.error.flatten()
-                }
-            });
-        }
-
-        await ensureAdminSystemSettingsTable();
-        const current = await readAdminSystemSettings();
-        const payload = parsed.data;
-
-        const nextPlatformFeePercent = payload.platformFeePercent === undefined
-            ? clampPercent(current?.payments?.platformFeePercent, getPlatformFeePercent())
-            : clampPercent(payload.platformFeePercent, getPlatformFeePercent());
-
-        const nextBookingServiceFeePercent = payload.bookingServiceFeePercent === undefined
-            ? clampPercent(current?.payments?.bookingServiceFeePercent, 5)
-            : clampPercent(payload.bookingServiceFeePercent, 5);
-
-        const nextIdentityRequired = payload.identityRequired === undefined
-            ? Boolean(current?.verification?.identityRequired)
-            : Boolean(payload.identityRequired);
-
-        const nextRightToWorkRequired = payload.rightToWorkRequired === undefined
-            ? Boolean(current?.verification?.rightToWorkRequired)
-            : Boolean(payload.rightToWorkRequired);
-
-        const nextDbsRequired = payload.dbsRequired === undefined
-            ? Boolean(current?.verification?.dbsRequired)
-            : Boolean(payload.dbsRequired);
-
-        const updatedBy = String(req.get("x-user-email") || req.get("x-user-id") || "admin").trim();
-
-        const updated = await pool.query(
-            `
-            UPDATE admin_system_settings
-            SET
-              platform_fee_percent = $2,
-              booking_service_fee_percent = $3,
-              identity_required = $4,
-              right_to_work_required = $5,
-              dbs_required = $6,
-              updated_by = $7,
-              updated_at = NOW()
-            WHERE id = 1
-            RETURNING
-              id,
-              platform_fee_percent,
-              booking_service_fee_percent,
-              identity_required,
-              right_to_work_required,
-              dbs_required,
-              updated_by,
-              created_at,
-              updated_at
-            `,
-            [
-                1,
-                nextPlatformFeePercent,
-                nextBookingServiceFeePercent,
-                nextIdentityRequired,
-                nextRightToWorkRequired,
-                nextDbsRequired,
-                updatedBy
-            ]
-        );
-
-        const mapped = mapSystemSettingsRecord(updated.rows?.[0] || null);
-
-        return res.json({
-            data: {
-                payments: mapped.payments,
-                verification: mapped.verification,
-                meta: mapped.meta
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] PATCH admin system settings failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "admin_system_settings_update_failed",
-                message: "Could not update system settings."
-            }
-        });
-    }
-});
-
-router.get("/platform/settings", async (req, res) => {
-    try {
-        const settings = await readAdminSystemSettings();
-        return res.json({
-            data: {
-                payments: settings.payments,
-                verification: settings.verification,
-                meta: settings.meta
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] GET platform settings failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "platform_settings_fetch_failed",
-                message: "Could not load platform settings."
             }
         });
     }

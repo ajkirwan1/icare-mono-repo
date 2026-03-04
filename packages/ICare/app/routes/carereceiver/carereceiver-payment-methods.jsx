@@ -1,4 +1,4 @@
-import { Form, Link, useActionData, useLoaderData, useNavigation, redirect } from "react-router";
+import { Form, Link, useActionData, useLoaderData, useLocation, useNavigate, useNavigation, redirect } from "react-router";
 import {
     createStripeTestPaymentCheckoutSession,
     createStripeSetupCheckoutSession,
@@ -10,8 +10,10 @@ import {
     listStripePaymentMethods,
     setStripeDefaultPaymentMethod
 } from "~/lib/stripe-payments.server";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./carereceiver-pages.css";
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function parseTestAmount(raw) {
     const normalized = String(raw || "").replace(",", ".").trim();
@@ -30,6 +32,30 @@ function formatCurrency(value, currency = "GBP") {
         style: "currency",
         currency: String(currency || "GBP").toUpperCase()
     }).format(Number(value || 0));
+}
+
+function normalizeUserId(value) {
+    const userId = String(value || "").trim();
+    return UUID_RE.test(userId) ? userId : "";
+}
+
+function buildPaymentSettingsPath({ userId = "", params = {} } = {}) {
+    const search = new URLSearchParams();
+    const normalizedUserId = normalizeUserId(userId);
+    if (normalizedUserId) {
+        search.set("uid", normalizedUserId);
+    }
+
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== null && value !== undefined && value !== "") {
+            search.set(String(key), String(value));
+        }
+    });
+
+    const suffix = search.toString();
+    return suffix
+        ? `/carereceiver/settings/payment?${suffix}`
+        : "/carereceiver/settings/payment";
 }
 
 function messageFromQuery(url) {
@@ -65,6 +91,7 @@ function redirectWithCookie(path, setCookie) {
 
 export async function loader({ request }) {
     const url = new URL(request.url);
+    const viewerUserId = normalizeUserId(url.searchParams.get("uid"));
     const configured = isStripeConfigured();
     const publishableKey = getStripePublishableKey();
     const paymentTestStatus = String(url.searchParams.get("payment_test") || "").trim().toLowerCase();
@@ -75,6 +102,7 @@ export async function loader({ request }) {
             stripeConfigured: false,
             publishableKey,
             cards: [],
+            viewerUserId,
             notice: messageFromQuery(url),
             testPayment: null,
             error: "Stripe is not configured yet. Add sandbox keys to enable real payment methods."
@@ -82,7 +110,7 @@ export async function loader({ request }) {
     }
 
     try {
-        const { customerId, setCookie } = await ensureStripeCustomer(request);
+        const { customerId, setCookie } = await ensureStripeCustomer(request, { userId: viewerUserId });
         const cards = await listStripePaymentMethods(customerId);
         let testPayment = null;
 
@@ -117,6 +145,7 @@ export async function loader({ request }) {
             publishableKey,
             customerId,
             cards,
+            viewerUserId,
             notice: messageFromQuery(url),
             testPayment,
             error: null
@@ -137,6 +166,7 @@ export async function loader({ request }) {
             stripeConfigured: true,
             publishableKey,
             cards: [],
+            viewerUserId,
             notice: messageFromQuery(url),
             testPayment: null,
             error: error?.message || "Could not load payment methods from Stripe."
@@ -146,6 +176,8 @@ export async function loader({ request }) {
 
 export async function action({ request }) {
     const formData = await request.formData();
+    const currentUrl = new URL(request.url);
+    const viewerUserId = normalizeUserId(formData.get("userId") || currentUrl.searchParams.get("uid"));
     const intent = String(formData.get("intent") || "");
     const configured = isStripeConfigured();
 
@@ -157,19 +189,23 @@ export async function action({ request }) {
     }
 
     try {
-        const { customerId, setCookie } = await ensureStripeCustomer(request);
+        const { customerId, setCookie } = await ensureStripeCustomer(request, { userId: viewerUserId });
 
         if (intent === "start_setup") {
-            const currentUrl = new URL(request.url);
-            const successUrl = `${currentUrl.origin}/carereceiver/settings/payment?setup=success`;
-            const cancelUrl = `${currentUrl.origin}/carereceiver/settings/payment?setup=cancel`;
+            const successUrl = `${currentUrl.origin}${buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { setup: "success" }
+            })}`;
+            const cancelUrl = `${currentUrl.origin}${buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { setup: "cancel" }
+            })}`;
             const session = await createStripeSetupCheckoutSession({ customerId, successUrl, cancelUrl });
 
             return redirectWithCookie(session.url, setCookie);
         }
 
         if (intent === "start_test_payment") {
-            const currentUrl = new URL(request.url);
             const amount = parseTestAmount(formData.get("testAmount"));
 
             if (!amount) {
@@ -179,8 +215,15 @@ export async function action({ request }) {
                 };
             }
 
-            const successUrl = `${currentUrl.origin}/carereceiver/settings/payment?payment_test=success&session_id={CHECKOUT_SESSION_ID}`;
-            const cancelUrl = `${currentUrl.origin}/carereceiver/settings/payment?payment_test=cancel`;
+            const successBasePath = buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { payment_test: "success" }
+            });
+            const successUrl = `${currentUrl.origin}${successBasePath}${successBasePath.includes("?") ? "&" : "?"}session_id={CHECKOUT_SESSION_ID}`;
+            const cancelUrl = `${currentUrl.origin}${buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { payment_test: "cancel" }
+            })}`;
             const session = await createStripeTestPaymentCheckoutSession({
                 customerId,
                 amount,
@@ -212,7 +255,10 @@ export async function action({ request }) {
 
         if (intent === "set_default") {
             await setStripeDefaultPaymentMethod(customerId, paymentMethodId);
-            return redirectWithCookie("/carereceiver/settings/payment?pm=default", setCookie);
+            return redirectWithCookie(buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { pm: "default" }
+            }), setCookie);
         }
 
         if (intent === "remove") {
@@ -225,7 +271,10 @@ export async function action({ request }) {
                 }
             }
 
-            return redirectWithCookie("/carereceiver/settings/payment?pm=removed", setCookie);
+            return redirectWithCookie(buildPaymentSettingsPath({
+                userId: viewerUserId,
+                params: { pm: "removed" }
+            }), setCookie);
         }
 
         return {
@@ -255,14 +304,50 @@ function statusChip(card) {
 export default function CarereceiverPaymentMethods() {
     const loaderData = useLoaderData();
     const actionData = useActionData();
+    const navigate = useNavigate();
+    const location = useLocation();
     const navigation = useNavigation();
     const isSubmitting = navigation.state === "submitting";
     const [cardholderName, setCardholderName] = useState("");
     const [cardPostcode, setCardPostcode] = useState("");
 
     const [testAmount, setTestAmount] = useState("1.00");
-    const { cards, notice, error, stripeConfigured, publishableKey, testPayment } = loaderData;
+    const { cards, notice, error, stripeConfigured, publishableKey, testPayment, viewerUserId = "" } = loaderData;
+    const [localUserId, setLocalUserId] = useState(normalizeUserId(viewerUserId));
     const expiredCard = cards.find((card) => card.isExpired);
+    const resolvedUserId = normalizeUserId(localUserId || viewerUserId);
+
+    useEffect(() => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        try {
+            const rawUser = window.localStorage.getItem("icare_user");
+            const parsed = rawUser ? JSON.parse(rawUser) : null;
+            const nextUserId = normalizeUserId(parsed?.id);
+            if (nextUserId) {
+                setLocalUserId(nextUserId);
+            }
+        } catch {
+            // Ignore malformed local storage payload.
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!resolvedUserId) {
+            return;
+        }
+
+        const search = new URLSearchParams(location.search);
+        const currentQueryUserId = normalizeUserId(search.get("uid"));
+        if (currentQueryUserId === resolvedUserId) {
+            return;
+        }
+
+        search.set("uid", resolvedUserId);
+        navigate(`${location.pathname}?${search.toString()}`, { replace: true });
+    }, [location.pathname, location.search, navigate, resolvedUserId]);
 
     return (
         <div className="cr-page">
@@ -343,6 +428,7 @@ export default function CarereceiverPaymentMethods() {
                                             <Form method="post">
                                                 <input type="hidden" name="intent" value="set_default" />
                                                 <input type="hidden" name="paymentMethodId" value={card.id} />
+                                                <input type="hidden" name="userId" value={resolvedUserId} />
                                                 <button type="submit" className="cr-button cr-button--secondary" disabled={card.isDefault || isSubmitting}>
                                                     Default
                                                 </button>
@@ -351,6 +437,7 @@ export default function CarereceiverPaymentMethods() {
                                             <Form method="post">
                                                 <input type="hidden" name="intent" value="remove" />
                                                 <input type="hidden" name="paymentMethodId" value={card.id} />
+                                                <input type="hidden" name="userId" value={resolvedUserId} />
                                                 <button type="submit" className="cr-button cr-button--orange-outline" disabled={isSubmitting}>
                                                     Remove
                                                 </button>
@@ -367,6 +454,7 @@ export default function CarereceiverPaymentMethods() {
                     <h2>Add New Card</h2>
                     <Form method="post" className="cr-add-card-grid">
                         <input type="hidden" name="intent" value="start_setup" />
+                        <input type="hidden" name="userId" value={resolvedUserId} />
 
                         <label className="cr-muted" htmlFor="card-number">Card number *</label>
                         <input id="card-number" className="cr-input" placeholder="1234 5678 9012 3456" value="" readOnly />
@@ -427,6 +515,7 @@ export default function CarereceiverPaymentMethods() {
                     </p>
                     <Form method="post" className="cr-add-card-grid">
                         <input type="hidden" name="intent" value="start_test_payment" />
+                        <input type="hidden" name="userId" value={resolvedUserId} />
 
                         <label className="cr-muted" htmlFor="test-amount">Test amount (GBP)</label>
                         <input

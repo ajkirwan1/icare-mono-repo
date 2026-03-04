@@ -1,6 +1,9 @@
+/* global process */
 const STRIPE_API_BASE = "https://api.stripe.com/v1";
+const SETTINGS_API_BASE = String(process.env.API_INTERNAL_URL || process.env.VITE_API_URL || "http://localhost:4001").replace(/\/$/, "");
 const CUSTOMER_COOKIE_NAME = "icare_cr_customer_id";
 const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function getStripeSecretKey() {
     return process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST || "";
@@ -35,6 +38,10 @@ function parseCookieHeader(cookieHeader) {
             acc[key] = value;
             return acc;
         }, {});
+}
+
+function isUuid(value) {
+    return UUID_RE.test(String(value || "").trim());
 }
 
 function buildCookie(name, value, requestUrl) {
@@ -137,14 +144,82 @@ async function stripeApiRequest(path, options = {}) {
     return payload;
 }
 
-export async function ensureStripeCustomer(request) {
+async function readPersistedStripeCustomerId(userId) {
+    if (!isUuid(userId) || !SETTINGS_API_BASE) {
+        return "";
+    }
+
+    try {
+        const response = await fetch(`${SETTINGS_API_BASE}/api/v1/carereceiver/settings/payments?userId=${encodeURIComponent(userId)}`, {
+            headers: {
+                Accept: "application/json",
+                "x-user-id": userId
+            }
+        });
+
+        if (!response.ok) {
+            return "";
+        }
+
+        const payload = await response.json().catch(() => null);
+        const data = payload?.data || payload || {};
+        const customerId = String(data?.stripeCustomerId || "").trim();
+        return customerId.startsWith("cus_") ? customerId : "";
+    } catch {
+        return "";
+    }
+}
+
+async function persistStripeCustomerId(userId, customerId) {
+    if (!isUuid(userId) || !String(customerId || "").startsWith("cus_") || !SETTINGS_API_BASE) {
+        return;
+    }
+
+    try {
+        await fetch(`${SETTINGS_API_BASE}/api/v1/carereceiver/settings/payments/stripe-customer`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                "x-user-id": userId
+            },
+            body: JSON.stringify({
+                userId,
+                stripeCustomerId: customerId
+            })
+        });
+    } catch {
+        // Persisting the mapping is best-effort; Stripe flow should still continue.
+    }
+}
+
+export async function ensureStripeCustomer(request, { userId = "" } = {}) {
     if (!isStripeConfigured()) {
         return { customerId: "", setCookie: null };
     }
 
+    const normalizedUserId = isUuid(userId) ? userId : "";
     const forcedCustomerId = process.env.STRIPE_SANDBOX_CUSTOMER_ID || process.env.STRIPE_TEST_CUSTOMER_ID || "";
     if (forcedCustomerId) {
+        if (normalizedUserId) {
+            await persistStripeCustomerId(normalizedUserId, forcedCustomerId);
+        }
         return { customerId: forcedCustomerId, setCookie: null };
+    }
+
+    if (normalizedUserId) {
+        const persistedCustomerId = await readPersistedStripeCustomerId(normalizedUserId);
+        if (persistedCustomerId) {
+            try {
+                const customer = await stripeApiRequest(`/customers/${persistedCustomerId}`);
+                if (customer?.id && !customer.deleted) {
+                    const setCookie = buildCookie(CUSTOMER_COOKIE_NAME, customer.id, request.url);
+                    return { customerId: customer.id, setCookie };
+                }
+            } catch {
+                // Fall through to cookie / create flow.
+            }
+        }
     }
 
     const cookieHeader = request.headers.get("Cookie");
@@ -155,6 +230,9 @@ export async function ensureStripeCustomer(request) {
         try {
             const customer = await stripeApiRequest(`/customers/${existingCustomerId}`);
             if (customer?.id && !customer.deleted) {
+                if (normalizedUserId) {
+                    await persistStripeCustomerId(normalizedUserId, customer.id);
+                }
                 return { customerId: customer.id, setCookie: null };
             }
         } catch {
@@ -171,6 +249,9 @@ export async function ensureStripeCustomer(request) {
     });
 
     const setCookie = buildCookie(CUSTOMER_COOKIE_NAME, created.id, request.url);
+    if (normalizedUserId) {
+        await persistStripeCustomerId(normalizedUserId, created.id);
+    }
     return { customerId: created.id, setCookie };
 }
 

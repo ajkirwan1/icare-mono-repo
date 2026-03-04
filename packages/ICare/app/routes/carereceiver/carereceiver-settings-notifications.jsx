@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { useEffect, useMemo, useState } from "react";
+import { requestApiJson } from "../../services/api/http-client";
 import "./carereceiver-pages.css";
 
-const STORAGE_KEY = "icare.carereceiver.notification-settings.v1";
 const defaultSettings = {
     bookingUpdatesEmail: true,
     bookingRemindersEmail: true,
@@ -10,35 +10,58 @@ const defaultSettings = {
     productAnnouncementsEmail: false
 };
 
-function loadInitialSettings() {
-    if (typeof window === "undefined") {
-        return defaultSettings;
-    }
-
-    try {
-        const raw = window.localStorage.getItem(STORAGE_KEY);
-        if (!raw) {
-            return defaultSettings;
-        }
-
-        const parsed = JSON.parse(raw);
-        return {
-            bookingUpdatesEmail: Boolean(parsed.bookingUpdatesEmail),
-            bookingRemindersEmail: Boolean(parsed.bookingRemindersEmail),
-            newMessagesEmail: Boolean(parsed.newMessagesEmail),
-            productAnnouncementsEmail: Boolean(parsed.productAnnouncementsEmail)
-        };
-    } catch {
-        return defaultSettings;
-    }
+function normalizeSettings(input) {
+    return {
+        bookingUpdatesEmail: Boolean(input?.bookingUpdatesEmail),
+        bookingRemindersEmail: Boolean(input?.bookingRemindersEmail),
+        newMessagesEmail: Boolean(input?.newMessagesEmail),
+        productAnnouncementsEmail: Boolean(input?.productAnnouncementsEmail)
+    };
 }
 
 export default function CarereceiverSettingsNotifications() {
     const [settings, setSettings] = useState(defaultSettings);
     const [savedAt, setSavedAt] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [saving, setSaving] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        setSettings(loadInitialSettings());
+        let cancelled = false;
+
+        async function loadFromApi() {
+            setLoading(true);
+            setError("");
+            try {
+                const payload = await requestApiJson("/api/v1/carereceiver/settings/notifications", {
+                    errorLabel: "Could not load notification settings.",
+                    networkErrorHint: "Could not connect to settings API on http://localhost:4001."
+                });
+
+                if (cancelled) {
+                    return;
+                }
+
+                setSettings(normalizeSettings(payload?.settings || defaultSettings));
+                if (payload?.updatedAt) {
+                    setSavedAt(String(payload.updatedAt));
+                }
+            } catch (loadError) {
+                if (cancelled) {
+                    return;
+                }
+                setError(loadError instanceof Error ? loadError.message : "Could not load notification settings.");
+            } finally {
+                if (!cancelled) {
+                    setLoading(false);
+                }
+            }
+        }
+
+        loadFromApi();
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
     const saveSummary = useMemo(() => {
@@ -64,14 +87,26 @@ export default function CarereceiverSettingsNotifications() {
         };
     }
 
-    function handleSave(event) {
+    async function handleSave(event) {
         event.preventDefault();
+        setSaving(true);
+        setError("");
 
-        if (typeof window !== "undefined") {
-            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+        try {
+            const payload = await requestApiJson("/api/v1/carereceiver/settings/notifications", {
+                method: "PUT",
+                body: { settings },
+                errorLabel: "Could not save notification settings.",
+                networkErrorHint: "Could not connect to settings API on http://localhost:4001."
+            });
+
+            setSettings(normalizeSettings(payload?.settings || settings));
+            setSavedAt(payload?.updatedAt ? String(payload.updatedAt) : new Date().toISOString());
+        } catch (saveError) {
+            setError(saveError instanceof Error ? saveError.message : "Could not save notification settings.");
+        } finally {
+            setSaving(false);
         }
-
-        setSavedAt(new Date().toISOString());
     }
 
     return (
@@ -90,6 +125,12 @@ export default function CarereceiverSettingsNotifications() {
                     <p>Control which updates you get by email.</p>
                 </header>
 
+                {error ? (
+                    <section className="cr-alert" role="alert">
+                        <p>{error}</p>
+                    </section>
+                ) : null}
+
                 <form className="cr-card" onSubmit={handleSave}>
                     <div className="cr-list">
                         <label className="cr-row" htmlFor="bookingUpdatesEmail">
@@ -99,6 +140,7 @@ export default function CarereceiverSettingsNotifications() {
                             </div>
                             <input
                                 checked={settings.bookingUpdatesEmail}
+                                disabled={loading || saving}
                                 id="bookingUpdatesEmail"
                                 onChange={setToggle("bookingUpdatesEmail")}
                                 type="checkbox"
@@ -112,6 +154,7 @@ export default function CarereceiverSettingsNotifications() {
                             </div>
                             <input
                                 checked={settings.bookingRemindersEmail}
+                                disabled={loading || saving}
                                 id="bookingRemindersEmail"
                                 onChange={setToggle("bookingRemindersEmail")}
                                 type="checkbox"
@@ -125,6 +168,7 @@ export default function CarereceiverSettingsNotifications() {
                             </div>
                             <input
                                 checked={settings.newMessagesEmail}
+                                disabled={loading || saving}
                                 id="newMessagesEmail"
                                 onChange={setToggle("newMessagesEmail")}
                                 type="checkbox"
@@ -138,6 +182,7 @@ export default function CarereceiverSettingsNotifications() {
                             </div>
                             <input
                                 checked={settings.productAnnouncementsEmail}
+                                disabled={loading || saving}
                                 id="productAnnouncementsEmail"
                                 onChange={setToggle("productAnnouncementsEmail")}
                                 type="checkbox"
@@ -146,12 +191,13 @@ export default function CarereceiverSettingsNotifications() {
                     </div>
 
                     <div className="cr-inline" style={{ marginTop: "14px" }}>
-                        <button className="cr-button cr-button--primary" type="submit">
-                            Save Preferences
+                        <button className="cr-button cr-button--primary" type="submit" disabled={loading || saving}>
+                            {saving ? "Saving..." : "Save Preferences"}
                         </button>
                         <Link className="cr-button cr-button--secondary" to="/carereceiver/settings">
                             Back to Settings
                         </Link>
+                        {loading ? <span className="cr-muted">Loading settings...</span> : null}
                         {saveSummary ? <span className="cr-muted">Saved at {saveSummary}</span> : null}
                     </div>
                 </form>

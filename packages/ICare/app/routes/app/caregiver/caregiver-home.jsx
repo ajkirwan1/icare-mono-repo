@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Card from "../../../components/application/data-display/card/card.jsx";
 import AvailableCareRolesCard from "../../../features/pages/caregiver/available-care-roles.jsx";
 import MyDocumentsCard from "../../../features/pages/caregiver/my-documents.jsx";
@@ -15,30 +14,6 @@ export default function CaregiverHome() {
       letterSpacing: "0.4px"
     }
   };
-  const [caregivers, setCaregivers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRecommendedCaregivers = async () => {
-      try {
-        const response = await fetch("/api/recommended-caregivers");
-
-        if (!response.ok) {
-          throw new Error(`Request failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data, "darta");
-        setCaregivers(data);
-      } catch (error) {
-        console.error("Error fetching recommended caregivers:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecommendedCaregivers();
-  }, []);
 
   return (
     <>

@@ -1,34 +1,12 @@
-import { useEffect, useState } from "react";
 import Card from "../../../../components/application/data-display/card/card";
 import "react-circular-progressbar/dist/styles.css";
 import { NavLink } from "react-router";
 
-export default function RecommendedCaregiverCard() {
-
-  useEffect(() => {
-    const fetchRecommendedCaregivers = async () => {
-      try {
-        const response = await fetch("/api/recommended-caregivers");
-
-        if (!response.ok) {
-          throw new Error(`Request failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data, "darta");
-        setCaregivers(data);
-      } catch (error) {
-        console.error("Error fetching recommended caregivers:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecommendedCaregivers();
-  }, []);
-
-  const [caregivers, setCaregivers] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function RecommendedCaregiverCard({
+  caregivers = [],
+  loading = false,
+  error = ""
+}) {
 
   return (
     <Card
@@ -38,6 +16,7 @@ export default function RecommendedCaregiverCard() {
       footerLinkTo="/carerecipient/caregivers"
     >
       {loading && <div>Loading caregivers…</div>}
+      {!loading && error ? <div>{error}</div> : null}
 
       {!loading && caregivers.length === 0 && (
         <div>No recommendations available.</div>
