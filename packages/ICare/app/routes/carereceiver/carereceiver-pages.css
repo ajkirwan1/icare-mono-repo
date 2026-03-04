@@ -280,6 +280,40 @@
     font-weight: 700;
 }
 
+.cr-shield-chip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    line-height: 1;
+}
+
+.cr-shield-chip-icon svg {
+    width: 14px;
+    height: 14px;
+    color: #000000;
+}
+
+.cr-protection-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid #d4d4d8;
+    background: #fafafa;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px 0 10px;
+}
+
+.cr-protection-icon-wrap svg {
+    width: 26px;
+    height: 26px;
+}
+
 .cr-input,
 .cr-select,
 .cr-textarea {
@@ -1031,4 +1065,520 @@
     .cr-star {
         min-width: 78px;
     }
+}
+/* Caregiver-aligned styling for /carereceiver/search */
+.cr-page--caregiver-search {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cr-shell--caregiver-search {
+    max-width: 1220px;
+    margin-top: 14px;
+    margin-bottom: 24px;
+    padding: clamp(18px, 2.4vw, 30px);
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 14px;
+    background: #f8eee7;
+}
+
+.cr-page--caregiver-search .cr-breadcrumbs,
+.cr-page--caregiver-search .cr-muted,
+.cr-page--caregiver-search .cr-row-sub {
+    color: #6a5847;
+}
+
+.cr-page--caregiver-search .cr-breadcrumbs a,
+.cr-page--caregiver-search .cr-breadcrumbs strong,
+.cr-page--caregiver-search .cr-card h1,
+.cr-page--caregiver-search .cr-card h2,
+.cr-page--caregiver-search .cr-card h3 {
+    color: #000000;
+}
+
+.cr-page--caregiver-search .cr-card {
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: none;
+}
+
+.cr-page--caregiver-search .cr-card--search {
+    background: rgba(255, 255, 255, 0.72);
+    border-color: rgba(212, 138, 83, 0.28);
+}
+
+.cr-page--caregiver-search .cr-avatar {
+    border-color: rgba(212, 138, 83, 0.35);
+    background: rgba(212, 138, 83, 0.15);
+    color: #000000;
+}
+
+.cr-page--caregiver-search .cr-button {
+    min-height: 40px;
+    border-radius: 25px;
+    transition: background-color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, color 0.14s ease;
+}
+
+.cr-page--caregiver-search .cr-button:hover {
+    transform: none;
+}
+
+.cr-page--caregiver-search .cr-button--primary {
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.cr-page--caregiver-search .cr-button--primary:hover {
+    background: #647739;
+}
+
+.cr-page--caregiver-search .cr-button--secondary {
+    background: #f8eee7;
+    border-color: rgba(212, 138, 83, 0.3);
+    color: #000000;
+}
+
+.cr-page--caregiver-search .cr-button--secondary:hover {
+    background: #eadfce;
+}
+
+.cr-page--caregiver-search .cr-input,
+.cr-page--caregiver-search .cr-select,
+.cr-page--caregiver-search .cr-textarea,
+.cr-page--caregiver-search .cr-custom-select-control {
+    border: 1px solid rgba(212, 138, 83, 0.3);
+    border-radius: 10px;
+    background: #ffffff;
+    color: #000000;
+    box-shadow: none;
+}
+
+.cr-page--caregiver-search .cr-custom-select-control:hover {
+    border-color: rgba(212, 138, 83, 0.5);
+    box-shadow: none;
+}
+
+.cr-page--caregiver-search .cr-input:focus-visible,
+.cr-page--caregiver-search .cr-select:focus-visible,
+.cr-page--caregiver-search .cr-textarea:focus-visible,
+.cr-page--caregiver-search .cr-custom-select-control:focus-visible {
+    outline: 2px solid rgba(119, 141, 67, 0.28);
+    outline-offset: 2px;
+    border-color: rgba(212, 138, 83, 0.5);
+}
+
+.cr-page--caregiver-search .cr-chip--green {
+    background: rgba(119, 141, 67, 0.16);
+    border-color: rgba(119, 141, 67, 0.35);
+    color: #304516;
+}
+
+.cr-page--caregiver-search .cr-chip--blue {
+    background: rgba(212, 138, 83, 0.14);
+    border-color: rgba(212, 138, 83, 0.34);
+    color: #61330f;
+}
+
+.cr-page--caregiver-search .cr-filter-group {
+    border-top-color: rgba(212, 138, 83, 0.2);
+}
+
+.cr-page--caregiver-search .cr-check {
+    color: #000000;
+}
+
+.cr-page--caregiver-search .cr-check input {
+    accent-color: #778d43;
+}
+
+.cr-page--caregiver-search .cr-heart-btn {
+    border-color: rgba(212, 138, 83, 0.25);
+    background: rgba(255, 255, 255, 0.78);
+}
+
+/* Caregiver-aligned styling for /carereceiver/favorites */
+.cr-page--caregiver-favorites {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cr-shell--caregiver-favorites {
+    max-width: 1220px;
+    margin-top: 14px;
+    margin-bottom: 24px;
+    padding: clamp(18px, 2.4vw, 30px);
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 14px;
+    background: #f8eee7;
+}
+
+.cr-page--caregiver-favorites .cr-breadcrumbs,
+.cr-page--caregiver-favorites .cr-muted,
+.cr-page--caregiver-favorites .cr-row-sub {
+    color: #6a5847;
+}
+
+.cr-page--caregiver-favorites .cr-breadcrumbs a,
+.cr-page--caregiver-favorites .cr-breadcrumbs strong,
+.cr-page--caregiver-favorites .cr-card h1,
+.cr-page--caregiver-favorites .cr-card h2,
+.cr-page--caregiver-favorites .cr-card h3 {
+    color: #000000;
+}
+
+.cr-page--caregiver-favorites .cr-card {
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: none;
+}
+
+.cr-page--caregiver-favorites .cr-avatar {
+    border-color: rgba(212, 138, 83, 0.35);
+    background: rgba(212, 138, 83, 0.15);
+    color: #000000;
+}
+
+.cr-page--caregiver-favorites .cr-button {
+    min-height: 40px;
+    border-radius: 25px;
+    transition: background-color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, color 0.14s ease;
+}
+
+.cr-page--caregiver-favorites .cr-button:hover {
+    transform: none;
+}
+
+.cr-page--caregiver-favorites .cr-button--primary {
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.cr-page--caregiver-favorites .cr-button--primary:hover {
+    background: #647739;
+}
+
+.cr-page--caregiver-favorites .cr-button--secondary {
+    background: #f8eee7;
+    border-color: rgba(212, 138, 83, 0.3);
+    color: #000000;
+}
+
+.cr-page--caregiver-favorites .cr-button--secondary:hover {
+    background: #eadfce;
+}
+
+.cr-page--caregiver-favorites .cr-chip--green {
+    background: rgba(119, 141, 67, 0.16);
+    border-color: rgba(119, 141, 67, 0.35);
+    color: #304516;
+}
+
+.cr-page--caregiver-favorites .cr-chip--blue {
+    background: rgba(212, 138, 83, 0.14);
+    border-color: rgba(212, 138, 83, 0.34);
+    color: #61330f;
+}
+
+.cr-page--caregiver-favorites .cr-heart-btn {
+    border-color: rgba(212, 138, 83, 0.25);
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.cr-page--caregiver-favorites .cr-favorites-back-button {
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+}
+
+.cr-page--caregiver-favorites .cr-favorites-back-button:hover {
+    background: #647739;
+}
+
+/* Caregiver-aligned styling for /carereceiver/caregivers/:id */
+.cr-page--caregiver-profile {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cr-shell--caregiver-profile {
+    max-width: 1220px;
+    margin-top: 14px;
+    margin-bottom: 24px;
+    padding: clamp(18px, 2.4vw, 30px);
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 14px;
+    background: #f8eee7;
+}
+
+.cr-page--caregiver-profile .cr-breadcrumbs,
+.cr-page--caregiver-profile .cr-muted,
+.cr-page--caregiver-profile .cr-row-sub {
+    color: #6a5847;
+}
+
+.cr-page--caregiver-profile .cr-breadcrumbs a,
+.cr-page--caregiver-profile .cr-breadcrumbs strong,
+.cr-page--caregiver-profile .cr-card h1,
+.cr-page--caregiver-profile .cr-card h2,
+.cr-page--caregiver-profile .cr-card h3,
+.cr-page--caregiver-profile .cr-row-title,
+.cr-page--caregiver-profile .cr-back-link {
+    color: #000000;
+}
+
+.cr-page--caregiver-profile .cr-card,
+.cr-page--caregiver-profile .cr-row,
+.cr-page--caregiver-profile .cr-mini-calendar,
+.cr-page--caregiver-profile .cr-star {
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: none;
+}
+
+.cr-page--caregiver-profile .cr-mini-calendar-head,
+.cr-page--caregiver-profile .cr-day.is-available {
+    background: rgba(212, 138, 83, 0.1);
+}
+
+.cr-page--caregiver-profile .cr-day.is-booked {
+    background: rgba(119, 141, 67, 0.16);
+    border-color: rgba(119, 141, 67, 0.35);
+    color: #304516;
+}
+
+.cr-page--caregiver-profile .cr-avatar {
+    border-color: rgba(212, 138, 83, 0.35);
+    background: rgba(212, 138, 83, 0.15);
+    color: #000000;
+}
+
+.cr-page--caregiver-profile .cr-button,
+.cr-page--caregiver-profile .cr-favorite-action {
+    min-height: 40px;
+    border-radius: 25px;
+    transition: background-color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, color 0.14s ease;
+}
+
+.cr-page--caregiver-profile .cr-button:hover,
+.cr-page--caregiver-profile .cr-favorite-action:hover {
+    transform: none;
+}
+
+.cr-page--caregiver-profile .cr-button--primary {
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.cr-page--caregiver-profile .cr-button--primary:hover {
+    background: #647739;
+}
+
+.cr-page--caregiver-profile .cr-button--secondary,
+.cr-page--caregiver-profile .cr-button--text,
+.cr-page--caregiver-profile .cr-favorite-action {
+    background: #f8eee7;
+    border-color: rgba(212, 138, 83, 0.3);
+    color: #000000;
+}
+
+.cr-page--caregiver-profile .cr-button--secondary:hover,
+.cr-page--caregiver-profile .cr-button--text:hover,
+.cr-page--caregiver-profile .cr-favorite-action:hover {
+    background: #eadfce;
+}
+
+.cr-page--caregiver-profile .cr-chip--green {
+    background: rgba(119, 141, 67, 0.16);
+    border-color: rgba(119, 141, 67, 0.35);
+    color: #304516;
+}
+
+.cr-page--caregiver-profile .cr-chip--blue,
+.cr-page--caregiver-profile .cr-chip--orange {
+    background: rgba(212, 138, 83, 0.14);
+    border-color: rgba(212, 138, 83, 0.34);
+    color: #61330f;
+}
+
+.cr-page--caregiver-profile .cr-heart-btn {
+    border-color: rgba(212, 138, 83, 0.25);
+    background: rgba(255, 255, 255, 0.78);
+}
+
+.cr-page--caregiver-profile progress {
+    accent-color: #778d43;
+}
+
+.cr-page--caregiver-profile .cr-profile-layout .cr-card .cr-muted {
+    color: #2f2a24;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.cr-page--caregiver-profile .cr-profile-layout .cr-card .cr-row-sub {
+    color: #2b2b2b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.cr-page--caregiver-profile .cr-profile-layout .cr-card .cr-row-sub strong {
+    color: #000000;
+    font-weight: 700;
+}
+
+.cr-page--caregiver-profile .cr-intro-video-card {
+    display: grid;
+    gap: 12px;
+}
+
+.cr-page--caregiver-profile .cr-video-preview {
+    display: grid;
+    gap: 10px;
+    max-width: 560px;
+}
+
+.cr-page--caregiver-profile .cr-video-preview video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: 1px solid rgba(212, 138, 83, 0.28);
+    background: #000000;
+    object-fit: cover;
+}
+
+/* Caregiver-aligned styling for /carereceiver/bookings/:bookingId/review */
+.cr-page--caregiver-review {
+    background: #ffffff;
+    color: #000000;
+}
+
+.cr-shell--caregiver-review {
+    max-width: 1220px;
+    margin-top: 14px;
+    margin-bottom: 24px;
+    padding: clamp(18px, 2.4vw, 30px);
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 14px;
+    background: #f8eee7;
+}
+
+.cr-page--caregiver-review .cr-breadcrumbs,
+.cr-page--caregiver-review .cr-muted,
+.cr-page--caregiver-review .cr-row-sub {
+    color: #3a2f25;
+}
+
+.cr-page--caregiver-review p,
+.cr-page--caregiver-review li,
+.cr-page--caregiver-review label,
+.cr-page--caregiver-review .cr-breadcrumbs {
+    color: #2a231d;
+}
+
+.cr-page--caregiver-review .cr-breadcrumbs a,
+.cr-page--caregiver-review .cr-breadcrumbs strong,
+.cr-page--caregiver-review .cr-card h1,
+.cr-page--caregiver-review .cr-card h2,
+.cr-page--caregiver-review .cr-card h3,
+.cr-page--caregiver-review .cr-row-title {
+    color: #000000;
+}
+
+.cr-page--caregiver-review .cr-card {
+    border: 1px solid rgba(212, 138, 83, 0.22);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: none;
+}
+
+.cr-page--caregiver-review .cr-review-layout--caregiver {
+    max-width: 980px;
+    margin: 0 auto;
+    gap: 18px;
+}
+
+.cr-page--caregiver-review .cr-review-summary-card {
+    background: #ffffff;
+}
+
+.cr-page--caregiver-review .cr-review-guidelines {
+    border-color: rgba(212, 138, 83, 0.3);
+    background: rgba(255, 255, 255, 0.72);
+    color: #000000;
+}
+
+.cr-page--caregiver-review .cr-review-stars {
+    gap: 12px;
+}
+
+.cr-page--caregiver-review .cr-star {
+    border-color: rgba(212, 138, 83, 0.24);
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.cr-page--caregiver-review .cr-star span {
+    color: #2a231d;
+    font-weight: 600;
+}
+
+.cr-page--caregiver-review .cr-star.is-active {
+    border-color: rgba(212, 138, 83, 0.45);
+    background: rgba(212, 138, 83, 0.14);
+}
+
+.cr-page--caregiver-review .cr-textarea {
+    border: 1px solid rgba(212, 138, 83, 0.3);
+    border-radius: 10px;
+    background: #ffffff;
+    color: #000000;
+}
+
+.cr-page--caregiver-review .cr-textarea:focus-visible {
+    outline: 2px solid rgba(119, 141, 67, 0.28);
+    outline-offset: 2px;
+    border-color: rgba(212, 138, 83, 0.5);
+}
+
+.cr-page--caregiver-review .cr-button {
+    min-height: 40px;
+    border-radius: 25px;
+    transition: background-color 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, color 0.14s ease;
+}
+
+.cr-page--caregiver-review .cr-button:hover {
+    transform: none;
+}
+
+.cr-page--caregiver-review .cr-button--primary {
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.cr-page--caregiver-review .cr-button--primary:hover {
+    background: #647739;
+}
+
+.cr-page--caregiver-review .cr-button--secondary {
+    background: #f8eee7;
+    border-color: rgba(212, 138, 83, 0.3);
+    color: #000000;
+}
+
+.cr-page--caregiver-review .cr-button--secondary:hover {
+    background: #eadfce;
+}
+
+.cr-page--caregiver-review .cr-review-actions {
+    gap: 10px;
 }

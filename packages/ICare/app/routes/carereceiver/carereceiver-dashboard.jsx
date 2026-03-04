@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import styles from "./carereceiver-dashboard.module.scss";
 
-import { MdOutlineSearch, MdOutlineCalendarMonth, MdOutlineChatBubbleOutline } from "react-icons/md";
+import { MdOutlineSearch, MdOutlineCalendarMonth, MdOutlineChatBubbleOutline, MdOutlineRateReview } from "react-icons/md";
 import PendingRequestsCard from "./dashboard/pending-requests-card";
 import UpcomingBookingsCard from "./dashboard/upcoming-bookings-card";
 import RecentActivityCard from "./dashboard/recent-activity-card";
@@ -162,6 +162,12 @@ export default function CarereceiverDashboard() {
                             {!messages.loading && unreadCount > 0 ? <span className={styles.ctaBadge}>{unreadCount}</span> : null}
                         </p>
                         <span className={styles.ctaButton}>View Messages</span>
+                    </Link>
+
+                    <Link to="/carereceiver/bookings/bk-2026-1203/review" className={`${styles.ctaCard} ${styles.ctaReview}`}>
+                        <div className={styles.ctaIcon}><MdOutlineRateReview /></div>
+                        <p className={styles.ctaTitle}>Leave a Review</p>
+                        <span className={styles.ctaButton}>Review a Caregiver</span>
                     </Link>
                 </div>
 

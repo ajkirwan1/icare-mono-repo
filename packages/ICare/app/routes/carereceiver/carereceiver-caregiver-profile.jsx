@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import "./carereceiver-pages.css";
 
@@ -157,6 +157,9 @@ export default function CarereceiverCaregiverProfile() {
         usedFallback: false
     });
     const [responseMetrics, setResponseMetrics] = useState(null);
+    const [introVideoUrl, setIntroVideoUrl] = useState("");
+    const [loadingIntroVideo, setLoadingIntroVideo] = useState(true);
+    const introVideoRef = useRef(null);
     const isFavorite = useMemo(
         () => favoriteCaregivers.some((entry) => entry.id === caregiver.id),
         [favoriteCaregivers, caregiver.id]
@@ -234,12 +237,22 @@ export default function CarereceiverCaregiverProfile() {
                 const metrics = payload?.responseMetrics && typeof payload.responseMetrics === "object"
                     ? payload.responseMetrics
                     : null;
+                const resolvedIntroVideoUrl = String(
+                    payload?.introVideoUrl ||
+                    payload?.introVideo?.url ||
+                    payload?.profile?.introVideoUrl ||
+                    ""
+                ).trim();
                 setResponseMetrics(metrics);
+                setIntroVideoUrl(resolvedIntroVideoUrl);
+                setLoadingIntroVideo(false);
             } catch {
                 if (!mounted) {
                     return;
                 }
                 setResponseMetrics(null);
+                setIntroVideoUrl("");
+                setLoadingIntroVideo(false);
             }
         }
 
@@ -269,6 +282,23 @@ export default function CarereceiverCaregiverProfile() {
         ? `Usually within ${Math.max(1, Math.round(averageResponseHours))} hours`
         : "";
     const showResponseStats = Boolean(responseMetrics && acceptanceRateText && responseTimeText);
+    const hasIntroVideo = introVideoUrl.length > 0;
+
+    function handleOpenVideoFullscreen() {
+        const videoElement = introVideoRef.current;
+        if (!videoElement) {
+            return;
+        }
+
+        if (typeof videoElement.requestFullscreen === "function") {
+            videoElement.requestFullscreen();
+            return;
+        }
+
+        if (typeof videoElement.webkitEnterFullscreen === "function") {
+            videoElement.webkitEnterFullscreen();
+        }
+    }
 
     function handleToggleFavorite() {
         setFavoriteCaregivers((current) => toggleFavoriteCaregiver(current, {
@@ -286,8 +316,8 @@ export default function CarereceiverCaregiverProfile() {
     }
 
     return (
-        <div className="cr-page">
-            <div className="cr-shell">
+        <div className="cr-page cr-page--caregiver-profile">
+            <div className="cr-shell cr-shell--caregiver-profile">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
                     <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span>
                     <Link to="/carereceiver/search">Search</Link><span>›</span>
@@ -363,6 +393,33 @@ export default function CarereceiverCaregiverProfile() {
                             <p className="cr-muted" style={{ marginTop: "10px" }}>
                                 Looking for personal care services? We&apos;ll be adding these services soon. Join the waitlist for updates.
                             </p>
+                        </article>
+
+                        <article className="cr-card cr-intro-video-card">
+                            <h2>Intro Video</h2>
+                            {loadingIntroVideo ? (
+                                <p className="cr-muted">Loading intro video...</p>
+                            ) : hasIntroVideo ? (
+                                <div className="cr-video-preview">
+                                    <video
+                                        ref={introVideoRef}
+                                        src={introVideoUrl}
+                                        controls
+                                        preload="metadata"
+                                        playsInline
+                                        poster="/images/avatars/female.webp"
+                                    />
+                                    <button
+                                        type="button"
+                                        className="cr-button cr-button--secondary"
+                                        onClick={handleOpenVideoFullscreen}
+                                    >
+                                        Open Full Screen
+                                    </button>
+                                </div>
+                            ) : (
+                                <p className="cr-muted">This caregiver has not uploaded an intro video yet.</p>
+                            )}
                         </article>
 
                         <article className="cr-card">

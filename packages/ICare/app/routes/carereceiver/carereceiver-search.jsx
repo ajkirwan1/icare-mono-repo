@@ -255,8 +255,8 @@ export default function CarereceiverSearch() {
     }
 
     return (
-        <div className="cr-page">
-            <div className="cr-shell">
+        <div className="cr-page cr-page--caregiver-search">
+            <div className="cr-shell cr-shell--caregiver-search">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
                     <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span><strong>Search Caregivers</strong>
                 </nav>

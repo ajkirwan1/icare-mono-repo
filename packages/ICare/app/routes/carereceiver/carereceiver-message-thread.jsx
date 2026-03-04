@@ -41,6 +41,28 @@ function notifyMessagesStateChanged() {
     window.dispatchEvent(new CustomEvent("carereceiver:messages_state_changed"));
 }
 
+function ShieldIcon() {
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+                d="M12 2.4 19 5.2v5.5c0 5.1-3.2 9-7 10.8-3.8-1.8-7-5.7-7-10.8V5.2l7-2.8Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinejoin="round"
+            />
+            <path
+                d="m8.9 11.7 2.2 2.2 4.1-4.2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
 export default function CarereceiverMessageThread() {
     const { conversationId } = useParams();
 
@@ -193,7 +215,12 @@ export default function CarereceiverMessageThread() {
                                     <p className="cr-muted" style={{ margin: 0 }}>Caregiver</p>
                                 </div>
                             </div>
-                            {conversation.contactProtectionEnabled ? <span className="cr-chip cr-chip--orange">Protection enabled</span> : null}
+                            {conversation.contactProtectionEnabled ? (
+                                <span className="cr-chip cr-chip--orange">
+                                    <span className="cr-shield-chip-icon" aria-hidden="true"><ShieldIcon /></span>
+                                    Protective shield: Always on
+                                </span>
+                            ) : null}
                         </div>
 
                         {error ? (
@@ -260,8 +287,11 @@ export default function CarereceiverMessageThread() {
                     <aside className="cr-grid">
                         <article className="cr-card">
                             <h3>Contact details protection</h3>
+                            <div className="cr-protection-icon-wrap" aria-hidden="true">
+                                <ShieldIcon />
+                            </div>
                             <p className="cr-inline" style={{ gap: "10px", opacity: 0.95, margin: 0 }}>
-                                <span>Always on</span>
+                                <span>Protective shield: Always on</span>
                             </p>
                             <p className="cr-muted" style={{ marginTop: "8px" }}>
                                 Protection: <span className="cr-active-status">Active</span>

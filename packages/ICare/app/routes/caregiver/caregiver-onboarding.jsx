@@ -137,16 +137,7 @@ export default function CaregiverOnboarding() {
                             <NavLink className={styles.ctaSecondary} to="/caregiver/onboarding/dbs-submission">
                                 Open DBS submission
                             </NavLink>
-                            <NavLink
-                                aria-disabled={!isProfilePreviewReady}
-                                className={`${styles.ctaSecondary} ${!isProfilePreviewReady ? styles.ctaDisabled : ""}`}
-                                onClick={(event) => {
-                                    if (!isProfilePreviewReady) {
-                                        event.preventDefault();
-                                    }
-                                }}
-                                to="/caregiver/profile/preview"
-                            >
+                            <NavLink className={styles.ctaSecondary} to="/caregiver/profile/preview">
                                 View profile preview
                             </NavLink>
                         </div>
@@ -232,16 +223,7 @@ export default function CaregiverOnboarding() {
                         {!isProfilePreviewReady ? (
                             <p className={styles.helperText}>Complete Identity and Right to Work steps first.</p>
                         ) : null}
-                        <NavLink
-                            aria-disabled={!isProfilePreviewReady}
-                            className={`${styles.stepActionMuted} ${!isProfilePreviewReady ? styles.ctaDisabled : ""}`}
-                            onClick={(event) => {
-                                if (!isProfilePreviewReady) {
-                                    event.preventDefault();
-                                }
-                            }}
-                            to="/caregiver/profile/preview"
-                        >
+                        <NavLink className={styles.stepActionMuted} to="/caregiver/profile/preview">
                             View Profile Preview
                         </NavLink>
                     </article>

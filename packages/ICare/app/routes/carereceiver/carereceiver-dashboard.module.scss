@@ -111,6 +111,26 @@
     color: #0f172a;
 }
 
+.ctaReview {
+    background: rgba(255, 255, 255, 0.55);
+    color: #0f172a;
+    border-color: rgba(15, 23, 42, 0.10);
+
+    .ctaTitle {
+        color: #0f172a;
+    }
+
+    .ctaIcon {
+        color: #000000;
+    }
+
+    .ctaButton {
+        background: #ffffff;
+        border-color: rgba(15, 23, 42, 0.2);
+        color: #0f172a;
+    }
+}
+
 .ctaIcon {
     font-size: 34px;
     opacity: 1;
@@ -129,6 +149,10 @@
 /* lighten green background when interacting */
 .ctaCard.ctaPrimary:hover {
     background: rgba(204, 217, 172, 0.9);
+}
+
+.ctaCard.ctaReview:hover {
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .ctaCard.ctaPrimary:active {
