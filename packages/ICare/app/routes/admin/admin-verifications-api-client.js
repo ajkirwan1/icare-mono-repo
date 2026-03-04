@@ -1,81 +1,9 @@
-const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
-const API_PREFIX = "/api/v1";
+import {
+    isAbortError,
+    requestApiJson
+} from "../../services/api/http-client.js";
 
-function readStoredViewer() {
-    if (typeof window === "undefined") {
-        return { id: "", email: "", token: "" };
-    }
-
-    let id = "";
-    let email = "";
-    let token = "";
-
-    try {
-        const rawUser = window.localStorage.getItem("icare_user");
-        if (rawUser) {
-            const parsedUser = JSON.parse(rawUser);
-            id = String(parsedUser?.id || "").trim();
-            email = String(parsedUser?.email || "").trim().toLowerCase();
-        }
-    } catch {
-        // ignore malformed local payloads
-    }
-
-    try {
-        token = String(window.localStorage.getItem("icare_access_token") || "").trim();
-    } catch {
-        token = "";
-    }
-
-    return { id, email, token };
-}
-
-function resolveUrl(path) {
-    const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-    if (!API_BASE) {
-        return normalizedPath;
-    }
-
-    if (API_BASE.endsWith(API_PREFIX) && normalizedPath.startsWith(API_PREFIX)) {
-        return `${API_BASE}${normalizedPath.slice(API_PREFIX.length)}`;
-    }
-
-    return `${API_BASE}${normalizedPath}`;
-}
-
-function resolveCandidateUrls(path) {
-    const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-    const candidates = [];
-
-    const pushUnique = (value) => {
-        if (value && !candidates.includes(value)) {
-            candidates.push(value);
-        }
-    };
-
-    pushUnique(resolveUrl(normalizedPath));
-
-    if (typeof window !== "undefined") {
-        const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-        if (isLocalhost) {
-            pushUnique(`http://localhost:4001${normalizedPath}`);
-        }
-    }
-
-    return candidates;
-}
-
-export function isAbortError(error) {
-    return Boolean(
-        error &&
-        (
-            error.name === "AbortError" ||
-            error.code === 20 ||
-            /abort(ed)?/i.test(String(error.message || ""))
-        )
-    );
-}
+export { isAbortError };
 
 async function requestJsonWithOptions(path, {
     signal,
@@ -83,58 +11,13 @@ async function requestJsonWithOptions(path, {
     body = null,
     errorLabel = "Admin request failed."
 } = {}) {
-    const viewer = readStoredViewer();
-    const headers = {
-        Accept: "application/json",
-        ...(body ? { "Content-Type": "application/json" } : {}),
-        ...(viewer.id ? { "X-User-Id": viewer.id } : {}),
-        ...(viewer.email ? { "X-User-Email": viewer.email } : {}),
-        ...(viewer.token ? { Authorization: `Bearer ${viewer.token}` } : {})
-    };
-
-    const urls = resolveCandidateUrls(path);
-    const errors = [];
-
-    for (const url of urls) {
-        if (signal?.aborted) {
-            throw new DOMException("The operation was aborted.", "AbortError");
-        }
-
-        try {
-            const response = await fetch(url, {
-                method,
-                signal,
-                cache: "no-store",
-                credentials: "include",
-                headers,
-                ...(body ? { body: JSON.stringify(body) } : {})
-            });
-
-            const text = await response.text();
-            const payload = text ? JSON.parse(text) : null;
-
-            if (!response.ok) {
-                const message = payload?.error?.message || payload?.error || payload?.message || `HTTP ${response.status}`;
-                errors.push(`${url} -> HTTP ${response.status}: ${String(message)}`);
-                continue;
-            }
-
-            return payload?.data ?? payload;
-        } catch (error) {
-            if (isAbortError(error) || signal?.aborted) {
-                throw error;
-            }
-
-            const message = error instanceof Error ? error.message : String(error);
-            errors.push(`${url} -> ${message}`);
-        }
-    }
-
-    if (signal?.aborted) {
-        throw new DOMException("The operation was aborted.", "AbortError");
-    }
-
-    throw new Error(`${errorLabel} ${errors.join(" | ")}`);
+    return requestApiJson(path, {
+        signal,
+        method,
+        ...(body ? { body } : {}),
+        errorLabel,
+        networkErrorHint: "Could not connect to admin API on http://localhost:4001. Start API server and retry."
+    });
 }
 
 export async function getAdminVerificationQueue({ type = "", status = "pending", limit = 100, signal } = {}) {

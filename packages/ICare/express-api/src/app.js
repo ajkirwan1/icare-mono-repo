@@ -14,8 +14,10 @@ import authRouter from "../routes/auth.routes.js";
 import chatRouter from "../routes/chat.routes.js";
 import carereceiverDashboardRouter from "../routes/carereceiver-dashboard.routes.js";
 import carereceiverMessagesRouter from "../routes/carereceiver-messages.routes.js";
+import carereceiverSettingsRouter from "../routes/carereceiver-settings.routes.js";
 import conversationsRouter from "../routes/conversations.routes.js";
 import caregiverProfileRouter from "../routes/caregiver-profile.routes.js";
+import adminSystemSettingsRouter from "../domains/admin/system-settings/system-settings.routes.js";
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -66,6 +68,8 @@ app.use("/api/contact", contactUsRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1", carereceiverDashboardRouter);
 app.use("/api/v1", carereceiverMessagesRouter);
+app.use("/api/v1", carereceiverSettingsRouter);
+app.use("/api/v1", adminSystemSettingsRouter);
 if (caregiverOnboardingRouter) {
     app.use("/api/v1", caregiverOnboardingRouter);
 }

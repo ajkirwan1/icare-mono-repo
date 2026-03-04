@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ProfileCard from "../../../features/profile/profile-card.jsx";
 import Card from "../../../components/application/data-display/card/card";
-import { NavLink } from "react-router";
 import RecommendedCaregiverCard from "../../../components/application/care-receiver/recommended-caregivers/recommended-caregiver-card.jsx";
+import { getRecommendedCaregivers } from "../../../services/api/care-receiver-api.js";
 
 
 export default function CareRecieverHome() {
@@ -17,27 +17,29 @@ export default function CareRecieverHome() {
   };
   const [caregivers, setCaregivers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchRecommendedCaregivers = async () => {
       try {
-        const response = await fetch("/api/recommended-caregivers");
-
-        if (!response.ok) {
-          throw new Error(`Request failed: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log(data, "darta");
+        const data = await getRecommendedCaregivers({ signal: controller.signal });
         setCaregivers(data);
       } catch (error) {
-        console.error("Error fetching recommended caregivers:", error);
+        if (controller.signal.aborted || error?.name === "AbortError") {
+          return;
+        }
+        setError(error instanceof Error ? error.message : "Could not load recommended caregivers.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchRecommendedCaregivers();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (
@@ -57,7 +59,11 @@ export default function CareRecieverHome() {
             <ProfileCard />
           </section>
           <section>
-            <RecommendedCaregiverCard />
+            <RecommendedCaregiverCard
+              caregivers={caregivers}
+              loading={loading}
+              error={error}
+            />
           </section>
         </div>
         <div style={{ display: "grid", gap: 20 }}>

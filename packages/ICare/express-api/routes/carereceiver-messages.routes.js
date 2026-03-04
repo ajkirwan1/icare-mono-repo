@@ -489,7 +489,11 @@ async function resolveConversationByIdOrBooking(identifier, viewerId) {
           b.caregiver_photo_url AS "caregiverPhotoUrl",
           COALESCE(to_jsonb(b)->>'caregiver_phone', '') AS "caregiverPhone"
         FROM carereceiver_dashboard_bookings b
-        WHERE (b.id = $1 OR b.conversation_id = $1)
+        WHERE (
+          b.id = $1
+          OR b.conversation_id = $1
+          OR lower(COALESCE(to_jsonb(b)->>'booking_ref', '')) = lower($1)
+        )
           ${bookingScope}
         LIMIT 1
         `,
@@ -498,7 +502,11 @@ async function resolveConversationByIdOrBooking(identifier, viewerId) {
 
     const booking = bookingRow.rows?.[0];
     if (!booking) {
-        if (/^conv-[a-z0-9-]+$/i.test(cleanId)) {
+        const syntheticConversationId = /^conv-[a-z0-9-]+$/i.test(cleanId)
+            ? cleanId
+            : (/^bk-[a-z0-9-]+$/i.test(cleanId) ? `conv-${cleanId.toLowerCase()}` : "");
+
+        if (syntheticConversationId) {
             await pool.query(
                 `
                 INSERT INTO carereceiver_conversations (
@@ -515,10 +523,10 @@ async function resolveConversationByIdOrBooking(identifier, viewerId) {
                 ) VALUES ($1, NULL, $2, '', 'Caregiver', NULL, '', TRUE, NOW(), NOW())
                 ON CONFLICT (id) DO NOTHING
                 `,
-                [cleanId, viewerId || null]
+                [syntheticConversationId, viewerId || null]
             );
 
-            const orphanConversation = await pool.query(conversationSql, [cleanId, ...scope.params]);
+            const orphanConversation = await pool.query(conversationSql, [syntheticConversationId, ...scope.params]);
             if (orphanConversation.rows?.[0]) {
                 return orphanConversation.rows[0];
             }

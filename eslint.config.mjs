@@ -90,5 +90,51 @@ export default [
       }
     }
   },
+  {
+    files: [
+      "packages/ICare/app/**/*.{js,jsx,ts,tsx}",
+    ],
+    rules: {
+      "no-restricted-imports": ["error", {
+        paths: [
+          {
+            name: "redux",
+            message: "Redux is not part of this codebase. Use local state or lightweight context only when needed."
+          },
+          {
+            name: "react-redux",
+            message: "Redux is not part of this codebase. Use local state or lightweight context only when needed."
+          },
+          {
+            name: "@reduxjs/toolkit",
+            message: "Redux is not part of this codebase. Use local state or lightweight context only when needed."
+          },
+          {
+            name: "pg",
+            message: "Frontend must not access DB clients directly. Use backend API modules from app/services/api."
+          }
+        ]
+      }]
+    }
+  },
+  {
+    files: [
+      "packages/ICare/app/components/**/*.{js,jsx,ts,tsx}",
+    ],
+    rules: {
+      "no-restricted-imports": ["warn", {
+        patterns: [
+          {
+            group: ["**/routes/**"],
+            message: "Keep components presentational; page-level data orchestration belongs in /routes or services."
+          },
+          {
+            group: ["**/utils/db/**"],
+            message: "Avoid legacy utils/db imports in components. Use dedicated API clients under app/services/api."
+          }
+        ]
+      }]
+    }
+  }
 
 ];
