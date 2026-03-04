@@ -125,8 +125,8 @@ export default function CarereceiverLeaveReview() {
 
     if (submitted) {
         return (
-            <div className="cr-page">
-                <div className="cr-shell">
+            <div className="cr-page cr-page--caregiver-review">
+                <div className="cr-shell cr-shell--caregiver-review">
                     <section className="cr-card" style={{ maxWidth: "860px", margin: "0 auto" }}>
                         <h1 style={{ marginTop: 0 }}>Review Submitted</h1>
                         <p className="cr-muted">Thank you for sharing your feedback. Your review is now visible for other families.</p>
@@ -144,8 +144,8 @@ export default function CarereceiverLeaveReview() {
     }
 
     return (
-        <div className="cr-page">
-            <div className="cr-shell">
+        <div className="cr-page cr-page--caregiver-review">
+            <div className="cr-shell cr-shell--caregiver-review">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
                     <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span>
                     <Link to="/carereceiver/bookings">My Bookings</Link><span>›</span>
@@ -153,11 +153,11 @@ export default function CarereceiverLeaveReview() {
                     <strong>Leave Review</strong>
                 </nav>
 
-                <section className="cr-card cr-review-layout">
+                <section className="cr-card cr-review-layout cr-review-layout--caregiver">
                     <h1 style={{ margin: 0 }}>Leave a Review</h1>
                     <p className="cr-muted" style={{ marginTop: "6px" }}>Share your experience with {booking.caregiverName}</p>
 
-                    <article className="cr-card" style={{ background: "#fff" }}>
+                    <article className="cr-card cr-review-summary-card">
                         <p className="cr-muted" style={{ marginTop: 0, fontSize: "12px", letterSpacing: "0.04em", textTransform: "uppercase" }}>
                             Booking summary
                         </p>
@@ -172,7 +172,7 @@ export default function CarereceiverLeaveReview() {
                                 </p>
                                 <p className="cr-row-sub cr-rating-line" style={{ margin: 0 }}>
                                     <span className="cr-stars-inline"><RatingStars value={booking.rating} /></span>
-                                    <span style={{ color: "#5f6878" }}>{booking.rating.toFixed(1)} ({booking.reviewCount} reviews)</span>
+                                    <span style={{ color: "#2a231d" }}>{booking.rating.toFixed(1)} ({booking.reviewCount} reviews)</span>
                                 </p>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ export default function CarereceiverLeaveReview() {
                         <p className="cr-muted" style={{ marginTop: "6px" }}>{charCount}</p>
                     </section>
 
-                    <section className="cr-alert" style={{ marginTop: "6px" }}>
+                    <section className="cr-alert cr-review-guidelines" style={{ marginTop: "6px" }}>
                         <p style={{ marginBottom: "8px", fontWeight: 700 }}>Review guidelines</p>
                         <p className="cr-row-sub" style={{ margin: "2px 0" }}>• Be honest and constructive</p>
                         <p className="cr-row-sub" style={{ margin: "2px 0" }}>• Focus on the service provided</p>
@@ -235,7 +235,7 @@ export default function CarereceiverLeaveReview() {
                     {state.loading ? <p className="cr-muted">Loading booking summary...</p> : null}
                     {error ? <p className="cr-error" role="alert">{error}</p> : null}
 
-                    <div className="cr-inline" style={{ marginTop: "8px" }}>
+                    <div className="cr-inline cr-review-actions" style={{ marginTop: "8px" }}>
                         <Link className="cr-button cr-button--secondary" to="/carereceiver/bookings">Cancel</Link>
                         <button type="button" className="cr-button cr-button--primary" onClick={handleSubmit} disabled={submitting || state.loading}>
                             {submitting ? "Submitting..." : "Submit Review"}

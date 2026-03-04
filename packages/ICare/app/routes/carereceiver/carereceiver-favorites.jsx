@@ -32,8 +32,8 @@ export default function CarereceiverFavorites() {
     }
 
     return (
-        <div className="cr-page">
-            <div className="cr-shell">
+        <div className="cr-page cr-page--caregiver-favorites">
+            <div className="cr-shell cr-shell--caregiver-favorites">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
                     <Link to="/carereceiver/dashboard">Dashboard</Link><span>›</span>
                     <Link to="/carereceiver/search">Search</Link><span>›</span>
@@ -48,7 +48,7 @@ export default function CarereceiverFavorites() {
                                 {sortedFavorites.length} saved {sortedFavorites.length === 1 ? "caregiver" : "caregivers"}
                             </p>
                         </div>
-                        <Link className="cr-button cr-button--secondary" to="/carereceiver/search">
+                        <Link className="cr-button cr-button--secondary cr-favorites-back-button" to="/carereceiver/search">
                             Back to Search
                         </Link>
                     </div>

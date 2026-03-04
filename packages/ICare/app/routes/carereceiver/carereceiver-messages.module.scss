@@ -8,8 +8,8 @@ $surface: cg.$surface;
 .page {
     background: $bg;
     border: 1px solid rgba(212, 138, 83, 0.22);
-    border-radius: 22px;
-    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.08);
+    border-radius: 14px;
+    box-shadow: none;
     padding: clamp(24px, 2.8vw, 38px);
 }
 
@@ -60,9 +60,9 @@ $surface: cg.$surface;
 }
 
 .tabsSection {
-    background: $surface;
-    border: 1px solid rgba(212, 138, 83, 0.35);
-    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(212, 138, 83, 0.28);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -78,15 +78,14 @@ $surface: cg.$surface;
     padding: 10px 14px;
     cursor: pointer;
     white-space: nowrap;
-    border-radius: 10px;
+    border-radius: 25px;
     text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
         background: $bg;
         border-color: rgba(212, 138, 83, 0.55);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 10px rgba(165, 100, 46, 0.14);
+        box-shadow: none;
     }
 
     &:focus-visible {
@@ -150,7 +149,7 @@ $surface: cg.$surface;
 
 .sortSelectControl:hover {
     border-color: rgba(212, 138, 83, 0.64);
-    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.16);
+    box-shadow: none;
 }
 
 .sortSelectControl:focus-visible {
@@ -166,22 +165,20 @@ $surface: cg.$surface;
 .row {
     min-height: 132px;
     border: 1px solid rgba(212, 138, 83, 0.22);
-    border-radius: 14px;
-    background: #fff;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.72);
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 16px;
     align-items: flex-start;
     padding: 20px 22px;
-    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.06);
-    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    box-shadow: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
 
     &:hover {
-        transform: translateY(-1px);
         background: #f7eee4;
         border-color: rgba(212, 138, 83, 0.42);
-        box-shadow: 0 10px 20px rgba(212, 138, 83, 0.12);
 
         .threadName {
             color: $accentDark;
@@ -262,7 +259,7 @@ $surface: cg.$surface;
 
 .openLink {
     border: 1px solid rgba(212, 138, 83, 0.24);
-    border-radius: 10px;
+    border-radius: 25px;
     min-height: 36px;
     min-width: 90px;
     padding: 8px 14px;
@@ -279,7 +276,7 @@ $surface: cg.$surface;
 .openLink:hover {
     background: #f7eee4;
     border-color: rgba(212, 138, 83, 0.42);
-    box-shadow: 0 4px 10px rgba(212, 138, 83, 0.12);
+    box-shadow: none;
 }
 
 .openLink:focus-visible {
@@ -318,7 +315,7 @@ $surface: cg.$surface;
 .pageButton,
 .pageNumber {
     border: 1px solid rgba(212, 138, 83, 0.24);
-    border-radius: 10px;
+    border-radius: 25px;
     background: transparent;
     color: #000;
     height: 42px;
@@ -338,7 +335,7 @@ $surface: cg.$surface;
 }
 
 .pageNumber {
-    min-width: 42px;
+    min-width: 44px;
     padding: 0;
     color: #000;
 }

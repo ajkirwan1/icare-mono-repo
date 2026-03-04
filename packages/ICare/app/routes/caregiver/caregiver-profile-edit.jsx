@@ -429,7 +429,7 @@ export default function CaregiverProfileEdit() {
               <ul className={styles.serviceList}>
                 {services.map((item) => (
                   <li key={item}>
-                    <span>v</span>
+                    <span className={styles.serviceTick} aria-hidden="true">v</span>
                     {item}
                   </li>
                 ))}
@@ -442,6 +442,7 @@ export default function CaregiverProfileEdit() {
                   return (
                     <label key={service} className={styles.checkRow}>
                       <input
+                        className={styles.additionalCheck}
                         type="checkbox"
                         checked={isChecked}
                         onChange={() => toggleAdditionalService(service)}

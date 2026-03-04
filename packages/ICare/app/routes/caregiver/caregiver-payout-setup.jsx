@@ -297,7 +297,10 @@ export default function CaregiverPayoutSetup() {
 
                 <section className={styles.securityRow}>
                     <span>Bank-grade security</span>
-                    <span>Powered by Stripe</span>
+                    <span>
+                        <span aria-hidden="true" className={styles.stripeWordmark}>stripe</span>
+                        Powered by Stripe
+                    </span>
                 </section>
 
                 {loading ? <p className={styles.muted}>Loading payout setup...</p> : null}
