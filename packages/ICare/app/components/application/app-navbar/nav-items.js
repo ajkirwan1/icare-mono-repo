@@ -9,7 +9,7 @@ export const adminNavItems = [
     { to: "/admin/audit-log", label: "Audit Log" },
     { to: "/admin/reported-issues", label: "Issues" },
     { to: "/admin/system-settings", label: "Settings" },
-    { to: "/admin/safegaurding", label: "Safeguarding" },
+    { to: "/admin/safeguarding", label: "Safeguarding" },
     { to: "/", label: "Signout" }
 ];
 
@@ -29,5 +29,6 @@ export const careReceiverNavItems = [
     { to: "/carereceiver/messages", label: "Messages" },
     { to: "/carereceiver/search", label: "Search" },
     { to: "/carereceiver/favorites", label: "Favorites" },
+    { to: "/carereceiver/settings", label: "Settings" },
     { to: "/", label: "Signout" }
 ];

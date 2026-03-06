@@ -46,6 +46,7 @@ export default [
     route("rr-api/conversations/:id/messages", "routes/api/conversations-id-messages.jsx"),
     route("api/v1/payments/methods", "routes/api/v1/payments-methods.jsx"),
     route("api/v1/webhooks/stripe", "routes/api/v1/webhooks-stripe.jsx"),
+    route("settings/payment", "routes/carereceiver/carereceiver-settings-payment-alias.jsx"),
 
     // Admin
     ...prefix("admin", [
@@ -64,8 +65,10 @@ export default [
             route("adm-booking-management", "routes/admin/adm-booking-management.jsx"),
             route("disputes", "routes/admin/disputes.jsx"),
             route("adm-dispute-queue", "routes/admin/adm-dispute-queue.jsx"),
-            route("safegaurding", "routes/admin/safeguarding.jsx"),
-            route("safegaurding/:reportId", "routes/admin/safeguarding-report-id.jsx"),
+            route("safegaurding", "routes/admin/safegaurding-alias.jsx"),
+            route("safegaurding/:reportId", "routes/admin/safegaurding-report-alias.jsx"),
+            route("safeguarding", "routes/admin/safeguarding.jsx"),
+            route("safeguarding/:reportId", "routes/admin/safeguarding-report-id.jsx"),
             route("users", "routes/admin/users.jsx"),
             route("adm-user-management", "routes/admin/adm-user-management.jsx"),
             route("users/:userId", "routes/admin/user-id.jsx"),
@@ -76,6 +79,7 @@ export default [
             route("adm-analytics-dashboard", "routes/admin/adm-analytics-dashboard.jsx"),
             route("audit-log", "routes/admin/adm-audit-log.jsx"),
             route("reported-issues", "routes/admin/adm-reported-issues.jsx"),
+            route("settings", "routes/admin/admin-settings-alias.jsx"),
             route("system-settings", "routes/admin/adm-system-settings.jsx")
         ])
     ]),
@@ -100,7 +104,12 @@ export default [
             route("onboarding/right-to-work", "routes/caregiver/caregiver-onboarding-right-to-work.jsx"),
             route("onboarding/dbs-submission", "routes/caregiver/caregiver-onboarding-dbs-submission.jsx"),
             route("payout-setup", "routes/caregiver/caregiver-payout-setup.jsx"),
+            route("earnings/setup", "routes/caregiver/caregiver-earnings-setup-alias.jsx"),
             route("profile", "routes/caregiver/caregiver-profile-edit.jsx"),
+            route("profile/edit", "routes/caregiver/caregiver-profile-edit-alias.jsx"),
+            route("verify/identity", "routes/caregiver/caregiver-verify-identity-alias.jsx"),
+            route("verify/right-to-work", "routes/caregiver/caregiver-verify-right-to-work-alias.jsx"),
+            route("verify/dbs", "routes/caregiver/caregiver-verify-dbs-alias.jsx"),
             route("profile/preview", "routes/caregiver/caregiver-profile-preview.jsx")
         ])
     ]),
@@ -116,8 +125,10 @@ export default [
             route("search", "routes/carereceiver/carereceiver-search.jsx"),
             route("favorites", "routes/carereceiver/carereceiver-favorites.jsx"),
             route("caregivers/:caregiverId", "routes/carereceiver/carereceiver-caregiver-profile.jsx"),
-            route("settings", "routes/carereceiver/carereceiver-settings-redirect.jsx"),
+            route("settings", "routes/carereceiver/carereceiver-settings.jsx"),
             route("settings/payment", "routes/carereceiver/carereceiver-payment-methods.jsx"),
+            route("settings/notifications", "routes/carereceiver/carereceiver-settings-notifications.jsx"),
+            route("settings/security", "routes/carereceiver/carereceiver-settings-security.jsx"),
             route("bookings/:bookingId/review", "routes/carereceiver/carereceiver-leave-review.jsx")
         ])
     ])

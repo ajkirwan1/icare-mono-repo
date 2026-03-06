@@ -1,3 +1,0 @@
-packages/ICare/app/routes/caregiver/caregiver-profile-edit.jsx
-packages/ICare/app/routes/caregiver/caregiver-profile-edit.module.scss
-packages/ICare/app/routes/caregiver/caregiver-profile-preview.jsx
