@@ -1,39 +1,11 @@
-import { Router } from "express";
+/* global console, process */
 import crypto from "crypto";
-import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
-import { sendConfirmationEmail, sendWelcomeEmail } from "../services/emails/newsletter.js";
-import { pool } from "../db/db.js";
-import { isValidEmail } from "../utils/validation.js";
+import { pool } from "../../db/db.js";
+import { isValidEmail } from "../../utils/validation.js";
+import { sendConfirmationEmail, sendWelcomeEmail } from "../../services/emails/newsletter.js";
+import { getPublicApiBaseUrl, safeRedirect } from "./newsletter.service.js";
 
-const router = Router();
-
-/**
- * Helpers
- */
-function getPublicApiBaseUrl(req) {
-    // Prefer explicit env for production (recommended).
-    // Example: https://api.icare.com
-    const envBase = process.env.PUBLIC_API_URL;
-    if (envBase) { return envBase.replace(/\/$/, ""); }
-
-    // Fallback: derive from request (ok for dev)
-    return `${req.protocol}://${req.get("host")}`;
-}
-
-function safeRedirect(res, path) {
-    // Redirect to your FRONTEND pages (Pattern A: API does work, frontend shows UX).
-    // If frontend is on a different domain, set PUBLIC_SITE_URL.
-    const site = (process.env.PUBLIC_SITE_URL || "").replace(/\/$/, "");
-    if (site) { return res.redirect(`${site}${path}`); }
-    return res.redirect(path);
-}
-
-/**
- * POST /api/newsletter/subscribe
- * Body: { email, source }
- */
-router.post("/subscribe", newsletterSubscribeLimiter, async (req, res) => {
-
+export async function subscribe(req, res) {
     try {
         const { email, source } = req.body || {};
         const cleanEmail = String(email || "").trim().toLowerCase();
@@ -45,16 +17,14 @@ router.post("/subscribe", newsletterSubscribeLimiter, async (req, res) => {
                 .json({ ok: false, error: "Please enter a valid email address." });
         }
 
-        // Already subscribed (and not unsubscribed)
         const exists = await pool.query(
             "SELECT 1 FROM newsletter_subscribers WHERE email=$1 AND unsubscribed_at IS NULL",
             [cleanEmail]
         );
         if (exists.rowCount > 0) {
-            return res.json({ ok: true }); // don't leak
+            return res.json({ ok: true });
         }
 
-        // Create/refresh pending token
         const token = crypto.randomBytes(32).toString("hex");
 
         await pool.query(
@@ -67,7 +37,6 @@ router.post("/subscribe", newsletterSubscribeLimiter, async (req, res) => {
             [cleanEmail, token, cleanSource]
         );
 
-        // Pattern A: confirmation link hits the API
         const apiBase = getPublicApiBaseUrl(req);
         const confirmUrl = `${apiBase}/api/newsletter/confirm?token=${token}`;
 
@@ -78,14 +47,9 @@ router.post("/subscribe", newsletterSubscribeLimiter, async (req, res) => {
         console.error("Newsletter subscribe error:", err);
         return res.status(500).json({ ok: false, error: "Server error." });
     }
-});
+}
 
-/**
- * GET /api/newsletter/confirm?token=...
- * Confirms subscription, then redirects to frontend success page
- */
-router.get("/confirm", async (req, res) => {
-
+export async function confirm(req, res) {
     const token = String(req.query.token || "");
     if (!token) { return safeRedirect(res, "/newsletter/invalid"); }
 
@@ -105,7 +69,6 @@ router.get("/confirm", async (req, res) => {
 
         const { email, source } = pending.rows[0];
 
-        // Check if subscriber already exists and has an unsubscribe_token
         const existing = await client.query(
             "SELECT unsubscribe_token FROM newsletter_subscribers WHERE email=$1",
             [email]
@@ -116,7 +79,6 @@ router.get("/confirm", async (req, res) => {
                 ? existing.rows[0].unsubscribe_token
                 : crypto.randomBytes(32).toString("hex");
 
-        // Upsert subscriber, keep unsubscribe_token stable if it exists
         await client.query(
             `
       INSERT INTO newsletter_subscribers (email, source, unsubscribe_token, unsubscribed_at)
@@ -133,7 +95,6 @@ router.get("/confirm", async (req, res) => {
 
         await client.query("COMMIT");
 
-        // Build unsubscribe URL for emails (API route)
         const apiBase = getPublicApiBaseUrl(req);
         const unsubscribeUrl = `${apiBase}/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
 
@@ -148,7 +109,6 @@ router.get("/confirm", async (req, res) => {
             console.log("[newsletter] confirm: welcome email sent", r?.data || r);
         } catch (e) {
             console.error("[newsletter] confirm: welcome email FAILED", e);
-            // IMPORTANT: show failure instead of redirecting silently
             return res.status(500).send("Welcome email failed. Check server logs.");
         }
 
@@ -160,13 +120,9 @@ router.get("/confirm", async (req, res) => {
     } finally {
         client.release();
     }
-});
+}
 
-/**
- * GET /api/newsletter/unsubscribe?token=...
- * Marks unsubscribed and redirects to frontend page
- */
-router.get("/unsubscribe", async (req, res) => {
+export async function unsubscribe(req, res) {
     const token = String(req.query.token || "");
     if (!token) { return safeRedirect(res, "/newsletter/invalid"); }
 
@@ -188,13 +144,9 @@ router.get("/unsubscribe", async (req, res) => {
         console.error("Newsletter unsubscribe error:", err);
         return safeRedirect(res, "/newsletter/invalid");
     }
-});
+}
 
-/**
- * POST /api/newsletter/resend
- * Body: { email }
- */
-router.post("/resend", newsletterSubscribeLimiter, async (req, res) => {
+export async function resendConfirmation(req, res) {
     try {
         const cleanEmail = String(req.body.email || "").trim().toLowerCase();
 
@@ -202,14 +154,12 @@ router.post("/resend", newsletterSubscribeLimiter, async (req, res) => {
             return res.status(400).json({ ok: false, error: "Invalid email." });
         }
 
-        // If already subscribed, pretend ok
         const sub = await pool.query(
             "SELECT 1 FROM newsletter_subscribers WHERE email=$1 AND unsubscribed_at IS NULL",
             [cleanEmail]
         );
         if (sub.rowCount) { return res.json({ ok: true }); }
 
-        // Must exist in pending to resend
         const token = crypto.randomBytes(32).toString("hex");
 
         const up = await pool.query(
@@ -223,7 +173,6 @@ router.post("/resend", newsletterSubscribeLimiter, async (req, res) => {
         );
 
         if (!up.rowCount) {
-            // pretend ok (don't allow enumeration)
             return res.json({ ok: true });
         }
 
@@ -237,6 +186,4 @@ router.post("/resend", newsletterSubscribeLimiter, async (req, res) => {
         console.error("Newsletter resend error:", err);
         return res.status(500).json({ ok: false, error: "Server error." });
     }
-});
-
-export default router;
+}

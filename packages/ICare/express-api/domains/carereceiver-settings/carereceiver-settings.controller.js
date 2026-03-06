@@ -1,67 +1,13 @@
 /* global console */
-import { Router } from "express";
-import { pool } from "../db/db.js";
-import { normalizeUserId } from "../utils/identity.js";
+import { pool } from "../../db/db.js";
+import {
+    STRIPE_CUSTOMER_ID_RE,
+    resolveViewerId,
+    toNotificationSettings
+} from "./carereceiver-settings.service.js";
+import { readSettingsRow } from "./carereceiver-settings.repository.js";
 
-const router = Router();
-const STRIPE_CUSTOMER_ID_RE = /^cus_[A-Za-z0-9]+$/;
-const defaultNotificationSettings = {
-    bookingUpdatesEmail: true,
-    bookingRemindersEmail: true,
-    newMessagesEmail: true,
-    productAnnouncementsEmail: false
-};
-
-function resolveViewerId(req) {
-    const fromHeader = normalizeUserId(req.get("x-user-id"));
-    if (fromHeader) {
-        return fromHeader;
-    }
-
-    const fromQuery = normalizeUserId(req.query.userId || req.query.uid);
-    if (fromQuery) {
-        return fromQuery;
-    }
-
-    const fromBody = normalizeUserId(req.body?.userId || req.body?.uid);
-    if (fromBody) {
-        return fromBody;
-    }
-
-    return "";
-}
-
-function toNotificationSettings(row) {
-    return {
-        bookingUpdatesEmail: row ? Boolean(row.booking_updates_email) : defaultNotificationSettings.bookingUpdatesEmail,
-        bookingRemindersEmail: row ? Boolean(row.booking_reminders_email) : defaultNotificationSettings.bookingRemindersEmail,
-        newMessagesEmail: row ? Boolean(row.new_messages_email) : defaultNotificationSettings.newMessagesEmail,
-        productAnnouncementsEmail: row ? Boolean(row.product_announcements_email) : defaultNotificationSettings.productAnnouncementsEmail
-    };
-}
-
-async function readSettingsRow(userId) {
-
-    const result = await pool.query(
-        `
-          SELECT
-            user_id,
-            booking_updates_email,
-            booking_reminders_email,
-            new_messages_email,
-            product_announcements_email,
-            stripe_customer_id,
-            updated_at
-          FROM carereceiver_settings
-          WHERE user_id = $1
-          LIMIT 1
-        `,
-        [userId]
-    );
-    return result.rows?.[0] || null;
-}
-
-router.get("/carereceiver/settings/notifications", async (req, res) => {
+export async function getNotifications(req, res) {
     const userId = resolveViewerId(req);
     if (!userId) {
         return res.status(401).json({
@@ -84,9 +30,9 @@ router.get("/carereceiver/settings/notifications", async (req, res) => {
             error: { message: "Could not load notification settings." }
         });
     }
-});
+}
 
-router.put("/carereceiver/settings/notifications", async (req, res) => {
+export async function putNotifications(req, res) {
     const userId = resolveViewerId(req);
     if (!userId) {
         return res.status(401).json({
@@ -103,7 +49,6 @@ router.put("/carereceiver/settings/notifications", async (req, res) => {
     };
 
     try {
-    
         const updated = await pool.query(
             `
               INSERT INTO carereceiver_settings (
@@ -146,9 +91,9 @@ router.put("/carereceiver/settings/notifications", async (req, res) => {
             error: { message: "Could not save notification settings." }
         });
     }
-});
+}
 
-router.get("/carereceiver/settings/payments", async (req, res) => {
+export async function getPayments(req, res) {
     const userId = resolveViewerId(req);
     if (!userId) {
         return res.status(401).json({
@@ -171,9 +116,9 @@ router.get("/carereceiver/settings/payments", async (req, res) => {
             error: { message: "Could not load payment settings." }
         });
     }
-});
+}
 
-router.put("/carereceiver/settings/payments/stripe-customer", async (req, res) => {
+export async function putStripeCustomer(req, res) {
     const userId = resolveViewerId(req);
     if (!userId) {
         return res.status(401).json({
@@ -189,7 +134,6 @@ router.put("/carereceiver/settings/payments/stripe-customer", async (req, res) =
     }
 
     try {
-    
         const updated = await pool.query(
             `
               INSERT INTO carereceiver_settings (
@@ -220,6 +164,4 @@ router.put("/carereceiver/settings/payments/stripe-customer", async (req, res) =
             error: { message: "Could not save Stripe customer mapping." }
         });
     }
-});
-
-export default router;
+}

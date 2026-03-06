@@ -1,59 +1,14 @@
-import { Router } from "express";
-import { pool } from "../db/db.js";
-import { sanitizeMessage } from "../../app/utils/contact-protection.js";
+/* global console */
+import { pool } from "../../db/db.js";
+import {
+  VALID_SENDER_ROLES,
+  toConversation,
+  toMessage,
+  sanitizeMessage
+} from "./conversations.service.js";
+import { ensureConversation } from "./conversations.repository.js";
 
-const router = Router();
-
-const VALID_SENDER_ROLES = new Set(["caregiver", "carereceiver"]);
-
-function toConversation(row) {
-  return {
-    id: row.id,
-    protectionMode: "contact-protection",
-    contactProtectionEnabled: row.contact_protection_enabled !== false,
-    createdAt: row.created_at,
-    updatedAt: row.updated_at
-  };
-}
-
-function toMessage(row) {
-  const fallbackText = row.body_plain || "";
-  const safeMessage = sanitizeMessage(fallbackText);
-
-  return {
-    id: row.id,
-    conversationId: row.conversation_id,
-    senderRole: row.sender_role,
-    bodyPlain: safeMessage.sanitizedText,
-    metadata: row.metadata || {},
-    createdAt: row.created_at
-  };
-}
-
-async function ensureConversation(conversationId) {
-  const result = await pool.query(
-    `
-      INSERT INTO conversations (id)
-      VALUES ($1)
-      ON CONFLICT (id) DO NOTHING
-      RETURNING *
-    `,
-    [conversationId]
-  );
-
-  if (result.rows[0]) {
-    return result.rows[0];
-  }
-
-  const existing = await pool.query(
-    `SELECT * FROM conversations WHERE id = $1`,
-    [conversationId]
-  );
-
-  return existing.rows[0];
-}
-
-router.get("/conversations/:id", async (req, res) => {
+export async function getConversation(req, res) {
   try {
     const conversationId = String(req.params.id || "").trim();
     if (!conversationId) {
@@ -85,9 +40,9 @@ router.get("/conversations/:id", async (req, res) => {
     console.error("[conversations] GET failed:", error);
     return res.status(500).json({ error: "conversation_fetch_failed" });
   }
-});
+}
 
-router.post("/conversations/:id/messages", async (req, res) => {
+export async function postMessage(req, res) {
   try {
     const conversationId = String(req.params.id || "").trim();
     const senderRole = String(req.body?.senderRole || "").trim();
@@ -152,6 +107,4 @@ router.post("/conversations/:id/messages", async (req, res) => {
     console.error("[conversations] POST message failed:", error);
     return res.status(500).json({ error: "message_create_failed" });
   }
-});
-
-export default router;
+}

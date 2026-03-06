@@ -1,0 +1,42 @@
+Step 4 — Extract route files into domain folders — COMPLETE
+============================================================
+Date: 2026-03-06
+Branch: app-panel-db
+
+All route files extracted into domains/ using routes → controller → service → repository pattern.
+Each domain verified by booting the server and hitting endpoints.
+
+Domains created:
+  1. domains/auth/              (4 files: routes, controller, service, repository)
+  2. domains/bookings/          (5 files: routes, controller, service, repository + shared)
+  3. domains/caregiver-onboarding/ (5 files: routes, controller, service, repository + shared)
+  4. domains/caregiver-profile/  (4 files: routes, controller, service, repository)
+  5. domains/chat/              (3 files: routes, controller, service — no DB queries)
+  6. domains/conversations/     (4 files: routes, controller, service, repository)
+  7. domains/carereceiver-settings/ (4 files: routes, controller, service, repository)
+  8. domains/messaging/         (4 files: routes, controller, service, repository)
+  9. domains/newsletter/        (3 files: routes, controller, service — no shared queries)
+ 10. domains/stripe/            (3 files: routes, controller, service — no repository)
+
+Pre-existing domains (not touched in Step 4):
+ 11. domains/admin/system-settings/ (already domain-structured)
+
+Old route files deleted:
+  - routes/auth.routes.js
+  - routes/caregiver-onboarding.routes.js
+  - routes/caregiver-profile.routes.js
+  - routes/carereceiver-dashboard.routes.js
+  - routes/carereceiver-messages.routes.js
+  - routes/carereceiver-settings.routes.js
+  - routes/chat.routes.js
+  - routes/conversations.routes.js
+  - routes/newsletter.routes.js
+  - routes/stripe.routes.js
+
+Remaining in routes/ (not yet migrated — Step 4 scope was the 10 above):
+  - routes/waitinglist.routes.js
+  - routes/contact.routes.js
+
+app.js updated: all imports now point to domains/ except waitinglist and contact.
+
+Final verification: 7 endpoints tested across all migrated domains — all pass.

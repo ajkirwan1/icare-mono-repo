@@ -7,15 +7,15 @@ import { dirname, resolve } from "path";
 // import todosRouter from "./routes/todos.routes.js";
 // import careRolesRouter from "./routes/care-roles.routes.js";
 // import documentsRouter from "./routes/documents.routes.js";
-import newsletterRouter from "../routes/newsletter.routes.js";
+import newsletterRouter from "../domains/newsletter/newsletter.routes.js";
 import waitinglistRouter from "../routes/waitinglist.routes.js";
 import contactUsRouter from "../routes/contact.routes.js";
 import authRouter from "../domains/auth/auth.routes.js";
 import chatRouter from "../domains/chat/chat.routes.js";
 import carereceiverDashboardRouter from "../domains/bookings/bookings.routes.js";
 import carereceiverMessagesRouter from "../domains/messaging/messaging.routes.js";
-import carereceiverSettingsRouter from "../routes/carereceiver-settings.routes.js";
-import conversationsRouter from "../routes/conversations.routes.js";
+import carereceiverSettingsRouter from "../domains/carereceiver-settings/carereceiver-settings.routes.js";
+import conversationsRouter from "../domains/conversations/conversations.routes.js";
 import caregiverProfileRouter from "../domains/caregiver-profile/caregiver-profile.routes.js";
 import adminSystemSettingsRouter from "../domains/admin/system-settings/system-settings.routes.js";
 
