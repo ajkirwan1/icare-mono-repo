@@ -1,16 +1,4 @@
-import Stripe from "stripe";
-
-const STRIPE_API_VERSION = "2024-06-20";
-
-let stripeClient = null;
-
-function getStripeSecretKey() {
-    return String(
-        process.env.STRIPE_SECRET_KEY ||
-        process.env.STRIPE_SECRET_KEY_TEST ||
-        ""
-    ).trim();
-}
+import { getStripeClient, isStripeConfigured } from "../../utils/stripe-client.js";
 
 function stripeErrorMessage(error, fallback = "Stripe operation failed.") {
     const message = error?.raw?.message || error?.message || "";
@@ -21,24 +9,8 @@ function toMinorUnits(amount) {
     return Math.max(0, Math.round(Number(amount || 0) * 100));
 }
 
-function assertStripeClient() {
-    const secretKey = getStripeSecretKey();
-    if (!secretKey) {
-        const error = new Error("Stripe is not configured on API.");
-        error.code = "STRIPE_NOT_CONFIGURED";
-        throw error;
-    }
-
-    if (!stripeClient) {
-        stripeClient = new Stripe(secretKey, { apiVersion: STRIPE_API_VERSION });
-    }
-
-    return stripeClient;
-}
-
 export function isStripeServerConfigured() {
-    const key = getStripeSecretKey();
-    return key.startsWith("sk_test_") || key.startsWith("sk_live_");
+    return isStripeConfigured();
 }
 
 export async function captureBookingPaymentIntent({
@@ -46,7 +18,7 @@ export async function captureBookingPaymentIntent({
     bookingId = "",
     amount = null
 }) {
-    const stripe = assertStripeClient();
+    const stripe = getStripeClient();
     const id = String(paymentIntentId || "").trim();
     if (!id.startsWith("pi_")) {
         const error = new Error("Invalid payment intent id.");
@@ -83,7 +55,7 @@ export async function captureBookingPaymentIntent({
 }
 
 export async function cancelBookingPaymentIntent({ paymentIntentId, bookingId = "" }) {
-    const stripe = assertStripeClient();
+    const stripe = getStripeClient();
     const id = String(paymentIntentId || "").trim();
     if (!id.startsWith("pi_")) {
         const error = new Error("Invalid payment intent id.");
@@ -107,7 +79,7 @@ export async function refundCapturedBookingPaymentIntent({
     bookingId = "",
     reason = "requested_by_customer"
 }) {
-    const stripe = assertStripeClient();
+    const stripe = getStripeClient();
     const id = String(paymentIntentId || "").trim();
     if (!id.startsWith("pi_")) {
         const error = new Error("Invalid payment intent id.");
@@ -135,7 +107,7 @@ export async function attachBookingMetadataToPaymentIntent({
     careReceiverId = "",
     caregiverId = ""
 }) {
-    const stripe = assertStripeClient();
+    const stripe = getStripeClient();
     const id = String(paymentIntentId || "").trim();
     if (!id.startsWith("pi_")) {
         return null;

@@ -1,47 +1,18 @@
-import express from "express";
-import Stripe from "stripe";
-import { z } from "zod";
-import { pool } from "../db/db.js";
+/* global console, process */
+import { pool } from "../../db/db.js";
+import { getStripeClient } from "../../utils/stripe-client.js";
+import {
+    getSiteUrl,
+    getPlatformFeeRate,
+    calculateFeeBreakdown,
+    checkoutSchema,
+    subscriptionSchema,
+    connectSchema,
+    loginLinkSchema,
+    payoutSchema
+} from "./stripe.service.js";
 
-const router = express.Router();
-
-function asyncHandler(fn) {
-    return (req, res, next) => {
-        Promise.resolve(fn(req, res, next)).catch((error) => {
-            console.error("[stripe api] error:", error.message);
-            res.status(500).json({ error: error.message || "Stripe request failed" });
-        });
-    };
-}
-
-function getStripe() {
-    const secretKey = String(process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST || "").trim();
-    if (!secretKey) {
-        throw new Error("Stripe secret key is not configured");
-    }
-    return new Stripe(secretKey, { apiVersion: "2024-06-20" });
-}
-
-function getSiteUrl() {
-    return process.env.PUBLIC_SITE_URL || process.env.VITE_SITE_URL || "http://localhost:5173";
-}
-
-function getPlatformFeeRate() {
-    const raw = Number(process.env.STRIPE_PLATFORM_FEE_PERCENT || 15);
-    if (!Number.isFinite(raw) || raw < 0 || raw > 100) {
-        return 0.15;
-    }
-    return raw / 100;
-}
-
-function calculateFeeBreakdown(amount) {
-    const feeRate = getPlatformFeeRate();
-    const platformFeeAmount = Math.round(amount * feeRate);
-    const caregiverAmount = amount - platformFeeAmount;
-    return { feeRate, platformFeeAmount, caregiverAmount };
-}
-
-router.get("/config", (req, res) => {
+export function getConfig(req, res) {
     const feeRate = getPlatformFeeRate();
     const secretKey = String(process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST || "").trim();
     const publishableKey = String(process.env.STRIPE_PUBLISHABLE_KEY || process.env.STRIPE_PUBLISHABLE_KEY_TEST || "").trim();
@@ -52,27 +23,15 @@ router.get("/config", (req, res) => {
         hasWebhookSecret: Boolean(webhookSecret),
         platformFeePercent: Math.round(feeRate * 100)
     });
-});
+}
 
-const checkoutSchema = z.object({
-    amount: z.number().int().positive().optional(),
-    currency: z.string().trim().min(3).max(3).default("gbp"),
-    customerEmail: z.string().email().optional(),
-    customerId: z.string().optional(),
-    connectedAccountId: z.string().optional(),
-    priceId: z.string().optional(),
-    successUrl: z.string().url().optional(),
-    cancelUrl: z.string().url().optional(),
-    metadata: z.record(z.string(), z.string()).optional()
-});
-
-router.post("/checkout-session", asyncHandler(async (req, res) => {
+export async function createCheckoutSession(req, res) {
     const parsed = checkoutSchema.safeParse(req.body || {});
     if (!parsed.success) {
         return res.status(400).json({ error: "Invalid payload", details: parsed.error.flatten() });
     }
 
-    const stripe = getStripe();
+    const stripe = getStripeClient();
     const data = parsed.data;
     const siteUrl = getSiteUrl();
 
@@ -112,25 +71,15 @@ router.post("/checkout-session", asyncHandler(async (req, res) => {
         url: session.url,
         platformFeePercent: Math.round(getPlatformFeeRate() * 100)
     });
-}));
+}
 
-const subscriptionSchema = z.object({
-    priceId: z.string().min(1),
-    customerEmail: z.string().email().optional(),
-    customerId: z.string().optional(),
-    connectedAccountId: z.string().optional(),
-    successUrl: z.string().url().optional(),
-    cancelUrl: z.string().url().optional(),
-    metadata: z.record(z.string(), z.string()).optional()
-});
-
-router.post("/subscription-session", asyncHandler(async (req, res) => {
+export async function createSubscriptionSession(req, res) {
     const parsed = subscriptionSchema.safeParse(req.body || {});
     if (!parsed.success) {
         return res.status(400).json({ error: "Invalid payload", details: parsed.error.flatten() });
     }
 
-    const stripe = getStripe();
+    const stripe = getStripeClient();
     const data = parsed.data;
     const siteUrl = getSiteUrl();
 
@@ -157,23 +106,15 @@ router.post("/subscription-session", asyncHandler(async (req, res) => {
         url: session.url,
         platformFeePercent: Math.round(getPlatformFeeRate() * 100)
     });
-}));
+}
 
-const connectSchema = z.object({
-    email: z.string().email().optional(),
-    country: z.string().trim().length(2).default("GB"),
-    refreshUrl: z.string().url().optional(),
-    returnUrl: z.string().url().optional(),
-    metadata: z.record(z.string(), z.string()).optional()
-});
-
-router.post("/connect/account", asyncHandler(async (req, res) => {
+export async function createConnectAccount(req, res) {
     const parsed = connectSchema.safeParse(req.body || {});
     if (!parsed.success) {
         return res.status(400).json({ error: "Invalid payload", details: parsed.error.flatten() });
     }
 
-    const stripe = getStripe();
+    const stripe = getStripeClient();
     const data = parsed.data;
     const siteUrl = getSiteUrl();
 
@@ -198,37 +139,26 @@ router.post("/connect/account", asyncHandler(async (req, res) => {
         accountId: account.id,
         onboardingUrl: accountLink.url
     });
-}));
+}
 
-const loginLinkSchema = z.object({
-    accountId: z.string().min(1)
-});
-
-router.post("/connect/dashboard-link", asyncHandler(async (req, res) => {
+export async function createDashboardLink(req, res) {
     const parsed = loginLinkSchema.safeParse(req.body || {});
     if (!parsed.success) {
         return res.status(400).json({ error: "Invalid payload", details: parsed.error.flatten() });
     }
 
-    const stripe = getStripe();
+    const stripe = getStripeClient();
     const link = await stripe.accounts.createLoginLink(parsed.data.accountId);
     return res.json({ url: link.url });
-}));
+}
 
-const payoutSchema = z.object({
-    accountId: z.string().min(1),
-    amount: z.number().int().positive(),
-    currency: z.string().trim().min(3).max(3).default("gbp"),
-    description: z.string().optional()
-});
-
-router.post("/connect/payout", asyncHandler(async (req, res) => {
+export async function createPayout(req, res) {
     const parsed = payoutSchema.safeParse(req.body || {});
     if (!parsed.success) {
         return res.status(400).json({ error: "Invalid payload", details: parsed.error.flatten() });
     }
 
-    const stripe = getStripe();
+    const stripe = getStripeClient();
     const data = parsed.data;
     const breakdown = calculateFeeBreakdown(data.amount);
 
@@ -256,13 +186,13 @@ router.post("/connect/payout", asyncHandler(async (req, res) => {
         caregiverAmount: breakdown.caregiverAmount,
         platformFeePercent: Math.round(breakdown.feeRate * 100)
     });
-}));
+}
 
 export async function handleStripeWebhook(req, res) {
     try {
         const signature = req.headers["stripe-signature"];
         const webhookSecret = String(process.env.STRIPE_WEBHOOK_SECRET || process.env.STRIPE_WEBHOOK_SECRET_TEST || "").trim();
-        const stripe = getStripe();
+        const stripe = getStripeClient();
         let event;
         const rawBody = Buffer.isBuffer(req.body)
             ? req.body.toString("utf8")
@@ -379,5 +309,3 @@ export async function handleStripeWebhook(req, res) {
         return res.status(400).send(`Webhook error: ${error.message}`);
     }
 }
-
-export default router;

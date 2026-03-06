@@ -22,46 +22,6 @@ const PHOTO_MIME_TO_EXTENSION = {
   "image/png": "png",
   "image/webp": "webp"
 };
-let caregiverProfileSchemaReady = false;
-
-async function ensureCaregiverProfileSchema() {
-  if (caregiverProfileSchemaReady) {
-    return;
-  }
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS caregiver_profiles (
-      profile_id TEXT PRIMARY KEY,
-      intro_video_url TEXT,
-      intro_video_duration_sec INTEGER
-        CONSTRAINT caregiver_intro_video_duration_chk
-        CHECK (intro_video_duration_sec IS NULL OR (intro_video_duration_sec >= 0 AND intro_video_duration_sec <= 30)),
-      intro_video_mime TEXT,
-      intro_video_size_bytes BIGINT
-        CONSTRAINT caregiver_intro_video_size_chk
-        CHECK (intro_video_size_bytes IS NULL OR intro_video_size_bytes >= 0),
-      profile_photo_url TEXT,
-      profile_data JSONB NOT NULL DEFAULT '{}'::jsonb,
-      updated_by TEXT,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-    )
-  `);
-
-  await pool.query(`
-    ALTER TABLE caregiver_profiles
-      ADD COLUMN IF NOT EXISTS intro_video_url TEXT,
-      ADD COLUMN IF NOT EXISTS intro_video_duration_sec INTEGER,
-      ADD COLUMN IF NOT EXISTS intro_video_mime TEXT,
-      ADD COLUMN IF NOT EXISTS intro_video_size_bytes BIGINT,
-      ADD COLUMN IF NOT EXISTS profile_photo_url TEXT,
-      ADD COLUMN IF NOT EXISTS profile_data JSONB NOT NULL DEFAULT '{}'::jsonb,
-      ADD COLUMN IF NOT EXISTS updated_by TEXT,
-      ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-  `);
-
-  caregiverProfileSchemaReady = true;
-}
 
 function toProfilePayload(profileId, row) {
   const profileData = row?.profile_data && typeof row.profile_data === "object"
@@ -80,7 +40,7 @@ function toProfilePayload(profileId, row) {
 }
 
 async function findProfile(profileId) {
-  await ensureCaregiverProfileSchema();
+
 
   const result = await pool.query(
     `
@@ -184,7 +144,7 @@ router.put("/caregiver-profiles/:id", async (req, res) => {
       return res.status(403).json({ error: "forbidden", message: "You do not have permission to update this profile." });
     }
 
-    await ensureCaregiverProfileSchema();
+  
 
     const rawPayload = req.body?.profileData ?? req.body?.profile ?? req.body;
     const profileData = sanitizeProfileData(rawPayload);
@@ -230,7 +190,7 @@ router.put(
         return res.status(403).json({ error: "forbidden", message: "You do not have permission to upload this profile photo." });
       }
 
-      await ensureCaregiverProfileSchema();
+    
 
       const body = Buffer.isBuffer(req.body) ? req.body : Buffer.alloc(0);
       const mimeType = String(req.headers["content-type"] || "").split(";")[0].trim().toLowerCase();

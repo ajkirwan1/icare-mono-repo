@@ -1,9 +1,9 @@
 /* global console */
 import { Router } from "express";
 import { pool } from "../db/db.js";
+import { normalizeUserId } from "../utils/identity.js";
 
 const router = Router();
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const STRIPE_CUSTOMER_ID_RE = /^cus_[A-Za-z0-9]+$/;
 const defaultNotificationSettings = {
     bookingUpdatesEmail: true,
@@ -11,44 +11,6 @@ const defaultNotificationSettings = {
     newMessagesEmail: true,
     productAnnouncementsEmail: false
 };
-let schemaReady = false;
-
-async function ensureSettingsSchema() {
-    if (schemaReady) {
-        return;
-    }
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS carereceiver_settings (
-        user_id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-        booking_updates_email BOOLEAN NOT NULL DEFAULT TRUE,
-        booking_reminders_email BOOLEAN NOT NULL DEFAULT TRUE,
-        new_messages_email BOOLEAN NOT NULL DEFAULT TRUE,
-        product_announcements_email BOOLEAN NOT NULL DEFAULT FALSE,
-        stripe_customer_id VARCHAR(128),
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await pool.query(`
-      ALTER TABLE carereceiver_settings
-        ADD COLUMN IF NOT EXISTS booking_updates_email BOOLEAN NOT NULL DEFAULT TRUE,
-        ADD COLUMN IF NOT EXISTS booking_reminders_email BOOLEAN NOT NULL DEFAULT TRUE,
-        ADD COLUMN IF NOT EXISTS new_messages_email BOOLEAN NOT NULL DEFAULT TRUE,
-        ADD COLUMN IF NOT EXISTS product_announcements_email BOOLEAN NOT NULL DEFAULT FALSE,
-        ADD COLUMN IF NOT EXISTS stripe_customer_id VARCHAR(128),
-        ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-    `);
-
-    schemaReady = true;
-}
-
-function normalizeUserId(value) {
-    const userId = String(value || "").trim();
-    return UUID_RE.test(userId) ? userId : "";
-}
 
 function resolveViewerId(req) {
     const fromHeader = normalizeUserId(req.get("x-user-id"));
@@ -79,7 +41,7 @@ function toNotificationSettings(row) {
 }
 
 async function readSettingsRow(userId) {
-    await ensureSettingsSchema();
+
     const result = await pool.query(
         `
           SELECT
@@ -141,7 +103,7 @@ router.put("/carereceiver/settings/notifications", async (req, res) => {
     };
 
     try {
-        await ensureSettingsSchema();
+    
         const updated = await pool.query(
             `
               INSERT INTO carereceiver_settings (
@@ -227,7 +189,7 @@ router.put("/carereceiver/settings/payments/stripe-customer", async (req, res) =
     }
 
     try {
-        await ensureSettingsSchema();
+    
         const updated = await pool.query(
             `
               INSERT INTO carereceiver_settings (

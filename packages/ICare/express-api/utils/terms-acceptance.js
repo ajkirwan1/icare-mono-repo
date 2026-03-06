@@ -52,3 +52,12 @@ export function termsNotAcceptedError() {
         }
     };
 }
+
+export function ensureTermsAccepted(res, viewer) {
+    if (hasAcceptedTerms(viewer)) {
+        return true;
+    }
+
+    res.status(403).json(termsNotAcceptedError());
+    return false;
+}

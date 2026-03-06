@@ -1,835 +1,36 @@
-/* global console, process */
-import { Router } from "express";
-import Stripe from "stripe";
-import { z } from "zod";
-import { pool } from "../db/db.js";
+/* global console */
+import { pool } from "../../db/db.js";
+import { UUID_RE } from "../../utils/identity.js";
+import { parseLimitParam, parseDaysParam } from "../../utils/pagination.js";
 import {
     clampPercent,
-    getPlatformFeePercentFromEnv,
     readAdminSystemSettings
-} from "../domains/admin/system-settings/system-settings.repository.js";
+} from "../admin/system-settings/system-settings.repository.js";
+import {
+    verificationDecisionSchema,
+    getPlatformFeePercent,
+    asPounds,
+    asInteger,
+    asHours,
+    asPercent,
+    mapQueueItem,
+    mapSummaryPayload
+} from "./onboarding.service.js";
+import {
+    isMissingSchemaError,
+    querySafe
+} from "./onboarding.repository.js";
 
-const router = Router();
-
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
-const ONBOARDING_STATUS_VALUES = new Set(["not_submitted", "pending_review", "verified", "rejected"]);
-const CAREGIVER_EMAIL_ALIAS_TO_ID = {
-    "maxax85@gmail.com": "cg-007",
-    "maxherbst1985@gmail.com": "cg-007"
-};
-
-let onboardingTableReady = false;
-let adminVerificationQueueTableReady = false;
-
-const identitySchema = z.object({
-    documentType: z.enum(["uk_passport", "driving_licence", "residence_permit", "other"]).default("uk_passport"),
-    fileName: z.string().trim().min(1).max(255),
-    fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES).optional()
-});
-
-const rightToWorkSchema = z.object({
-    method: z.enum(["passport", "ukvi"]).default("passport"),
-    confirmed: z.boolean().optional(),
-    fileName: z.string().trim().max(255).optional(),
-    fileSize: z.number().int().nonnegative().max(MAX_UPLOAD_BYTES).optional()
-});
-
-const dbsSchema = z.object({
-    fileName: z.string().trim().min(1).max(255),
-    fileSize: z.number().int().positive().max(MAX_UPLOAD_BYTES).optional(),
-    certificateNumber: z.string().trim().max(128).optional(),
-    issueDate: z.string().trim().min(1)
-});
-
-const payoutAccountSchema = z.object({
-    accountId: z.string().trim().min(1),
-    payoutsEnabled: z.boolean().optional(),
-    chargesEnabled: z.boolean().optional(),
-    payoutStatus: z.enum(["not_connected", "pending", "connected"]).optional()
-});
-
-const verificationDecisionSchema = z.object({
-    status: z.enum(["approved", "rejected"]),
-    reviewNotes: z.string().trim().max(2000).optional(),
-    reviewedBy: z.string().trim().max(255).optional()
-});
-
-function getStripeClientIfConfigured() {
-    const secretKey = String(process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY_TEST || "").trim();
-    if (!secretKey) {
-        return null;
-    }
-
-    return new Stripe(secretKey, { apiVersion: "2024-06-20" });
-}
-
-function getPlatformFeePercent() {
-    return getPlatformFeePercentFromEnv();
-}
-
-function normalizeStatus(value) {
-    const candidate = String(value || "").trim().toLowerCase();
-    if (ONBOARDING_STATUS_VALUES.has(candidate)) {
-        return candidate;
-    }
-    return "not_submitted";
-}
-
-function normalizePayoutStatus(value, payoutsEnabled) {
-    const candidate = String(value || "").trim().toLowerCase();
-    if (candidate === "connected" || candidate === "pending" || candidate === "not_connected") {
-        return candidate;
-    }
-    return payoutsEnabled ? "connected" : "pending";
-}
-
-function asPounds(value) {
-    const numeric = Number(value);
-    if (!Number.isFinite(numeric)) {
-        return 0;
-    }
-    return Math.round(numeric * 100) / 100;
-}
-
-async function ensureCaregiverOnboardingTable() {
-    if (onboardingTableReady) {
-        return;
-    }
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS caregiver_onboarding_status (
-        caregiver_key TEXT PRIMARY KEY,
-        caregiver_id TEXT,
-        caregiver_email TEXT,
-
-        identity_status VARCHAR(32) NOT NULL DEFAULT 'not_submitted',
-        identity_document_type VARCHAR(64),
-        identity_file_name TEXT,
-        identity_file_size INTEGER,
-        identity_submitted_at TIMESTAMP,
-
-        right_to_work_status VARCHAR(32) NOT NULL DEFAULT 'not_submitted',
-        right_to_work_method VARCHAR(32),
-        right_to_work_file_name TEXT,
-        right_to_work_file_size INTEGER,
-        right_to_work_submitted_at TIMESTAMP,
-
-        dbs_status VARCHAR(32) NOT NULL DEFAULT 'not_submitted',
-        dbs_certificate_number VARCHAR(128),
-        dbs_issue_date DATE,
-        dbs_file_name TEXT,
-        dbs_file_size INTEGER,
-        dbs_submitted_at TIMESTAMP,
-
-        payout_status VARCHAR(32) NOT NULL DEFAULT 'not_connected',
-        stripe_account_id VARCHAR(128),
-        payouts_enabled BOOLEAN NOT NULL DEFAULT FALSE,
-        charges_enabled BOOLEAN NOT NULL DEFAULT FALSE,
-
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW()
-      )
-    `);
-
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_caregiver_onboarding_status_email
-      ON caregiver_onboarding_status (lower(caregiver_email));
-    `);
-
-    onboardingTableReady = true;
-}
-
-async function ensureAdminVerificationQueueTable() {
-    if (adminVerificationQueueTableReady) {
-        return;
-    }
-
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS admin_verification_queue (
-        id BIGSERIAL PRIMARY KEY,
-        caregiver_key TEXT NOT NULL,
-        caregiver_id TEXT,
-        caregiver_email TEXT,
-        caregiver_name TEXT,
-        verification_type VARCHAR(32) NOT NULL,
-        status VARCHAR(32) NOT NULL DEFAULT 'pending',
-        payload JSONB NOT NULL DEFAULT '{}'::jsonb,
-        source_status VARCHAR(32) NOT NULL DEFAULT 'pending_review',
-        submitted_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        reviewed_at TIMESTAMP,
-        reviewed_by TEXT,
-        review_notes TEXT,
-        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-        CONSTRAINT admin_verification_queue_unique_open_item UNIQUE (caregiver_key, verification_type, status)
-      )
-    `);
-
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_admin_verification_queue_status_submitted
-      ON admin_verification_queue (status, submitted_at DESC);
-    `);
-
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_admin_verification_queue_type_status
-      ON admin_verification_queue (verification_type, status);
-    `);
-
-    adminVerificationQueueTableReady = true;
-}
-
-async function resolveCaregiverIdentity(req) {
-    const headerUserId = String(req.get("x-user-id") || "").trim();
-    const headerEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
-
-    let viewer = null;
-
-    if (UUID_RE.test(headerUserId)) {
-        const byId = await pool.query(
-            `
-            SELECT id, email, first_name, last_name
-            FROM users
-            WHERE id = $1
-              AND user_type = 'caregiver'
-              AND deleted_at IS NULL
-            LIMIT 1
-            `,
-            [headerUserId]
-        );
-        viewer = byId.rows?.[0] || null;
-    }
-
-    if (!viewer && headerEmail) {
-        const byEmail = await pool.query(
-            `
-            SELECT id, email, first_name, last_name
-            FROM users
-            WHERE lower(email) = $1
-              AND user_type = 'caregiver'
-              AND deleted_at IS NULL
-            LIMIT 1
-            `,
-            [headerEmail]
-        );
-        viewer = byEmail.rows?.[0] || null;
-    }
-
-    const email = String(viewer?.email || headerEmail || "").trim().toLowerCase();
-    const inferredAliasId = email && CAREGIVER_EMAIL_ALIAS_TO_ID[email] ? CAREGIVER_EMAIL_ALIAS_TO_ID[email] : "";
-    const id = String(viewer?.id || headerUserId || inferredAliasId || "cg-007").trim();
-    const key = id || (email ? `email:${email}` : "cg-007");
-    const fullName = [viewer?.first_name, viewer?.last_name]
-        .map((value) => String(value || "").trim())
-        .filter(Boolean)
-        .join(" ");
-
-    return {
-        id,
-        email,
-        key,
-        fullName
-    };
-}
-
-async function ensureCaregiverRow(identity) {
-    await ensureCaregiverOnboardingTable();
-
-    await pool.query(
-        `
-        INSERT INTO caregiver_onboarding_status (
-          caregiver_key,
-          caregiver_id,
-          caregiver_email
-        ) VALUES ($1, $2, $3)
-        ON CONFLICT (caregiver_key) DO UPDATE SET
-          caregiver_id = COALESCE(NULLIF(EXCLUDED.caregiver_id, ''), caregiver_onboarding_status.caregiver_id),
-          caregiver_email = COALESCE(NULLIF(EXCLUDED.caregiver_email, ''), caregiver_onboarding_status.caregiver_email),
-          updated_at = NOW()
-        `,
-        [identity.key, identity.id || null, identity.email || null]
-    );
-
-    const result = await pool.query(
-        `
-        SELECT
-          caregiver_key,
-          caregiver_id,
-          caregiver_email,
-          identity_status,
-          identity_document_type,
-          identity_file_name,
-          identity_file_size,
-          identity_submitted_at,
-          right_to_work_status,
-          right_to_work_method,
-          right_to_work_file_name,
-          right_to_work_file_size,
-          right_to_work_submitted_at,
-          dbs_status,
-          dbs_certificate_number,
-          dbs_issue_date,
-          dbs_file_name,
-          dbs_file_size,
-          dbs_submitted_at,
-          payout_status,
-          stripe_account_id,
-          payouts_enabled,
-          charges_enabled,
-          created_at,
-          updated_at
-        FROM caregiver_onboarding_status
-        WHERE caregiver_key = $1
-        LIMIT 1
-        `,
-        [identity.key]
-    );
-
-    return result.rows?.[0] || null;
-}
-
-async function enqueueAdminVerification({
-    identity,
-    verificationType,
-    sourceStatus = "pending_review",
-    payload = {}
-}) {
-    await ensureAdminVerificationQueueTable();
-
-    const queued = await pool.query(
-        `
-        INSERT INTO admin_verification_queue (
-          caregiver_key,
-          caregiver_id,
-          caregiver_email,
-          caregiver_name,
-          verification_type,
-          status,
-          payload,
-          source_status,
-          submitted_at,
-          updated_at
-        ) VALUES ($1, $2, $3, $4, $5, 'pending', $6::jsonb, $7, NOW(), NOW())
-        ON CONFLICT (caregiver_key, verification_type, status) DO UPDATE SET
-          caregiver_id = COALESCE(NULLIF(EXCLUDED.caregiver_id, ''), admin_verification_queue.caregiver_id),
-          caregiver_email = COALESCE(NULLIF(EXCLUDED.caregiver_email, ''), admin_verification_queue.caregiver_email),
-          caregiver_name = COALESCE(NULLIF(EXCLUDED.caregiver_name, ''), admin_verification_queue.caregiver_name),
-          payload = EXCLUDED.payload,
-          source_status = EXCLUDED.source_status,
-          submitted_at = NOW(),
-          updated_at = NOW()
-        RETURNING *
-        `,
-        [
-            identity.key,
-            String(identity.id || ""),
-            String(identity.email || ""),
-            String(identity.fullName || ""),
-            verificationType,
-            JSON.stringify(payload || {}),
-            sourceStatus
-        ]
-    );
-
-    return queued.rows?.[0] || null;
-}
-
-function asInteger(value, fallback = 0) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return fallback;
-    }
-    return Math.trunc(parsed);
-}
-
-function asHours(value) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed) || parsed < 0) {
-        return 0;
-    }
-    return Math.round(parsed * 10) / 10;
-}
-
-function parseLimitParam(value, defaultLimit = 50, maxLimit = 200) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return defaultLimit;
-    }
-    return Math.max(1, Math.min(maxLimit, Math.trunc(parsed)));
-}
-
-function parseDaysParam(value, defaultDays = 30, maxDays = 365) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return defaultDays;
-    }
-    return Math.max(1, Math.min(maxDays, Math.trunc(parsed)));
-}
-
-function asPercent(value) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return 0;
-    }
-    return Math.round(parsed * 10) / 10;
-}
-
-function isMissingSchemaError(error) {
-    return Boolean(error && (error.code === "42P01" || error.code === "42703"));
-}
-
-async function querySafe(sql, params = []) {
+export async function listVerifications(req, res) {
     try {
-        return await pool.query(sql, params);
-    } catch (error) {
-        if (isMissingSchemaError(error)) {
-            return { rows: [] };
-        }
-        throw error;
-    }
-}
 
-function mapQueueItem(row) {
-    return {
-        id: Number(row?.id || 0) || null,
-        caregiverKey: String(row?.caregiver_key || ""),
-        caregiverId: String(row?.caregiver_id || ""),
-        caregiverEmail: String(row?.caregiver_email || ""),
-        caregiverName: String(row?.caregiver_name || ""),
-        verificationType: String(row?.verification_type || ""),
-        status: String(row?.status || ""),
-        sourceStatus: String(row?.source_status || ""),
-        payload: row?.payload || {},
-        submittedAt: row?.submitted_at || null,
-        reviewedAt: row?.reviewed_at || null,
-        reviewedBy: String(row?.reviewed_by || ""),
-        reviewNotes: String(row?.review_notes || ""),
-        createdAt: row?.created_at || null,
-        updatedAt: row?.updated_at || null
-    };
-}
-
-async function syncStripeAccountStatus(identity, row) {
-    const stripe = getStripeClientIfConfigured();
-    const accountId = String(row?.stripe_account_id || "").trim();
-
-    if (!stripe || !accountId) {
-        return row;
-    }
-
-    try {
-        const account = await stripe.accounts.retrieve(accountId);
-        const payoutsEnabled = Boolean(account?.payouts_enabled);
-        const chargesEnabled = Boolean(account?.charges_enabled);
-        const payoutStatus = payoutsEnabled ? "connected" : "pending";
-
-        const changed = (
-            payoutsEnabled !== Boolean(row?.payouts_enabled) ||
-            chargesEnabled !== Boolean(row?.charges_enabled) ||
-            payoutStatus !== String(row?.payout_status || "")
-        );
-
-        if (changed) {
-            const updated = await pool.query(
-                `
-                UPDATE caregiver_onboarding_status
-                SET
-                  payouts_enabled = $2,
-                  charges_enabled = $3,
-                  payout_status = $4,
-                  updated_at = NOW()
-                WHERE caregiver_key = $1
-                RETURNING *
-                `,
-                [identity.key, payoutsEnabled, chargesEnabled, payoutStatus]
-            );
-            return updated.rows?.[0] || row;
-        }
-    } catch (error) {
-        console.warn("[caregiver-onboarding] stripe status sync failed:", error?.message || error);
-    }
-
-    return row;
-}
-
-async function getEarningsSummary(identity) {
-    const ids = [];
-    const pushUnique = (value) => {
-        const normalized = String(value || "").trim();
-        if (normalized && !ids.includes(normalized)) {
-            ids.push(normalized);
-        }
-    };
-
-    pushUnique(identity.id);
-    if (identity.email && CAREGIVER_EMAIL_ALIAS_TO_ID[identity.email]) {
-        pushUnique(CAREGIVER_EMAIL_ALIAS_TO_ID[identity.email]);
-    }
-
-    const params = [];
-    const clauses = [];
-
-    if (ids.length > 0) {
-        params.push(ids);
-        clauses.push(`COALESCE(to_jsonb(b)->>'caregiver_id', '') = ANY($${params.length}::text[])`);
-    }
-
-    if (identity.email) {
-        params.push(identity.email);
-        clauses.push(`lower(COALESCE(b.caregiver_email, '')) = $${params.length}`);
-    }
-
-    if (identity.fullName) {
-        params.push(identity.fullName.toLowerCase());
-        clauses.push(`lower(COALESCE(b.caregiver_name, '')) = $${params.length}`);
-    }
-
-    if (clauses.length === 0) {
-        return {
-            totalEarned: 0,
-            pendingPayouts: 0,
-            nextPayoutDate: null
-        };
-    }
-
-    try {
-        const summary = await pool.query(
-            `
-            SELECT
-              COALESCE(SUM(CASE
-                WHEN b.status IN ('completed', 'payment_released', 'reviewed')
-                THEN COALESCE(b.payment_subtotal, 0) * 0.85
-                ELSE 0
-              END), 0) AS total_earned,
-              COALESCE(SUM(CASE
-                WHEN b.status IN ('accepted', 'in_progress')
-                THEN COALESCE(b.payment_subtotal, 0) * 0.85
-                ELSE 0
-              END), 0) AS pending_payouts,
-              MIN(CASE
-                WHEN b.status IN ('accepted', 'in_progress')
-                THEN b.booking_date
-                ELSE NULL
-              END) AS next_payout_date
-            FROM carereceiver_dashboard_bookings b
-            WHERE ${clauses.join(" OR ")}
-            `,
-            params
-        );
-
-        const row = summary.rows?.[0] || {};
-
-        return {
-            totalEarned: asPounds(row.total_earned),
-            pendingPayouts: asPounds(row.pending_payouts),
-            nextPayoutDate: row.next_payout_date || null
-        };
-    } catch (error) {
-        const missingColumns = error?.code === "42703";
-        if (!missingColumns) {
-            throw error;
-        }
-
-        return {
-            totalEarned: 0,
-            pendingPayouts: 0,
-            nextPayoutDate: null
-        };
-    }
-}
-
-function mapSummaryPayload(row) {
-    const identityStatus = normalizeStatus(row?.identity_status);
-    const rightToWorkStatus = normalizeStatus(row?.right_to_work_status);
-    const dbsStatus = normalizeStatus(row?.dbs_status);
-
-    return {
-        identity: {
-            status: identityStatus,
-            documentType: String(row?.identity_document_type || "uk_passport"),
-            fileName: String(row?.identity_file_name || ""),
-            fileSize: Number(row?.identity_file_size || 0),
-            submittedAt: row?.identity_submitted_at || null
-        },
-        rightToWork: {
-            status: rightToWorkStatus,
-            method: String(row?.right_to_work_method || "passport"),
-            fileName: String(row?.right_to_work_file_name || ""),
-            fileSize: Number(row?.right_to_work_file_size || 0),
-            submittedAt: row?.right_to_work_submitted_at || null
-        },
-        dbs: {
-            status: dbsStatus,
-            certificateNumber: String(row?.dbs_certificate_number || ""),
-            issueDate: row?.dbs_issue_date || "",
-            fileName: String(row?.dbs_file_name || ""),
-            fileSize: Number(row?.dbs_file_size || 0),
-            submittedAt: row?.dbs_submitted_at || null
-        },
-        isProfilePreviewReady: identityStatus !== "not_submitted" && rightToWorkStatus !== "not_submitted"
-    };
-}
-
-router.get("/caregiver/onboarding/summary", async (req, res) => {
-    try {
-        const identity = await resolveCaregiverIdentity(req);
-        const row = await ensureCaregiverRow(identity);
-
-        return res.json({
-            data: {
-                ...mapSummaryPayload(row),
-                caregiver: {
-                    id: identity.id,
-                    email: identity.email
-                }
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] GET summary failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_onboarding_summary_failed",
-                message: "Could not load onboarding summary."
-            }
-        });
-    }
-});
-
-router.put("/caregiver/onboarding/identity-verification", async (req, res) => {
-    try {
-        const parsed = identitySchema.safeParse(req.body || {});
-        if (!parsed.success) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_payload",
-                    message: "Identity verification payload is invalid.",
-                    details: parsed.error.flatten()
-                }
-            });
-        }
-
-        const identity = await resolveCaregiverIdentity(req);
-        await ensureCaregiverRow(identity);
-
-        const { documentType, fileName, fileSize } = parsed.data;
-
-        const updated = await pool.query(
-            `
-            UPDATE caregiver_onboarding_status
-            SET
-              identity_status = 'pending_review',
-              identity_document_type = $2,
-              identity_file_name = $3,
-              identity_file_size = $4,
-              identity_submitted_at = NOW(),
-              updated_at = NOW()
-            WHERE caregiver_key = $1
-            RETURNING *
-            `,
-            [identity.key, documentType, fileName, Number(fileSize || 0)]
-        );
-
-        return res.json({
-            data: mapSummaryPayload(updated.rows?.[0])
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] PUT identity failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_identity_submission_failed",
-                message: "Could not submit identity verification."
-            }
-        });
-    }
-});
-
-router.put("/caregiver/onboarding/right-to-work", async (req, res) => {
-    try {
-        const parsed = rightToWorkSchema.safeParse(req.body || {});
-        if (!parsed.success) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_payload",
-                    message: "Right to Work payload is invalid.",
-                    details: parsed.error.flatten()
-                }
-            });
-        }
-
-        const payload = parsed.data;
-        if (payload.method === "passport") {
-            if (!payload.confirmed) {
-                return res.status(400).json({
-                    error: {
-                        code: "confirmation_required",
-                        message: "Passport confirmation is required."
-                    }
-                });
-            }
-
-            if (!String(payload.fileName || "").trim()) {
-                return res.status(400).json({
-                    error: {
-                        code: "file_required",
-                        message: "Upload is required for passport verification."
-                    }
-                });
-            }
-        }
-
-        const identity = await resolveCaregiverIdentity(req);
-        await ensureCaregiverRow(identity);
-
-        const updated = await pool.query(
-            `
-            UPDATE caregiver_onboarding_status
-            SET
-              right_to_work_status = 'pending_review',
-              right_to_work_method = $2,
-              right_to_work_file_name = $3,
-              right_to_work_file_size = $4,
-              right_to_work_submitted_at = NOW(),
-              updated_at = NOW()
-            WHERE caregiver_key = $1
-            RETURNING *
-            `,
-            [
-                identity.key,
-                payload.method,
-                payload.method === "passport" ? String(payload.fileName || "").trim() : "",
-                payload.method === "passport" ? Number(payload.fileSize || 0) : 0
-            ]
-        );
-
-        const queueItem = await enqueueAdminVerification({
-            identity,
-            verificationType: "right_to_work",
-            sourceStatus: "pending_review",
-            payload: {
-                method: payload.method,
-                confirmed: Boolean(payload.confirmed),
-                fileName: payload.method === "passport" ? String(payload.fileName || "").trim() : "",
-                fileSize: payload.method === "passport" ? Number(payload.fileSize || 0) : 0
-            }
-        });
-
-        return res.json({
-            data: {
-                ...mapSummaryPayload(updated.rows?.[0]),
-                adminReview: {
-                    queued: Boolean(queueItem),
-                    queueId: Number(queueItem?.id || 0) || null,
-                    status: String(queueItem?.status || "pending"),
-                    verificationType: "right_to_work"
-                }
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] PUT right-to-work failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_right_to_work_submission_failed",
-                message: "Could not submit right to work verification."
-            }
-        });
-    }
-});
-
-router.put("/caregiver/onboarding/dbs-submission", async (req, res) => {
-    try {
-        const parsed = dbsSchema.safeParse(req.body || {});
-        if (!parsed.success) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_payload",
-                    message: "DBS payload is invalid.",
-                    details: parsed.error.flatten()
-                }
-            });
-        }
-
-        const payload = parsed.data;
-        const issueDate = new Date(payload.issueDate);
-        if (Number.isNaN(issueDate.getTime())) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_issue_date",
-                    message: "Issue date is invalid."
-                }
-            });
-        }
-
-        const identity = await resolveCaregiverIdentity(req);
-        await ensureCaregiverRow(identity);
-
-        const updated = await pool.query(
-            `
-            UPDATE caregiver_onboarding_status
-            SET
-              dbs_status = 'pending_review',
-              dbs_certificate_number = $2,
-              dbs_issue_date = $3::date,
-              dbs_file_name = $4,
-              dbs_file_size = $5,
-              dbs_submitted_at = NOW(),
-              updated_at = NOW()
-            WHERE caregiver_key = $1
-            RETURNING *
-            `,
-            [
-                identity.key,
-                String(payload.certificateNumber || "").trim(),
-                payload.issueDate,
-                payload.fileName,
-                Number(payload.fileSize || 0)
-            ]
-        );
-
-        const queueItem = await enqueueAdminVerification({
-            identity,
-            verificationType: "dbs",
-            sourceStatus: "pending_review",
-            payload: {
-                fileName: String(payload.fileName || "").trim(),
-                fileSize: Number(payload.fileSize || 0),
-                certificateNumber: String(payload.certificateNumber || "").trim(),
-                issueDate: payload.issueDate
-            }
-        });
-
-        return res.json({
-            data: {
-                ...mapSummaryPayload(updated.rows?.[0]),
-                adminReview: {
-                    queued: Boolean(queueItem),
-                    queueId: Number(queueItem?.id || 0) || null,
-                    status: String(queueItem?.status || "pending"),
-                    verificationType: "dbs"
-                }
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] PUT dbs failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_dbs_submission_failed",
-                message: "Could not submit DBS verification."
-            }
-        });
-    }
-});
-
-router.get("/admin/verifications", async (req, res) => {
-    try {
-        await ensureAdminVerificationQueueTable();
 
         const requestedType = String(req.query.type || "").trim().toLowerCase();
         const requestedStatus = String(req.query.status || "").trim().toLowerCase();
-        const requestedLimit = Number(req.query.limit || 50);
+        const limit = parseLimitParam(req.query.limit, 50, 200);
 
         const type = ["identity", "right_to_work", "dbs"].includes(requestedType) ? requestedType : "";
         const status = ["pending", "approved", "rejected"].includes(requestedStatus) ? requestedStatus : "pending";
-        const limit = Number.isFinite(requestedLimit) ? Math.max(1, Math.min(200, Math.trunc(requestedLimit))) : 50;
 
         const rows = await pool.query(
             `
@@ -876,12 +77,12 @@ router.get("/admin/verifications", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/verifications/:verificationId", async (req, res) => {
+export async function getVerificationDetail(req, res) {
     try {
-        await ensureAdminVerificationQueueTable();
-        await ensureCaregiverOnboardingTable();
+
+
 
         const verificationId = asInteger(req.params.verificationId);
         if (!verificationId || verificationId < 1) {
@@ -978,12 +179,12 @@ router.get("/admin/verifications/:verificationId", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.patch("/admin/verifications/:verificationId/status", async (req, res) => {
+export async function updateVerificationStatus(req, res) {
     try {
-        await ensureAdminVerificationQueueTable();
-        await ensureCaregiverOnboardingTable();
+
+
 
         const verificationId = asInteger(req.params.verificationId);
         if (!verificationId || verificationId < 1) {
@@ -1098,11 +299,11 @@ router.patch("/admin/verifications/:verificationId/status", async (req, res) => 
             }
         });
     }
-});
+}
 
-router.get("/admin/dashboard-summary", async (req, res) => {
+export async function getDashboardSummary(req, res) {
     try {
-        await ensureAdminVerificationQueueTable();
+
 
         const [
             queueTotals,
@@ -1257,9 +458,9 @@ router.get("/admin/dashboard-summary", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/users", async (req, res) => {
+export async function listUsers(req, res) {
     try {
         const queryText = String(req.query.q || "").trim().toLowerCase();
         const roleFilter = String(req.query.role || "").trim().toLowerCase();
@@ -1341,9 +542,9 @@ router.get("/admin/users", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/bookings", async (req, res) => {
+export async function listBookings(req, res) {
     try {
         const statusFilter = String(req.query.status || "").trim().toLowerCase();
         const limit = parseLimitParam(req.query.limit, 100, 500);
@@ -1419,9 +620,9 @@ router.get("/admin/bookings", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/users/:userId", async (req, res) => {
+export async function getUserDetail(req, res) {
     try {
         const userId = String(req.params.userId || "").trim();
         if (!UUID_RE.test(userId)) {
@@ -1688,9 +889,9 @@ router.get("/admin/users/:userId", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/analytics", async (req, res) => {
+export async function getAnalytics(req, res) {
     try {
         const days = parseDaysParam(req.query.days, 30, 365);
         const systemSettings = await readAdminSystemSettings();
@@ -1884,9 +1085,9 @@ router.get("/admin/analytics", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/reported-issues", async (req, res) => {
+export async function getReportedIssues(req, res) {
     try {
         const severityFilter = String(req.query.severity || "").trim().toLowerCase();
         const sourceFilter = String(req.query.source || "").trim().toLowerCase();
@@ -2048,9 +1249,9 @@ router.get("/admin/reported-issues", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/admin/audit-log", async (req, res) => {
+export async function getAuditLog(req, res) {
     try {
         const limit = parseLimitParam(req.query.limit, 120, 500);
 
@@ -2198,102 +1399,4 @@ router.get("/admin/audit-log", async (req, res) => {
             }
         });
     }
-});
-
-router.get("/caregiver/payout-setup", async (req, res) => {
-    try {
-        const identity = await resolveCaregiverIdentity(req);
-        let row = await ensureCaregiverRow(identity);
-        row = await syncStripeAccountStatus(identity, row);
-        const settings = await readAdminSystemSettings();
-        const platformFeePercent = clampPercent(settings?.payments?.platformFeePercent, getPlatformFeePercent());
-
-        const earnings = await getEarningsSummary(identity);
-
-        return res.json({
-            data: {
-                caregiver: {
-                    id: identity.id,
-                    email: identity.email
-                },
-                payout: {
-                    status: String(row?.payout_status || "not_connected"),
-                    stripeAccountId: String(row?.stripe_account_id || ""),
-                    payoutsEnabled: Boolean(row?.payouts_enabled),
-                    chargesEnabled: Boolean(row?.charges_enabled)
-                },
-                earnings: {
-                    totalEarned: earnings.totalEarned,
-                    pendingPayouts: earnings.pendingPayouts,
-                    nextPayoutDate: earnings.nextPayoutDate
-                },
-                platformFeePercent
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] GET payout setup failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_payout_setup_fetch_failed",
-                message: "Could not load payout setup."
-            }
-        });
-    }
-});
-
-router.put("/caregiver/payout-setup/connect-account", async (req, res) => {
-    try {
-        const parsed = payoutAccountSchema.safeParse(req.body || {});
-        if (!parsed.success) {
-            return res.status(400).json({
-                error: {
-                    code: "invalid_payload",
-                    message: "Payout account payload is invalid.",
-                    details: parsed.error.flatten()
-                }
-            });
-        }
-
-        const identity = await resolveCaregiverIdentity(req);
-        await ensureCaregiverRow(identity);
-
-        const payload = parsed.data;
-        const payoutsEnabled = Boolean(payload.payoutsEnabled);
-        const chargesEnabled = Boolean(payload.chargesEnabled);
-        const payoutStatus = payload.payoutStatus || normalizePayoutStatus("", payoutsEnabled);
-
-        const updated = await pool.query(
-            `
-            UPDATE caregiver_onboarding_status
-            SET
-              stripe_account_id = $2,
-              payout_status = $3,
-              payouts_enabled = $4,
-              charges_enabled = $5,
-              updated_at = NOW()
-            WHERE caregiver_key = $1
-            RETURNING *
-            `,
-            [identity.key, payload.accountId, payoutStatus, payoutsEnabled, chargesEnabled]
-        );
-
-        return res.json({
-            data: {
-                status: String(updated.rows?.[0]?.payout_status || payoutStatus),
-                stripeAccountId: String(updated.rows?.[0]?.stripe_account_id || payload.accountId),
-                payoutsEnabled: Boolean(updated.rows?.[0]?.payouts_enabled),
-                chargesEnabled: Boolean(updated.rows?.[0]?.charges_enabled)
-            }
-        });
-    } catch (error) {
-        console.error("[caregiver-onboarding] PUT payout connect failed:", error);
-        return res.status(500).json({
-            error: {
-                code: "caregiver_payout_setup_save_failed",
-                message: "Could not save payout setup."
-            }
-        });
-    }
-});
-
-export default router;
+}

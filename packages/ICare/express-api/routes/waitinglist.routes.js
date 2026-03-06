@@ -3,27 +3,9 @@ import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
 import { sendWaitinglistConfirmationEmail } from "../services/emails/waitinglist.js";
 import { pool } from "../db/db.js";
 import { WaitinglistSchema } from "../schemas/waitinglist.schema.js";
+import { zodErrorsToFieldErrors } from "../utils/validation.js";
 
 const router = Router();
-
-/**
- * Helpers
- */
-// function getPublicApiBaseUrl(req) {
-//   const envBase = process.env.PUBLIC_API_URL;
-//   if (envBase) { return envBase.replace(/\/$/, ""); }
-//   return `${req.protocol}://${req.get("host")}`;
-// }
-
-function zodErrorsToFieldErrors(zodError) {
-    const errors = {};
-    for (const issue of zodError.issues || []) {
-        const key = issue.path?.[0];
-        if (!key) { continue; }
-        if (!errors[key]) { errors[key] = issue.message; }
-    }
-    return errors;
-}
 
 /**
  * POST /api/waitinglist

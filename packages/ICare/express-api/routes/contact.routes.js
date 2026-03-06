@@ -7,18 +7,9 @@ import {
     sendContactReceiptEmail,
     sendContactInternalEmail
 } from "../services/emails/contact.js";
+import { zodErrorsToFieldErrors } from "../utils/validation.js";
 
 const router = Router();
-
-function zodErrorsToFieldErrors(zodError) {
-    const errors = {};
-    for (const issue of zodError.issues || []) {
-        const key = issue.path?.[0];
-        if (!key) { continue; }
-        if (!errors[key]) { errors[key] = issue.message; }
-    }
-    return errors;
-}
 
 /**
  * POST /api/contact

@@ -10,13 +10,13 @@ import { dirname, resolve } from "path";
 import newsletterRouter from "../routes/newsletter.routes.js";
 import waitinglistRouter from "../routes/waitinglist.routes.js";
 import contactUsRouter from "../routes/contact.routes.js";
-import authRouter from "../routes/auth.routes.js";
-import chatRouter from "../routes/chat.routes.js";
-import carereceiverDashboardRouter from "../routes/carereceiver-dashboard.routes.js";
-import carereceiverMessagesRouter from "../routes/carereceiver-messages.routes.js";
+import authRouter from "../domains/auth/auth.routes.js";
+import chatRouter from "../domains/chat/chat.routes.js";
+import carereceiverDashboardRouter from "../domains/bookings/bookings.routes.js";
+import carereceiverMessagesRouter from "../domains/messaging/messaging.routes.js";
 import carereceiverSettingsRouter from "../routes/carereceiver-settings.routes.js";
 import conversationsRouter from "../routes/conversations.routes.js";
-import caregiverProfileRouter from "../routes/caregiver-profile.routes.js";
+import caregiverProfileRouter from "../domains/caregiver-profile/caregiver-profile.routes.js";
 import adminSystemSettingsRouter from "../domains/admin/system-settings/system-settings.routes.js";
 
 const app = express();
@@ -27,7 +27,7 @@ let handleStripeWebhook = null;
 let caregiverOnboardingRouter = null;
 
 try {
-    const stripeModule = await import("../routes/stripe.routes.js");
+    const stripeModule = await import("../domains/stripe/stripe.routes.js");
     stripeRouter = stripeModule.default;
     handleStripeWebhook = stripeModule.handleStripeWebhook;
 } catch (error) {
@@ -35,7 +35,7 @@ try {
 }
 
 try {
-    const caregiverOnboardingModule = await import("../routes/caregiver-onboarding.routes.js");
+    const caregiverOnboardingModule = await import("../domains/caregiver-onboarding/onboarding.routes.js");
     caregiverOnboardingRouter = caregiverOnboardingModule.default;
 } catch (error) {
     console.warn("Caregiver onboarding routes disabled:", error?.message || error);

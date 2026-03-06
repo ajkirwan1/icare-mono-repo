@@ -3,12 +3,9 @@ import crypto from "crypto";
 import { newsletterSubscribeLimiter } from "../middleware/rate-limit.js";
 import { sendConfirmationEmail, sendWelcomeEmail } from "../services/emails/newsletter.js";
 import { pool } from "../db/db.js";
+import { isValidEmail } from "../utils/validation.js";
 
 const router = Router();
-
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
 
 /**
  * Helpers

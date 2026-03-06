@@ -1,6 +1,5 @@
 /* global console */
-import { Router } from "express";
-import { pool } from "../db/db.js";
+import { pool } from "../../db/db.js";
 import {
     sendBookingRequestConfirmationEmail,
     sendBookingRequestNotificationEmail,
@@ -9,8 +8,10 @@ import {
     sendBookingAcceptedNotificationEmail,
     sendBookingPaymentCapturedReceiptEmail,
     sendBookingPaymentCapturedNotificationEmail
-} from "../services/emails/bookings.js";
-import { hasAcceptedTerms, normalizeTermsAcceptedAt, termsNotAcceptedError } from "../utils/terms-acceptance.js";
+} from "../../services/emails/bookings.js";
+import { hasAcceptedTerms, normalizeTermsAcceptedAt, termsNotAcceptedError, ensureTermsAccepted } from "../../utils/terms-acceptance.js";
+import { isValidEmail } from "../../utils/validation.js";
+import { parsePositiveInt } from "../../utils/pagination.js";
 import {
     attachBookingMetadataToPaymentIntent,
     cancelBookingPaymentIntent,
@@ -18,941 +19,44 @@ import {
     isStripeServerConfigured,
     readableStripeError,
     refundCapturedBookingPaymentIntent
-} from "../services/payments/stripe-bookings.js";
+} from "../../services/payments/stripe-bookings.js";
+import {
+    resolveViewer,
+    buildBookingFilters,
+    buildCaregiverIdentityMatcher,
+    getCaregiverResponseMetrics,
+    getDefaultBookingServiceFeePercent,
+    generateBookingId
+} from "./bookings.repository.js";
+import {
+    resolveCaregiverProfile,
+    normalizeBookingDate,
+    normalizeStartTime,
+    buildUtcDateTime,
+    normalizeSqlDate,
+    normalizeSqlTime,
+    normalizeServiceTypes,
+    roundMoney,
+    isValidEmergencyPhone,
+    calculateCancellationRefund,
+    formatDateLong,
+    buildTimeRangeLabel,
+    formatTimelineItems,
+    DETAIL_STATUS_LABELS,
+    CANCELLATION_REASONS,
+    CANCELLATION_REASON_LABELS
+} from "./bookings.service.js";
+import {
+    ensureConversationForBooking,
+    appendSystemConversationMessage,
+    buildBookingRequestSystemMessage,
+    buildBookingCancellationSystemMessage
+} from "./bookings.messaging.js";
 
-const router = Router();
 const ALLOWED_SORTS = new Set(["startTime_asc", "completedAt_desc"]);
 const ALLOWED_REVIEW_SORTS = new Set(["newest", "highest"]);
-const ACCEPTED_BOOKING_STATUSES = ["accepted", "in_progress", "completed", "payment_released", "reviewed"];
-const MIN_REQUESTS_FOR_RESPONSE_METRICS = 5;
-const MIN_ACCEPTED_FOR_RESPONSE_METRICS = 3;
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const DETAIL_STATUS_LABELS = {
-    requested: "Requested",
-    accepted: "Confirmed",
-    confirmed: "Confirmed",
-    in_progress: "In Progress",
-    completed: "Completed",
-    payment_released: "Payment Released",
-    reviewed: "Reviewed",
-    declined: "Declined",
-    expired: "Expired",
-    cancelled_by_cr: "Cancelled",
-    cancelled_by_cg: "Cancelled",
-    cancelled: "Cancelled"
-};
-const CANCELLATION_REASONS = new Set(["schedule_change", "no_longer_needed", "emergency", "other"]);
-const CANCELLATION_REASON_LABELS = {
-    schedule_change: "Schedule change",
-    no_longer_needed: "No longer needed",
-    emergency: "Emergency",
-    other: "Other"
-};
-const CAREGIVER_EMAIL_ALIAS_TO_ID = {
-    "maxax85@gmail.com": "cg-007",
-    "maxherbst1985@gmail.com": "cg-007"
-};
-const CAREGIVER_DIRECTORY = {
-    "cg-001": {
-        id: "cg-001",
-        name: "Sarah Thompson",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900321",
-        email: "sarah.thompson@example.com",
-        hourlyRate: 18,
-        rating: 4.8,
-        reviewCount: 24,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    },
-    "cg-002": {
-        id: "cg-002",
-        name: "Mary Johnson",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900322",
-        email: "mary.johnson@example.com",
-        hourlyRate: 17,
-        rating: 4.7,
-        reviewCount: 19,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    },
-    "cg-003": {
-        id: "cg-003",
-        name: "Emma Collins",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900323",
-        email: "emma.collins@example.com",
-        hourlyRate: 20,
-        rating: 4.7,
-        reviewCount: 14,
-        verificationBadges: ["Identity Verified"]
-    },
-    "cg-004": {
-        id: "cg-004",
-        name: "Anna Nowak",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900324",
-        email: "anna.nowak@example.com",
-        hourlyRate: 16,
-        rating: 4.6,
-        reviewCount: 11,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    },
-    "cg-005": {
-        id: "cg-005",
-        name: "Tom Richards",
-        photoUrl: "/images/avatars/male.webp",
-        phone: "07700 900325",
-        email: "tom.richards@example.com",
-        hourlyRate: 19,
-        rating: 4.8,
-        reviewCount: 22,
-        verificationBadges: ["Identity Verified", "Right to Work Verified"]
-    },
-    "cg-006": {
-        id: "cg-006",
-        name: "Lina Patel",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900326",
-        email: "lina.patel@example.com",
-        hourlyRate: 18,
-        rating: 4.9,
-        reviewCount: 31,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    },
-    "cg-007": {
-        id: "cg-007",
-        name: "Margaret Shaw",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900985",
-        email: "maxherbst1985@gmail.com",
-        hourlyRate: 19,
-        rating: 4.9,
-        reviewCount: 16,
-        verificationBadges: ["Identity Verified", "DBS Verified", "Right to Work Verified"]
-    },
-    "cg-emma-wilson": {
-        id: "cg-emma-wilson",
-        name: "Emma Wilson",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900321",
-        email: "emma.wilson@example.com",
-        hourlyRate: 18,
-        rating: 4.7,
-        reviewCount: 18,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    },
-    "cg-john-anderson": {
-        id: "cg-john-anderson",
-        name: "John Anderson",
-        photoUrl: "/images/avatars/male.webp",
-        phone: "07700 900654",
-        email: "john.anderson@example.com",
-        hourlyRate: 19,
-        rating: 4.6,
-        reviewCount: 21,
-        verificationBadges: ["Identity Verified"]
-    },
-    "cg-margaret-thompson": {
-        id: "cg-margaret-thompson",
-        name: "Margaret Thompson",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 900741",
-        email: "margaret.thompson@example.com",
-        hourlyRate: 20,
-        rating: 4.9,
-        reviewCount: 31,
-        verificationBadges: ["Identity Verified", "DBS Verified", "Right to Work Verified"]
-    },
-    "cg-mary-thompson": {
-        id: "cg-mary-thompson",
-        name: "Mary Thompson",
-        photoUrl: "/images/avatars/female.webp",
-        phone: "07700 901111",
-        email: "mary.thompson@example.com",
-        hourlyRate: 18,
-        rating: 4.8,
-        reviewCount: 24,
-        verificationBadges: ["Identity Verified", "DBS Verified"]
-    }
-};
-let bookingPaymentColumnsReady = false;
 
-async function ensureBookingPaymentColumns() {
-    if (bookingPaymentColumnsReady) {
-        return;
-    }
-
-    await pool.query(`
-      ALTER TABLE carereceiver_dashboard_bookings
-        ADD COLUMN IF NOT EXISTS payment_provider VARCHAR(32),
-        ADD COLUMN IF NOT EXISTS payment_intent_id VARCHAR(128),
-        ADD COLUMN IF NOT EXISTS payment_status VARCHAR(40),
-        ADD COLUMN IF NOT EXISTS payment_authorized_at TIMESTAMP,
-        ADD COLUMN IF NOT EXISTS payment_captured_at TIMESTAMP,
-        ADD COLUMN IF NOT EXISTS payment_cancelled_at TIMESTAMP,
-        ADD COLUMN IF NOT EXISTS payment_refund_id VARCHAR(128),
-        ADD COLUMN IF NOT EXISTS payment_refunded_at TIMESTAMP,
-        ADD COLUMN IF NOT EXISTS payment_last_error TEXT;
-    `);
-
-    bookingPaymentColumnsReady = true;
-}
-
-function parsePositiveInt(value, fallback, max = 100) {
-    const parsed = Number.parseInt(String(value ?? ""), 10);
-    if (!Number.isFinite(parsed) || parsed <= 0) {
-        return fallback;
-    }
-    return Math.min(parsed, max);
-}
-
-function clampPercent(value, fallback = 5) {
-    const parsed = Number(value);
-    if (!Number.isFinite(parsed)) {
-        return fallback;
-    }
-    return Math.max(0, Math.min(100, Math.round(parsed * 100) / 100));
-}
-
-async function getDefaultBookingServiceFeePercent() {
-    try {
-        const settings = await pool.query(
-            `
-            SELECT booking_service_fee_percent
-            FROM admin_system_settings
-            WHERE id = 1
-            LIMIT 1
-            `
-        );
-        return clampPercent(settings.rows?.[0]?.booking_service_fee_percent, 5);
-    } catch (error) {
-        if (error?.code === "42P01" || error?.code === "42703") {
-            return 5;
-        }
-
-        console.warn("[carereceiver-dashboard] booking service fee settings fallback:", error?.message || error);
-        return 5;
-    }
-}
-
-async function resolveViewer(req, preferredUserTypes = ["care_receiver", "family"]) {
-    const headerUserId = String(req.get("x-user-id") || "").trim();
-    const headerEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
-    const allowedTypes = Array.isArray(preferredUserTypes) && preferredUserTypes.length > 0
-        ? preferredUserTypes
-        : ["care_receiver", "family"];
-
-    if (UUID_RE.test(headerUserId)) {
-        const byId = await pool.query(
-            `
-            SELECT
-              id, email, user_type, first_name, last_name,
-              account_status, phone_verified, email_verified,
-              gdpr_consent AS "gdprConsent",
-              gdpr_consent_date AS "gdprConsentDate",
-              NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
-            FROM users
-            WHERE id = $1
-              AND user_type = ANY($2::text[])
-              AND deleted_at IS NULL
-            LIMIT 1
-            `,
-            [headerUserId, allowedTypes]
-        );
-        if (byId.rows?.[0]) {
-            return byId.rows[0];
-        }
-    }
-
-    if (headerEmail) {
-        const byEmail = await pool.query(
-            `
-            SELECT
-              id, email, user_type, first_name, last_name,
-              account_status, phone_verified, email_verified,
-              gdpr_consent AS "gdprConsent",
-              gdpr_consent_date AS "gdprConsentDate",
-              NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
-            FROM users
-            WHERE lower(email) = $1
-              AND user_type = ANY($2::text[])
-              AND deleted_at IS NULL
-            LIMIT 1
-            `,
-            [headerEmail, allowedTypes]
-        );
-        if (byEmail.rows?.[0]) {
-            return byEmail.rows[0];
-        }
-    }
-
-    const fallback = await pool.query(
-        `
-        SELECT
-          id, email, user_type, first_name, last_name,
-          account_status, phone_verified, email_verified,
-          gdpr_consent AS "gdprConsent",
-          gdpr_consent_date AS "gdprConsentDate",
-          NULLIF(to_jsonb(users)->>'terms_accepted_at', '') AS "termsAcceptedAt"
-        FROM users
-        WHERE user_type = ANY($1::text[]) AND deleted_at IS NULL
-        ORDER BY created_at DESC
-        LIMIT 1
-        `,
-        [allowedTypes]
-    );
-    return fallback.rows?.[0] || null;
-}
-
-function ensureTermsAccepted(res, viewer) {
-    if (hasAcceptedTerms(viewer)) {
-        return true;
-    }
-
-    res.status(403).json(termsNotAcceptedError());
-    return false;
-}
-
-function buildBookingFilters({ viewerId, statusList, startDate, endDate }) {
-    const clauses = [];
-    const params = [];
-    let idx = 1;
-
-    if (viewerId) {
-        clauses.push(`(care_receiver_id IS NULL OR care_receiver_id = $${idx})`);
-        params.push(viewerId);
-        idx += 1;
-    }
-
-    if (statusList.length > 0) {
-        clauses.push(`status = ANY($${idx}::text[])`);
-        params.push(statusList);
-        idx += 1;
-    }
-
-    if (startDate) {
-        clauses.push(`booking_date >= $${idx}::date`);
-        params.push(startDate);
-        idx += 1;
-    }
-
-    if (endDate) {
-        clauses.push(`booking_date <= $${idx}::date`);
-        params.push(endDate);
-        idx += 1;
-    }
-
-    return {
-        whereSql: clauses.length > 0 ? `WHERE ${clauses.join(" AND ")}` : "",
-        params,
-        nextIndex: idx
-    };
-}
-
-function formatDateLong(isoDate) {
-    if (!isoDate) {
-        return "";
-    }
-    const parsed = new Date(`${isoDate}T00:00:00Z`);
-    if (Number.isNaN(parsed.getTime())) {
-        return String(isoDate);
-    }
-    return new Intl.DateTimeFormat("en-GB", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        timeZone: "UTC"
-    }).format(parsed);
-}
-
-function formatTime12(date) {
-    return new Intl.DateTimeFormat("en-GB", {
-        hour: "numeric",
-        minute: "2-digit",
-        timeZone: "UTC"
-    }).format(date);
-}
-
-function buildTimeRangeLabel(startTimeRaw, durationHoursRaw) {
-    if (!startTimeRaw) {
-        return "";
-    }
-
-    const matched = String(startTimeRaw).match(/^(\d{1,2}):(\d{2})/);
-    if (!matched) {
-        return "";
-    }
-
-    const start = new Date(Date.UTC(2000, 0, 1, Number(matched[1]), Number(matched[2]), 0));
-    const durationHours = Number(durationHoursRaw || 0);
-    const durationMinutes = Number.isFinite(durationHours) ? Math.max(0, Math.round(durationHours * 60)) : 0;
-    const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
-
-    if (durationMinutes <= 0) {
-        return formatTime12(start);
-    }
-    return `${formatTime12(start)} - ${formatTime12(end)}`;
-}
-
-function formatTimelineItems(row) {
-    if (Array.isArray(row.timeline_json) && row.timeline_json.length > 0) {
-        return row.timeline_json;
-    }
-
-    const timeline = [];
-    if (row.requested_at) {
-        timeline.push({
-            timestamp: row.requested_at,
-            timestampFormatted: new Date(row.requested_at).toLocaleString("en-GB"),
-            title: "Booking Requested",
-            description: "You submitted a booking request.",
-            isActive: false
-        });
-    }
-
-    if (row.accepted_at) {
-        timeline.push({
-            timestamp: row.accepted_at,
-            timestampFormatted: new Date(row.accepted_at).toLocaleString("en-GB"),
-            title: "Booking Accepted",
-            description: `${row.caregiver_name || "Caregiver"} accepted your request.`,
-            isActive: true
-        });
-    }
-
-    if (row.completed_at) {
-        timeline.push({
-            timestamp: row.completed_at,
-            timestampFormatted: new Date(row.completed_at).toLocaleString("en-GB"),
-            title: "Service Completed",
-            description: "Booking marked as completed.",
-            isActive: true
-        });
-    }
-
-    return timeline;
-}
-
-function toTitleFromId(value) {
-    return String(value || "")
-        .replace(/^cg-/, "")
-        .replace(/[-_]+/g, " ")
-        .trim()
-        .replace(/\b\w/g, (match) => match.toUpperCase());
-}
-
-function resolveCaregiverProfile(caregiverId) {
-    const normalizedId = String(caregiverId || "").trim();
-    const preset = CAREGIVER_DIRECTORY[normalizedId];
-    if (preset) {
-        return preset;
-    }
-
-    const fallbackName = toTitleFromId(normalizedId) || "Caregiver";
-    const baseSlug = fallbackName.toLowerCase().replace(/[^a-z0-9]+/g, ".");
-
-    return {
-        id: normalizedId || "cg-unknown",
-        name: fallbackName,
-        photoUrl: "/images/avatars/female.webp",
-        phone: "",
-        email: baseSlug ? `${baseSlug}@example.com` : "",
-        hourlyRate: 18,
-        rating: 4.7,
-        reviewCount: 0,
-        verificationBadges: ["Identity Verified"]
-    };
-}
-
-function buildCaregiverIdentityMatcher({ viewer, headerUserEmail = "", caregiverIdHint = "" } = {}, alias = "b") {
-    const viewerEmail = String(viewer?.email || "").trim().toLowerCase();
-    const viewerFullName = [viewer?.first_name, viewer?.last_name]
-        .map((value) => String(value || "").trim())
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-    const normalizedHeaderEmail = String(headerUserEmail || "").trim().toLowerCase();
-    const normalizedHint = String(caregiverIdHint || "").trim();
-
-    const caregiverIds = new Set();
-    if (viewer?.id) {
-        caregiverIds.add(String(viewer.id));
-    }
-    if (normalizedHint) {
-        caregiverIds.add(normalizedHint);
-    }
-    if (viewerEmail && CAREGIVER_EMAIL_ALIAS_TO_ID[viewerEmail]) {
-        caregiverIds.add(CAREGIVER_EMAIL_ALIAS_TO_ID[viewerEmail]);
-    }
-    if (normalizedHeaderEmail && CAREGIVER_EMAIL_ALIAS_TO_ID[normalizedHeaderEmail]) {
-        caregiverIds.add(CAREGIVER_EMAIL_ALIAS_TO_ID[normalizedHeaderEmail]);
-    }
-
-    for (const profile of Object.values(CAREGIVER_DIRECTORY)) {
-        const profileEmail = String(profile?.email || "").trim().toLowerCase();
-        const profileName = String(profile?.name || "").trim().toLowerCase();
-
-        if (viewerEmail && profileEmail && profileEmail === viewerEmail) {
-            caregiverIds.add(String(profile.id));
-        }
-        if (viewerFullName && profileName && profileName === viewerFullName) {
-            caregiverIds.add(String(profile.id));
-        }
-    }
-
-    const clauses = [];
-    const params = [];
-
-    if (caregiverIds.size > 0) {
-        clauses.push(`COALESCE(to_jsonb(${alias})->>'caregiver_id', '') = ANY($${params.length + 1}::text[])`);
-        params.push(Array.from(caregiverIds));
-    }
-    if (viewerEmail) {
-        clauses.push(`lower(COALESCE(${alias}.caregiver_email, '')) = $${params.length + 1}`);
-        params.push(viewerEmail);
-    }
-    if (viewerFullName) {
-        clauses.push(`lower(COALESCE(${alias}.caregiver_name, '')) = $${params.length + 1}`);
-        params.push(viewerFullName);
-    }
-
-    return {
-        clauses,
-        params
-    };
-}
-
-function roundMoney(value) {
-    const numeric = Number(value);
-    if (!Number.isFinite(numeric)) {
-        return 0;
-    }
-    return Math.round(numeric * 100) / 100;
-}
-
-function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
-}
-
-function isValidEmergencyPhone(value) {
-    const normalized = String(value || "").replace(/[^\d+]/g, "");
-    return /^\+[1-9]\d{7,14}$/.test(normalized) || /^0\d{9,10}$/.test(normalized);
-}
-
-async function getCaregiverResponseMetrics(caregiverId) {
-    const normalizedId = String(caregiverId || "").trim();
-    if (!normalizedId) {
-        return null;
-    }
-
-    const metricsQuery = await pool.query(
-        `
-        SELECT
-          COUNT(*) FILTER (WHERE requested_at IS NOT NULL) AS total_requests_received,
-          COUNT(*) FILTER (
-            WHERE requested_at IS NOT NULL
-              AND (status = ANY($2::text[]) OR accepted_at IS NOT NULL)
-          ) AS accepted_requests,
-          AVG(
-            EXTRACT(EPOCH FROM (accepted_at - requested_at)) / 3600.0
-          ) FILTER (
-            WHERE requested_at IS NOT NULL
-              AND accepted_at IS NOT NULL
-              AND accepted_at >= requested_at
-          ) AS average_response_time_hours
-        FROM carereceiver_dashboard_bookings
-        WHERE caregiver_id = $1
-        `,
-        [normalizedId, ACCEPTED_BOOKING_STATUSES]
-    );
-
-    const row = metricsQuery.rows?.[0] || {};
-    const totalRequestsReceived = Number(row.total_requests_received || 0);
-    const acceptedRequests = Number(row.accepted_requests || 0);
-    const averageResponseTimeHours = row.average_response_time_hours == null
-        ? null
-        : Number(row.average_response_time_hours);
-    const acceptanceRate = totalRequestsReceived > 0
-        ? Number((acceptedRequests / totalRequestsReceived).toFixed(4))
-        : null;
-
-    const hasSufficientData = (
-        totalRequestsReceived >= MIN_REQUESTS_FOR_RESPONSE_METRICS &&
-        acceptedRequests >= MIN_ACCEPTED_FOR_RESPONSE_METRICS &&
-        Number.isFinite(averageResponseTimeHours)
-    );
-
-    return {
-        acceptanceRate: Number.isFinite(acceptanceRate) ? acceptanceRate : null,
-        averageResponseTimeHours: Number.isFinite(averageResponseTimeHours) ? Number(averageResponseTimeHours.toFixed(1)) : null,
-        totalRequestsReceived,
-        acceptedRequests,
-        hasSufficientData
-    };
-}
-
-function normalizeBookingDate(value) {
-    const raw = String(value || "").trim();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-        return "";
-    }
-
-    const date = new Date(`${raw}T00:00:00.000Z`);
-    if (Number.isNaN(date.getTime())) {
-        return "";
-    }
-
-    return raw;
-}
-
-function normalizeStartTime(value) {
-    const raw = String(value || "").trim();
-    if (!raw) {
-        return "";
-    }
-
-    const hhmm = raw.match(/^([01]?\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/);
-    if (hhmm) {
-        const hours = String(hhmm[1]).padStart(2, "0");
-        const minutes = String(hhmm[2]).padStart(2, "0");
-        const seconds = String(hhmm[3] || "00").padStart(2, "0");
-        return `${hours}:${minutes}:${seconds}`;
-    }
-
-    const ampm = raw.match(/^(\d{1,2}):([0-5]\d)\s*(AM|PM)$/i);
-    if (ampm) {
-        let hours = Number(ampm[1]);
-        const minutes = String(ampm[2]).padStart(2, "0");
-        const meridiem = String(ampm[3]).toUpperCase();
-        if (meridiem === "PM" && hours < 12) {
-            hours += 12;
-        }
-        if (meridiem === "AM" && hours === 12) {
-            hours = 0;
-        }
-        return `${String(hours).padStart(2, "0")}:${minutes}:00`;
-    }
-
-    const parsed = new Date(raw);
-    if (!Number.isNaN(parsed.getTime())) {
-        return `${String(parsed.getUTCHours()).padStart(2, "0")}:${String(parsed.getUTCMinutes()).padStart(2, "0")}:00`;
-    }
-
-    return "";
-}
-
-function buildUtcDateTime(bookingDate, startTime) {
-    const date = normalizeBookingDate(bookingDate);
-    const time = normalizeStartTime(startTime);
-    if (!date || !time) {
-        return null;
-    }
-
-    const parsed = new Date(`${date}T${time}Z`);
-    if (Number.isNaN(parsed.getTime())) {
-        return null;
-    }
-    return parsed;
-}
-
-function normalizeSqlDate(value) {
-    if (!value) {
-        return "";
-    }
-
-    if (typeof value === "string") {
-        const trimmed = value.trim();
-        if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
-            return trimmed;
-        }
-    }
-
-    const parsed = new Date(value);
-    if (Number.isNaN(parsed.getTime())) {
-        return "";
-    }
-    return parsed.toISOString().slice(0, 10);
-}
-
-function normalizeSqlTime(value) {
-    const raw = String(value || "").trim();
-    const hhmmss = raw.match(/^([01]?\d|2[0-3]):([0-5]\d)(?::([0-5]\d))?$/);
-    if (!hhmmss) {
-        return "";
-    }
-
-    return `${String(hhmmss[1]).padStart(2, "0")}:${String(hhmmss[2]).padStart(2, "0")}:${String(hhmmss[3] || "00").padStart(2, "0")}`;
-}
-
-function calculateCancellationRefund({
-    status,
-    bookingDate,
-    startTime,
-    paymentTotal,
-    paymentSubtotal,
-    paymentServiceFee
-}) {
-    const total = roundMoney(paymentTotal);
-    const subtotal = roundMoney(paymentSubtotal);
-    const serviceFee = Math.max(0, roundMoney(paymentServiceFee));
-    const refundableBase = subtotal > 0
-        ? subtotal
-        : Math.max(0, roundMoney(total - serviceFee));
-    const normalizedStatus = String(status || "").toLowerCase();
-
-    if (normalizedStatus === "requested") {
-        return {
-            amount: refundableBase,
-            percentage: 100,
-            reason: "Cancelled before acceptance (service fee retained)",
-            processedAt: new Date().toISOString()
-        };
-    }
-
-    const date = normalizeSqlDate(bookingDate);
-    const time = normalizeSqlTime(startTime);
-    if (!date || !time) {
-        return {
-            amount: refundableBase,
-            percentage: 100,
-            reason: "Service fee is non-refundable",
-            processedAt: new Date().toISOString()
-        };
-    }
-
-    const startsAt = new Date(`${date}T${time}Z`);
-    const diffHours = (startsAt.getTime() - Date.now()) / (60 * 60 * 1000);
-
-    if (!Number.isFinite(diffHours)) {
-        return {
-            amount: refundableBase,
-            percentage: 100,
-            reason: "Service fee is non-refundable",
-            processedAt: new Date().toISOString()
-        };
-    }
-
-    if (diffHours >= 24) {
-        return {
-            amount: refundableBase,
-            percentage: 100,
-            reason: "Cancelled 24+ hours before start (service fee retained)",
-            processedAt: new Date().toISOString()
-        };
-    }
-
-    if (diffHours >= 2) {
-        return {
-            amount: roundMoney(refundableBase * 0.5),
-            percentage: 50,
-            reason: "Cancelled less than 24 hours before start (service fee retained)",
-            processedAt: new Date().toISOString()
-        };
-    }
-
-    return {
-        amount: 0,
-        percentage: 0,
-        reason: "Cancelled within 2 hours of start",
-        processedAt: new Date().toISOString()
-    };
-}
-
-function normalizeServiceTypes(rawServiceTypes, rawServiceType) {
-    const arrayValue = Array.isArray(rawServiceTypes)
-        ? rawServiceTypes
-        : [rawServiceTypes || rawServiceType || "Companionship"];
-
-    const normalized = arrayValue
-        .map((entry) => String(entry || "").trim())
-        .filter(Boolean)
-        .slice(0, 6);
-
-    return normalized.length > 0 ? normalized : ["Companionship"];
-}
-
-async function generateBookingId(year) {
-    for (let attempt = 0; attempt < 20; attempt += 1) {
-        const suffix = String(Math.floor(1000 + Math.random() * 9000));
-        const candidate = `bk-${year}-${suffix}`;
-        const exists = await pool.query(
-            "SELECT 1 FROM carereceiver_dashboard_bookings WHERE id = $1 LIMIT 1",
-            [candidate]
-        );
-        if (!exists.rows?.[0]) {
-            return candidate;
-        }
-    }
-
-    const fallback = await pool.query(
-        `
-        SELECT COALESCE(MAX(CAST(SUBSTRING(id FROM 9) AS INTEGER)), 999) + 1 AS next_suffix
-        FROM carereceiver_dashboard_bookings
-        WHERE id LIKE $1
-        `,
-        [`bk-${year}-%`]
-    );
-
-    const nextSuffix = Number(fallback.rows?.[0]?.next_suffix || 1000);
-    return `bk-${year}-${String(nextSuffix).padStart(4, "0")}`;
-}
-
-function compactConversationPreview(text, maxLength = 180) {
-    const compacted = String(text || "").replace(/\s+/g, " ").trim();
-    if (!compacted) {
-        return "";
-    }
-    return compacted.length > maxLength ? `${compacted.slice(0, maxLength - 1)}...` : compacted;
-}
-
-function buildBookingRequestSystemMessage({
-    bookingRef,
-    bookingDate,
-    startTime,
-    durationHours,
-    specialRequests
-}) {
-    const reference = String(bookingRef || "").trim() || "Pending";
-    const dateLabel = formatDateLong(normalizeSqlDate(bookingDate)) || "To be confirmed";
-    const timeLabel = buildTimeRangeLabel(normalizeSqlTime(startTime), durationHours) || "To be confirmed";
-    const notes = String(specialRequests || "").trim();
-    const lines = [
-        `Booking request created (${reference}).`,
-        `Schedule: ${dateLabel}, ${timeLabel}.`
-    ];
-    if (notes) {
-        lines.push(`Special requests: ${notes}`);
-    }
-    return lines.join("\n");
-}
-
-function buildBookingCancellationSystemMessage({
-    bookingRef,
-    bookingDate,
-    startTime,
-    durationHours,
-    reasonLabel,
-    details,
-    refundAmount
-}) {
-    const reference = String(bookingRef || "").trim() || "Pending";
-    const dateLabel = formatDateLong(normalizeSqlDate(bookingDate)) || "To be confirmed";
-    const timeLabel = buildTimeRangeLabel(normalizeSqlTime(startTime), durationHours) || "To be confirmed";
-    const reason = String(reasonLabel || "").trim() || "Other";
-    const detailText = String(details || "").trim();
-    const lines = [
-        `Booking cancelled by care receiver (${reference}).`,
-        `Original schedule: ${dateLabel}, ${timeLabel}.`,
-        `Reason: ${reason}${detailText ? ` - ${detailText}` : ""}.`
-    ];
-
-    if (Number.isFinite(Number(refundAmount))) {
-        lines.push(`Refund amount: £${Number(refundAmount).toFixed(2)}.`);
-    }
-
-    return lines.join("\n");
-}
-
-async function ensureConversationForBooking({
-    bookingId,
-    conversationId,
-    careReceiverId,
-    caregiverId,
-    caregiverName,
-    caregiverPhotoUrl,
-    caregiverPhone
-}) {
-    const safeBookingId = String(bookingId || "").trim();
-    if (!safeBookingId) {
-        return "";
-    }
-
-    const safeConversationId = String(conversationId || "").trim() || `conv-${safeBookingId}`;
-    await pool.query(
-        `
-        UPDATE carereceiver_dashboard_bookings
-        SET conversation_id = $2,
-            updated_at = NOW()
-        WHERE id = $1
-        `,
-        [safeBookingId, safeConversationId]
-    );
-
-    await pool.query(
-        `
-        INSERT INTO carereceiver_conversations (
-          id,
-          booking_id,
-          care_receiver_id,
-          caregiver_id,
-          caregiver_name,
-          caregiver_photo_url,
-          caregiver_phone,
-          is_active,
-          created_at,
-          updated_at
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE, NOW(), NOW())
-        ON CONFLICT (id) DO UPDATE SET
-          booking_id = EXCLUDED.booking_id,
-          care_receiver_id = EXCLUDED.care_receiver_id,
-          caregiver_id = EXCLUDED.caregiver_id,
-          caregiver_name = EXCLUDED.caregiver_name,
-          caregiver_photo_url = EXCLUDED.caregiver_photo_url,
-          caregiver_phone = EXCLUDED.caregiver_phone,
-          is_active = TRUE,
-          updated_at = NOW()
-        `,
-        [
-            safeConversationId,
-            safeBookingId,
-            careReceiverId || null,
-            caregiverId || null,
-            caregiverName || "Caregiver",
-            caregiverPhotoUrl || null,
-            caregiverPhone || null
-        ]
-    );
-
-    return safeConversationId;
-}
-
-async function appendSystemConversationMessage(conversationId, messageText) {
-    const safeConversationId = String(conversationId || "").trim();
-    const safeMessageText = String(messageText || "").trim();
-    if (!safeConversationId || !safeMessageText) {
-        return;
-    }
-
-    await pool.query(
-        `
-        INSERT INTO carereceiver_messages (
-          conversation_id,
-          sender_role,
-          sender_name,
-          message_text,
-          sent_at,
-          is_system_message,
-          is_flagged
-        ) VALUES ($1, 'system', 'ICare System', $2, NOW(), TRUE, FALSE)
-        `,
-        [safeConversationId, safeMessageText]
-    );
-
-    await pool.query(
-        `
-        UPDATE carereceiver_conversations
-        SET
-          last_message_preview = $2,
-          last_message_at = NOW(),
-          updated_at = NOW()
-        WHERE id = $1
-        `,
-        [safeConversationId, compactConversationPreview(safeMessageText)]
-    );
-}
-
-router.get("/users/me", async (req, res) => {
+export async function getMe(req, res) {
     try {
         const viewer = await resolveViewer(req);
         if (!viewer) {
@@ -987,9 +91,9 @@ router.get("/users/me", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/caregivers/:caregiverId", async (req, res) => {
+export async function getCaregiverProfile(req, res) {
     const caregiverId = String(req.params?.caregiverId || "").trim();
     if (!caregiverId) {
         return res.status(400).json({
@@ -1034,7 +138,7 @@ router.get("/caregivers/:caregiverId", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] GET /caregivers/:caregiverId failed:", error);
+        console.error("[bookings] GET /caregivers/:caregiverId failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -1043,9 +147,9 @@ router.get("/caregivers/:caregiverId", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.post("/bookings", async (req, res) => {
+export async function createBooking(req, res) {
     const caregiverId = String(req.body?.caregiverId || "").trim();
     const bookingDate = normalizeBookingDate(req.body?.bookingDate);
     const startTimeSql = normalizeStartTime(req.body?.startTime);
@@ -1130,7 +234,7 @@ router.post("/bookings", async (req, res) => {
     }
 
     try {
-        await ensureBookingPaymentColumns();
+
         const viewer = await resolveViewer(req);
         if (!viewer?.id) {
             return res.status(404).json({
@@ -1310,7 +414,7 @@ router.post("/bookings", async (req, res) => {
                     `,
                     [bookingId, metadataErrorMessage]
                 );
-                console.error("[carereceiver-dashboard] booking payment metadata sync failed:", stripeMetadataError);
+                console.error("[bookings] booking payment metadata sync failed:", stripeMetadataError);
             }
         }
 
@@ -1344,7 +448,7 @@ router.post("/bookings", async (req, res) => {
                 })
             );
         } catch (conversationError) {
-            console.error("[carereceiver-dashboard] booking conversation sync failed:", conversationError);
+            console.error("[bookings] booking conversation sync failed:", conversationError);
         }
 
         try {
@@ -1360,7 +464,7 @@ router.post("/bookings", async (req, res) => {
                 });
             }
         } catch (emailError) {
-            console.error("[carereceiver-dashboard] booking confirmation email failed:", emailError);
+            console.error("[bookings] booking confirmation email failed:", emailError);
         }
 
         try {
@@ -1375,7 +479,7 @@ router.post("/bookings", async (req, res) => {
                 });
             }
         } catch (emailError) {
-            console.error("[carereceiver-dashboard] caregiver notification email failed:", emailError);
+            console.error("[bookings] caregiver notification email failed:", emailError);
         }
 
         return res.status(201).json({
@@ -1407,7 +511,7 @@ router.post("/bookings", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] POST /bookings failed:", error);
+        console.error("[bookings] POST /bookings failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -1416,9 +520,9 @@ router.post("/bookings", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/care-receivers/me/bookings", async (req, res) => {
+export async function listCareReceiverBookings(req, res) {
     try {
         const viewer = await resolveViewer(req);
         const viewerId = viewer?.id || null;
@@ -1510,7 +614,7 @@ router.get("/care-receivers/me/bookings", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] GET /care-receivers/me/bookings failed:", error);
+        console.error("[bookings] GET /care-receivers/me/bookings failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -1519,9 +623,9 @@ router.get("/care-receivers/me/bookings", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/caregivers/me/bookings", async (req, res) => {
+export async function listCaregiverBookings(req, res) {
     try {
         const headerUserId = String(req.get("x-user-id") || "").trim();
         const headerUserEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
@@ -1644,7 +748,7 @@ router.get("/caregivers/me/bookings", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] GET /caregivers/me/bookings failed:", error);
+        console.error("[bookings] GET /caregivers/me/bookings failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -1653,9 +757,9 @@ router.get("/caregivers/me/bookings", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
+export async function acceptBooking(req, res) {
     const bookingId = String(req.params.bookingId || "").trim();
     if (!bookingId) {
         return res.status(400).json({
@@ -1668,7 +772,7 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
     }
 
     try {
-        await ensureBookingPaymentColumns();
+
         const headerUserEmail = String(req.get("x-user-email") || "").trim().toLowerCase();
         const caregiverIdHint = String(req.query.caregiverId || req.get("x-caregiver-id") || "").trim();
         const termsAcceptedAtRaw = String(req.body?.termsAcceptedAt || "").trim();
@@ -1883,7 +987,7 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
             "Contact details are now available in ICare."
         ];
         if (paymentCaptured && Number.isFinite(paymentTotal) && paymentTotal > 0) {
-            confirmationMessageLines.push(`Payment captured in ICare: £${paymentTotal.toFixed(2)}.`);
+            confirmationMessageLines.push(`Payment captured in ICare: \u00a3${paymentTotal.toFixed(2)}.`);
         }
         await appendSystemConversationMessage(
             resolvedConversationId,
@@ -1902,10 +1006,9 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
                 });
             }
         } catch (emailError) {
-            console.error("[carereceiver-dashboard] booking accepted notification email failed:", emailError);
+            console.error("[bookings] booking accepted notification email failed:", emailError);
         }
 
-        // API spec (bookings accept): once payment is captured, notify both parties.
         if (paymentCaptured) {
             try {
                 if (isValidEmail(booking.careReceiverEmail)) {
@@ -1920,7 +1023,7 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
                     });
                 }
             } catch (emailError) {
-                console.error("[carereceiver-dashboard] payment receipt email failed:", emailError);
+                console.error("[bookings] payment receipt email failed:", emailError);
             }
 
             try {
@@ -1935,7 +1038,7 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
                     });
                 }
             } catch (emailError) {
-                console.error("[carereceiver-dashboard] caregiver payment notification email failed:", emailError);
+                console.error("[bookings] caregiver payment notification email failed:", emailError);
             }
         }
 
@@ -1952,7 +1055,7 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] PUT /caregiver/bookings/:bookingId/accept failed:", error);
+        console.error("[bookings] PUT /caregiver/bookings/:bookingId/accept failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -1961,9 +1064,9 @@ router.put("/caregiver/bookings/:bookingId/accept", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/bookings/:bookingId", async (req, res) => {
+export async function getBookingDetail(req, res) {
     const bookingId = String(req.params.bookingId || "").trim();
     if (!bookingId) {
         return res.status(400).json({
@@ -2082,9 +1185,9 @@ router.get("/bookings/:bookingId", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.post("/bookings/:bookingId/review", async (req, res) => {
+export async function submitReview(req, res) {
     const bookingId = String(req.params.bookingId || "").trim();
     const ratingRaw = Number(req.body?.rating);
     const reviewTextRaw = String(req.body?.reviewText || "").trim();
@@ -2126,7 +1229,7 @@ router.post("/bookings/:bookingId/review", async (req, res) => {
         .slice(0, 10);
 
     try {
-        await ensureBookingPaymentColumns();
+
         const viewer = await resolveViewer(req);
         if (!ensureTermsAccepted(res, viewer)) {
             return;
@@ -2255,9 +1358,9 @@ router.post("/bookings/:bookingId/review", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.get("/caregivers/:caregiverId/reviews", async (req, res) => {
+export async function listCaregiverReviews(req, res) {
     const caregiverId = String(req.params.caregiverId || "").trim();
     if (!caregiverId) {
         return res.status(400).json({
@@ -2379,7 +1482,7 @@ router.get("/caregivers/:caregiverId/reviews", async (req, res) => {
             }
         });
     } catch (error) {
-        console.error("[carereceiver-dashboard] GET /caregivers/:caregiverId/reviews failed:", error);
+        console.error("[bookings] GET /caregivers/:caregiverId/reviews failed:", error);
         return res.status(500).json({
             success: false,
             error: {
@@ -2388,9 +1491,9 @@ router.get("/caregivers/:caregiverId/reviews", async (req, res) => {
             }
         });
     }
-});
+}
 
-router.put("/bookings/:bookingId/cancel", async (req, res) => {
+export async function cancelBooking(req, res) {
     const bookingId = String(req.params.bookingId || "").trim();
     const reason = String(req.body?.reason || "no_longer_needed").trim().toLowerCase();
     const details = String(req.body?.details || "").trim();
@@ -2639,7 +1742,7 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 });
             }
         } catch (emailError) {
-            console.error("[carereceiver-dashboard] booking cancellation confirmation email failed:", emailError);
+            console.error("[bookings] booking cancellation confirmation email failed:", emailError);
         }
 
         try {
@@ -2655,7 +1758,7 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 });
             }
         } catch (emailError) {
-            console.error("[carereceiver-dashboard] booking cancellation notification email failed:", emailError);
+            console.error("[bookings] booking cancellation notification email failed:", emailError);
         }
 
         try {
@@ -2681,7 +1784,7 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
                 })
             );
         } catch (conversationError) {
-            console.error("[carereceiver-dashboard] booking cancellation conversation sync failed:", conversationError);
+            console.error("[bookings] booking cancellation conversation sync failed:", conversationError);
         }
 
         return res.status(200).json({
@@ -2705,6 +1808,4 @@ router.put("/bookings/:bookingId/cancel", async (req, res) => {
             }
         });
     }
-});
-
-export default router;
+}
