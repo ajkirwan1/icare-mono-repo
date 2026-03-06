@@ -8,6 +8,8 @@ import {
 import IntroVideoUploader from "~/components/application/profile/IntroVideoUploader";
 import {
   fetchCaregiverProfile,
+  saveCaregiverProfile,
+  uploadCaregiverProfilePhoto,
   removeCaregiverIntroVideo,
   uploadCaregiverIntroVideo
 } from "~/utils/api/caregiver-intro-video";
@@ -82,7 +84,21 @@ const initialSelected = {
 export default function CaregiverProfileEdit() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-  const profileId = "caregiver-sarah-johnson";
+  const bioRef = useRef(null);
+  const yearsRef = useRef(null);
+  const rateRef = useRef(null);
+  const postcodeRef = useRef(null);
+  const travelRef = useRef(null);
+
+  const profileId = (() => {
+    try {
+      const raw = window.localStorage.getItem("icare_user");
+      const parsed = raw ? JSON.parse(raw) : null;
+      return String(parsed?.id || "").trim() || null;
+    } catch { return null; }
+  })();
+
+  const [saving, setSaving] = useState(false);
   const [visibleLanguages, setVisibleLanguages] = useState(languages);
   const [visibleInterests, setVisibleInterests] = useState(interests);
   const [selected, setSelected] = useState(initialSelected);
@@ -100,7 +116,7 @@ export default function CaregiverProfileEdit() {
   });
   const [loadingIntroVideo, setLoadingIntroVideo] = useState(true);
   const [saveMessage, setSaveMessage] = useState("");
-  const [lastSavedAt, setLastSavedAt] = useState("Today at 2:15 PM");
+  const [lastSavedAt, setLastSavedAt] = useState("");
 
   const addLanguage = (lang) => {
     setVisibleLanguages((prev) => (prev.includes(lang) ? prev : [...prev, lang]));
@@ -152,19 +168,62 @@ export default function CaregiverProfileEdit() {
     fileInputRef.current?.click();
   };
 
-  const onPhotoChange = (event) => {
+  const onPhotoChange = async (event) => {
     const file = event.target.files?.[0];
     if (!file) { return; }
     const localUrl = URL.createObjectURL(file);
     setProfilePhoto(localUrl);
+    try {
+      const data = await uploadCaregiverProfilePhoto({
+        profileId,
+        file,
+        userRole: viewerRole,
+        userId: profileId
+      });
+      if (data?.profile?.profilePhotoUrl) {
+        setProfilePhoto(data.profile.profilePhotoUrl);
+      }
+    } catch (err) {
+      console.error("Photo upload failed:", err);
+      setSaveMessage("Photo upload failed. Please try again.");
+      setTimeout(() => setSaveMessage(""), 3000);
+    }
   };
 
-  const handleSaveChanges = () => {
-    const now = new Date();
-    const formatted = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    setLastSavedAt(`Today at ${formatted}`);
-    setSaveMessage("Changes saved successfully.");
-    setTimeout(() => setSaveMessage(""), 2400);
+  const handleSaveChanges = async () => {
+    if (saving || !profileId) { return; }
+    setSaving(true);
+    setSaveMessage("");
+    try {
+      await saveCaregiverProfile({
+        profileId,
+        userRole: viewerRole,
+        userId: profileId,
+        profileData: {
+          bio: bioRef.current?.value || "",
+          yearsExperience: yearsRef.current?.value || "",
+          hourlyRate: rateRef.current?.value || "",
+          postcode: postcodeRef.current?.value || "",
+          travelDistance: travelRef.current?.value || "",
+          languages: visibleLanguages,
+          interests: visibleInterests,
+          additionalServices: selectedAdditionalServices,
+          otherService,
+          availability: selected
+        }
+      });
+      const now = new Date();
+      const formatted = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+      setLastSavedAt(`Today at ${formatted}`);
+      setSaveMessage("Changes saved successfully.");
+      setTimeout(() => setSaveMessage(""), 2400);
+    } catch (err) {
+      console.error("Save failed:", err);
+      setSaveMessage("Save failed. Please try again.");
+      setTimeout(() => setSaveMessage(""), 3000);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const toggleSlot = (day, slot) => {
@@ -208,32 +267,43 @@ export default function CaregiverProfileEdit() {
   }, []);
 
   useEffect(() => {
+    if (!profileId) { return; }
     let isMounted = true;
 
-    async function loadIntroVideo() {
+    async function loadProfile() {
       setLoadingIntroVideo(true);
       try {
         const data = await fetchCaregiverProfile(profileId);
-        if (!isMounted) {
-          return;
-        }
+        if (!isMounted) { return; }
+        const p = data?.profile || {};
+        const pd = p.profileData || {};
+
         setIntroVideo({
-          introVideoUrl: data?.profile?.introVideoUrl || null,
-          introVideoDurationSec: data?.profile?.introVideoDurationSec ?? null
+          introVideoUrl: p.introVideoUrl || null,
+          introVideoDurationSec: p.introVideoDurationSec ?? null
         });
+
+        if (p.profilePhotoUrl) { setProfilePhoto(p.profilePhotoUrl); }
+        if (Array.isArray(pd.languages) && pd.languages.length) { setVisibleLanguages(pd.languages); }
+        if (Array.isArray(pd.interests) && pd.interests.length) { setVisibleInterests(pd.interests); }
+        if (Array.isArray(pd.additionalServices)) { setSelectedAdditionalServices(pd.additionalServices); }
+        if (pd.otherService) { setOtherService(pd.otherService); }
+        if (pd.availability && typeof pd.availability === "object") { setSelected(pd.availability); }
+
+        if (bioRef.current && pd.bio) { bioRef.current.value = pd.bio; }
+        if (yearsRef.current && pd.yearsExperience) { yearsRef.current.value = pd.yearsExperience; }
+        if (rateRef.current && pd.hourlyRate) { rateRef.current.value = pd.hourlyRate; }
+        if (postcodeRef.current && pd.postcode) { postcodeRef.current.value = pd.postcode; }
+        if (travelRef.current && pd.travelDistance) { travelRef.current.value = pd.travelDistance; }
       } catch {
-        // Keep edit form usable even when profile media API is temporarily unavailable.
+        // Keep edit form usable even when profile API is temporarily unavailable.
       } finally {
-        if (isMounted) {
-          setLoadingIntroVideo(false);
-        }
+        if (isMounted) { setLoadingIntroVideo(false); }
       }
     }
 
-    loadIntroVideo();
-    return () => {
-      isMounted = false;
-    };
+    loadProfile();
+    return () => { isMounted = false; };
   }, [profileId]);
 
   async function handleUploadIntroVideo(file, durationSec, onProgress) {
@@ -318,12 +388,12 @@ export default function CaregiverProfileEdit() {
               <div className={styles.formGrid}>
                 <label className={styles.field}>
                   <span>Bio *</span>
-                  <textarea defaultValue="Introduce yourself and tell care receivers why you want to work as a caregiver, including your experience, values, and the support you enjoy providing." />
+                  <textarea ref={bioRef} defaultValue="Introduce yourself and tell care receivers why you want to work as a caregiver, including your experience, values, and the support you enjoy providing." />
                 </label>
 
                 <label className={styles.field}>
                   <span>Years of experience in care *</span>
-                  <input defaultValue="5" />
+                  <input ref={yearsRef} defaultValue="5" />
                   <small>How many years have you been providing care or companionship?</small>
                 </label>
 
@@ -471,7 +541,7 @@ export default function CaregiverProfileEdit() {
               <div className={styles.formGrid}>
                 <label className={styles.field}>
                   <span>Your hourly rate *</span>
-                  <input defaultValue="18" />
+                  <input ref={rateRef} defaultValue="18" />
                   <small className={styles.rateNote}>Rate must be between £10 and £100 per hour</small>
                 </label>
               </div>
@@ -518,13 +588,13 @@ export default function CaregiverProfileEdit() {
               <div className={styles.formGrid}>
                 <label className={styles.field}>
                   <span>Postcode *</span>
-                  <input defaultValue="SW1A 1AA" />
+                  <input ref={postcodeRef} defaultValue="SW1A 1AA" />
                   <small>Used to show you to care receivers in your area</small>
                 </label>
 
                 <label className={styles.field}>
                   <span>Travel distance</span>
-                  <select defaultValue="10 miles">
+                  <select ref={travelRef} defaultValue="10 miles">
                     <option>5 miles</option>
                     <option>10 miles</option>
                     <option>15 miles</option>
