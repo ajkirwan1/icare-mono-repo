@@ -22,8 +22,8 @@ export default [
     route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
     route("newsletter/resend", "routes/website/news-and-articles/newsletter-resend.jsx"),
 
-    route("care-knowledge", "routes/website/care-knowledge-redirect.jsx"),
-    route("care-knowledge/*", "routes/website/care-knowledge-redirect.jsx"),
+    route("care-knowledge", "routes/website/care-knowledge-redirect.jsx", { id: "care-knowledge-index" }),
+    route("care-knowledge/*", "routes/website/care-knowledge-redirect.jsx", { id: "care-knowledge-splat" }),
 
     // Not found
     route("*", "routes/not-found.jsx"),
