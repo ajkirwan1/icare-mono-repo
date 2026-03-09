@@ -8,8 +8,13 @@ import styles from "~/styles/pages/news-and-articles/newsletter.module.scss";
 export function meta() {
   return [
     { title: "ICare | Resend Confirmation" },
-    { name: "description", content: "Resend your ICare newsletter confirmation email." }
+    { name: "description", content: "Resend your ICare newsletter confirmation email." },
+    { name: "robots", content: "noindex,follow" }
   ];
+}
+
+export function links() {
+  return [{ rel: "canonical", href: "https://icare-app.co.uk/newsletter/resend" }];
 }
 
 export default function NewsletterResend() {

@@ -12,7 +12,8 @@ export function meta() {
     title: "Who We Are",
     description:
       "Learn about iCare's mission, values and approach to connecting families with trusted companions for elderly adults across the UK.",
-    imagePath: "/images/og/who-we-are.webp"
+    imagePath: "/images/og/who-we-are.webp",
+    path: "/who-we-are"
   });
 
   return [
