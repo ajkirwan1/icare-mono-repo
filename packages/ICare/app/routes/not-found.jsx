@@ -3,10 +3,6 @@ import ICareNavbar from "~/components/website/pages/shared/icare-navbar";
 import ICareFooter from "~/components/website/pages/shared/footers/icare-footer";
 import styles from "~/styles/pages/not-found.module.scss";
 
-export async function loader() {
-  throw new Response("Not Found", { status: 404 });
-}
-
 export default function NotFoundPage() {
   const links = [
     { label: "Home", to: "/" },

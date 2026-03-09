@@ -21,8 +21,7 @@ export async function loader() {
     *[_type == "newsPost" && defined(slug.current)]{
       "slug": slug.current,
       publishedAt,
-      _updatedAt,
-      tags
+      _updatedAt
     }
   `);
 
@@ -49,23 +48,8 @@ export async function loader() {
     )
     .join("");
 
-  const tags = [...new Set(posts.flatMap((post) => post.tags || []))]
-    .filter(Boolean)
-    .sort((a, b) => a.localeCompare(b));
-
-  const tagsXml = tags
-    .map(
-      (tag) => `
-  <url>
-    <loc>${siteUrl}/care-guidance/tags/${encodeURIComponent(tag)}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>`
-    )
-    .join("");
-
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${staticXml}${postsXml}${tagsXml}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${staticXml}${postsXml}
 </urlset>`;
 
   return new Response(xml, {

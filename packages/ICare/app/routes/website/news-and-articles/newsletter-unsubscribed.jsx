@@ -6,13 +6,8 @@ import styles from "~/styles/pages/news-and-articles/newsletter.module.scss";
 export function meta() {
   return [
     { title: "ICare | Unsubscribed" },
-    { name: "description", content: "You have been unsubscribed from ICare updates." },
-    { name: "robots", content: "noindex,follow" }
+    { name: "description", content: "You have been unsubscribed from ICare updates." }
   ];
-}
-
-export function links() {
-  return [{ rel: "canonical", href: "https://icare-app.co.uk/newsletter/unsubscribed" }];
 }
 
 export default function NewsletterUnsubscribed() {

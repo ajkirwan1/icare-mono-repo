@@ -6,13 +6,8 @@ import styles from "~/styles/pages/news-and-articles/newsletter.module.scss";
 export function meta() {
   return [
     { title: "ICare | Subscription Confirmed" },
-    { name: "description", content: "Your ICare newsletter subscription has been confirmed." },
-    { name: "robots", content: "noindex,follow" }
+    { name: "description", content: "Your ICare newsletter subscription has been confirmed." }
   ];
-}
-
-export function links() {
-  return [{ rel: "canonical", href: "https://icare-app.co.uk/newsletter/confirmed" }];
 }
 
 export default function NewsletterConfirmed() {

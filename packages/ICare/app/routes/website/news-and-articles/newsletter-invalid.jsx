@@ -6,13 +6,8 @@ import styles from "~/styles/pages/news-and-articles/newsletter.module.scss";
 export function meta() {
   return [
     { title: "ICare | Invalid Link" },
-    { name: "description", content: "This newsletter link is invalid or has expired." },
-    { name: "robots", content: "noindex,follow" }
+    { name: "description", content: "This newsletter link is invalid or has expired." }
   ];
-}
-
-export function links() {
-  return [{ rel: "canonical", href: "https://icare-app.co.uk/newsletter/invalid" }];
 }
 
 export default function NewsletterInvalid() {

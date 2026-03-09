@@ -17,8 +17,6 @@ export default [
   route("care-guidance", "routes/website/news-and-articles/news-and-articles.jsx"),
   route("care-guidance/:slug", "routes/website/news-and-articles/news-item.jsx"),
   route("care-guidance/tags/:tag", "routes/website/news-and-articles/news-tag.jsx"),
-  route("care-knowledge", "routes/website/news-and-articles/care-knowledge-redirect.jsx"),
-  route("care-knowledge/*", "routes/website/news-and-articles/care-knowledge-splat-redirect.jsx"),
   route("newsletter/confirmed", "routes/website/news-and-articles/newsletter-confirmed.jsx"),
   route("newsletter/invalid", "routes/website/news-and-articles/newsletter-invalid.jsx"),
   route("newsletter/unsubscribed", "routes/website/news-and-articles/newsletter-unsubscribed.jsx"),
