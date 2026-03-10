@@ -442,7 +442,7 @@ export default function CarereceiverSearch() {
                             </section>
                         ) : paginatedCaregivers.map((caregiver) => (
                             <div key={caregiver.id} className="cr-card cr-caregiver-card">
-                                <div className="cr-inline" style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
+                                <div className="cr-inline cr-caregiver-card-head" style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
                                     <div className="cr-avatar cr-caregiver-avatar">{initials(caregiver.name)}</div>
                                     <button
                                         type="button"
@@ -472,7 +472,7 @@ export default function CarereceiverSearch() {
                                     ))}
                                 </div>
 
-                                <p className="cr-row-sub" style={{ marginBottom: "10px" }}>Languages: {caregiver.languages}</p>
+                                <p className="cr-row-sub cr-language-line" style={{ marginBottom: "10px" }}>Languages: {caregiver.languages}</p>
 
                                 <div className="cr-inline" style={{ marginBottom: "12px" }}>
                                     {caregiver.badges.map((badge) => (
@@ -480,7 +480,7 @@ export default function CarereceiverSearch() {
                                     ))}
                                 </div>
 
-                                <div className="cr-grid" style={{ gap: "8px" }}>
+                                <div className="cr-grid cr-caregiver-card-actions">
                                     <Link className="cr-button cr-button--primary" to={`/carereceiver/caregivers/${caregiver.id}`}>
                                         View Profile
                                     </Link>

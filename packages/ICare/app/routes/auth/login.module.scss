@@ -27,7 +27,7 @@ $accent: #8f6347;
     border: 1px solid $border;
     border-radius: 22px;
     box-shadow: 0 20px 45px rgba(35, 23, 15, 0.08);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
+    padding: clamp(1.75rem, 3.2vw, 2.8rem);
 }
 
 .brand {
@@ -53,14 +53,14 @@ $accent: #8f6347;
 }
 
 .title {
-    margin: 0.45rem 0 1.4rem;
-    font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+    margin: 0.55rem 0 1.65rem;
+    font-size: clamp(1.35rem, 2.6vw, 1.8rem);
     line-height: 1.15;
     color: #000000;
 }
 
 .newAccount {
-    margin: -0.55rem 0 1.25rem;
+    margin: -0.35rem 0 1.5rem;
     font-size: 0.94rem;
     line-height: 1.4;
     color: #000000;
@@ -96,8 +96,8 @@ $accent: #8f6347;
 
 .form {
     display: grid;
-    gap: 0.55rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
 }
 
 .label {
@@ -110,7 +110,7 @@ $accent: #8f6347;
     width: 100%;
     border: 1px solid $border;
     border-radius: 12px;
-    padding: 0.75rem 0.85rem;
+    padding: 0.85rem 0.95rem;
     font-size: 0.95rem;
     color: #000000;
     background: #ffffff;
@@ -123,7 +123,7 @@ $accent: #8f6347;
 }
 
 .formActions {
-    margin-top: 0.2rem;
+    margin-top: 0.45rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -163,7 +163,7 @@ $accent: #8f6347;
 .roleGrid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 1.2rem;
 
     @media (max-width: 700px) {
         grid-template-columns: 1fr;
@@ -174,12 +174,12 @@ $accent: #8f6347;
     background: $surfaceSoft;
     border: 1px solid $border;
     border-radius: 25px;
-    padding: 1.265rem 1.15rem;
+    padding: 1.5rem 1.35rem;
     text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.5rem;
     transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover,
@@ -192,14 +192,14 @@ $accent: #8f6347;
 }
 
 .roleTitle {
-    font-size: 1.02rem;
+    font-size: 1.12rem;
     font-weight: 700;
     color: #000000;
 }
 
 .roleText {
-    font-size: 0.92rem;
-    line-height: 1.45;
+    font-size: 0.96rem;
+    line-height: 1.55;
     color: #000000;
 }
 

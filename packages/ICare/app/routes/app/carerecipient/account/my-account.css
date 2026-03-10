@@ -274,10 +274,17 @@
     color: #304b6f;
 }
 
-.booking-alert--success {
-    border-color: rgba(138, 172, 57, 0.42);
-    background: rgba(138, 172, 57, 0.14);
-    color: #415b2b;
+.booking-alert.booking-alert--success,
+.booking-alert.booking-alert--confirmed {
+    border: 2px solid #88a845;
+    background-color: #dff0bf;
+    background-image: none;
+    color: #2f4720;
+    backdrop-filter: none;
+}
+
+.booking-alert--confirmed .booking-alert-helper {
+    color: #3a5a29;
 }
 
 .booking-alert--warning {
@@ -635,6 +642,10 @@
     gap: 10px;
 }
 
+.booking-payment-actions {
+    margin-top: 12px;
+}
+
 .booking-sidebar-action-wrap {
     display: grid;
     gap: 6px;
@@ -660,6 +671,13 @@
     align-items: center;
     transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease, border-color 0.14s ease, color 0.14s ease;
     cursor: pointer;
+}
+
+.booking-action--compact {
+    width: fit-content;
+    max-width: 100%;
+    justify-self: start;
+    border-radius: 999px;
 }
 
 .booking-action:hover {

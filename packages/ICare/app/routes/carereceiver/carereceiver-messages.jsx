@@ -244,7 +244,7 @@ export default function CarereceiverMessages() {
     }, [sortedConversations, currentPage]);
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={styles.page}>
                 <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
                     <NavLink to="/carereceiver">Dashboard</NavLink>

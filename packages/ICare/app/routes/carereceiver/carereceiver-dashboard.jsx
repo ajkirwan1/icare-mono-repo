@@ -130,7 +130,7 @@ export default function CarereceiverDashboard() {
                 ) : null}
 
                 {!payment.loading && payment.paymentMethodMissing ? (
-                    <section className={styles.alertBanner}>
+                    <section className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
                         <span className={styles.alertIcon}>!</span>
                         <div>
                             <p className={styles.alertTitle}>Add a payment method to request bookings</p>

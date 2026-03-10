@@ -212,12 +212,51 @@
 }
 
 .bookingItemPending {
-  border-left: 3px solid rgba(119, 141, 67, 0.7);
-  background: #faf6ef;
+  border-left: 4px solid #778d43;
+  border-color: rgba(170, 187, 212, 0.7);
+  background: #d7e1ee;
+
+  &:hover {
+    border-color: rgba(146, 169, 201, 0.9);
+    background: #cfdbea;
+  }
+
+  button {
+    border-color: #647739;
+    background: #778d43;
+    color: #ffffff;
+
+    &:hover {
+      background: #ffffff;
+      color: #647739;
+      border-color: #647739;
+      box-shadow: none;
+    }
+  }
 }
 
 .bookingItemUpcoming {
-  background: #fdfbf8;
+  border-left: 4px solid #778d43;
+  border-color: rgba(170, 187, 212, 0.7);
+  background: #d7e1ee;
+
+  &:hover {
+    border-color: rgba(146, 169, 201, 0.9);
+    background: #cfdbea;
+  }
+
+  button {
+    border-color: #647739;
+    background: #778d43;
+    color: #ffffff;
+
+    &:hover {
+      background: #ffffff;
+      color: #647739;
+      border-color: #647739;
+      box-shadow: none;
+    }
+  }
 }
 
 .avatar {
@@ -260,15 +299,16 @@
 }
 
 .requested {
-  background: #efe6d7;
-  color: #4b3a1f;
+  background: #fbeaea;
+  color: #9b2c2c;
+  border: 1px solid #e16363;
   font-weight: 700;
 }
 
 .confirmed {
-  background: #f3ece3;
-  color: #5d4734;
-  border: 1px solid rgba(212, 138, 83, 0.16);
+  background: #e7f2d2;
+  color: #4f6737;
+  border: 1px solid #9fbe66;
   font-weight: 600;
 }
 

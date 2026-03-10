@@ -150,8 +150,7 @@ export default function LoginPage() {
                             <img src="/images/logo/icareblack.svg" alt="ICare" className={styles.brandLogo} width={121} height={48} />
                         </div>
 
-                        <p className={styles.kicker}>Welcome back</p>
-                        <h1 className={styles.title}>Log in to your account</h1>
+                        <h1 className={styles.title}>Welcome back, Margaret</h1>
                         <p className={styles.newAccount}>
                             New to ICare?{" "}
                             <NavLink to="/register" className={styles.newAccountLink}>
@@ -206,12 +205,12 @@ export default function LoginPage() {
 
                         <div className={styles.roleGrid}>
                             <NavLink to="/caregiver" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>CAREGIVER</span>
+                                <span className={styles.roleTitle}>I'M A CAREGIVER</span>
                                 <span className={styles.roleText}>Manage your profile, jobs, and bookings.</span>
                             </NavLink>
 
                             <NavLink to="/carereceiver" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>CARE RECEIVER</span>
+                                <span className={styles.roleTitle}>I'M LOOKING FOR CARE</span>
                                 <span className={styles.roleText}>Find caregivers and manage support.</span>
                             </NavLink>
 

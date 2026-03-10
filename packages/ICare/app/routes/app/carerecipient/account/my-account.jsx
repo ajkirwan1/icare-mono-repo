@@ -562,24 +562,24 @@ export async function loader({ request, params }) {
     };
 }
 
-function ActionControl({ action, variant = "secondary", label }) {
-    const className = `booking-action booking-action--${variant}`;
+function ActionControl({ action, variant = "secondary", label, className = "" }) {
+    const classes = `booking-action booking-action--${variant} ${className}`.trim();
     if (action?.startsWith("navigate:")) {
         return (
-            <Link className={className} to={action.replace("navigate:", "")}>
+            <Link className={classes} to={action.replace("navigate:", "")}>
                 {label}
             </Link>
         );
     }
     if (action?.startsWith("tel:")) {
         return (
-            <a className={className} href={action}>
+            <a className={classes} href={action}>
                 {label}
             </a>
         );
     }
     return (
-        <button className={className} type="button">
+        <button className={classes} type="button">
             {label}
         </button>
     );
@@ -692,6 +692,14 @@ export default function CareRecipientMyAccountPage() {
     const glanceService = serviceTypes[0] || "Companionship";
     const normalizedAlertRole = state.alertVariant === "warning" || state.alertVariant === "error" ? "alert" : "status";
     const hasHeldPayment = String(state.paymentTag || "").toLowerCase().includes("held");
+    const allStateActions = state.stateActions || [];
+    const isPaymentAction = (action) => {
+        const normalizedLabel = String(action?.label || "").toLowerCase();
+        return normalizedLabel.includes("cancel") || normalizedLabel.includes("message");
+    };
+    const paymentActions = allStateActions.filter(isPaymentAction);
+    const sidebarActions = allStateActions.filter((action) => !isPaymentAction(action));
+    const isConfirmedBooking = booking.status === "accepted" || booking.status === "confirmed";
     const alertBody = (booking.status === "accepted" || booking.status === "confirmed")
         ? `Contact details are now available. Your booking is ${glanceDate}, ${glanceTime}.`
         : state.alertMessage;
@@ -790,12 +798,23 @@ export default function CareRecipientMyAccountPage() {
                 </section>
 
                 {state.showAlertBanner ? (
-                    <section className={`booking-alert booking-alert--${state.alertVariant || "info"}`} role={normalizedAlertRole} aria-live="polite">
+                    <section
+                        className={`booking-alert booking-alert--${state.alertVariant || "info"}${isConfirmedBooking ? " booking-alert--confirmed" : ""}`}
+                        role={normalizedAlertRole}
+                        aria-live="polite"
+                        style={isConfirmedBooking ? {
+                            backgroundColor: "#dff0bf",
+                            backgroundImage: "none",
+                            border: "2px solid #88a845",
+                            color: "#2f4720",
+                            backdropFilter: "none"
+                        } : undefined}
+                    >
                         <h3 className="booking-alert-title">
-                            {(booking.status === "accepted" || booking.status === "confirmed") ? "Booking confirmed" : "Booking update"}
+                            {isConfirmedBooking ? "Booking confirmed" : "Booking update"}
                         </h3>
                         <p>{alertBody}</p>
-                        {(booking.status === "accepted" || booking.status === "confirmed") ? (
+                        {isConfirmedBooking ? (
                             <p className="booking-alert-helper">Please keep arrangements in ICare where possible.</p>
                         ) : null}
                         {state.alertActions?.length ? (
@@ -944,6 +963,41 @@ export default function CareRecipientMyAccountPage() {
                                 </dd>
                                 <dt className="total">Total</dt><dd className="total">{formatCurrency(payment.total)}</dd>
                             </dl>
+                            {paymentActions.length ? (
+                                <div className="booking-sidebar-actions booking-payment-actions">
+                                    {paymentActions.map((action) => {
+                                        const normalizedLabel = String(action.label).toLowerCase();
+                                        const isCancelAction = normalizedLabel.includes("cancel");
+                                        const isMessageAction = normalizedLabel.includes("message");
+                                        const isCompactAction = isCancelAction || isMessageAction;
+                                        return (
+                                            <div key={`${action.label}-${action.action}`} className="booking-sidebar-action-wrap">
+                                                <ActionControl
+                                                    action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
+                                                    variant={
+                                                        isCancelAction
+                                                            ? "destructive-outlined"
+                                                            : isMessageAction
+                                                                ? "primary"
+                                                                : action.variant
+                                                    }
+                                                    className={isCompactAction ? "booking-action--compact" : ""}
+                                                    label={
+                                                        action.label === "Message Caregiver"
+                                                            ? "Message caregiver"
+                                                            : action.label === "Cancel Booking"
+                                                                ? "Cancel booking"
+                                                                : action.label
+                                                    }
+                                                />
+                                                {isCancelAction ? (
+                                                    <p className="booking-action-helper">You can request a cancellation.</p>
+                                                ) : null}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ) : null}
                         </article>
 
                         {state.showEmergencyContactCard ? (
@@ -957,39 +1011,44 @@ export default function CareRecipientMyAccountPage() {
                             </article>
                         ) : null}
 
-                        <article className="booking-card">
-                            <h2>Actions</h2>
-                            <div className="booking-sidebar-actions">
-                                {(state.stateActions || []).length ? (
-                                    state.stateActions.map((action) => (
-                                        <div key={`${action.label}-${action.action}`} className="booking-sidebar-action-wrap">
-                                            <ActionControl
-                                                action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
-                                                variant={
-                                                    String(action.label).toLowerCase().includes("cancel")
-                                                        ? "destructive-outlined"
-                                                        : String(action.label).toLowerCase().includes("message")
-                                                            ? "primary"
-                                                            : action.variant
-                                                }
-                                                label={
-                                                    action.label === "Message Caregiver"
-                                                        ? "Message caregiver"
-                                                        : action.label === "Cancel Booking"
-                                                            ? "Cancel booking"
-                                                            : action.label
-                                                }
-                                            />
-                                            {String(action.label).toLowerCase().includes("cancel") ? (
-                                                <p className="booking-action-helper">You can request a cancellation.</p>
-                                            ) : null}
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className="booking-muted">No available actions for this status.</p>
-                                )}
-                            </div>
-                        </article>
+                        {sidebarActions.length ? (
+                            <article className="booking-card">
+                                <h2>Actions</h2>
+                                <div className="booking-sidebar-actions">
+                                    {sidebarActions.map((action) => {
+                                        const normalizedLabel = String(action.label).toLowerCase();
+                                        const isCancelAction = normalizedLabel.includes("cancel");
+                                        const isMessageAction = normalizedLabel.includes("message");
+                                        const isCompactAction = isCancelAction || isMessageAction;
+                                        return (
+                                            <div key={`${action.label}-${action.action}`} className="booking-sidebar-action-wrap">
+                                                <ActionControl
+                                                    action={resolveViewerAction(action.action, isCaregiverView, booking.id)}
+                                                    variant={
+                                                        isCancelAction
+                                                            ? "destructive-outlined"
+                                                            : isMessageAction
+                                                                ? "primary"
+                                                                : action.variant
+                                                    }
+                                                    className={isCompactAction ? "booking-action--compact" : ""}
+                                                    label={
+                                                        action.label === "Message Caregiver"
+                                                            ? "Message caregiver"
+                                                            : action.label === "Cancel Booking"
+                                                                ? "Cancel booking"
+                                                                : action.label
+                                                    }
+                                                />
+                                                {isCancelAction ? (
+                                                    <p className="booking-action-helper">You can request a cancellation.</p>
+                                                ) : null}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </article>
+                        ) : null}
                     </aside>
                 </section>
             </div>
