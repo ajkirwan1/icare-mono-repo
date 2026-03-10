@@ -125,7 +125,7 @@ export default function CaregiverOnboarding() {
     }, [identityComplete, rightToWorkComplete]);
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={`${styles.page} ${mounted ? styles.pageMounted : ""}`}>
                 <div className={styles.headerCard}>
                     <div className={styles.topRow}>

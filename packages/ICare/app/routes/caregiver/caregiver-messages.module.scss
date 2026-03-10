@@ -1,10 +1,10 @@
 @use "./theme" as cg;
 
 .page {
-    background: cg.$bg;
-    border: 1px solid rgba(212, 138, 83, 0.22);
+    background: #f8f1ea;
+    border: 1px solid rgba(212, 138, 83, 0.26);
     border-radius: 22px;
-    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.08);
+    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.1);
     padding: clamp(24px, 2.8vw, 38px);
 }
 
@@ -56,9 +56,9 @@
 
 .safetyBanner {
     margin-bottom: 14px;
-    border: 1px solid rgba(212, 138, 83, 0.28);
+    border: 1px solid #9eb77a;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.7);
+    background: #eef7df;
     padding: 10px 12px;
     display: flex;
     justify-content: space-between;
@@ -68,22 +68,22 @@
 
 .safetyTitle {
     margin: 0;
-    color: #000000;
+    color: #3d5620;
     font-size: 14px;
     font-weight: 700;
 }
 
 .safetyBody {
     margin: 3px 0 0;
-    color: #303030;
+    color: #4a6330;
     font-size: 13px;
     line-height: 1.4;
 }
 
 .dismissButton {
-    border: 1px solid rgba(212, 138, 83, 0.35);
-    background: #fff;
-    color: #000;
+    border: 1px solid #9eb77a;
+    background: #ffffff;
+    color: #3d5620;
     border-radius: 8px;
     width: 30px;
     height: 30px;
@@ -193,7 +193,10 @@
 }
 
 .list {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(212, 138, 83, 0.16);
+    border-radius: 14px;
+    padding: 10px;
     display: grid;
     gap: 14px;
     opacity: 0;
@@ -222,15 +225,15 @@
 
 .row {
     min-height: 132px;
-    border: 1px solid rgba(212, 138, 83, 0.22);
+    border: 1px solid rgba(212, 138, 83, 0.3);
     border-radius: 14px;
-    background: #fff;
+    background: #eef6ff;
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 16px;
     align-items: flex-start;
     padding: 20px 22px;
-    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.06);
+    box-shadow: 0 8px 20px rgba(212, 138, 83, 0.1);
     transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
     opacity: 0;
@@ -240,9 +243,9 @@
 
     &:hover {
         transform: translateY(-1px);
-        background: #f7eee4;
-        border-color: rgba(212, 138, 83, 0.42);
-        box-shadow: 0 10px 20px rgba(212, 138, 83, 0.12);
+        background: #ffffff !important;
+        border-color: rgba(212, 138, 83, 0.5);
+        box-shadow: 0 12px 24px rgba(212, 138, 83, 0.16);
 
         .threadName {
             color: cg.$accent-dark;
@@ -256,12 +259,16 @@
 }
 
 .rowNeedsReply {
-    background: #fff8f0;
+    background: #e8f2ff;
     border-left: 4px solid #778d43;
 }
 
+.rowNeedsReply:hover {
+    background: #ffffff !important;
+}
+
 .rowCompleted {
-    background: #fbfbf9;
+    background: #eaf1fb;
 
     .threadName,
     .threadMeta,
@@ -269,6 +276,10 @@
     .when {
         color: #585858;
     }
+}
+
+.rowCompleted:hover {
+    background: #ffffff !important;
 }
 
 .avatar {
@@ -334,9 +345,9 @@
 }
 
 .statusNeedsReply {
-    background: rgba(119, 141, 67, 0.2);
-    border-color: rgba(96, 118, 52, 0.48);
-    color: #304516;
+    background: #ffe8e8;
+    border-color: #cf4a4a;
+    color: #7f1f1f;
 }
 
 .statusBookingConfirmed {

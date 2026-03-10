@@ -1,6 +1,15 @@
 import styles from "./kasia-dashboard.module.scss";
 
-export default function DashboardShell({ title, subtitle, topBanner, main, aside, children }) {
+export default function DashboardShell({
+  title,
+  subtitle,
+  topBanner,
+  main,
+  aside,
+  children,
+  fullWidth = false,
+  className = ""
+}) {
   const hasAside = aside !== null && aside !== undefined;
   const content = children ?? (
     hasAside ? (
@@ -14,7 +23,7 @@ export default function DashboardShell({ title, subtitle, topBanner, main, aside
   );
 
   return (
-    <div className={styles.shell}>
+    <div className={`${styles.shell} ${fullWidth ? styles.shellFull : ""} ${className}`.trim()}>
       {(title || subtitle) && (
         <header className={styles.header}>
           {title ? <h1 className={styles.title}>{title}</h1> : null}

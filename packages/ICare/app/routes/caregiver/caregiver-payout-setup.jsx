@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { NavLink, useSearchParams } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStripe } from "@fortawesome/free-brands-svg-icons";
 import { DashboardShell, StatusPill } from "~/components/application/kasia";
 import {
     createCaregiverConnectAccount,
@@ -215,7 +217,7 @@ export default function CaregiverPayoutSetup() {
     }
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={styles.page}>
                 <header className={styles.header}>
                     <h1>Payout Setup</h1>
@@ -241,6 +243,7 @@ export default function CaregiverPayoutSetup() {
                             onClick={handleSetupPayouts}
                             type="button"
                         >
+                            <FontAwesomeIcon className={`${styles.buttonIcon} ${styles.stripeIconBadge}`} icon={faStripe} />
                             {busyAction === "setup" ? "Setting up..." : "Set Up Payouts"}
                         </button>
 
@@ -251,6 +254,7 @@ export default function CaregiverPayoutSetup() {
                                 onClick={handleOpenDashboard}
                                 type="button"
                             >
+                                <FontAwesomeIcon className={`${styles.buttonIcon} ${styles.stripeIconBadge}`} icon={faStripe} />
                                 {busyAction === "dashboard" ? "Opening..." : "Open Stripe Dashboard"}
                             </button>
                         ) : null}

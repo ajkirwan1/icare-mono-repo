@@ -117,6 +117,7 @@ export default function CaregiverProfileEdit() {
   const [loadingIntroVideo, setLoadingIntroVideo] = useState(true);
   const [saveMessage, setSaveMessage] = useState("");
   const [lastSavedAt, setLastSavedAt] = useState("");
+  const [saveTone, setSaveTone] = useState("neutral");
 
   const addLanguage = (lang) => {
     setVisibleLanguages((prev) => (prev.includes(lang) ? prev : [...prev, lang]));
@@ -194,6 +195,7 @@ export default function CaregiverProfileEdit() {
     if (saving || !profileId) { return; }
     setSaving(true);
     setSaveMessage("");
+    setSaveTone("neutral");
     try {
       await saveCaregiverProfile({
         profileId,
@@ -216,10 +218,12 @@ export default function CaregiverProfileEdit() {
       const formatted = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
       setLastSavedAt(`Today at ${formatted}`);
       setSaveMessage("Changes saved successfully.");
+      setSaveTone("success");
       setTimeout(() => setSaveMessage(""), 2400);
     } catch (err) {
       console.error("Save failed:", err);
       setSaveMessage("Save failed. Please try again.");
+      setSaveTone("error");
       setTimeout(() => setSaveMessage(""), 3000);
     } finally {
       setSaving(false);
@@ -342,6 +346,7 @@ export default function CaregiverProfileEdit() {
       <DashboardShell
         title="Edit Your Profile"
         subtitle="Update your profile information. Changes are visible to care receivers browsing your profile."
+        fullWidth
         main={(
           <>
             <div className={styles.previewRow}>
@@ -386,14 +391,18 @@ export default function CaregiverProfileEdit() {
 
             <SectionCard title="About You">
               <div className={styles.formGrid}>
-                <label className={styles.field}>
+                <label className={`${styles.field} ${styles.fieldFull}`}>
                   <span>Bio *</span>
-                  <textarea ref={bioRef} defaultValue="Introduce yourself and tell care receivers why you want to work as a caregiver, including your experience, values, and the support you enjoy providing." />
+                  <textarea
+                    ref={bioRef}
+                    defaultValue="Introduce yourself and tell care receivers why you want to work as a caregiver, including your experience, values, and the support you enjoy providing."
+                    placeholder="Share your care experience, values, and the support you enjoy offering."
+                  />
                 </label>
 
                 <label className={styles.field}>
                   <span>Years of experience in care *</span>
-                  <input ref={yearsRef} defaultValue="5" />
+                  <input ref={yearsRef} type="number" min="0" max="60" step="1" defaultValue="5" placeholder="e.g. 5" />
                   <small>How many years have you been providing care or companionship?</small>
                 </label>
 
@@ -541,7 +550,7 @@ export default function CaregiverProfileEdit() {
               <div className={styles.formGrid}>
                 <label className={styles.field}>
                   <span>Your hourly rate *</span>
-                  <input ref={rateRef} defaultValue="18" />
+                  <input ref={rateRef} type="number" min="10" max="100" step="1" defaultValue="18" placeholder="e.g. 18" />
                   <small className={styles.rateNote}>Rate must be between £10 and £100 per hour</small>
                 </label>
               </div>
@@ -588,7 +597,7 @@ export default function CaregiverProfileEdit() {
               <div className={styles.formGrid}>
                 <label className={styles.field}>
                   <span>Postcode *</span>
-                  <input ref={postcodeRef} defaultValue="SW1A 1AA" />
+                  <input ref={postcodeRef} defaultValue="SW1A 1AA" placeholder="e.g. SW1A 1AA" />
                   <small>Used to show you to care receivers in your area</small>
                 </label>
 
@@ -605,10 +614,19 @@ export default function CaregiverProfileEdit() {
             </SectionCard>
 
             <div className={styles.actionsFooter}>
-              <PrimaryActionButton label="Save Changes" onClick={handleSaveChanges} />
-              <button type="button" className={styles.secondaryBtn} onClick={() => navigate(0)}>Discard Changes</button>
+              <PrimaryActionButton
+                label={saving ? "Saving..." : "Save Changes"}
+                onClick={handleSaveChanges}
+                disabled={saving || !profileId}
+              />
+              <button type="button" className={styles.secondaryBtn} onClick={() => navigate(0)} disabled={saving}>Discard Changes</button>
+              {!profileId ? <p className={styles.warningText}>Unable to save: profile ID is missing.</p> : null}
               <p>Last saved: {lastSavedAt}</p>
-              {saveMessage ? <p className={styles.saveFeedback}>{saveMessage}</p> : null}
+              {saveMessage ? (
+                <p className={`${styles.saveFeedback} ${saveTone === "success" ? styles.saveFeedbackSuccess : saveTone === "error" ? styles.saveFeedbackError : ""}`}>
+                  {saveMessage}
+                </p>
+              ) : null}
             </div>
           </>
         )}

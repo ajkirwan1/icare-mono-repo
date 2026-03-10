@@ -8,8 +8,9 @@
 }
 
 .shell {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   border: 0;
   border-radius: 24px;
   background: cg.$surface;
@@ -322,18 +323,18 @@
   margin-top: 14px;
   height: 18px;
   border-radius: 999px;
-  background: #f1e9df;
-  border: 1px solid rgba(212, 138, 83, 0.2);
+  background: linear-gradient(90deg, #f5d9d9 0%, #f6e8c9 45%, #deedcc 100%);
+  border: 1px solid rgba(85, 100, 52, 0.22);
   overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(79, 67, 58, 0.12);
+  box-shadow: inset 0 1px 2px rgba(48, 58, 27, 0.14);
 
   span {
     display: block;
     height: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, cg.$accent-dark 0%, #c39777 100%);
+    background: linear-gradient(90deg, #c65f5f 0%, #d48a53 42%, #a3bb65 72%, #647739 100%);
     position: relative;
-    box-shadow: 0 2px 6px rgba(212, 138, 83, 0.24);
+    box-shadow: 0 2px 6px rgba(100, 119, 57, 0.28);
     transition: width 0.35s ease;
   }
 
@@ -347,7 +348,7 @@
     border-radius: 999px;
     background: cg.$surface;
     transform: translateY(-50%);
-    box-shadow: 0 0 0 1px rgba(212, 138, 83, 0.24);
+    box-shadow: 0 0 0 1px rgba(100, 119, 57, 0.34);
   }
 }
 
@@ -356,8 +357,8 @@
   width: fit-content;
   padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(212, 138, 83, 0.14);
-  color: #000000;
+  background: rgba(119, 141, 67, 0.16);
+  color: #32481b;
   font-size: 12px;
   font-weight: 700;
 }

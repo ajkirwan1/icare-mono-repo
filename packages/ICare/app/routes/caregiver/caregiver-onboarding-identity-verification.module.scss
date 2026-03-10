@@ -112,6 +112,28 @@
     margin-bottom: 12px;
 }
 
+.actions :global(button) {
+    width: 200px;
+    min-height: 40px;
+    border-radius: 25px;
+    background: #778d43;
+    border-color: #647739;
+    color: #ffffff;
+    font-weight: 600;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actions :global(button:hover) {
+    background: #647739;
+    box-shadow: 0 10px 18px rgba(66, 89, 44, 0.2);
+}
+
+.actions :global(button:disabled) {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 .hint {
     color: rgba(15, 23, 42, 0.72);
     margin: 0;

@@ -20,8 +20,9 @@
 }
 
 .breadcrumb {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   padding: 14px 34px 0;
   color: var(--ink-soft);
   font-size: 14px;
@@ -145,6 +146,10 @@
   animation-delay: 60ms;
 }
 
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
 .field {
   display: grid;
   gap: 6px;
@@ -193,7 +198,7 @@
   }
 
   textarea {
-    min-height: 90px;
+    min-height: 120px;
     resize: vertical;
   }
 }
@@ -580,6 +585,14 @@
   gap: 12px;
   align-items: center;
   margin-top: 4px;
+  position: sticky;
+  bottom: 12px;
+  z-index: 6;
+  border: 1px solid rgba(212, 138, 83, 0.24);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  padding: 12px;
 
   p {
     margin: 0;
@@ -592,7 +605,23 @@
 .saveFeedback {
   margin: 0;
   width: 100%;
-  color: var(--ink);
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.saveFeedbackSuccess {
+  color: #2f5f33;
+}
+
+.saveFeedbackError {
+  color: #8f2f2f;
+}
+
+.warningText {
+  margin: 0;
+  width: 100%;
+  color: #8f2f2f;
   font-size: 13px;
   font-weight: 600;
 }
@@ -611,6 +640,12 @@
   &:hover {
     background: var(--surface-soft);
     transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 }
 
@@ -656,5 +691,17 @@
   .avHead,
   .avRow {
     min-width: 520px;
+  }
+
+  .actionsFooter {
+    bottom: 8px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 980px) {
+  .formGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 }

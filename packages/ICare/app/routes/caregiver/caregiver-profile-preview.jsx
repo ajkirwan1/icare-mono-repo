@@ -62,11 +62,13 @@ export default function CaregiverProfilePreview() {
       <DashboardShell
         title={null}
         subtitle={null}
+        fullWidth
         main={(
           <div className={styles.previewFrame}>
             <header className={styles.pageHeader}>
               <h1>Public Profile Preview</h1>
               <p>This is how families will see your profile.</p>
+              <p className={styles.previewNotice}>Preview mode: this page is read-only for layout and content checks.</p>
             </header>
 
             <div className={styles.sectionStack}>

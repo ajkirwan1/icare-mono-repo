@@ -88,7 +88,23 @@
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: box-shadow 0.16s ease, background-color 0.16s ease;
+}
+
+.buttonIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.stripeIconBadge {
+  color: #ffffff;
+  background: #1f2a6b;
+  border-radius: 6px;
+  padding: 3px 6px;
 }
 
 .primaryButton {

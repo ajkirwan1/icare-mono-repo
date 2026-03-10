@@ -262,9 +262,33 @@ export default function CaregiverBookings() {
     const pagedBookings = filteredBookings.slice(pageStart, pageStart + PAGE_SIZE);
 
     const activeTabLabel = tabs.find((tab) => tab.id === activeTab)?.label ?? "Upcoming";
+    const paginationItems = useMemo(() => {
+        if (totalPages <= 7) {
+            return Array.from({ length: totalPages }, (_, index) => index + 1);
+        }
+
+        const items = [1];
+        const start = Math.max(2, safePage - 1);
+        const end = Math.min(totalPages - 1, safePage + 1);
+
+        if (start > 2) {
+            items.push("start-ellipsis");
+        }
+
+        for (let page = start; page <= end; page += 1) {
+            items.push(page);
+        }
+
+        if (end < totalPages - 1) {
+            items.push("end-ellipsis");
+        }
+
+        items.push(totalPages);
+        return items;
+    }, [safePage, totalPages]);
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={styles.page}>
                 <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
                     <NavLink to="/caregiver">Dashboard</NavLink>
@@ -291,7 +315,6 @@ export default function CaregiverBookings() {
 
                 <section className={styles.topRow}>
                     <p className={styles.pendingCount}>{filteredBookings.length} {activeTabLabel.toLowerCase()} bookings</p>
-                    {state.error ? <p className={styles.payoutNote}>API: {state.error}</p> : null}
                     <button
                         type="button"
                         className={styles.sortButton}
@@ -313,27 +336,36 @@ export default function CaregiverBookings() {
                     <button
                         type="button"
                         className={styles.pageButton}
+                        disabled={safePage <= 1}
                         onClick={() => setParam("page", String(Math.max(1, safePage - 1)))}
                     >
                         ← Prev
                     </button>
-                    <button
-                        type="button"
-                        className={`${styles.pageNumber} ${safePage === 1 ? styles.currentPage : ""}`.trim()}
-                        onClick={() => setParam("page", "1")}
-                    >
-                        1
-                    </button>
-                    <button
-                        type="button"
-                        className={`${styles.pageNumber} ${safePage === 2 ? styles.currentPage : ""}`.trim()}
-                        onClick={() => setParam("page", "2")}
-                    >
-                        2
-                    </button>
+
+                    {paginationItems.map((item) => {
+                        if (typeof item !== "number") {
+                            return <span key={item} className={styles.pageEllipsis}>…</span>;
+                        }
+
+                        return (
+                            <button
+                                key={item}
+                                type="button"
+                                className={`${styles.pageNumber} ${safePage === item ? styles.currentPage : ""}`.trim()}
+                                onClick={() => setParam("page", String(item))}
+                                aria-current={safePage === item ? "page" : undefined}
+                            >
+                                {item}
+                            </button>
+                        );
+                    })}
+
+                    <p className={styles.paginationInfo}>Page {safePage} of {totalPages}</p>
+
                     <button
                         type="button"
                         className={styles.pageButton}
+                        disabled={safePage >= totalPages}
                         onClick={() => setParam("page", String(Math.min(totalPages, safePage + 1)))}
                     >
                         Next →

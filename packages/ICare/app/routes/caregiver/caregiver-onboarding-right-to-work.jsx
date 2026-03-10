@@ -105,7 +105,7 @@ export default function CaregiverOnboardingRightToWork() {
     }
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={styles.page}>
                 <div className={styles.topNav}>
                     <NavLink className={styles.backLink} to="/caregiver/onboarding">

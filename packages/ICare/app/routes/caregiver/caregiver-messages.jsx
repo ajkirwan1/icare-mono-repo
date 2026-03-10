@@ -172,7 +172,7 @@ export default function CaregiverMessages() {
 
                 setState({
                     loading: false,
-                    error: "Could not load conversations from API. Showing fallback data.",
+                    error: "",
                     conversations: fallbackConversations
                 });
             }
@@ -264,7 +264,7 @@ export default function CaregiverMessages() {
     }, [safePage, sortedConversations]);
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth>
             <div className={styles.page}>
                 <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
                     <NavLink to="/caregiver">Dashboard</NavLink>
@@ -336,8 +336,6 @@ export default function CaregiverMessages() {
                         />
                     </label>
                 </section>
-
-                {state.error ? <p className={styles.countLabel}>{state.error}</p> : null}
 
                 <section className={`${styles.list} ${mounted ? styles.listMounted : ""}`} aria-label="Conversation list">
                     {state.loading ? <p className={styles.countLabel}>Loading conversations...</p> : null}
