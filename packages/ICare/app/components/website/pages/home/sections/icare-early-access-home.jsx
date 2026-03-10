@@ -60,11 +60,13 @@ function toDigitsOnly(value) {
 export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     const sliderRef = useRef(null);
     const crossfadeTimerRef = useRef(null);
+    const scrollSyncRafRef = useRef(null);
     const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
     const [isMobileCrossfading, setIsMobileCrossfading] = useState(false);
     const [mobileSlideIndex, setMobileSlideIndex] = useState(0);
     const [expandedId, setExpandedId] = useState(null);
     const [isMobileViewport, setIsMobileViewport] = useState(false);
+    const [hasHorizontalOverflow, setHasHorizontalOverflow] = useState(false);
 
     const featuredCarers = useMemo(() => {
         const source = Array.isArray(carers) && carers.length > 0 ? carers : FALLBACK_CARERS;
@@ -150,6 +152,39 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         return { sliderElement, slideStep, maxLeft };
     };
 
+    const syncSliderState = () => {
+        const metrics = getSlideMetrics();
+        if (!metrics) {
+            setHasHorizontalOverflow(false);
+            return;
+        }
+
+        setHasHorizontalOverflow(metrics.maxLeft > 1);
+
+        if (slideCount <= 0 || metrics.slideStep <= 0) {
+            return;
+        }
+
+        const computedIndex = Math.round(metrics.sliderElement.scrollLeft / metrics.slideStep);
+        const boundedIndex = Math.max(0, Math.min(slideCount - 1, computedIndex));
+        setMobileSlideIndex((current) => (current === boundedIndex ? current : boundedIndex));
+    };
+
+    const handleSliderScroll = () => {
+        if (typeof window === "undefined") {
+            return;
+        }
+
+        if (scrollSyncRafRef.current) {
+            return;
+        }
+
+        scrollSyncRafRef.current = window.requestAnimationFrame(() => {
+            scrollSyncRafRef.current = null;
+            syncSliderState();
+        });
+    };
+
     const scrollFeatured = (direction) => {
         if (expandedId || slideCount <= 1) {
             return;
@@ -191,6 +226,23 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     }, []);
 
     useEffect(() => {
+        syncSliderState();
+
+        const handleResize = () => {
+            syncSliderState();
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            if (scrollSyncRafRef.current) {
+                window.cancelAnimationFrame(scrollSyncRafRef.current);
+                scrollSyncRafRef.current = null;
+            }
+        };
+    }, [slideCount, isMobileViewport]);
+
+    useEffect(() => {
         if (!expandedId) {
             return undefined;
         }
@@ -226,7 +278,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
             }
             triggerCrossfade();
             metrics.sliderElement.scrollTo({ left: targetLeft, behavior: "smooth" });
-        }, 2800);
+        }, 1470);
 
         return () => {
             window.clearInterval(intervalId);
@@ -255,19 +307,22 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         <section id="featured-carers" aria-label="Featured carers" className={styles.wrap}>
             <h2 className={styles.featuredCaregiversTitle}>Meet one of our carers</h2>
             <div className={styles.mobileSliderWrap}>
-                <button
-                    type="button"
-                    className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowPrev}`}
-                    aria-label="Show previous carer"
-                    onClick={() => {
-                        setIsAutoplayEnabled(false);
-                        scrollFeatured("prev");
-                    }}
-                />
+                {slideCount > 1 && hasHorizontalOverflow && (
+                    <button
+                        type="button"
+                        className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowPrev}`}
+                        aria-label="Show previous carer"
+                        onClick={() => {
+                            setIsAutoplayEnabled(false);
+                            scrollFeatured("prev");
+                        }}
+                    />
+                )}
 
                 <div
                     ref={sliderRef}
                     className={`${styles.featuredCaregivers} ${isMobileCrossfading ? styles.mobileCrossfade : ""}`}
+                    onScroll={handleSliderScroll}
                 >
                     {featuredCarers.map((carer) => {
                         const isPriscillaCard = carer.cardId.includes("priscilla");
@@ -349,15 +404,17 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                     })}
                 </div>
 
-                <button
-                    type="button"
-                    className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowNext}`}
-                    aria-label="Show next carer"
-                    onClick={() => {
-                        setIsAutoplayEnabled(false);
-                        scrollFeatured("next");
-                    }}
-                />
+                {slideCount > 1 && hasHorizontalOverflow && (
+                    <button
+                        type="button"
+                        className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowNext}`}
+                        aria-label="Show next carer"
+                        onClick={() => {
+                            setIsAutoplayEnabled(false);
+                            scrollFeatured("next");
+                        }}
+                    />
+                )}
 
                 {isMobileViewport && expandedCard && (
                     <div className={styles.mobileOverlayBackdrop} onClick={() => setExpandedId(null)}>
