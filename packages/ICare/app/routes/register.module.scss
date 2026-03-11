@@ -1,13 +1,17 @@
 .page {
-  --ink: #23170f;
+  --ink: #000000;
   --ink-soft: #000000;
-  --accent: #c06a3f;
-  --accent-soft: rgba(192, 106, 63, 0.14);
-  --accent-border: rgba(192, 106, 63, 0.35);
+  --accent: #8f6347;
+  --accent-soft: rgba(143, 99, 71, 0.14);
+  --accent-border: rgba(137, 102, 78, 0.35);
   --surface: #fff;
-  --surface-soft: #f7f3eb;
-  --line: rgba(35, 23, 15, 0.12);
+  --surface-soft: #f3ece3;
+  --line: rgba(137, 102, 78, 0.18);
   color: #000000;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(143, 99, 71, 0.1), transparent 36%),
+    radial-gradient(circle at 88% 82%, rgba(194, 175, 154, 0.1), transparent 38%),
+    linear-gradient(180deg, #f7f3ee 0%, #fcfaf7 100%);
 }
 
 .hero {
@@ -18,7 +22,7 @@
 }
 
 .heroInner {
-  width: min(880px, 92vw);
+  width: min(1040px, 94vw);
   margin: 0 auto;
 }
 
@@ -70,7 +74,7 @@
 }
 
 .roleToggleWrap {
-  width: min(560px, 92vw);
+  width: min(680px, 94vw);
   margin: 16px auto 0;
 }
 
@@ -116,9 +120,9 @@
 }
 
 .formShell {
-  width: min(900px, 100%);
+  width: min(1040px, 100%);
   margin: 0 auto;
-  background: #f7f3eb;
+  background: #f3ece3;
   border-radius: 22px;
   padding: clamp(2.4rem, 4vw, 3rem);
   display: grid;
@@ -189,7 +193,7 @@
 }
 
 .btnPrimary {
-  background: #c06a3f;
+  background: #000000;
   color: #fff;
   padding: 1rem 2.4rem;
   font-size: 1.05rem;
@@ -198,7 +202,7 @@
 }
 
 .btnPrimary:hover:not(:disabled) {
-  background: #a85a34;
+  background: #1f1f1f;
   box-shadow: none;
 }
 
@@ -215,19 +219,19 @@
 .btnSecondary {
   padding: 0.85rem 1.6rem;
   background: #fff;
-  border: 2px solid rgba(15, 23, 42, 0.28);
-  color: #0f172a;
+  border: 2px solid rgba(137, 102, 78, 0.28);
+  color: #000000;
   font-size: 0.95rem;
 }
 
 .btnSecondary:hover {
   transform: translateY(-1px);
-  border-color: rgba(192, 106, 63, 0.45);
-  background: #f8f3ea;
+  border-color: rgba(143, 99, 71, 0.45);
+  background: #f7f3eb;
 }
 
 .btnSecondary:focus-visible {
-  outline: 2px solid rgba(15, 23, 42, 0.24);
+  outline: 2px solid rgba(137, 102, 78, 0.3);
   outline-offset: 2px;
 }
 
@@ -239,7 +243,7 @@
 }
 
 .inlinePolicyLink:hover {
-  color: #a85a34;
+  color: #78523a;
 }
 
 .inlinePolicyLink:focus-visible {
@@ -257,7 +261,7 @@
 }
 
 .loginLinkRow {
-  width: min(960px, 92vw);
+  width: min(1060px, 94vw);
   margin: 14px auto 0;
   display: flex;
   justify-content: center;

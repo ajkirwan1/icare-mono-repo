@@ -5,9 +5,17 @@ $accentDark: cg.$accent-dark;
 $bg: cg.$bg;
 $surface: cg.$surface;
 
+.shellTone {
+    background: #fcfaf7;
+    padding-inline: clamp(10px, 1.3vw, 18px) !important;
+}
+
 .page {
-    background: $bg;
-    border: 1px solid rgba(212, 138, 83, 0.22);
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    background: #fcfaf7;
+    border: 1px solid rgba(137, 102, 78, 0.14);
     border-radius: 14px;
     box-shadow: none;
     padding: clamp(24px, 2.8vw, 38px);

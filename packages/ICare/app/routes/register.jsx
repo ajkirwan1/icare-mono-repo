@@ -20,10 +20,10 @@ export default function Register() {
         "Errands",
     ];
     const BRAND = {
-        green: "#1FAB1F",
+        green: "#8f6347",
         dark: "#000000",
         text: "#000000",
-        border: "rgba(15,23,42,.12)",
+        border: "rgba(137, 102, 78, 0.18)",
         fieldBg: "#FFFFFF",
     };
     const API_BASE = String(import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
@@ -460,7 +460,7 @@ export default function Register() {
                             gridTemplateColumns: "200px 1fr",
                             gap: 12,
                             padding: "12px 14px",
-                            background: i % 2 ? "#FFFFFF" : "#F8FAFC",
+                            background: i % 2 ? "#FFFFFF" : "#f7f3eb",
                             borderBottom:
                                 i === rowsCommon.length + rowsRole.length - 1
                                     ? "none"
@@ -580,7 +580,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -594,7 +594,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -619,7 +619,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -633,7 +633,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -658,7 +658,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -672,7 +672,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -697,7 +697,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -711,7 +711,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -739,7 +739,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -753,7 +753,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -788,7 +788,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -802,7 +802,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -827,7 +827,7 @@ export default function Register() {
                                             style={{
                                                 fontWeight: 800,
                                                 fontSize: ".92rem",
-                                                color: "#0F172A",
+                                                color: "#000000",
                                                 marginBottom: "6px",
                                                 display: "block",
                                             }}
@@ -841,7 +841,7 @@ export default function Register() {
                                                 width: "100%",
                                                 padding: "12px 14px",
                                                 borderRadius: 12,
-                                                border: "1px solid rgba(15,23,42,0.14)",
+                                                border: "1px solid rgba(137, 102, 78, 0.18)",
                                                 background: "#FFFFFF",
                                                 outline: "none",
                                                 fontSize: ".97rem",
@@ -925,7 +925,7 @@ export default function Register() {
                                         fontWeight: 900,
                                         letterSpacing: ".2px",
                                         fontSize: "clamp(1.1rem,1.6vw,1.25rem)",
-                                        color: "#0F172A",
+                                        color: "#000000",
                                     }}
                                 >
                                     Summary
@@ -939,8 +939,8 @@ export default function Register() {
                                         marginTop: 18,
                                         padding: "14px 14px",
                                         borderRadius: 12,
-                                        border: "1px solid rgba(15,23,42,0.14)",
-                                        background: "rgba(31,171,31,.04)",
+                                        border: "1px solid rgba(137, 102, 78, 0.18)",
+                                        background: "rgba(143, 99, 71, 0.08)",
                                     }}
                                 >
                                     <h3
@@ -948,7 +948,7 @@ export default function Register() {
                                             margin: 0,
                                             fontWeight: 900,
                                             fontSize: "1rem",
-                                            color: "#0F172A",
+                                            color: "#000000",
                                         }}
                                     >
                                         Consents

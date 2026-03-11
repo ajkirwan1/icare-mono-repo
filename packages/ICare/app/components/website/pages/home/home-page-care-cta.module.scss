@@ -104,6 +104,23 @@
 
 .ctaButton {
     font-weight: 500;
+    min-height: 52px;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
+}
+
+.ctaButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(34, 16, 2, 0.16);
+}
+
+.ctaButton:active {
+    transform: translateY(0);
+}
+
+.ctaButton:focus-visible {
+    outline: 3px solid rgba(95, 113, 54, 0.36);
+    outline-offset: 2px;
 }
 
 .ctaButtonOutline:hover {

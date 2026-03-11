@@ -7,28 +7,31 @@ const settingsCards = [
         description: "Manage saved cards, default payment method and Stripe setup status.",
         cta: "Open Payments",
         to: "/carereceiver/settings/payment",
-        status: "Required for bookings"
+        status: "Required for bookings",
+        statusVariant: "critical"
     },
     {
         title: "Notifications",
         description: "Choose which booking and messaging alerts you receive by email.",
         cta: "Edit Notifications",
         to: "/carereceiver/settings/notifications",
-        status: "Recommended"
+        status: "Recommended",
+        statusVariant: "recommended"
     },
     {
         title: "Security",
         description: "Review account security options and session protection preferences.",
         cta: "Review Security",
         to: "/carereceiver/settings/security",
-        status: "Important"
+        status: "Important",
+        statusVariant: "important"
     }
 ];
 
 export default function CarereceiverSettings() {
     return (
-        <div className="cr-page">
-            <div className="cr-shell cr-shell--encapsulated">
+        <div className="cr-page cr-page--caregiver-settings">
+            <div className="cr-shell cr-shell--caregiver-settings">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb">
                     <Link to="/carereceiver/dashboard">Dashboard</Link>
                     <span>&rsaquo;</span>
@@ -45,7 +48,7 @@ export default function CarereceiverSettings() {
                         <article className="cr-card" key={item.title}>
                             <div className="cr-inline">
                                 <h2 style={{ marginBottom: 0 }}>{item.title}</h2>
-                                <span className="cr-chip cr-chip--orange">{item.status}</span>
+                                <span className={`cr-chip ${`cr-chip--${item.statusVariant}`}`}>{item.status}</span>
                             </div>
                             <p className="cr-muted" style={{ marginTop: "10px" }}>{item.description}</p>
                             <div style={{ marginTop: "16px" }}>

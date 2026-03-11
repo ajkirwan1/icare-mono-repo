@@ -50,7 +50,7 @@ export default function WhoIsICareForSection() {
                 variant="outline"
                 className={`${styles.ctaButton} ${styles.ctaButtonOutline}`}
               >
-              Find companionship
+              I&apos;m looking for care
               </NavigationButton>
 
               <p className={styles.ctaNote}>See what companionship includes and how it works.</p>

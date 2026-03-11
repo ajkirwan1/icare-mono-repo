@@ -515,7 +515,7 @@ export default function CarereceiverBookings() {
     }, [sortedBookings, currentPage]);
 
     return (
-        <DashboardShell>
+        <DashboardShell fullWidth className={styles.shellTone}>
             <div className={styles.page}>
                 <nav aria-label="Breadcrumb" className={styles.breadcrumb}>
                     <NavLink to="/carereceiver">Dashboard</NavLink>

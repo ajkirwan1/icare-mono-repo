@@ -339,8 +339,8 @@ export default function CarereceiverCaregiverProfile() {
                         <p style={{ margin: "0 0 10px", fontWeight: 700 }}>£{caregiver.hourlyRate}/hour</p>
                         <div className="cr-inline">
                             <span className="cr-chip cr-chip--green">DBS Verified</span>
-                            <span className="cr-chip cr-chip--green">ID Verified</span>
-                            <span className="cr-chip cr-chip--green">Right to Work Verified</span>
+                            <span className="cr-chip cr-chip--blue">ID Verified</span>
+                            <span className="cr-chip cr-chip--orange">Right to Work Verified</span>
                         </div>
                     </div>
 
@@ -517,7 +517,7 @@ export default function CarereceiverCaregiverProfile() {
                                 {caregiver.verificationItems.map((item) => (
                                     <li key={item} className="cr-row" style={{ gridTemplateColumns: "1fr auto", padding: "10px 12px" }}>
                                         <span>{item}</span>
-                                        <span className="cr-chip cr-chip--green">Verified</span>
+                                        <span className="cr-chip cr-chip--green cr-chip--verified-strong">Verified</span>
                                     </li>
                                 ))}
                             </ul>

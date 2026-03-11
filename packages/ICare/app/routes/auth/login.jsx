@@ -47,6 +47,18 @@ function redirectByRole(userType) {
     return "/login";
 }
 
+function safeSetLocalStorage(key, value) {
+    if (typeof window === "undefined") {
+        return;
+    }
+
+    try {
+        window.localStorage.setItem(key, value);
+    } catch {
+        // ignore storage failures (private mode / quota / blocked storage)
+    }
+}
+
 export default function LoginPage() {
     const [searchParams] = useSearchParams();
     const [email, setEmail] = useState("");
@@ -103,12 +115,12 @@ export default function LoginPage() {
 
                     const data = result?.data || {};
                     if (data.accessToken) {
-                        window.localStorage.setItem("icare_access_token", data.accessToken);
+                        safeSetLocalStorage("icare_access_token", data.accessToken);
                     }
                     if (data.user) {
-                        window.localStorage.setItem("icare_user", JSON.stringify(data.user));
+                        safeSetLocalStorage("icare_user", JSON.stringify(data.user));
                         if (data.user.termsAcceptedAt) {
-                            window.localStorage.setItem(TERMS_ACCEPTED_AT_KEY, String(data.user.termsAcceptedAt));
+                            safeSetLocalStorage(TERMS_ACCEPTED_AT_KEY, String(data.user.termsAcceptedAt));
                         }
                     }
 
@@ -150,7 +162,7 @@ export default function LoginPage() {
                             <img src="/images/logo/icareblack.svg" alt="ICare" className={styles.brandLogo} width={121} height={48} />
                         </div>
 
-                        <h1 className={styles.title}>Welcome back, Margaret</h1>
+                        <h1 className={styles.title}>Welcome back</h1>
                         <p className={styles.newAccount}>
                             New to ICare?{" "}
                             <NavLink to="/register" className={styles.newAccountLink}>
@@ -204,19 +216,20 @@ export default function LoginPage() {
                         </form>
 
                         <div className={styles.roleGrid}>
-                            <NavLink to="/caregiver" className={styles.roleCard}>
+                            <NavLink to="/icare-for-caregivers" className={styles.roleCard}>
                                 <span className={styles.roleTitle}>I'M A CAREGIVER</span>
-                                <span className={styles.roleText}>Manage your profile, jobs, and bookings.</span>
+                                <span className={styles.roleText}>See how ICare works for independent caregivers.</span>
                             </NavLink>
 
                             <NavLink to="/carereceiver" className={styles.roleCard}>
                                 <span className={styles.roleTitle}>I'M LOOKING FOR CARE</span>
-                                <span className={styles.roleText}>Find caregivers and manage support.</span>
+                                <span className={styles.roleText}>Explore how families can find and arrange support.</span>
                             </NavLink>
+                        </div>
 
-                            <NavLink to="/admin" className={styles.roleCard}>
-                                <span className={styles.roleTitle}>ADMIN</span>
-                                <span className={styles.roleText}>Review platform activity and manage operations.</span>
+                        <div className={styles.adminMiniRow}>
+                            <NavLink to="/admin" className={styles.adminMiniLink}>
+                                Admin
                             </NavLink>
                         </div>
                     </div>

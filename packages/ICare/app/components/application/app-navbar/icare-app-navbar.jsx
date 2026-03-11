@@ -85,7 +85,7 @@ function MobileMenuPortal({ open, onClose, items, mountElRef }) {
                             <NavLink
                                 key={item.to}
                                 to={item.to}
-                                className={styles.mobileLink}
+                                className={`${styles.mobileLink} ${item.label === "Login" ? styles.mobileLoginLink : ""}`.trim()}
                                 onClick={onClose}
                             >
                                 {item.label}
@@ -213,7 +213,7 @@ export default function ICareAppNavbar({ navItems, noShadow = false, compactDesk
                             <NavLink
                                 key={item.to}
                                 to={item.to}
-                                className={styles.link}
+                                className={`${styles.link} ${item.label === "Login" ? styles.loginLink : ""}`.trim()}
                                 onPointerEnter={() => setOpenDropdown(null)}
                             >
                                 {item.label}

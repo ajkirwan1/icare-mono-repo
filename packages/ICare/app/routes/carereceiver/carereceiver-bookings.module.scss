@@ -1,11 +1,19 @@
 @use "../caregiver/theme" as cg;
 
+.shellTone {
+    background: #fcfaf7;
+    padding-inline: clamp(10px, 1.3vw, 18px) !important;
+}
+
 .page {
-    background: cg.$bg;
-    border: 1px solid rgba(212, 138, 83, 0.22);
-    border-radius: 22px;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    background: #fcfaf7;
+    border: 1px solid rgba(137, 102, 78, 0.14);
+    border-radius: 14px;
     padding: clamp(24px, 2.8vw, 38px);
-    box-shadow: 0 14px 30px rgba(212, 138, 83, 0.08);
+    box-shadow: none;
 }
 
 .breadcrumb {
@@ -50,7 +58,7 @@
 
 .tabsSection {
     background: cg.$surface;
-    border: 1px solid rgba(212, 138, 83, 0.35);
+    border: 1px solid rgba(137, 102, 78, 0.24);
     border-radius: 14px;
     display: flex;
     align-items: center;
@@ -72,14 +80,14 @@
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 
     &:hover {
-        background: cg.$bg;
-        border-color: rgba(212, 138, 83, 0.55);
+        background: #f7f3eb;
+        border-color: rgba(137, 102, 78, 0.38);
         transform: translateY(-1px);
-        box-shadow: 0 6px 14px rgba(212, 138, 83, 0.14);
+        box-shadow: 0 6px 14px rgba(34, 16, 2, 0.08);
     }
 
     &:focus-visible {
-        outline: 2px solid rgba(212, 138, 83, 0.45);
+        outline: 2px solid rgba(137, 102, 78, 0.3);
         outline-offset: 2px;
     }
 }
@@ -87,8 +95,8 @@
 .tabButtonActive {
     color: #000000;
     font-weight: 700;
-    background: cg.$bg;
-    border-color: cg.$accent;
+    background: #f7f3eb;
+    border-color: rgba(137, 102, 78, 0.4);
 }
 
 .topRow {
@@ -126,7 +134,7 @@
 }
 
 .sortSelectControl {
-    border: 1px solid rgba(212, 138, 83, 0.35);
+    border: 1px solid rgba(137, 102, 78, 0.28);
     background: #fff;
     color: #000000;
     border-radius: 12px;
@@ -137,12 +145,12 @@
 }
 
 .sortSelectControl:hover {
-    border-color: rgba(212, 138, 83, 0.64);
-    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.16);
+    border-color: rgba(137, 102, 78, 0.42);
+    box-shadow: 0 8px 18px rgba(34, 16, 2, 0.08);
 }
 
 .sortSelectControl:focus-visible {
-    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline: 2px solid rgba(137, 102, 78, 0.3);
     outline-offset: 2px;
 }
 
@@ -152,7 +160,7 @@
 }
 
 .bookingCard {
-    border: 1px solid rgba(212, 138, 83, 0.22);
+    border: 1px solid rgba(137, 102, 78, 0.16);
     background: #fff;
     border-radius: 14px;
     min-height: 146px;
@@ -160,7 +168,7 @@
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     gap: 16px;
-    box-shadow: 0 8px 18px rgba(212, 138, 83, 0.06);
+    box-shadow: 0 8px 18px rgba(34, 16, 2, 0.05);
 }
 
 .avatar {
@@ -269,9 +277,9 @@
 .acceptButton {
     min-width: 88px;
     min-height: 36px;
-    border: 0;
+    border: 1px solid rgba(137, 102, 78, 0.32);
     border-radius: 10px;
-    background: #d8bea6;
+    background: #ece2d6;
     color: #000000;
     padding: 8px 14px;
     font-size: 13px;
@@ -281,10 +289,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.12s ease;
+}
+
+.acceptButton:hover {
+    background: #e3d7c8;
+    border-color: rgba(137, 102, 78, 0.42);
+}
+
+.acceptButton:active {
+    transform: translateY(1px);
 }
 
 .outlineButton {
-    border: 1px solid rgba(212, 138, 83, 0.22);
+    border: 1px solid rgba(137, 102, 78, 0.22);
     border-radius: 10px;
     background: #fff;
     color: #000000;
@@ -301,19 +319,19 @@
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
 
     &:hover {
-        background: #f7eee4;
-        border-color: rgba(212, 138, 83, 0.42);
-        box-shadow: 0 4px 10px rgba(212, 138, 83, 0.12);
+        background: #f7f3eb;
+        border-color: rgba(137, 102, 78, 0.36);
+        box-shadow: 0 4px 10px rgba(34, 16, 2, 0.08);
     }
 
     &:active {
         transform: translateY(1px) scale(0.99);
-        background: #f1e4d6;
-        box-shadow: 0 2px 6px rgba(212, 138, 83, 0.18);
+        background: #efe8dc;
+        box-shadow: 0 2px 6px rgba(34, 16, 2, 0.1);
     }
 
     &:focus-visible {
-        outline: 2px solid rgba(212, 138, 83, 0.45);
+        outline: 2px solid rgba(137, 102, 78, 0.3);
         outline-offset: 2px;
     }
 }
@@ -351,7 +369,7 @@
 
 .pageButton,
 .pageNumber {
-    border: 1px solid rgba(212, 138, 83, 0.24);
+    border: 1px solid rgba(137, 102, 78, 0.22);
     border-radius: 10px;
     background: transparent;
     color: #000000;
@@ -377,16 +395,16 @@
 }
 
 .currentPage {
-    background: cg.$soft;
-    border-color: cg.$accent;
+    background: #efe8dc;
+    border-color: rgba(137, 102, 78, 0.38);
     color: #000000;
     font-weight: 600;
 }
 
 .toastSuccess {
     margin: 0 0 14px;
-    border: 1px solid rgba(212, 138, 83, 0.25);
-    background: rgba(212, 138, 83, 0.14);
+    border: 1px solid rgba(137, 102, 78, 0.24);
+    background: rgba(137, 102, 78, 0.1);
     color: #5d4734;
     border-radius: 10px;
     padding: 10px 12px;
@@ -398,7 +416,7 @@
     position: fixed;
     inset: 0;
     z-index: 70;
-    background: rgba(15, 23, 42, 0.5);
+    background: rgba(34, 16, 2, 0.42);
     display: grid;
     place-items: center;
     padding: 18px;
@@ -408,8 +426,8 @@
     width: min(520px, 100%);
     border-radius: 14px;
     background: #fff;
-    border: 1px solid rgba(212, 138, 83, 0.24);
-    box-shadow: 0 18px 48px rgba(165, 100, 46, 0.24);
+    border: 1px solid rgba(137, 102, 78, 0.2);
+    box-shadow: 0 18px 48px rgba(34, 16, 2, 0.16);
     padding: 18px;
 }
 
@@ -461,7 +479,7 @@
 }
 
 .modalSelectControl {
-    border: 1px solid rgba(212, 138, 83, 0.35);
+    border: 1px solid rgba(137, 102, 78, 0.3);
     background: #fff;
     color: #000000;
     border-radius: 10px;
@@ -472,7 +490,7 @@
 
 .modalTextarea {
     width: 100%;
-    border: 1px solid rgba(212, 138, 83, 0.35);
+    border: 1px solid rgba(137, 102, 78, 0.3);
     border-radius: 10px;
     background: #fff;
     color: #000000;
@@ -485,7 +503,7 @@
 
 .modalTextarea:focus-visible,
 .modalSelectControl:focus-visible {
-    outline: 2px solid rgba(212, 138, 83, 0.45);
+    outline: 2px solid rgba(137, 102, 78, 0.3);
     outline-offset: 2px;
 }
 
@@ -508,7 +526,7 @@
 }
 
 .modalSecondary {
-    border: 1px solid rgba(212, 138, 83, 0.24);
+    border: 1px solid rgba(137, 102, 78, 0.24);
     color: #000000;
     background: #fff;
 }

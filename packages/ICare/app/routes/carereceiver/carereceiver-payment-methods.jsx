@@ -350,8 +350,8 @@ export default function CarereceiverPaymentMethods() {
     }, [location.pathname, location.search, navigate, resolvedUserId]);
 
     return (
-        <div className="cr-page">
-            <div className="cr-shell">
+        <div className="cr-page cr-page--caregiver-payment">
+            <div className="cr-shell cr-shell--caregiver-payment">
                 <nav className="cr-breadcrumbs" aria-label="Breadcrumb navigation">
                     <Link to="/carereceiver/dashboard">Dashboard</Link>
                     <span>›</span>

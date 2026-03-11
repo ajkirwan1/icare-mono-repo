@@ -40,7 +40,7 @@ $accent: #8f6347;
 .brandLogo {
     display: block;
     width: auto;
-    height: 48px;
+    height: 31.2px;
     max-width: 100%;
 }
 
@@ -201,6 +201,39 @@ $accent: #8f6347;
     font-size: 0.96rem;
     line-height: 1.55;
     color: #000000;
+}
+
+.adminMiniRow {
+    margin-top: 0.85rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.adminMiniLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 0.35rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid rgba(137, 102, 78, 0.24);
+    background: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+
+    &:hover {
+        background: #f7f3eb;
+        border-color: rgba(137, 102, 78, 0.38);
+    }
+
+    &:focus-visible {
+        outline: 2px solid rgba(137, 102, 78, 0.3);
+        outline-offset: 2px;
+    }
 }
 
 @keyframes brandReveal {
