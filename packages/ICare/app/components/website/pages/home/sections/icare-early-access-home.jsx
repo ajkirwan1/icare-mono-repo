@@ -7,6 +7,14 @@ const DEFAULT_WHATSAPP_NUMBER = "447448016876";
 
 const FALLBACK_CARERS = [
     {
+        id: "faye",
+        name: "Faye",
+        location: "West Yorkshire",
+        description: "Faye is based in West Yorkshire and is open to discussing opportunities in other areas depending on availability. She has over 16 years of experience supporting people in their daily lives, helping them feel comfortable, safe and respected at home. Faye has an NVQ Level 2 in Health & Social Care and a background in nursing and midwifery studies. Her approach is warm and she enjoys spending time with people, listening, talking, sharing everyday moments and helping with small routines that make life easier. Faye believes that companionship, patience and kindness can make a real difference to someone’s day. She is open to hourly companionship support and is happy to talk with families to see if it feels like a good match.",
+        photoUrl: "/images/avatars/female.webp",
+        photoAlt: "Faye featured caregiver profile"
+    },
+    {
         id: "lynn",
         name: "Lynn",
         location: "",
