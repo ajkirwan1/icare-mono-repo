@@ -47,7 +47,6 @@
     "@types/react-dom": "^19.1.2",
     "json-server": "^1.0.0-beta.3",
     "sass": "^1.97.1",
-    "sass-embedded": "^1.97.1",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",

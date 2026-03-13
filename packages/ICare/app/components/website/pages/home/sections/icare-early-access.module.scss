@@ -260,6 +260,28 @@
     align-self: start;
 }
 
+.featuredImagePlaceholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 30px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.16)),
+        linear-gradient(135deg, #b86f3d 0%, #d99c62 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: start;
+
+    span {
+        color: rgba(255, 255, 255, 0.96);
+        font-size: clamp(2.8rem, 8vw, 4.4rem);
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+}
+
 .featuredPriscillaImage {
     object-fit: cover;
     object-position: center 72%;
@@ -606,6 +628,11 @@
         aspect-ratio: 1 / 1;
     }
 
+    .featuredImagePlaceholder {
+        width: 156px;
+        max-width: 156px;
+    }
+
 }
 
 /* ✅ Responsive layout */
@@ -743,6 +770,12 @@
         max-width: 200px;
         height: auto;
         aspect-ratio: 1 / 1;
+        margin: 0 auto 6px;
+    }
+
+    .featuredImagePlaceholder {
+        width: clamp(150px, 58%, 200px);
+        max-width: 200px;
         margin: 0 auto 6px;
     }
 

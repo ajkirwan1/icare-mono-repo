@@ -4,6 +4,13 @@ import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import styles from "./icare-early-access.module.scss";
 
 const DEFAULT_WHATSAPP_NUMBER = "447448016876";
+const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
+const DEFAULT_CARER_PHOTO_BY_NAME = {
+    faye: DEFAULT_CARER_PHOTO_URL,
+    lynn: "/images/Lynn2.jpeg",
+    priscilla: "/images/Priscilla.jpeg",
+    taslima: "/images/tasmina.jpeg"
+};
 
 const FALLBACK_CARERS = [
     {
@@ -11,7 +18,7 @@ const FALLBACK_CARERS = [
         name: "Faye",
         location: "West Yorkshire",
         description: "Faye is based in West Yorkshire and is open to discussing opportunities in other areas depending on availability. She has over 16 years of experience supporting people in their daily lives, helping them feel comfortable, safe and respected at home. Faye has an NVQ Level 2 in Health & Social Care and a background in nursing and midwifery studies. Her approach is warm and she enjoys spending time with people, listening, talking, sharing everyday moments and helping with small routines that make life easier. Faye believes that companionship, patience and kindness can make a real difference to someone’s day. She is open to hourly companionship support and is happy to talk with families to see if it feels like a good match.",
-        photoUrl: "/images/Faye.jpeg",
+        photoUrl: DEFAULT_CARER_PHOTO_URL,
         photoAlt: "Faye featured caregiver profile",
         whatsAppNumber: ""
     },
@@ -66,6 +73,38 @@ function toDigitsOnly(value) {
     return String(value || "").replace(/\D/g, "");
 }
 
+function getDefaultPhotoUrl(carer) {
+    const normalizedName = String(carer?.name || "").trim().toLowerCase();
+    return DEFAULT_CARER_PHOTO_BY_NAME[normalizedName] || DEFAULT_CARER_PHOTO_URL;
+}
+
+function isUsablePhotoUrl(value) {
+    if (typeof value !== "string") {
+        return false;
+    }
+
+    const normalizedValue = value.trim();
+    if (!normalizedValue) {
+        return false;
+    }
+
+    if (normalizedValue.startsWith("/")) {
+        return true;
+    }
+
+    return /^https?:\/\//i.test(normalizedValue) && !normalizedValue.includes("undefined");
+}
+
+function resolvePhotoUrl(carer) {
+    const normalizedName = String(carer?.name || "").trim().toLowerCase();
+
+    if (normalizedName === "faye") {
+        return getDefaultPhotoUrl(carer);
+    }
+
+    return isUsablePhotoUrl(carer?.photoUrl) ? carer.photoUrl : getDefaultPhotoUrl(carer);
+}
+
 export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     const sliderRef = useRef(null);
     const crossfadeTimerRef = useRef(null);
@@ -76,6 +115,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     const [expandedId, setExpandedId] = useState(null);
     const [isMobileViewport, setIsMobileViewport] = useState(false);
     const [hasHorizontalOverflow, setHasHorizontalOverflow] = useState(false);
+    const [brokenImageIds, setBrokenImageIds] = useState({});
 
     const featuredCarers = useMemo(() => {
         const hasSanityCarers = Array.isArray(carers) && carers.length > 0;
@@ -97,7 +137,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 description: carer?.description || "",
                 location: carer?.location || "",
                 photoAlt: carer?.photoAlt || carer?.name || `Featured carer ${index + 1}`,
-                photoUrl: carer?.photoUrl || null,
+                photoUrl: resolvePhotoUrl(carer),
                 whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber),
                 whatsAppMessage: carer?.whatsAppMessage || ""
             };
@@ -123,6 +163,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         const message = carer.whatsAppMessage || `Hi ICare, I'd like to contact ${carer.name}.`;
         return `https://wa.me/${carer.whatsAppNumber}?text=${encodeURIComponent(message)}`;
     };
+    const getPlaceholderLabel = (name) => String(name || "?").trim().charAt(0).toUpperCase() || "?";
     const isDesktopViewport = () => typeof window !== "undefined" && window.innerWidth > 920;
     const isCardExpanded = (cardId) => expandedId === cardId;
     const handleToggleCard = (cardId) => {
@@ -346,6 +387,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                         const imageClassName = isPriscillaCard
                             ? `${styles.featuredLynnImage} ${styles.featuredPriscillaImage}`
                             : styles.featuredLynnImage;
+                        const shouldShowImage = Boolean(carer.photoUrl) && !brokenImageIds[carer.cardId];
 
                         return (
                         <section
@@ -355,12 +397,24 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                             onClickCapture={() => setIsAutoplayEnabled(false)}
                         >
                             <div className={styles.featuredCardTop}>
-                                <img
-                                    className={imageClassName}
-                                    src={carer.photoUrl || "/images/Lynn2.jpeg"}
-                                    alt={carer.photoAlt}
-                                    loading="lazy"
-                                />
+                                {shouldShowImage ? (
+                                    <img
+                                        className={imageClassName}
+                                        src={carer.photoUrl}
+                                        alt={carer.photoAlt}
+                                        loading="lazy"
+                                        onError={() => {
+                                            setBrokenImageIds((current) => ({
+                                                ...current,
+                                                [carer.cardId]: true
+                                            }));
+                                        }}
+                                    />
+                                ) : (
+                                    <div className={styles.featuredImagePlaceholder} aria-label={carer.photoAlt} role="img">
+                                        <span>{getPlaceholderLabel(carer.name)}</span>
+                                    </div>
+                                )}
                                 <div className={styles.featuredCardMeta}>
                                     <p className={styles.featuredLynnTitle}>{carer.name}</p>
                                     {carer.location ? (
