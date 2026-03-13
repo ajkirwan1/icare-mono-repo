@@ -78,7 +78,15 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     const [hasHorizontalOverflow, setHasHorizontalOverflow] = useState(false);
 
     const featuredCarers = useMemo(() => {
-        const source = Array.isArray(carers) && carers.length > 0 ? carers : FALLBACK_CARERS;
+        const hasSanityCarers = Array.isArray(carers) && carers.length > 0;
+        const source = hasSanityCarers ? [...carers] : [...FALLBACK_CARERS];
+
+        if (hasSanityCarers) {
+            const hasFaye = source.some((carer) => String(carer?.name || "").trim().toLowerCase() === "faye");
+            if (!hasFaye) {
+                source.unshift(FALLBACK_CARERS[0]);
+            }
+        }
 
         return source.map((carer, index) => {
             const cardId = toCardId(carer?._id || carer?.id || carer?.name, index);
