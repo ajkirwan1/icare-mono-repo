@@ -635,6 +635,21 @@
 
 }
 
+@media (min-width: 921px) and (max-width: 1280px) {
+    .mobileSliderArrowPrev {
+        left: -24px;
+    }
+
+    .mobileSliderArrowNext {
+        right: -24px;
+    }
+
+    .featuredLynnCard {
+        flex: 0 0 calc((100% - 16px) / 2);
+        min-width: calc((100% - 16px) / 2);
+    }
+}
+
 /* ✅ Responsive layout */
 @media (max-width: 920px) {
     .featuredCaregiversTitle {

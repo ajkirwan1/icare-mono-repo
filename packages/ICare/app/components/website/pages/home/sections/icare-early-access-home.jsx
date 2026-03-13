@@ -105,6 +105,18 @@ function resolvePhotoUrl(carer) {
     return isUsablePhotoUrl(carer?.photoUrl) ? carer.photoUrl : getDefaultPhotoUrl(carer);
 }
 
+function getSlidesPerView(viewportWidth) {
+    if (viewportWidth <= 920) {
+        return 1;
+    }
+
+    if (viewportWidth <= 1280) {
+        return 2;
+    }
+
+    return 3;
+}
+
 export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     const sliderRef = useRef(null);
     const crossfadeTimerRef = useRef(null);
@@ -207,7 +219,8 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         const gapValue = Number.parseFloat(sliderStyles.columnGap || sliderStyles.gap || "0") || 0;
         const slideStep = firstCard.getBoundingClientRect().width + gapValue;
         const maxLeft = Math.max(0, sliderElement.scrollWidth - sliderElement.clientWidth);
-        return { sliderElement, slideStep, maxLeft };
+        const slidesPerView = getSlidesPerView(window.innerWidth);
+        return { sliderElement, slideStep, maxLeft, slidesPerView };
     };
 
     const syncSliderState = () => {
@@ -224,7 +237,8 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         }
 
         const computedIndex = Math.round(metrics.sliderElement.scrollLeft / metrics.slideStep);
-        const boundedIndex = Math.max(0, Math.min(slideCount - 1, computedIndex));
+        const maxStartIndex = Math.max(0, slideCount - metrics.slidesPerView);
+        const boundedIndex = Math.max(0, Math.min(maxStartIndex, computedIndex));
         setMobileSlideIndex((current) => (current === boundedIndex ? current : boundedIndex));
     };
 
@@ -244,12 +258,8 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
     };
 
     const scrollFeatured = (direction) => {
-        if (expandedId || slideCount <= 1) {
-            return;
-        }
-
         const metrics = getSlideMetrics();
-        if (!metrics) {
+        if (expandedId || slideCount <= 1 || !metrics) {
             return;
         }
 
@@ -257,9 +267,10 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
             collapseAllDescriptions();
         }
 
+        const maxStartIndex = Math.max(0, slideCount - metrics.slidesPerView);
         const nextIndex = direction === "next"
-            ? (mobileSlideIndex + 1) % slideCount
-            : (mobileSlideIndex - 1 + slideCount) % slideCount;
+            ? (mobileSlideIndex + 1) % (maxStartIndex + 1)
+            : (mobileSlideIndex - 1 + (maxStartIndex + 1)) % (maxStartIndex + 1);
 
         setMobileSlideIndex(nextIndex);
         const targetLeft = Math.min(metrics.maxLeft, nextIndex * metrics.slideStep);
@@ -328,7 +339,8 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 return;
             }
 
-            const nextIndex = (mobileSlideIndex + 1) % slideCount;
+            const maxStartIndex = Math.max(0, slideCount - metrics.slidesPerView);
+            const nextIndex = (mobileSlideIndex + 1) % (maxStartIndex + 1);
             setMobileSlideIndex(nextIndex);
             const targetLeft = Math.min(metrics.maxLeft, nextIndex * metrics.slideStep);
             if (!isDesktopViewport()) {
