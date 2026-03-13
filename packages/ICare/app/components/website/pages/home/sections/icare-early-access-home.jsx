@@ -6,7 +6,7 @@ import styles from "./icare-early-access.module.scss";
 const DEFAULT_WHATSAPP_NUMBER = "447448016876";
 const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
 const DEFAULT_CARER_PHOTO_BY_NAME = {
-    faye: DEFAULT_CARER_PHOTO_URL,
+    faye: "/images/Faye.jpeg",
     lynn: "/images/Lynn2.jpeg",
     priscilla: "/images/Priscilla.jpeg",
     taslima: "/images/tasmina.jpeg"
@@ -18,7 +18,7 @@ const FALLBACK_CARERS = [
         name: "Faye",
         location: "West Yorkshire",
         description: "Faye is based in West Yorkshire and is open to discussing opportunities in other areas depending on availability. She has over 16 years of experience supporting people in their daily lives, helping them feel comfortable, safe and respected at home. Faye has an NVQ Level 2 in Health & Social Care and a background in nursing and midwifery studies. Her approach is warm and she enjoys spending time with people, listening, talking, sharing everyday moments and helping with small routines that make life easier. Faye believes that companionship, patience and kindness can make a real difference to someone’s day. She is open to hourly companionship support and is happy to talk with families to see if it feels like a good match.",
-        photoUrl: DEFAULT_CARER_PHOTO_URL,
+        photoUrl: "/images/Faye.jpeg",
         photoAlt: "Faye featured caregiver profile",
         whatsAppNumber: ""
     },
@@ -425,7 +425,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                     <p className={styles.featuredLynnTitle}>{carer.name}</p>
                                     {carer.location ? (
                                         <small className={styles.featuredLynnLocation}>
-                                            <FontAwesomeIcon icon={faLocationDot} />
+                                            <FontAwesomeIcon icon={faLocationDot} className={styles.featuredLynnLocationIcon} />
                                             {carer.location}
                                         </small>
                                     ) : (
