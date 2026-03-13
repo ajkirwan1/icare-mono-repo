@@ -12,7 +12,8 @@ const FALLBACK_CARERS = [
         location: "West Yorkshire",
         description: "Faye is based in West Yorkshire and is open to discussing opportunities in other areas depending on availability. She has over 16 years of experience supporting people in their daily lives, helping them feel comfortable, safe and respected at home. Faye has an NVQ Level 2 in Health & Social Care and a background in nursing and midwifery studies. Her approach is warm and she enjoys spending time with people, listening, talking, sharing everyday moments and helping with small routines that make life easier. Faye believes that companionship, patience and kindness can make a real difference to someone’s day. She is open to hourly companionship support and is happy to talk with families to see if it feels like a good match.",
         photoUrl: "/images/avatars/female.webp",
-        photoAlt: "Faye featured caregiver profile"
+        photoAlt: "Faye featured caregiver profile",
+        whatsAppNumber: ""
     },
     {
         id: "lynn",
@@ -89,7 +90,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 location: carer?.location || "",
                 photoAlt: carer?.photoAlt || carer?.name || `Featured carer ${index + 1}`,
                 photoUrl: carer?.photoUrl || null,
-                whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber) || DEFAULT_WHATSAPP_NUMBER,
+                whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber),
                 whatsAppMessage: carer?.whatsAppMessage || ""
             };
         });
@@ -377,15 +378,17 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                     >
                                         {isCardExpanded(carer.cardId) ? "Read less" : "Read more"}
                                     </button>
-                                    <a
-                                        className={styles.contactButton}
-                                        href={createWhatsAppHref(carer)}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        onClick={(event) => event.stopPropagation()}
-                                    >
-                                        Contact
-                                    </a>
+                                    {carer.whatsAppNumber ? (
+                                        <a
+                                            className={styles.contactButton}
+                                            href={createWhatsAppHref(carer)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            onClick={(event) => event.stopPropagation()}
+                                        >
+                                            Contact
+                                        </a>
+                                    ) : null}
                                 </div>
                             </div>
                             {!isMobileViewport && isCardExpanded(carer.cardId) && (
