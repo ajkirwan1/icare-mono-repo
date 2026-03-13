@@ -11,8 +11,8 @@ export default function AboutICareSection() {
         >
             <div className={styles.gridSplit}>
                 <img
-                    src="images/web/homepage/oldwoman.png"
-                    alt="Person receiving care at home"
+                    src="/images/web/homepage/lipstickoldwoman.jpg"
+                    alt="Older woman putting on lipstick at home"
                     className={styles.image}
                 />
 

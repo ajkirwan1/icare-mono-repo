@@ -108,7 +108,10 @@
 }
 
 .gridSplit {
-    @include motifs.grid-two
+    @include motifs.grid-two;
+    width: min(90vw, 1180px);
+    gap: 1.5rem;
+    align-items: start;
 }
 
 .gridThreeQuarter {
@@ -116,9 +119,10 @@
 }
 
 .image {
-    width: 600px;
-    height: 600px;
+    width: min(100%, 500px);
+    height: 500px;
     object-fit: cover;
+    object-position: center;
     border-radius: $radius-xxl;
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
 }
@@ -141,7 +145,13 @@
 }
 
 @media (max-width:600px) {
+    .gridSplit {
+        width: min(92vw, 1180px);
+        gap: 1.25rem;
+    }
+
     .image {
+        width: 100%;
         height: auto;
     }
 
