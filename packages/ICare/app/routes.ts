@@ -121,7 +121,6 @@ export default [
             route("dashboard", "routes/carereceiver/carereceiver-dashboard-redirect.jsx"),
             route("bookings", "routes/carereceiver/carereceiver-bookings.jsx"),
             route("booking", "routes/carereceiver/carereceiver-bookings-alias.jsx"),
-            route("bookin", "routes/carereceiver/carereceiver-bookings-alias.jsx"),
             route("messages", "routes/carereceiver/carereceiver-messages.jsx"),
             route("messages/:conversationId", "routes/carereceiver/carereceiver-message-thread.jsx"),
             route("search", "routes/carereceiver/carereceiver-search.jsx"),

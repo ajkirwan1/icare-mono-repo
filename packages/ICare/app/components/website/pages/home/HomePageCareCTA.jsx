@@ -77,7 +77,7 @@ export default function WhoIsICareForSection() {
             </div>
 
             <div className={styles.ctaWrap}>
-              <NavigationButton to="/icare-for-caregivers" className={`${styles.ctaButton} ${styles.ctaButtonFill}`}>
+              <NavigationButton to="/caregiver" className={`${styles.ctaButton} ${styles.ctaButtonFill}`}>
                 I&apos;m a caregiver
               </NavigationButton>
 

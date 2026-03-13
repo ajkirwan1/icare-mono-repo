@@ -216,7 +216,7 @@ export default function LoginPage() {
                         </form>
 
                         <div className={styles.roleGrid}>
-                            <NavLink to="/icare-for-caregivers" className={styles.roleCard}>
+                            <NavLink to="/caregiver" className={styles.roleCard}>
                                 <span className={styles.roleTitle}>I'M A CAREGIVER</span>
                                 <span className={styles.roleText}>See how ICare works for independent caregivers.</span>
                             </NavLink>
