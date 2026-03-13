@@ -96,12 +96,6 @@ function isUsablePhotoUrl(value) {
 }
 
 function resolvePhotoUrl(carer) {
-    const normalizedName = String(carer?.name || "").trim().toLowerCase();
-
-    if (normalizedName === "faye") {
-        return getDefaultPhotoUrl(carer);
-    }
-
     return isUsablePhotoUrl(carer?.photoUrl) ? carer.photoUrl : getDefaultPhotoUrl(carer);
 }
 
