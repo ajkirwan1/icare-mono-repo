@@ -140,6 +140,7 @@ export default function ICareAppNavbar({ noShadow = false }) {
           { to: "/icare-for-carereceivers", label: "For care receivers" }
         ]
       },
+      { to: "/caregivers", label: "Available caregivers" },
       { to: "/how-it-works", label: "How it works" },
       { to: "/who-we-are", label: "Who we are" },
       { to: "/care-guidance", label: "Care guidance" },

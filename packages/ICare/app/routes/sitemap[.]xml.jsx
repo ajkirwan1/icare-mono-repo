@@ -6,6 +6,7 @@ export async function loader() {
   const staticPages = [
     { loc: "/", changefreq: "weekly", priority: "1.0" },
     { loc: "/how-it-works", changefreq: "monthly", priority: "0.8" },
+    { loc: "/caregivers", changefreq: "weekly", priority: "0.8" },
     { loc: "/who-we-are", changefreq: "monthly", priority: "0.7" },
     { loc: "/icare-for-caregivers", changefreq: "monthly", priority: "0.8" },
     { loc: "/icare-for-carereceivers", changefreq: "monthly", priority: "0.8" },

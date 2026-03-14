@@ -2,6 +2,8 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
     index("routes/home.jsx"),
+    route("caregivers", "routes/website/caregivers.jsx"),
+    route("caregivers/:slug", "routes/website/caregiver-profile.jsx"),
     route("how-it-works", "routes/website/how-it-works.jsx"),
     route("who-we-are", "routes/website/who-we-are.jsx"),
     route("icare-for-caregivers", "routes/website/icare-for-caregivers.jsx"),

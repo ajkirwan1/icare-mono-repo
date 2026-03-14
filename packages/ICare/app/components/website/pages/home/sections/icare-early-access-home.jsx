@@ -6,6 +6,8 @@ import styles from "./icare-early-access.module.scss";
 const DEFAULT_WHATSAPP_NUMBER = "447448016876";
 const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
 const DEFAULT_CARER_PHOTO_BY_NAME = {
+    beauty: "/images/Beauty.jpeg",
+    eva: "/images/Eva.jpeg",
     faye: "/images/Faye.jpeg",
     lynn: "/images/Lynn2.jpeg",
     priscilla: "/images/Priscilla.jpeg",
@@ -14,6 +16,22 @@ const DEFAULT_CARER_PHOTO_BY_NAME = {
 
 const FALLBACK_CARERS = [
     {
+        id: "lynn",
+        name: "Lynn",
+        location: "",
+        description: "With nearly 20 years of care experience, Lynn brings warmth, calm and a reassuring presence. She values dignity, respect and meaningful connection, helping older people feel at ease at home.",
+        photoUrl: "/images/Lynn2.jpeg",
+        photoAlt: "Lynn providing companionship support"
+    },
+    {
+        id: "eva",
+        name: "Eva",
+        location: "London and surrounding areas",
+        description: "Eva is a compassionate companion with around five years of experience supporting older adults. Originally from Slovakia, she has been living in the UK for over 12 years. Eva describes herself as empathetic and patient, with a natural willingness to help seniors feel comfortable and supported in everyday life. She enjoys spending time with older people, offering companionship, conversation and help with daily routines. Eva also holds a driving licence, which can be helpful for local errands or outings.",
+        photoUrl: "/images/Eva.jpeg",
+        photoAlt: "Eva caregiver profile photo"
+    },
+    {
         id: "faye",
         name: "Faye",
         location: "West Yorkshire",
@@ -21,14 +39,6 @@ const FALLBACK_CARERS = [
         photoUrl: "/images/Faye.jpeg",
         photoAlt: "Faye featured caregiver profile",
         whatsAppNumber: ""
-    },
-    {
-        id: "lynn",
-        name: "Lynn",
-        location: "",
-        description: "With nearly 20 years of care experience, Lynn brings warmth, calm and a reassuring presence. She values dignity, respect and meaningful connection, helping older people feel at ease at home.",
-        photoUrl: "/images/Lynn2.jpeg",
-        photoAlt: "Lynn providing companionship support"
     },
     {
         id: "priscilla",
@@ -45,6 +55,14 @@ const FALLBACK_CARERS = [
         description: "Taslima is a compassionate and patient companion with experience supporting individuals living with Alzheimer's and those needing comfort-focused support. She offers calm, respectful companionship and gentle assistance with everyday routines, always prioritising dignity, reassurance, and individual preferences. She provides support with daily living activities, personal care, meaningful conversation, and gentle medication reminders where appropriate. Taslima takes a person-centred approach, valuing trust, empathy, and clear communication, and aims to create a safe and reassuring presence where people feel heard, respected, and at ease.",
         photoUrl: "/images/tasmina.jpeg",
         photoAlt: "Taslima providing calm companionship support"
+    },
+    {
+        id: "beauty",
+        name: "Beauty",
+        location: "Reading / Berkshire, UK",
+        description: "Beauty is an experienced caregiver currently available for live-in care placements. She has experience supporting clients with dementia, mobility limitations, disabilities and palliative care needs. She is known for her patient and compassionate approach, providing both practical support and companionship.",
+        photoUrl: "/images/Beauty.jpeg",
+        photoAlt: "Beauty caregiver profile photo"
     }
 ];
 
