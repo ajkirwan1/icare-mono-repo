@@ -27,13 +27,15 @@ const DEFAULT_BADGES = [
   }
 ];
 
-export default function TrustBadges({ badges = DEFAULT_BADGES }) {
+export default function TrustBadges({ badges = DEFAULT_BADGES, size = "default" }) {
+  const sizeClassName = size === "large" ? styles.badgesLarge : "";
+
   return (
-    <div className={styles.badges} aria-label="Caregiver trust badges">
+    <div className={`${styles.badges} ${sizeClassName}`.trim()} aria-label="Caregiver trust badges">
       {badges.map((badge) => (
         <span
           key={badge.id}
-          className={`${styles.badge} ${styles[badge.tone] || ""}`}
+          className={`${styles.badge} ${styles[badge.tone] || ""} ${size === "large" ? styles.badgeLarge : ""}`.trim()}
         >
           <FontAwesomeIcon icon={badge.icon} className={styles.icon} />
           <span>{badge.label}</span>

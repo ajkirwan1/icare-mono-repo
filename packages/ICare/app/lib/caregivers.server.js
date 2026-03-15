@@ -1,5 +1,15 @@
 import imageUrlBuilder from "@sanity/image-url";
 
+const DEFAULT_CAREGIVER_PHOTO_BY_NAME = {
+  beauty: "/images/Beauty.jpeg",
+  eva: "/images/Eva.jpeg",
+  faye: "/images/Faye.jpeg",
+  lynn: "/images/Lynn1.jpeg",
+  priscilla: "/images/Priscilla.jpeg",
+  sandeep: "/images/Sandeep.jpeg",
+  taslima: "/images/tasmina.jpeg"
+};
+
 const SANITY_CAREGIVERS_QUERY = `
   *[_type == "caregiverProfile" && defined(slug.current)]
   | order(name asc){
@@ -28,9 +38,9 @@ const FALLBACK_CAREGIVERS = [
     _id: "fallback-lynn",
     name: "Lynn",
     slug: "lynn",
-    photoUrl: "/images/Lynn2.jpeg",
+    photoUrl: "/images/Lynn1.jpeg",
     photoAlt: "Lynn smiling in her caregiver profile photo",
-    location: "",
+    location: "Across the UK",
     shortBio: "Calm, experienced support focused on companionship, routines, and helping people feel settled at home.",
     fullBio:
       "Lynn has nearly 20 years of experience supporting older adults in their own homes. She brings a calm, steady presence and takes time to understand routines, preferences, and the small details that help someone feel comfortable. Families value her for her patience, reliability, and clear communication. Throughout her career she has received exceptional feedback and references from families she has supported, reflecting the trust and reassurance she brings to everyday care.",
@@ -40,10 +50,10 @@ const FALLBACK_CAREGIVERS = [
     workType: "Live-in / Companionship",
     languages: ["English"],
     hasDrivingLicence: true,
-    hasCar: true,
+    hasCar: false,
     dbsStatus: "Enhanced DBS checked",
     referencesAvailable: true,
-    areasCovered: ["Leeds", "Harrogate", "York"]
+    areasCovered: ["Across the UK"]
   },
   {
     _id: "fallback-eva",
@@ -62,7 +72,7 @@ const FALLBACK_CAREGIVERS = [
     languages: ["English", "Slovak"],
     hasDrivingLicence: true,
     hasCar: false,
-    dbsStatus: "Status available on request",
+    dbsStatus: "Enhanced DBS checked",
     referencesAvailable: true,
     areasCovered: ["London", "Surrounding areas"]
   },
@@ -85,7 +95,7 @@ const FALLBACK_CAREGIVERS = [
     hasCar: false,
     dbsStatus: "DBS checked",
     referencesAvailable: true,
-    areasCovered: ["Bradford", "Leeds", "Wakefield"]
+    areasCovered: ["West Yorkshire"]
   },
   {
     _id: "fallback-priscilla",
@@ -110,12 +120,33 @@ const FALLBACK_CAREGIVERS = [
     areasCovered: ["Birmingham", "Coventry", "Sheffield"]
   },
   {
+    _id: "fallback-sandeep",
+    name: "Sandeep",
+    slug: "sandeep",
+    photoUrl: "/images/Sandeep.jpeg",
+    photoAlt: "Sandeep caregiver profile photo",
+    location: "Across the UK",
+    shortBio: "Compassionate companionship support focused on helping older adults feel comfortable, respected, and settled at home.",
+    fullBio:
+      "Sandeep offers calm, respectful companionship support for older adults who value consistency, kindness, and a steady presence. She focuses on helping people feel comfortable at home, supporting day-to-day routines, conversation, and reassurance in a way that respects personal preferences and independence.",
+    experienceYears: null,
+    careTypes: ["Companionship", "Hourly care"],
+    availability: "Please ask about availability",
+    workType: "Companionship / Hourly",
+    languages: ["English"],
+    hasDrivingLicence: false,
+    hasCar: false,
+    dbsStatus: "Enhanced DBS checked",
+    referencesAvailable: false,
+    areasCovered: ["Across the UK"]
+  },
+  {
     _id: "fallback-taslima",
     name: "Taslima",
     slug: "taslima",
     photoUrl: "/images/tasmina.jpeg",
     photoAlt: "Taslima caregiver profile portrait",
-    location: "London and nearby areas",
+    location: "London",
     shortBio: "Compassionate support for people needing reassurance, meaningful conversation, and gentle daily help.",
     fullBio:
       "Taslima offers calm, respectful companionship and comfort-focused support for people who benefit from reassurance and a patient, familiar presence. She has experience supporting individuals living with memory loss and brings a thoughtful, person-centred approach to communication, routines, and wellbeing.",
@@ -200,6 +231,11 @@ function normalizeSlug(value, fallbackName, index = 0) {
     .replace(/^-+|-+$/g, "");
 }
 
+function getDefaultPhotoUrl(name) {
+  const normalizedName = String(name || "").trim().toLowerCase();
+  return DEFAULT_CAREGIVER_PHOTO_BY_NAME[normalizedName] || "/images/avatars/female.webp";
+}
+
 function normalizeCaregiver(caregiver, index, builder) {
   const name = String(caregiver?.name || `Caregiver ${index + 1}`).trim();
   const slug = normalizeSlug(caregiver?.slug, name, index);
@@ -218,7 +254,7 @@ function normalizeCaregiver(caregiver, index, builder) {
       caregiver?.photoUrl ||
       (caregiver?.photo && builder
         ? builder.image(caregiver.photo).width(900).height(900).fit("crop").url()
-        : "/images/avatars/female.webp"),
+        : getDefaultPhotoUrl(name)),
     photoAlt: caregiver?.photoAlt || `${name} caregiver profile photo`,
     photoPosition: caregiver?.photoPosition || "center center",
     location: String(caregiver?.location || "").trim(),

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import styles from "./icare-early-access.module.scss";
@@ -9,8 +10,9 @@ const DEFAULT_CARER_PHOTO_BY_NAME = {
     beauty: "/images/Beauty.jpeg",
     eva: "/images/Eva.jpeg",
     faye: "/images/Faye.jpeg",
-    lynn: "/images/Lynn2.jpeg",
+    lynn: "/images/Lynn1.jpeg",
     priscilla: "/images/Priscilla.jpeg",
+    sandeep: "/images/Sandeep.jpeg",
     taslima: "/images/tasmina.jpeg"
 };
 
@@ -18,9 +20,9 @@ const FALLBACK_CARERS = [
     {
         id: "lynn",
         name: "Lynn",
-        location: "",
+        location: "Across the UK",
         description: "With nearly 20 years of care experience, Lynn brings warmth, calm and a reassuring presence. She values dignity, respect and meaningful connection, helping older people feel at ease at home.",
-        photoUrl: "/images/Lynn2.jpeg",
+        photoUrl: "/images/Lynn1.jpeg",
         photoAlt: "Lynn providing companionship support"
     },
     {
@@ -47,6 +49,14 @@ const FALLBACK_CARERS = [
         description: "Priscilla has 9 years of experience in care and is known for her calm, practical and reliable nature. She supports people through companionship and live-in care, with experience supporting individuals living with dementia, taking time to understand routines, preferences and what truly matters day to day.",
         photoUrl: "/images/Priscilla.jpeg",
         photoAlt: "Priscilla providing companionship and live-in care support"
+    },
+    {
+        id: "sandeep",
+        name: "Sandeep",
+        location: "UK",
+        description: "Sandeep offers calm, respectful companionship support focused on helping older adults feel comfortable, listened to, and settled at home. Her approach is warm, dependable, and centred on dignity, reassurance, and everyday routine.",
+        photoUrl: "/images/Sandeep.jpeg",
+        photoAlt: "Sandeep caregiver profile photo"
     },
     {
         id: "taslima",
@@ -452,18 +462,15 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                         </small>
                                     )}
                                     <p className={styles.featuredLynnText}>{withPreview(carer.description)}</p>
-                                    <button
-                                        type="button"
+                                    <Link
+                                        to={`/caregivers/${carer.slug || toCardId(carer?.name, 0)}`}
                                         className={styles.readMoreButton}
-                                        aria-expanded={isCardExpanded(carer.cardId)}
-                                        aria-controls={`card-details-${carer.cardId}`}
                                         onClick={(event) => {
                                             event.stopPropagation();
-                                            handleToggleCard(carer.cardId);
                                         }}
                                     >
-                                        {isCardExpanded(carer.cardId) ? "Read less" : "Read more"}
-                                    </button>
+                                        Read more
+                                    </Link>
                                     {carer.whatsAppNumber ? (
                                         <a
                                             className={styles.contactButton}

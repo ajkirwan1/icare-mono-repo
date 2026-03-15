@@ -4,6 +4,10 @@
   gap: 0.55rem;
 }
 
+.badgesLarge {
+  gap: 0.9rem;
+}
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -17,21 +21,44 @@
   white-space: nowrap;
 }
 
+.badgeLarge {
+  min-height: 2.5rem;
+  padding: 0.62rem 1rem;
+  font-size: 0.96rem;
+}
+
+.badgeLarge .icon {
+  font-size: 0.92rem;
+}
+
 .icon {
   font-size: 0.78rem;
 }
 
 .sage {
   background: #e4efe8;
-  color: #446255;
+  color: #2f4a40;
 }
 
 .sand {
   background: #f2e7d8;
-  color: #775c43;
+  color: #5a4838;
 }
 
 .stone {
   background: #ece8e1;
-  color: #60554a;
+  color: #4f463d;
+}
+
+@media (max-width: 640px) {
+  .badges {
+    gap: 0.45rem;
+  }
+
+  .badge {
+    min-height: 1.85rem;
+    padding: 0.4rem 0.65rem;
+    font-size: 0.76rem;
+    white-space: normal;
+  }
 }

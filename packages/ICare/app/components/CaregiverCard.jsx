@@ -21,15 +21,19 @@ export default function CaregiverCard({ caregiver }) {
         />
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.header}>
+        <div className={styles.content}>
+          <div className={styles.header}>
           <div>
             {caregiver.location ? (
               <p className={styles.location}>
                 <FontAwesomeIcon icon={faLocationDot} className={styles.locationIcon} />
                 <span>{caregiver.location}</span>
               </p>
-            ) : null}
+            ) : (
+              <p className={`${styles.location} ${styles.locationPlaceholder}`} aria-hidden="true">
+                <span>&nbsp;</span>
+              </p>
+            )}
             <h2 className={styles.name}>{caregiver.name}</h2>
           </div>
           <span className={styles.workType}>{caregiver.workType}</span>

@@ -25,12 +25,14 @@
 .heroInner {
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
+  justify-items: start;
 }
 
 .copy {
-  width: min(760px, 100%);
+  width: min(1180px, 100%);
   padding: 0;
+  padding-top: 2.25rem;
+  text-align: left;
 }
 
 .eyebrow {
@@ -47,10 +49,11 @@
 }
 
 .title {
-  max-width: 14ch;
+  max-width: none;
   margin: 0;
+  padding-left: 0.8rem;
   color: #2e241b;
-  font-size: clamp(2.1rem, 4vw, 3.3rem);
+  font-size: clamp(1.26rem, 2.4vw, 1.98rem);
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -75,11 +78,27 @@
   padding: 0.35rem 1.5rem 5rem;
 }
 
+.mobileCarousel {
+  position: relative;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 1.5rem;
   width: 100%;
+}
+
+.carouselArrow {
+  display: none;
+}
+
+.carouselDots {
+  display: none;
+}
+
+.carouselDot {
+  display: none;
 }
 
 @media (max-width: 900px) {
@@ -91,7 +110,7 @@
 @media (max-width: 640px) {
   .hero {
     padding-top: 7.35rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
   }
 
   .heroInner,
@@ -100,16 +119,185 @@
   }
 
   .copy {
-    padding: 0;
+    padding: 0 1rem;
   }
 
   .title {
     max-width: 100%;
-    font-size: clamp(2rem, 9vw, 2.65rem);
+    padding-left: 0;
+    font-size: clamp(1.7rem, 8vw, 2.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
   }
 
   .gridSection {
+    padding-top: 0;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .mobileCarousel {
+    width: 100%;
+  }
+
+  .grid {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-padding-inline: 0;
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grid > * {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    padding-inline: 0.2rem;
+  }
+
+  .carouselArrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: clamp(7rem, 34vw, 9.5rem);
+    z-index: 5;
+    width: 43px;
+    height: 43px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgb(119, 141, 67);
+    opacity: 0.95;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
+    transform: none;
+    cursor: pointer;
+  }
+
+  .carouselArrow::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
+  }
+
+  .carouselArrow::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2.4px solid #fff;
+    border-bottom: 2.4px solid #fff;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  .carouselArrow:hover {
+    opacity: 1;
+    background: rgb(102, 122, 57);
+  }
+
+  .carouselArrow:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.95);
+    outline-offset: 2px;
+  }
+
+  .carouselArrowPrev {
+    left: 10px;
+  }
+
+  .carouselArrowPrev::after {
+    transform: translate(calc(-50% + 2px), -50%) rotate(135deg);
+  }
+
+  .carouselArrowNext {
+    right: 10px;
+  }
+
+  .carouselArrowNext::after {
+    transform: translate(calc(-50% - 2px), -50%) rotate(-45deg);
+  }
+
+  .carouselDots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1rem;
+  }
+
+  .carouselDot {
+    display: inline-flex;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(60, 60, 60, 0.4);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .carouselDotActive,
+  .carouselDot:hover {
+    background: rgb(119, 141, 67);
+    transform: none;
+  }
+
+  .carouselDotActive {
+    opacity: 1;
+  }
+
+  .carouselDot:focus-visible {
+    outline: 2px solid rgb(119, 141, 67);
+    outline-offset: 2px;
+  }
+
+}
+
+@media (max-width: 420px) {
+  .hero {
+    padding-inline: 1rem;
+  }
+
+  .gridSection {
+    width: calc(100vw - 1rem);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .title {
+    font-size: clamp(1.8rem, 9vw, 2.2rem);
+    line-height: 0.98;
+  }
+
+  .grid > * {
+    padding-inline: 0.1rem;
+  }
+
+  .carouselArrow {
+    top: clamp(6.3rem, 38vw, 8.2rem);
+  }
+
+  .carouselArrowPrev {
+    left: 6px;
+  }
+
+  .carouselArrowNext {
+    right: 6px;
+  }
+
+  .carouselDots {
+    margin-top: 0.85rem;
+    gap: 0.45rem;
   }
 }
