@@ -49,7 +49,7 @@ const FALLBACK_CAREGIVERS = [
     careTypes: ["Companionship", "Dementia support", "Live-in care"],
     availability: "Available from April 2026",
     workType: "Live-in / Companionship",
-    languages: ["English", "Zulu"],
+    languages: ["English"],
     hasDrivingLicence: true,
     hasCar: false,
     dbsStatus: "DBS checked",
