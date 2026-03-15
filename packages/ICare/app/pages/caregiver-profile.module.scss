@@ -30,7 +30,6 @@
   z-index: 2;
   top: 0;
   left: 1.5rem;
-  transform: translateX(calc(-100% - 1.5rem));
 }
 
 .backButton {
@@ -68,7 +67,7 @@
   grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
-  padding: 0 1.5rem;
+  padding: 80px 1.5rem 0;
   box-sizing: border-box;
 }
 
@@ -286,7 +285,10 @@
     position: static;
     padding-top: 0;
     margin-bottom: 0.85rem;
-    transform: none;
+  }
+
+  .heroInner {
+    padding-top: 0;
   }
 
   .imagePanel {
@@ -305,7 +307,7 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding-top: 7.5rem;
+    padding: 7.5rem 0 0;
   }
 
   .topBar {

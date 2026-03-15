@@ -32,26 +32,23 @@
 }
 
 .header {
+  display: grid;
+  gap: 1rem;
+}
+
+.headerTop {
   display: flex;
   justify-content: space-between;
   gap: 1.15rem;
   align-items: flex-start;
 }
 
-.header > div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 0;
-  min-height: 7rem;
-}
-
 .location {
   display: inline-flex;
   align-items: flex-start;
   gap: 0.45rem;
-  margin: 0 0 0.45rem;
-  min-height: 4.8rem;
+  margin: 0;
+  min-width: 0;
   color: #b1642d;
   font-size: 0.95rem;
   font-weight: 700;
@@ -132,17 +129,16 @@
   }
 
   .header {
-    flex-direction: column;
     gap: 0.75rem;
   }
 
-  .header > div {
-    width: 100%;
-    min-height: 0;
+  .headerTop {
+    gap: 0.75rem;
   }
 
   .location {
     min-height: 0;
+    font-size: 0.9rem;
   }
 
   .name {
@@ -156,8 +152,8 @@
   }
 
   .description {
-    font-size: 0.96rem;
-    line-height: 1.62;
+    font-size: 0.92rem;
+    line-height: 1.55;
   }
 
   .careTypes {

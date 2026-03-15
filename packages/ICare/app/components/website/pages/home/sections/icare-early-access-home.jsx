@@ -10,6 +10,7 @@ const DEFAULT_CARER_PHOTO_BY_NAME = {
     beauty: "/images/Beauty.jpeg",
     eva: "/images/Eva.jpeg",
     faye: "/images/Faye.jpeg",
+    karolina: "/images/Karolina.jpeg",
     lynn: "/images/Lynn1.jpeg",
     priscilla: "/images/Priscilla.jpeg",
     sandeep: "/images/Sandeep.jpeg",
@@ -77,6 +78,14 @@ const FALLBACK_CARERS = [
         description: "Beauty is an experienced caregiver currently available for live-in care placements. She has experience supporting clients with dementia, mobility limitations, disabilities and palliative care needs. She is known for her patient and compassionate approach, providing both practical support and companionship.",
         photoUrl: "/images/Beauty.jpeg",
         photoAlt: "Beauty caregiver profile photo"
+    },
+    {
+        id: "karolina",
+        name: "Karolina",
+        location: "Across the UK",
+        description: "Karolina is an experienced live-in caregiver with nearly 7 years of experience supporting older adults and people with complex conditions. She brings a calm, thoughtful presence and is especially well suited to companionship and day-to-day support.",
+        photoUrl: "/images/Karolina.jpeg",
+        photoAlt: "Karolina caregiver profile photo"
     }
 ];
 

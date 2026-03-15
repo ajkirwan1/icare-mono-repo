@@ -4,6 +4,7 @@ const DEFAULT_CAREGIVER_PHOTO_BY_NAME = {
   beauty: "/images/Beauty.jpeg",
   eva: "/images/Eva.jpeg",
   faye: "/images/Faye.jpeg",
+  karolina: "/images/Karolina.jpeg",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
   sandeep: "/images/Sandeep.jpeg",
@@ -51,7 +52,7 @@ const FALLBACK_CAREGIVERS = [
     languages: ["English", "Zulu"],
     hasDrivingLicence: true,
     hasCar: false,
-    dbsStatus: "Enhanced DBS checked",
+    dbsStatus: "DBS checked",
     referencesAvailable: true,
     areasCovered: ["Across the UK"]
   },
@@ -80,6 +81,7 @@ const FALLBACK_CAREGIVERS = [
     _id: "fallback-faye",
     name: "Faye",
     slug: "faye",
+    isHidden: true,
     photoUrl: "/images/Faye.jpeg",
     photoAlt: "Faye caregiver profile portrait",
     location: "West Yorkshire",
@@ -134,10 +136,10 @@ const FALLBACK_CAREGIVERS = [
     availability: "Please ask about availability",
     workType: "Companionship / Hourly",
     languages: ["English"],
-    hasDrivingLicence: false,
+    hasDrivingLicence: true,
     hasCar: false,
     dbsStatus: "Enhanced DBS checked",
-    referencesAvailable: false,
+    referencesAvailable: true,
     areasCovered: ["Across the UK"]
   },
   {
@@ -155,7 +157,7 @@ const FALLBACK_CAREGIVERS = [
     availability: "Weekday and weekend availability",
     workType: "Hourly / Companionship",
     languages: ["English", "Bengali"],
-    hasDrivingLicence: false,
+    hasDrivingLicence: true,
     hasCar: false,
     dbsStatus: "DBS checked",
     referencesAvailable: true,
@@ -176,11 +178,33 @@ const FALLBACK_CAREGIVERS = [
     availability: "Available for live-in care placements",
     workType: "Live-in care",
     languages: ["English"],
-    hasDrivingLicence: false,
+    hasDrivingLicence: true,
     hasCar: false,
     dbsStatus: "DBS checked",
     referencesAvailable: true,
     areasCovered: ["Reading", "Berkshire", "Nearby areas"]
+  },
+  {
+    _id: "fallback-karolina",
+    name: "Karolina",
+    slug: "karolina",
+    photoUrl: "/images/Karolina.jpeg",
+    photoAlt: "Karolina caregiver profile photo",
+    photoPosition: "center 68%",
+    location: "Across the UK",
+    shortBio: "Experienced live-in caregiver offering calm companionship and supportive help at home.",
+    fullBio:
+      "Karolina is an experienced live-in caregiver with nearly 7 years of experience supporting older adults and people with complex conditions. She has worked with clients living with dementia, Parkinson's disease, MND, as well as providing companionship and everyday support at home. Karolina particularly enjoys live-in roles in quieter, rural locations, where she can focus on providing calm, attentive care. She is known for her warm and thoughtful approach and naturally builds trusting relationships with the people she supports. She is also very comfortable around pets and often helps care for them as part of the household routine, something many families greatly appreciate.",
+    experienceYears: 7,
+    careTypes: ["Live-in care", "Companionship", "Dementia support", "Parkinson's support"],
+    availability: "Available for live-in placements",
+    workType: "Live-in care / Companionship",
+    languages: ["English"],
+    hasDrivingLicence: true,
+    hasCar: false,
+    dbsStatus: "DBS checked",
+    referencesAvailable: true,
+    areasCovered: ["Across the UK", "Rural and countryside locations"]
   }
 ];
 
@@ -236,6 +260,19 @@ function getDefaultPhotoUrl(name) {
   return DEFAULT_CAREGIVER_PHOTO_BY_NAME[normalizedName] || "/images/avatars/female.webp";
 }
 
+function prioritizeKarolina(caregivers) {
+  return [...caregivers].sort((a, b) => {
+    const aIsKarolina = a?.slug === "karolina";
+    const bIsKarolina = b?.slug === "karolina";
+
+    if (aIsKarolina === bIsKarolina) {
+      return 0;
+    }
+
+    return aIsKarolina ? -1 : 1;
+  });
+}
+
 function normalizeCaregiver(caregiver, index, builder) {
   const name = String(caregiver?.name || `Caregiver ${index + 1}`).trim();
   const slug = normalizeSlug(caregiver?.slug, name, index);
@@ -244,11 +281,13 @@ function normalizeCaregiver(caregiver, index, builder) {
   const careTypes = normalizeList(caregiver?.careTypes);
   const languages = normalizeList(caregiver?.languages);
   const areasCovered = normalizeList(caregiver?.areasCovered);
+  const isKarolina = slug === "karolina";
 
   return {
     _id: caregiver?._id || `caregiver-${slug}`,
     name,
     slug,
+    isHidden: Boolean(caregiver?.isHidden),
     photo: caregiver?.photo || null,
     photoUrl:
       caregiver?.photoUrl ||
@@ -269,10 +308,10 @@ function normalizeCaregiver(caregiver, index, builder) {
     workType:
       String(caregiver?.workType || careTypes.slice(0, 2).join(" / ") || "Companionship").trim(),
     languages,
-    hasDrivingLicence: Boolean(caregiver?.hasDrivingLicence),
+    hasDrivingLicence: isKarolina ? true : Boolean(caregiver?.hasDrivingLicence),
     hasCar: Boolean(caregiver?.hasCar),
     dbsStatus: String(caregiver?.dbsStatus || "Status available on request").trim(),
-    referencesAvailable: Boolean(caregiver?.referencesAvailable),
+    referencesAvailable: isKarolina ? true : Boolean(caregiver?.referencesAvailable),
     areasCovered
   };
 }
@@ -298,29 +337,38 @@ function getBuilder() {
   });
 }
 
-export async function getCaregivers() {
+export async function getCaregivers({ includeHidden = false } = {}) {
   const sanity = await getSanityClient();
   const builder = getBuilder();
+  const filterHidden = (caregiver) => includeHidden || !caregiver?.isHidden;
 
   if (!sanity) {
-    return FALLBACK_CAREGIVERS.map((caregiver, index) => normalizeCaregiver(caregiver, index, builder));
+    return prioritizeKarolina(FALLBACK_CAREGIVERS
+      .map((caregiver, index) => normalizeCaregiver(caregiver, index, builder))
+      .filter(filterHidden));
   }
 
   try {
     const caregivers = await sanity.fetch(SANITY_CAREGIVERS_QUERY);
 
     if (!Array.isArray(caregivers) || caregivers.length === 0) {
-      return FALLBACK_CAREGIVERS.map((caregiver, index) => normalizeCaregiver(caregiver, index, builder));
+      return prioritizeKarolina(FALLBACK_CAREGIVERS
+        .map((caregiver, index) => normalizeCaregiver(caregiver, index, builder))
+        .filter(filterHidden));
     }
 
-    return caregivers.map((caregiver, index) => normalizeCaregiver(caregiver, index, builder));
+    return prioritizeKarolina(caregivers
+      .map((caregiver, index) => normalizeCaregiver(caregiver, index, builder))
+      .filter(filterHidden));
   } catch (error) {
     console.error("Failed to fetch caregivers from Sanity:", error);
-    return FALLBACK_CAREGIVERS.map((caregiver, index) => normalizeCaregiver(caregiver, index, builder));
+    return prioritizeKarolina(FALLBACK_CAREGIVERS
+      .map((caregiver, index) => normalizeCaregiver(caregiver, index, builder))
+      .filter(filterHidden));
   }
 }
 
 export async function getCaregiverBySlug(slug) {
-  const caregivers = await getCaregivers();
+  const caregivers = await getCaregivers({ includeHidden: true });
   return caregivers.find((caregiver) => caregiver.slug === slug) || null;
 }

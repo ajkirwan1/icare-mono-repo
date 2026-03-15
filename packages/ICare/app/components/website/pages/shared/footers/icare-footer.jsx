@@ -271,6 +271,7 @@ export default function ICareFooter() {
               </div>
 
               <div className={styles.linksCol}>
+                <NavLink to="/caregivers" className={styles.navLink}>Available carers</NavLink>
                 <NavLink to="/how-it-works" className={styles.navLink}>How it works</NavLink>
                 <NavLink to="/care-guidance" className={styles.navLink}>Care guidance</NavLink>
                 <NavLink to="/contact-us" className={styles.navLink}>Contact us</NavLink>
