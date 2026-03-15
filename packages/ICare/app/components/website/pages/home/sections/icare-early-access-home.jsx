@@ -16,6 +16,10 @@ const DEFAULT_CARER_PHOTO_BY_NAME = {
     taslima: "/images/tasmina.jpeg"
 };
 
+const DEFAULT_CARER_LOCATION_BY_NAME = {
+    lynn: "Across the UK"
+};
+
 const FALLBACK_CARERS = [
     {
         id: "lynn",
@@ -106,6 +110,11 @@ function getDefaultPhotoUrl(carer) {
     return DEFAULT_CARER_PHOTO_BY_NAME[normalizedName] || DEFAULT_CARER_PHOTO_URL;
 }
 
+function getDefaultLocation(carer) {
+    const normalizedName = String(carer?.name || "").trim().toLowerCase();
+    return DEFAULT_CARER_LOCATION_BY_NAME[normalizedName] || "";
+}
+
 function isUsablePhotoUrl(value) {
     if (typeof value !== "string") {
         return false;
@@ -169,7 +178,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 cardId,
                 name: carer?.name || `Carer ${index + 1}`,
                 description: carer?.description || "",
-                location: carer?.location || "",
+                location: carer?.location || getDefaultLocation(carer),
                 photoAlt: carer?.photoAlt || carer?.name || `Featured carer ${index + 1}`,
                 photoUrl: resolvePhotoUrl(carer),
                 whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber),

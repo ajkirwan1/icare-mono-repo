@@ -19,14 +19,14 @@ export default function CaregiverProfile({ caregiver }) {
 
       <main className={styles.page}>
         <section className={styles.hero}>
-          <div className={styles.topBar}>
-            <Link className={styles.backButton} to="/caregivers">
-              <span aria-hidden="true" className={styles.backArrow}>←</span>
-              Back to caregivers
-            </Link>
-          </div>
-
           <div className={styles.heroInner}>
+            <div className={styles.topBar}>
+              <Link className={styles.backButton} to="/caregivers">
+                <span aria-hidden="true" className={styles.backArrow}>←</span>
+                Back to caregivers
+              </Link>
+            </div>
+
             <div className={styles.imagePanel}>
               <img
                 className={styles.photo}

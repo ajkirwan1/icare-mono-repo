@@ -24,10 +24,13 @@
 .topBar {
   display: flex;
   justify-content: flex-start;
-  width: min(1180px, calc(100vw - 3rem));
-  margin: 0 auto 1rem;
-  position: static;
+  width: auto;
+  margin: 0;
+  position: absolute;
   z-index: 2;
+  top: 0;
+  left: 1.5rem;
+  transform: translateX(calc(-100% - 1.5rem));
 }
 
 .backButton {
@@ -60,10 +63,13 @@
 }
 
 .heroInner {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
   gap: 1.5rem;
-  align-items: stretch;
+  align-items: start;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .imagePanel,
@@ -276,6 +282,13 @@
     grid-template-columns: 1fr;
   }
 
+  .topBar {
+    position: static;
+    padding-top: 0;
+    margin-bottom: 0.85rem;
+    transform: none;
+  }
+
   .imagePanel {
     max-width: 420px;
   }
@@ -296,7 +309,6 @@
   }
 
   .topBar {
-    width: min(1180px, calc(100vw - 2rem));
     margin-bottom: 0.85rem;
   }
 
