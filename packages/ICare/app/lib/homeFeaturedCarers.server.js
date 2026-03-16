@@ -8,7 +8,7 @@ const DEFAULT_HOME_FEATURED_PHOTO_BY_NAME = {
   karolina: "/images/Karolina.jpeg",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
-  sandeep: "/images/Sandeep.jpeg",
+  sandeep: "https://cdn.sanity.io/images/08fr3nyq/production/37e8dc7acc8bf6a0b0e2709bc243d534616689ed-1173x1564.jpg?fit=crop&h=900&rect=0%2C196%2C1173%2C1173&w=900",
   taslima: "/images/tasmina.jpeg"
 };
 

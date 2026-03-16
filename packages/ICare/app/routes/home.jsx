@@ -55,8 +55,34 @@ const jsonLd = {
 export async function loader() {
   try {
     const { getHomeFeaturedCarers } = await import("../lib/homeFeaturedCarers.server");
+    const { getCaregivers } = await import("../lib/caregivers.server");
     const featuredCarers = await getHomeFeaturedCarers();
-    return { featuredCarers };
+    const caregivers = await getCaregivers({ includeHidden: true });
+    const caregiverPhotoByName = new Map(
+      caregivers.map((caregiver) => [
+        String(caregiver?.name || "").trim().toLowerCase(),
+        {
+          photoUrl: caregiver?.photoUrl,
+          photoAlt: caregiver?.photoAlt
+        }
+      ])
+    );
+
+    const normalizedFeaturedCarers = featuredCarers.map((carer) => {
+      const caregiverPhoto = caregiverPhotoByName.get(String(carer?.name || "").trim().toLowerCase());
+
+      if (!caregiverPhoto?.photoUrl) {
+        return carer;
+      }
+
+      return {
+        ...carer,
+        photoUrl: caregiverPhoto.photoUrl,
+        photoAlt: caregiverPhoto.photoAlt || carer.photoAlt
+      };
+    });
+
+    return { featuredCarers: normalizedFeaturedCarers };
   } catch (error) {
     console.error("Failed to load home featured carers from Sanity:", error);
     return { featuredCarers: [] };
