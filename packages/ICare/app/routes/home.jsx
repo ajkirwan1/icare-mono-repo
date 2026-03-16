@@ -69,7 +69,13 @@ export async function loader() {
     );
 
     const normalizedFeaturedCarers = featuredCarers.map((carer) => {
-      const caregiverPhoto = caregiverPhotoByName.get(String(carer?.name || "").trim().toLowerCase());
+      const normalizedName = String(carer?.name || "").trim().toLowerCase();
+
+      if (normalizedName !== "sandeep") {
+        return carer;
+      }
+
+      const caregiverPhoto = caregiverPhotoByName.get(normalizedName);
 
       if (!caregiverPhoto?.photoUrl) {
         return carer;

@@ -13,7 +13,7 @@ const DEFAULT_CARER_PHOTO_BY_NAME = {
     karolina: "/images/Karolina.jpeg",
     lynn: "/images/Lynn1.jpeg",
     priscilla: "/images/Priscilla.jpeg",
-    sandeep: "https://cdn.sanity.io/images/08fr3nyq/production/37e8dc7acc8bf6a0b0e2709bc243d534616689ed-1173x1564.jpg?fit=crop&h=900&rect=0%2C196%2C1173%2C1173&w=900",
+    sandeep: "/images/Sandeep.jpeg",
     taslima: "/images/tasmina.jpeg"
 };
 
@@ -60,7 +60,7 @@ const FALLBACK_CARERS = [
         name: "Sandeep",
         location: "UK",
         description: "Sandeep offers calm, respectful companionship support focused on helping older adults feel comfortable, listened to, and settled at home. Her approach is warm, dependable, and centred on dignity, reassurance, and everyday routine.",
-        photoUrl: "https://cdn.sanity.io/images/08fr3nyq/production/37e8dc7acc8bf6a0b0e2709bc243d534616689ed-1173x1564.jpg?fit=crop&h=900&rect=0%2C196%2C1173%2C1173&w=900",
+        photoUrl: "/images/Sandeep.jpeg",
         photoAlt: "Sandeep caregiver profile photo"
     },
     {

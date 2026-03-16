@@ -7,7 +7,7 @@ const DEFAULT_CAREGIVER_PHOTO_BY_NAME = {
   karolina: "/images/Karolina.jpeg",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
-  sandeep: "https://cdn.sanity.io/images/08fr3nyq/production/37e8dc7acc8bf6a0b0e2709bc243d534616689ed-1173x1564.jpg?fit=crop&h=900&rect=0%2C196%2C1173%2C1173&w=900",
+  sandeep: "/images/Sandeep.jpeg",
   taslima: "/images/tasmina.jpeg"
 };
 
@@ -125,7 +125,7 @@ const FALLBACK_CAREGIVERS = [
     _id: "fallback-sandeep",
     name: "Sandeep",
     slug: "sandeep",
-    photoUrl: "https://cdn.sanity.io/images/08fr3nyq/production/37e8dc7acc8bf6a0b0e2709bc243d534616689ed-1173x1564.jpg?fit=crop&h=900&rect=0%2C196%2C1173%2C1173&w=900",
+    photoUrl: "/images/Sandeep.jpeg",
     photoAlt: "Sandeep caregiver profile photo",
     location: "Across the UK",
     shortBio: "Compassionate companionship support focused on helping older adults feel comfortable, respected, and settled at home.",
