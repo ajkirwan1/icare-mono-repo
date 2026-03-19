@@ -2,10 +2,12 @@ import { sanity } from "./sanity.server";
 import imageUrlBuilder from "@sanity/image-url";
 
 const DEFAULT_HOME_FEATURED_PHOTO_BY_NAME = {
+  aiza: "/images/Aiza.jpeg",
   beauty: "/images/Beauty.jpeg",
   eva: "/images/Eva.jpeg",
   faye: "/images/Faye.jpeg",
   karolina: "/images/Karolina.jpeg",
+  kinga: "/images/Kinga.png",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
   sandeep: "/images/Sandeep.jpeg",
@@ -21,6 +23,24 @@ const REQUIRED_HOME_FEATURED_CARERS = [
       "Karolina is an experienced live-in caregiver with nearly 7 years of experience supporting older adults and people with complex conditions. She brings a calm, thoughtful presence and is especially well suited to companionship and day-to-day support.",
     photoUrl: "/images/Karolina.jpeg",
     photoAlt: "Karolina caregiver profile photo",
+  },
+  {
+    _id: "fallback-home-featured-kinga",
+    name: "Kinga",
+    location: "Across the UK",
+    description:
+      "Kinga has 7 years of experience as a live-in caregiver, supporting older people with daily routines, mobility, companionship, and memory-related needs. She works exclusively in live-in roles and is looking for longer placements, with previous experience in Salisbury and nearby areas.",
+    photoUrl: "/images/Kinga.png",
+    photoAlt: "Kinga caregiver profile photo",
+  },
+  {
+    _id: "fallback-home-featured-aiza",
+    name: "Aiza",
+    location: "London",
+    description:
+      "Aiza has been working as a caregiver since 2009, with experience in care homes, private care, and both live-in and live-out roles. She has supported elderly individuals with mobility needs, wheelchair use, dementia, and Parkinson's, and is currently looking for visiting care work, ideally in the mornings through to early afternoon.",
+    photoUrl: "/images/Aiza.jpeg",
+    photoAlt: "Aiza caregiver profile photo",
   },
 ];
 
@@ -49,7 +69,7 @@ function getDefaultPhotoUrl(name) {
 }
 
 function prioritizeKarolina(carers) {
-  const preferredOrder = ["karolina", "lynn", "eva"];
+  const preferredOrder = ["karolina", "lynn", "kinga", "aiza", "eva"];
 
   return [...carers].sort((a, b) => {
     const aName = String(a?.name || "").trim().toLowerCase();

@@ -1,10 +1,12 @@
 import imageUrlBuilder from "@sanity/image-url";
 
 const DEFAULT_CAREGIVER_PHOTO_BY_NAME = {
+  aiza: "/images/Aiza.jpeg",
   beauty: "/images/Beauty.jpeg",
   eva: "/images/Eva.jpeg",
   faye: "/images/Faye.jpeg",
   karolina: "/images/Karolina.jpeg",
+  kinga: "/images/Kinga.png",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
   sandeep: "/images/Sandeep.jpeg",
@@ -76,6 +78,49 @@ const FALLBACK_CAREGIVERS = [
     dbsStatus: "Enhanced DBS checked",
     referencesAvailable: true,
     areasCovered: ["London", "Surrounding areas"]
+  },
+  {
+    _id: "fallback-kinga",
+    name: "Kinga",
+    slug: "kinga",
+    photoUrl: "/images/Kinga.png",
+    photoAlt: "Kinga caregiver profile photo",
+    location: "Across the UK",
+    shortBio: "Live-in caregiver with 7 years of experience supporting older people with daily routines, mobility, companionship, and memory-related needs.",
+    fullBio:
+      "Kinga has 7 years of experience working as a live-in caregiver, mainly supporting older people in their own homes. She has experience caring for individuals who need support with daily life, mobility, and companionship, including those living with memory difficulties. Kinga focuses on creating a calm, respectful, and comfortable environment where people feel safe and well looked after. She works exclusively in live-in roles. As she is based in Poland, she usually works in the UK in longer placements of around 2 to 3 months at a time, returning home between assignments. She is mainly looking for placements in the south of England, from London downwards on both the east and west sides, with previous experience working in Salisbury and surrounding areas. Kinga is comfortable in homes with pets, including cats and dogs, and is known for her calm, reliable nature and for building trusting, supportive relationships with the people she cares for.",
+    experienceYears: 7,
+    careTypes: ["Live-in care", "Companionship", "Mobility support", "Dementia support"],
+    availability: "Available for longer live-in placements of around 2 to 3 months",
+    workType: "Live-in care",
+    languages: ["English", "Polish"],
+    hasDrivingLicence: true,
+    hasCar: false,
+    dbsStatus: "DBS checked",
+    referencesAvailable: true,
+    areasCovered: ["South of England", "London", "Salisbury", "Surrounding areas"]
+  },
+  {
+    _id: "fallback-aiza",
+    name: "Aiza",
+    slug: "aiza",
+    photoUrl: "/images/Aiza.jpeg",
+    photoAlt: "Aiza caregiver profile photo",
+    photoPosition: "center 62%",
+    location: "London",
+    shortBio: "Experienced caregiver since 2009, offering visiting care, companionship, and calm day-to-day support at home.",
+    fullBio:
+      "Aiza has been working as a caregiver since 2009, with experience in care homes, private care, and both live-in and live-out roles. She has supported elderly individuals with a range of needs, including mobility support, wheelchair use, dementia, and Parkinson's. Aiza also provides companionship, focusing on creating a calm, respectful, and supportive environment. She is currently looking for visiting care work, ideally in the mornings through to early afternoon, and is dedicated to helping people feel safe, comfortable, and treated with dignity in their own home.",
+    experienceYears: 17,
+    careTypes: ["Visiting care", "Companionship", "Dementia support", "Parkinson's support", "Mobility support"],
+    availability: "Available for visiting care, ideally mornings to early afternoon",
+    workType: "Visiting care / Companionship",
+    languages: ["English"],
+    hasDrivingLicence: false,
+    hasCar: false,
+    dbsStatus: "Enhanced DBS checked",
+    referencesAvailable: true,
+    areasCovered: []
   },
   {
     _id: "fallback-faye",
@@ -261,15 +306,27 @@ function getDefaultPhotoUrl(name) {
 }
 
 function prioritizeKarolina(caregivers) {
-  return [...caregivers].sort((a, b) => {
-    const aIsKarolina = a?.slug === "karolina";
-    const bIsKarolina = b?.slug === "karolina";
+  const preferredOrder = ["karolina", "lynn", "kinga", "eva", "aiza"];
 
-    if (aIsKarolina === bIsKarolina) {
+  return [...caregivers].sort((a, b) => {
+    const aSlug = String(a?.slug || "").trim().toLowerCase();
+    const bSlug = String(b?.slug || "").trim().toLowerCase();
+    const aIndex = preferredOrder.indexOf(aSlug);
+    const bIndex = preferredOrder.indexOf(bSlug);
+
+    if (aIndex === -1 && bIndex === -1) {
       return 0;
     }
 
-    return aIsKarolina ? -1 : 1;
+    if (aIndex === -1) {
+      return 1;
+    }
+
+    if (bIndex === -1) {
+      return -1;
+    }
+
+    return aIndex - bIndex;
   });
 }
 

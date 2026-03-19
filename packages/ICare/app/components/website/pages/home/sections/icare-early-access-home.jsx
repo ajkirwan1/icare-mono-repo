@@ -7,10 +7,12 @@ import styles from "./icare-early-access.module.scss";
 const DEFAULT_WHATSAPP_NUMBER = "447448016876";
 const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
 const DEFAULT_CARER_PHOTO_BY_NAME = {
+    aiza: "/images/Aiza.jpeg",
     beauty: "/images/Beauty.jpeg",
     eva: "/images/Eva.jpeg",
     faye: "/images/Faye.jpeg",
     karolina: "/images/Karolina.jpeg",
+    kinga: "/images/Kinga.png",
     lynn: "/images/Lynn1.jpeg",
     priscilla: "/images/Priscilla.jpeg",
     sandeep: "/images/Sandeep.jpeg",
@@ -37,6 +39,22 @@ const FALLBACK_CARERS = [
         description: "Eva is a compassionate companion with around five years of experience supporting older adults. Originally from Slovakia, she has been living in the UK for over 12 years. Eva describes herself as empathetic and patient, with a natural willingness to help seniors feel comfortable and supported in everyday life. She enjoys spending time with older people, offering companionship, conversation and help with daily routines. Eva also holds a driving licence, which can be helpful for local errands or outings.",
         photoUrl: "/images/Eva.jpeg",
         photoAlt: "Eva caregiver profile photo"
+    },
+    {
+        id: "kinga",
+        name: "Kinga",
+        location: "Across the UK",
+        description: "Kinga has 7 years of experience as a live-in caregiver, supporting older people with daily routines, mobility, companionship, and memory-related needs. She works exclusively in live-in roles and is looking for longer placements, with previous experience in Salisbury and nearby areas.",
+        photoUrl: "/images/Kinga.png",
+        photoAlt: "Kinga caregiver profile photo"
+    },
+    {
+        id: "aiza",
+        name: "Aiza",
+        location: "London",
+        description: "Aiza has been working as a caregiver since 2009, with experience in care homes, private care, and both live-in and live-out roles. She has supported elderly individuals with mobility needs, wheelchair use, dementia, and Parkinson's, and is currently looking for visiting care work, ideally in the mornings through to early afternoon.",
+        photoUrl: "/images/Aiza.jpeg",
+        photoAlt: "Aiza caregiver profile photo"
     },
     {
         id: "faye",
