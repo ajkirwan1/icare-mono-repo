@@ -11,6 +11,7 @@ import ICareTypesOfCareSEO from "../components/website/pages/home/sections/ICare
 import AboutICareSection from "../components/website/pages/home/sections/about-icare-section";
 import ICareEarlyAccessHomeSection from "~/components/website/pages/home/sections/icare-early-access-home";
 import ICareWaitlistFinalSection from "../components/website/pages/home/sections/ICareWaitlistFinal";
+import { useEffect } from "react";
 import { useLoaderData } from "react-router";
 
 export const meta = () => {
@@ -98,6 +99,35 @@ export async function loader() {
 export default function Home() {
   const { featuredCarers } = useLoaderData();
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    if (window.location.hash || window.scrollY > 24) {
+      return;
+    }
+
+    const targetSection = document.getElementById("featured-carers");
+
+    if (!targetSection) {
+      return;
+    }
+
+    const timerId = window.setTimeout(() => {
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const targetTop = targetSection.getBoundingClientRect().top + window.scrollY;
+      const scrollOffset = 120;
+
+      window.scrollTo({
+        top: Math.max(targetTop - scrollOffset, 0),
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      });
+    }, 450);
+
+    return () => window.clearTimeout(timerId);
+  }, []);
+
   return (
     <>
       <script
@@ -112,9 +142,9 @@ export default function Home() {
         imgHeight={1707}
       />
       <main>
+        <ICareEarlyAccessHomeSection carers={featuredCarers} />
         <AboutICareSection />
         <CareTimeline />
-        <ICareEarlyAccessHomeSection carers={featuredCarers} />
         <TrustValuesSection />
         <HomePageCareCTA />
         <IcareSafetyBlock />

@@ -3,12 +3,15 @@ import imageUrlBuilder from "@sanity/image-url";
 const DEFAULT_CAREGIVER_PHOTO_BY_NAME = {
   aiza: "/images/Aiza.jpeg",
   beauty: "/images/Beauty.jpeg",
+  diana: "/images/Di.jpeg",
+  di: "/images/Di.jpeg",
   eva: "/images/Eva.jpeg",
   faye: "/images/Faye.jpeg",
   karolina: "/images/Karolina.jpeg",
   kinga: "/images/Kinga.png",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
+  renata: "/images/Renata.jpeg",
   sandeep: "/images/Sandeep.jpeg",
   taslima: "/images/tasmina.jpeg"
 };
@@ -37,6 +40,27 @@ const SANITY_CAREGIVERS_QUERY = `
 `;
 
 const FALLBACK_CAREGIVERS = [
+  {
+    _id: "fallback-di",
+    name: "Diana",
+    slug: "di",
+    photoPosition: "center 30%",
+    photoAlt: "Diana caregiver profile photo",
+    location: "London & Essex (Loughton)",
+    shortBio: "Senior carer with 14+ years of experience supporting companionship, personal care, complex needs, and long day or night shifts.",
+    fullBio:
+      "Diana has over 14 years of experience in care, supporting people with a wide range of needs, from companionship and daily support to more complex situations. She began her career working with individuals living with dementia, Alzheimer's and end-of-life care, and over time developed strong experience supporting people with more advanced conditions. Diana is calm, highly capable, and brings a reassuring presence into the home. She supports with personal care, daily routines, and creating a safe, comfortable environment where clients feel respected and understood. In recent years, she has also worked as a senior carer, supporting and guiding other caregivers and helping maintain high standards of care. She is someone families can truly rely on, not only for her experience, but for her warmth and professionalism.",
+    experienceYears: 14,
+    careTypes: ["Companionship", "Personal care", "Dementia support", "Alzheimer's support", "End-of-life care"],
+    availability: "Hourly, including long day and night shifts",
+    workType: "Hourly care",
+    languages: ["English", "Lithuanian", "Russian", "Polish"],
+    hasDrivingLicence: true,
+    hasCar: true,
+    dbsStatus: "DBS checked",
+    referencesAvailable: true,
+    areasCovered: ["London", "Essex", "Loughton"]
+  },
   {
     _id: "fallback-lynn",
     name: "Lynn",
@@ -121,6 +145,28 @@ const FALLBACK_CAREGIVERS = [
     dbsStatus: "Enhanced DBS checked",
     referencesAvailable: true,
     areasCovered: []
+  },
+  {
+    _id: "fallback-renata",
+    name: "Renata",
+    slug: "renata",
+    photoUrl: "/images/Renata.jpeg",
+    photoAlt: "Renata caregiver profile photo",
+    photoPosition: "center 70%",
+    location: "Berkshire (Reading area), London (North/West), open to other locations",
+    shortBio: "Experienced caregiver offering calm, respectful support with routines, personal care, companionship, and healthy meals.",
+    fullBio:
+      "Renata is an experienced caregiver specialising in supporting older adults, including those living with dementia and Alzheimer's. She offers calm, respectful support with daily routines, personal care, companionship, and preparing healthy meals. Renata focuses on creating a safe, comfortable environment where clients feel understood and at ease. She is reliable, warm, and attentive, and brings the kind of steady presence families can genuinely trust.",
+    experienceYears: null,
+    careTypes: ["Companionship", "Personal care", "Dementia support", "Alzheimer's support", "Meal preparation"],
+    availability: "Please ask about availability",
+    workType: "Companionship / Personal care",
+    languages: ["English"],
+    hasDrivingLicence: null,
+    hasCar: null,
+    dbsStatus: "DBS checked",
+    referencesAvailable: true,
+    areasCovered: ["Berkshire", "Reading area", "North London", "West London", "Open to other locations"]
   },
   {
     _id: "fallback-faye",
@@ -253,6 +299,10 @@ const FALLBACK_CAREGIVERS = [
   }
 ];
 
+const REQUIRED_CAREGIVER_FALLBACKS = FALLBACK_CAREGIVERS.filter(
+  (caregiver) => ["renata", "di"].includes(String(caregiver?.slug || "").trim().toLowerCase())
+);
+
 function toPlainText(value) {
   if (typeof value === "string") {
     return value.trim();
@@ -328,6 +378,28 @@ function prioritizeKarolina(caregivers) {
 
     return aIndex - bIndex;
   });
+}
+
+function mergeRequiredFallbackCaregivers(caregivers) {
+  if (!Array.isArray(caregivers)) {
+    return [];
+  }
+
+  const mergedCaregivers = [...caregivers];
+  const existingSlugs = new Set(
+    mergedCaregivers.map((caregiver) => String(caregiver?.slug || "").trim().toLowerCase())
+  );
+
+  for (const fallbackCaregiver of REQUIRED_CAREGIVER_FALLBACKS) {
+    const normalizedSlug = String(fallbackCaregiver?.slug || "").trim().toLowerCase();
+
+    if (!existingSlugs.has(normalizedSlug)) {
+      mergedCaregivers.push(fallbackCaregiver);
+      existingSlugs.add(normalizedSlug);
+    }
+  }
+
+  return mergedCaregivers;
 }
 
 function normalizeCaregiver(caregiver, index, builder) {
@@ -407,6 +479,7 @@ export async function getCaregivers({ includeHidden = false } = {}) {
 
   try {
     const caregivers = await sanity.fetch(SANITY_CAREGIVERS_QUERY);
+    const caregiversWithRequiredFallbacks = mergeRequiredFallbackCaregivers(caregivers);
 
     if (!Array.isArray(caregivers) || caregivers.length === 0) {
       return prioritizeKarolina(FALLBACK_CAREGIVERS
@@ -414,7 +487,7 @@ export async function getCaregivers({ includeHidden = false } = {}) {
         .filter(filterHidden));
     }
 
-    return prioritizeKarolina(caregivers
+    return prioritizeKarolina(caregiversWithRequiredFallbacks
       .map((caregiver, index) => normalizeCaregiver(caregiver, index, builder))
       .filter(filterHidden));
   } catch (error) {

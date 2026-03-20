@@ -195,12 +195,22 @@
 
 .featuredCaregiversTitle {
     width: min(98vw, 1464px);
-    margin: 60px auto 28px;
+    margin: 36px auto 28px;
     text-align: center;
     color: #000;
-    font-size: clamp(1.32rem, 1.92vw, 1.68rem);
+    font-size: clamp(1.58rem, 2.3vw, 2.02rem);
     line-height: 1.2;
     font-weight: 600;
+}
+
+.featuredCaregiversText {
+    width: min(90vw, 760px);
+    margin: -12px auto 24px;
+    text-align: center;
+    color: #000;
+    font-size: clamp(1rem, 1.2vw, 1.08rem);
+    line-height: 1.6;
+    font-weight: 400;
 }
 
 .mobileSliderWrap {
@@ -492,6 +502,35 @@
     bottom: 14px;
 }
 
+.allCaregiversCta {
+    display: flex;
+    justify-content: center;
+    margin: 26px auto 0;
+    width: min(98vw, 1464px);
+}
+
+.allCaregiversButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    background: rgba(214, 116, 53, 0.92);
+    color: #fff;
+    font-size: 0.96rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.allCaregiversButton:hover,
+.allCaregiversButton:focus-visible {
+    background: rgba(214, 116, 53, 1);
+    box-shadow: 0 10px 22px rgba(214, 116, 53, 0.16);
+}
+
 @keyframes contactPulse {
     0% {
         transform: scale(1);
@@ -669,10 +708,25 @@
         width: min(94vw, 1020px);
     }
 
+    .featuredCaregiversText {
+        width: min(94vw, 680px);
+        margin: -8px auto 20px;
+    }
+
     .mobileSliderWrap {
         width: min(94vw, 1020px);
         position: relative;
         display: block;
+    }
+
+    .allCaregiversCta {
+        width: min(94vw, 1020px);
+        margin-top: 22px;
+    }
+
+    .allCaregiversButton {
+        width: 100%;
+        max-width: 360px;
     }
 
     .mobileSliderArrow {

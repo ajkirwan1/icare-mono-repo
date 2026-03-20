@@ -9,18 +9,23 @@ const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
 const DEFAULT_CARER_PHOTO_BY_NAME = {
     aiza: "/images/Aiza.jpeg",
     beauty: "/images/Beauty.jpeg",
+    diana: "/images/Di.jpeg",
+    di: "/images/Di.jpeg",
     eva: "/images/Eva.jpeg",
     faye: "/images/Faye.jpeg",
     karolina: "/images/Karolina.jpeg",
     kinga: "/images/Kinga.png",
     lynn: "/images/Lynn1.jpeg",
     priscilla: "/images/Priscilla.jpeg",
+    renata: "/images/Renata.jpeg",
     sandeep: "/images/Sandeep.jpeg",
     taslima: "/images/tasmina.jpeg"
 };
 
 const DEFAULT_CARER_LOCATION_BY_NAME = {
-    lynn: "Across the UK"
+    di: "London & Essex (Loughton)",
+    lynn: "Across the UK",
+    renata: "Berkshire (Reading area), London (North/West), open to other locations"
 };
 
 const FALLBACK_CARERS = [
@@ -74,14 +79,6 @@ const FALLBACK_CARERS = [
         photoAlt: "Priscilla providing companionship and live-in care support"
     },
     {
-        id: "sandeep",
-        name: "Sandeep",
-        location: "UK",
-        description: "Sandeep offers calm, respectful companionship support focused on helping older adults feel comfortable, listened to, and settled at home. Her approach is warm, dependable, and centred on dignity, reassurance, and everyday routine.",
-        photoUrl: "/images/Sandeep.jpeg",
-        photoAlt: "Sandeep caregiver profile photo"
-    },
-    {
         id: "taslima",
         name: "Taslima",
         location: "London and nearby areas",
@@ -96,6 +93,31 @@ const FALLBACK_CARERS = [
         description: "Beauty is an experienced caregiver currently available for live-in care placements. She has experience supporting clients with dementia, mobility limitations, disabilities and palliative care needs. She is known for her patient and compassionate approach, providing both practical support and companionship.",
         photoUrl: "/images/Beauty.jpeg",
         photoAlt: "Beauty caregiver profile photo"
+    },
+    {
+        id: "di",
+        name: "Diana",
+        location: "London & Essex (Loughton)",
+        description: "Diana has over 14 years of experience in care, supporting people with a wide range of needs from companionship and daily support to more complex situations. She is calm, highly capable, and brings a reassuring presence into the home while supporting personal care and daily routines.",
+        photoAlt: "Diana caregiver profile photo",
+        photoPosition: "center 30%"
+    },
+    {
+        id: "renata",
+        name: "Renata",
+        location: "Berkshire (Reading area), London (North/West), open to other locations",
+        description: "Renata is an experienced caregiver specialising in supporting older adults, including those living with dementia and Alzheimer's. She offers calm, respectful support with daily routines, personal care, companionship, and preparing healthy meals. Renata focuses on creating a safe, comfortable environment where clients feel understood and at ease.",
+        photoUrl: "/images/Renata.jpeg",
+        photoAlt: "Renata caregiver profile photo",
+        photoPosition: "center 70%"
+    },
+    {
+        id: "sandeep",
+        name: "Sandeep",
+        location: "UK",
+        description: "Sandeep offers calm, respectful companionship support focused on helping older adults feel comfortable, listened to, and settled at home. Her approach is warm, dependable, and centred on dignity, reassurance, and everyday routine.",
+        photoUrl: "/images/Sandeep.jpeg",
+        photoAlt: "Sandeep caregiver profile photo"
     },
     {
         id: "karolina",
@@ -208,6 +230,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 location: carer?.location || getDefaultLocation(carer),
                 photoAlt: carer?.photoAlt || carer?.name || `Featured carer ${index + 1}`,
                 photoUrl: resolvePhotoUrl(carer),
+                photoPosition: carer?.photoPosition || "center center",
                 whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber),
                 whatsAppMessage: carer?.whatsAppMessage || ""
             };
@@ -406,7 +429,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
             }
             triggerCrossfade();
             metrics.sliderElement.scrollTo({ left: targetLeft, behavior: "smooth" });
-        }, 1470);
+        }, 1910);
 
         return () => {
             window.clearInterval(intervalId);
@@ -433,7 +456,10 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
 
     return (
         <section id="featured-carers" aria-label="Featured carers" className={styles.wrap}>
-            <h2 className={styles.featuredCaregiversTitle}>Meet one of our carers</h2>
+            <h2 className={styles.featuredCaregiversTitle}>Find the right caregiver for your loved one</h2>
+            <p className={styles.featuredCaregiversText}>
+                View experience, availability and choose someone who fits your family.
+            </p>
             <div className={styles.mobileSliderWrap}>
                 {slideCount > 1 && hasHorizontalOverflow && (
                     <button
@@ -472,6 +498,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                         className={imageClassName}
                                         src={carer.photoUrl}
                                         alt={carer.photoAlt}
+                                        style={{ objectPosition: carer.photoPosition }}
                                         loading="lazy"
                                         onError={() => {
                                             setBrokenImageIds((current) => ({
@@ -576,6 +603,11 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 )}
             </div>
 
+            <div className={styles.allCaregiversCta}>
+                <Link to="/caregivers" className={styles.allCaregiversButton}>
+                    See all our caregivers
+                </Link>
+            </div>
         </section>
     );
 }

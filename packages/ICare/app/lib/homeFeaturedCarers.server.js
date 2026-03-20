@@ -4,17 +4,28 @@ import imageUrlBuilder from "@sanity/image-url";
 const DEFAULT_HOME_FEATURED_PHOTO_BY_NAME = {
   aiza: "/images/Aiza.jpeg",
   beauty: "/images/Beauty.jpeg",
+  diana: "/images/Di.jpeg",
+  di: "/images/Di.jpeg",
   eva: "/images/Eva.jpeg",
   faye: "/images/Faye.jpeg",
   karolina: "/images/Karolina.jpeg",
   kinga: "/images/Kinga.png",
   lynn: "/images/Lynn1.jpeg",
   priscilla: "/images/Priscilla.jpeg",
+  renata: "/images/Renata.jpeg",
   sandeep: "/images/Sandeep.jpeg",
   taslima: "/images/tasmina.jpeg"
 };
 
 const REQUIRED_HOME_FEATURED_CARERS = [
+  {
+    _id: "fallback-home-featured-di",
+    name: "Diana",
+    location: "London & Essex (Loughton)",
+    description:
+      "Diana has over 14 years of experience in care, supporting people with a wide range of needs from companionship and daily support to more complex situations. She offers calm, highly capable support with personal care, daily routines, and a reassuring presence at home.",
+    photoAlt: "Diana caregiver profile photo",
+  },
   {
     _id: "fallback-home-featured-karolina",
     name: "Karolina",
@@ -41,6 +52,16 @@ const REQUIRED_HOME_FEATURED_CARERS = [
       "Aiza has been working as a caregiver since 2009, with experience in care homes, private care, and both live-in and live-out roles. She has supported elderly individuals with mobility needs, wheelchair use, dementia, and Parkinson's, and is currently looking for visiting care work, ideally in the mornings through to early afternoon.",
     photoUrl: "/images/Aiza.jpeg",
     photoAlt: "Aiza caregiver profile photo",
+  },
+  {
+    _id: "fallback-home-featured-renata",
+    name: "Renata",
+    location: "Berkshire (Reading area), London (North/West), open to other locations",
+    description:
+      "Renata is an experienced caregiver specialising in supporting older adults, including those living with dementia and Alzheimer's. She offers calm, respectful support with daily routines, personal care, companionship, and preparing healthy meals.",
+    photoUrl: "/images/Renata.jpeg",
+    photoAlt: "Renata caregiver profile photo",
+    photoPosition: "center 70%",
   },
 ];
 
@@ -69,7 +90,7 @@ function getDefaultPhotoUrl(name) {
 }
 
 function prioritizeKarolina(carers) {
-  const preferredOrder = ["karolina", "lynn", "kinga", "aiza", "eva"];
+  const preferredOrder = ["karolina", "lynn", "kinga", "aiza", "eva", "renata", "diana", "sandeep"];
 
   return [...carers].sort((a, b) => {
     const aName = String(a?.name || "").trim().toLowerCase();
