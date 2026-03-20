@@ -59,33 +59,29 @@ export async function loader() {
     const { getCaregivers } = await import("../lib/caregivers.server");
     const featuredCarers = await getHomeFeaturedCarers();
     const caregivers = await getCaregivers({ includeHidden: true });
-    const caregiverPhotoByName = new Map(
+    const caregiverDataByName = new Map(
       caregivers.map((caregiver) => [
         String(caregiver?.name || "").trim().toLowerCase(),
         {
           photoUrl: caregiver?.photoUrl,
-          photoAlt: caregiver?.photoAlt
+          photoAlt: caregiver?.photoAlt,
+          experienceYears: caregiver?.experienceYears
         }
       ])
     );
 
     const normalizedFeaturedCarers = featuredCarers.map((carer) => {
       const normalizedName = String(carer?.name || "").trim().toLowerCase();
-
-      if (normalizedName !== "sandeep") {
-        return carer;
-      }
-
-      const caregiverPhoto = caregiverPhotoByName.get(normalizedName);
-
-      if (!caregiverPhoto?.photoUrl) {
-        return carer;
-      }
+      const caregiverData = caregiverDataByName.get(normalizedName);
 
       return {
         ...carer,
-        photoUrl: caregiverPhoto.photoUrl,
-        photoAlt: caregiverPhoto.photoAlt || carer.photoAlt
+        photoUrl: caregiverData?.photoUrl || carer.photoUrl,
+        photoAlt: caregiverData?.photoAlt || carer.photoAlt,
+        experienceYears:
+          typeof caregiverData?.experienceYears === "number"
+            ? caregiverData.experienceYears
+            : carer.experienceYears
       };
     });
 
@@ -104,7 +100,7 @@ export default function Home() {
       return;
     }
 
-    if (window.location.hash || window.scrollY > 24) {
+    if (window.location.hash) {
       return;
     }
 

@@ -187,9 +187,9 @@
     width: min(98vw, 1464px);
     margin: 20px auto 60px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: stretch;
-    gap: clamp(12px, 1.8vw, 16px);
+    gap: clamp(10px, 1.4vw, 13px);
     padding-bottom: 6px;
 }
 
@@ -211,6 +211,21 @@
     font-size: clamp(1rem, 1.2vw, 1.08rem);
     line-height: 1.6;
     font-weight: 400;
+}
+
+.featuredCaregiversHighlight {
+    display: block;
+    margin-top: 0.45rem;
+    font-weight: 600;
+    color: #7b5138;
+    letter-spacing: 0.01em;
+}
+
+.featuredCaregiversSecondary {
+    display: block;
+    margin-top: 0.45rem;
+    font-weight: 600;
+    color: rgba(214, 116, 53, 0.92);
 }
 
 .mobileSliderWrap {
@@ -238,7 +253,7 @@
     width: 100%;
     min-width: 0;
     margin: 0;
-    padding: 12px 12px 42px;
+    padding: 8px 8px 16px;
     border-radius: tokens.$radius-xxl;
     border: 1px solid tokens.$border-soft;
     background: rgba(247, 247, 242, 0.72);
@@ -254,15 +269,16 @@
 .featuredCardTop {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     align-items: stretch;
+    height: 100%;
 }
 
 .featuredLynnImage {
     width: 100%;
     height: auto;
-    aspect-ratio: 1 / 1;
-    border-radius: 30px;
+    aspect-ratio: 1 / 1.18;
+    border-radius: 24px;
     object-fit: cover;
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: none;
@@ -272,8 +288,8 @@
 
 .featuredImagePlaceholder {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 30px;
+    aspect-ratio: 1 / 1.18;
+    border-radius: 24px;
     border: 1px solid rgba(15, 23, 42, 0.08);
     background:
         radial-gradient(circle at top, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.16)),
@@ -284,7 +300,7 @@
     align-self: start;
 
     span {
-        color: #000;
+        color: rgba(255, 255, 255, 0.96);
         font-size: clamp(2.8rem, 8vw, 4.4rem);
         font-weight: 700;
         line-height: 1;
@@ -302,11 +318,12 @@
     padding: 2px 4px 0 0;
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
 }
 
 .featuredLynnLabel {
     margin: 0;
-    color: #000;
+    color: rgba(15, 23, 42, 0.58);
     font-size: 0.73rem;
     font-weight: tokens.$fw-semibold;
     letter-spacing: 0.12em;
@@ -315,18 +332,57 @@
 
 .featuredLynnTitle {
     margin: 0.2rem 0 0;
-    color: #000;
+    color: rgba(15, 23, 42, 0.86);
     font-size: clamp(1.36rem, 2vw, 1.5rem);
     font-weight: tokens.$fw-bold;
     letter-spacing: -0.01em;
 }
 
+.featuredCardBadges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.24rem;
+    margin-top: 0.12rem;
+}
+
+.featuredExperienceBadge {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 0.28rem 0.62rem;
+    border-radius: 999px;
+    background: rgba(178, 214, 160, 0.32);
+    border: 1px solid rgba(119, 165, 96, 0.34);
+    color: #446236;
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+}
+
+.featuredContactBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.56rem;
+    border-radius: 999px;
+    border: 1px solid rgba(214, 116, 53, 0.72);
+    background: rgba(214, 116, 53, 0.88);
+    color: #fff;
+    font-size: 0.71rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+}
+
 .featuredLynnText {
-    margin: 0.28rem 0 0;
-    color: #000;
+    margin: 0.2rem 0 0;
+    color: rgba(15, 23, 42, 0.82);
     font-size: clamp(0.8rem, 0.92vw, 0.87rem);
     line-height: 1.45;
     max-width: none;
+    flex: 1 1 auto;
 }
 
 .cardOverlay {
@@ -441,8 +497,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 0.22rem;
-    margin-bottom: 0.2rem;
+    margin-top: 0.16rem;
+    margin-bottom: 0.12rem;
     color: #d67435;
     font-size: 0.94rem;
     font-weight: 600;
@@ -466,15 +522,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.5rem;
-    min-width: 88px;
-    min-height: 32px;
-    padding: 0.35rem 0.8rem;
-    border: 0;
+    margin-top: auto;
+    min-width: 72px;
+    min-height: 28px;
+    padding: 0.26rem 0.6rem;
+    border: 1px solid rgba(123, 81, 56, 0.9);
     border-radius: 999px;
     background: rgba(214, 116, 53, 0.12);
     color: #000;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
     align-self: flex-start;
@@ -505,7 +561,7 @@
 .allCaregiversCta {
     display: flex;
     justify-content: center;
-    margin: 26px auto 0;
+    margin: 4px auto 0;
     width: min(98vw, 1464px);
 }
 
@@ -513,16 +569,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 48px;
-    padding: 0.85rem 1.5rem;
+    min-height: 44px;
+    padding: 0.72rem 1.15rem;
     border-radius: 999px;
     background: rgba(214, 116, 53, 0.92);
     color: #fff;
-    font-size: 0.96rem;
+    font-size: 0.9rem;
     font-weight: 600;
     line-height: 1;
     text-decoration: none;
     transition: background-color 140ms ease, box-shadow 140ms ease;
+    white-space: nowrap;
 }
 
 .allCaregiversButton:hover,
@@ -576,10 +633,10 @@
     display: block;
 }
 
-@media (max-width: 1280px) {
+@media (min-width: 921px) and (max-width: 1280px) {
     .featuredCaregivers {
-        width: min(96vw, 1180px);
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: min(84vw, 1040px);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
@@ -588,117 +645,52 @@
         position: relative;
     }
 
-    .mobileSliderArrow {
-        display: inline-flex;
-        width: 43px;
-        height: 43px;
-        border: 0;
-        border-radius: 999px;
-        background: rgb(119, 141, 67);
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 5;
-        opacity: 0.95;
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
-
-        &::before {
-            content: "";
-            position: absolute;
-            inset: -12px;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 10px;
-            height: 10px;
-            border-right: 2.4px solid #fff;
-            border-bottom: 2.4px solid #fff;
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        &:hover {
-            opacity: 1;
-            background: rgb(102, 122, 57);
-        }
-
-        &:focus-visible {
-            outline: 3px solid rgba(255, 255, 255, 0.95);
-            outline-offset: 2px;
-        }
-    }
-
-    .mobileSliderArrowPrev {
-        left: -80px;
-
-        &::after {
-            transform: translate(calc(-50% + 2px), -50%) rotate(135deg);
-        }
-    }
-
-    .mobileSliderArrowNext {
-        right: -80px;
-    }
-
     .featuredCaregivers {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-    }
-
-    .featuredCaregivers::-webkit-scrollbar {
-        display: none;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        overflow: visible;
+        width: min(84vw, 1160px);
+        gap: clamp(12px, 1.4vw, 16px);
     }
 
     .featuredLynnCard {
-        flex: 0 0 calc((100% - 32px) / 3);
-        min-width: calc((100% - 32px) / 3);
-        min-height: 280px;
-        height: 280px;
-        scroll-snap-align: start;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+        max-width: 280px;
+        justify-self: center;
     }
 
     .featuredCardTop {
-        display: grid;
-        grid-template-columns: 156px minmax(0, 1fr);
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
         align-items: stretch;
     }
 
     .featuredLynnImage {
-        width: 156px;
-        max-width: 156px;
+        width: 100%;
+        max-width: none;
         height: auto;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 1 / 0.96;
     }
 
     .featuredImagePlaceholder {
-        width: 156px;
-        max-width: 156px;
+        width: 100%;
+        max-width: none;
+        aspect-ratio: 1 / 0.96;
     }
 
 }
 
 @media (min-width: 921px) and (max-width: 1280px) {
-    .mobileSliderArrowPrev {
-        left: -24px;
-    }
-
-    .mobileSliderArrowNext {
-        right: -24px;
-    }
-
     .featuredLynnCard {
-        flex: 0 0 calc((100% - 16px) / 2);
-        min-width: calc((100% - 16px) / 2);
+        min-height: 0;
+        height: auto;
+    }
+
+    .featuredCaregivers {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
 
@@ -721,12 +713,13 @@
 
     .allCaregiversCta {
         width: min(94vw, 1020px);
-        margin-top: 22px;
+        margin-top: 4px;
     }
 
     .allCaregiversButton {
-        width: 100%;
-        max-width: 360px;
+        width: auto;
+        max-width: 100%;
+        padding-inline: 1rem;
     }
 
     .mobileSliderArrow {
@@ -842,23 +835,25 @@
         grid-template-columns: 1fr;
         width: 100%;
         min-width: 100%;
+        min-height: 0;
+        height: auto;
         margin: 0;
-        padding: 20px;
+        padding: 18px 16px 20px;
         scroll-snap-align: start;
     }
 
     .featuredLynnImage {
-        width: clamp(150px, 58%, 200px);
-        max-width: 200px;
+        width: clamp(140px, 54%, 184px);
+        max-width: 184px;
         height: auto;
         aspect-ratio: 1 / 1;
-        margin: 0 auto 6px;
+        margin: 0 auto 4px;
     }
 
     .featuredImagePlaceholder {
-        width: clamp(150px, 58%, 200px);
-        max-width: 200px;
-        margin: 0 auto 6px;
+        width: clamp(140px, 54%, 184px);
+        max-width: 184px;
+        margin: 0 auto 4px;
     }
 
     .featuredPriscillaImage {
@@ -867,6 +862,15 @@
 
     .featuredCardMeta {
         text-align: left;
+        gap: 0.12rem;
+    }
+
+    .featuredLynnText {
+        margin-top: 0.34rem;
+    }
+
+    .readMoreButton {
+        margin-top: 0.8rem;
     }
 
     .layout {

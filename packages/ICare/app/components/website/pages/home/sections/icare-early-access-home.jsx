@@ -8,6 +8,7 @@ const DEFAULT_WHATSAPP_NUMBER = "447448016876";
 const DEFAULT_CARER_PHOTO_URL = "/images/avatars/female.webp";
 const DEFAULT_CARER_PHOTO_BY_NAME = {
     aiza: "/images/Aiza.jpeg",
+    bartosz: "/images/Bartosz.png",
     beauty: "/images/Beauty.jpeg",
     diana: "/images/Di.jpeg",
     di: "/images/Di.jpeg",
@@ -28,6 +29,23 @@ const DEFAULT_CARER_LOCATION_BY_NAME = {
     renata: "Berkshire (Reading area), London (North/West), open to other locations"
 };
 
+const DEFAULT_CARER_PHOTO_POSITION_BY_NAME = {
+    aiza: "center 65%",
+    bartosz: "center 18%",
+    beauty: "center 24%",
+    diana: "center 30%",
+    di: "center 30%",
+    eva: "center 20%",
+    faye: "center 24%",
+    karolina: "center 38%",
+    kinga: "center 18%",
+    lynn: "center 20%",
+    priscilla: "center 24%",
+    renata: "center 28%",
+    sandeep: "center 18%",
+    taslima: "center 22%"
+};
+
 const FALLBACK_CARERS = [
     {
         id: "lynn",
@@ -41,7 +59,7 @@ const FALLBACK_CARERS = [
         id: "eva",
         name: "Eva",
         location: "London and surrounding areas",
-        description: "Eva is a compassionate companion with around five years of experience supporting older adults. Originally from Slovakia, she has been living in the UK for over 12 years. Eva describes herself as empathetic and patient, with a natural willingness to help seniors feel comfortable and supported in everyday life. She enjoys spending time with older people, offering companionship, conversation and help with daily routines. Eva also holds a driving licence, which can be helpful for local errands or outings.",
+        description: "Eva is a compassionate companion with 12 years of experience supporting older adults. Originally from Slovakia, she has been living in the UK for over 12 years. Eva describes herself as empathetic and patient, with a natural willingness to help seniors feel comfortable and supported in everyday life. She enjoys spending time with older people, offering companionship, conversation and help with daily routines. Eva also holds a driving licence, which can be helpful for local errands or outings.",
         photoUrl: "/images/Eva.jpeg",
         photoAlt: "Eva caregiver profile photo"
     },
@@ -60,15 +78,6 @@ const FALLBACK_CARERS = [
         description: "Aiza has been working as a caregiver since 2009, with experience in care homes, private care, and both live-in and live-out roles. She has supported elderly individuals with mobility needs, wheelchair use, dementia, and Parkinson's, and is currently looking for visiting care work, ideally in the mornings through to early afternoon.",
         photoUrl: "/images/Aiza.jpeg",
         photoAlt: "Aiza caregiver profile photo"
-    },
-    {
-        id: "faye",
-        name: "Faye",
-        location: "West Yorkshire",
-        description: "Faye is based in West Yorkshire and is open to discussing opportunities in other areas depending on availability. She has over 16 years of experience supporting people in their daily lives, helping them feel comfortable, safe and respected at home. Faye has an NVQ Level 2 in Health & Social Care and a background in nursing and midwifery studies. Her approach is warm and she enjoys spending time with people, listening, talking, sharing everyday moments and helping with small routines that make life easier. Faye believes that companionship, patience and kindness can make a real difference to someone’s day. She is open to hourly companionship support and is happy to talk with families to see if it feels like a good match.",
-        photoUrl: "/images/Faye.jpeg",
-        photoAlt: "Faye featured caregiver profile",
-        whatsAppNumber: ""
     },
     {
         id: "priscilla",
@@ -93,6 +102,14 @@ const FALLBACK_CARERS = [
         description: "Beauty is an experienced caregiver currently available for live-in care placements. She has experience supporting clients with dementia, mobility limitations, disabilities and palliative care needs. She is known for her patient and compassionate approach, providing both practical support and companionship.",
         photoUrl: "/images/Beauty.jpeg",
         photoAlt: "Beauty caregiver profile photo"
+    },
+    {
+        id: "bartosz",
+        name: "Bartosz",
+        location: "Across the UK",
+        description: "Bartosz offers calm, dependable companionship support with a practical approach to everyday routines. He focuses on helping older adults feel comfortable, respected, and well supported at home.",
+        photoUrl: "/images/Bartosz.png",
+        photoAlt: "Bartosz caregiver profile photo"
     },
     {
         id: "di",
@@ -154,6 +171,75 @@ function toDigitsOnly(value) {
     return String(value || "").replace(/\D/g, "");
 }
 
+const EXPERIENCE_WORD_TO_NUMBER = {
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+    ten: 10,
+    eleven: 11,
+    twelve: 12,
+    thirteen: 13,
+    fourteen: 14,
+    fifteen: 15,
+    sixteen: 16,
+    seventeen: 17,
+    eighteen: 18,
+    nineteen: 19,
+    twenty: 20
+};
+
+function parseExperienceYears(description) {
+    const text = String(description || "").trim().toLowerCase();
+    if (!text) {
+        return null;
+    }
+
+    const numericYearsMatch = text.match(/\b(?:over|nearly|around|about)?\s*(\d{1,2})\+?\s+years?\s+of\s+(?:care\s+)?experience\b/);
+    if (numericYearsMatch) {
+        return Number.parseInt(numericYearsMatch[1], 10) || null;
+    }
+
+    const numericYearsGenericMatch = text.match(/\b(?:over|nearly|around|about)?\s*(\d{1,2})\+?\s+years?\b/);
+    if (numericYearsGenericMatch) {
+        return Number.parseInt(numericYearsGenericMatch[1], 10) || null;
+    }
+
+    const wordYearsMatch = text.match(/\b(?:over|nearly|around|about)?\s*(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty)\s+years?\b/);
+    if (wordYearsMatch) {
+        return EXPERIENCE_WORD_TO_NUMBER[wordYearsMatch[1]] || null;
+    }
+
+    const sinceMatch = text.match(/\bsince\s+(20\d{2})\b/);
+    if (sinceMatch) {
+        const startYear = Number.parseInt(sinceMatch[1], 10);
+        const currentYear = new Date().getFullYear();
+        if (Number.isFinite(startYear) && startYear <= currentYear) {
+            return Math.max(currentYear - startYear, 1);
+        }
+    }
+
+    return null;
+}
+
+function getExperienceYears(carer) {
+    if (typeof carer?.experienceYears === "number" && Number.isFinite(carer.experienceYears)) {
+        return carer.experienceYears;
+    }
+
+    const parsedExperienceYears = Number.parseInt(carer?.experienceYears, 10);
+    if (Number.isFinite(parsedExperienceYears) && parsedExperienceYears > 0) {
+        return parsedExperienceYears;
+    }
+
+    return parseExperienceYears(carer?.description);
+}
+
 function getDefaultPhotoUrl(carer) {
     const normalizedName = String(carer?.name || "").trim().toLowerCase();
     return DEFAULT_CARER_PHOTO_BY_NAME[normalizedName] || DEFAULT_CARER_PHOTO_URL;
@@ -162,6 +248,11 @@ function getDefaultPhotoUrl(carer) {
 function getDefaultLocation(carer) {
     const normalizedName = String(carer?.name || "").trim().toLowerCase();
     return DEFAULT_CARER_LOCATION_BY_NAME[normalizedName] || "";
+}
+
+function getDefaultPhotoPosition(carer) {
+    const normalizedName = String(carer?.name || "").trim().toLowerCase();
+    return DEFAULT_CARER_PHOTO_POSITION_BY_NAME[normalizedName] || "center 22%";
 }
 
 function isUsablePhotoUrl(value) {
@@ -211,14 +302,10 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
 
     const featuredCarers = useMemo(() => {
         const hasSanityCarers = Array.isArray(carers) && carers.length > 0;
-        const source = hasSanityCarers ? [...carers] : [...FALLBACK_CARERS];
-
-        if (hasSanityCarers) {
-            const hasFaye = source.some((carer) => String(carer?.name || "").trim().toLowerCase() === "faye");
-            if (!hasFaye) {
-                source.unshift(FALLBACK_CARERS[0]);
-            }
-        }
+        const source = (hasSanityCarers ? [...carers] : [...FALLBACK_CARERS]).filter((carer) => {
+            const normalizedName = String(carer?.name || "").trim().toLowerCase();
+            return normalizedName !== "faye";
+        });
 
         return source.map((carer, index) => {
             const cardId = toCardId(carer?._id || carer?.id || carer?.name, index);
@@ -227,17 +314,19 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                 cardId,
                 name: carer?.name || `Carer ${index + 1}`,
                 description: carer?.description || "",
+                experienceYears: getExperienceYears(carer),
                 location: carer?.location || getDefaultLocation(carer),
                 photoAlt: carer?.photoAlt || carer?.name || `Featured carer ${index + 1}`,
                 photoUrl: resolvePhotoUrl(carer),
-                photoPosition: carer?.photoPosition || "center center",
+                photoPosition: carer?.photoPosition || getDefaultPhotoPosition(carer),
                 whatsAppNumber: toDigitsOnly(carer?.whatsAppNumber),
                 whatsAppMessage: carer?.whatsAppMessage || ""
             };
         });
     }, [carers]);
 
-    const slideCount = featuredCarers.length;
+    const displayedCarers = useMemo(() => featuredCarers.slice(0, 8), [featuredCarers]);
+    const slideCount = displayedCarers.length;
 
     useEffect(() => {
         if (slideCount <= 0) {
@@ -452,16 +541,21 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
         };
     }, [isMobileViewport, expandedId]);
 
-    const expandedCard = featuredCarers.find((carer) => carer.cardId === expandedId) || null;
+    const expandedCard = displayedCarers.find((carer) => carer.cardId === expandedId) || null;
 
     return (
         <section id="featured-carers" aria-label="Featured carers" className={styles.wrap}>
             <h2 className={styles.featuredCaregiversTitle}>Find the right caregiver for your loved one</h2>
             <p className={styles.featuredCaregiversText}>
-                View experience, availability and choose someone who fits your family.
+                <span className={styles.featuredCaregiversHighlight}>
+                    View experience, availability and choose someone who fits your family.
+                </span>
+                <span className={styles.featuredCaregiversSecondary}>
+                    Carefully selected caregivers with real experience and references.
+                </span>
             </p>
             <div className={styles.mobileSliderWrap}>
-                {slideCount > 1 && hasHorizontalOverflow && (
+                {isMobileViewport && slideCount > 1 && hasHorizontalOverflow && (
                     <button
                         type="button"
                         className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowPrev}`}
@@ -478,7 +572,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                     className={`${styles.featuredCaregivers} ${isMobileCrossfading ? styles.mobileCrossfade : ""}`}
                     onScroll={handleSliderScroll}
                 >
-                    {featuredCarers.map((carer) => {
+                    {displayedCarers.map((carer) => {
                         const isPriscillaCard = carer.cardId.includes("priscilla");
                         const imageClassName = isPriscillaCard
                             ? `${styles.featuredLynnImage} ${styles.featuredPriscillaImage}`
@@ -513,9 +607,13 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                     </div>
                                 )}
                                 <div className={styles.featuredCardMeta}>
-                                    <p className={styles.featuredLynnTitle}>{carer.name}</p>
+                                    <div className={styles.featuredCardHeader}>
+                                        <p className={styles.featuredLynnTitle}>{carer.name}</p>
+                                    </div>
                                     {carer.location ? (
-                                        <small className={styles.featuredLynnLocation}>
+                                        <small
+                                            className={`${styles.featuredLynnLocation} ${carer.cardId.includes("renata") ? styles.featuredLynnLocationWrap : ""}`}
+                                        >
                                             <FontAwesomeIcon icon={faLocationDot} className={styles.featuredLynnLocationIcon} />
                                             {carer.location}
                                         </small>
@@ -524,6 +622,26 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                             &nbsp;
                                         </small>
                                     )}
+                                    {(carer.experienceYears || carer.whatsAppNumber) ? (
+                                        <div className={styles.featuredCardBadges}>
+                                            {carer.experienceYears ? (
+                                                <span className={styles.featuredExperienceBadge}>
+                                                    {carer.experienceYears}+ years
+                                                </span>
+                                            ) : null}
+                                            {carer.whatsAppNumber ? (
+                                                <a
+                                                    className={styles.featuredContactBadge}
+                                                    href={createWhatsAppHref(carer)}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    onClick={(event) => event.stopPropagation()}
+                                                >
+                                                    Contact
+                                                </a>
+                                            ) : null}
+                                        </div>
+                                    ) : null}
                                     <p className={styles.featuredLynnText}>{withPreview(carer.description)}</p>
                                     <Link
                                         to={`/caregivers/${carer.slug || toCardId(carer?.name, 0)}`}
@@ -534,17 +652,6 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                                     >
                                         Read more
                                     </Link>
-                                    {carer.whatsAppNumber ? (
-                                        <a
-                                            className={styles.contactButton}
-                                            href={createWhatsAppHref(carer)}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            onClick={(event) => event.stopPropagation()}
-                                        >
-                                            Contact
-                                        </a>
-                                    ) : null}
                                 </div>
                             </div>
                             {!isMobileViewport && isCardExpanded(carer.cardId) && (
@@ -571,7 +678,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
                     })}
                 </div>
 
-                {slideCount > 1 && hasHorizontalOverflow && (
+                {isMobileViewport && slideCount > 1 && hasHorizontalOverflow && (
                     <button
                         type="button"
                         className={`${styles.mobileSliderArrow} ${styles.mobileSliderArrowNext}`}
@@ -605,7 +712,7 @@ export default function ICareEarlyAccessHomeSection({ carers = [] }) {
 
             <div className={styles.allCaregiversCta}>
                 <Link to="/caregivers" className={styles.allCaregiversButton}>
-                    See all our caregivers
+                    View available carers
                 </Link>
             </div>
         </section>
