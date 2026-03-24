@@ -39,6 +39,7 @@ export const newsPost = defineType({
         { type: 'image', options: { hotspot: true } }, // keep your normal images
         { type: 'cta' },         // ✅ new
         { type: 'inlineImage' }, // ✅ optional
+        { type: 'youtubeEmbed' },
       ],
     }),
     defineField({

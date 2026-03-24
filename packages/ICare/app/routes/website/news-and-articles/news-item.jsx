@@ -7,6 +7,29 @@ import classes from "~/styles/pages/news-and-articles/news-item.module.scss";
 import Tag from "~/components/website/common/tags/tag";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 
+function getYouTubeEmbedUrl(url) {
+    if (!url) { return null; }
+
+    try {
+        const parsedUrl = new URL(url);
+        const host = parsedUrl.hostname.replace(/^www\./, "");
+
+        if (host === "youtu.be") {
+            const videoId = parsedUrl.pathname.replace("/", "").trim();
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        }
+
+        if (host === "youtube.com" || host === "m.youtube.com") {
+            const videoId = parsedUrl.searchParams.get("v");
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        }
+    } catch {
+        return null;
+    }
+
+    return null;
+}
+
 // Loader
 export async function loader({ params }) {
     const slug = params.slug;
@@ -113,6 +136,32 @@ const portableTextComponents = {
                     />
                     {value?.caption && (
                         <figcaption className={classes.ptInlineImageCaption}>
+                            {value.caption}
+                        </figcaption>
+                    )}
+                </figure>
+            );
+        },
+
+        youtubeEmbed: ({ value }) => {
+            const embedUrl = getYouTubeEmbedUrl(value?.url);
+            if (!embedUrl) { return null; }
+
+            return (
+                <figure className={classes.ptYoutube}>
+                    <div className={classes.ptYoutubeFrame}>
+                        <iframe
+                            src={embedUrl}
+                            title={value?.title || "Embedded YouTube video"}
+                            className={classes.ptYoutubeIframe}
+                            loading="lazy"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        />
+                    </div>
+                    {value?.caption && (
+                        <figcaption className={classes.ptYoutubeCaption}>
                             {value.caption}
                         </figcaption>
                     )}
