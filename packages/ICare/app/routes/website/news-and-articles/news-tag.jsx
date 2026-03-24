@@ -5,6 +5,12 @@ import { urlFor } from "../../../lib/sanityImage";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 import classes from "~/styles/pages/news-and-articles/news-and-articles.module.scss"; // reuse your existing grid styles
 
+function getHeroImageSrc(heroImage) {
+    if (!heroImage) { return null; }
+    if (heroImage.localSrc) { return heroImage.localSrc; }
+    return urlFor(heroImage).width(600).height(360).fit("crop").url();
+}
+
 function prettifyTag(tag) {
     // "in-home-care" -> "In home care"
     const spaced = tag.replace(/-/g, " ");
@@ -83,7 +89,7 @@ export default function NewsTagPage() {
                                 <Link to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
                                     {p.heroImage && (
                                         <img
-                                            src={urlFor(p.heroImage).width(600).height(360).fit("crop").url()}
+                                            src={getHeroImageSrc(p.heroImage)}
                                             alt={p.heroImage?.alt || p.title}
                                             className={classes.heroImage}
                                         />

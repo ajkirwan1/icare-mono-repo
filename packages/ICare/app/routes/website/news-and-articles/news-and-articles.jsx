@@ -6,6 +6,12 @@ import classes from "~/styles/pages/news-and-articles/news-and-articles.module.s
 import Tag from "~/components/website/common/tags/tag";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 
+function getHeroImageSrc(heroImage) {
+  if (!heroImage) { return null; }
+  if (heroImage.localSrc) { return heroImage.localSrc; }
+  return urlFor(heroImage).width(600).height(360).fit("crop").url();
+}
+
 export const meta = () => {
   const title = "Care guidance | ICare";
   const description = "Expert articles and practical guidance on home care in the UK for families and caregivers.";
@@ -118,7 +124,7 @@ export default function NewsAndArticlesPage() {
                 <NavLink to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
                   {p.heroImage && (
                     <img
-                      src={urlFor(p.heroImage).width(600).height(360).fit("crop").url()}
+                      src={getHeroImageSrc(p.heroImage)}
                       alt={p.heroImage?.alt || p.title}
                       className={classes.heroImage}
                     />

@@ -7,6 +7,24 @@ import classes from "~/styles/pages/news-and-articles/news-item.module.scss";
 import Tag from "~/components/website/common/tags/tag";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 
+function getHeroImageSrc(heroImage, options = {}) {
+    if (!heroImage) { return null; }
+    if (heroImage.localSrc) { return heroImage.localSrc; }
+
+    const { width = 1400, height, fit = "crop" } = options;
+    let builder = urlFor(heroImage).width(width);
+
+    if (height) {
+        builder = builder.height(height);
+    }
+
+    if (fit) {
+        builder = builder.fit(fit);
+    }
+
+    return builder.url();
+}
+
 function getYouTubeEmbedUrl(url) {
     if (!url) { return null; }
 
@@ -55,7 +73,7 @@ export function meta({ data }) {
     const title = `${post.title} | ICare`;
     const description = post.metaDescription || post.excerpt || "";
     const ogImage = post.heroImage
-        ? urlFor(post.heroImage).width(1200).height(630).fit("crop").url()
+        ? getHeroImageSrc(post.heroImage, { width: 1200, height: 630, fit: "crop" })
         : `${siteUrl}/og-default.png`; // optional fallback
     return [
         { title },
@@ -196,7 +214,7 @@ export default function NewsPostPage() {
             // logo: { "@type": "ImageObject", url: `${siteUrl}/logo.png` },
         },
         image: post.heroImage
-            ? [urlFor(post.heroImage).width(1200).height(630).fit("crop").url()]
+            ? [getHeroImageSrc(post.heroImage, { width: 1200, height: 630, fit: "crop" })]
             : undefined
     };
 
@@ -253,11 +271,7 @@ export default function NewsPostPage() {
                     <header className={classes.articleHeader} style={{ display: "flex", paddingTop: "2vh", paddingBottom: "2vh", gap: "2vw" }}>
                         {post.heroImage && (
                             <img
-                                src={urlFor(post.heroImage)
-                                    .width(1400)
-                                    .height(700)
-                                    .fit("crop")
-                                    .url()}
+                                src={getHeroImageSrc(post.heroImage, { width: 1400, height: 700, fit: "crop" })}
                                 alt={post.heroImage?.alt || post.title}
                                 className={classes.heroImage}
                                 width={1400}
@@ -311,7 +325,7 @@ export default function NewsPostPage() {
                                             <article className={classes.relatedCard}>
                                                 {r.heroImage && (
                                                     <img
-                                                        src={urlFor(r.heroImage).width(800).height(450).fit("crop").url()}
+                                                        src={getHeroImageSrc(r.heroImage, { width: 800, height: 450, fit: "crop" })}
                                                         alt={r.heroImage?.alt || r.title}
                                                         className={classes.relatedImage}
                                                         loading="lazy"

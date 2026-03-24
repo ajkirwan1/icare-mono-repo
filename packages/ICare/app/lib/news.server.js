@@ -13,7 +13,10 @@ const LOCAL_NEWS_POSTS = [
       "Many families reach a point where they start wondering whether an elderly parent needs extra support at home. Here are some of the most common signs to look out for, and what kind of help families often start with.",
     metaDescription:
       "Not sure when an elderly parent may need extra help at home? Here are 7 common signs families notice, plus simple ways to start getting support.",
-    heroImage: null,
+    heroImage: {
+      localSrc: "/images/heros/icare-companionship-1200.jpg",
+      alt: "Older parent receiving support at home",
+    },
     tags: ["Families", "Elderly Care", "Support at Home", "Companionship", "Care Decisions"],
     featuredQuote: null,
     isFeatured: false,
