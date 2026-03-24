@@ -5,6 +5,29 @@ import { urlFor } from "../../../lib/sanityImage";
 import EngagementSection from "~/components/website/common/sections/engagement-section";
 import classes from "~/styles/pages/news-and-articles/news-and-articles.module.scss"; // reuse your existing grid styles
 
+function getYouTubeEmbedUrl(url) {
+    if (!url) { return null; }
+
+    try {
+        const parsedUrl = new URL(url);
+        const host = parsedUrl.hostname.replace(/^www\./, "");
+
+        if (host === "youtu.be") {
+            const videoId = parsedUrl.pathname.replace("/", "").trim();
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        }
+
+        if (host === "youtube.com" || host === "m.youtube.com") {
+            const videoId = parsedUrl.searchParams.get("v");
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        }
+    } catch {
+        return null;
+    }
+
+    return null;
+}
+
 function getHeroImageSrc(heroImage) {
     if (!heroImage) { return null; }
     if (heroImage.localSrc) { return heroImage.localSrc; }
@@ -86,15 +109,27 @@ export default function NewsTagPage() {
                     <ul className={classes.grid}>
                         {posts.map((p) => (
                             <li key={p._id} className={classes.newsCard}>
-                                <Link to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
-                                    {p.heroImage && (
-                                        <img
-                                            src={getHeroImageSrc(p.heroImage)}
-                                            alt={p.heroImage?.alt || p.title}
-                                            className={classes.heroImage}
+                                {p.videoUrl && getYouTubeEmbedUrl(p.videoUrl) ? (
+                                    <div className={classes.videoEmbedWrap}>
+                                        <iframe
+                                            src={getYouTubeEmbedUrl(p.videoUrl)}
+                                            title={p.title}
+                                            className={classes.videoEmbed}
+                                            loading="lazy"
+                                            referrerPolicy="strict-origin-when-cross-origin"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
                                         />
-                                    )}
+                                    </div>
+                                ) : p.heroImage ? (
+                                    <img
+                                        src={getHeroImageSrc(p.heroImage)}
+                                        alt={p.heroImage?.alt || p.title}
+                                        className={classes.heroImage}
+                                    />
+                                ) : null}
 
+                                <Link to={`/care-guidance/${p.slug}`} className={classes.cardLink}>
                                     <div className={classes.cardContent}>
                                         <div className={classes.titleRow}>
                                             <h2 className={classes.title}>{p.title}</h2>
