@@ -12,28 +12,28 @@ import styles from "./trust-values-section.module.scss";
 export default function TrustValuesSection() {
     const cards = [
         {
-            k: "Trust",
-            descShort: "Clear profiles, clear agreements.",
+            k: "Local",
+            descShort: "A trusted network being built locally.",
             descFull:
-                "See who you’re speaking with, what support is offered, and what it costs - without hidden agency markups. A calmer way to decide, with expectations agreed upfront.",
+                "ICare is starting in Cheltenham and the Cotswolds and building local availability steadily. Depending on the area and the kind of support needed, some caregivers may be nearby while others may come from further afield.",
             img: "/images/web/homepage/icare-trust.webp",
             imgMobile: "/images/web/homepage/icare-trust-1000.webp",
             alt: "Caregiver and elderly person reviewing a clear profile together",
         },
         {
-            k: "Care",
-            descShort: "Human support, not bureaucracy.",
+            k: "Flexible",
+            descShort: "No contracts and no fixed agency structure.",
             descFull:
-                "Care is a relationship. We prioritise dignity, consistency and real presence  - from companionship visits to live-in continuity, matched to your needs.",
+                "Some people need a few hours each week. Others need more regular help. Families and caregivers can agree what works for them directly, without being pushed into a set arrangement.",
             img: "/images/web/homepage/secondpic-1400.webp",
             imgMobile: "/images/web/homepage/secondpic-1000.webp",
             alt: "Caregiver providing compassionate support at home",
         },
         {
-            k: "Community",
-            descShort: "Support that scales locally.",
+            k: "Direct",
+            descShort: "Straightforward conversations from the start.",
             descFull:
-                "Families and caregivers benefit from shared clarity and better matching over time. Early access helps us prioritise the right towns first - starting with your area.",
+                "You can message caregivers directly, ask about routines, and agree details together. That often feels calmer and more natural than speaking through a middle layer.",
             img: "/images/web/homepage/community-1400.webp",
             imgMobile: "/images/web/homepage/community-1000.webp",
             alt: "Families and caregivers connecting in a local community",
@@ -46,18 +46,18 @@ export default function TrustValuesSection() {
     return (
         <section aria-label="Trust care and community intro + values" className={styles.section}>
             <div className={`${styles.headerSection} ${styles.header}`}>
-                <h2 className={styles.title}>Trust, care &amp; community</h2>
+                <h2 className={styles.title}>Why families choose ICare</h2>
 
                 <p className={styles.subtitle}>
-                    ICare was created to offer a calmer alternative for families.
+                    Local-first, honest, and personal.
                 </p>
 
                 <p className={styles.subinfo}>
-                    We saw how overwhelming care decisions can feel, especially when there&apos;s pressure to decide quickly or a lack of clarity around who is involved.
+                    ICare is not a care agency. We introduce families to independent caregivers and help them find available support in their area.
                     <br /><br />
-                    ICare exists to bring people together, create space for conversation, and help families and caregivers find support that feels right for them.
+                    We are building a trusted network locally in the Cotswolds, starting in and around Cheltenham, while availability continues to grow.
                     <br /><br />
-                    We offer structure, tools and guidance along the way - while the care relationship itself always remains between the family and the caregiver.
+                    That means being clear about where support is available now, while steadily growing stronger local coverage over time.
                 </p>
             </div>
 
@@ -102,7 +102,7 @@ export default function TrustValuesSection() {
 
                                     <p className={styles.cardShort}>{item.descShort}</p>
 
-                                    {!isOpen && <span className={styles.learnMore} aria-hidden="true">Learn more</span>}
+                                    {!isOpen && <span className={styles.learnMore} aria-hidden="true">Read more</span>}
 
                                     <div
                                         className={`${styles.expandWrapper} ${isOpen ? styles.expandWrapperOpen : ""}`}

@@ -5,18 +5,18 @@ export default function HowItWorksThreeSteps() {
     const steps = [
         {
             n: "1",
-            t: "Browse and compare carers",
-            d: "See clear profiles, availability and companionship support — so you can shortlist with confidence.",
+            t: "Browse local caregivers or get matched",
+            d: "Look through local profiles in Cheltenham and the Cotswolds, or ask us to help you find a good fit nearby.",
         },
         {
             n: "2",
-            t: "Message and agree the details",
-            d: "Talk directly and confirm tasks, hours, start date and expectations — in one place.",
+            t: "Message directly",
+            d: "Speak with caregivers yourself, ask questions, and get a feel for the person before anything is agreed.",
         },
         {
             n: "3",
-            t: "Start care with clarity",
-            d: "Begin support knowing what’s agreed. No agency pressure - just a clear arrangement.",
+            t: "Agree the details together",
+            d: "Decide hours, routines, pay and start dates together, without an agency or middle layer.",
         },
     ];
 
@@ -28,9 +28,9 @@ export default function HowItWorksThreeSteps() {
         >
             <div className={styles.hiwContainer}>
                 <div className={styles.hiwHeader}>
-                    <h2 className={styles.hiwTitle}>A different way to begin care</h2>
+                    <h2 className={styles.hiwTitle}>How it works</h2>
                     <p className={styles.hiwSub}>
-                        A calmer path through a big decision with clear steps and no pressure.
+                        A simple local way to find support, talk things through, and make decisions at your own pace.
                     </p>
                 </div>
 
@@ -47,10 +47,20 @@ export default function HowItWorksThreeSteps() {
                 </ol>
 
                 <div className={styles.ctaWrap}>
+                    <p className={styles.requirementLead}>
+                        Before a caregiver can join ICare, they must provide:
+                    </p>
+
+                    <div className={styles.requirementBadges} aria-label="Caregiver requirements">
+                        <span className={styles.requirementBadge}>Photo ID and UK right to work</span>
+                        <span className={styles.requirementBadge}>DBS check</span>
+                        <span className={styles.requirementBadge}>Public liability insurance</span>
+                    </div>
+
                     <p className={styles.ctaText}>
-                        Want early access in your area?
+                        Looking for someone local in the Cotswolds?
                         <br />
-                        Join the waiting list - we will notify you when ICare opens near you.
+                        You can start with a quiet look around and get in touch when it feels right.
                     </p>
 
                     <button
@@ -65,7 +75,7 @@ export default function HowItWorksThreeSteps() {
                             window.history.pushState(null, "", "#waitlist");
                         }}
                     >
-                        Join the waiting list
+                        Join the local list
                     </button>
                 </div>
             </div>

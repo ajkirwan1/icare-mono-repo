@@ -68,38 +68,23 @@
 
 .homeTextWrapper {
     display: flex;
-    justify-content: flex-end;
-    text-align: right;
+    justify-content: flex-start;
+    text-align: left;
 
     @media (max-width:600px) {
         text-align: left;
     }
 }
 
-.badgeWrapper {
-    display: block;
-    max-width: $hero-badge-max;
-}
-
-.badge {
-    display: inline-block;
-    margin-bottom: 0.2rem;
-    font-size: 1.1rem;
-    font-weight: $fw-semibold;
-    color: $ink-strong;
-    background: rgba($on-dark, 0.8);
-    border-radius: $radius-sm;
-    padding: 6px $space-12;
-}
-
 .copyBlock {
-    margin-top: 6rem;
-    max-width: $hero-copy-max;
+    margin-top: 7.25rem;
+    max-width: min(42rem, 100%);
+    transform: translateX(-32px);
 }
 
 .heading {
-    font-size: calc(#{$fs-hero-title} * 1.1);
-    line-height: $lh-hero-title;
+    font-size: calc(#{$fs-hero-title} * 0.98);
+    line-height: 1.05;
     font-weight: $fw-bold;
     color: $on-dark;
     margin: 0;
@@ -140,42 +125,84 @@
 
 .homeLead {
     margin: 2rem 0 2rem;
-    font-size: 1.32rem;
+    font-size: 1.24rem;
     color: $on-dark;
-    max-width: 600px;
-    line-height: 1.6;
+    max-width: 34rem;
+    line-height: 1.55;
 }
 
 .homeLead b {
     font-weight: $fw-semibold;
-    font-size: 1.54rem;
+    font-size: 1.4rem;
     display: inline-block;
     margin-bottom: 0.6rem;
 }
 
+.trustLine {
+    color: #5f7136;
+    font-size: 1.49rem;
+    font-weight: 800;
+    text-shadow: none;
+}
+
 .whatIfLine {
     display: inline-block;
-    font-size: 1.27rem;
+    font-size: 1.18rem;
     padding-top: 0.2rem;
+}
+
+.trustIntro {
+    margin: 0.35rem 0 1rem;
+    max-width: 40rem;
+    font-size: 1.4rem;
+    line-height: 1.45;
+    font-weight: 400;
+    color: $on-dark;
+}
+
+.trustStrip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.2rem;
+    margin: 0 0 1.55rem;
+    max-width: 42rem;
+}
+
+.trustStripItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.98rem;
+    line-height: 1.35;
+    font-weight: 500;
+    color: $on-dark;
+}
+
+.trustStripCheck {
+    color: #6f7f4a;
+    font-size: 0.96rem;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .heroLink {
     display: inline-flex;
     align-items: center;
-    margin-top: 0.25rem;
-    color: #778d43;
+    margin-top: 0.5rem;
+    color: #ffffff;
     font-weight: 600;
-    font-size: 1.12rem;
+    font-size: 1.13rem;
     text-decoration: none;
     text-shadow: none;
     opacity: 1;
     animation: heroLinkFloat 2.8s ease-in-out infinite;
     gap: 0;
     line-height: 1.2;
-    padding: 6px 1rem;
-    border: 1px solid #778d43;
+    padding: 10.8px 1.26rem;
+    border: 1px solid #5f7136;
     border-radius: 999px;
-    background: rgba(255, 255, 255, .8);
+    background: #5f7136;
 }
 
 .heroLinkLabel {
@@ -184,9 +211,9 @@
 }
 
 .heroLink:hover {
-    color: #6d833c;
-    border-color: #6d833c;
-    background: rgba(255, 255, 255, .86);
+    color: #ffffff;
+    border-color: #52622f;
+    background: #52622f;
 }
 
 @keyframes heroLinkFloat {
@@ -231,9 +258,15 @@
     font-weight: 500;
 }
 
-@media (max-width:900px) {
+@media (max-width:1100px) {
+    .copyBlock {
+        max-width: min(36rem, 100%);
+        transform: none;
+    }
+
     .heading {
-        white-space: normal;
+        font-size: calc(#{$fs-hero-title} * 0.88);
+        white-space: nowrap;
     }
 }
 
@@ -250,6 +283,7 @@
     .copyBlock {
         margin: 0;
         padding-bottom: 2rem;
+        transform: none;
     }
 
     .backgroundImage {
@@ -300,16 +334,43 @@
         text-shadow: none;
     }
 
+    .trustStrip {
+        gap: 0.55rem 0.9rem;
+        margin: 0 0 1.15rem;
+        max-width: 100%;
+    }
+
+    .trustIntro {
+        margin: 0.25rem 0 0.85rem;
+        max-width: 100%;
+        font-size: 1.21rem;
+        line-height: 1.45;
+        color: #201002;
+    }
+
+    .trustLine {
+        font-size: 1.35rem;
+    }
+
+    .trustStripItem {
+        font-size: 0.92rem;
+        color: #201002;
+    }
+
+    .trustStripCheck {
+        font-size: 0.88rem;
+    }
+
     .heroLink {
-        color: #778d43;
-        font-size: 1.12rem;
+        color: #fff;
+        font-size: 1.06rem;
         line-height: 1.25;
         text-wrap: pretty;
         text-shadow: none;
         animation: none;
-        border-color: #778d43;
-        background: rgba(255, 255, 255, .8);
-        padding: 6px 1rem;
+        border-color: #5f7136;
+        background: #5f7136;
+        padding: 9px 1.08rem;
         gap: 0;
     }
 

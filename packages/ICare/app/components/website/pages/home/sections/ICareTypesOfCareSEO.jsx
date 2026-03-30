@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./icare-types-of-care-seo.module.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,13 +8,10 @@ import {
     faMoon,
     faBrain,
     faCircleInfo,
-    faChevronDown,
-    faShieldHalved,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function ICareTypesOfCareSEO() {
     const careAtHomeRef = useRef(null);
-    const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
 
     useEffect(() => {
         const node = careAtHomeRef.current;
@@ -36,33 +33,33 @@ export default function ICareTypesOfCareSEO() {
     const types = [
         {
             icon: faHandHoldingHeart,
-            t: "Companionship & everyday support",
-            d: "Friendly company at home, conversation, walks and everyday routines.",
+            t: "Companionship",
+            d: "Friendly company at home, conversation, walks, and time together that feels steady and kind.",
         },
         {
             icon: faClock,
-            t: "Hourly companionship visits",
-            d: "Flexible check-ins — from short visits to regular daily companionship.",
+            t: "Help around the home",
+            d: "Light practical help with meals, tidying, shopping, and other everyday bits of life.",
         },
         {
             icon: faMoon,
-            t: "Overnight companionship (as agreed)",
-            d: "Reassurance and presence through the night. Non-clinical support only.",
+            t: "Routines",
+            d: "Support with familiar daily patterns, gentle reminders, and keeping the day feeling settled.",
         },
         {
             icon: faClock,
-            t: "Respite companionship (short-term)",
-            d: "Short-term cover so family carers can rest or step away for a little while.",
+            t: "Everyday support",
+            d: "Flexible help that can be agreed directly, whether that is a few visits or more regular support.",
         },
         {
             icon: faBrain,
-            t: "Memory & routine support",
-            d: "Consistent, familiar support matched to the person’s routines and preferences.",
+            t: "Short breaks for family carers",
+            d: "A bit of breathing space for family members who need someone trusted to step in for a while.",
         },
         {
-            icon: faClock,
-            t: "Routine reminders (non-clinical)",
-            d: "Gentle prompts for agreed routines. No prescribing, administering or clinical decisions.",
+            icon: faCircleInfo,
+            t: "A gentle note",
+            d: "This is everyday, non-medical support. ICare does not provide nursing or clinical care.",
         },
     ];
 
@@ -73,13 +70,13 @@ export default function ICareTypesOfCareSEO() {
         >
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h2 className={styles.h1}>Companionship and everyday support</h2>
-                    <h3 className={styles.h2}>A calm, practical way to find the right match</h3>
+                    <h2 className={styles.h1}>Types of support</h2>
+                    <h3 className={styles.h2}>Everyday help that feels personal and local</h3>
 
                     <p className={styles.lead}>
-                        ICare helps families connect with independent companions for{" "}
-                        <strong className={styles.strong}>everyday support</strong> - friendly presence,
-                        routines and practical help agreed directly between you.
+                        ICare helps families connect with independent caregivers for{" "}
+                        <strong className={styles.strong}>companionship</strong>, help around the home,
+                        routines, and everyday support agreed directly together.
                     </p>
                 </div>
 
@@ -113,23 +110,18 @@ export default function ICareTypesOfCareSEO() {
                         </div>
 
                         <div>
-                            <h3 className={styles.sectionTitle}>Why choose support at home?</h3>
+                            <h3 className={styles.sectionTitle}>Why people often choose support at home</h3>
 
                             <p className={styles.sectionText}>
-                                Staying at home helps people keep familiar routines, comfort and independence - with the
-                                right everyday support in place. Support fits around daily life at home, rather than asking
-                                someone to adjust to a new environment.
+                                Staying at home can help people keep familiar routines, comfort, and a sense of self. Support fits around daily life, rather than asking someone to settle into somewhere new.
                             </p>
 
                             <p className={styles.sectionText}>
-                                For many families, knowing someone reliable is there brings reassurance and peace of mind.
-                                Familiar surroundings
-                                can reduce stress and confusion, especially when routines and personal space matter.
+                                For many families, knowing there is a local person they know and trust brings real peace of mind. Familiar surroundings can also make everyday life feel calmer.
                             </p>
 
                             <p className={styles.sectionText}>
-                                Support at home is flexible by nature. You can start small with occasional visits and adjust
-                                over time without difficult moves or long-term commitments.
+                                Support at home can start small and change over time. There is room to keep things flexible, without long contracts or a fixed agency setup.
                             </p>
                         </div>
                     </div>

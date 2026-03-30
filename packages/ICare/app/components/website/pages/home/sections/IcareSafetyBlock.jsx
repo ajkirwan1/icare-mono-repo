@@ -4,36 +4,35 @@ import styles from "./safety-block.module.scss";
 export default function SafetyComesFirstThreeBoxes() {
     const boxes = [
         {
-            title: "Identity & eligibility",
+            title: "Before profiles go live",
             desc: (
                 <>
-                    <strong className={styles.strong}>Photo ID</strong> and{" "}
-                    <strong className={styles.strong}>Right to Work</strong> checks are completed
-                    before profiles are made visible.
+                    To join ICare, caregivers must provide{" "}
+                    <strong className={styles.strong}>photo ID</strong> and proof of{" "}
+                    <strong className={styles.strong}>right to work in the UK</strong>.
                 </>
             ),
             image: "/images/web/homepage/verified-caregiver-profiles.webp",
             alt: "Identity verification documents",
         },
         {
-            title: "Relevant experience",
+            title: "Required checks",
             desc: (
                 <>
-                    Carers with <strong className={styles.strong}>references</strong> and
-                    appropriate <strong className={styles.strong}>experience</strong>, with
-                    references shown where available.
+                    Caregivers must also provide a{" "}
+                    <strong className={styles.strong}>DBS check</strong> and{" "}
+                    <strong className={styles.strong}>public liability insurance</strong>{" "}
+                    to join ICare.
                 </>
             ),
             image: "/images/web/homepage/safety-comes-first.webp",
             alt: "Caregiver helping at home",
         },
         {
-            title: "Checks shown where applicable",
+            title: "Reviewed before joining",
             desc: (
                 <>
-                    <strong className={styles.strong}>DBS</strong> and{" "}
-                    <strong className={styles.strong}>insurance</strong> are displayed when
-                    provided and relevant depending on location and the nature of support.
+                    We review this information before profiles go live, so families can see clear, reassuring details when choosing who to contact.
                 </>
             ),
             image: "/images/web/homepage/DBS-and-insurance.webp",
@@ -48,14 +47,13 @@ export default function SafetyComesFirstThreeBoxes() {
 
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h2 className={styles.h1}>Safety comes first</h2>
-                    <h3 className={styles.h2}>A safer way to start companionship at home</h3>
+                    <h2 className={styles.h1}>Trust &amp; Safety</h2>
+                    <h3 className={styles.h2}>Clear entry requirements for caregivers</h3>
 
                     <p className={styles.lead}>
-                        Trust in home care depends on clear standards, not assumptions.
+                        ICare is a matching platform, not a care agency.
                         <br />
-                        ICare uses defined verification steps covering identity, right to work and
-                        relevant background information.
+                        To join ICare, caregivers must provide ID, right to work in the UK, a DBS check, and public liability insurance. We review this information before profiles go live.
                     </p>
                 </div>
 

@@ -16,14 +16,14 @@ import { useLoaderData } from "react-router";
 
 export const meta = () => {
   return [
-    { title: "ICare | Care at home with independent carers across the UK" },
-    { name: "description", content: "Find trusted companions for elderly relatives or join our community of caregivers. iCare connects families with caring professionals directly, without agencies or intermediaries." },
-    { name: "keywords", content: "elderly companionship UK, companionship care for elderly, companion for elderly parent, caregiver jobs UK, trusted caregivers" },
+    { title: "ICare | Growing local caregiver support in Cheltenham and the Cotswolds" },
+    { name: "description", content: "ICare helps families connect with independent caregivers and find available support in their area. We are building local availability in Cheltenham and across the Cotswolds. ICare is not a care agency." },
+    { name: "keywords", content: "Cheltenham caregiver support, Cotswolds caregiver network, companionship care Cheltenham, independent caregivers Cotswolds, local care introductions" },
 
     // Open Graph
     { property: "og:type", content: "website" },
-    { property: "og:title", content: "iCare - Trusted Companionship for Elderly Adults" },
-    { property: "og:description", content: "Find trusted companions for elderly relatives or join our community of caregivers. Be among the first when we launch." },
+    { property: "og:title", content: "ICare - Growing local caregiver support in Cheltenham and the Cotswolds" },
+    { property: "og:description", content: "ICare helps families connect with independent caregivers and find available support in their area. Local availability in the Cotswolds is growing." },
     { property: "og:url", content: "https://icare-app.co.uk/" },
     { property: "og:image", content: "https://icare-app.co.uk/images/og/home.jpg" },
     { property: "og:image:width", content: "1200" },
@@ -32,8 +32,8 @@ export const meta = () => {
 
     // Twitter Card
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: "iCare - Trusted Companionship for Elderly Adults" },
-    { name: "twitter:description", content: "We're building a better way to find trusted companionship care. Join the waitlist today." },
+    { name: "twitter:title", content: "ICare - Growing local caregiver support in Cheltenham and the Cotswolds" },
+    { name: "twitter:description", content: "A calm, local-first way to connect with independent caregivers as availability grows across the Cotswolds." },
     { name: "twitter:image", content: "https://icare-app.co.uk/images/og/home.jpg" },
     { name: "twitter:image:alt", content: "Caregiver greeting an elderly person at the door with a warm handshake" }
   ];
@@ -50,7 +50,7 @@ const jsonLd = {
   "@type": "WebSite",
   "name": "iCare",
   "url": "https://icare-app.co.uk",
-  "description": "Trusted companionship care connecting families with caring professionals across the UK."
+  "description": "Local-first introductions between families and independent caregivers, with availability growing in Cheltenham and the Cotswolds."
 };
 
 export async function loader() {

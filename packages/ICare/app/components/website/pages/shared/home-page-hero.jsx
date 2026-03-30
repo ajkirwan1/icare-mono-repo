@@ -30,18 +30,39 @@ export default function HomePageHero({
                 <div className={styles.content}>
                     <div className={`${styles.homeTextWrapper} ${heroCopyStyles.textWrapper}`}>
                         <div className={styles.copyBlock}>
-
-                            {/* HEADLINE */}
                             <h1 className={styles.heading}>
-                                Find a more human way to care
+                                Local care in Cheltenham &amp; the Cotswolds
                             </h1>
 
-                            <p className={`${styles.homeLead} ${styles.desktopOnly}`}><b>Bringing families and independent carers together across the UK - directly.</b><br /><span className={styles.whatIfLine}>What if care was about people first?</span></p>
+                            <p className={`${styles.homeLead} ${styles.desktopOnly}`}><b>Find trusted, independent caregivers near you - without the agency.</b></p>
 
-                            <p className={`${styles.homeLead} ${styles.mobileOnly}`} aria-hidden="true"><b>Bringing families and independent carers together across the UK - directly.</b><br /><span className={styles.whatIfLine}>What if care was about people first?</span></p>
+                            <p className={`${styles.homeLead} ${styles.mobileOnly}`} aria-hidden="true"><b>Find trusted, independent caregivers near you - without the agency.</b></p>
+
+                            <p className={`${styles.homeLead} ${styles.trustLine}`}>
+                                Built locally for families here
+                            </p>
+
+                            <p className={styles.trustIntro}>
+                                Each carer is matched individually to help create a safe, comfortable experience, and every carer must have the documents below:
+                            </p>
+
+                            <div className={styles.trustStrip} aria-label="Caregiver checks">
+                                <span className={styles.trustStripItem}>
+                                    <span className={styles.trustStripCheck} aria-hidden="true">✔</span>
+                                    <span>Right to work in the UK</span>
+                                </span>
+                                <span className={styles.trustStripItem}>
+                                    <span className={styles.trustStripCheck} aria-hidden="true">✔</span>
+                                    <span>DBS checked</span>
+                                </span>
+                                <span className={styles.trustStripItem}>
+                                    <span className={styles.trustStripCheck} aria-hidden="true">✔</span>
+                                    <span>Public liability insurance</span>
+                                </span>
+                            </div>
 
                             <a href="/how-it-works" className={styles.heroLink}>
-                                <span className={styles.heroLinkLabel}>Discover how ICare works for you</span>
+                                <span className={styles.heroLinkLabel}>Find local support</span>
                             </a>
                         </div>
                     </div>

@@ -18,21 +18,19 @@ export default function AboutICareSection() {
 
                 <div>
                     <h2 id="about-icare-heading" className={styles.title}>
-                        Support shaped around your life
+                        Built locally, for families here
                     </h2>
 
                     <p className={styles.subtitle}>
-                        Across the UK, families balance care alongside work, distance and everyday life.
-                        Support needs change over time and not every situation calls for intensive or long-term care.
+                        ICare started in Cheltenham with one simple idea: finding the right person matters just as much as finding the right help.
                     </p>
 
                     <p className={styles.subtitle}>
-                        That&apos;s why ICare focuses on companionship and everyday support that fits naturally into daily life.
+                        Many families do not want a large agency process. They want to speak to someone local, take their time, and make a choice that feels calm and personal.
                     </p>
 
                     <p className={styles.subtitle}>
-                        We connect families and independent carers directly, making it easier to talk openly and agree
-                        flexible arrangements that feel right.
+                        ICare makes those introductions directly between families and independent caregivers, so the relationship stays personal from the start.
                     </p>
                 </div>
             </div>
@@ -46,7 +44,7 @@ export default function AboutICareSection() {
                         Open and direct care
                     </p>
                     <p className={styles.badgeText}>
-                        Clear expectations, direct conversations and no extra layers.
+                        You speak with caregivers yourself, with no agency sitting in the middle.
                     </p>
                 </div>
                 <div className={styles.badge}>
@@ -57,7 +55,7 @@ export default function AboutICareSection() {
                         Care agreed together
                     </p>
                     <p className={styles.badgeText}>
-                        Support that adapts as life changes.
+                        Hours, routines and visits can be agreed in a way that fits real life.
                     </p>
                 </div>
                 <div className={styles.badge}>
@@ -69,7 +67,7 @@ export default function AboutICareSection() {
                         Time to choose
                     </p>
                     <p className={styles.badgeText}>
-                        Conversations first, decisions at your pace.
+                        Families can ask questions, talk things through, and decide when they are ready.
                     </p>
                 </div>
                 <div className={styles.badge}>
@@ -77,10 +75,10 @@ export default function AboutICareSection() {
                         <span className={styles.badgeIcon} aria-hidden="true">
                             <FontAwesomeIcon icon={faComments} />
                         </span>
-                        Support that feels human
+                        Local and personal
                     </p>
                     <p className={styles.badgeText}>
-                        A real person to speak to, when you need reassurance.
+                        Locally run, rooted in the Cotswolds, and built around real people.
                     </p>
                 </div>
             </div>

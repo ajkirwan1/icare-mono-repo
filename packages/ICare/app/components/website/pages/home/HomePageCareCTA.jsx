@@ -3,42 +3,39 @@ import styles from "./home-page-care-cta.module.scss";
 
 export default function WhoIsICareForSection() {
   return (
-    <section aria-label="Who ICare is for" className={styles.section}>
+    <section aria-label="Local focus" className={styles.section}>
       <div className={styles.container}>
-        {/* HEADER */}
         <header className={styles.header}>
           <h2 className={styles.h2}>
-            A calmer home support platform
-            <br />
-            for families and caregivers
+            Local focus
           </h2>
 
           <p className={styles.sub}>
-            ICare connects families with independent caregivers through clear profiles,
-            direct messaging and a guided process - so both sides can agree support with
-            confidence.
+            ICare is starting in Cheltenham and the Cotswolds, and building local availability step by step.
           </p>
         </header>
 
-        {/* TWO COLUMNS */}
         <div className={styles.card}>
-          {/* FOR FAMILIES */}
           <div className={styles.col}>
             <div>
-              <h3 className={styles.h3}>For families &amp; those needing support</h3>
+              <h3 className={styles.h3}>Starting close to home</h3>
 
               <p className={styles.lead}>
-                Find companionship that fits your home - without agency pressure or
-                uncertainty.
+                Our local focus starts in Cheltenham and the surrounding Cotswolds towns and villages. We match families with available caregivers in their area, and that availability is growing.
               </p>
 
               <ul className={styles.list}>
                 <li>
-                  Clear caregiver profiles showing experience, availability and key details
-                  upfront.
+                  Cheltenham
                 </li>
                 <li>
-                  Direct, secure messaging to agree routines, schedules and start dates.
+                  Winchcombe
+                </li>
+                <li>
+                  Broadway
+                </li>
+                <li>
+                  Chipping Campden
                 </li>
               </ul>
 
@@ -50,46 +47,40 @@ export default function WhoIsICareForSection() {
                 variant="outline"
                 className={`${styles.ctaButton} ${styles.ctaButtonOutline}`}
               >
-              Find companionship
+              Ask about availability
               </NavigationButton>
 
-              <p className={styles.ctaNote}>See what companionship includes and how it works.</p>
+              <p className={styles.ctaNote}>We can let you know what support is currently available in your area.</p>
             </div>
           </div>
 
-          {/* FOR CAREGIVERS */}
           <div className={styles.col}>
             <div>
-              <h3 className={styles.h3}>For caregivers</h3>
+              <h3 className={styles.h3}>Growing the caregiver network</h3>
 
               <p className={styles.lead}>
-                Build trust faster and reduce back-and-forth with a profile designed for
-                clarity.
+                Many caregivers on ICare are currently based in London, and we are actively building stronger local availability across the Cotswolds. If you are a caregiver nearby, we would love to hear from you.
               </p>
 
               <ul className={styles.list}>
-                <li>Secure messaging to align expectations before work begins.</li>
-                <li>
-                  A clear profile highlighting your experience, availability and optional
-                  video introduction.
-                </li>
+                <li>Stow-on-the-Wold</li>
+                <li>Cirencester</li>
+                <li>More Cotswolds towns and villages as the local network grows</li>
               </ul>
             </div>
 
             <div className={styles.ctaWrap}>
               <NavigationButton to="/icare-for-caregivers" className={`${styles.ctaButton} ${styles.ctaButtonFill}`}>
-                I&apos;m a caregiver
+                Join as a caregiver
               </NavigationButton>
 
-              <p className={styles.ctaNote}>Learn how ICare supports independent caregivers.</p>
+              <p className={styles.ctaNote}>For independent caregivers who want to help build trusted local availability.</p>
             </div>
           </div>
         </div>
 
-        {/* LEGAL NOTE */}
         <p className={styles.legal}>
-          ICare is a matching platform. We don’t provide care services or manage care
-          delivery.
+          ICare introduces people. Families and caregivers make arrangements directly with each other.
         </p>
       </div>
     </section>
