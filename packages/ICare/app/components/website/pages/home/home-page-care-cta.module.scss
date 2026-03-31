@@ -160,8 +160,37 @@
         font-size: 2rem;
     }
 
+    .sub {
+        font-size: 1.12rem;
+        line-height: 1.5;
+    }
+
+    .h3 {
+        font-size: 1.35rem;
+    }
+
+    .lead {
+        font-size: 1.06rem;
+        line-height: 1.6;
+    }
+
+    .list {
+        font-size: 1.02rem;
+        line-height: 1.5;
+    }
+
     .ctaNote {
         margin-top: 2rem;
+        font-size: 0.98rem;
+        line-height: 1.5;
+    }
+
+    .ctaButton {
+        width: 100%;
+        max-width: 100% !important;
+        justify-content: center;
+        white-space: normal;
+        text-align: center;
     }
 
     .btnOutline {
@@ -183,6 +212,6 @@
         padding: 16px 2.2rem;
         font-size: 1.1rem;
         font-weight: 500;
-        min-width: 240px;
+        min-width: 0;
     }
 }
