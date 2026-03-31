@@ -9,7 +9,8 @@
 }
 
 html {
-  background-color: rgb(247, 249, 251);
+  min-height: 100%;
+  background-color: #fff;
 }
 
 html,
@@ -28,6 +29,8 @@ p {
 }
 
 body {
+  min-height: 100%;
+  background-color: #fff;
   font-family: var(--icare-font-family);
   line-height: var(--icare-line-height-normal);
 }

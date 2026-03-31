@@ -38,28 +38,45 @@ export function OurFoundationSection() {
                             </div>
                         </div>
                         <p className={styles.paragraph}>
-                            ICare didn't start with a business plan.
+                            ICare didn't start as a business idea.
                             <br />
-                            It started with noticing how often care becomes
-                            complicated, rushed, or impersonal - at the very moment when people need calm and
-                            understanding the most.
+                            It started with something much simpler.
+                        </p>
+                        <p className={styles.paragraph}>
+                            Just noticing how often care becomes rushed, complicated, or impersonal -
+                            <br />
+                            right at the moment when people need calm and understanding the most.
                         </p>
                         <p className={styles.paragraph}>
                             We've spent time close to care.
                             <br />
-                            Listening to families trying to do the right thing.
-                            Speaking with caregivers who care deeply about their work, and who often carry more than
-                            people realise. Kasia has worked as a caregiver herself, and that experience
-                            quietly shaped how we see trust, responsibility, and dignity.
+                            Listening to families trying to figure things out.
+                            Speaking with caregivers who care deeply about what they do -
+                            and who often carry more than people realise.
                         </p>
                         <p className={styles.paragraph}>
-                            Over time, those conversations began to connect. ICare grew slowly, from real moments and
-                            real needs - not from an idea of how care should look, but from how it actually feels.
+                            Kasia has worked as a caregiver herself.
+                            <br />
+                            That experience quietly shaped how we think about trust, responsibility, and dignity.
+                        </p>
+                        <p className={styles.paragraph}>
+                            Over time, those conversations began to connect.
+                        </p>
+                        <p className={styles.paragraph}>
+                            ICare grew slowly - from real situations, real people, and real needs.
+                            <br />
+                            Not from an idea of what care should look like,
+                            <br />
+                            but from how it actually feels.
                         </p>
                         <p className={styles.paragraph}>
                             What matters to us is simple.
                             <br />
-                            Care should feel human. Clear. Grounded in trust.
+                            Care should feel human.
+                            <br />
+                            Clear.
+                            <br />
+                            Grounded in trust.
                         </p>
                         <p className={styles.paragraph}>
                             That's where ICare begins.

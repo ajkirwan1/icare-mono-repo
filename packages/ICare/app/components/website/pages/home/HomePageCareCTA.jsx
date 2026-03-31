@@ -3,11 +3,11 @@ import styles from "./home-page-care-cta.module.scss";
 
 export default function WhoIsICareForSection() {
   return (
-    <section aria-label="Local focus" className={styles.section}>
+    <section aria-label="Support available near you" className={styles.section}>
       <div className={styles.container}>
         <header className={styles.header}>
           <h2 className={styles.h2}>
-            Local focus
+            Support available near you
           </h2>
 
           <p className={styles.sub}>

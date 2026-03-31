@@ -39,7 +39,7 @@ export default function HomePageHero({
                             <p className={`${styles.homeLead} ${styles.mobileOnly}`} aria-hidden="true"><b>Find trusted, independent caregivers near you - without the agency.</b></p>
 
                             <p className={`${styles.homeLead} ${styles.trustLine}`}>
-                                Built locally for families here
+                                Built locally for families.
                             </p>
 
                             <p className={styles.trustIntro}>

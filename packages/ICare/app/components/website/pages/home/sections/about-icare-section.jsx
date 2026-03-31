@@ -18,7 +18,7 @@ export default function AboutICareSection() {
 
                 <div>
                     <h2 id="about-icare-heading" className={styles.title}>
-                        Built locally, for families here
+                        Care that feels close to home
                     </h2>
 
                     <p className={styles.subtitle}>

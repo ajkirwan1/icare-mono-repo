@@ -57,10 +57,20 @@ export default function HowItWorksThreeSteps() {
                         <span className={styles.requirementBadge}>Public liability insurance</span>
                     </div>
 
+                    <p className={styles.ctaTitle}>
+                        If things don't go as planned?
+                    </p>
+
                     <p className={styles.ctaText}>
-                        Looking for someone local in the Cotswolds?
+                        If something doesn't feel right, we're here to help.
                         <br />
-                        You can start with a quiet look around and get in touch when it feels right.
+                        <br />
+                        If a caregiver is unavailable or things aren't working as expected,
+                        <br />
+                        we support you in finding a new match - calmly and without pressure.
+                        <br />
+                        <br />
+                        We stay close, so you're never left figuring things out on your own.
                     </p>
 
                     <button

@@ -16,7 +16,7 @@ import { useLoaderData } from "react-router";
 
 export const meta = () => {
   return [
-    { title: "ICare | Growing local caregiver support in Cheltenham and the Cotswolds" },
+    { title: "Home care in Cheltenham & the Cotswolds | Find trusted caregivers | ICare" },
     { name: "description", content: "ICare helps families connect with independent caregivers and find available support in their area. We are building local availability in Cheltenham and across the Cotswolds. ICare is not a care agency." },
     { name: "keywords", content: "Cheltenham caregiver support, Cotswolds caregiver network, companionship care Cheltenham, independent caregivers Cotswolds, local care introductions" },
 
